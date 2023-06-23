@@ -48,6 +48,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
                 ],),
               Container(child: Image.asset("name"),)
+
             ],
           )
         //     : Column(
