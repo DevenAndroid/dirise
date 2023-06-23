@@ -1,4 +1,5 @@
 
+import 'package:dirise/screens/bottomavbar.dart';
 import 'package:dirise/screens/createacc_screen.dart';
 import 'package:dirise/screens/forgetpass_screen.dart';
 import 'package:dirise/screens/homepage_screen.dart';
@@ -12,7 +13,8 @@ class MyRouters{
   static var loginScreen = "/loginScreen";
   static var createAccScreen = "/createAccScreen";
   static var forgetPassword = "/forgetPassword";
-  static var homePage = "/homePage";
+
+  static var bottomNavBar = "/bottomNavBar";
 
 
   static var route = [
@@ -20,7 +22,8 @@ class MyRouters{
     GetPage(name: '/loginScreen', page: () =>  const LoginScreen()),
     GetPage(name: '/createAccScreen', page: () =>  const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () =>  const ForgetPassword()),
-    GetPage(name: '/homePage', page: () =>  const HomePage()),
+
+    GetPage(name: '/bottomNavBar', page: () =>  const BottomNavbar()),
 
 
 

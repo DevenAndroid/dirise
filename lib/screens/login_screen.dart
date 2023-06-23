@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
               title: "Sign In",
 
               onPressed: (){
-Get.toNamed(MyRouters.homePage);
+ Get.toNamed(MyRouters.bottomNavBar);
               },
             ),
             SizedBox(
