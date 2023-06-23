@@ -19,7 +19,7 @@ class MyRouters{
 
 
   static var route = [
-    GetPage(name: '/', page: () =>  const CategoriesScreen()),
+    GetPage(name: '/', page: () =>  const Splash()),
     GetPage(name: '/loginScreen', page: () =>  const LoginScreen()),
     GetPage(name: '/createAccScreen', page: () =>  const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () =>  const ForgetPassword()),
