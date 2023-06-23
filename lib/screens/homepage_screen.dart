@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Container(
               padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
-              height: size.height * .25,
+              height: size.height * .27,
               width: size.width,
               decoration: const BoxDecoration(color: Color(0xffEBF1F4)),
               child: Column(
@@ -47,10 +47,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      Text(
-                        'DIRISE',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500, fontSize: 20),
+                      Center(
+                        child: Text(
+                          'DIRISE',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500, fontSize: 20),
+                        ),
                       ),
                       Container(
                         height: 50,
@@ -126,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Container(
                     height: 70,
-                    width: 130,
+                    width: 140,
                     decoration: BoxDecoration(
                         color: Color(0xffF0F0F0),
                         borderRadius: BorderRadius.only(

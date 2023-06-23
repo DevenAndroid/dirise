@@ -65,11 +65,15 @@ class _SingleCategoriesState extends State<SingleCategories> {
                         return  Column(
                           mainAxisAlignment:
                           MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Library Type",
-                              style:
-                              GoogleFonts.poppins(fontSize: 14),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 25,top: 10),
+                              child: Text(
+                                "Library Type",
+                                style:
+                                GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500),
+                              ),
                             ),
                             Column(
                               children: List.generate(
@@ -83,7 +87,8 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                         value: status,
                                         onChanged: (bool? value) {
                                           setState(() {
-                                           status=value;
+                                            print("dsfsdsdfsadf");
+                                           status=true;
                                           });
                                         },
                                         activeColor: AppTheme.primaryColor,
@@ -96,17 +101,42 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                                   .withOpacity(.7)),
                                         ),
                                       ),
-                                      const Padding(
-                                        padding:
-                                        EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                        child: Divider(
-                                          thickness: .4,
-                                        ),
-                                      )
                                     ],
                                   )
                               ),
                             ),
+                            Align(alignment: Alignment.bottomCenter,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: 35,
+                                    width:MediaQuery.of(context).size.width *.9,
+                                    decoration: BoxDecoration(
+                                    color: Color(0xff014E70)
+                                  ),
+                                  child: Text(
+                                    "Apply",
+                                    style:
+                                    GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.white),
+                                  ),),
+                                  SizedBox(height: 20,),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: 35,
+                                    width:MediaQuery.of(context).size.width *.9,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey)
+                                    ),
+                                    child: Text(
+                                      "Clear All",
+                                      style:
+                                      GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                                    ),),
+                                ],
+                              ),
+                            )
+
                           ],
                         );
                       });

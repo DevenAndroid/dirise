@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 import '../controller/homepage_controller.dart';
 import '../widgets/common_colour.dart';
+import 'categores/categories_screen.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   final pages = [
     const HomePage(),
-    const Category(),
+    const CategoriesScreen(),
     const Whishlist(),
     const Profile(),
   ];
