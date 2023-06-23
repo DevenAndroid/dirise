@@ -5,6 +5,7 @@ import 'package:dirise/screens/forgetpass_screen.dart';
 import 'package:dirise/screens/homepage_screen.dart';
 import 'package:get/get.dart';
 
+import '../screens/categores/categories_screen.dart';
 import '../screens/login_screen.dart';
 import '../splash.dart';
 
@@ -18,12 +19,12 @@ class MyRouters{
 
 
   static var route = [
-    GetPage(name: '/', page: () =>  const Splash()),
+    GetPage(name: '/', page: () =>  const CategoriesScreen()),
     GetPage(name: '/loginScreen', page: () =>  const LoginScreen()),
     GetPage(name: '/createAccScreen', page: () =>  const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () =>  const ForgetPassword()),
-
     GetPage(name: '/bottomNavBar', page: () =>  const BottomNavbar()),
+    GetPage(name: CategoriesScreen.categoriesScreen, page: () =>  const CategoriesScreen()),
 
 
 
