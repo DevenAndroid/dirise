@@ -1,7 +1,7 @@
 
 import 'package:dirise/screens/homepage_screen.dart';
 import 'package:dirise/screens/login_screen.dart';
-import 'package:dirise/screens/myaccount_screen.dart';
+import 'package:dirise/screens/profile_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import '../controller/homepage_controller.dart';
 import '../widgets/common_colour.dart';
 import 'categores/categories_screen.dart';
+import 'myaccount_scrren.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const HomePage(),
     const CategoriesScreen(),
     const Whishlist(),
-    const Profile(),
+    const EbookAccount(),
   ];
 
   @override
