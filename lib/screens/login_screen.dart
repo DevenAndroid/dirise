@@ -22,158 +22,160 @@ class _LoginScreenState extends State<LoginScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15),
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 50),
-              child: Image(
-                  height: 170, image: AssetImage('assets/images/logo.png')),
-            ),
-            SizedBox(
-              height: size.height * .04,
-            ),
-            CommonTextfield(obSecure: false, hintText: 'Email'),
-            SizedBox(
-              height: size.height * .01,
-            ),
-            CommonTextfield(obSecure: false, hintText: 'Password'),
-            const SizedBox(
-              height: 35,
-            ),
-            CustomOutlineButton(
-              title: "Sign In",
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: Image(
+                    height: 170, image: AssetImage('assets/images/logo.png')),
+              ),
+              SizedBox(
+                height: size.height * .04,
+              ),
+              CommonTextfield(obSecure: false, hintText: 'Email'),
+              SizedBox(
+                height: size.height * .01,
+              ),
+              CommonTextfield(obSecure: false, hintText: 'Password'),
+              const SizedBox(
+                height: 35,
+              ),
+              CustomOutlineButton(
+                title: "Sign In",
 
-              onPressed: (){
+                onPressed: (){
  Get.toNamed(MyRouters.bottomNavBar);
-              },
-            ),
-            SizedBox(
-              height: size.height * .02,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.toNamed(MyRouters.forgetPassword);
-                  },
-                  child: Text(
-                    'Forget Password?',
-                    style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed(MyRouters.createAccScreen);
-                  },
-                  child: Text(
-                    'Sign Up',
-                    style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Row(
-              children: [
-                const Expanded(
-                  child: Divider(
-                      height: 20,
-                      thickness: 1,
-                      indent: 5,
-                      endIndent: 5,
-                      color: Color(
-                        0xffDCDCDC,
-                      )),
-                ),
-                InkWell(
-                  onTap: () {
-                    print("Sign In");
-                  },
-                  child: Text(
-                    'Or Sign in with',
-                    style: GoogleFonts.poppins(color: AppTheme.buttonColor),
-                  ),
-                ),
-                const Expanded(
-                  child: Divider(
-                      height: 20,
-                      thickness: 1,
-                      indent: 5,
-                      endIndent: 5,
-                      color: Color(
-                        0xffDCDCDC,
-                      )),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    height: 58,
-                    width: 58,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.black,
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.apple,
-                        color: Colors.white,
-                        size: 35,
-                      ),
+                },
+              ),
+              SizedBox(
+                height: size.height * .02,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(MyRouters.forgetPassword);
+                    },
+                    child: Text(
+                      'Forget Password?',
+                      style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                InkWell(
-                  child: Container(
-                    height: 58,
-                    width: 58,
-                    decoration: BoxDecoration(
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(MyRouters.createAccScreen);
+                    },
+                    child: Text(
+                      'Sign Up',
+                      style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Divider(
+                        height: 20,
+                        thickness: 1,
+                        indent: 5,
+                        endIndent: 5,
+                        color: Color(
+                          0xffDCDCDC,
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      print("Sign In");
+                    },
+                    child: Text(
+                      'Or Sign in with',
+                      style: GoogleFonts.poppins(color: AppTheme.buttonColor),
+                    ),
+                  ),
+                  const Expanded(
+                    child: Divider(
+                        height: 20,
+                        thickness: 1,
+                        indent: 5,
+                        endIndent: 5,
+                        color: Color(
+                          0xffDCDCDC,
+                        )),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      height: 58,
+                      width: 58,
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Color(0xffCACACA))),
-                    child: Center(
-                      child: Image.asset(
-                        'assets/icons/google.png',
-                        height: 27,
+                        color: Colors.black,
+                      ),
+                      child: const Center(
+                        child: Icon(
+                          Icons.apple,
+                          color: Colors.white,
+                          size: 35,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                InkWell(
-                  child: Container(
-                    height: 58,
-                    width: 58,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xff0B60A8)),
-                    child: Center(
-                      child: Image.asset(
-                        'assets/icons/facebook.png',
-                        height: 27,
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  InkWell(
+                    child: Container(
+                      height: 58,
+                      width: 58,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Color(0xffCACACA))),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/icons/google.png',
+                          height: 27,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  InkWell(
+                    child: Container(
+                      height: 58,
+                      width: 58,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xff0B60A8)),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/icons/facebook.png',
+                          height: 27,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

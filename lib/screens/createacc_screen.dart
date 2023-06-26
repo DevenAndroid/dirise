@@ -30,17 +30,18 @@ class _CreateAccState extends State<CreateAcc> {
             Row(
               children: [
                 InkWell(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Icon(Icons.arrow_back_ios_new_outlined,color: AppTheme.buttonColor,)),
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Image.asset(height: 30, 'assets/icons/arrowback.png'),
+                ),
                 SizedBox(
                   width: 8,
                 ),
                 Text(
                   'Create Account',
                   style: GoogleFonts.poppins(
-                      fontSize: 18, fontWeight: FontWeight.w600),
+                      fontSize: 19, fontWeight: FontWeight.w600),
                 )
               ],
             ),
@@ -70,18 +71,15 @@ class _CreateAccState extends State<CreateAcc> {
               children: [
                 SizedBox(
                   height: 51,
-
-                  child: Expanded(flex: 1,
+                  child: Expanded(
+                    flex: 1,
                     child: Container(
-                      padding: EdgeInsets.zero,
-
+                      width: 80,
                       decoration: BoxDecoration(
                           border: Border.all(color: AppTheme.secondaryColor),
                           borderRadius: BorderRadius.circular(8)),
                       child: Center(
                         child: const CountryCodePicker(
-
-
                           onChanged: print,
                           initialSelection: 'IT',
                           favorite: [' +39', 'FR'],
@@ -97,20 +95,17 @@ class _CreateAccState extends State<CreateAcc> {
                   width: 20,
                 ),
                 Flexible(
-                  flex: 5,
-                    child:
-                        CommonTextfield(obSecure: false, hintText: 'Password')),
+                    flex: 5,
+                    child: CommonTextfield(
+                        obSecure: false, hintText: '987-654-3210')),
               ],
             ),
             SizedBox(
               height: size.height * .03,
             ),
-             CustomOutlineButton(
+            CustomOutlineButton(
               title: "Create Account",
-
-              onPressed: (){
-
-              },
+              onPressed: () {},
             ),
           ],
         ),

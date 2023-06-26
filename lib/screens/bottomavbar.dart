@@ -1,4 +1,4 @@
-import 'package:dirise/screens/category_screen.dart';
+
 import 'package:dirise/screens/homepage_screen.dart';
 import 'package:dirise/screens/login_screen.dart';
 import 'package:dirise/screens/profile_screen.dart';
@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import '../controller/homepage_controller.dart';
 import '../widgets/common_colour.dart';
 import 'categores/categories_screen.dart';
+import 'myaccount_scrren.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const HomePage(),
     const CategoriesScreen(),
     const Whishlist(),
-    const Profile(),
+    const EbookAccount(),
   ];
 
   @override
@@ -231,14 +232,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                 ),
                           bottomController.pageIndex.value == 3
                               ? const Text(
-                                  "Profile",
+                                  "My Account",
                                   style: TextStyle(
                                       color: AppTheme.buttonColor,
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400),
                                 )
                               : const Text(
-                                  "Profile",
+                                  "My Account",
                                   style: TextStyle(
                                       color: AppTheme.primaryColor,
                                       fontSize: 15,
