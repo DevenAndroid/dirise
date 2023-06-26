@@ -32,14 +32,15 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       onTap: (){
                      Get.back();
                       },
-                      child: Icon(Icons.arrow_back_ios,color: AppTheme.buttonColor,)),
+                    child: Image.asset(height: 30,'assets/icons/arrowback.png'),
+                    ),
                   SizedBox(
                     width: 8,
                   ),
                   Text(
                     'Forget Password',
                     style: GoogleFonts.poppins(
-                        fontSize: 18, fontWeight: FontWeight.w600),
+                        fontSize: 19, fontWeight: FontWeight.w600),
                   )
                 ],
               ),
@@ -59,16 +60,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               SizedBox(
                 height: size.height * .05,
               ),
-              CommonTextfield(obSecure: false, hintText: 'Name'),
+              CommonTextfield(obSecure: false, hintText: 'Email'),
 
               SizedBox(
                 height: size.height * .03,
               ),
               CustomOutlineButton(
-                title: "Create Account",
+                title: "Send Otp",
 
                 onPressed: (){
-
+                  Get.toNamed(MyRouters.otpScreen);
                 },
               ),                                                                                 
             ])));

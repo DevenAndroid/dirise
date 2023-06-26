@@ -1,7 +1,7 @@
-import 'package:dirise/screens/category_screen.dart';
+
 import 'package:dirise/screens/homepage_screen.dart';
 import 'package:dirise/screens/login_screen.dart';
-import 'package:dirise/screens/profile_screen.dart';
+import 'package:dirise/screens/myaccount_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -231,14 +231,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                 ),
                           bottomController.pageIndex.value == 3
                               ? const Text(
-                                  "Profile",
+                                  "My Account",
                                   style: TextStyle(
                                       color: AppTheme.buttonColor,
                                       fontSize: 15,
                                       fontWeight: FontWeight.w400),
                                 )
                               : const Text(
-                                  "Profile",
+                                  "My Account",
                                   style: TextStyle(
                                       color: AppTheme.primaryColor,
                                       fontSize: 15,
