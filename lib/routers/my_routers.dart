@@ -8,7 +8,10 @@ import 'package:dirise/screens/profile_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:get/get.dart';
 
+import '../screens/categores/add_bag_screen.dart';
 import '../screens/categores/categories_screen.dart';
+import '../screens/categores/check_out_screen.dart';
+import '../screens/categores/general_library.dart';
 import '../screens/categores/single_categorie.dart';
 import '../screens/login_screen.dart';
 import '../splash.dart';
@@ -31,12 +34,13 @@ class MyRouters{
     GetPage(name: '/createAccScreen', page: () =>  const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () =>  const ForgetPassword()),
     GetPage(name: '/bottomNavBar', page: () =>  const BottomNavbar()),
-
     GetPage(name: '/whishlistScreen', page: () =>  const Whishlist()),
     GetPage(name: '/profileScreen', page: () =>  const Profile()),
-
     GetPage(name: CategoriesScreen.categoriesScreen, page: () =>  const CategoriesScreen()),
     GetPage(name: SingleCategories.singleCategoriesScreen, page: () =>  const SingleCategories()),
+    GetPage(name: GeneralLibrary.generalLibrary, page: () =>  const GeneralLibrary()),
+    GetPage(name: AddBagScreen.addBagScreen, page: () =>  const AddBagScreen()),
+    GetPage(name: CheckOutScreen.checkOutScreen, page: () =>  const CheckOutScreen()),
 
 
 
