@@ -10,7 +10,10 @@ import 'package:dirise/screens/profile_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:get/get.dart';
 
+import '../screens/categores/add_bag_screen.dart';
 import '../screens/categores/categories_screen.dart';
+import '../screens/categores/check_out_screen.dart';
+import '../screens/categores/general_library.dart';
 import '../screens/categores/single_categorie.dart';
 import '../screens/login_screen.dart';
 import '../splash.dart';
@@ -31,6 +34,7 @@ class MyRouters {
 
 
   static var route = [
+
     GetPage(name: '/', page: () => const Splash()),
     GetPage(name: '/loginScreen', page: () => const LoginScreen()),
     GetPage(name: '/createAccScreen', page: () => const CreateAcc()),
@@ -47,5 +51,9 @@ class MyRouters {
     GetPage(
         name: SingleCategories.singleCategoriesScreen,
         page: () => const SingleCategories()),
+    GetPage(name: GeneralLibrary.generalLibrary, page: () =>  const GeneralLibrary()),
+    GetPage(name: AddBagScreen.addBagScreen, page: () =>  const AddBagScreen()),
+    GetPage(name: CheckOutScreen.checkOutScreen, page: () =>  const CheckOutScreen()),
+
   ];
 }
