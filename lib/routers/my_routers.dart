@@ -12,12 +12,17 @@ import 'package:dirise/screens/termsconditions_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:get/get.dart';
 
+
+import '../screens/Authors/authors_screen.dart';
+
 import '../e-book/e-book_screen.dart';
 import '../screens/calender.dart';
+
 import '../screens/categores/add_bag_screen.dart';
 import '../screens/categores/categories_screen.dart';
 import '../screens/categores/check_out_screen.dart';
 import '../screens/categores/general_library.dart';
+import '../screens/categores/order_completed_screen.dart';
 import '../screens/categores/single_categorie.dart';
 
 
@@ -69,6 +74,9 @@ class MyRouters {
     GetPage(name: GeneralLibrary.generalLibrary, page: () =>  const GeneralLibrary()),
     GetPage(name: AddBagScreen.addBagScreen, page: () =>  const AddBagScreen()),
     GetPage(name: CheckOutScreen.checkOutScreen, page: () =>  const CheckOutScreen()),
+    GetPage(name: OrderCompleteScreen.orderCompleteScreen, page: () =>  const OrderCompleteScreen()),
+    GetPage(name: AuthorsScreen.authorsScreen, page: () =>  const AuthorsScreen()),
+
 
   ];
 }
