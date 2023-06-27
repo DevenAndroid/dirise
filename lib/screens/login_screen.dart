@@ -1,10 +1,10 @@
 import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/common_button.dart';
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               Row(
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 58,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Color(0xffCACACA))),
+                          border: Border.all(color: const Color(0xffCACACA))),
                       child: Center(
                         child: Image.asset(
                           'assets/icons/google.png',
@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 58,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Color(0xff0B60A8)),
+                          color: const Color(0xff0B60A8)),
                       child: Center(
                         child: Image.asset(
                           'assets/icons/facebook.png',

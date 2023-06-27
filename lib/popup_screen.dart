@@ -1,9 +1,9 @@
-import 'package:dirise/widgets/common_colour.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 class PopUpScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _PopUpScreenState extends State<PopUpScreen> {
                 child: Row(children: [
                   const Icon(Icons.arrow_downward),
                   SizedBox(width: size.width*.02,),
-                  Text("Select Project",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                  const Text("Select Project",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                   const Spacer(),
                   InkWell(
                       onTap: (){
@@ -44,8 +44,8 @@ class _PopUpScreenState extends State<PopUpScreen> {
                 ],),
               ),
               SizedBox(height: size.height*.015,),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
+              const Padding(
+                padding: EdgeInsets.only(left: 20),
                 child: Text('Search Project',style: TextStyle(fontSize: 17),),
               ),
               SizedBox(height: size.height*.010,),

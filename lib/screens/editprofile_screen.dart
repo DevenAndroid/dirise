@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/common_colour.dart';
@@ -30,7 +30,7 @@ class _EditProfileState extends State<EditProfile> {
           onTap: (){
             Get.back();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: Colors.white,
           ),
@@ -42,21 +42,21 @@ class _EditProfileState extends State<EditProfile> {
           child: Column(crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Name',style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w500),),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               CommonTextfield(obSecure: false, hintText: 'Williams jones'),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Text('Email',style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w500),),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               CommonTextfield(obSecure: false, hintText: 'williamsjones@gmail.com'),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Text('Mobile number',style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w500),),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               CommonTextfield(obSecure: false, hintText: '+91 987-654-3210'),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Text('Address',style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w500),),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               CommonTextfield(obSecure: false, hintText: 'Riverside Building, County hall,'),
-              SizedBox(
+              const SizedBox(
                 height: 150,
               ),
               SizedBox(

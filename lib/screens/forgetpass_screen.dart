@@ -23,7 +23,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         body: Padding(
             padding: const EdgeInsets.only(left: 13, right: 13),
             child: Column(children: [
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
               Row(
@@ -34,7 +34,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       },
                     child: Image.asset(height: 30,'assets/icons/arrowback.png'),
                     ),
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   Text(

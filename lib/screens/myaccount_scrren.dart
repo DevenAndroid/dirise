@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,12 +24,12 @@ class _EbookAccountState extends State<EbookAccount> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(130),
         child: Container(
-          color: Color(0xffEBF1F4),
+          color: const Color(0xffEBF1F4),
           child: SafeArea(
             child: Container(
               height: 194,
               width: MediaQuery.sizeOf(context).width,
-              color: Color(0xffEBF1F4),
+              color: const Color(0xffEBF1F4),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +62,7 @@ class _EbookAccountState extends State<EbookAccount> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Column(children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             InkWell(
@@ -72,7 +72,7 @@ class _EbookAccountState extends State<EbookAccount> {
               child: Row(
                 children: [
                   Image.asset(height: 25, 'assets/icons/drawerprofile.png'),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Text(
@@ -82,58 +82,64 @@ class _EbookAccountState extends State<EbookAccount> {
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
-                  Spacer(),
-                  Icon(
+                  const Spacer(),
+                  const Icon(
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-                Image.asset(height: 25, 'assets/icons/ebook.png'),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "E Books",
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xFF2A3032),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                ),
-              ],
+            InkWell(
+onTap: (){
+  Get.toNamed(MyRouters.eBookScreen);
+},
+
+              child: Row(
+                children: [
+                  Image.asset(height: 25, 'assets/icons/ebook.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "E Books",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF2A3032),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
               children: [
                 Image.asset(height: 25, 'assets/icons/order.png'),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Text(
@@ -143,62 +149,68 @@ class _EbookAccountState extends State<EbookAccount> {
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
                 ),
-                Spacer(),
-                Icon(
+                const Spacer(),
+                const Icon(
                   Icons.arrow_forward_ios,
                   size: 15,
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
 
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-                Image.asset(height: 25, 'assets/icons/calendar.png'),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "My Calender",
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xFF2A3032),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                ),
-              ],
+            InkWell(onTap: (){
+              Get.toNamed(MyRouters.calendarScreen);
+            },
+              child: Row(
+                children: [
+                  Image.asset(height: 25, 'assets/icons/calendar.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "My Calender",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF2A3032),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             InkWell(
               onTap: (){
 
+                  Get.toNamed(MyRouters.faqsScreen);
+
               },
               child: Row(
                 children: [
                   Image.asset(height: 25, 'assets/icons/faq.png'),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Text(
@@ -208,22 +220,22 @@ class _EbookAccountState extends State<EbookAccount> {
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
-                  Spacer(),
-                  Icon(
+                  const Spacer(),
+                  const Icon(
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height:5,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             InkWell(
@@ -233,7 +245,7 @@ class _EbookAccountState extends State<EbookAccount> {
                     builder: (BuildContext context) {
                       return Container(
                         height: 330,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
@@ -249,7 +261,7 @@ class _EbookAccountState extends State<EbookAccount> {
                                 child: Container(
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: Color(0xffDCDCDC)),
+                                            color: const Color(0xffDCDCDC)),
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     child: ListTile(
@@ -257,7 +269,7 @@ class _EbookAccountState extends State<EbookAccount> {
                                       leading: Radio<SingingCharacter>(
                                         value: SingingCharacter.lafayette,
                                         groupValue: _character,
-                                        activeColor: Color(0xff014E70),
+                                        activeColor: const Color(0xff014E70),
                                         onChanged: (SingingCharacter? value) {
                                           setState(() {
                                             _character = value;
@@ -266,7 +278,7 @@ class _EbookAccountState extends State<EbookAccount> {
                                       ),
                                     )),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Padding(
@@ -275,7 +287,7 @@ class _EbookAccountState extends State<EbookAccount> {
                                 child: Container(
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: Color(0xffDCDCDC)),
+                                            color: const Color(0xffDCDCDC)),
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     child: ListTile(
@@ -283,7 +295,7 @@ class _EbookAccountState extends State<EbookAccount> {
                                       leading: Radio<SingingCharacter>(
                                         value: SingingCharacter.lafayette,
                                         groupValue: _character,
-                                        activeColor: Color(0xff014E70),
+                                        activeColor: const Color(0xff014E70),
                                         onChanged: (SingingCharacter? value) {
                                           setState(() {
                                             _character = value;
@@ -302,8 +314,8 @@ class _EbookAccountState extends State<EbookAccount> {
                                   child: Container(
                                     height: 56,
                                     width: MediaQuery.sizeOf(context).width,
-                                    color: Color(0xff014E70),
-                                    child: Center(
+                                    color: const Color(0xff014E70),
+                                    child: const Center(
                                       child: Text(
                                         'Apply',
                                         style: TextStyle(
@@ -324,7 +336,7 @@ class _EbookAccountState extends State<EbookAccount> {
               child: Row(
                 children: [
                   Image.asset(height: 25, 'assets/icons/language.png'),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Text(
@@ -334,29 +346,29 @@ class _EbookAccountState extends State<EbookAccount> {
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
-                  Spacer(),
-                  Icon(
+                  const Spacer(),
+                  const Icon(
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
               children: [
 
                 Image.asset(height: 25, 'assets/icons/aboutus.png'),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Text(
@@ -366,8 +378,8 @@ class _EbookAccountState extends State<EbookAccount> {
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
                 ),
-                Spacer(),
-                Icon(
+                const Spacer(),
+                const Icon(
                   Icons.arrow_forward_ios,
                   size: 15,
                 ),
@@ -375,88 +387,98 @@ class _EbookAccountState extends State<EbookAccount> {
 
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Divider(
+            const Divider(
 
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
+            InkWell(
+              onTap: (){
+                Get.toNamed(MyRouters.termsConditionScreen);
+              },
+              child: Row(
+                children: [
 
-                Image.asset(height: 25, 'assets/icons/termscondition.png'),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "Terms Of Conditions",
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xFF2A3032),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                ),
+                  Image.asset(height: 25, 'assets/icons/termscondition.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Terms Of Conditions",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF2A3032),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
 
-              ],
+                ],
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Divider(
+            const Divider(
 
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
+            InkWell(
+              onTap: (){
 
-                Image.asset(height: 25, 'assets/icons/policy.png'),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "Return policy",
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xFF2A3032),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
-                Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                ),
+              },
+              child: Row(
+                children: [
 
-              ],
+                  Image.asset(height: 18, 'assets/icons/policy.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Return policy",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF2A3032),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+
+                ],
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Divider(
+            const Divider(
 
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
               children: [
 
                 Image.asset(height: 25, 'assets/icons/signout.png'),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Text(
@@ -466,23 +488,23 @@ class _EbookAccountState extends State<EbookAccount> {
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
                 ),
-                Spacer(),
-                Icon(
+                const Spacer(),
+                const Icon(
                   Icons.arrow_forward_ios,
                   size: 15,
                 ),
 
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Divider(
+            const Divider(
 
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
           ]),

@@ -43,7 +43,7 @@ class CustomOutlineButton extends StatelessWidget {
           child: Text(
             title,
             style: GoogleFonts.poppins(
-                color: Color(0xFFFFFFFF),
+                color: const Color(0xFFFFFFFF),
                 fontSize: 19,
                 fontWeight: FontWeight.w500),
           ),
@@ -52,7 +52,7 @@ class CustomOutlineButton extends StatelessWidget {
           : Text(
         title,
         style: GoogleFonts.poppins(
-            color: Color(0xFFFFFFFF),
+            color: const Color(0xFFFFFFFF),
             fontSize: 18,
             fontWeight: FontWeight.w500),
       )),

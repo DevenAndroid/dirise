@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../widgets/common_colour.dart';
+
 import 'general_library.dart';
 
 class SingleCategories extends StatefulWidget {
@@ -35,7 +35,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
             width: 60,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Color(0xff014E70)
+                color: const Color(0xff014E70)
             ),
             child: const Row(mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -85,7 +85,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                         CheckboxListTile(
                         controlAffinity:
                         ListTileControlAffinity.leading,
-                          activeColor: Color(0xff014E70),
+                          activeColor: const Color(0xff014E70),
                         value: status.value,
                         onChanged: ( value) {
                         setState(() {
@@ -121,7 +121,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                     style:
                                     GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.white),
                                   ),),
-                                  SizedBox(height: 20,),
+                                  const SizedBox(height: 20,),
                                   Container(
                                     alignment: Alignment.center,
                                     height: 45,
@@ -132,12 +132,12 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                     child: Text(
                                       "Clear All",
                                       style:
-                                      GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                                      GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                                     ),),
                                 ],
                               ),
                             ),
-                            SizedBox(height: 5,)
+                            const SizedBox(height: 5,)
 
                           ],
                         );
@@ -149,7 +149,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                   decoration: BoxDecoration(
                       border: Border.all(
                           color: const Color(0xff014E70)),
-                      color: Color(0xffEBF1F4),
+                      color: const Color(0xffEBF1F4),
                       borderRadius: BorderRadius.circular(22)),
                   child: Row(mainAxisSize: MainAxisSize.min,
                     children: [
@@ -158,7 +158,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                         child: Text(
                           "Library Type",
                           style:
-                          GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                          GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                         ),
                       ),
                       const Icon(Icons.keyboard_arrow_down_outlined)
@@ -178,9 +178,9 @@ class _SingleCategoriesState extends State<SingleCategories> {
                           Get.toNamed(GeneralLibrary.generalLibrary);
                         },
                         child: Container(
-                          margin: EdgeInsets.only(bottom: 10,),
+                          margin: const EdgeInsets.only(bottom: 10,),
                           decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xffDCDCDC)),
+                              border: Border.all(color: const Color(0xffDCDCDC)),
                               borderRadius:
                               BorderRadius.circular(10)),
                           child:  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,

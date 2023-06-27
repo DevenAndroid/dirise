@@ -30,7 +30,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
           ],
         ),),
-      body: Padding(padding: EdgeInsets.fromLTRB(18,10,18,18),
+      body: Padding(padding: const EdgeInsets.fromLTRB(18,10,18,18),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start
         ,children: [
         Text("Deliver to ",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
@@ -41,7 +41,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             child: DottedBorder(
               color: Colors.black,
               strokeWidth: 1.2,
-              dashPattern: [6,3,0,3],
+              dashPattern: const [6,3,0,3],
               child:Container(
                 height: 60,
                 width: size.width,
@@ -54,7 +54,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           const SizedBox(height: 20,),
           Row(children: [
             Container(width: size.width*.3,
-              decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+              decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
               alignment: Alignment.center,
               child: Column(children: [
                       Image.asset("assets/images/knet.png",width: 50,height: 50,)
@@ -63,7 +63,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             const SizedBox(width: 15,),
             Container(width: size.width*.3,
                        height: 52,
-              decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+              decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
               alignment: Alignment.center,
               child: Column(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -76,14 +76,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           const SizedBox(height: 30,),
           Text("Add delivery instructions :",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
           const SizedBox(height: 10,),
-          Text("Add delivery instructions to help us with the delivery",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: Color(0xff949495))),
+          Text("Add delivery instructions to help us with the delivery",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: const Color(0xff949495))),
           const SizedBox(height: 30,),
           Text("Have a coupon code?",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
           const SizedBox(height: 10,),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            Text("Enter code",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: Color(0xff949495))),
-            Container(decoration: BoxDecoration(color: Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
+            Text("Enter code",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: const Color(0xff949495))),
+            Container(decoration: BoxDecoration(color: const Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
               padding: const EdgeInsets.fromLTRB(22,10,22,10),
               child: Text("Apply",style: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white),),)
           ],),
@@ -92,8 +92,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           const SizedBox(height: 10,),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Subtotal (4 items)",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: Color(0xff949495))),
-              Text("KWD 21.00",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: Color(0xff949495))),
+              Text("Subtotal (4 items)",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: const Color(0xff949495))),
+              Text("KWD 21.00",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: const Color(0xff949495))),
             ],),
           const SizedBox(height: 10,),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,7 +130,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Area *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -139,7 +139,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Block *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -148,7 +148,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Street and avenue * ',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -157,38 +157,38 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Address type *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     const SizedBox(height: 8,),
                     Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                       Container(width: size.width*.25,
                         height: 52,
-                        decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+                        decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
                         alignment: Alignment.center,
                         child: Text(
                           'House',
                           style:
-                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                         ),
                       ),
                       Container(width: size.width*.25,
                         height: 52,
-                        decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+                        decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
                         alignment: Alignment.center,
                         child: Text(
                           'Farm',
                           style:
-                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                         ),
                       ),
                       Container(width: size.width*.25,
                         height: 52,
-                        decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+                        decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
                         alignment: Alignment.center,
                         child: Text(
                           'Farm',
                           style:
-                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                         ),
                       )
                     ],),
@@ -196,7 +196,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'House No *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -205,7 +205,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Name this Address * ',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -214,7 +214,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Contact Number *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),

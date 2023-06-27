@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,7 +18,7 @@ class _EbookAccountState extends State<EbookAccount> {
           Container(
             height: 194,
             width: MediaQuery.sizeOf(context).width,
-            color: Color(0xffEBF1F4),
+            color: const Color(0xffEBF1F4),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,7 +30,7 @@ class _EbookAccountState extends State<EbookAccount> {
                       fontSize: 24,
                       fontWeight: FontWeight.w600),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
@@ -42,7 +42,7 @@ class _EbookAccountState extends State<EbookAccount> {
                       borderRadius: BorderRadius.circular(50),
                       color: const Color(0xFF014E70),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Login Or Sign up',
                         style: TextStyle(
@@ -56,16 +56,16 @@ class _EbookAccountState extends State<EbookAccount> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
-              Icon(Icons.question_mark_rounded),
-              SizedBox(
+              const Icon(Icons.question_mark_rounded),
+              const SizedBox(
                 width: 20,
               ),
               Text(
@@ -75,33 +75,33 @@ class _EbookAccountState extends State<EbookAccount> {
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
-              Spacer(),
-              Icon(
+              const Spacer(),
+              const Icon(
                 Icons.arrow_forward_ios,
                 size: 15,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             color: Color(0x1A000000),
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
-              Icon(Icons.roundabout_left),
-              SizedBox(
+              const Icon(Icons.roundabout_left),
+              const SizedBox(
                 width: 20,
               ),
               Text(
@@ -111,33 +111,33 @@ class _EbookAccountState extends State<EbookAccount> {
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
-              Spacer(),
-              Icon(
+              const Spacer(),
+              const Icon(
                 Icons.arrow_forward_ios,
                 size: 15,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             color: Color(0x1A000000),
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
-              Icon(Icons.add_circle_outline),
-              SizedBox(
+              const Icon(Icons.add_circle_outline),
+              const SizedBox(
                 width: 20,
               ),
               Text(
@@ -147,33 +147,33 @@ class _EbookAccountState extends State<EbookAccount> {
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
-              Spacer(),
-              Icon(
+              const Spacer(),
+              const Icon(
                 Icons.arrow_forward_ios,
                 size: 15,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             color: Color(0x1A000000),
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
-              Icon(Icons.file_open_sharp),
-              SizedBox(
+              const Icon(Icons.file_open_sharp),
+              const SizedBox(
                 width: 20,
               ),
               Text(
@@ -183,33 +183,33 @@ class _EbookAccountState extends State<EbookAccount> {
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
-              Spacer(),
-              Icon(
+              const Spacer(),
+              const Icon(
                 Icons.arrow_forward_ios,
                 size: 15,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             color: Color(0x1A000000),
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
-              Icon(Icons.back_hand),
-              SizedBox(
+              const Icon(Icons.back_hand),
+              const SizedBox(
                 width: 20,
               ),
               Text(
@@ -219,24 +219,24 @@ class _EbookAccountState extends State<EbookAccount> {
                     fontSize: 16,
                     fontWeight: FontWeight.w500),
               ),
-              Spacer(),
-              Icon(
+              const Spacer(),
+              const Icon(
                 Icons.arrow_forward_ios,
                 size: 15,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             color: Color(0x1A000000),
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
         ]),
