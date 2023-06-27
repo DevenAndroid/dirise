@@ -24,7 +24,7 @@ class _CreateAccState extends State<CreateAcc> {
         padding: const EdgeInsets.only(left: 13, right: 13),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 35,
             ),
             Row(
@@ -35,7 +35,7 @@ class _CreateAccState extends State<CreateAcc> {
                   },
                   child: Image.asset(height: 30, 'assets/icons/arrowback.png'),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 Text(
@@ -45,7 +45,7 @@ class _CreateAccState extends State<CreateAcc> {
                 )
               ],
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 20),
               child: Image(
                   height: 170, image: AssetImage('assets/images/logo.png')),
@@ -78,8 +78,8 @@ class _CreateAccState extends State<CreateAcc> {
                       decoration: BoxDecoration(
                           border: Border.all(color: AppTheme.secondaryColor),
                           borderRadius: BorderRadius.circular(8)),
-                      child: Center(
-                        child: const CountryCodePicker(
+                      child: const Center(
+                        child: CountryCodePicker(
                           onChanged: print,
                           initialSelection: 'IT',
                           favorite: [' +39', 'FR'],
@@ -91,7 +91,7 @@ class _CreateAccState extends State<CreateAcc> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Flexible(

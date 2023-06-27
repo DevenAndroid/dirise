@@ -1,6 +1,6 @@
 
 import 'package:dirise/screens/categores/single_categorie.dart';
-import 'package:dirise/widgets/common_colour.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,7 +38,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             width: 60,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Color(0xff014E70)
+                color: const Color(0xff014E70)
             ),
             child: const Row(mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -77,7 +77,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   Get.toNamed(SingleCategories.singleCategoriesScreen);
                 },
                   child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Color(0xffF0F0F0)),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: const Color(0xffF0F0F0)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -124,7 +124,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         Get.toNamed(SingleCategories.singleCategoriesScreen);
                       },
                         child: Container(
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Color(0xffF0F0F0)),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: const Color(0xffF0F0F0)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
