@@ -1,5 +1,5 @@
 import 'package:dirise/routers/my_routers.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,14 +42,14 @@ class _OtpScreenState extends State<OtpScreen> {
               Container(
                 height: size.height,
                 width: size.width,
-                decoration: BoxDecoration(color: AppTheme.buttonColor),
+                decoration: const BoxDecoration(color: AppTheme.buttonColor),
                 padding: EdgeInsets.symmetric(
                     horizontal: size.width * .02, vertical: size.height * .06),
                 child: Column(
                   children: [
                     Image.asset(
                         height: size.height * .15, 'assets/images/otplogo.png'),
-                    SizedBox(
+                    const SizedBox(
                       height: 13,
                     ),
                     Text(
@@ -59,7 +59,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           fontWeight: FontWeight.w700,
                           color: Colors.white),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Text(
@@ -76,9 +76,9 @@ class _OtpScreenState extends State<OtpScreen> {
                   left: 0,
                   bottom: 0,
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius: const BorderRadius.only(
+                        borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(100))),
                     child: Padding(
                       padding:
@@ -98,7 +98,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           Text(
                             "Didn't you receive the OTP?",
                             style: GoogleFonts.poppins(
-                                color: Color(0xff3D4260), fontSize: 16),
+                                color: const Color(0xff3D4260), fontSize: 16),
                           ),
                           SizedBox(
                             height: size.height * .03,
@@ -106,7 +106,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           Text(
                             ' Resend OTP',
                             style: GoogleFonts.poppins(
-                                color: Color(0xff578AE8), fontSize: 16),
+                                color: const Color(0xff578AE8), fontSize: 16),
                           ),
                           SizedBox(
                             height: size.height * .2,

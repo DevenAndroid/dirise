@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../widgets/common_colour.dart';
+
 import 'add_bag_screen.dart';
 
 class GeneralLibrary extends StatefulWidget {
@@ -33,7 +33,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
             width: 60,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Color(0xff014E70)
+                color: const Color(0xff014E70)
             ),
             child: const Row(mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -46,7 +46,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
       ),),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
             padding: const EdgeInsets.all(15.0),
             child:  Column(
@@ -84,7 +84,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                           CheckboxListTile(
                                             controlAffinity:
                                             ListTileControlAffinity.leading,
-                                            activeColor: Color(0xff014E70),
+                                            activeColor: const Color(0xff014E70),
                                             value: status.value,
                                             onChanged: ( value) {
                                               setState(() {
@@ -120,7 +120,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                         style:
                                         GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.white),
                                       ),),
-                                    SizedBox(height: 20,),
+                                    const SizedBox(height: 20,),
                                     Container(
                                       alignment: Alignment.center,
                                       height: 45,
@@ -131,12 +131,12 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                       child: Text(
                                         "Clear All",
                                         style:
-                                        GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                                        GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                                       ),),
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 5,)
+                              const SizedBox(height: 5,)
 
                             ],
                           );
@@ -148,7 +148,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color(0xff014E70)),
-                        color: Color(0xffEBF1F4),
+                        color: const Color(0xffEBF1F4),
                         borderRadius: BorderRadius.circular(22)),
                     child: Row(mainAxisSize: MainAxisSize.min,
                       children: [
@@ -157,7 +157,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                           child: Text(
                             "Library Type",
                             style:
-                            GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                            GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                           ),
                         ),
                         const Icon(Icons.keyboard_arrow_down_outlined)
@@ -184,7 +184,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                       },
                         child: Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),),
-                          margin: EdgeInsets.only(left: 5),
+                          margin: const EdgeInsets.only(left: 5),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -272,10 +272,12 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                     Text(
                       '50% off',
                       style: GoogleFonts.poppins(
+
                           fontSize: 14, fontWeight: FontWeight.w500,color: Colors.red),
                     ),
                     const SizedBox(
                       height: 5,
+
                     ),
                     Text(
                       'Ecstasy 165 days ',
@@ -348,8 +350,10 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                     InkWell(onTap: (){
                       Get.toNamed(AddBagScreen.addBagScreen);
                     },
+
                       child: Container(decoration: BoxDecoration(color: Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
                         padding: const EdgeInsets.fromLTRB(20,10,20,10),
+
                         child: Text("Add to Bag",style: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white),),),
                     )
                   ],),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 import '../widgets/common_button.dart';
 import '../widgets/common_textfield.dart';
@@ -21,11 +20,11 @@ class _NewPasswordState extends State<NewPassword> {
         body: Padding(
             padding: const EdgeInsets.only(left: 13, right: 13),
             child: Column(children: [
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
 
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: Image(
                     height: 170, image: AssetImage('assets/images/logo.png')),

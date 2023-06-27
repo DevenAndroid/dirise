@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import 'check_out_screen.dart';
@@ -34,7 +34,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
       ),),
       body: Column(
         children: [
-          Padding(padding: EdgeInsets.fromLTRB(20,0,20,20),child:
+          Padding(padding: const EdgeInsets.fromLTRB(20,0,20,20),child:
             ListView.builder(
                 itemCount: 3,
                 scrollDirection: Axis.vertical,
@@ -48,7 +48,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
                     children: [
                       const SizedBox(width: 20,),
                        Container(decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
-                                            padding: EdgeInsets.fromLTRB(20,15,20,15),
+                                            padding: const EdgeInsets.fromLTRB(20,15,20,15),
                        child:  const Icon(Icons.delete_rounded,color: Colors.red,))
                     ],
                   ),
@@ -57,7 +57,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
                     decoration:const BoxDecoration(
                       border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
                     ),
-                    padding: EdgeInsets.only(bottom: 20,top: 20),
+                    padding: const EdgeInsets.only(bottom: 20,top: 20),
                     child:
                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -104,7 +104,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
                         Text(
                           'KD 12.700',
                           style: GoogleFonts.poppins(
-                              fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                              fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                         ),
                       ],),),
                 );

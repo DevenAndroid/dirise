@@ -3,7 +3,7 @@ import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../popup_screen.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(150),
           child: Container(
-            color: Color(0xffEBF1F4),
+            color: const Color(0xffEBF1F4),
             margin: const EdgeInsets.only(top: 5),
             child: SafeArea(
               child: Column(
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.w600, fontSize: 21),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(right: 15, top: 10),
                         child: Container(
@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
             child: Column(children: [
           Padding(
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: Image.asset(
                 'assets/images/storybooks.png',
               )),
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         const Image(
@@ -212,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Image.asset('assets/images/aritificial.png'),
-                                       SizedBox(height: 10,),
+                                       const SizedBox(height: 10,),
 
                                        Text("Artificial Intelligence Gains a Foot Hold In Writing",style: GoogleFonts.poppins(
                                          fontSize: 16,fontWeight: FontWeight.w600,color: AppTheme.buttonColor
@@ -220,12 +220,12 @@ class _HomePageState extends State<HomePage> {
 
 
                                        ),),
-                                        SizedBox(height: 20,),
+                                        const SizedBox(height: 20,),
                                         Text("Artificial Intelligence (Al) is gaining a strong foothold in various niches, and blogging is no exception. By making use of the best Al writing tools, you can create a long-form affiliate blog post in 10 to 15 minutes (instead of spending hours writing it yourself) and generate traffic.",
                                           style: GoogleFonts.poppins(
-                                              fontSize: 14,color: Color(0xff484848)
+                                              fontSize: 14,color: const Color(0xff484848)
                                           ),),
-                                        SizedBox(height: 20,),
+                                        const SizedBox(height: 20,),
                                         Text('Published: 06/06/2023',style: GoogleFonts.poppins(
                                           fontSize: 14
                                         ),)
@@ -247,14 +247,14 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 6,
-            padding: EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4, mainAxisExtent: 110, crossAxisSpacing: 20),
             itemBuilder: (BuildContext context, int index) {
@@ -264,17 +264,17 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Container(
                       height: 70,
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: Color(0xffF0F0F0)),
+                          color: const Color(0xffF0F0F0)),
                       child: Center(
                         child: Image.asset(
                           'assets/images/book.png',
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
@@ -289,7 +289,7 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
@@ -300,7 +300,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
                 ),
                 Container(
-                  padding: EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border:
@@ -372,7 +372,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
                 ),
                 Container(
-                  padding: EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border:
@@ -385,7 +385,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             height: 250,
@@ -444,7 +444,7 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 Container(
-                  padding: EdgeInsets.all(2),
+                  padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border:
@@ -457,7 +457,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
           Container(
             height: 300,
             margin: const EdgeInsets.symmetric(horizontal: 15),

@@ -31,6 +31,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
           ],
         ),),
+
       body: SingleChildScrollView(
         child: Padding(padding: EdgeInsets.fromLTRB(18,10,18,18),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start
@@ -74,6 +75,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
                 ],),
               )
+
             ],),
             const SizedBox(height: 30,),
             Text("Add delivery instructions :",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
@@ -142,7 +144,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Area *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -151,7 +153,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Block *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -160,7 +162,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Street and avenue * ',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -169,38 +171,38 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Address type *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     const SizedBox(height: 8,),
                     Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                       Container(width: size.width*.25,
                         height: 52,
-                        decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+                        decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
                         alignment: Alignment.center,
                         child: Text(
                           'House',
                           style:
-                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                         ),
                       ),
                       Container(width: size.width*.25,
                         height: 52,
-                        decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+                        decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
                         alignment: Alignment.center,
                         child: Text(
                           'Farm',
                           style:
-                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                         ),
                       ),
                       Container(width: size.width*.25,
                         height: 52,
-                        decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+                        decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
                         alignment: Alignment.center,
                         child: Text(
                           'Farm',
                           style:
-                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                         ),
                       )
                     ],),
@@ -208,7 +210,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'House No *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -217,7 +219,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Name this Address * ',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
@@ -226,7 +228,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Contact Number *',
                       style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:Color(0xff585858)),
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color:const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8,bottom: 15),

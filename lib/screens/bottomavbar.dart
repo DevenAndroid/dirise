@@ -1,10 +1,9 @@
 
 import 'package:dirise/screens/homepage_screen.dart';
-import 'package:dirise/screens/login_screen.dart';
-import 'package:dirise/screens/profile_screen.dart';
+
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
 
 import '../controller/homepage_controller.dart';
