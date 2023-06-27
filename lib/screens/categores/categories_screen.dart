@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../Authors/authors_screen.dart';
+
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
   static var categoriesScreen = "/categoriesScreen";
@@ -121,7 +123,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     ),
                     itemBuilder: (BuildContext context, int index){
                       return InkWell(onTap: (){
-                        Get.toNamed(SingleCategories.singleCategoriesScreen);
+                        //Get.toNamed(SingleCategories.singleCategoriesScreen);
+                        Get.toNamed(AuthorsScreen.authorsScreen);
                       },
                         child: Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Color(0xffF0F0F0)),

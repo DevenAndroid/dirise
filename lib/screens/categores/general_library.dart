@@ -254,104 +254,105 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
               height: size.height*.7,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(alignment: Alignment.center,
-                    child: Image.asset(
-                      height: size.height * .2,
-                      width:size.width*.7,
-                      'assets/images/bag.png',
+                  Column(crossAxisAlignment:CrossAxisAlignment.start,
+                    children: [
+                    Align(alignment: Alignment.center,
+                      child: Image.asset(
+                        height: size.height * .2,
+                        width:size.width*.7,
+                        'assets/images/bag.png',
 
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    '50% off',
-                    style: GoogleFonts.poppins(
-                        fontSize: 14, fontWeight: FontWeight.w500,color: Colors.red),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Ecstasy 165 days ',
-                    style:
-                    GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 14),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-
-                  Text(
-                    '1 piece',
-                    style:
-                    GoogleFonts.poppins(color: const Color(0xff858484)),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
-                    Text(
-                      'KD 12.700',
-                      style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                    const SizedBox(
+                      height: 5,
                     ),
                     Text(
-                      'Add to list',
+                      '50% off',
                       style: GoogleFonts.poppins(
-                        shadows: [
-                          const Shadow(
-                              color: Colors.black,
-                              offset: Offset(0, -4))
-                        ],
-                        color: Colors.transparent,
-                        fontSize: 14, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
-                    )
+                          fontSize: 14, fontWeight: FontWeight.w500,color: Colors.red),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Ecstasy 165 days ',
+                      style:
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 14),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+
+                    Text(
+                      '1 piece',
+                      style:
+                      GoogleFonts.poppins(color: const Color(0xff858484)),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
+                      Text(
+                        'KD 12.700',
+                        style: GoogleFonts.poppins(
+                            fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                      ),
+                      Text(
+                        'Add to list',
+                        style: GoogleFonts.poppins(
+                          shadows: [
+                            const Shadow(
+                                color: Colors.black,
+                                offset: Offset(0, -4))
+                          ],
+                          color: Colors.transparent,
+                          fontSize: 14, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
+                      )
+                    ],),
+                    const SizedBox(height: 20,),
+                    Align(alignment: Alignment.center,
+                      child: Text(
+                        'Description',
+                        style: GoogleFonts.poppins(
+                          shadows: [
+                            const Shadow(
+                                color: Colors.black,
+                                offset: Offset(0, -4))
+                          ],
+                          color: Colors.transparent,
+                          fontSize: 20, fontWeight: FontWeight.w600,decoration: TextDecoration.underline,),
+                      ),
+                    ),
+                    const SizedBox(height: 15,),
+                    Text(
+                      'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14, fontWeight: FontWeight.w400,),
+                    ),
+                    const SizedBox(height: 20,),
                   ],),
-                  const SizedBox(height: 20,),
-                  Align(alignment: Alignment.center,
-                    child: Text(
-                      'Description',
-                      style: GoogleFonts.poppins(
-                        shadows: [
-                          const Shadow(
-                              color: Colors.black,
-                              offset: Offset(0, -4))
-                        ],
-                        color: Colors.transparent,
-                        fontSize: 20, fontWeight: FontWeight.w600,decoration: TextDecoration.underline,),
-                    ),
-                  ),
-                  const SizedBox(height: 15,),
-                  Text(
-                    'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.w400,),
-                  ),
-                  const SizedBox(height: 20,),
-
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                     Row(children: [
-                      Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black)),
+                      Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black),color: Color(0xffEAEAEA)),
                         child: const Text("  -  ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),),),
                       const SizedBox(width: 10,),
                       const Text("1",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
                       const SizedBox(width: 10,),
-                      Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black)),
+                      Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black),color: Color(0xffEAEAEA)),
                         child: const Text("  +  ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),),),
                     ],),
                     InkWell(onTap: (){
                       Get.toNamed(AddBagScreen.addBagScreen);
                     },
-                      child: Container(decoration: BoxDecoration(color: Color(0xff014E70),borderRadius: BorderRadius.circular(12)),
-                        padding: const EdgeInsets.all(10),
+                      child: Container(decoration: BoxDecoration(color: Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
+                        padding: const EdgeInsets.fromLTRB(20,10,20,10),
                         child: Text("Add to Bag",style: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white),),),
                     )
                   ],),
-                  const SizedBox(height: 20,),
-
                 ],
               ),
             ),
