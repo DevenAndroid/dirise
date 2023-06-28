@@ -1,49 +1,49 @@
 
-import 'package:dirise/screens/Authors/single_author_screen.dart';
+import 'package:dirise/screens/Authors/singel_teacher_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AuthorsScreen extends StatefulWidget {
-  const AuthorsScreen({super.key});
-  static var authorsScreen = "/authorsScreen";
+class TeacherScreen extends StatefulWidget {
+  const TeacherScreen({super.key});
+  static var teacherScreen = "/teacherScreen";
 
   @override
-  State<AuthorsScreen> createState() => _AuthorsScreenState();
+  State<TeacherScreen> createState() => _TeacherScreenState();
 }
 
-class _AuthorsScreenState extends State<AuthorsScreen> {
-  List data= ["Kuwait","Gulf","Arab  World","World Wide"];
+class _TeacherScreenState extends State<TeacherScreen> {
+  List data= ["Primary School","High School","Kindergarten ","University ","Masters"];
   RxBool status= false.obs;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(backgroundColor: Colors.white,
       appBar:AppBar(backgroundColor: Colors.white,surfaceTintColor: Colors.white, elevation: 0,leading: IconButton(
-      icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70),size: 20),
-      onPressed: () => Navigator.of(context).pop(),
-    ),title: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text("Authors",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 22),),
-        Container(
-          alignment: Alignment.center,
-          height: 40,
-          width: 60,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: const Color(0xff014E70)
+        icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70),size: 20),
+        onPressed: () => Navigator.of(context).pop(),
+      ),title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Teacher",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 22),),
+          Container(
+            alignment: Alignment.center,
+            height: 40,
+            width: 60,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: const Color(0xff014E70)
+            ),
+            child:  Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset("assets/images/bag1.svg"),
+                const SizedBox(width: 4,),
+                const Text(("0"),style: TextStyle(color: Colors.white,fontSize: 22),)
+              ],),
           ),
-          child:  Row(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset("assets/images/bag1.svg"),
-              const SizedBox(width: 4,),
-              const Text(("0"),style: TextStyle(color: Colors.white,fontSize: 22),)
-            ],),
-        ),
-      ],
-    ),),
+        ],
+      ),),
       body:  SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
@@ -69,7 +69,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 26,top: 15,bottom: 10),
                                   child: Text(
-                                    "Country",
+                                    "Education Level",
                                     style:
                                     GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w600),
                                   ),
@@ -156,7 +156,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                         Padding(
                           padding: const EdgeInsets.only(left: 8,right: 10),
                           child: Text(
-                            "Country",
+                            "Education Level",
                             style:
                             GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                           ),
@@ -180,7 +180,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                     ),
                     itemBuilder: (BuildContext context, int index){
                       return InkWell(onTap: (){
-                              Get.toNamed(SingleAuthorScreen.singleAuthorScreen);
+                        Get.toNamed(SelectedTeacher.selectedTeacher);
                       },
                         child: Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),),
@@ -190,7 +190,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                             children: [
                               Image.asset(
                                 height: size.height * .2,
-                                'assets/images/authors.png',
+                                'assets/images/teacher1.png',
                               ),
                               const SizedBox(
                                 height: 5,

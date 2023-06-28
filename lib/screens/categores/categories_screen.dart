@@ -2,10 +2,12 @@
 import 'package:dirise/screens/categores/single_categorie.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Authors/authors_screen.dart';
+import '../Authors/teacher_screen.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -42,11 +44,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 borderRadius: BorderRadius.circular(8),
                 color: const Color(0xff014E70)
             ),
-            child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+            child:  Row(mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.shopping_bag_outlined,color: Colors.white,),
-                SizedBox(width: 3,),
-                Text(("0"),style: TextStyle(color: Colors.white,fontSize: 22),)
+                SvgPicture.asset("assets/images/bag1.svg"),
+                const SizedBox(width: 4,),
+                const Text(("0"),style: TextStyle(color: Colors.white,fontSize: 22),)
               ],),
           ),
         ],
@@ -76,7 +78,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               ),
               itemBuilder: (BuildContext context, int index){
                 return InkWell(onTap: (){
-                  Get.toNamed(SingleCategories.singleCategoriesScreen);
+                    Get.toNamed(SingleCategories.singleCategoriesScreen);
                 },
                   child: Container(
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: const Color(0xffF0F0F0)),
@@ -124,7 +126,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     itemBuilder: (BuildContext context, int index){
                       return InkWell(onTap: (){
                         //Get.toNamed(SingleCategories.singleCategoriesScreen);
-                        Get.toNamed(AuthorsScreen.authorsScreen);
+                        //Get.toNamed(AuthorsScreen.authorsScreen);
+                        Get.toNamed(TeacherScreen.teacherScreen);
                       },
                         child: Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: const Color(0xffF0F0F0)),
