@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dirise/routers/my_routers.dart';
+import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -29,11 +30,17 @@ class _SplashState extends State<Splash> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Container(
+          color: AppTheme.buttonColor,
       height: size.height,
       width: size.width,
-      child: Image.asset(
-        ('assets/images/Splash.png'),
-        fit: BoxFit.fill,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(color: Colors.white,height: 90,
+            ('assets/images/diriselogo.png'),
+            fit: BoxFit.fill,
+          ),
+        ],
       ),
     ));
   }

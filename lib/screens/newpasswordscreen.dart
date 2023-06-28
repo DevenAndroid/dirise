@@ -27,7 +27,7 @@ class _NewPasswordState extends State<NewPassword> {
               const Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: Image(
-                    height: 170, image: AssetImage('assets/images/logo.png')),
+                    height: 170, image: AssetImage('assets/images/diriselogo.png')),
               ),
               SizedBox(
                 height: size.height * .03,

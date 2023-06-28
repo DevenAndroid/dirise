@@ -28,12 +28,12 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               const Padding(
-                padding: EdgeInsets.only(top: 50),
-                child: Image(
-                    height: 170, image: AssetImage('assets/images/logo.png')),
+                padding: EdgeInsets.only(top: 100),
+                child: Image(height: 70,
+                  image: AssetImage('assets/images/diriselogo.png',)),
               ),
               SizedBox(
-                height: size.height * .04,
+                height: size.height * .1,
               ),
               CommonTextfield(obSecure: false, hintText: 'Email'),
               SizedBox(
