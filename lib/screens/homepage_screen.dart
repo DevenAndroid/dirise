@@ -1,6 +1,8 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
@@ -154,7 +156,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Container(
                   height: 60,
-                  width: 140,
+                  width: 150,
                   decoration: const BoxDecoration(
                       color: Color(0xffF0F0F0),
                       borderRadius: BorderRadius.only(
@@ -238,7 +240,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                           "Artificial Intelligence Gains a Foot Hold In Writing",
                           style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500, fontSize: 13),
+                              fontWeight: FontWeight.w500, fontSize: 12),
                         ),
 
                     ),
@@ -259,7 +261,12 @@ class _HomePageState extends State<HomePage> {
                 crossAxisCount: 4, mainAxisExtent: 110, crossAxisSpacing: 20),
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
-                onTap: () {},
+                onTap: () {
+
+                  if(index==3){
+                    Get.toNamed(MyRouters.officeFurnitureScreen);
+                  }
+                },
                 child: Column(
                   children: [
                     Container(
