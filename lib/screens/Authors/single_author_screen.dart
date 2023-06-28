@@ -4,17 +4,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'add_bag_screen.dart';
+import '../categores/add_bag_screen.dart';
 
-class GeneralLibrary extends StatefulWidget {
-  const GeneralLibrary({super.key});
-  static var generalLibrary = "/generalLibrary";
+class SingleAuthorScreen extends StatefulWidget {
+  const SingleAuthorScreen({super.key});
+  static var singleAuthorScreen="/singleAuthorScreen";
 
   @override
-  State<GeneralLibrary> createState() => _GeneralLibraryState();
+  State<SingleAuthorScreen> createState() => _SingleAuthorScreenState();
 }
 
-class _GeneralLibraryState extends State<GeneralLibrary> {
+class _SingleAuthorScreenState extends State<SingleAuthorScreen> {
   List data= ["General Bookstore","Commercial Bookstore","Speciality Bookstore","Dasman Complex"];
   RxBool status= false.obs;
   @override
@@ -27,7 +27,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
       ),title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("General Libraries",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 22),),
+          Text("Authors",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 22),),
           Container(
             alignment: Alignment.center,
             height: 40,
@@ -56,14 +56,14 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
               children: [
                 const SizedBox(height: 10,),
                 const Image(image: AssetImage('assets/images/storybooks.png')),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 25,),
                 Row(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Image(image: AssetImage('assets/images/singleCategories.png'),height: 85,),
-                    const SizedBox(width: 10,),
+                    const Image(image: AssetImage('assets/images/authors.png'),height: 85,),
+                    const SizedBox(width: 15,),
                     Expanded(
                       child: Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisAlignment:MainAxisAlignment.start,children: [
-                        Text(("General Library"),style: GoogleFonts.poppins(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500),),
+                        Text(("Satyam Rathor"),style: GoogleFonts.poppins(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500),),
                         Padding(
                           padding: const EdgeInsets.only(top:5,bottom: 5),
                           child: Text(("Books, Stationary and Electronics"),style: GoogleFonts.poppins(color: Colors.grey.withOpacity(.7),fontSize: 12,fontWeight: FontWeight.w500),),
@@ -72,10 +72,10 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                       ],),
                     )
                   ],),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 25,),
                 InkWell(
                   onTap: () {
-                    showModalBottomSheet(
+                    /*showModalBottomSheet(
                         context: context,
                         builder: (context) {
                           return  Column(
@@ -85,48 +85,48 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                             children: [
                               Column(crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 27,top: 15),
-                                  child: Text(
-                                    "Library Type",
-                                    style:
-                                    GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w600),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 27,top: 15),
+                                    child: Text(
+                                      "Library Type",
+                                      style:
+                                      GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 10,),
-                                Obx(() {return
-                                  Column(
-                                    children: List.generate(
-                                        data.length,
-                                            (index) => Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            CheckboxListTile(
-                                              controlAffinity:
-                                              ListTileControlAffinity.leading,
-                                              dense: true,
-                                              visualDensity: VisualDensity.compact,
-                                              activeColor: const Color(0xff014E70),
-                                              value: status.value,
-                                              onChanged: ( value) {
-                                                setState(() {
-                                                  status.value=value!;
-                                                });
-                                              },
-                                              title: Text(
-                                                data[index],
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.black,
-                                                  fontSize: 16,
+                                  const SizedBox(height: 10,),
+                                  Obx(() {return
+                                    Column(
+                                      children: List.generate(
+                                          data.length,
+                                              (index) => Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              CheckboxListTile(
+                                                controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                                dense: true,
+                                                visualDensity: VisualDensity.compact,
+                                                activeColor: const Color(0xff014E70),
+                                                value: status.value,
+                                                onChanged: ( value) {
+                                                  setState(() {
+                                                    status.value=value!;
+                                                  });
+                                                },
+                                                title: Text(
+                                                  data[index],
+                                                  style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        )
-                                    ),
-                                  );}),
-                              ],),
+                                            ],
+                                          )
+                                      ),
+                                    );}),
+                                ],),
                               Align(alignment: Alignment.bottomCenter,
                                 child: Column(
                                   children: [
@@ -161,7 +161,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                               ),
                             ],
                           );
-                        });
+                        });*/
                   },
                   child: Container(
                     height: 36,
@@ -176,7 +176,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                         Padding(
                           padding: const EdgeInsets.only(left: 8,right: 10),
                           child: Text(
-                            "Library Type",
+                            "General",
                             style:
                             GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                           ),

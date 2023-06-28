@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -37,11 +38,11 @@ class _SingleCategoriesState extends State<SingleCategories> {
                 borderRadius: BorderRadius.circular(8),
                 color: const Color(0xff014E70)
             ),
-            child: const Row(mainAxisAlignment: MainAxisAlignment.center,
+            child:  Row(mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.shopping_bag_outlined,color: Colors.white,),
-                SizedBox(width: 3,),
-                Text(("0"),style: TextStyle(color: Colors.white,fontSize: 22),)
+                SvgPicture.asset("assets/images/bag1.svg"),
+                const SizedBox(width: 4,),
+                const Text(("0"),style: TextStyle(color: Colors.white,fontSize: 22),)
               ],),
           ),
         ],
@@ -67,52 +68,58 @@ class _SingleCategoriesState extends State<SingleCategories> {
                           MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 26,top: 15),
-                              child: Text(
-                                "Library Type",
-                                style:
-                                GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w600),
+                            Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 27,top: 15,bottom: 10),
+                                child: Text(
+                                  "Library Type",
+                                  style:
+                                  GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w600),
+                                ),
                               ),
-                            ),
-                            Obx(() {return
-                        Column(
-                        children: List.generate(
-                        data.length,
-                        (index) => Column(
-                          mainAxisSize: MainAxisSize.min,
-                        children: [
-                        CheckboxListTile(
-                        controlAffinity:
-                        ListTileControlAffinity.leading,
-                          activeColor: const Color(0xff014E70),
-                        value: status.value,
-                        onChanged: ( value) {
-                        setState(() {
-                        status.value=value!;
-                        });
-                        },
-                        title: Text(
-                        data[index],
-                        style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                        fontSize: 16,
-                        ),
-                        ),
-                        ),
-                        ],
-                        )
-                        ),
-                        );}),
+                              Obx(() {return
+                                Column(
+                                  children: List.generate(
+                                      data.length,
+                                          (index) => Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          CheckboxListTile(
+                                            controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                            dense: true,
+                                            visualDensity:VisualDensity.compact,
+                                            activeColor: const Color(0xff014E70),
+                                            value: status.value,
+                                            onChanged: ( value) {
+                                              setState(() {
+                                                status.value=value!;
+                                              });
+                                            },
+                                            title: Text(
+                                              data[index],
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  ),
+                                );}),
+                            ],),
+
 
                             Align(alignment: Alignment.bottomCenter,
+
                               child: Column(
                                 children: [
                                   Container(
                                     alignment: Alignment.center,
-                                    height: 45,
-                                    width:MediaQuery.of(context).size.width *.9,
+                                    height: 47,
+                                    width:MediaQuery.of(context).size.width *.87,
                                     decoration: const BoxDecoration(
                                     color: Color(0xff014E70)
                                   ),
@@ -124,8 +131,9 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                   const SizedBox(height: 20,),
                                   Container(
                                     alignment: Alignment.center,
-                                    height: 45,
-                                    width:MediaQuery.of(context).size.width *.9,
+                                    margin: EdgeInsets.only(bottom: 10),
+                                    height: 47,
+                                    width:MediaQuery.of(context).size.width *.87,
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.grey)
                                     ),
@@ -137,14 +145,14 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 5,)
+
 
                           ],
                         );
                       });
                 },
                 child: Container(
-                  height: 47,
+                  height: 36,
                   padding: const EdgeInsets.fromLTRB(10,0,10,0),
                   decoration: BoxDecoration(
                       border: Border.all(
@@ -183,20 +191,24 @@ class _SingleCategoriesState extends State<SingleCategories> {
                               border: Border.all(color: const Color(0xffDCDCDC)),
                               borderRadius:
                               BorderRadius.circular(10)),
-                          child:  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                            const Padding(
-                              padding: EdgeInsets.fromLTRB(8,8,15,8),
-                              child: Image(image: AssetImage('assets/images/singleCategories.png'),height: 85,),
-                            ),
-                            Expanded(
-                              child: Column(crossAxisAlignment:CrossAxisAlignment.start,children: [
-                                Text(("General Library"),style: GoogleFonts.poppins(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500),),
-                                Text(("Books, Stationary and Electronics"),style: GoogleFonts.poppins(color: Colors.grey.withOpacity(.7),fontSize: 14,fontWeight: FontWeight.w500),),
-                                Text(("1457 items"),style: GoogleFonts.poppins(color: const Color(0xff014E70),fontSize: 18,fontWeight: FontWeight.w500),)
-                              ],),
-                            )
-                          ],)
+                          child:  Padding(
+                            padding: const EdgeInsets.fromLTRB(8,10,15,8),
+                            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                              const Image(image: AssetImage('assets/images/singleCategories.png'),height: 85,),
+                              const SizedBox(width: 4,),
+                              Expanded(
+                                child: Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisAlignment:MainAxisAlignment.start,children: [
+                                  Text(("General Library"),style: GoogleFonts.poppins(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500),),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:5,bottom: 5),
+                                    child: Text(("Books, Stationary and Electronics"),style: GoogleFonts.poppins(color: Colors.grey.withOpacity(.7),fontSize: 12,fontWeight: FontWeight.w500),),
+                                  ),
+                                  Text(("1457 items"),style: GoogleFonts.poppins(color: const Color(0xff014E70),fontSize: 18,fontWeight: FontWeight.w500),)
+                                ],),
+                              )
+                            ],),
+                          )
                         ));
                   })
 
