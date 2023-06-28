@@ -4,17 +4,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'add_bag_screen.dart';
+import '../categores/add_bag_screen.dart';
 
-class GeneralLibrary extends StatefulWidget {
-  const GeneralLibrary({super.key});
-  static var generalLibrary = "/generalLibrary";
+class SelectedTeacher extends StatefulWidget {
+  const SelectedTeacher({super.key});
+  static var selectedTeacher="/selectedTeacher";
 
   @override
-  State<GeneralLibrary> createState() => _GeneralLibraryState();
+  State<SelectedTeacher> createState() => _SelectedTeacherState();
 }
 
-class _GeneralLibraryState extends State<GeneralLibrary> {
+class _SelectedTeacherState extends State<SelectedTeacher> {
   List data= ["General Bookstore","Commercial Bookstore","Speciality Bookstore","Dasman Complex"];
   RxBool status= false.obs;
   @override
@@ -27,7 +27,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
       ),title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("General Libraries",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 22),),
+          Text("Teacher",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 22),),
           Container(
             alignment: Alignment.center,
             height: 40,
@@ -56,14 +56,14 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
               children: [
                 const SizedBox(height: 10,),
                 const Image(image: AssetImage('assets/images/storybooks.png')),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 25,),
                 Row(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Image(image: AssetImage('assets/images/singleCategories.png'),height: 85,),
-                    const SizedBox(width: 10,),
+                    const Image(image: AssetImage('assets/images/teacher1.png'),height: 85,),
+                    const SizedBox(width: 15,),
                     Expanded(
                       child: Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisAlignment:MainAxisAlignment.start,children: [
-                        Text(("General Library"),style: GoogleFonts.poppins(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500),),
+                        Text(("Sara Luies"),style: GoogleFonts.poppins(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500),),
                         Padding(
                           padding: const EdgeInsets.only(top:5,bottom: 5),
                           child: Text(("Books, Stationary and Electronics"),style: GoogleFonts.poppins(color: Colors.grey.withOpacity(.7),fontSize: 12,fontWeight: FontWeight.w500),),
@@ -72,121 +72,32 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                       ],),
                     )
                   ],),
+                const SizedBox(height: 25,),
+                Text(("Brief"),style: GoogleFonts.poppins(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500),),
+                const SizedBox(height: 10,),
+                Text(("to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher's Synopsis"),style: GoogleFonts.poppins(color: const Color(0xff014E70),fontSize: 14,fontWeight: FontWeight.w500,height: 1.6),),
                 const SizedBox(height: 20,),
-                InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return  Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 27,top: 15),
-                                  child: Text(
-                                    "Library Type",
-                                    style:
-                                    GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                                const SizedBox(height: 10,),
-                                Obx(() {return
-                                  Column(
-                                    children: List.generate(
-                                        data.length,
-                                            (index) => Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            CheckboxListTile(
-                                              controlAffinity:
-                                              ListTileControlAffinity.leading,
-                                              dense: true,
-                                              visualDensity: VisualDensity.compact,
-                                              activeColor: const Color(0xff014E70),
-                                              value: status.value,
-                                              onChanged: ( value) {
-                                                setState(() {
-                                                  status.value=value!;
-                                                });
-                                              },
-                                              title: Text(
-                                                data[index],
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                    ),
-                                  );}),
-                              ],),
-                              Align(alignment: Alignment.bottomCenter,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: 47,
-                                      width:MediaQuery.of(context).size.width *.87,
-                                      decoration: const BoxDecoration(
-                                          color: Color(0xff014E70)
-                                      ),
-                                      child: Text(
-                                        "Apply",
-                                        style:
-                                        GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.white),
-                                      ),),
-                                    const SizedBox(height: 20,),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: 47,
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      width:MediaQuery.of(context).size.width *.87,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey)
-                                      ),
-                                      child: Text(
-                                        "Clear All",
-                                        style:
-                                        GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
-                                      ),),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        });
-                  },
-                  child: Container(
-                    height: 36,
-                    padding: const EdgeInsets.fromLTRB(10,0,10,0),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color(0xff014E70)),
-                        color: const Color(0xffEBF1F4),
-                        borderRadius: BorderRadius.circular(22)),
-                    child: Row(mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8,right: 10),
-                          child: Text(
-                            "Library Type",
-                            style:
-                            GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
-                          ),
-                        ),
-                        const Icon(Icons.keyboard_arrow_down_outlined)
-                      ],
-                    ),
+                Row(children: [
+                  Expanded(
+                    child: Row(children: [
+                      Text(("@"),style: GoogleFonts.poppins(color: Colors.black,fontSize: 24,fontWeight: FontWeight.w500),),
+                      const SizedBox(width: 3,),
+                      Text(("tarachandk786@gmail.com"),style: GoogleFonts.poppins(color: Color(0xff7D7D7D),fontSize: 14,fontWeight: FontWeight.w500),),
+
+                    ],),
                   ),
+                  Row(children: [
+                   const Icon(Icons.phone,size: 20,),
+                    const SizedBox(width: 3,),
+                    Text(("7689042546"),style: GoogleFonts.poppins(color: Color(0xff7D7D7D),fontSize: 14,fontWeight: FontWeight.w500),),
+
+                  ],)
+                ],),
+                const SizedBox(height: 15,),
+                const Divider(
+                  thickness: .5,
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 15,),
                 SizedBox(
                   child: GridView.builder(
                     shrinkWrap: true,

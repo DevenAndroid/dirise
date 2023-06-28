@@ -18,6 +18,9 @@ import 'package:get/get.dart';
 import '../screens/Authors/authors_screen.dart';
 
 import '../e-book/e-book_screen.dart';
+import '../screens/Authors/singel_teacher_screen.dart';
+import '../screens/Authors/single_author_screen.dart';
+import '../screens/Authors/teacher_screen.dart';
 import '../screens/calender.dart';
 
 import '../screens/categores/add_bag_screen.dart';
@@ -86,6 +89,9 @@ class MyRouters {
     GetPage(name: CheckOutScreen.checkOutScreen, page: () =>  const CheckOutScreen()),
     GetPage(name: OrderCompleteScreen.orderCompleteScreen, page: () =>  const OrderCompleteScreen()),
     GetPage(name: AuthorsScreen.authorsScreen, page: () =>  const AuthorsScreen()),
+    GetPage(name: SingleAuthorScreen.singleAuthorScreen, page: () =>  const SingleAuthorScreen()),
+    GetPage(name: TeacherScreen.teacherScreen, page: () =>  const TeacherScreen()),
+    GetPage(name: SelectedTeacher.selectedTeacher, page: () =>  const SelectedTeacher()),
 
 
   ];
