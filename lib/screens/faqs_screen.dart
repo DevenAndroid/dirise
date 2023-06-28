@@ -17,29 +17,32 @@ class _FaqsScreenState extends State<FaqsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        surfaceTintColor: Colors.white,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios,
-              color: Color(0xff014E70), size: 20),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(140),
+          child: Container(
 
-        title: Text(
-          "Faqs",
-          style: GoogleFonts.poppins(
-              color: Colors.black,
-              fontWeight: FontWeight.w600,
-              fontSize: 22),
-        ),
-      ),
+              child: SafeArea(
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios,
+                          color: Color(0xff014E70), size: 20),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    Text(
+                      'Faqs',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18, fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+              ))),
       body: ListView.builder(itemCount: 6,itemBuilder: (context, index) {
         return Column(
           children: [
+
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
               child: Container(
 
                 decoration: BoxDecoration(
@@ -91,7 +94,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 15,),
+
           ],
         );
       },

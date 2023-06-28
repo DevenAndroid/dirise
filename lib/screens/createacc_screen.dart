@@ -47,12 +47,12 @@ class _CreateAccState extends State<CreateAcc> {
                 ],
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 50),
                 child: Image(
-                    height: 170, image: AssetImage('assets/images/logo.png')),
+                    height: 70, image: AssetImage('assets/images/diriselogo.png')),
               ),
               SizedBox(
-                height: size.height * .03,
+                height: size.height * .08,
               ),
               CommonTextfield(obSecure: false, hintText: 'Name'),
               SizedBox(
@@ -71,9 +71,9 @@ class _CreateAccState extends State<CreateAcc> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 51,
+                    height: 53,
                     child: Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: Container(
                         width: 80,
                         decoration: BoxDecoration(
@@ -92,11 +92,8 @@ class _CreateAccState extends State<CreateAcc> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
                   Flexible(
-                      flex: 5,
+                      flex: 2,
                       child: CommonTextfield(
                           obSecure: false, hintText: '987-654-3210')),
                 ],

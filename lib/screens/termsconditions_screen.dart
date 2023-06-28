@@ -16,23 +16,29 @@ class _TermConditionState extends State<TermCondition> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-          elevation: 0,
-          surfaceTintColor: Colors.white,
-          backgroundColor: Colors.white,
-          title: Text(
-            'Terms And Conditions',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
-          ),
-          leading: IconButton(
-            icon: Image.asset(height: 28, 'assets/icons/arrowback.png'),
-            onPressed: () => Navigator.of(context).pop(),
-            //   ),
-          )),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(140),
+          child: Container(
+
+              child: SafeArea(
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios,
+                          color: Color(0xff014E70), size: 20),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    Text(
+                      'Terms And Conditions',
+                      style: GoogleFonts.poppins(
+                          fontSize: 18, fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+              ))),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 20),
           child: Column(
             children: [
               Text(
