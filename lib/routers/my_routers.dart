@@ -1,3 +1,4 @@
+import 'package:dirise/e-book/ebookk_screen.dart';
 import 'package:dirise/screens/bottomavbar.dart';
 
 import 'package:dirise/screens/createacc_screen.dart';
@@ -6,6 +7,7 @@ import 'package:dirise/screens/editprofile_screen.dart';
 import 'package:dirise/screens/forgetpass_screen.dart';
 
 import 'package:dirise/screens/newpasswordscreen.dart';
+import 'package:dirise/screens/officefurniture_sceen/singlechair_screen.dart';
 import 'package:dirise/screens/otp_screen.dart';
 import 'package:dirise/screens/profile_screen.dart';
 import 'package:dirise/screens/termsconditions_screen.dart';
@@ -29,8 +31,10 @@ import '../screens/categores/order_completed_screen.dart';
 import '../screens/categores/single_categorie.dart';
 
 
+import '../screens/ebooklogin_screen.dart';
 import '../screens/faqs_screen.dart';
 import '../screens/login_screen.dart';
+import '../screens/officefurniture_sceen/officefurniture_screen.dart';
 import '../splash.dart';
 
 class MyRouters {
@@ -50,6 +54,9 @@ class MyRouters {
   static var termsConditionScreen = "/termsConditionScreen";
   static var calendarScreen = "/calendarScreen";
   static var eBookScreen = "/eBookScreen";
+  static var officeFurnitureScreen = "/officeFurnitureScreen";
+  static var singleChair = "/singleChair";
+  static var eBooKKScreen = "/eBooKKScreen";
 
 
   static var route = [
@@ -68,6 +75,9 @@ class MyRouters {
     GetPage(name: '/termsConditionScreen', page: () => const TermCondition()),
     GetPage(name: '/calendarScreen', page: () =>  TableEventsExample()),
     GetPage(name: '/eBookScreen', page: () =>  const EBookScreen()),
+    GetPage(name: '/singleChair', page: () =>  const SingleChair()),
+    GetPage(name: '/eBooKKScreen', page: () =>  const EBook()),
+    GetPage(name: '/officeFurnitureScreen', page: () =>  const OfficeFurniture()),
     GetPage(
         name: CategoriesScreen.categoriesScreen,
         page: () => const CategoriesScreen()),

@@ -38,7 +38,7 @@ class _TermConditionState extends State<TermCondition> {
               Text(
                 'This is essentially Legal statement or policy',
                 style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600, fontSize: 17),
+                    fontWeight: FontWeight.w600, fontSize: 18),
               ),
               const SizedBox(
                 height: 20,

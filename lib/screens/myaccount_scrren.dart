@@ -102,7 +102,7 @@ class _EbookAccountState extends State<EbookAccount> {
             ),
             InkWell(
 onTap: (){
-  Get.toNamed(MyRouters.eBookScreen);
+  Get.toNamed(MyRouters.eBooKKScreen);
 },
 
               child: Row(
