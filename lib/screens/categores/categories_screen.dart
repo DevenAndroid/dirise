@@ -47,6 +47,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                  SizedBox(
             child: GridView.builder(
               shrinkWrap: true,
+              padding: const EdgeInsets.only(bottom: 25),
               physics: const NeverScrollableScrollPhysics(),
               itemCount: categories.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -69,7 +70,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
                 },
                   child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: const Color(0xffF0F0F0)),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: const Color(0xffEBF1F4).withOpacity(.5)),
                     padding: const EdgeInsets.only(left: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +90,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               child: Text(
                                 categories[index],
                                 style: GoogleFonts.poppins(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
+                                    fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                               ),
                             ),
                           ],),
@@ -122,7 +123,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
                       },
                         child: Container(
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: const Color(0xffF0F0F0)),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: const Color(0xffEBF1F4).withOpacity(.5)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -138,7 +139,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                   Text(
                                     'Libraries',
                                     style: GoogleFonts.poppins(
-                                        fontSize: 14, fontWeight: FontWeight.w500),
+                                        fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                                   ),
                                 ],)
 
