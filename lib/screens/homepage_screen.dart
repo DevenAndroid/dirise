@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List Categories=["Libraries","Authors","Teachers","Offline Furniture","Schools & Nurseries"];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -154,7 +156,7 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
             child: Column(children: [
           Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(18),
               child: Image.asset(
                 'assets/images/storybooks.png',
               )),
@@ -164,7 +166,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Container(
                   height: 60,
-                  width: 150,
+                  width: size.width*.38,
                   decoration: const BoxDecoration(
                       color: Color(0xffF0F0F0),
                       borderRadius: BorderRadius.only(
@@ -193,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 60,
-                  width: 170,
+                  width: 210,
                   decoration: BoxDecoration(
                       border: Border.all(
                         color: const Color(0xffF0F0F0),
@@ -206,12 +208,14 @@ class _HomePageState extends State<HomePage> {
                     child: InkWell(
                       onTap: () {
                         showModalBottomSheet(
+                          isScrollControlled: true,
                             context: context,
                             builder: (context) {
-                              return SafeArea(
+                              return SizedBox(
+                                height: size.height*.7,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, right: 15, left: 15),
+                                  padding: const EdgeInsets.only(top: 30,right: 18,left:
+                                  18),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -220,7 +224,7 @@ class _HomePageState extends State<HomePage> {
                                       Image.asset(
                                           'assets/images/aritificial.png'),
                                       const SizedBox(
-                                        height: 10,
+                                        height: 20,
                                       ),
                                       Text(
                                         "Artificial Intelligence Gains a Foot Hold In Writing",
@@ -239,12 +243,12 @@ class _HomePageState extends State<HomePage> {
                                             color: const Color(0xff484848)),
                                       ),
                                       const SizedBox(
-                                        height: 20,
+                                        height: 40,
                                       ),
                                       Text(
                                         'Published: 06/06/2023',
                                         style:
-                                            GoogleFonts.poppins(fontSize: 14),
+                                            GoogleFonts.poppins(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500),
                                       )
                                     ],
                                   ),
@@ -255,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text(
                         "Artificial Intelligence Gains a Foot Hold In Writing",
                         style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500, fontSize: 12),
+                            fontWeight: FontWeight.w500, fontSize: 13),
                       ),
                     ),
                   ),
@@ -266,10 +270,10 @@ class _HomePageState extends State<HomePage> {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 6,
+            itemCount: Categories.length,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, mainAxisExtent: 130, crossAxisSpacing: 15),
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4, mainAxisExtent: size.height*.17, crossAxisSpacing: 15),
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 onTap: () {
@@ -310,11 +314,12 @@ class _HomePageState extends State<HomePage> {
                       height: 10,
                     ),
                     Text(
-                      'Libraries',
+                      Categories[index],
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500,
                           fontSize: 15,
                           color: AppTheme.buttonColor),
+                   textAlign: TextAlign.center,
                     )
                   ],
                 ),
@@ -329,7 +334,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const Text(
                   'Trending Products',
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 Container(
                   padding: const EdgeInsets.all(2),
@@ -347,7 +352,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            height: 240,
+            height: size.height*.34,
             child: GridView.builder(
               itemCount: 2,
               padding: EdgeInsets.zero,
@@ -366,7 +371,7 @@ class _HomePageState extends State<HomePage> {
                       'assets/images/bag.png',
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     Text(
                       'Atrium Classic Backpack Accessory',
@@ -374,15 +379,15 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 8 ,
                     ),
                     Text(
                       '1 piece',
                       style: GoogleFonts.poppins(
-                          color: const Color(0xff858484), fontSize: 16),
+                          color: const Color(0xff858484), fontSize: 17),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 8,
                     ),
                     Text(
                       'KD 12.700',
@@ -395,13 +400,13 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
                   'Popular Products',
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 Container(
                   padding: const EdgeInsets.all(2),
@@ -418,11 +423,11 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            height: 280,
+            height: size.height*.34,
             child: GridView.builder(
               itemCount: 2,
               shrinkWrap: true,
@@ -440,7 +445,7 @@ class _HomePageState extends State<HomePage> {
                       'assets/images/notebook.png',
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 10,
                     ),
                     Text(
                       'Atrium Classic Backpack Accessory',
@@ -453,10 +458,10 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       '1 piece',
                       style: GoogleFonts.poppins(
-                          color: const Color(0xff858484), fontSize: 16),
+                          color: const Color(0xff858484), fontSize: 17),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 8,
                     ),
                     Text(
                       'KD 12.700',
@@ -468,6 +473,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
+          SizedBox(height: 20,),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child:
@@ -483,7 +489,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const Text(
                   'Shop By Author',
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
                 Container(
                   padding: const EdgeInsets.all(2),

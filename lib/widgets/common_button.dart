@@ -25,7 +25,7 @@ class CustomOutlineButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width,
-      height: 50,
+      height: 56,
       child: ElevatedButton(
 
         style: ElevatedButton.styleFrom(

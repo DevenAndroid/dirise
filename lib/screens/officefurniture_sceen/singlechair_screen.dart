@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../widgets/common_colour.dart';
+import '../categores/add_bag_screen.dart';
 
 class SingleChair extends StatefulWidget {
   const SingleChair({Key? key}) : super(key: key);
@@ -87,18 +90,19 @@ class _SingleChairState extends State<SingleChair> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 4,
                     gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                         SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 20,
-                            mainAxisExtent: 260),
+                            mainAxisExtent: size.height*.32),
                     itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
+                      return GestureDetector(
                         onTap: () {
                           singleChairBottomSheet();
                         },
                         child: Container(
                           decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           margin: const EdgeInsets.only(left: 5),
@@ -159,7 +163,7 @@ class _SingleChairState extends State<SingleChair> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: SizedBox(
               width: size.width,
-              height: size.height * .7,
+              height: size.height * .75,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -285,7 +289,7 @@ class _SingleChairState extends State<SingleChair> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 50,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -322,7 +326,10 @@ class _SingleChairState extends State<SingleChair> {
                         ],
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+
+                          Get.toNamed(AddBagScreen.addBagScreen);
+                        },
                         child: Container(
                           height: 36,
                           width: 140,

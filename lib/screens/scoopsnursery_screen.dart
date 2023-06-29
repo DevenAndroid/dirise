@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/common_colour.dart';
+import 'categores/add_bag_screen.dart';
 
-class ScoopsNursery extends StatefulWidget {
-  const ScoopsNursery({Key? key}) : super(key: key);
+class SchoolNursery extends StatefulWidget {
+  const SchoolNursery({Key? key}) : super(key: key);
 
   @override
-  State<ScoopsNursery> createState() => _ScoopsNurseryState();
+  State<SchoolNursery> createState() => _SchoolNurseryState();
 }
 
-class _ScoopsNurseryState extends State<ScoopsNursery> {
+class _SchoolNurseryState extends State<SchoolNursery> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(140),
           child: SafeArea(
@@ -190,108 +194,11 @@ class _ScoopsNurseryState extends State<ScoopsNursery> {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Divider(
-                  thickness: .5,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text('Courses',style: GoogleFonts.poppins(
-                    fontSize: 20,fontWeight: FontWeight.w500
-                ),),
-                const SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 6,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 20,
-                        mainAxisExtent: 80),
-                    itemBuilder: (BuildContext context, int index) {
-                      return InkWell(
-                        onTap: () {
-                          bottemSheet();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          margin: const EdgeInsets.only(left: 5),
-                          child: Container(decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.grey)
-                          ),
-                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                            children: [
-
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      ("EPG Tiny Tots"),
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      ("Duration: 6 month"),
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.grey.withOpacity(.7),
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      ("Cost   : 1200 KD"),
-                                      style: GoogleFonts.poppins(
-                                          color: const Color(0xff014E70),
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 35,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                color: Colors.red.withOpacity(.2)
-                              ),
-                                child: Image(
-                                  image: AssetImage('assets/icons/pngicon.png'),
-                                  height: 60,
-                                ),
-
-                              ),
 
 
 
-                            ],
-                          ),
-                          ),
 
-                        ),
-                      );
-                    },
-                  ),
-                ),
+
                 const SizedBox(
                   height: 15,
                 ),
@@ -384,7 +291,7 @@ class _ScoopsNurseryState extends State<ScoopsNursery> {
             padding: const EdgeInsets.all(15),
             child: SizedBox(
               width: size.width,
-              height: size.height * .7,
+              height: size.height * .65,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -397,7 +304,7 @@ class _ScoopsNurseryState extends State<ScoopsNursery> {
                         child: Image.asset(
                           height: size.height * .2,
                           width: size.width * .7,
-                          'assets/images/bag.png',
+                          'assets/images/schoolnursery.png',
                         ),
                       ),
                       const SizedBox(
@@ -498,79 +405,74 @@ class _ScoopsNurseryState extends State<ScoopsNursery> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                      SizedBox(height: 50,),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            height: 25,
-                            width: 25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(color: Colors.black),
-                                color: const Color(0xffEAEAEA)),
-                            child: const Center(
+                          Row(
+                            children: [
+                              Container(
+                                height: 35,
+                                width: 35,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color(0xffEAEAEA)),
+                                child: const Icon(Icons.remove),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                "1",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 20),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                height: 35,
+                                width: 35,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color(0xffEAEAEA)),
+                                child: const Icon(Icons.add),
+                              ),
+                            ],
+                          ),
+                          InkWell(
+                            onTap: () {
+
+                              Get.toNamed(AddBagScreen.addBagScreen);
+                            },
+                            child: Container(
+                              height: 36,
+                              width: 140,
+                              decoration: BoxDecoration(
+                                  color: const Color(0xff014E70),
+                                  borderRadius: BorderRadius.circular(22)),
+                              child: Center(
                                 child: Text(
-                              "━",
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w400),
-                            )),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "1",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 20),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            height: 25,
-                            width: 25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(color: Colors.black),
-                                color: const Color(0xffEAEAEA)),
-                            child: const Center(
-                                child: Text("＋",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black))),
-                          ),
+                                  "Add to Bag",
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white),
+
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xff014E70),
-                              borderRadius: BorderRadius.circular(22)),
-                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                          child: Text(
-                            "Add to Bag",
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          ),
-                        ),
-                      )
                     ],
                   ),
+
                 ],
               ),
             ),
           );
         });
   }
+
 }

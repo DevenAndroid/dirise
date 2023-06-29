@@ -25,12 +25,12 @@ class _NewPasswordState extends State<NewPassword> {
               ),
 
               const Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 50),
                 child: Image(
-                    height: 170, image: AssetImage('assets/images/diriselogo.png')),
+                    height: 80, image: AssetImage('assets/images/diriselogo.png')),
               ),
               SizedBox(
-                height: size.height * .03,
+                height: size.height * .08,
               ),
               CommonTextfield(obSecure: false, hintText: 'New Password'),
               SizedBox(
