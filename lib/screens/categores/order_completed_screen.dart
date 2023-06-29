@@ -35,7 +35,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
           Column(children: [
             Row(children: [
               Text("Order ",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18),),
-              Text(" (23 items)",style: GoogleFonts.poppins(color: Color(0xff858484)),),
+              Text(" (23 items)",style: GoogleFonts.poppins(color: const Color(0xff858484)),),
             ],),
 
             ListView.builder(
@@ -50,7 +50,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                       decoration:const BoxDecoration(
                         border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
                       ),
-                      padding: EdgeInsets.only(bottom: 20,top: 20),
+                      padding: const EdgeInsets.only(bottom: 20,top: 20),
                       child:
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -97,7 +97,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                           Text(
                             'KD 12.700',
                             style: GoogleFonts.poppins(
-                                fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                                fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                           ),
                         ],),);
 
@@ -115,7 +115,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
       },
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Container(decoration:  BoxDecoration(color: Color(0xff014E70),borderRadius: BorderRadius.circular(32)),
+          child: Container(decoration:  BoxDecoration(color: const Color(0xff014E70),borderRadius: BorderRadius.circular(32)),
             height: 55,
             alignment: Alignment.bottomCenter,
             child: Align(alignment:Alignment.center,child: Text("Home",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 19,color: Colors.white))),),

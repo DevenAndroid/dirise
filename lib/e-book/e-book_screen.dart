@@ -38,7 +38,7 @@ class _EBookScreenState extends State<EBookScreen> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
@@ -109,17 +109,16 @@ class _EBookScreenState extends State<EBookScreen> {
                   tt=int;
                   status=true;
 
-                  print(status);
-                  print("object");
+
                 },
                 tabs: [
                   Tab(
                     child: Container(
                       width: 80,
                       height: 35,
-                      decoration:  tt==int?  BoxDecoration(
+                      decoration:  tt==int?  const BoxDecoration(
                           color: AppTheme.buttonColor,
-                          borderRadius: BorderRadius.all(Radius.circular(20))):BoxDecoration(),
+                          borderRadius: BorderRadius.all(Radius.circular(20))):const BoxDecoration(),
                       child: Center(
                           child: Text(
                         'E Book',
@@ -128,7 +127,7 @@ class _EBookScreenState extends State<EBookScreen> {
                       ),
                     ),
                   ),
-                  Tab(
+                  const Tab(
                     text: 'Name',
                   )
                 ],
@@ -163,7 +162,7 @@ class _EBookScreenState extends State<EBookScreen> {
                             height: size.height * .2,
                             'assets/images/voicebook.png',
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(

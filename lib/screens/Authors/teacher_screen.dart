@@ -81,6 +81,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                                             (index) => Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
+
                                             Theme(data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
                                               child: CheckboxListTile(
                                                 controlAffinity:
@@ -101,6 +102,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                                                     color: Colors.black,
                                                     fontSize: 16,
                                                   ),
+
                                                 ),
                                               ),
                                             ),
@@ -186,7 +188,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                       },
                         child: Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),),
-                          margin: EdgeInsets.only(left: 5),
+                          margin: const EdgeInsets.only(left: 5),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -208,7 +210,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                               Text(
                                 '1457 Items',
                                 style: GoogleFonts.poppins(
-                                    fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                                    fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                               )
                             ],
                           ),

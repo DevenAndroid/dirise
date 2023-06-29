@@ -148,7 +148,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                   const SizedBox(height: 20,),
                                   Container(
                                     alignment: Alignment.center,
-                                    margin: EdgeInsets.only(bottom: 10),
+                                    margin: const EdgeInsets.only(bottom: 10),
                                     height: 47,
                                     width:MediaQuery.of(context).size.width *.87,
                                     decoration: BoxDecoration(
