@@ -18,6 +18,7 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
+  List categories=["Libraries","Author","Teacher","Office Furniture","Electronics"];
 
   @override
   Widget build(BuildContext context) {
@@ -59,47 +60,61 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             padding: const EdgeInsets.all(15.0),
             child:  Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10,),
             const Image(image: AssetImage('assets/images/storybooks.png')),
                 const SizedBox(height: 20,),
                 Text("What are you  looking for ... we back you !",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18),),
                 const SizedBox(height: 20,),
-          SizedBox(
+                 SizedBox(
             child: GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5,
+              itemCount: categories.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                mainAxisExtent: 90
+                mainAxisExtent: 80
               ),
               itemBuilder: (BuildContext context, int index){
                 return InkWell(onTap: (){
+                  if(index==0){
                     Get.toNamed(SingleCategories.singleCategoriesScreen);
+                  }else if(index==1){
+                    Get.toNamed(AuthorsScreen.authorsScreen);
+                  }else if(index==2){
+                    Get.toNamed(TeacherScreen.teacherScreen);
+                  }
+
                 },
                   child: Container(
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: const Color(0xffF0F0F0)),
+                    padding: const EdgeInsets.only(left: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(mainAxisAlignment:MainAxisAlignment.center,
-                          children: [
-                          Image.asset(
-                            'assets/images/book.png',
-                            height: 50,
-                          ),
-                          const SizedBox(
-                            width:10,
-                          ),
-                          Text(
-                            'Libraries',
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, fontWeight: FontWeight.w500),
-                          ),
-                        ],)
+                        Expanded(
+                          child: Row(mainAxisAlignment:MainAxisAlignment.center,
+                            children: [
+                            Image.asset(
+                              'assets/images/book.png',
+                              height: 50,
+                            ),
+                            const SizedBox(
+                              width:10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                categories[index],
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ],),
+                        )
 
                       ],
                     ),
@@ -109,8 +124,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ),
           ),
 
-                Align(alignment: Alignment.topLeft,
-                    child: Text("Other",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 22),)),
+                Text("Other",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 22),),
                 const SizedBox(height: 20,),
                 SizedBox(
                   child: GridView.builder(
@@ -121,7 +135,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
-                        mainAxisExtent: 90
+                        mainAxisExtent: 80
                     ),
                     itemBuilder: (BuildContext context, int index){
                       return InkWell(onTap: (){
