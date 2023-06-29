@@ -24,6 +24,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70),size: 20),
         onPressed: () => Navigator.of(context).pop(),
       ),
+        titleSpacing: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -49,9 +50,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   height: 60,
                   width: size.width,
                   alignment: Alignment.center,
-                  child: Text("Address ",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),),
+                  child: Text("Add Address ",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),),
               ),
-            ),
+            ),const SizedBox(height: 10,),
+            InkWell(onTap:(){bottomSheetChangeAddress();},child: Align(alignment:Alignment.topRight,child: Text("Change Address",style: GoogleFonts.poppins(fontSize: 14)))),
             const SizedBox(height: 30,),
             Text("Payment",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
             const SizedBox(height: 20,),
@@ -80,7 +82,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             const SizedBox(height: 30,),
             Text("Add delivery instructions :",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
             const SizedBox(height: 10,),
-            Text("Add delivery instructions to help us with the delivery",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: const Color(0xff949495))),
+            TextFormField(style: GoogleFonts.poppins(),decoration: InputDecoration.collapsed(hintText: "Add delivery instructions to help us with the delivery",hintStyle: GoogleFonts.poppins(color: const Color(0xff949495),fontSize: 14)),
+            ),
             const SizedBox(height: 30,),
             Text("Have a coupon code?",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
             const SizedBox(height: 10,),
@@ -88,12 +91,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               children: [
                 // Expanded(child: CommonTextfield(obSecure: false, hintText: 'Enter Code',)),
               Expanded(
-                child: TextFormField(style: GoogleFonts.poppins(),decoration: InputDecoration.collapsed(hintText: "Enter Conde",hintStyle: GoogleFonts.poppins(color: const Color(0xff949495))),
+                child: TextFormField(style: GoogleFonts.poppins(),decoration: InputDecoration.collapsed(hintText: "Enter Conde",hintStyle: GoogleFonts.poppins(color: const Color(0xff949495),fontSize: 14)),
                 ),
               ),
               const SizedBox(width: 20,),
               Container(decoration: BoxDecoration(color: const Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
-                padding: const EdgeInsets.fromLTRB(22,10,22,10),
+                padding: const EdgeInsets.fromLTRB(22,9,22,9),
                 child: Text("Apply",style: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: Colors.white),),)
             ],),
             const SizedBox(height: 30,),
@@ -110,16 +113,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 Text("Total",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
                 Text("KWD 21.00",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
               ],),
-
-
-
         ],),),
       ),
       bottomNavigationBar: InkWell(onTap: (){
         Get.toNamed(OrderCompleteScreen.orderCompleteScreen);
       },
         child: Container(decoration: const BoxDecoration(color: Color(0xff014E70)),
-        height: 55,
+        height: 56,
         alignment: Alignment.bottomCenter,
         child: Align(alignment:Alignment.center,child: Text("Complete Payment",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 19,color: Colors.white))),),
       ),
@@ -234,6 +234,83 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       padding: const EdgeInsets.only(top: 8,bottom: 15),
                       child: CommonTextfield(obSecure: false, hintText: 'Enter Contact Number ',),
                     ),
+
+
+
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+  Future bottomSheetChangeAddress(){
+    Size size = MediaQuery.of(context).size;
+    return showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.white,
+        builder: (context) {
+          return  Padding(
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+              width: size.width,
+              height: size.height*.8,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                   InkWell(onTap: (){
+                     bottemSheet();
+                   },
+                     child: Container(height: 60,
+                       width: size.width,
+                       alignment: Alignment.center,
+                       margin: EdgeInsets.only(top: 20),
+                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: Color(0xffDCDCDC))),
+                     child:Text(
+                       '+ Add  Address',
+                       style:
+                       GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 16,color:const Color(0xff585858)),
+                     ),),
+                   ),
+                    Container(
+                      width: size.width,
+                      margin: EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(color: Color(0xffDCDCDC))),
+                      child:Row(crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.location_on_rounded),
+                          SizedBox(width: 10,),
+                          Expanded(
+                            child: Row(crossAxisAlignment: CrossAxisAlignment.end,mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                              Text(
+                                'Home \nKifan \nBlock 3 \nStreet 33 \nHouse No. 1',
+                                style:
+                                GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 16,color:const Color(0xff585858)),
+                              ),
+                                InkWell(onTap: (){
+                                  bottemSheet();
+                                },
+                                  child: Text(
+                                    'Edit',
+                                    style: GoogleFonts.poppins(
+                                      shadows: [
+                                        const Shadow(
+                                            color: Color(0xff014E70),
+                                            offset: Offset(0, -4))
+                                      ],
+                                      color: Colors.transparent,
+                                      fontSize: 16, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,decorationColor: Color(0xff014E70)),
+                                  ),
+                                )
+                            ],),
+                          )
+
+                        ],
+                      ),)
 
 
 

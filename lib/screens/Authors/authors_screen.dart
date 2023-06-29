@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../widgets/common_app_bar.dart';
+
 class AuthorsScreen extends StatefulWidget {
   const AuthorsScreen({super.key});
   static var authorsScreen = "/authorsScreen";
@@ -20,34 +22,14 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(backgroundColor: Colors.white,
-      appBar:AppBar(backgroundColor: Colors.white,surfaceTintColor: Colors.white, elevation: 0,leading: IconButton(
-      icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70),size: 20),
-      onPressed: () => Navigator.of(context).pop(),
-    ),title: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text("Authors",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 22),),
-        Container(
-          alignment: Alignment.center,
-          height: 40,
-          width: 60,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: const Color(0xff014E70)
-          ),
-          child:  Row(mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset("assets/images/bag1.svg"),
-              const SizedBox(width: 4,),
-              const Text(("0"),style: TextStyle(color: Colors.white,fontSize: 22),)
-            ],),
-        ),
-      ],
-    ),),
+      appBar:const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child:CommonAppBar(titleText: 'Authors',) ,
+      ),
       body:  SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.fromLTRB(15,5,15,15.0),
             child:  Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +130,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                         });
                   },
                   child: Container(
-                    height: 40,
+                    height: 35,
                     padding: const EdgeInsets.fromLTRB(10,0,10,0),
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -165,7 +147,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                             GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                           ),
                         ),
-                        const Icon(Icons.keyboard_arrow_down_outlined)
+                        const Icon(Icons.keyboard_arrow_down_outlined,color:Color(0xff014E70) ,)
                       ],
                     ),
                   ),
@@ -176,11 +158,12 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 5,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 20,
-                        mainAxisExtent: 220
+                        childAspectRatio: MediaQuery.of(context).size.width /
+                            (MediaQuery.of(context).size.height / 1.6)
                     ),
                     itemBuilder: (BuildContext context, int index){
                       return InkWell(onTap: (){
