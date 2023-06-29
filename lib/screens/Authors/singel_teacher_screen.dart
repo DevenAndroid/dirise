@@ -107,7 +107,8 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 20,
-                        mainAxisExtent: size.height*.32
+                        childAspectRatio: MediaQuery.of(context).size.width /
+                            (MediaQuery.of(context).size.height / 1.3)
                     ),
                     itemBuilder: (BuildContext context, int index){
                       return InkWell(onTap: (){
@@ -279,22 +280,22 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                     ],),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(children: [
-                        Container(height: 25,width:25,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black),color: const Color(0xffEAEAEA)),
-                          child: const Center(child: Text("━",style: TextStyle(fontSize:15,fontWeight: FontWeight.w400),)),),
-                        const SizedBox(width: 10,),
-                        const Text("1",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
-                        const SizedBox(width: 10,),
-                        Container(height: 25,width: 25,decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black),color: const Color(0xffEAEAEA)),
-                          child: const Center(child: Text("＋",style: TextStyle(fontSize:15,fontWeight: FontWeight.w600,color: Colors.black))),),
+                      const Row(children: [
+                        CircleAvatar(radius: 18,backgroundColor:Color(0xffEAEAEA),
+                          child:Center(child: Text("━",style: TextStyle(fontSize:16,fontWeight: FontWeight.w500,color: Colors.black),)) ,),
+                        SizedBox(width: 10,),
+                        Text("1",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
+                        SizedBox(width: 10,),
+                        CircleAvatar(radius: 18,backgroundColor:Color(0xffEAEAEA),
+                          child:Center(child: Text("+",style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: Colors.black),)) ,),
+
                       ],),
                       InkWell(onTap: (){
                         Get.toNamed(AddBagScreen.addBagScreen);
                       },
 
                         child: Container(decoration: BoxDecoration(color: const Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
-                          padding: const EdgeInsets.fromLTRB(20,10,20,10),
+                          padding: const EdgeInsets.fromLTRB(20,9,20,9),
 
                           child: Text("Add to Bag",style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.white),),),
                       )

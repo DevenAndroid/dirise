@@ -24,7 +24,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
       appBar:AppBar(backgroundColor: Colors.white,surfaceTintColor: Colors.white, elevation: 0,leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70),size: 20),
         onPressed: () => Navigator.of(context).pop(),
-      ),
+      ),titleSpacing: 0,
         title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -73,14 +73,14 @@ class _AddBagScreenState extends State<AddBagScreen> {
                             'assets/images/bag.png',
 
                           ),
-                          Column(children: [
+                          Column(crossAxisAlignment:CrossAxisAlignment.start,children: [
                             Text(
                               '50% off',
                               style: GoogleFonts.poppins(
-                                  fontSize: 14, fontWeight: FontWeight.w500,color: Colors.red),
+                                  fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xffC22E2E)),
                             ),
                             const SizedBox(
-                              height: 5,
+                              height:4,
                             ),
                             Text(
                               'Ecstasy 165 days ',
@@ -88,7 +88,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
                               GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 14),
                             ),
                             const SizedBox(
-                              height: 5,
+                              height: 4,
                             ),
 
                             Text(
@@ -97,7 +97,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
                               GoogleFonts.poppins(color: const Color(0xff858484)),
                             ),
                             const SizedBox(
-                              height: 5,
+                              height: 4,
                             ),
                           ],),
                         ],),

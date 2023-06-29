@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
+import '../../widgets/common_app_bar.dart';
 import 'general_library.dart';
 
 class SingleCategories extends StatefulWidget {
@@ -25,34 +26,14 @@ class _SingleCategoriesState extends State<SingleCategories> {
     CheckBoxListTileModel.getList();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:AppBar(backgroundColor: Colors.white,surfaceTintColor: Colors.white, elevation: 0,leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70),size: 20),
-        onPressed: () => Navigator.of(context).pop(),
-      ),title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Libraries",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 22),),
-          Container(
-            alignment: Alignment.center,
-            height: 40,
-            width: 60,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color(0xff014E70)
-            ),
-            child:  Row(mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset("assets/images/bag1.svg"),
-                const SizedBox(width: 4,),
-                const Text(("0"),style: TextStyle(color: Colors.white,fontSize: 22),)
-              ],),
-          ),
-        ],
-      ),),
+      appBar:const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child:CommonAppBar(titleText: 'Libraries',) ,
+      ),
       body: SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.fromLTRB(15,1,15,15),
           child:  Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,7 +165,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                           GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                         ),
                       ),
-                      const Icon(Icons.keyboard_arrow_down_outlined)
+                      const Icon(Icons.keyboard_arrow_down_outlined,color:Color(0xff014E70))
                     ],
                   ),
                 ),
