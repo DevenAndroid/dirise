@@ -79,7 +79,7 @@ class MyRouters {
     GetPage(name: '/eBookScreen', page: () =>  const EBookScreen()),
     GetPage(name: '/singleChair', page: () =>  const SingleChair()),
     GetPage(name: '/eBooKKScreen', page: () =>  const EBook()),
-    GetPage(name: '/scoopsNursery', page: () =>  const ScoopsNursery()),
+    GetPage(name: '/scoopsNursery', page: () =>  const SchoolNursery()),
     GetPage(name: '/officeFurnitureScreen', page: () =>  const OfficeFurniture()),
     GetPage(
         name: CategoriesScreen.categoriesScreen,

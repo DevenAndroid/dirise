@@ -57,7 +57,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: 60,
+    return SizedBox(height: 65,
       child: TextFormField(
           style: const TextStyle(),
           autofocus: false,

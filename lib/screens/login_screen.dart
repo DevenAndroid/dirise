@@ -29,8 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 100),
-                child: Image(height: 70,
-                  image: AssetImage('assets/images/diriselogo.png',)),
+                child: Image(
+                    height: 70,
+                    image: AssetImage(
+                      'assets/images/diriselogo.png',
+                    )),
               ),
               SizedBox(
                 height: size.height * .1,
@@ -45,9 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               CustomOutlineButton(
                 title: "Sign In",
-
-                onPressed: (){
- Get.toNamed(MyRouters.bottomNavBar);
+                onPressed: () {
+                  Get.toNamed(MyRouters.bottomNavBar);
                 },
               ),
               SizedBox(
@@ -62,7 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Text(
                       'Forget Password?',
-                      style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500),
+                      style: GoogleFonts.poppins(
+                          fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
                   InkWell(
@@ -71,7 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: Text(
                       'Sign Up',
-                      style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500),
+                      style: GoogleFonts.poppins(
+                          fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ],
@@ -92,9 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         )),
                   ),
                   InkWell(
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                     child: Text(
                       'Or Sign in with',
                       style: GoogleFonts.poppins(color: AppTheme.buttonColor),
@@ -121,8 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   InkWell(
                     onTap: () {},
                     child: Container(
-                      height: 58,
-                      width: 58,
+                      height: 62,
+                      width: 62,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.black,
@@ -141,11 +143,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InkWell(
                     child: Container(
-                      height: 58,
-                      width: 58,
+                      height: 62,
+                      width: 62,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: const Color(0xffCACACA))),
+                          border: Border.all(
+                              color: const Color(0xffCACACA), width: 2)),
                       child: Center(
                         child: Image.asset(
                           'assets/icons/google.png',
@@ -159,8 +162,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InkWell(
                     child: Container(
-                      height: 58,
-                      width: 58,
+                      height: 62,
+                      width: 62,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: const Color(0xff0B60A8)),

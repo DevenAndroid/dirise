@@ -21,6 +21,7 @@ class _EbookAccountState extends State<EbookAccount> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(130),
         child: Container(
@@ -59,13 +60,14 @@ class _EbookAccountState extends State<EbookAccount> {
         ),
       ),
       body: SingleChildScrollView(
+
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Column(children: [
             const SizedBox(
               height: 20,
             ),
-            InkWell(
+            GestureDetector(
               onTap: () {
                 Get.toNamed(MyRouters.profileScreen);
               },
@@ -100,7 +102,7 @@ class _EbookAccountState extends State<EbookAccount> {
             const SizedBox(
               height: 5,
             ),
-            InkWell(
+            GestureDetector(
 onTap: (){
   Get.toNamed(MyRouters.eBooKKScreen);
 },
@@ -167,7 +169,7 @@ onTap: (){
             const SizedBox(
               height: 5,
             ),
-            InkWell(onTap: (){
+            GestureDetector(onTap: (){
               Get.toNamed(MyRouters.calendarScreen);
             },
               child: Row(
@@ -201,7 +203,7 @@ onTap: (){
             const SizedBox(
               height: 5,
             ),
-            InkWell(
+            GestureDetector(
               onTap: (){
 
                   Get.toNamed(MyRouters.faqsScreen);
@@ -238,7 +240,7 @@ onTap: (){
             const SizedBox(
               height: 5,
             ),
-            InkWell(
+            GestureDetector(
               onTap: () {
                 showModalBottomSheet<void>(
                     context: context,
@@ -257,7 +259,7 @@ onTap: (){
                             children: <Widget>[
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
+                                    const EdgeInsets.only(left: 20, right: 20,top: 20),
                                 child: Container(
                                     decoration: BoxDecoration(
                                         border: Border.all(
@@ -398,7 +400,7 @@ onTap: (){
             const SizedBox(
               height: 5,
             ),
-            InkWell(
+            GestureDetector(
               onTap: (){
                 Get.toNamed(MyRouters.termsConditionScreen);
               },
@@ -436,7 +438,7 @@ onTap: (){
             const SizedBox(
               height: 5,
             ),
-            InkWell(
+            GestureDetector(
               onTap: (){
 
               },

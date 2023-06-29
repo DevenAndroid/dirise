@@ -35,7 +35,7 @@ class _ProfileState extends State<Profile> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
           child: Column(
             children: [
               Image.asset(
@@ -193,7 +193,7 @@ color: Color(0xffEFEFEF),
                 color: Color(0xffEFEFEF),
               ),
               SizedBox(
-                height: size.height*.06,
+                height: size.height*.09,
               ),
               SizedBox(
                 width: double.infinity,

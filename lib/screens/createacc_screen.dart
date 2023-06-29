@@ -67,15 +67,15 @@ class _CreateAccState extends State<CreateAcc> {
                 height: size.height * .01,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 53,
+                    height: 56,
                     child: Expanded(
                       flex: 2,
                       child: Container(
-                        width: 80,
+
                         decoration: BoxDecoration(
                             border: Border.all(color: AppTheme.secondaryColor),
                             borderRadius: BorderRadius.circular(8)),
@@ -92,8 +92,10 @@ class _CreateAccState extends State<CreateAcc> {
                       ),
                     ),
                   ),
+                  SizedBox(width: 15,),
+
                   Flexible(
-                      flex: 2,
+                      flex: 3,
                       child: CommonTextfield(
                           obSecure: false, hintText: '987-654-3210')),
                 ],
