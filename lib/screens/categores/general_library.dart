@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'add_bag_screen.dart';
 
 class GeneralLibrary extends StatefulWidget {
@@ -101,24 +100,26 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                             (index) => Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            CheckboxListTile(
-                                              controlAffinity:
-                                              ListTileControlAffinity.leading,
-                                              dense: true,
-                                              visualDensity: VisualDensity.compact,
-                                              activeColor: const Color(0xff014E70),
-                                              value: status.value,
-                                              onChanged: ( value) {
-                                                setState(() {
-                                                  status.value=value!;
-                                                });
-                                              },
-                                              title: Text(
-                                                data[index],
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.black,
-                                                  fontSize: 16,
+                                            Theme(data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
+                                              child: CheckboxListTile(
+                                                controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                                dense: true,
+                                                visualDensity: VisualDensity.compact,
+                                                activeColor: const Color(0xff014E70),
+                                                value: status.value,
+                                                onChanged: ( value) {
+                                                  setState(() {
+                                                    status.value=value!;
+                                                  });
+                                                },
+                                                title: Text(
+                                                  data[index],
+                                                  style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -149,7 +150,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                       margin: EdgeInsets.only(bottom: 10),
                                       width:MediaQuery.of(context).size.width *.87,
                                       decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey)
+                                          border: Border.all(color: Color(0xff014E70))
                                       ),
                                       child: Text(
                                         "Clear All",
@@ -196,7 +197,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 20,
-                        mainAxisExtent: 240
+                        mainAxisExtent: 250
                     ),
                     itemBuilder: (BuildContext context, int index){
                       return InkWell(onTap: (){
@@ -219,7 +220,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                               Text(
                                 '50% off',
                                 style: GoogleFonts.poppins(
-                                    fontSize: 14, fontWeight: FontWeight.w500,color: Colors.red),
+                                    fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xffC22E2E)),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -227,7 +228,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                               Text(
                                 'Ecstasy 165 days ',
                                 style:
-                                GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 14),
+                                GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 16),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -236,7 +237,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                               Text(
                                 '1 piece',
                                 style:
-                                GoogleFonts.poppins(color: const Color(0xff858484)),
+                                GoogleFonts.poppins(color: const Color(0xff858484),fontSize: 16),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -245,7 +246,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                               Text(
                                 'KD 12.700',
                                 style: GoogleFonts.poppins(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
+                                    fontSize: 16, fontWeight: FontWeight.w500),
                               )
                             ],
                           ),

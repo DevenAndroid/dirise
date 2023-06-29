@@ -81,24 +81,26 @@ class _TeacherScreenState extends State<TeacherScreen> {
                                             (index) => Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            CheckboxListTile(
-                                              controlAffinity:
-                                              ListTileControlAffinity.leading,
-                                              dense: true,
-                                              visualDensity: VisualDensity.compact,
-                                              activeColor: Color(0xff014E70),
-                                              value: status.value,
-                                              onChanged: ( value) {
-                                                setState(() {
-                                                  status.value=value!;
-                                                });
-                                              },
-                                              title: Text(
-                                                data[index],
-                                                style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.black,
-                                                  fontSize: 16,
+                                            Theme(data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
+                                              child: CheckboxListTile(
+                                                controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                                dense: true,
+                                                visualDensity: VisualDensity.compact,
+                                                activeColor: Color(0xff014E70),
+                                                value: status.value,
+                                                onChanged: ( value) {
+                                                  setState(() {
+                                                    status.value=value!;
+                                                  });
+                                                },
+                                                title: Text(
+                                                  data[index],
+                                                  style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -129,12 +131,12 @@ class _TeacherScreenState extends State<TeacherScreen> {
                                       margin: const EdgeInsets.only(bottom: 10),
                                       width:MediaQuery.of(context).size.width *.87,
                                       decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey)
+                                          border: Border.all(color:const Color(0xff014E70))
                                       ),
                                       child: Text(
                                         "Clear All",
                                         style:
-                                        GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                                        GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                                       ),),
                                   ],
                                 ),
