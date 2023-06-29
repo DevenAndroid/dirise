@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 import 'Authors/authors_screen.dart';
 import 'Authors/teacher_screen.dart';
 import 'categores/single_categorie.dart';
@@ -45,9 +46,11 @@ class _HomePageState extends State<HomePage> {
                               style: GoogleFonts.poppins(fontSize: 18),
                             ),
                           ),
+
                           const Padding(
                             padding: EdgeInsets.only(left: 8.0),
                             child: CountryCodePicker(
+
 
                               padding: EdgeInsets.zero,
                               onChanged: print,

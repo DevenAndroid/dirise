@@ -16,11 +16,13 @@ class SingleCategories extends StatefulWidget {
 }
 
 class _SingleCategoriesState extends State<SingleCategories> {
+
   @override
   Widget build(BuildContext context) {
     List data= ["General Bookstore","Commercial Bookstore","Speciality Bookstore","Dasman Complex"];
     RxBool? status=false.obs;
-
+    List<CheckBoxListTileModel> data1 =
+    CheckBoxListTileModel.getList();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar:AppBar(backgroundColor: Colors.white,surfaceTintColor: Colors.white, elevation: 0,leading: IconButton(
@@ -80,28 +82,45 @@ class _SingleCategoriesState extends State<SingleCategories> {
                               Obx(() {return
                                 Column(
                                   children: List.generate(
-                                      data.length,
+                                      data1.length,
                                           (index) => Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          CheckboxListTile(
-                                            controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                            dense: true,
-                                            visualDensity:VisualDensity.compact,
-                                            activeColor: const Color(0xff014E70),
-                                            value: status.value,
-                                            onChanged: ( value) {
-                                              setState(() {
-                                                status.value=value!;
-                                              });
-                                            },
-                                            title: Text(
-                                              data[index],
-                                              style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black,
-                                                fontSize: 16,
+                                          Theme(
+                                            data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
+                                            child: CheckboxListTile(
+                                              controlAffinity:
+                                              ListTileControlAffinity.leading,
+                                              dense: true,
+                                              visualDensity:VisualDensity.compact,
+                                              activeColor: const Color(0xff014E70),
+
+                                              value: data1[index].isCheck!.value,
+                                              onChanged: ( value) {
+                                                setState(() {
+                                                  data1[index].isCheck!.value=value!;
+                                                });
+                                              },
+                                              title: Row(
+                                                children: [
+                                                  Text(
+                                                    data1[index].title.toString(),
+                                                    style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      color: Colors.black,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10,),
+                                                  Text(
+                                                    data1[index].number.toString(),
+                                                    style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(0xffADADAD),
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),
@@ -110,8 +129,6 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                   ),
                                 );}),
                             ],),
-
-
                             Align(alignment: Alignment.bottomCenter,
 
                               child: Column(
@@ -135,7 +152,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                     height: 47,
                                     width:MediaQuery.of(context).size.width *.87,
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey)
+                                      border: Border.all(color: Color(0xff014E70))
                                     ),
                                     child: Text(
                                       "Clear All",
@@ -145,8 +162,6 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                 ],
                               ),
                             ),
-
-
                           ],
                         );
                       });
@@ -217,5 +232,43 @@ class _SingleCategoriesState extends State<SingleCategories> {
 
       ),
     ),);
+  }
+}
+
+
+
+class CheckBoxListTileModel {
+  String title;
+  dynamic number;
+  RxBool? isCheck;
+
+  CheckBoxListTileModel({
+    required this.title,
+    required this.number,
+    required this.isCheck,
+  });
+  static List<CheckBoxListTileModel> getList() {
+    return <CheckBoxListTileModel>[
+      CheckBoxListTileModel(
+        title: "General Bookstore",
+        number: "1",
+        isCheck: true.obs,
+      ),
+      CheckBoxListTileModel(
+        title: "Commercial Bookstore",
+        number: "4",
+        isCheck: false.obs,
+      ),
+      CheckBoxListTileModel(
+        title: "Speciality Bookstore",
+        number: "6",
+        isCheck: false.obs,
+      ),
+      CheckBoxListTileModel(
+        title: "Dasman Complex",
+        number: "3",
+        isCheck: false.obs,
+      ),
+    ];
   }
 }
