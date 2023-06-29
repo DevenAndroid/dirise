@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'Authors/authors_screen.dart';
+import 'Authors/teacher_screen.dart';
+import 'categores/single_categorie.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -41,9 +45,9 @@ class _HomePageState extends State<HomePage> {
                               style: GoogleFonts.poppins(fontSize: 18),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: const CountryCodePicker(
+                          const Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: CountryCodePicker(
 
                               padding: EdgeInsets.zero,
                               onChanged: print,
@@ -269,6 +273,19 @@ class _HomePageState extends State<HomePage> {
                   if (index == 3) {
                     Get.toNamed(MyRouters.officeFurnitureScreen);
                   }
+                  else if(index == 0){
+                    Get.toNamed(SingleCategories.singleCategoriesScreen);
+                  }
+                  else if(index == 1){
+                    Get.toNamed(AuthorsScreen.authorsScreen);
+                  }
+                  else if(index == 2){
+                    Get.toNamed(TeacherScreen.teacherScreen);
+                  }
+                  else if(index == 4){
+                    Get.toNamed(MyRouters.scoopsNursery);
+                  }
+
                 },
                 child: Column(
                   children: [

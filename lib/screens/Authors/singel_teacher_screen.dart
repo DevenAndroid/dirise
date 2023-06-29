@@ -82,14 +82,14 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                     child: Row(children: [
                       Text(("@"),style: GoogleFonts.poppins(color: Colors.black,fontSize: 24,fontWeight: FontWeight.w500),),
                       const SizedBox(width: 3,),
-                      Text(("tarachandk786@gmail.com"),style: GoogleFonts.poppins(color: Color(0xff7D7D7D),fontSize: 14,fontWeight: FontWeight.w500),),
+                      Text(("tarachandk786@gmail.com"),style: GoogleFonts.poppins(color: const Color(0xff7D7D7D),fontSize: 14,fontWeight: FontWeight.w500),),
 
                     ],),
                   ),
                   Row(children: [
                    const Icon(Icons.phone,size: 20,),
                     const SizedBox(width: 3,),
-                    Text(("7689042546"),style: GoogleFonts.poppins(color: Color(0xff7D7D7D),fontSize: 14,fontWeight: FontWeight.w500),),
+                    Text(("7689042546"),style: GoogleFonts.poppins(color: const Color(0xff7D7D7D),fontSize: 14,fontWeight: FontWeight.w500),),
 
                   ],)
                 ],),
@@ -103,11 +103,11 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 5,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 20,
-                        mainAxisExtent: 240
+                        mainAxisExtent: size.height*.32
                     ),
                     itemBuilder: (BuildContext context, int index){
                       return InkWell(onTap: (){
@@ -205,7 +205,7 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                         '50% off',
                         style: GoogleFonts.poppins(
 
-                            fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xffC22E2E)),
+                            fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
                       ),
                       const SizedBox(
                         height: 5,
@@ -233,13 +233,13 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                           Text(
                             'KD 12.700',
                             style: GoogleFonts.poppins(
-                                fontSize: 16, fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                                fontSize: 16, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                           ),
                           const SizedBox(width: 15,),
                           Text(
                             'KD 12.700',
                             style: GoogleFonts.poppins(decoration: TextDecoration.lineThrough,
-                                fontSize: 16, fontWeight: FontWeight.w500,color: Color(0xff858484)),
+                                fontSize: 16, fontWeight: FontWeight.w500,color: const Color(0xff858484)),
                           ),
                         ],),
 
@@ -281,19 +281,19 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                     children: [
                       Row(children: [
                         Container(height: 25,width:25,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black),color: Color(0xffEAEAEA)),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black),color: const Color(0xffEAEAEA)),
                           child: const Center(child: Text("━",style: TextStyle(fontSize:15,fontWeight: FontWeight.w400),)),),
                         const SizedBox(width: 10,),
                         const Text("1",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
                         const SizedBox(width: 10,),
-                        Container(height: 25,width: 25,decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black),color: Color(0xffEAEAEA)),
+                        Container(height: 25,width: 25,decoration: BoxDecoration(borderRadius: BorderRadius.circular(100),border: Border.all(color: Colors.black),color: const Color(0xffEAEAEA)),
                           child: const Center(child: Text("＋",style: TextStyle(fontSize:15,fontWeight: FontWeight.w600,color: Colors.black))),),
                       ],),
                       InkWell(onTap: (){
                         Get.toNamed(AddBagScreen.addBagScreen);
                       },
 
-                        child: Container(decoration: BoxDecoration(color: Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
+                        child: Container(decoration: BoxDecoration(color: const Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
                           padding: const EdgeInsets.fromLTRB(20,10,20,10),
 
                           child: Text("Add to Bag",style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.white),),),

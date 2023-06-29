@@ -1,6 +1,8 @@
 // Copyright 2019 Aleksander Woźniak
 // SPDX-License-Identifier: Apache-2.0
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -117,7 +119,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
             rangeSelectionMode: _rangeSelectionMode,
             eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
-            calendarStyle: CalendarStyle(
+            calendarStyle: const CalendarStyle(
 
               // Use `CalendarStyle` to customize the UI
               outsideDaysVisible: false,
@@ -149,11 +151,11 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                         vertical: 4.0,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xffDCDCDC)),
+                        border: Border.all(color: const Color(0xffDCDCDC)),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: ListTile(
-                        onTap: () => print('${value[index]}'),
+                        onTap: () => log('${value[index]}'),
                         title: Text('${value[index]}'),
                       ),
                     );

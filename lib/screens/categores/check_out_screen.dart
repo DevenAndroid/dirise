@@ -33,7 +33,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         ),),
 
       body: SingleChildScrollView(
-        child: Padding(padding: EdgeInsets.fromLTRB(18,10,18,18),
+        child: Padding(padding: const EdgeInsets.fromLTRB(18,10,18,18),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start
           ,children: [
           Text("Deliver to ",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
@@ -42,9 +42,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               bottemSheet();
             },
               child: DottedBorder(
-                color: Color(0xff014E70),
+                color: const Color(0xff014E70),
                 strokeWidth: 1.2,
-                dashPattern: [6,3,0,3],
+                dashPattern: const [6,3,0,3],
                 child:Container(
                   height: 60,
                   width: size.width,
@@ -57,7 +57,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             const SizedBox(height: 20,),
             Row(children: [
               Container(width: size.width*.3,
-                decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+                decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
                 alignment: Alignment.center,
                 child: Column(children: [
                         Image.asset("assets/images/knet.png",width: 50,height: 55,)
@@ -66,7 +66,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               const SizedBox(width: 15,),
               Container(width: size.width*.3,
                          height: 57,
-                decoration: BoxDecoration(border: Border.all(color: Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
+                decoration: BoxDecoration(border: Border.all(color: const Color(0xffAFB1B1)),borderRadius: BorderRadius.circular(12)),
                 alignment: Alignment.center,
                 child: Column(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -80,7 +80,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             const SizedBox(height: 30,),
             Text("Add delivery instructions :",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
             const SizedBox(height: 10,),
-            Text("Add delivery instructions to help us with the delivery",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: Color(0xff949495))),
+            Text("Add delivery instructions to help us with the delivery",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: const Color(0xff949495))),
             const SizedBox(height: 30,),
             Text("Have a coupon code?",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18)),
             const SizedBox(height: 10,),
@@ -88,7 +88,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               children: [
                 // Expanded(child: CommonTextfield(obSecure: false, hintText: 'Enter Code',)),
               Expanded(
-                child: TextFormField(style: GoogleFonts.poppins(),decoration: InputDecoration.collapsed(hintText: "Enter Conde",hintStyle: GoogleFonts.poppins(color: Color(0xff949495))),
+                child: TextFormField(style: GoogleFonts.poppins(),decoration: InputDecoration.collapsed(hintText: "Enter Conde",hintStyle: GoogleFonts.poppins(color: const Color(0xff949495))),
                 ),
               ),
               const SizedBox(width: 20,),
@@ -101,8 +101,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             const SizedBox(height: 10,),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Subtotal (4 items)",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: Color(0xff949495))),
-                Text("KWD 21.00",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: Color(0xff949495))),
+                Text("Subtotal (4 items)",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: const Color(0xff949495))),
+                Text("KWD 21.00",style: GoogleFonts.poppins(fontWeight: FontWeight.w400,color: const Color(0xff949495))),
               ],),
             const SizedBox(height: 10,),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,

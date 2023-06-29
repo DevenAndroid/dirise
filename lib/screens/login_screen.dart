@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      print("Sign In");
+
                     },
                     child: Text(
                       'Or Sign in with',

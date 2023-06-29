@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
-import '../widgets/common_colour.dart';
+
 
 class TermCondition extends StatefulWidget {
   const TermCondition({Key? key}) : super(key: key);
@@ -58,27 +58,27 @@ class _TermConditionState extends State<TermCondition> {
                       style: GoogleFonts.poppins(
                           height: 1.7,
                           fontSize: 12.5,
-                          color: Color(0xff3B484A)),
+                          color: const Color(0xff3B484A)),
                     ),
                     TextSpan(
                       text: '(',
                       style: GoogleFonts.poppins(
-                          fontSize: 12.5, color: Color(0xff3B484A)),
+                          fontSize: 12.5, color: const Color(0xff3B484A)),
                     ),
                     TextSpan(
                         text: 'essentially',
                         style: GoogleFonts.poppins(
-                            color: Color(0xff51A8E8), fontSize: 12.5)),
+                            color: const Color(0xff51A8E8), fontSize: 12.5)),
                     TextSpan(
                       text: ')',
                       style: GoogleFonts.poppins(
-                          fontSize: 12.5, color: Color(0xff3B484A)),
+                          fontSize: 12.5, color: const Color(0xff3B484A)),
                     ),
                     TextSpan(
                         text: '...',
                         style: GoogleFonts.poppins(
                           fontSize: 12.5,
-                          color: Color(0xff3B484A),
+                          color: const Color(0xff3B484A),
                         ))
                   ],
                 ),

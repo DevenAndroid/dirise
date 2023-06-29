@@ -10,6 +10,7 @@ import 'package:dirise/screens/newpasswordscreen.dart';
 import 'package:dirise/screens/officefurniture_sceen/singlechair_screen.dart';
 import 'package:dirise/screens/otp_screen.dart';
 import 'package:dirise/screens/profile_screen.dart';
+import 'package:dirise/screens/scoopsnursery_screen.dart';
 import 'package:dirise/screens/termsconditions_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:get/get.dart';
@@ -57,6 +58,7 @@ class MyRouters {
   static var officeFurnitureScreen = "/officeFurnitureScreen";
   static var singleChair = "/singleChair";
   static var eBooKKScreen = "/eBooKKScreen";
+  static var scoopsNursery = "/scoopsNursery";
 
 
   static var route = [
@@ -77,6 +79,7 @@ class MyRouters {
     GetPage(name: '/eBookScreen', page: () =>  const EBookScreen()),
     GetPage(name: '/singleChair', page: () =>  const SingleChair()),
     GetPage(name: '/eBooKKScreen', page: () =>  const EBook()),
+    GetPage(name: '/scoopsNursery', page: () =>  const ScoopsNursery()),
     GetPage(name: '/officeFurnitureScreen', page: () =>  const OfficeFurniture()),
     GetPage(
         name: CategoriesScreen.categoriesScreen,

@@ -1,5 +1,5 @@
 import 'package:dirise/routers/my_routers.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,7 +37,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                   fontSize: 19),
             ),
             Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               alignment: Alignment.center,
               height: 42,
               width: 70,
@@ -80,7 +80,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                 child: Image.asset('assets/images/officebannerimage.png'),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Padding(
@@ -88,7 +88,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
               child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: Color(0xffF5F5F5)),
+                      color: const Color(0xffF5F5F5)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -97,7 +97,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                         child: Text(
                           "Chairs",
                           style: GoogleFonts.poppins(
-                              color: Color(0xff131313),
+                              color: const Color(0xff131313),
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),
@@ -109,7 +109,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                     ],
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
@@ -118,14 +118,14 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                 height: 70,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Color(0xffF5F5F5)),
+                    color: const Color(0xffF5F5F5)),
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Image.asset('assets/images/taskchair.png'),
-                    SizedBox(
+                    const SizedBox(
                       width: 35,
                     ),
                     Text(
@@ -135,20 +135,20 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                           fontSize: 18,
                           fontWeight: FontWeight.w600),
                     ),
-                    Spacer(),
-                    Icon(
+                    const Spacer(),
+                    const Icon(
                       Icons.arrow_forward_ios,
                       size: 22,
                       color: Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
@@ -157,14 +157,14 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                 height: 70,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(21),
-                    color: Color(0xffF5F5F5)),
+                    color: const Color(0xffF5F5F5)),
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Image.asset('assets/images/gameingchair.png'),
-                    SizedBox(
+                    const SizedBox(
                       width: 45,
                     ),
                     Text(
@@ -174,24 +174,24 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                           fontSize: 18,
                           fontWeight: FontWeight.w600),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     InkWell(onTap: (){
                        Get.toNamed(MyRouters.singleChair);
                     },
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_forward_ios,
                         size: 22,
                         color: Colors.grey,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
@@ -200,14 +200,14 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                 height: 70,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(21),
-                    color: Color(0xffF5F5F5)),
+                    color: const Color(0xffF5F5F5)),
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     Image.asset('assets/images/loungechair.png'),
-                    SizedBox(
+                    const SizedBox(
                       width: 25,
                     ),
                     Text(
@@ -217,20 +217,20 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                           fontSize: 18,
                           fontWeight: FontWeight.w600),
                     ),
-                    Spacer(),
-                    Icon(
+                    const Spacer(),
+                    const Icon(
                       Icons.arrow_forward_ios,
                       size: 22,
                       color: Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -239,7 +239,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
               child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(21),
-                      color: Color(0xffF5F5F5)),
+                      color: const Color(0xffF5F5F5)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -248,7 +248,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                         child: Text(
                           "Desks",
                           style: GoogleFonts.poppins(
-                              color: Color(0xff131313),
+                              color: const Color(0xff131313),
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),
@@ -260,7 +260,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                     ],
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
@@ -268,7 +268,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
               child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(21),
-                      color: Color(0xffF5F5F5)),
+                      color: const Color(0xffF5F5F5)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -277,7 +277,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                         child: Text(
                           "Bookcases",
                           style: GoogleFonts.poppins(
-                              color: Color(0xff131313),
+                              color: const Color(0xff131313),
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),
@@ -289,7 +289,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                     ],
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
@@ -297,7 +297,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
               child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(21),
-                      color: Color(0xffF5F5F5)),
+                      color: const Color(0xffF5F5F5)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -306,7 +306,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                         child: Text(
                           "Computer Work",
                           style: GoogleFonts.poppins(
-                              color: Color(0xff131313),
+                              color: const Color(0xff131313),
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),
@@ -318,7 +318,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                     ],
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(
@@ -326,7 +326,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
               child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(21),
-                      color: Color(0xffF5F5F5)),
+                      color: const Color(0xffF5F5F5)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -335,7 +335,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                         child: Text(
                           "Office Accessories",
                           style: GoogleFonts.poppins(
-                              color: Color(0xff131313),
+                              color: const Color(0xff131313),
                               fontWeight: FontWeight.w600,
                               fontSize: 18),
                         ),

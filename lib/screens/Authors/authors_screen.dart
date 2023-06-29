@@ -86,7 +86,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                               ListTileControlAffinity.leading,
                                               dense: true,
                                               visualDensity: VisualDensity.compact,
-                                              activeColor: Color(0xff014E70),
+                                              activeColor: const Color(0xff014E70),
                                               value: status.value,
                                               onChanged: ( value) {
                                                 setState(() {
@@ -134,7 +134,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                       child: Text(
                                         "Clear All",
                                         style:
-                                        GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                                        GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                                       ),),
                                   ],
                                 ),
@@ -184,7 +184,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                       },
                         child: Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),),
-                          margin: EdgeInsets.only(left: 5),
+                          margin: const EdgeInsets.only(left: 5),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -206,7 +206,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                               Text(
                                 '1457 Items',
                                 style: GoogleFonts.poppins(
-                                    fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xff014E70)),
+                                    fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                               )
                             ],
                           ),

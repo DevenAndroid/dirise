@@ -107,7 +107,7 @@ class _EBookState extends State<EBook> {
                                           )
                                       ),
                                     );}),
-SizedBox(height: 50,),
+const SizedBox(height: 50,),
                                   Align(alignment: Alignment.bottomCenter,
                                     child: Column(
                                       children: [
