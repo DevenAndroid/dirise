@@ -56,8 +56,8 @@ class _EditProfileState extends State<EditProfile> {
               Text('Address',style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w500),),
               const SizedBox(height: 10,),
               CommonTextfield(obSecure: false, hintText: 'Riverside Building, County hall,'),
-              const SizedBox(
-                height: 150,
+               SizedBox(
+                height: size.height*.3,
               ),
               SizedBox(
                 width: double.infinity,
