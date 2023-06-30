@@ -269,11 +269,11 @@ class _SingleAuthorScreenState extends State<SingleAuthorScreen> {
         isScrollControlled: true,
         backgroundColor: Colors.white,
         builder: (context) {
-          return  Padding(
-            padding: const EdgeInsets.all(15),
-            child: SizedBox(
-              width: size.width,
-              height: size.height*.7,
+          return  SizedBox(
+            width: size.width,
+            height: size.height*.7,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal:20,vertical: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -289,7 +289,7 @@ class _SingleAuthorScreenState extends State<SingleAuthorScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 30,
                       ),
                       Text(
                         '50% off',

@@ -20,7 +20,7 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
-  List categories=["Libraries","Author","Teacher","Office Furniture","Electronics","Schools & Nurseries","Club & Camps"];
+  List categories=["Libraries","Author","Teacher","Office Furniture","Electronics","Schools & Nurseries","Club & Camps","E-Book"];
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +66,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     Get.toNamed(TeacherScreen.teacherScreen);
                   }else if(index==3){
                     Get.toNamed(MyRouters.officeFurnitureScreen);
+                  }
+                  else if(index==7){
+                    Get.toNamed(MyRouters.eBooKKScreen);
                   }
 
                 },

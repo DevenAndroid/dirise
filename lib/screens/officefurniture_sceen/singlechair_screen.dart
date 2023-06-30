@@ -94,7 +94,7 @@ class _SingleChairState extends State<SingleChair> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 20,
-                            mainAxisExtent: size.height*.32),
+                            mainAxisExtent: size.height*.33),
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () {

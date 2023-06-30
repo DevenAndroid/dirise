@@ -104,7 +104,7 @@ class _EbookAccountState extends State<EbookAccount> {
             ),
             GestureDetector(
 onTap: (){
-  Get.toNamed(MyRouters.eBooKKScreen);
+  Get.toNamed(MyRouters.eBookScreen);
 },
 
               child: Row(
