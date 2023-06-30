@@ -48,7 +48,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
                     children: [
                       const SizedBox(width: 20,),
                        Container(decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
-                                            padding: const EdgeInsets.fromLTRB(20,15,20,15),
+                                            padding: const EdgeInsets.fromLTRB(23,8,23,8),
                        child:  const Icon(Icons.delete_rounded,color: Colors.red,))
                     ],
                   ),
@@ -62,17 +62,18 @@ class _AddBagScreenState extends State<AddBagScreen> {
                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(children: [
-                          const CircleAvatar(
+                           CircleAvatar(
                             radius: 20,
                             backgroundColor: Color(0xffEEEEEE),
-                            child: Text("2x"),
+                            child: Text("2x",style: GoogleFonts.poppins(fontWeight: FontWeight.w500),),
                           ),
-                          const SizedBox(width: 7,),
+                          const SizedBox(width: 15,),
                           Image.asset(
                             height: size.height * .12,
                             'assets/images/bag.png',
 
                           ),
+                          const SizedBox(width: 10,),
                           Column(crossAxisAlignment:CrossAxisAlignment.start,children: [
                             Text(
                               '50% off',
@@ -123,16 +124,23 @@ class _AddBagScreenState extends State<AddBagScreen> {
               color: Colors.white
             ),
               padding: const EdgeInsets.fromLTRB(20,7,20,7),
-              child: Text("4",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18),)),
+              child: Text("4",style: GoogleFonts.poppins(fontWeight: FontWeight.w700,fontSize: 18),)),
             const SizedBox(width: 10,),
             Text("KD 12.700",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color: Colors.white)),
           ],),
-          Row(children: [
+          Row(
+            children: [
             InkWell(onTap: (){
               Get.toNamed(CheckOutScreen.checkOutScreen);
             },child: Text("Checkout",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 19,color: Colors.white))),
-            const SizedBox(width: 5,),
-            const Icon(Icons.shopping_bag_outlined,color: Colors.white,)
+            const SizedBox(width: 10,),
+            Image(
+              height: 25,
+              image: AssetImage(
+                'assets/icons/whishlist.png',
+              ),
+              color: Colors.white,
+            ),
           ],)
 
         ],),
