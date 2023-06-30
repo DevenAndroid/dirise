@@ -273,7 +273,7 @@ class _HomePageState extends State<HomePage> {
             itemCount: Categories.length,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, mainAxisExtent: size.height*.17, crossAxisSpacing: 15),
+                crossAxisCount: 4, mainAxisExtent: size.height*.19, crossAxisSpacing: 15),
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 onTap: () {

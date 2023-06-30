@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../routers/my_routers.dart';
+import 'my_orders_screen.dart';
 
 class EbookAccount extends StatefulWidget {
   const EbookAccount({Key? key}) : super(key: key);
@@ -138,25 +139,29 @@ onTap: (){
             const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-                Image.asset(height: 25, 'assets/icons/order.png'),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "Orders",
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xFF2A3032),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                ),
-              ],
+            InkWell(onTap: (){
+              Get.toNamed(MyOrdersScreen.myOrdersScreen);
+            },
+              child: Row(
+                children: [
+                  Image.asset(height: 25, 'assets/icons/order.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Orders",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF2A3032),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 5,
