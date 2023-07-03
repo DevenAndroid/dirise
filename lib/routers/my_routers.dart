@@ -1,4 +1,4 @@
-import 'package:dirise/e-book/ebookk_screen.dart';
+import 'package:dirise/e-book/ebookcategory_screen.dart';
 import 'package:dirise/screens/bottomavbar.dart';
 
 import 'package:dirise/screens/createacc_screen.dart';
@@ -16,6 +16,9 @@ import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:get/get.dart';
 
 
+
+
+import '../e-book/singlecategory_screen.dart';
 import '../screens/Authors/authors_screen.dart';
 
 import '../e-book/e-book_screen.dart';
@@ -59,8 +62,11 @@ class MyRouters {
   static var eBookScreen = "/eBookScreen";
   static var officeFurnitureScreen = "/officeFurnitureScreen";
   static var singleChair = "/singleChair";
-  static var eBooKKScreen = "/eBooKKScreen";
+  static var eBooKCategoryScreen = "/eBooKCategoryScreen";
   static var scoopsNursery = "/scoopsNursery";
+  static var singleCategory = "/singleCategory";
+
+
 
 
   static var route = [
@@ -80,8 +86,11 @@ class MyRouters {
     GetPage(name: '/calendarScreen', page: () =>  TableEventsExample()),
     GetPage(name: '/eBookScreen', page: () =>  const EBookScreen()),
     GetPage(name: '/singleChair', page: () =>  const SingleChair()),
-    GetPage(name: '/eBooKKScreen', page: () =>  const EBook()),
+    GetPage(name: '/eBooKCategoryScreen', page: () =>  const EBook()),
+    GetPage(name: '/singleCategory', page: () =>  const SingleCategory()),
+
     GetPage(name: '/scoopsNursery', page: () =>  const SchoolNursery()),
+
     GetPage(name: '/officeFurnitureScreen', page: () =>  const OfficeFurniture()),
     GetPage(
         name: CategoriesScreen.categoriesScreen,

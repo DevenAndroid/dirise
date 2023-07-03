@@ -14,8 +14,8 @@ class _EBookScreenState extends State<EBookScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    int tt= 0;
-    bool status= false;
+    int tt = 0;
+    bool status = false;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(140),
@@ -100,35 +100,25 @@ class _EBookScreenState extends State<EBookScreen> {
                 height: 20,
               ),
               TabBar(
-
+                indicatorPadding:
+                    EdgeInsets.symmetric(horizontal: 30, vertical: 3),
+                indicator: const BoxDecoration(
+                    color: AppTheme.buttonColor,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
                 indicatorColor: Colors.transparent,
-                unselectedLabelColor: Colors.black,
-                labelColor: Colors.red,
-                  dividerColor: Colors.white,
-                onTap: (int ){
-                  tt=int;
-                  status=true;
-
-
+                unselectedLabelColor: AppTheme.buttonColor,
+                labelColor: Colors.white,
+                dividerColor: Colors.white,
+                onTap: (int) {
+                  tt = int;
+                  status = true;
                 },
-                tabs: [
+                tabs: const [
                   Tab(
-                    child: Container(
-                      width: 80,
-                      height: 35,
-                      decoration:  tt==int?  const BoxDecoration(
-                          color: AppTheme.buttonColor,
-                          borderRadius: BorderRadius.all(Radius.circular(20))):const BoxDecoration(),
-                      child: Center(
-                          child: Text(
-                        'E Book',
-                        style: GoogleFonts.poppins(color:status==true? Colors.white: AppTheme.buttonColor),
-                      )
-                      ),
-                    ),
-                  ),
-                  const Tab(
                     text: 'Name',
+                  ),
+                  Tab(
+                    text: 'Voice',
                   )
                 ],
                 indicatorSize: TabBarIndicatorSize.tab,
