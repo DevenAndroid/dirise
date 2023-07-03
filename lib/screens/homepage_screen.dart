@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 import 'Authors/authors_screen.dart';
 import 'Authors/teacher_screen.dart';
+import 'categores/categories_screen.dart';
 import 'categores/single_categorie.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +18,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List Categories=["Libraries","Authors","Teachers","Offline Furniture","Schools & Nurseries"];
+  List Categories = [
+    "Libraries",
+    "Authors",
+    "Teachers",
+    "Offline Furniture",
+    "Schools & Nurseries"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +54,12 @@ class _HomePageState extends State<HomePage> {
                               style: GoogleFonts.poppins(fontSize: 18),
                             ),
                           ),
-
                           const Padding(
                             padding: EdgeInsets.only(left: 8.0),
                             child: CountryCodePicker(
-
-
                               padding: EdgeInsets.zero,
                               onChanged: print,
                               initialSelection: 'IT',
-
                               hideMainText: true,
                               showDropDownButton: true,
                               showCountryOnly: false,
@@ -161,12 +163,12 @@ class _HomePageState extends State<HomePage> {
                 'assets/images/storybooks.png',
               )),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8  ),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             child: Row(
               children: [
                 Container(
                   height: 60,
-                  width: size.width*.38,
+                  width: size.width * .40,
                   decoration: const BoxDecoration(
                       color: Color(0xffF0F0F0),
                       borderRadius: BorderRadius.only(
@@ -195,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 60,
-                  width: 210,
+                  width: 170,
                   decoration: BoxDecoration(
                       border: Border.all(
                         color: const Color(0xffF0F0F0),
@@ -208,14 +210,14 @@ class _HomePageState extends State<HomePage> {
                     child: InkWell(
                       onTap: () {
                         showModalBottomSheet(
-                          isScrollControlled: true,
+                            isScrollControlled: true,
                             context: context,
                             builder: (context) {
                               return SizedBox(
-                                height: size.height*.7,
+                                height: size.height * .7,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(top: 30,right: 18,left:
-                                  18),
+                                  padding: const EdgeInsets.only(
+                                      top: 30, right: 18, left: 18),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -247,8 +249,10 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       Text(
                                         'Published: 06/06/2023',
-                                        style:
-                                            GoogleFonts.poppins(fontSize: 15,color: Colors.black,fontWeight: FontWeight.w500),
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 15,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500),
                                       )
                                     ],
                                   ),
@@ -257,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                             });
                       },
                       child: Text(
-                        "Artificial Intelligence Gains a Foot Hold In Writing",
+                        "Artificial Intelligence Gains  a Foot Hold In Writing",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500, fontSize: 13),
                       ),
@@ -270,65 +274,73 @@ class _HomePageState extends State<HomePage> {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: Categories.length+1,
+            itemCount: Categories.length + 1,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, mainAxisExtent: size.height*.19, crossAxisSpacing: 15),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                mainAxisExtent: size.height * .17,
+                crossAxisSpacing: 15),
             itemBuilder: (BuildContext context, int index) {
-              if(index==Categories.length){
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 70),
-                  child: Container(
+              if (index == Categories.length) {
+                return Column(
+                  children: [
+                    InkWell(onTap:(){
+                      Get.toNamed(CategoriesScreen.categoriesScreen);
 
 
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color(0xffF0F0F0)
-                    ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(14),
-                        child: Container(
-                          height: 20,
-                            width: 20,
-
+                },
+                      child: Container(
+                          height: 60,
+                          width: 90,
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border:
-                              Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                          child: const Icon(
-                            Icons.arrow_forward,
-                            color: AppTheme.buttonColor,
-                          ),
-                        ),
-                      )
-                  ),
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xffF0F0F0)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(14),
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: AppTheme.buttonColor, width: 1.2)),
+                              child: const Icon(
+                                Icons.arrow_forward,
+                                color: AppTheme.buttonColor,
+                              ),
+                            ),
+                          )),
+                    ),
+                    SizedBox(height: 10,),
+                    Text(
+                      'More',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
+                          color: AppTheme.buttonColor),
+                    )
+                  ],
                 );
-
-              }else{
+              } else {
                 return InkWell(
                   onTap: () {
                     if (index == 3) {
                       Get.toNamed(MyRouters.officeFurnitureScreen);
-                    }
-                    else if(index == 0){
+                    } else if (index == 0) {
                       Get.toNamed(SingleCategories.singleCategoriesScreen);
-                    }
-                    else if(index == 1){
+                    } else if (index == 1) {
                       Get.toNamed(AuthorsScreen.authorsScreen);
-                    }
-                    else if(index == 2){
+                    } else if (index == 2) {
                       Get.toNamed(TeacherScreen.teacherScreen);
-                    }
-                    else if(index == 4){
+                    } else if (index == 4) {
                       Get.toNamed(MyRouters.scoopsNursery);
                     }
-
                   },
                   child: Column(
                     children: [
                       Container(
-                        height: 80,
-                        width: 100,
+                        height: 60,
+                        width: 90,
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -357,7 +369,6 @@ class _HomePageState extends State<HomePage> {
               }
             },
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
@@ -383,7 +394,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            height: size.height*.34,
+            height: size.height * .32,
             child: GridView.builder(
               itemCount: 2,
               padding: EdgeInsets.zero,
@@ -410,7 +421,7 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
-                      height: 8 ,
+                      height: 8,
                     ),
                     Text(
                       '1 piece',
@@ -431,7 +442,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -458,7 +469,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            height: size.height*.34,
+            height: size.height * .34,
             child: GridView.builder(
               itemCount: 2,
               shrinkWrap: true,
@@ -504,7 +515,9 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child:

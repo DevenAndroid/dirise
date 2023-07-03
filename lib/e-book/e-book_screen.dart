@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../routers/my_routers.dart';
 import '../widgets/common_colour.dart';
 
 class EBookScreen extends StatefulWidget {
@@ -115,7 +118,7 @@ class _EBookScreenState extends State<EBookScreen> {
                 },
                 tabs: const [
                   Tab(
-                    text: 'Name',
+                    text: 'E Book',
                   ),
                   Tab(
                     text: 'Voice',
@@ -145,22 +148,26 @@ class _EBookScreenState extends State<EBookScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            height: size.height * .2,
-                            'assets/images/voicebook.png',
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Eustasy 165 days',
-                            style: GoogleFonts.poppins(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                          )
-                        ],
+                      child: InkWell(onTap: (){
+                        Get.toNamed(MyRouters.singleCategory);
+                      },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              height: size.height * .2,
+                              'assets/images/voicebook.png',
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Eustasy 165 days',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
