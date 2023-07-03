@@ -158,10 +158,11 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
             child: Column(children: [
           Padding(
-              padding: const EdgeInsets.all(18),
-              child: Image.asset(
-                'assets/images/storybooks.png',
-              )),
+            padding: const EdgeInsets.all(18.0),
+            child: Image.asset(
+              'assets/images/storybooks.png',
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             child: Row(
@@ -271,6 +272,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -369,6 +371,7 @@ class _HomePageState extends State<HomePage> {
               }
             },
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
