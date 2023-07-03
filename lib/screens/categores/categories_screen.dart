@@ -68,7 +68,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     Get.toNamed(MyRouters.officeFurnitureScreen);
                   }
                   else if(index==7){
-                    Get.toNamed(MyRouters.eBooKKScreen);
+                    Get.toNamed(MyRouters.eBooKCategoryScreen);
                   }
 
                 },
