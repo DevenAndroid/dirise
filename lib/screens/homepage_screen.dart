@@ -156,10 +156,11 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
             child: Column(children: [
           Padding(
-              padding: const EdgeInsets.all(18),
-              child: Image.asset(
-                'assets/images/storybooks.png',
-              )),
+            padding: const EdgeInsets.all(18.0),
+            child: Image.asset(
+              'assets/images/storybooks.png',
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8  ),
             child: Row(
@@ -267,65 +268,66 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: Categories.length,
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, mainAxisExtent: size.height*.19, crossAxisSpacing: 15),
-            itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                onTap: () {
-                  if (index == 3) {
-                    Get.toNamed(MyRouters.officeFurnitureScreen);
-                  }
-                  else if(index == 0){
-                    Get.toNamed(SingleCategories.singleCategoriesScreen);
-                  }
-                  else if(index == 1){
-                    Get.toNamed(AuthorsScreen.authorsScreen);
-                  }
-                  else if(index == 2){
-                    Get.toNamed(TeacherScreen.teacherScreen);
-                  }
-                  else if(index == 4){
-                    Get.toNamed(MyRouters.scoopsNursery);
-                  }
+              GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: Categories.length,
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4, mainAxisExtent: size.height*.19, crossAxisSpacing: 15),
+                  itemBuilder: (BuildContext context, int index) {
+                    return  InkWell(
+                      onTap: () {
+                        if (index == 3) {
+                          Get.toNamed(MyRouters.officeFurnitureScreen);
+                        }
+                        else if(index == 0){
+                          Get.toNamed(SingleCategories.singleCategoriesScreen);
+                        }
+                        else if(index == 1){
+                          Get.toNamed(AuthorsScreen.authorsScreen);
+                        }
+                        else if(index == 2){
+                          Get.toNamed(TeacherScreen.teacherScreen);
+                        }
+                        else if(index == 4){
+                          Get.toNamed(MyRouters.scoopsNursery);
+                        }
 
-                },
-                child: Column(
-                  children: [
-                    Container(
-                      height: 80,
-                      width: 100,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: const Color(0xffF0F0F0)),
-                      child: Center(
-                        child: Image.asset(
-                          height: 40,
-                          'assets/images/book.png',
-                        ),
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 80,
+                            width: 100,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: const Color(0xffF0F0F0)),
+                            child: Center(
+                              child: Image.asset(
+                                height: 40,
+                                'assets/images/book.png',
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            Categories[index],
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: AppTheme.buttonColor),
+                            textAlign: TextAlign.center,
+                          )
+                        ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      Categories[index],
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: AppTheme.buttonColor),
-                   textAlign: TextAlign.center,
-                    )
-                  ],
+                    );
+                  },
                 ),
-              );
-            },
-          ),
+
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
