@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import '../controller/customnavigationbar_controller.dart';
+import '../model/login_model.dart';
+import '../repoistery/login_repo.dart';
 import '../widgets/common_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,6 +20,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+
+  final loginFormKey = GlobalKey<FormState>();
+  final userNameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final controller = Get.put(CustomNavigationBarController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -48,7 +58,23 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               CustomOutlineButton(
                 title: "Sign In",
-                onPressed: () {
+                onPressed: ()  {
+                  // if (loginFormKey.currentState!.validate()) {
+                  //   login(userNameController.text, passwordController.text,
+                  //       context)
+                  //       .then((value) async {
+                  //         if (value.status == true) {
+                  //       SharedPreferences pref =
+                  //       await SharedPreferences.getInstance();
+                  //       pref.setString('user', jsonEncode(value));
+                  //       if (kDebugMode) {
+                  //         print("User Token :: ${pref.getString("user")}");
+                  //       }
+                  //       controller.getUser();
+                  //       Get.offAllNamed(MyRouters.bottomNavBar);
+                  //     }
+                  //   });
+                  // }
                   Get.toNamed(MyRouters.bottomNavBar);
                 },
               ),
@@ -184,3 +210,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+

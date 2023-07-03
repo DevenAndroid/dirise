@@ -15,6 +15,17 @@ class CreateAcc extends StatefulWidget {
 }
 
 class _CreateAccState extends State<CreateAcc> {
+  final formKey1 = GlobalKey<FormState>();
+
+
+
+
+
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController mobilenumberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,15 +65,22 @@ class _CreateAccState extends State<CreateAcc> {
               SizedBox(
                 height: size.height * .08,
               ),
-              CommonTextfield(obSecure: false, hintText: 'Name'),
+              CommonTextfield(
+                  controller: nameController,
+                  obSecure: false, hintText: 'Name'),
               SizedBox(
                 height: size.height * .01,
               ),
-              CommonTextfield(obSecure: false, hintText: 'Email'),
+              CommonTextfield(
+                  controller: emailController,
+                  obSecure: false, hintText: 'Email'),
               SizedBox(
                 height: size.height * .01,
               ),
-              CommonTextfield(obSecure: false, hintText: 'Password'),
+              CommonTextfield(
+                  controller: passwordController,
+
+                  obSecure: false, hintText: 'Password'),
               SizedBox(
                 height: size.height * .01,
               ),
@@ -105,7 +123,9 @@ class _CreateAccState extends State<CreateAcc> {
               ),
               CustomOutlineButton(
                 title: "Create Account",
-                onPressed: () {},
+                onPressed: () {
+
+                },
               ),
             ],
           ),

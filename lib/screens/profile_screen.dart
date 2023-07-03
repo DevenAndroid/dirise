@@ -24,7 +24,7 @@ class _ProfileState extends State<Profile> {
         centerTitle: true,
         backgroundColor: AppTheme.buttonColor,
         leading: InkWell(
-          onTap: (){
+          onTap: () {
             Get.back();
           },
           child: const Icon(
@@ -38,186 +38,238 @@ class _ProfileState extends State<Profile> {
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
           child: Column(
             children: [
-              Image.asset(
-                  height: size.height * .2, 'assets/images/profile.png'),
-              TextFormField(
+              GestureDetector(onTap: (){
 
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppTheme.buttonColor),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(
-                          'assets/icons/profile.png',
-                          color: Colors.white,
-                        ),
+                Get.toNamed(MyRouters.editprofileScreen);
+              },
+                child: Image.asset(
+                    height: size.height * .2, 'assets/images/profile.png'),
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: AppTheme.buttonColor),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        'assets/icons/profile.png',
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                  hintText: 'Williams Jones',
-                  hintStyle: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w500,color: const Color(0xff21181A)
+                  SizedBox(
+                    width: 15,
                   ),
-                  labelText: 'Name',
-                  labelStyle: const TextStyle(
-                      height: .5,
-                      color: Color(0xff454545),
-                      fontSize: 20
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15,),
-              const Divider(
-color: Color(0xffEFEFEF),
-              ),
-              const SizedBox(height: 10,),
-              TextFormField(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Name',
+                        style: GoogleFonts.poppins(
+                         fontSize: 14,
+                            color: Color(0xff454545),
+                          ),
 
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppTheme.buttonColor),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(
-                          'assets/icons/message.png',
-                          color: Colors.white,
-                        ),
                       ),
-                    ),
-                  ),
-                  hintText: 'williamsjones@gmail.com',
-                  hintStyle: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,color: const Color(0xff21181A)
-                  ),
-                  labelText: 'E-Mail',
-                  labelStyle: const TextStyle(
-                      height: .5,
-                      color: Color(0xff454545),
-                      fontSize: 20
-                  ),
-                ),
+                      SizedBox(height: 3,),
+                      Text(
+                        'Williams Jones',
+                        style: GoogleFonts.poppins(
+                            color: const Color(0xff21181A),fontSize: 16,fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  )
+                ],
               ),
-              const SizedBox(height: 15,),
+              const SizedBox(
+                height: 15,
+              ),
               const Divider(
                 color: Color(0xffEFEFEF),
               ),
-              const SizedBox(height: 10,),
-              TextFormField(
-
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppTheme.buttonColor),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(
-                          'assets/icons/phone.png',
-                          color: Colors.white,
-                        ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: AppTheme.buttonColor),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        'assets/icons/message.png',
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                  hintText: '+91 987-654-3210',
-                  hintStyle: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,color: const Color(0xff21181A)
+                  SizedBox(
+                    width: 15,
                   ),
-                  labelText: 'Mobile Number',
-                  labelStyle: const TextStyle(
-                      height: .5,
-                      color: Color(0xff454545),
-                      fontSize: 20
-                  ),
-                ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'E-Mail',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: Color(0xff454545),
+                        ),
+
+                      ),
+                      SizedBox(height: 3,),
+                      Text(
+                        'williamsjones@gmail.com',
+                        style: GoogleFonts.poppins(
+                            color: const Color(0xff21181A),fontSize: 16,fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  )
+
+                ],
               ),
-              const SizedBox(height: 15,),
+              const SizedBox(
+                height: 15,
+              ),
               const Divider(
                 color: Color(0xffEFEFEF),
               ),
-              const SizedBox(height: 10,),
-              TextFormField(
-
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppTheme.buttonColor),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Image.asset(
-                          'assets/icons/location.png',
-                          color: Colors.white,
-                        ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: AppTheme.buttonColor),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        'assets/icons/phone.png',
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                  hintText: 'Riverside Building, County Hall, London SE1 7PB, United Kingdom',
-                  hintStyle: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,color: const Color(0xff21181A)
+                  SizedBox(
+                    width: 15,
                   ),
-                  labelText: 'Address',
 
-                  labelStyle: const TextStyle(
-                    height: .5,
-                    color: Color(0xff454545),
-                    fontSize: 20
-                  ),
-                ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Mobile Number',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: Color(0xff454545),
+                        ),
+
+                      ),
+                      SizedBox(height: 3,),
+                      Text(
+                        '+91 987-654-3210',
+                        style: GoogleFonts.poppins(
+                            color: const Color(0xff21181A),fontSize: 16,fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  )
+
+                ],
               ),
-              const SizedBox(height: 15,),
+              const SizedBox(
+                height: 15,
+              ),
+              const Divider(
+                color: Color(0xffEFEFEF),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: AppTheme.buttonColor),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Image.asset(
+                        'assets/icons/location.png',
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Address',
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            color: Color(0xff454545),
+                          ),
+
+                        ),
+                        SizedBox(height: 3,),
+                        Text(
+                          'Riverside Building, County Hall, London SE1 7PB, United Kingdom',
+                          style: GoogleFonts.poppins(
+                              color: const Color(0xff21181A),fontSize: 16,fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  )
+       
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
               const Divider(
                 color: Color(0xffEFEFEF),
               ),
               SizedBox(
-                height: size.height*.09,
+                height: size.height * .09,
               ),
               SizedBox(
                 width: double.infinity,
-                height: size.height*.07,
+                height: size.height * .07,
                 child: ElevatedButton(
-
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppTheme.buttonColor,
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))),
-
                       textStyle: const TextStyle(
                         fontWeight: FontWeight.bold,
-                      )), onPressed: () {
-Get.toNamed(MyRouters.editprofileScreen);
-
-                }, child: Text('Edit profile',style: GoogleFonts.poppins(
-                    fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white
-                ),),
-
+                      )),
+                  onPressed: () {
+                    Get.toNamed(MyRouters.editprofileScreen);
+                  },
+                  child: Text(
+                    'Edit profile',
+                    style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
+                  ),
                 ),
               ),
-              SizedBox(height: size.height*.1,)
-
+              SizedBox(
+                height: size.height * .1,
+              )
             ],
           ),
         ),
