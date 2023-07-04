@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import '../model/common_model.dart';
 import '../utils/ApiConstant.dart';
 
+
 Future<CommonModel> registerRepo({email, name,phone,password}) async {
   // OverlayEntry loader = Helpers.overlayLoader(context);
   // Overlay.of(context).insert(loader);
@@ -25,7 +26,9 @@ Future<CommonModel> registerRepo({email, name,phone,password}) async {
     //Helpers.hideLoader(loader);
     return CommonModel.fromJson(jsonDecode(response.body));
   } else {
+
    // Helpers.hideLoader(loader);
+
     throw Exception(response.body);
   }
 }
