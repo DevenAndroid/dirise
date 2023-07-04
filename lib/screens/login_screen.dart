@@ -56,10 +56,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   obSecure: false,
                   hintText: 'Email or Phone number',
                   validator: (value) {
-                    if (value!.isEmpty || value.length <= 10) {
-                      return 'Please enter 10 digit number';
+                    if (emailController.text.isEmpty) {
+                      return "Please enter your email";
+                    } else if (emailController.text.contains('+') || emailController.text.contains(' ')) {
+                      return "Email is invalid";
+                    } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(emailController.text)) {
+                      return null;
+                    } else {
+                      return 'Please type a valid email address';
                     }
-                    Get.back();
                   },
                 ),
                 SizedBox(

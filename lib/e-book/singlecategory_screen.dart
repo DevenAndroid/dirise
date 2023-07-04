@@ -60,13 +60,13 @@ class _SingleCategoryState extends State<SingleCategory> {
                   fontSize: 20,
                 ),
               ),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Text('Author Name',
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                       color: const Color(0XFFACACAC))),
-              SizedBox(height: 30,),
+              const SizedBox(height: 30,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

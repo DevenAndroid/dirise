@@ -64,7 +64,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
                         Row(children: [
                            CircleAvatar(
                             radius: 20,
-                            backgroundColor: Color(0xffEEEEEE),
+                            backgroundColor: const Color(0xffEEEEEE),
                             child: Text("2x",style: GoogleFonts.poppins(fontWeight: FontWeight.w500),),
                           ),
                           const SizedBox(width: 15,),
@@ -78,7 +78,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
                             Text(
                               '50% off',
                               style: GoogleFonts.poppins(
-                                  fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xffC22E2E)),
+                                  fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
                             ),
                             const SizedBox(
                               height:4,
@@ -134,7 +134,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
               Get.toNamed(CheckOutScreen.checkOutScreen);
             },child: Text("Checkout",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 19,color: Colors.white))),
             const SizedBox(width: 10,),
-            Image(
+            const Image(
               height: 25,
               image: AssetImage(
                 'assets/icons/whishlist.png',

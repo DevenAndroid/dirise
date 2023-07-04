@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../model/common_model.dart';
 import '../repoistery/common_repo.dart';
 import '../routers/my_routers.dart';
 import '../utils/ApiConstant.dart';
@@ -19,23 +22,29 @@ class CreateAcc extends StatefulWidget {
 
 class _CreateAccState extends State<CreateAcc> {
   final formKey1 = GlobalKey<FormState>();
+
+  // Rx<CommonModel>model<CommonModel>;
+
   TextEditingController nameController = TextEditingController();
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   registerApi() {
+
       registerRepo(
            name: nameController.text,
            email: emailController.text,
         phone: mobileNumberController.text,
         password: passwordController.text,
-        context: context
               )
           .then((value) {
+        log(value.message.toString());
         if (value.status == true) {
-          showToast(value.otp.toString());
+         // Get.toNamed(MyRouters.loginScreen);
+
         }
+        showToast(value.message.toString());
       });
 
   }
@@ -108,23 +117,26 @@ class _CreateAccState extends State<CreateAcc> {
                 children: [
                   SizedBox(
                     height: 56,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppTheme.secondaryColor),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: const Center(
-                        child: CountryCodePicker(
-                          onChanged: print,
-                          initialSelection: 'IT',
-                          favorite: [' +39', 'FR'],
-                          showCountryOnly: false,
-                          showOnlyCountryWhenClosed: false,
-                          alignLeft: false,
+                    child: Expanded(
+                      flex: 2,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: AppTheme.secondaryColor),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: const Center(
+                          child: CountryCodePicker(
+                            onChanged: print,
+                            initialSelection: 'IT',
+                            favorite: [' +39', 'FR'],
+                            showCountryOnly: false,
+                            showOnlyCountryWhenClosed: false,
+                            alignLeft: false,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Flexible(

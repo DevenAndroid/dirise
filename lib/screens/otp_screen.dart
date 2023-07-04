@@ -32,6 +32,7 @@ class _OtpScreenState extends State<OtpScreen> {
         width: 4.0,
       ))));
 
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(

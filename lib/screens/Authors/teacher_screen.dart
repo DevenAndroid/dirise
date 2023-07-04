@@ -88,7 +88,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                                                 ListTileControlAffinity.leading,
                                                 dense: true,
                                                 visualDensity: VisualDensity.compact,
-                                                activeColor: Color(0xff014E70),
+                                                activeColor: const Color(0xff014E70),
                                                 value: status.value,
                                                 onChanged: ( value) {
                                                   setState(() {
