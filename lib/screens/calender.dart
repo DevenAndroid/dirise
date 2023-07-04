@@ -1,16 +1,13 @@
-// Copyright 2019 Aleksander Woźniak
-// SPDX-License-Identifier: Apache-2.0
 
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-
 import '../widgets/event.dart';
 
 class TableEventsExample extends StatefulWidget {
+  const TableEventsExample({super.key});
+
   @override
   _TableEventsExampleState createState() => _TableEventsExampleState();
 }
@@ -19,7 +16,7 @@ class _TableEventsExampleState extends State<TableEventsExample> {
   late final ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
-      .toggledOff; // Can be toggled on/off by longpressing a date
+      .toggledOff;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _rangeStart;
@@ -28,26 +25,22 @@ class _TableEventsExampleState extends State<TableEventsExample> {
   @override
   void initState() {
     super.initState();
-
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
-
   @override
   void dispose() {
     _selectedEvents.dispose();
     super.dispose();
   }
 
+
   List<Event> _getEventsForDay(DateTime day) {
-    // Implementation example
     return kEvents[day] ?? [];
   }
 
   List<Event> _getEventsForRange(DateTime start, DateTime end) {
-    // Implementation example
     final days = daysInRange(start, end);
-
     return [
       for (final d in days) ..._getEventsForDay(d),
     ];
@@ -55,14 +48,14 @@ class _TableEventsExampleState extends State<TableEventsExample> {
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
+
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
-        _rangeStart = null; // Important to clean those
+        _rangeStart = null;
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
-
       _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
@@ -75,8 +68,6 @@ class _TableEventsExampleState extends State<TableEventsExample> {
       _rangeEnd = end;
       _rangeSelectionMode = RangeSelectionMode.toggledOn;
     });
-
-    // `start` or `end` could be null
     if (start != null && end != null) {
       _selectedEvents.value = _getEventsForRange(start, end);
     } else if (start != null) {
@@ -91,7 +82,6 @@ class _TableEventsExampleState extends State<TableEventsExample> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-
           elevation: 0,
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.white,
@@ -111,8 +101,9 @@ class _TableEventsExampleState extends State<TableEventsExample> {
         children: [
           TableCalendar<Event>(
             firstDay: kFirstDay,
-            lastDay: kLastDay,
+            lastDay: DateTime.utc(2030,3,14),
             focusedDay: _focusedDay,
+            headerStyle: HeaderStyle(formatButtonVisible: false),
             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
             rangeStartDay: _rangeStart,
             rangeEndDay: _rangeEnd,
@@ -121,8 +112,6 @@ class _TableEventsExampleState extends State<TableEventsExample> {
             eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: const CalendarStyle(
-
-              // Use `CalendarStyle` to customize the UI
               outsideDaysVisible: false,
             ),
             onDaySelected: _onDaySelected,

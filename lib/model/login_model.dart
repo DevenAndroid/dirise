@@ -1,7 +1,7 @@
 class LoginModel {
   bool? status;
   String? message;
-  int? otp;
+  dynamic otp;
 
   LoginModel({this.status, this.message, this.otp});
 

@@ -79,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomOutlineButton(
                   title: "Sign In",
                   onPressed: () {
+                    Get.offAllNamed(MyRouters.bottomNavBar);
                     if (loginFormKey.currentState!.validate()) {
                       login(emailController.text, passwordController.text,
                               context)
