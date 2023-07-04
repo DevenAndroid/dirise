@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../model/common_model.dart';
 import '../repoistery/common_repo.dart';
 import '../routers/my_routers.dart';
 import '../utils/ApiConstant.dart';
@@ -20,29 +19,23 @@ class CreateAcc extends StatefulWidget {
 
 class _CreateAccState extends State<CreateAcc> {
   final formKey1 = GlobalKey<FormState>();
-
-  // Rx<CommonModel>model<CommonModel>;
-
   TextEditingController nameController = TextEditingController();
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  RegisterApi() {
-
+  registerApi() {
       registerRepo(
            name: nameController.text,
            email: emailController.text,
         phone: mobileNumberController.text,
         password: passwordController.text,
+        context: context
               )
           .then((value) {
-        print(value.message.toString());
         if (value.status == true) {
-         // Get.toNamed(MyRouters.loginScreen);
-
+          showToast(value.otp.toString());
         }
-        showToast(value.message.toString());
       });
 
   }
@@ -115,21 +108,18 @@ class _CreateAccState extends State<CreateAcc> {
                 children: [
                   SizedBox(
                     height: 56,
-                    child: Expanded(
-                      flex: 2,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppTheme.secondaryColor),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: const Center(
-                          child: CountryCodePicker(
-                            onChanged: print,
-                            initialSelection: 'IT',
-                            favorite: [' +39', 'FR'],
-                            showCountryOnly: false,
-                            showOnlyCountryWhenClosed: false,
-                            alignLeft: false,
-                          ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppTheme.secondaryColor),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: const Center(
+                        child: CountryCodePicker(
+                          onChanged: print,
+                          initialSelection: 'IT',
+                          favorite: [' +39', 'FR'],
+                          showCountryOnly: false,
+                          showOnlyCountryWhenClosed: false,
+                          alignLeft: false,
                         ),
                       ),
                     ),
@@ -151,7 +141,7 @@ class _CreateAccState extends State<CreateAcc> {
               CustomOutlineButton(
                 title: "Create Account",
                 onPressed: () {
-                  RegisterApi();
+                  registerApi();
 
                 },
               ),
