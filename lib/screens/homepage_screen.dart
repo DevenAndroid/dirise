@@ -323,7 +323,8 @@ class _HomePageState extends State<HomePage> {
                     )
                   ],
                 );
-              } else {
+              }
+              else {
                 return InkWell(
                   onTap: () {
                     if (index == 3) {

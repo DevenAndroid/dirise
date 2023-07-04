@@ -59,7 +59,7 @@ import '../model/login_model.dart';
 import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
 
-Future<LoginModel> login(email,name,phone,password,context) async {
+Future<LoginModel> signUpRepo(email,name,phone,password) async {
   // OverlayEntry loader = Helpers.overlayLoader(context);
   // Overlay.of(context).insert(loader);
   var map = <String, dynamic>{};
@@ -79,7 +79,7 @@ Future<LoginModel> login(email,name,phone,password,context) async {
     return LoginModel.fromJson(jsonDecode(response.body));
   } else {
     // Helpers.hideLoader(loader);
-    throw Exception('Failed to load data');
+    throw Exception(response.body);
   }
 }
 
