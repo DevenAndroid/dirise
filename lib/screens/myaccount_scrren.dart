@@ -17,6 +17,7 @@ enum SingingCharacter { lafayette, jefferson }
 
 class _EbookAccountState extends State<EbookAccount> {
   SingingCharacter? _character = SingingCharacter.lafayette;
+  RxString language="".obs;
 
   @override
   Widget build(BuildContext context) {
@@ -257,86 +258,77 @@ onTap: (){
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 topRight: Radius.circular(20))),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20,top: 20),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: const Color(0xffDCDCDC)),
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: ListTile(
-                                      title: const Text('Arabic'),
-                                      leading: Radio<SingingCharacter>(
-                                        value: SingingCharacter.lafayette,
-                                        groupValue: _character,
-                                        activeColor: const Color(0xff014E70),
-                                        onChanged: (SingingCharacter? value) {
-                                          setState(() {
-                                            _character = value;
-                                          });
-                                        },
-                                      ),
-                                    )),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 20, right: 20),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: const Color(0xffDCDCDC)),
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: ListTile(
-                                      title: const Text('English'),
-                                      leading: Radio<SingingCharacter>(
-                                        value: SingingCharacter.lafayette,
-                                        groupValue: _character,
-                                        activeColor: const Color(0xff014E70),
-                                        onChanged: (SingingCharacter? value) {
-                                          setState(() {
-                                            _character = value;
-                                          });
-                                        },
-                                      ),
-                                    )),
-                              ),
-                              SizedBox(
-                                height: size.height * .08,
-                              ),
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20, right: 20),
+                        child: Obx((){
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(left: 20, right: 20,top: 20),
                                   child: Container(
-                                    height: 56,
-                                    width: MediaQuery.sizeOf(context).width,
-                                    color: const Color(0xff014E70),
-                                    child: const Center(
-                                      child: Text(
-                                        'Apply',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: const Color(0xffDCDCDC)),
+                                          borderRadius:
+                                          BorderRadius.circular(15)),
+                                      child: RadioListTile(title:const Text('Arabic') ,
+                                        activeColor: const Color(0xff014E70),
+                                        value: "arabic", groupValue: language.value, onChanged: (value) {
+                                          setState(() {
+                                            language.value=value!;
+                                          });
+                                        },)),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: const Color(0xffDCDCDC)),
+                                          borderRadius:
+                                          BorderRadius.circular(15)),
+                                      child: RadioListTile(title:Text('English') ,
+                                        activeColor: const Color(0xff014E70),
+                                        value: "english", groupValue: language.value, onChanged: (value) {
+                                          setState(() {
+                                            language.value=value!;
+                                          });
+                                        },)
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * .08,
+                                ),
+                                Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 20),
+                                    child: Container(
+                                      height: 56,
+                                      width: MediaQuery.sizeOf(context).width,
+                                      color: const Color(0xff014E70),
+                                      child: const Center(
+                                        child: Text(
+                                          'Apply',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                                )
+                              ],
+                            ),
+                          );
+                        })
                       );
                     });
               },

@@ -1,3 +1,4 @@
+
 // // Copyright 2019 Aleksander Woźniak
 // // SPDX-License-Identifier: Apache-2.0
 //
@@ -171,12 +172,13 @@
 //   }
 // }
 import 'dart:convert';
-import 'dart:developer';
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import 'package:intl/intl.dart';
 
 import '../widgets/common_colour.dart';
@@ -185,12 +187,14 @@ import '../widgets/event.dart';
 class EventCalendarScreen extends StatefulWidget {
   const EventCalendarScreen({Key? key}) : super(key: key);
 
+
   @override
   State<EventCalendarScreen> createState() => _EventCalendarScreenState();
 }
 
 class _EventCalendarScreenState extends State<EventCalendarScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
+
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDate;
 
@@ -203,6 +207,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     _selectedDate = _focusedDay;
 
     loadPreviousEvents();
@@ -312,12 +317,14 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
         ],
       ),
     );
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         backgroundColor: const Color(0xffEBF1F4),
         title: Text(
           'My calendar',
@@ -342,6 +349,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                 style: GoogleFonts.poppins(
                     fontSize: 20, fontWeight: FontWeight.w500),
               ),
+
             ),
             TableCalendar(
               firstDay: kFirstDay,
