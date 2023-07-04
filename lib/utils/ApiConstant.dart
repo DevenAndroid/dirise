@@ -15,7 +15,7 @@ showToast(message) {
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 3,
-      backgroundColor: AppTheme.primaryColor,
+      backgroundColor: AppTheme.buttonColor,
       textColor: const Color(0xffffffff),
-      fontSize: 14);
+      fontSize: 15);
 }

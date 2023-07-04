@@ -68,13 +68,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, top: 7),
-                        child: Text(
-                          'DIRISE',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600, fontSize: 21),
-                        ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 20, top: 7),
+                        child: Image(
+                            height: 23,
+                            image: AssetImage(
+                              'assets/images/diriselogo.png',
+                            )),
                       ),
                       const Spacer(),
                       Padding(

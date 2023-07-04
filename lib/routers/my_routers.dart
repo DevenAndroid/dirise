@@ -71,7 +71,7 @@ class MyRouters {
 
   static var route = [
 
-    GetPage(name: '/', page: () => const Splash()),
+    GetPage(name: '/', page: () => const BottomNavbar()),
     GetPage(name: '/loginScreen', page: () => const LoginScreen()),
     GetPage(name: '/createAccScreen', page: () => const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () => const ForgetPassword()),
@@ -83,7 +83,7 @@ class MyRouters {
     GetPage(name: '/editprofileScreen', page: () => const EditProfile()),
     GetPage(name: '/newPasswordScreen', page: () => const NewPassword()),
     GetPage(name: '/termsConditionScreen', page: () => const TermCondition()),
-    GetPage(name: '/calendarScreen', page: () =>  TableEventsExample()),
+    GetPage(name: '/calendarScreen', page: () =>   const EventCalendarScreen()),
     GetPage(name: '/eBookScreen', page: () =>  const EBookScreen()),
     GetPage(name: '/singleChair', page: () =>  const SingleChair()),
     GetPage(name: '/eBooKCategoryScreen', page: () =>  const EBook()),
