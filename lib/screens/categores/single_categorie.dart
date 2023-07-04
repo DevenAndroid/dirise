@@ -133,7 +133,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                     height: 47,
                                     width:MediaQuery.of(context).size.width *.87,
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: Color(0xff014E70))
+                                      border: Border.all(color: const Color(0xff014E70))
                                     ),
                                     child: Text(
                                       "Clear All",

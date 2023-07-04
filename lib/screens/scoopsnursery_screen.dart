@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/common_colour.dart';
@@ -405,7 +405,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(height: 50,),
+                      const SizedBox(height: 50,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

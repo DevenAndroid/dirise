@@ -19,7 +19,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xffF5F5F5),
+      backgroundColor: const Color(0xffF5F5F5),
       appBar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
@@ -48,7 +48,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               child: Padding(
@@ -56,7 +56,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     Text("Delivery to",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500, fontSize: 18)),
@@ -92,7 +92,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             alignment: Alignment.topRight,
                             child: Text("Change Address",
                                 style: GoogleFonts.poppins(fontSize: 14)))),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                   ],
@@ -105,13 +105,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(color: Colors.white),
+                  decoration: const BoxDecoration(color: Colors.white),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         Text("Payment",
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500, fontSize: 18)),
@@ -183,13 +183,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(color: Colors.white),
+                  decoration: const BoxDecoration(color: Colors.white),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 15,),
+                        const SizedBox(height: 15,),
                         Text("Add delivery instructions",
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500, fontSize: 18)),
@@ -204,18 +204,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               hintStyle: GoogleFonts.poppins(
                                   color: const Color(0xff949495), fontSize: 14)),
                         ),
-                        SizedBox(height: 20,),
+                        const SizedBox(height: 20,),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
               ],
             ),
           Column(
             children: [
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white
                 ),
                 child: Padding(
@@ -223,7 +223,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       Text("Have a coupon code?",
                           style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w500, fontSize: 18)),
@@ -259,7 +259,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           )
                         ],
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
 
                   ],),
                 ),
@@ -312,7 +312,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               fontWeight: FontWeight.w500, fontSize: 18)),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
                 ],
               ),
             )
@@ -363,7 +363,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           fontSize: 18,
                           color: const Color(0xff585858)),
                     ),
-                    SizedBox(height: 12,),
+                    const SizedBox(height: 12,),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'Select area',
@@ -375,7 +375,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           fontSize: 18,
                           color: const Color(0xff585858)),
                     ),
-                    SizedBox(height: 12,),
+                    const SizedBox(height: 12,),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'Select block',
@@ -387,7 +387,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           fontSize: 18,
                           color: const Color(0xff585858)),
                     ),
-                    SizedBox(height: 12,),
+                    const SizedBox(height: 12,),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'Select Street and avenue  ',
@@ -463,7 +463,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           fontSize: 18,
                           color: const Color(0xff585858)),
                     ),
-                    SizedBox(height: 12,),
+                    const SizedBox(height: 12,),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'House No ',
@@ -475,7 +475,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           fontSize: 18,
                           color: const Color(0xff585858)),
                     ),
-                    SizedBox(height: 12,),
+                    const SizedBox(height: 12,),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'e.g. Home / Office / Gym',
@@ -538,10 +538,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         height: 60,
                         width: size.width,
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 20),
+                        margin: const EdgeInsets.only(top: 20),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Color(0xffDCDCDC))),
+                            border: Border.all(color: const Color(0xffDCDCDC))),
                         child: Text(
                           '+ Add  Address',
                           style: GoogleFonts.poppins(
@@ -553,16 +553,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     ),
                     Container(
                       width: size.width,
-                      margin: EdgeInsets.only(top: 20),
-                      padding: EdgeInsets.all(15),
+                      margin: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Color(0xffDCDCDC))),
+                          border: Border.all(color: const Color(0xffDCDCDC))),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.location_on_rounded),
-                          SizedBox(
+                          const Icon(Icons.location_on_rounded),
+                          const SizedBox(
                             width: 10,
                           ),
                           Expanded(
@@ -593,7 +593,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
                                         decoration: TextDecoration.underline,
-                                        decorationColor: Color(0xff014E70)),
+                                        decorationColor: const Color(0xff014E70)),
                                   ),
                                 )
                               ],

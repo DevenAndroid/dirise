@@ -1,8 +1,14 @@
+import 'dart:developer';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+
+import '../model/common_model.dart';
+
 import '../repoistery/common_repo.dart';
 import '../utils/ApiConstant.dart';
 import '../widgets/common_button.dart';
@@ -17,25 +23,32 @@ class CreateAcc extends StatefulWidget {
 
 class _CreateAccState extends State<CreateAcc> {
   final formKey1 = GlobalKey<FormState>();
+
+  // Rx<CommonModel>model<CommonModel>;
+
   TextEditingController nameController = TextEditingController();
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   registerApi() {
+
       registerRepo(
            name: nameController.text,
            email: emailController.text,
         phone: mobileNumberController.text,
         password: passwordController.text,
-        context: context
               )
           .then((value) {
+        log(value.message.toString());
         if (value.status == true) {
+
           showToast(value.otp.toString());
         }else{
           showToast(value.message.toString());
+
         }
+        showToast(value.message.toString());
       });
 
   }
@@ -45,6 +58,7 @@ class _CreateAccState extends State<CreateAcc> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
+
       appBar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
@@ -123,6 +137,7 @@ class _CreateAccState extends State<CreateAcc> {
                   children: [
                     SizedBox(
                       height: 56,
+
                       child: Container(
                         decoration: BoxDecoration(
                             border: Border.all(color: AppTheme.secondaryColor),
@@ -139,6 +154,7 @@ class _CreateAccState extends State<CreateAcc> {
                         ),
                       ),
                     ),
+
                     const SizedBox(
                       width: 15,
                     ),

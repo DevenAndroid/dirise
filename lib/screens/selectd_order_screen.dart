@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -85,28 +85,28 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
               padding: const EdgeInsets.only(bottom:8),
               child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                 Text("Order Date",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18),),
-                Text("2023-05-05",style: GoogleFonts.poppins(color: Color(0xff9B9B9B),fontWeight: FontWeight.w500,fontSize: 14),),
+                Text("2023-05-05",style: GoogleFonts.poppins(color: const Color(0xff9B9B9B),fontWeight: FontWeight.w500,fontSize: 14),),
               ],),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom:8),
               child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                 Text("Status",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18),),
-                Text("Complete",style: GoogleFonts.poppins(color: Color(0xff9B9B9B),fontWeight: FontWeight.w500,fontSize: 14),),
+                Text("Complete",style: GoogleFonts.poppins(color: const Color(0xff9B9B9B),fontWeight: FontWeight.w500,fontSize: 14),),
               ],),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom:8),
               child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                 Text("Payment",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18),),
-                Text("22.9 KWD",style: GoogleFonts.poppins(color: Color(0xff9B9B9B),fontWeight: FontWeight.w500,fontSize: 14),),
+                Text("22.9 KWD",style: GoogleFonts.poppins(color: const Color(0xff9B9B9B),fontWeight: FontWeight.w500,fontSize: 14),),
               ],),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom:8),
               child: Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                 Text("Deliver",style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18),),
-                Text("2 KWD",style: GoogleFonts.poppins(color: Color(0xff9B9B9B),fontWeight: FontWeight.w500,fontSize: 14),),
+                Text("2 KWD",style: GoogleFonts.poppins(color: const Color(0xff9B9B9B),fontWeight: FontWeight.w500,fontSize: 14),),
               ],),
             ),
           ],),

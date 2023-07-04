@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/common_app_bar.dart';
@@ -22,7 +23,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
     return Scaffold(
       appBar:const PreferredSize(
         preferredSize: Size.fromHeight(60),
-        child:CommonAppBar(titleText: 'General Libraries',)
+        child:CommonAppBar(titleText: 'General Libraries',) ,
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -130,7 +131,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                       margin: const EdgeInsets.only(bottom: 10),
                                       width:MediaQuery.of(context).size.width *.87,
                                       decoration: BoxDecoration(
-                                          border: Border.all(color: Color(0xff014E70))
+                                          border: Border.all(color: const Color(0xff014E70))
                                       ),
                                       child: Text(
                                         "Clear All",
@@ -170,72 +171,74 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                 const SizedBox(height: 20,),
 
 
-        GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 5,
-         shrinkWrap: true,
-          gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 20,
-              childAspectRatio: MediaQuery.of(context).size.width /
-                  (MediaQuery.of(context).size.height / 1.3)
-          ),
-          itemBuilder: (BuildContext context, int index){
-            return InkWell(onTap: (){
-              bottemSheet();
-            },
-              child: Container(
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),),
-                margin: const EdgeInsets.only(left: 5),
-                child: Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        height: size.height * .2,
-                        'assets/images/bag.png',
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        '50% off',
-                        style: GoogleFonts.poppins(
-                            fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xffC22E2E)),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        'Ecstasy 165 days ',
-                        style:
-                        GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 16),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
+        Container(
+          child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 5,
+           shrinkWrap: true,
+            gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 20,
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height / 1.3)
+            ),
+            itemBuilder: (BuildContext context, int index){
+              return InkWell(onTap: (){
+                bottemSheet();
+              },
+                child: Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),),
+                  margin: const EdgeInsets.only(left: 5),
+                  child: Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          height: size.height * .2,
+                          'assets/images/bag.png',
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          '50% off',
+                          style: GoogleFonts.poppins(
+                              fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          'Ecstasy 165 days ',
+                          style:
+                          GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 16),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
 
-                      Text(
-                        '1 piece',
-                        style:
-                        GoogleFonts.poppins(color: const Color(0xff858484),fontSize: 16),
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
+                        Text(
+                          '1 piece',
+                          style:
+                          GoogleFonts.poppins(color: const Color(0xff858484),fontSize: 16),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
 
-                      Text(
-                        'KD 12.700',
-                        style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      )
-                    ],
+                        Text(
+                          'KD 12.700',
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
 
               ],
@@ -253,7 +256,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
         builder: (context) {
           return  SizedBox(
             width: size.width,
-            height: size.height*.72,
+            height: size.height*.7,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
               child: Column(

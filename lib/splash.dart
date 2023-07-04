@@ -26,6 +26,7 @@ class _SplashState extends State<Splash> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(

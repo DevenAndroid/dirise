@@ -51,13 +51,14 @@
 //   }
 // }
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+
 import 'package:http/http.dart' as http;
 import '../model/login_model.dart';
 
 import '../utils/ApiConstant.dart';
-import '../utils/helper.dart';
+
 
 Future<LoginModel> login(email, password, context) async {
   // OverlayEntry loader = Helpers.overlayLoader(context);
@@ -72,7 +73,7 @@ Future<LoginModel> login(email, password, context) async {
   final response = await http.post(Uri.parse(ApiUrls.loginUrl),
       body: jsonEncode(map), headers: header);
   if (response.statusCode == 200 || response.statusCode == 400) {
-    print(response.body);
+    log(response.body);
     // Helpers.hideLoader(loader);
     return LoginModel.fromJson(jsonDecode(response.body));
   } else {
