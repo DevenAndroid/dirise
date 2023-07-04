@@ -35,7 +35,7 @@ import '../screens/categores/order_completed_screen.dart';
 import '../screens/categores/single_categorie.dart';
 
 
-import '../screens/ebooklogin_screen.dart';
+import '../e-book/ebooklogin_screen.dart';
 import '../screens/faqs_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/my_orders_screen.dart';

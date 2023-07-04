@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List Categories = [
+  List categories = [
     "Libraries",
     "Authors",
     "Teachers",
@@ -276,14 +276,14 @@ class _HomePageState extends State<HomePage> {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: Categories.length + 1,
+            itemCount: categories.length + 1,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
                 mainAxisExtent: size.height * .17,
                 crossAxisSpacing: 15),
             itemBuilder: (BuildContext context, int index) {
-              if (index == Categories.length) {
+              if (index == categories.length) {
                 return Column(
                   children: [
                     InkWell(onTap:(){
@@ -313,6 +313,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )),
                     ),
+                    // ignore: prefer_const_constructors
                     SizedBox(height: 10,),
                     Text(
                       'More',
@@ -358,7 +359,7 @@ class _HomePageState extends State<HomePage> {
                         height: 10,
                       ),
                       Text(
-                        Categories[index],
+                        categories[index],
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 15,
@@ -518,7 +519,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           const Padding(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +30,7 @@ class _CreateAccState extends State<CreateAcc> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  RegisterApi() {
+  registerApi() {
 
       registerRepo(
            name: nameController.text,
@@ -37,7 +39,7 @@ class _CreateAccState extends State<CreateAcc> {
         password: passwordController.text,
               )
           .then((value) {
-        print(value.message.toString());
+        log(value.message.toString());
         if (value.status == true) {
          // Get.toNamed(MyRouters.loginScreen);
 
@@ -134,7 +136,7 @@ class _CreateAccState extends State<CreateAcc> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Flexible(
@@ -151,7 +153,7 @@ class _CreateAccState extends State<CreateAcc> {
               CustomOutlineButton(
                 title: "Create Account",
                 onPressed: () {
-                  RegisterApi();
+                  registerApi();
 
                 },
               ),

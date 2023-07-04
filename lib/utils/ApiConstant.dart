@@ -20,6 +20,6 @@ showToast(message) {
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: AppTheme.primaryColor,
-      textColor: Color(0xffffffff),
+      textColor: const Color(0xffffffff),
       fontSize: 14);
 }

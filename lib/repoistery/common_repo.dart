@@ -1,14 +1,12 @@
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../model/common_model.dart';
 import '../utils/ApiConstant.dart';
 
 Future<CommonModel> registerRepo({email, name,phone,password}) async {
-  // OverlayEntry loader = Helpers.overlayLoader(context);
-  // Overlay.of(context).insert(loader);
   var map = <String, dynamic>{};
   map['email'] = email;
   map['name'] = name;
@@ -21,7 +19,7 @@ Future<CommonModel> registerRepo({email, name,phone,password}) async {
   final response = await http.post(Uri.parse(ApiUrls.signInUrl),
       body: jsonEncode(map), headers: header);
   if (response.statusCode == 200 || response.statusCode == 400) {
-    print(response.body);
+    log(response.body);
     //Helpers.hideLoader(loader);
     return CommonModel.fromJson(jsonDecode(response.body));
   } else {

@@ -60,7 +60,7 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Column(
@@ -70,11 +70,11 @@ class _ProfileState extends State<Profile> {
                         'Name',
                         style: GoogleFonts.poppins(
                          fontSize: 14,
-                            color: Color(0xff454545),
+                            color: const Color(0xff454545),
                           ),
 
                       ),
-                      SizedBox(height: 3,),
+                      const SizedBox(height: 3,),
                       Text(
                         'Williams Jones',
                         style: GoogleFonts.poppins(
@@ -108,7 +108,7 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Column(
@@ -118,11 +118,11 @@ class _ProfileState extends State<Profile> {
                         'E-Mail',
                         style: GoogleFonts.poppins(
                           fontSize: 14,
-                          color: Color(0xff454545),
+                          color: const Color(0xff454545),
                         ),
 
                       ),
-                      SizedBox(height: 3,),
+                      const SizedBox(height: 3,),
                       Text(
                         'williamsjones@gmail.com',
                         style: GoogleFonts.poppins(
@@ -157,7 +157,7 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
 
@@ -168,11 +168,11 @@ class _ProfileState extends State<Profile> {
                         'Mobile Number',
                         style: GoogleFonts.poppins(
                           fontSize: 14,
-                          color: Color(0xff454545),
+                          color: const Color(0xff454545),
                         ),
 
                       ),
-                      SizedBox(height: 3,),
+                      const SizedBox(height: 3,),
                       Text(
                         '+91 987-654-3210',
                         style: GoogleFonts.poppins(
@@ -207,7 +207,7 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
 
@@ -219,11 +219,11 @@ class _ProfileState extends State<Profile> {
                           'Address',
                           style: GoogleFonts.poppins(
                             fontSize: 14,
-                            color: Color(0xff454545),
+                            color: const Color(0xff454545),
                           ),
 
                         ),
-                        SizedBox(height: 3,),
+                        const SizedBox(height: 3,),
                         Text(
                           'Riverside Building, County Hall, London SE1 7PB, United Kingdom',
                           style: GoogleFonts.poppins(

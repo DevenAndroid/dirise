@@ -2,7 +2,7 @@
 import 'package:dirise/screens/selectd_order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class MyOrdersScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:AppBar(backgroundColor:  Color(0xffEBF1F4).withOpacity(.7),surfaceTintColor: Colors.white, elevation: 0,leading: IconButton(
+      appBar:AppBar(backgroundColor:  const Color(0xffEBF1F4).withOpacity(.7),surfaceTintColor: Colors.white, elevation: 0,leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70),size: 20),
         onPressed: () => Navigator.of(context).pop(),
       ),
@@ -56,7 +56,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                       Expanded(
                         child: Column(crossAxisAlignment:CrossAxisAlignment.start,children: [
                           Text("22.900 KWD",style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 17),),
-                          Text("#000584899",style: GoogleFonts.poppins(color: Color(0xffA6A6A6),fontWeight: FontWeight.w400,fontSize: 14),),
+                          Text("#000584899",style: GoogleFonts.poppins(color: const Color(0xffA6A6A6),fontWeight: FontWeight.w400,fontSize: 14),),
                         ],),
                       ),
                       InkWell(onTap: (){
@@ -65,7 +65,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                         child: Container(decoration: BoxDecoration(color: const Color(0xffE8E8E8).withOpacity(.6),borderRadius: BorderRadius.circular(22)),
                           padding: const EdgeInsets.fromLTRB(15,5,15,5),
 
-                          child: Text("View",style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500,color: Color(0xff014E70)),),),
+                          child: Text("View",style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),),),
                       )
 
                     ],),
@@ -75,8 +75,8 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                    ),
                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
-                       Text("Complete",style: GoogleFonts.poppins(color: Color(0xff616161),fontWeight: FontWeight.w400,fontSize: 16),),
-                       Text("2023-05-05",style: GoogleFonts.poppins(color: Color(0xff616161),fontWeight: FontWeight.w400,fontSize: 16),),
+                       Text("Complete",style: GoogleFonts.poppins(color: const Color(0xff616161),fontWeight: FontWeight.w400,fontSize: 16),),
+                       Text("2023-05-05",style: GoogleFonts.poppins(color: const Color(0xff616161),fontWeight: FontWeight.w400,fontSize: 16),),
                      ],
                    )
                  ],

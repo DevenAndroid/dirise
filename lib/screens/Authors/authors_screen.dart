@@ -70,7 +70,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                                 ListTileControlAffinity.leading,
                                                 dense: true,
                                                 visualDensity: VisualDensity.compact,
-                                                activeColor: Color(0xff014E70),
+                                                activeColor: const Color(0xff014E70),
                                                 value: status.value,
                                                 onChanged: ( value) {
                                                   setState(() {
@@ -115,7 +115,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                       margin: const EdgeInsets.only(bottom: 10),
                                       width:MediaQuery.of(context).size.width *.87,
                                       decoration: BoxDecoration(
-                                          border: Border.all(color: Color(0xff014E70))
+                                          border: Border.all(color: const Color(0xff014E70))
                                       ),
                                       child: Text(
                                         "Clear All",

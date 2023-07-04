@@ -131,7 +131,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                       margin: const EdgeInsets.only(bottom: 10),
                                       width:MediaQuery.of(context).size.width *.87,
                                       decoration: BoxDecoration(
-                                          border: Border.all(color: Color(0xff014E70))
+                                          border: Border.all(color: const Color(0xff014E70))
                                       ),
                                       child: Text(
                                         "Clear All",
@@ -204,7 +204,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                         Text(
                           '50% off',
                           style: GoogleFonts.poppins(
-                              fontSize: 14, fontWeight: FontWeight.w500,color: Color(0xffC22E2E)),
+                              fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
                         ),
                         const SizedBox(
                           height: 4,
