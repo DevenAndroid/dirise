@@ -97,116 +97,121 @@ class _EBookState extends State<EBook> {
                     InkWell(
                       onTap: () {
                         showModalBottomSheet(
+                          isScrollControlled: true,
                             context: context,
                             builder: (context) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 26, vertical: 15),
-                                    child: Text(
-                                      "Type",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600),
+                              return Container(
+                                height: size.height*.6,
+                                child: Column(
+
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 26, vertical: 15),
+                                      child: Text(
+                                        "Type",
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ),
-                                  ),
-                                  Obx(() {
-                                    return Column(
-                                      children: List.generate(
-                                          data.length,
-                                          (index) => Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  ListTileTheme(
-                                                    horizontalTitleGap: 0.0,
-                                                    child: CheckboxListTile(
-                                                      controlAffinity:
-                                                          ListTileControlAffinity
-                                                              .leading,
-                                                      activeColor: const Color(
-                                                          0xff014E70),
-                                                      value: data1[index]
-                                                          .isCheck!
-                                                          .value,
-                                                      onChanged: (value) {
-                                                        setState(() {
+                                    Obx(() {
+                                      return Column(
+                                        children: List.generate(
+                                            data.length,
+                                            (index) => Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    ListTileTheme(
+                                                      horizontalTitleGap: 0.0,
+                                                      child: CheckboxListTile(
+                                                        controlAffinity:
+                                                            ListTileControlAffinity
+                                                                .leading,
+                                                        activeColor: const Color(
+                                                            0xff014E70),
+                                                        value: data1[index]
+                                                            .isCheck!
+                                                            .value,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            data1[index]
+                                                                .isCheck!
+                                                                .value = value!;
+                                                          });
+                                                        },
+                                                        title: Text(
                                                           data1[index]
-                                                              .isCheck!
-                                                              .value = value!;
-                                                        });
-                                                      },
-                                                      title: Text(
-                                                        data1[index]
-                                                            .title
-                                                            .toString(),
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color: Colors.black,
-                                                          fontSize: 16,
+                                                              .title
+                                                              .toString(),
+                                                          style:
+                                                              GoogleFonts.poppins(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: Colors.black,
+                                                            fontSize: 16,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              )),
-                                    );
-                                  }),
-                                  const SizedBox(
-                                    height: 50,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          height: 60,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              .9,
-                                          decoration: const BoxDecoration(
-                                              color: Color(0xff014E70)),
-                                          child: Text(
-                                            "Apply",
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          height: 60,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              .9,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: AppTheme.buttonColor)),
-                                          child: Text(
-                                            "Clear All",
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500,
-                                                color: const Color(0xff014E70)),
-                                          ),
-                                        ),
-                                      ],
+                                                  ],
+                                                )),
+                                      );
+                                    }),
+                                    const SizedBox(
+                                      height: 50,
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  )
-                                ],
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            height: 60,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .9,
+                                            decoration: const BoxDecoration(
+                                                color: Color(0xff014E70)),
+                                            child: Text(
+                                              "Apply",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            alignment: Alignment.center,
+                                            height: 60,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                .9,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: AppTheme.buttonColor)),
+                                            child: Text(
+                                              "Clear All",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color(0xff014E70)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    )
+                                  ],
+                                ),
                               );
                             });
                       },
@@ -245,7 +250,7 @@ class _EBookState extends State<EBook> {
                             context: context,
                             builder: (BuildContext context) {
                               return Container(
-                                height: 330,
+                                height: size.height*.6,
                                 decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
