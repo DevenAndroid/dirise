@@ -30,16 +30,17 @@ class _CreateAccState extends State<CreateAcc> {
 
   RegisterApi() {
 
-      RegisterRepo(
-             "ripiriy230@camplvad.com",
-              "dsfasf",
-        "1234567890",
-        "123456789"
+      registerRepo(
+           name: nameController.text,
+           email: emailController.text,
+        phone: mobileNumberController.text,
+        password: passwordController.text,
               )
           .then((value) {
         print(value.message.toString());
         if (value.status == true) {
-          Get.toNamed(MyRouters.loginScreen);
+         // Get.toNamed(MyRouters.loginScreen);
+
         }
         showToast(value.message.toString());
       });

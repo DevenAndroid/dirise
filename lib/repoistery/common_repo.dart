@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../model/common_model.dart';
 import '../utils/ApiConstant.dart';
 
-Future<CommonModel> RegisterRepo(email, name,phone,password) async {
+Future<CommonModel> registerRepo({email, name,phone,password}) async {
   // OverlayEntry loader = Helpers.overlayLoader(context);
   // Overlay.of(context).insert(loader);
   var map = <String, dynamic>{};
