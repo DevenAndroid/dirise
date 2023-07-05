@@ -3,20 +3,14 @@ import 'dart:developer';
 import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-import '../controller/customnavigationbar_controller.dart';
-import '../model/login_model.dart';
 import '../repoistery/login_repo.dart';
-import '../utils/ApiConstant.dart';
 import '../widgets/common_button.dart';
 
 class LoginScreen extends StatefulWidget {
