@@ -133,7 +133,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                       )), onPressed: () {
 
 
-                                  verifyOtp(Get.arguments[0],otpController.text,context).then((value) {
+                                  verifyOtpRepo(Get.arguments[0],otpController.text,context).then((value) {
                                     showToast(value.message);
                                     if (value.status==true) {
                                       Get.offAllNamed(MyRouters.loginScreen);
