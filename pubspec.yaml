@@ -47,6 +47,9 @@ dependencies:
   dotted_border: ^2.0.0+3
   table_calendar: ^3.0.9
   form_field_validator: ^1.1.0
+  google_sign_in: ^6.1.4
+  firebase_auth: ^4.6.3
+  flutter_switch: ^0.3.2
 
 
 dev_dependencies:

@@ -1,17 +1,22 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/customnavigationbar_controller.dart';
+import '../model/login_model.dart';
 import '../repoistery/login_repo.dart';
+import '../utils/ApiConstant.dart';
 import '../widgets/common_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -27,6 +32,44 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
 
   //final controller = Get.put(CustomNavigationBarController());
+
+  // signInWithGoogle(context) async {
+  //   await GoogleSignIn().signOut();
+  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  //
+  //   final GoogleSignInAuthentication googleAuth =
+  //   await googleUser!.authentication;
+  //
+  //   final credential = GoogleAuthProvider.credential(
+  //     idToken: googleAuth.idToken,
+  //     accessToken: googleAuth.accessToken,
+  //   );
+  //
+  //   socialLoginApi(
+  //       context: context, token: googleAuth.accessToken, type: "google");
+  //
+  //   await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+  //     log(value.toString());
+  //   });
+  // }
+  // socialLoginApi({token, type, context}) {
+  //   socialLogin(token, type, context).then((value) async {
+  //     LoginModel user = LoginModel();
+  //
+  //     user.message = value['data']['token'];
+  //
+  //     if (user.message != null) {
+  //       showToast("Logged in successfully");
+  //       SharedPreferences pref = await SharedPreferences.getInstance();
+  //       pref.setString('user', jsonEncode(user));
+  //       log("User Token :: ${pref.getString("user")}");
+  //       controller.getUser();
+  //       Get.offAllNamed(MyRouters.bottomNavBar);
+  //     } else {
+  //       showToast(value['message']);
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomOutlineButton(
                   title: "Sign In",
                   onPressed: () {
-                    Get.offAllNamed(MyRouters.bottomNavBar);
+
                     if (loginFormKey.currentState!.validate()) {
                       loginRepo(emailController.text, passwordController.text,
                               context)
