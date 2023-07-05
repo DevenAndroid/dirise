@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           preferredSize: const Size.fromHeight(150),
           child: Container(
             color: const Color(0xffEBF1F4),
-            margin: const EdgeInsets.only(top: 5),
+            margin: const EdgeInsets.only(top: 9),
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                         child: Image(
                             height: 23,
                             image: AssetImage(
-                              'assets/images/diriselogo.png',
+                              'assets/images/diries logo.png',
                             )),
                       ),
                       const Spacer(),
@@ -292,8 +292,8 @@ class _HomePageState extends State<HomePage> {
 
                 },
                       child: Container(
-                          height: 60,
-                          width: 90,
+                          height: 70,
+                          width: 120,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: const Color(0xffF0F0F0)),
@@ -343,7 +343,7 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     children: [
                       Container(
-                        height: 60,
+                        height: 70,
                         width: 90,
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -399,7 +399,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             margin: const EdgeInsets.all(20),
-            height: size.height * .32,
+            height: size.height * .33,
             child: GridView.builder(
               itemCount: 2,
               padding: EdgeInsets.zero,
@@ -425,17 +425,15 @@ class _HomePageState extends State<HomePage> {
                       style: GoogleFonts.poppins(
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 3,),
+
                     Text(
                       '1 piece',
                       style: GoogleFonts.poppins(
                           color: const Color(0xff858484), fontSize: 17),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 3,),
+
                     Text(
                       'KD 12.700',
                       style: GoogleFonts.poppins(
@@ -499,17 +497,13 @@ class _HomePageState extends State<HomePage> {
                       style: GoogleFonts.poppins(
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 3,),
                     Text(
                       '1 piece',
                       style: GoogleFonts.poppins(
                           color: const Color(0xff858484), fontSize: 17),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    SizedBox(height: 3,),
                     Text(
                       'KD 12.700',
                       style: GoogleFonts.poppins(

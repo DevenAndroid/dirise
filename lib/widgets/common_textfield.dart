@@ -59,7 +59,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.height*.1,
+      height: 63,
       child: TextFormField(
           style: const TextStyle(),
           autofocus: false,
@@ -97,6 +97,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
             /*errorStyle: const TextStyle(
                 overflow: TextOverflow.clip,
               // ),*/
+
 
 
 

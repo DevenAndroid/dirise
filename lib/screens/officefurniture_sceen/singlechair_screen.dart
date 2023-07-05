@@ -159,201 +159,134 @@ class _SingleChairState extends State<SingleChair> {
         isScrollControlled: true,
         backgroundColor: Colors.white,
         builder: (context) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: SizedBox(
-              width: size.width,
-              height: size.height * .75,
+          return  SizedBox(
+            width: size.width,
+            height: size.height*.77,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      height: size.height * .2,
-                      width: size.width * .7,
-                      'assets/images/chairgaming.png',
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    '50% off',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.red),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Gaming Chair Omen - Red',
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500, fontSize: 16),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    '1 piece',
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xff858484), fontSize: 16),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(crossAxisAlignment:CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'KD 12.700',
-                        style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xff014E70)),
+                      Align(alignment: Alignment.center,
+                        child: Image.asset(
+                          height: size.height * .2,
+                          width:size.width*.7,
+                          'assets/images/chairgaming.png',
+
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
                       ),
                       Text(
-                        'Add to list',
+                        '50% off',
                         style: GoogleFonts.poppins(
-                          shadows: [
-                            const Shadow(
-                                color: Colors.black, offset: Offset(0, -4))
-                          ],
-                          color: Colors.transparent,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.underline,
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Description',
-                      style: GoogleFonts.poppins(
-                        shadows: [
-                          const Shadow(
-                              color: Colors.black, offset: Offset(0, -4))
-                        ],
-                        color: Colors.transparent,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.underline,
+
+                            fontSize: 18, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    '1:2 scale model',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Available in Secretlab NEO hybrid leather red and softwere plus febric',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Height-adjustment armrests for the right fit',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Child-friendly locking casters make for your little one',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      const SizedBox(
+                        height: 2,
+
+                      ),
+                      Text(
+                        'Ecstasy 165 days ',
+                        style:
+                        GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 2,
+
+                      ),
+
+                      Text(
+                        '1 piece',
+                        style:
+                        GoogleFonts.poppins(color: const Color(0xff858484),fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 2,
+
+                      ),
+                      Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
+                        Row(children: [
+                          Text(
+                            'KD 6.350',
+                            style: GoogleFonts.poppins(
+                                fontSize: 16, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
+                          ),
+                          const SizedBox(width: 10,),
+                          Text(
+                            'KD 12.700',
+                            style: GoogleFonts.poppins(decoration: TextDecoration.lineThrough,
+                                fontSize: 16, fontWeight: FontWeight.w500,color: const Color(0xff858484)),
+                          ),
+                        ],),
+
+                        Text(
+                          'Add to list',
+                          style: GoogleFonts.poppins(
+                            shadows: [
+                              const Shadow(
+                                  color: Colors.black,
+                                  offset: Offset(0, -4))
+                            ],
+                            color: Colors.transparent,
+                            fontSize: 16, fontWeight: FontWeight.w600,decoration: TextDecoration.underline,
+                          ),
+                        )
+                      ],),
+                      const SizedBox(height: 20,),
+                      Align(alignment: Alignment.center,
+                        child: Text(
+                          'Description',
+                          style: GoogleFonts.poppins(
+                            shadows: [
+                              const Shadow(
+                                  color: Colors.black,
+                                  offset: Offset(0, -4))
+                            ],
+                            color: Colors.transparent,
+                            fontSize: 18, fontWeight: FontWeight.w600,decoration: TextDecoration.underline,),
+                        ),
+                      ),
+                      const SizedBox(height: 15,),
+                      Text(
+                        'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging',
+                        style: GoogleFonts.poppins(
+                            fontSize: 15, fontWeight: FontWeight.w400,height: 1.7),
+                      ),
+                      const SizedBox(height: 20,),
+                    ],),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 35,
-                            width: 35,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xffEAEAEA)),
-                            child: const Icon(Icons.remove),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "1",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 20),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            height: 35,
-                            width: 35,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xffEAEAEA)),
-                            child: const Icon(Icons.add),
-                          ),
-                        ],
-                      ),
-                      InkWell(
-                        onTap: () {
+                      const Row(children: [
+                        CircleAvatar(radius: 18,backgroundColor:Color(0xffEAEAEA),
+                          child:Center(child: Text("━",style: TextStyle(fontSize:16,fontWeight: FontWeight.w500,color: Colors.black),)) ,),
+                        SizedBox(width: 10,),
+                        Text("1",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
+                        SizedBox(width: 10,),
+                        CircleAvatar(radius: 18,backgroundColor:Color(0xffEAEAEA),
+                          child:Center(child: Text("+",style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: Colors.black),)) ,),
 
-                          Get.toNamed(AddBagScreen.addBagScreen);
-                        },
-                        child: Container(
-                          height: 36,
-                          width: 140,
-                          decoration: BoxDecoration(
-                              color: const Color(0xff014E70),
-                              borderRadius: BorderRadius.circular(22)),
-                          child: Center(
-                            child: Text(
-                              "Add to Bag",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
+                      ],),
+                      InkWell(onTap: (){
+                        Get.offNamed(AddBagScreen.addBagScreen);
+                      },
 
-                            ),
-                          ),
-                        ),
+                        child: Container(decoration: BoxDecoration(color: const Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
+                          padding: const EdgeInsets.fromLTRB(20,9,20,9),
+
+                          child: Text("Add to Bag",style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.white),),),
                       )
-                    ],
-                  ),
+                    ],),
                 ],
               ),
             ),
           );
+
         });
   }
 }

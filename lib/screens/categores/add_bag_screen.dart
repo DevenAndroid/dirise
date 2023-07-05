@@ -32,9 +32,10 @@ class _AddBagScreenState extends State<AddBagScreen> {
 
         ],
       ),),
-      body: Column(
-        children: [
-          Padding(padding: const EdgeInsets.fromLTRB(20,0,20,20),child:
+      body: Padding(
+        padding: const EdgeInsets.only(left: 15,right: 10),
+        child: Column(
+          children: [
             ListView.builder(
                 itemCount: 3,
                 scrollDirection: Axis.vertical,
@@ -87,6 +88,7 @@ class _AddBagScreenState extends State<AddBagScreen> {
                               'Ecstasy 165 days ',
                               style:
                               GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 14),
+                              textAlign: TextAlign.center,
                             ),
                             const SizedBox(
                               height: 4,
@@ -110,9 +112,10 @@ class _AddBagScreenState extends State<AddBagScreen> {
                       ],),),
                 );
 
-            }),),
+            }),
 
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: Container(decoration: const BoxDecoration(color: Color(0xff014E70)),
       child: Padding(
