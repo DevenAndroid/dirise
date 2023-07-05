@@ -5,10 +5,6 @@ import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
-import '../model/common_model.dart';
-
 import '../repoistery/common_repo.dart';
 import '../utils/ApiConstant.dart';
 import '../widgets/common_button.dart';
