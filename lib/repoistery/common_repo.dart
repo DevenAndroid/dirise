@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import '../model/common_model.dart';
+import '../model/common_modal.dart';
+import '../model/login_model.dart';
 import '../utils/ApiConstant.dart';
 
 Future<CommonModel> registerRepo({email, name,phone,password}) async {

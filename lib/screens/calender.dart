@@ -355,6 +355,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
               firstDay: kFirstDay,
               lastDay: kLastDay,
               focusedDay: _focusedDay,
+
               headerStyle: const HeaderStyle(
                   formatButtonVisible: false, titleCentered: true),
               calendarFormat: _calendarFormat,
