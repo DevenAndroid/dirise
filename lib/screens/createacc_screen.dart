@@ -7,10 +7,6 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
-import '../model/common_model.dart';
-
 import '../repoistery/common_repo.dart';
 import '../routers/my_routers.dart';
 import '../utils/ApiConstant.dart';

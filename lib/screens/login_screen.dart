@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final controller = Get.put(CustomNavigationBarController());
+  //final controller = Get.put(CustomNavigationBarController());
 
   // signInWithGoogle(context) async {
   //   await GoogleSignIn().signOut();
@@ -130,18 +130,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
 
                     if (loginFormKey.currentState!.validate()) {
-                      login(emailController.text, passwordController.text,
+                      loginRepo(emailController.text, passwordController.text,
                               context)
                           .then((value) async {
                         if (value.status == true) {
+                          Get.offAllNamed(MyRouters.bottomNavBar);
                           SharedPreferences pref =
                               await SharedPreferences.getInstance();
                           pref.setString('user', jsonEncode(value));
                           if (kDebugMode) {
                             print("User Token :: ${pref.getString("user")}");
                           }
-                          controller.getUser();
-                          Get.offAllNamed(MyRouters.bottomNavBar);
+                          //controller.getUser();
+
                         }
                       });
                     }
