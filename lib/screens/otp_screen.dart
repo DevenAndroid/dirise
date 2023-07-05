@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
+import '../repoistery/verify_otp_password_screen.dart';
+import '../utils/ApiConstant.dart';
 import '../widgets/common_colour.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -15,6 +17,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController otpController = TextEditingController();
 
   @override
@@ -128,7 +131,17 @@ class _OtpScreenState extends State<OtpScreen> {
                                       textStyle: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                       )), onPressed: () {
-                                    Get.toNamed(MyRouters.newPasswordScreen);
+
+
+                                  verifyOtp(Get.arguments[0],otpController.text,context).then((value) {
+                                    showToast(value.message);
+                                    if (value.status==true) {
+                                      Get.offAllNamed(MyRouters.loginScreen);
+                                    }
+                                  });
+
+
+
 
                               }, child: Text('Verify OTP',style: GoogleFonts.poppins(
                                 fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white

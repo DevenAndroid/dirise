@@ -6,6 +6,7 @@ class ApiUrls {
   static const String apiBaseUrlNew = 'https://dirise.eoxyslive.com/api/';
   static const String signInUrl = "${apiBaseUrlNew}register";
   static const String loginUrl = "${apiBaseUrlNew}login";
+  static const String verifyOtpEmail = "${apiBaseUrlNew}verify-otp-email";
 }
 
 showToast(message) {
