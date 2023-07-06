@@ -1,3 +1,5 @@
+import 'package:dirise/routers/my_routers.dart';
+import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -33,332 +35,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
         key: _scaffoldKey,
-        drawer:Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              SizedBox(
-                height: 230,
-                child: DrawerHeader(
-                    decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xFF7ED957),
-                            Color(0xFF68C541),
-                          ],
-                        )
-                    ),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/images/Ellipse 67.png',
-                            height: 100,
-                          ),
-                          Text('Williams Jones',
-                              style: GoogleFonts.poppins(
-                                fontSize: 18,
-                                color: const Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.w600,)),
-                          Text('williamsjones@gmail.com',
-                              style: GoogleFonts.poppins(
-                                fontSize: 15,
-                                color: const Color(0xFFFFFFFF),
-                                fontWeight: FontWeight.w400,)),
-                        ],
-                      ),
-                    )),
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/dashboard_icon.png',
-                  height: 15,
-                ),
-                title:  Text('Dashboard',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 0;
-                    Get.back();
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/personImg.png',
-                  height: 15,
-                ),
-                title:  Text('My Account',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 1;
-                    // Get.toNamed(MyRouters.myProfileScreen);
-                    // Get.to(VendorOrderList());
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/time_track.png',
-                  height: 18,
-                ),
-                title:  Text('My Order',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 2;
-                    // Get.toNamed(VendorOrderList.vendorOrderList);
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/cube.png',
-                  height: 18,
-                ),
-                title:  Text('Products',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 2;
-                    // Get.toNamed(AllProductScreen.allProductScreen);
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/time_icon.png',
-                  height: 18,
-                ),
-                title:  Text('Store open time',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 2;
-                    // Get.toNamed(MyRouters.notificationScreen);
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/store_setting.png',
-                  height: 18,
-                ),
-                title:  Text('Store Setting',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 2;
-                    // Get.toNamed(SetTimeScreen.setTimeScreen);
-                  });
-                },
-              ),
 
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/bx_wallet.png',
-                  height: 18,
-                ),
-                title:  Text('Bank Details',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 3;
-                    // Get.toNamed(BankDetailsScreen.bankDetailsScreen);
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/earn.png',
-                  height: 17,
-                ),
-                title:  Text('Earning',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 3;
-                    // Get.toNamed(MyRouters.driverWithdrawMoney);
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/message.png',
-                  height: 15,
-                ),
-                title:  Text('Message',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 5;
-                    // Get.toNamed(ChatScreen.chatScreen);
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/metro-security.png',
-                  height: 15,
-                ),
-                title:  Text('Privacy Policy',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 6;
-                    // Get.to(VendorHelpCenterScreen());
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/help_center.png',
-                  height: 15,
-                ),
-                title:  Text('Help Center',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 7;
-                    // Get.to(SettingScreenVendor());
-                  });
-                },
-              ),
-              const Divider(
-                height: 5,
-                color: Color(0xffEFEFEF),
-                thickness: 1,
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                leading: Image.asset(
-                  'assets/images/logout.png',
-                  height: 15,
-                ),
-                title:  Text('Logout',
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      color: const Color(0xFF4F535E),
-                      fontWeight: FontWeight.w400,)),
-                onTap: () {
-                  setState(() {
-                    currentDrawer = 7;
-                    // Get.to(SettingScreenVendor());
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
         appBar: AppBar(
           leading: Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Column(
+
               children: [
                 GestureDetector(
                   onTap: (){
-                    _scaffoldKey.currentState!.openDrawer();
+                    // _scaffoldKey.currentState!.openDrawer();
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Image.asset('assets/images/drawer.png',height: 24,),
-                  ),
+                  child: Image.asset('assets/icons/backicon.png',height: 24,),
                 ),
               ],
             ),
@@ -366,45 +54,43 @@ class _DashboardScreenState extends State<DashboardScreen> {
           toolbarHeight: 60,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leadingWidth: AddSize.size20 * 3,
-          title: Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Hi, Demo Vendor...",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: AddSize.font20,
-                      color: const Color(0xff292F45)),),
-                Row(
-                  children: [
-                    const Text("Store Time :",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color:  Color(0xff737A8A)),),
-                    const Text(" 10am to 9pm",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color:  Color(0xff73CF4C)),),
-                    addWidth(5),
-                    InkWell(
-                      onTap: () {
-                        // Get.toNamed(SetTimeScreen.setTimeScreen);
-                      },
-                      child: const Icon(
-                        Icons.edit,
-                        color: Color(0xFF73CF4C),
-                        size: 15,
-                      ),
+
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Hi, Demo Vendor...",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: AddSize.font22,
+                    color: const Color(0xff292F45)),),
+              const SizedBox(height: 3 ,),
+              Row(
+                children: [
+                  const Text("Store Time :",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color:  Color(0xff737A8A)),),
+                  const Text(" 10am to 9pm",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                     color: AppTheme.buttonColor),),
+                  addWidth(5),
+                  InkWell(
+                    onTap: () {
+                      // Get.toNamed(SetTimeScreen.setTimeScreen);
+                    },
+                    child: const Icon(
+                      Icons.edit,
+                      color: AppTheme.buttonColor,
+                      size: 15,
                     ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              )
+            ],
           ),
           actions: [
             Stack(
@@ -426,7 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             borderRadius: BorderRadius.circular(50),
                             // color: Colors.brown
                           ),
-                          child: Image.asset('assets/images/avtar.png')
+                          child: Image.asset('assets/images/vendorprofile.png')
                         // Obx(() {
                         //   return CachedNetworkImage(
                         //     fit: BoxFit.cover,
@@ -445,10 +131,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ),
                 Positioned(
-                    top: 5,
+                    top: 9,
                     child: Column(
                         children:[
-                          Image.asset('assets/images/active.png',height: 12,),
+                          Image.asset('assets/icons/active.png',height: 12,),
                         ]
                     )
                 )
@@ -459,7 +145,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -501,7 +187,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 spreadRadius: 1.0,
                               ),
                             ],
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                             color: Colors.white),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -554,12 +240,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                               height: 1.5,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 15,
-                                              color: Color(0xFF65CD90)),
+                                              color: const Color(0xFF65CD90)),
                                         ),
                                       ),
                                       Icon(
                                         Icons.arrow_upward_sharp,
-                                        color: Color(0xFF65CD90),
+                                        color: const Color(0xFF65CD90),
                                         size: AddSize.size15,
                                       )
                                       // : Icon(
@@ -598,19 +284,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   height: 1.5,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
-                                  color: Color(0xFF8C9BB2)),
+                                  color: const Color(0xFF8C9BB2)),
                             ),
                           ],
                         ),
                       ),
                     )),
-                addHeight(15),
+                addHeight(12),
                 Row(
                   children: [
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(
@@ -627,12 +313,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text("Collection",
-                                style: TextStyle(
-                                    color : Color(0xFF454B5C),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12
-                                ),),
+                              GestureDetector(
+                                onTap: (){
+Get.toNamed(MyRouters.storeOpenScreen);
+                                },
+                                child: const Text("Store",
+                                  style: TextStyle(
+                                      color : Color(0xFF454B5C),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15
+                                  ),),
+                              ),
                               FlutterSwitch(
                                 showOnOff: true,
                                 width: AddSize.size30 * 2.2,
@@ -646,7 +337,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 activeTextColor:  const Color(0xFFFFFFFF),
                                 inactiveTextFontWeight: FontWeight.w600,
                                 inactiveColor: Colors.grey.shade400,
-                                activeColor: const Color(0xFF04666E),
+                                activeColor:  AppTheme.buttonColor,
                                 onToggle: (val) {
                                   setState(() {
                                     state1= val;
@@ -663,7 +354,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(
@@ -680,11 +371,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text("Self-Delivery",
+                              const Text("Self\nDelivery",
                                 style: TextStyle(
                                     color : Color(0xFF454B5C),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15
                                 ),),
                               FlutterSwitch(
                                 showOnOff: true,
@@ -714,58 +405,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                   ],
                 ),
-                addHeight(15),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFF37C666).withOpacity(0.10),
-                        offset: const Offset(.1, .1,
-                        ),
-                        blurRadius: 20.0,
-                        spreadRadius: 1.0,
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0,horizontal: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("Sustainable Packaging",
-                          style: TextStyle(
-                              color : Color(0xFF454B5C),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12
-                          ),),
-                        FlutterSwitch(
-                          showOnOff: true,
-                          width: AddSize.size30 * 2.2,
-                          height: AddSize.size20 * 1.4,
-                          padding: 2,
-                          valueFontSize: AddSize.font12,
-                          activeTextFontWeight: FontWeight.w600,
-                          inactiveText: " OFF",
-                          activeText: "  On",
-                          inactiveTextColor: const Color(0xFFEBEBEB),
-                          activeTextColor:  const Color(0xFFFFFFFF),
-                          inactiveTextFontWeight: FontWeight.w600,
-                          inactiveColor: Colors.grey.shade400,
-                          activeColor: const Color(0xFF04666E),
-                          onToggle: (val) {
-                            setState(() {
-                              state = val;
-                            });
-                          },
-                          value: state,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                addHeight(15),
+
+                addHeight(10),
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -780,11 +421,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           spreadRadius: 1.0,
                         ),
                       ],
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(10)),
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: AddSize.padding16,
-                        vertical: AddSize.padding10),
+                    ),
                     child: Column(
                       children: [
                         Row(
@@ -797,8 +438,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   .headline5!
                                   .copyWith(
                                   height: 1.5,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15),
+                                  color: const Color(0xff454B5C),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
                             ),
                             TextButton(
                                 onPressed: () {
@@ -810,42 +452,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   style: TextStyle(
                                       decoration:
                                       TextDecoration.underline,
+                                   decorationColor: AppTheme.buttonColor,
                                       height: 1.5,
                                       fontWeight: FontWeight.w700,
-                                      color: Color(0xff7ED957),
-                                      fontSize: 13),
+                                      color: AppTheme.buttonColor,
+                                      fontSize: 14),
                                 ))
                           ],
                         ),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const[
+                          children: [
                             Text(
                               "Order No.",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   color: Color(0xFF52AC1A)),
                             ),
-                            Text(
-                              "Status",
-                              style: TextStyle(
-                                  height: 1.5,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                  color: Color(0xFF52AC1A)),
+                            Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text(
+                                "Status",
+                                style: TextStyle(
+                                    height: 1.5,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Color(0xFF52AC1A)),
+                              ),
                             ),
                             Text(
                               "Earning",
                               style: TextStyle(
                                   height: 1.5,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   color: Color(0xFF52AC1A)),
                             )
                           ],
                         ),
-                        const Divider(),
+                        const Divider(
+                          color: Color(0xffEFEFEF),
+                        ),
                         ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
@@ -860,46 +508,47 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
+                                    const Column(
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
-                                      children: const[
+                                      children: [
                                         Text(
                                           "#1234",
                                           style: TextStyle(
                                               color: Color(0xFF454B5C),
                                               height: 1.5,
                                               fontWeight:
-                                              FontWeight.w600,
-                                              fontSize: 14),
+                                              FontWeight.w500,
+                                              fontSize: 15),
                                         ),
+                                        SizedBox(height: 5,),
                                         Text(
                                           '2 June, 2021 - 11:57PM',
                                           style: TextStyle(
                                               height: 1.5,
                                               fontWeight:
                                               FontWeight.w500,
-                                              fontSize: 11,
+                                              fontSize: 13,
                                               color: Color(0xFF8C9BB2)),
                                         ),
                                       ],
                                     ),
-                                    addWidth(30),
+                                    addWidth(15),
                                     const Text(
                                       'Processing',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 12,
+                                          fontSize: 14,
                                           color:  Color(0xFFFFB26B)
                                       ),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     const Text(
                                       "€45.00",
                                       style: TextStyle(
                                           height: 1.5,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
                                           color: Color(0xFF454B5C)),
                                     ),
                                   ],
@@ -907,7 +556,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 SizedBox(
                                   height: AddSize.size5,
                                 ),
-                                const Divider(),
+                                const Divider(
+                                  color: Color(0xffEFEFEF),
+                                ),
                               ],
                             );
                           },
