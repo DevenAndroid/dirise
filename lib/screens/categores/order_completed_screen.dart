@@ -52,54 +52,44 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                       ),
                       padding: const EdgeInsets.only(bottom: 20,top: 20),
                       child:
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(children: [
-                            const CircleAvatar(
-                              radius: 20,
-                              backgroundColor: Color(0xffEEEEEE),
-                              child: Text("2x"),
-                            ),
-                            const SizedBox(width: 7,),
-                            Image.asset(
-                              height: size.height * .12,
-                              'assets/images/bag.png',
+                      Row(children: [
+                        const CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Color(0xffEEEEEE),
+                          child: Text("2x"),
+                        ),
+                        const SizedBox(width: 7,),
+                        Image.asset(
+                          height: size.height * .12,
+                          'assets/images/bag.png',
 
-                            ),
-                            Column(children: [
-                              Text(
-                                '50% off',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 14, fontWeight: FontWeight.w500,color: Colors.red),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'Ecstasy 165 days ',
-                                style:
-                                GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 14),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
 
-                              Text(
-                                '1 piece',
-                                style:
-                                GoogleFonts.poppins(color: const Color(0xff858484)),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                            ],),
-                          ],),
-                          Text(
-                            'KD 12.700',
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
+                          const SizedBox(
+                            height: 5,
                           ),
-                        ],),);
+                          Text(
+                            'Ecstasy 165 days ',
+                            style:
+                            GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 14),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+
+                          Text(
+                            '1 piece',
+                            style:
+                            GoogleFonts.poppins(color: const Color(0xff858484)),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                        ],),
+                      ],),);
 
                 }),
           ],),

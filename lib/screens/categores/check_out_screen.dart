@@ -1,5 +1,7 @@
+import 'package:dirise/widgets/customsize.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/common_textfield.dart';
@@ -529,27 +531,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        bottemSheet();
-                      },
-                      child: Container(
-                        height: 60,
-                        width: size.width,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(top: 20),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: const Color(0xffDCDCDC))),
-                        child: Text(
-                          '+ Add  Address',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: const Color(0xff585858)),
-                        ),
-                      ),
+                    CommonTextfield(
+                onTap: (){
+                  bottemSheet();
+                },
+                      obSecure: false,
+                      hintText: '+ Add Address',
+
+
+
+
                     ),
                     Container(
                       width: size.width,

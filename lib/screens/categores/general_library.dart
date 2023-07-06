@@ -204,7 +204,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                         Text(
                           '50% off',
                           style: GoogleFonts.poppins(
-                              fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
+                              fontSize: 18, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
                         ),
                         const SizedBox(
                           height: 4,
@@ -256,7 +256,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
         builder: (context) {
           return  SizedBox(
             width: size.width,
-            height: size.height*.7,
+            height: size.height*.77,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
               child: Column(
@@ -280,10 +280,10 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                         '50% off',
                         style: GoogleFonts.poppins(
 
-                            fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
+                            fontSize: 18, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 2,
 
                       ),
                       Text(
@@ -292,7 +292,8 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                         GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 16),
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 2,
+
                       ),
 
                       Text(
@@ -301,16 +302,17 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                         GoogleFonts.poppins(color: const Color(0xff858484),fontSize: 16),
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 2,
+
                       ),
                       Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                         Row(children: [
                           Text(
-                            'KD 12.700',
+                            'KD 6.350',
                             style: GoogleFonts.poppins(
                                 fontSize: 16, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(width: 10,),
                           Text(
                             'KD 12.700',
                             style: GoogleFonts.poppins(decoration: TextDecoration.lineThrough,
@@ -327,7 +329,8 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                   offset: Offset(0, -4))
                             ],
                             color: Colors.transparent,
-                            fontSize: 16, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
+                            fontSize: 16, fontWeight: FontWeight.w600,decoration: TextDecoration.underline,
+                          ),
                         )
                       ],),
                       const SizedBox(height: 20,),
@@ -341,14 +344,14 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                   offset: Offset(0, -4))
                             ],
                             color: Colors.transparent,
-                            fontSize: 18, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
+                            fontSize: 18, fontWeight: FontWeight.w600,decoration: TextDecoration.underline,),
                         ),
                       ),
                       const SizedBox(height: 15,),
                       Text(
                         'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging',
                         style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w400,),
+                          fontSize: 15, fontWeight: FontWeight.w400,height: 1.7),
                       ),
                       const SizedBox(height: 20,),
                     ],),

@@ -42,6 +42,11 @@ import '../screens/my_orders_screen.dart';
 import '../screens/officefurniture_sceen/officefurniture_screen.dart';
 import '../screens/selectd_order_screen.dart';
 import '../splash.dart';
+import '../vendorflow/all_product_screen.dart';
+import '../vendorflow/dashboard_screen.dart';
+import '../vendorflow/store_open_time_screen.dart';
+import '../vendorflow/thanku_screen.dart';
+import '../vendorflow/vendor_registration_screen.dart';
 
 class MyRouters {
   static var splash = "/splash";
@@ -65,6 +70,11 @@ class MyRouters {
   static var eBooKCategoryScreen = "/eBooKCategoryScreen";
   static var scoopsNursery = "/scoopsNursery";
   static var singleCategory = "/singleCategory";
+  static var dashBoardScreen = "/dashBoardScreen";
+  static var storeOpenScreen = "/storeOpenScreen";
+  static var vendorRegistration = "/vendorRegistration";
+  static var thankUScreen = "/thankUScreen";
+  static var allProductScreen = "/allProductScreen";
 
 
 
@@ -80,16 +90,21 @@ class MyRouters {
     GetPage(name: '/profileScreen', page: () => const Profile()),
     GetPage(name: '/otpScreen', page: () => const OtpScreen()),
     GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
+    GetPage(name: '/allProductScreen', page: () => const ProductScreen()),
+    GetPage(name: '/thankUScreen', page: () => const ThankYouVendorScreen()),
     GetPage(name: '/editprofileScreen', page: () => const EditProfile()),
     GetPage(name: '/newPasswordScreen', page: () => const NewPassword()),
     GetPage(name: '/termsConditionScreen', page: () => const TermCondition()),
     GetPage(name: '/calendarScreen', page: () =>   const EventCalendarScreen()),
     GetPage(name: '/eBookScreen', page: () =>  const EBookScreen()),
     GetPage(name: '/singleChair', page: () =>  const SingleChair()),
+    GetPage(name: '/dashBoardScreen', page: () =>  const DashboardScreen()),
+    GetPage(name: '/vendorRegistration', page: () =>  const VendorRegistrationScreen()),
     GetPage(name: '/eBooKCategoryScreen', page: () =>  const EBook()),
     GetPage(name: '/singleCategory', page: () =>  const SingleCategory()),
 
     GetPage(name: '/scoopsNursery', page: () =>  const SchoolNursery()),
+    GetPage(name: '/storeOpenScreen', page: () =>  const SetTimeScreen()),
 
     GetPage(name: '/officeFurnitureScreen', page: () =>  const OfficeFurniture()),
     GetPage(

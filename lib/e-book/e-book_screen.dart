@@ -104,7 +104,7 @@ class _EBookScreenState extends State<EBookScreen> {
               ),
               TabBar(
                 indicatorPadding:
-                    EdgeInsets.symmetric(horizontal: 30, vertical: 3),
+                    EdgeInsets.symmetric(horizontal: 35, vertical: 6),
                 indicator: const BoxDecoration(
                     color: AppTheme.buttonColor,
                     borderRadius: BorderRadius.all(Radius.circular(20))),

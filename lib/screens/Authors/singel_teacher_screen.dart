@@ -182,9 +182,9 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
         builder: (context) {
           return  SizedBox(
             width: size.width,
-            height: size.height*.7,
+            height: size.height*.77,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,10 +206,10 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                         '50% off',
                         style: GoogleFonts.poppins(
 
-                            fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
+                            fontSize: 18, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 2,
 
                       ),
                       Text(
@@ -218,7 +218,8 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                         GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 16),
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 2,
+
                       ),
 
                       Text(
@@ -227,16 +228,17 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                         GoogleFonts.poppins(color: const Color(0xff858484),fontSize: 16),
                       ),
                       const SizedBox(
-                        height: 5,
+                        height: 2,
+
                       ),
                       Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children: [
                         Row(children: [
                           Text(
-                            'KD 12.700',
+                            'KD 6.350',
                             style: GoogleFonts.poppins(
                                 fontSize: 16, fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(width: 10,),
                           Text(
                             'KD 12.700',
                             style: GoogleFonts.poppins(decoration: TextDecoration.lineThrough,
@@ -253,7 +255,8 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                                   offset: Offset(0, -4))
                             ],
                             color: Colors.transparent,
-                            fontSize: 16, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
+                            fontSize: 16, fontWeight: FontWeight.w600,decoration: TextDecoration.underline,
+                          ),
                         )
                       ],),
                       const SizedBox(height: 20,),
@@ -267,14 +270,14 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                                   offset: Offset(0, -4))
                             ],
                             color: Colors.transparent,
-                            fontSize: 18, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
+                            fontSize: 18, fontWeight: FontWeight.w600,decoration: TextDecoration.underline,),
                         ),
                       ),
                       const SizedBox(height: 15,),
                       Text(
                         'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging',
                         style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w400,),
+                            fontSize: 15, fontWeight: FontWeight.w400,height: 1.7),
                       ),
                       const SizedBox(height: 20,),
                     ],),
@@ -291,7 +294,7 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
 
                       ],),
                       InkWell(onTap: (){
-                        Get.toNamed(AddBagScreen.addBagScreen);
+                        Get.offNamed(AddBagScreen.addBagScreen);
                       },
 
                         child: Container(decoration: BoxDecoration(color: const Color(0xff014E70),borderRadius: BorderRadius.circular(22)),

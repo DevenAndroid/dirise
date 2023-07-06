@@ -48,7 +48,7 @@ final trendingProdCont=Get.put(TrendingProductsController());
           preferredSize: const Size.fromHeight(150),
           child: Container(
             color: const Color(0xffEBF1F4),
-            margin: const EdgeInsets.only(top: 5),
+            margin: const EdgeInsets.only(top: 9),
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ final trendingProdCont=Get.put(TrendingProductsController());
                         child: Image(
                             height: 23,
                             image: AssetImage(
-                              'assets/images/diriselogo.png',
+                              'assets/images/diries logo.png',
                             )),
                       ),
                       const Spacer(),
@@ -306,7 +306,9 @@ final trendingProdCont=Get.put(TrendingProductsController());
                             Get.toNamed(CategoriesScreen.categoriesScreen);
 
 
+
                           },
+
                             child: Container(
                                 height: 60,
                                 width: 90,
@@ -400,7 +402,9 @@ final trendingProdCont=Get.put(TrendingProductsController());
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       Container(
+
                         padding: const EdgeInsets.all(2),
+
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border:
@@ -485,7 +489,9 @@ final trendingProdCont=Get.put(TrendingProductsController());
                 ),
                 /*Container(
             margin: const EdgeInsets.all(20),
+
             height: size.height * .36,
+
             child: GridView.builder(
               itemCount: 5,
               padding: EdgeInsets.zero,
@@ -496,6 +502,7 @@ final trendingProdCont=Get.put(TrendingProductsController());
                   mainAxisSpacing: 0,
                   ),
               itemBuilder: (BuildContext context, int index) {
+
                 return Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -530,6 +537,7 @@ final trendingProdCont=Get.put(TrendingProductsController());
                       )
                     ],
                   ),
+
                 );
               },
             ),
@@ -607,6 +615,7 @@ final trendingProdCont=Get.put(TrendingProductsController());
                       );
                     },
                   ),
+
                 ),
                 const SizedBox(
                   height: 20,
@@ -644,6 +653,7 @@ final trendingProdCont=Get.put(TrendingProductsController());
                 ),
                 const SizedBox(
                   height: 20,
+
                 ),
                 Container(
                   height: 300,

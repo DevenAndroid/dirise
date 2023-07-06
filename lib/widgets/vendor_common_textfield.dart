@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'common_colour.dart';
 
-class CommonTextfield extends StatefulWidget {
+class VendorCommonTextfield extends StatefulWidget {
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
   final bool obSecure;
@@ -26,7 +26,7 @@ class CommonTextfield extends StatefulWidget {
 
   List<TextInputFormatter>? inputFormatters = [];
 
-  CommonTextfield({
+  VendorCommonTextfield({
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
@@ -49,10 +49,10 @@ class CommonTextfield extends StatefulWidget {
   });
 
   @override
-  State<CommonTextfield> createState() => _CommonTextfieldState();
+  State<VendorCommonTextfield> createState() => _VendorCommonTextfieldState();
 }
 
-class _CommonTextfieldState extends State<CommonTextfield> {
+class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
 
 
   @override
@@ -77,6 +77,8 @@ class _CommonTextfieldState extends State<CommonTextfield> {
           keyboardType: widget.keyboardType,
           controller: widget.controller,
           decoration: InputDecoration(
+            filled: true,
+            fillColor: Color(0xffE2E2E2).withOpacity(.4),
             counterStyle: const TextStyle(
               color: AppTheme.primaryColor,
               fontSize: 25,
@@ -102,13 +104,13 @@ class _CommonTextfieldState extends State<CommonTextfield> {
 
 
             border: InputBorder.none,
-           focusedErrorBorder: const OutlineInputBorder(
-               borderRadius: BorderRadius.all(Radius.circular(8)),
-               borderSide: BorderSide(color: AppTheme.secondaryColor)
-           ),
-            errorBorder: const OutlineInputBorder(
+            focusedErrorBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 borderSide: BorderSide(color: AppTheme.secondaryColor)
+            ),
+            errorBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide(color:Color(0xffE2E2E2))
             ),
             focusedBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),

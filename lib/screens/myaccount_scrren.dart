@@ -504,7 +504,38 @@ onTap: (){
               color: Color(0x1A000000),
             ),
             const SizedBox(
-              height: 50,
+              height: 5,
+            ),
+            InkWell(
+              onTap: (){
+                Get.toNamed(MyRouters.vendorRegistration);
+
+              },
+              child: Row(
+                children: [
+
+                  Image.asset(height: 25, 'assets/icons/signout.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Vendor flow",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF2A3032),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 80,
             ),
           ]),
         ),
