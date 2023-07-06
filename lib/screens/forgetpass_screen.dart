@@ -88,7 +88,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 height: size.height * .05,
               ),
               CommonTextfield(controller:emailController,obSecure: false, hintText: 'Email'),
-
               SizedBox(
                 height: size.height * .03,
               ),
@@ -98,7 +97,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   forgotPasswordRepo(email: emailController.text,context: context).then((value) {
                     if(value.status==true){
                       showToast(value.message.toString());
-                      Get.toNamed(MyRouters.otpScreen);
+                      Get.toNamed(MyRouters.otpScreen,arguments: [emailController.text,false]);
                     }else{
                       showToast(value.message.toString());
                     }

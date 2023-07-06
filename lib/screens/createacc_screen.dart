@@ -1,11 +1,9 @@
 import 'dart:developer';
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../repoistery/sign_up_repo.dart';
 import '../routers/my_routers.dart';
@@ -31,7 +29,6 @@ class _CreateAccState extends State<CreateAcc> {
   TextEditingController passwordController = TextEditingController();
 
   registerApi() {
-
       registerRepo(
            name: nameController.text,
            email: emailController.text,
@@ -42,13 +39,13 @@ class _CreateAccState extends State<CreateAcc> {
           .then((value) {
         log(value.message.toString());
         if (value.status == true) {
-
-           Get.toNamed(MyRouters.otpScreen,arguments: [emailController.text]);
+           Get.toNamed(MyRouters.otpScreen,arguments: [emailController.text,true]);
+           showToast(value.otp.toString());
         }else{
           showToast(value.message.toString());
 
         }
-        showToast(value.message.toString());
+
       });
 
   }

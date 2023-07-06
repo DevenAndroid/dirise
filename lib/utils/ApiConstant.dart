@@ -11,6 +11,8 @@ class ApiUrls {
   static const String loginUrl = "${apiBaseUrlNew}login";
   static const String verifyOtpEmail = "${apiBaseUrlNew}verify-otp-email";
   static const String forgotPasswordUrl = "${apiBaseUrlNew}userforgototp";
+  static const String changePasswordUrl = "${apiBaseUrlNew}change-password";
+  static const String trendingProductsUrl = "${apiBaseUrlNew}trending-product";
 
 }
 
@@ -20,7 +22,7 @@ showToast(message) {
       msg: message,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 3,
+      timeInSecForIosWeb: 4,
       backgroundColor: AppTheme.buttonColor,
       textColor: const Color(0xffffffff),
       fontSize: 15);

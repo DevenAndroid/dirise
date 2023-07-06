@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
-import '../repoistery/verify_otp_password_screen.dart';
+import '../repoistery/verify_otp_password_repo.dart';
 import '../utils/ApiConstant.dart';
 import '../widgets/common_colour.dart';
 
@@ -19,6 +19,15 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController otpController = TextEditingController();
+  late bool check;
+  String email="";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    check=Get.arguments[1];
+    email=Get.arguments[0];
+  }
 
   @override
   final defaultPinTheme = PinTheme(
@@ -131,12 +140,15 @@ class _OtpScreenState extends State<OtpScreen> {
                                       textStyle: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                       )), onPressed: () {
-
-
                                   verifyOtpRepo(Get.arguments[0],otpController.text,context).then((value) {
                                     showToast(value.message);
                                     if (value.status==true) {
-                                      Get.offAllNamed(MyRouters.loginScreen);
+                                      if(check==true){
+                                        Get.offAllNamed(MyRouters.loginScreen);
+                                      }else{
+                                        Get.toNamed(MyRouters.newPasswordScreen,arguments: [email]);
+                                      }
+
                                     }
                                   });
 

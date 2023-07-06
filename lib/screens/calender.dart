@@ -359,6 +359,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
               headerStyle: const HeaderStyle(
                   formatButtonVisible: false, titleCentered: true),
               calendarFormat: _calendarFormat,
+              calendarStyle: const CalendarStyle(outsideDaysVisible: false),
               onDaySelected: (selectedDay, focusedDay) {
                 if (!isSameDay(_selectedDate, selectedDay)) {
                   // Call `setState()` when updating the selected day
