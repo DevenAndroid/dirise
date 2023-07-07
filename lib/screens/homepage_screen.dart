@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
@@ -6,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
-import '../controller/trending_products_controller.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../controller/home_controller.dart';
+import '../model/popular_product_modal.dart';
 import '../model/trending_products_modal.dart';
-import '../repoistery/trending_product_repo.dart';
 import 'Authors/authors_screen.dart';
 import 'Authors/teacher_screen.dart';
 import 'categores/add_bag_screen.dart';
@@ -24,8 +25,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-final trendingProdCont=Get.put(TrendingProductsController());
-
+final homeController=Get.put(TrendingProductsController());
+final itemController=ItemScrollController();
+final itemController1=ItemScrollController();
+int index1=0;
+bool gg=true;
   List categories = [
     "Libraries",
     "Authors",
@@ -39,6 +43,14 @@ final trendingProdCont=Get.put(TrendingProductsController());
     super.initState();
 
   }
+
+
+  Future scrollToItem(int index) async {
+    itemController.scrollTo(index: index, duration: const Duration(milliseconds: 500));
+  }
+Future scrollToItem1(int index) async {
+  itemController1.scrollTo(index: index, duration: const Duration(milliseconds: 500));
+}
 
   @override
   Widget build(BuildContext context) {
@@ -170,14 +182,39 @@ final trendingProdCont=Get.put(TrendingProductsController());
           ),
         ),
         body:Obx((){
-          return trendingProdCont.trendingModel.value.status==true?
+          return homeController.trendingModel.value.status==true?
             SingleChildScrollView(
               child: Column(children: [
                 Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Image.asset(
-                    'assets/images/storybooks.png',
-                  ),
+                  padding: const EdgeInsets.fromLTRB(0,15,0,15),
+                  child: SizedBox(
+                    height: size.height * 0.22,
+                    child: Swiper(
+                      autoplay: true,
+                      outer: false,
+                      autoplayDelay: 5000,
+                      autoplayDisableOnInteraction: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: CachedNetworkImage(
+                                  imageUrl: homeController.homeModal.value.home!.slider![index].image.toString(),
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => const SizedBox(),
+                                  errorWidget: (context, url, error) => const SizedBox()
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: homeController.homeModal.value.home!.slider!.length,
+                      pagination: const SwiperPagination(),
+                      control: const SwiperControl(size: 0), // remove arrows
+                    ),
+                  )
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
@@ -304,9 +341,6 @@ final trendingProdCont=Get.put(TrendingProductsController());
                         children: [
                           InkWell(onTap:(){
                             Get.toNamed(CategoriesScreen.categoriesScreen);
-
-
-
                           },
 
                             child: Container(
@@ -361,16 +395,20 @@ final trendingProdCont=Get.put(TrendingProductsController());
                         child: Column(
                           children: [
                             Container(
-                              height: 60,
                               width: 90,
-                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(20),
                                   color: const Color(0xffF0F0F0)),
                               child: Center(
-                                child: Image.asset(
-                                  height: 40,
-                                  'assets/images/book.png',
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: CachedNetworkImage(
+                                      imageUrl: homeController.categoryModal.value.data![index].categoryImage.toString(),
+                                      height: 65,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) => const SizedBox(),
+                                      errorWidget: (context, url, error) => const SizedBox()
+                                  ),
                                 ),
                               ),
                             ),
@@ -401,17 +439,28 @@ final trendingProdCont=Get.put(TrendingProductsController());
                         'Trending Products',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
-                      Container(
-
-                        padding: const EdgeInsets.all(2),
-
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border:
-                            Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                        child: const Icon(
-                          Icons.arrow_forward,
-                          color: AppTheme.buttonColor,
+                      InkWell(onTap: (){
+                        print("11  ${homeController.trendingModel.value.product!.product!.length}");
+                        print("rr  ${index1}");
+                        index1=  index1+1;
+                        setState(() {
+                          if(index1==homeController.trendingModel.value.product!.product!.length-1)
+                          {
+                            index1=0;
+                          }
+                        });
+                        scrollToItem(index1);
+                      },
+                        child: Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border:
+                              Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                          child: const Icon(
+                            Icons.arrow_forward,
+                            color: AppTheme.buttonColor,
+                          ),
                         ),
                       )
                     ],
@@ -420,11 +469,12 @@ final trendingProdCont=Get.put(TrendingProductsController());
                 Container(
                   height: 250,
                   margin: const EdgeInsets.fromLTRB(15,20,15,0),
-                  child: ListView.builder(
-                      itemCount: trendingProdCont.trendingModel.value.product!.product!.length,
+                  child: ScrollablePositionedList.builder(
+                      itemCount: homeController.trendingModel.value.product!.product!.length,
+                     itemScrollController: itemController,
                       scrollDirection: Axis.horizontal,itemBuilder: (BuildContext context,int index){
                     return InkWell(onTap: (){
-                      bottomSheet( trendingProdCont.trendingModel.value.product!.product![index]);
+                      bottomSheet( homeController.trendingModel.value.product!.product![index]);
                     },
                       child: Container(
                         width: size.width*.5,
@@ -433,7 +483,7 @@ final trendingProdCont=Get.put(TrendingProductsController());
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CachedNetworkImage(
-                              imageUrl: trendingProdCont.trendingModel.value.product!.product![index].featuredImage.toString(),
+                              imageUrl: homeController.trendingModel.value.product!.product![index].featuredImage.toString(),
                               height: 100,
                               fit: BoxFit.cover,
                               errorWidget: (context,
@@ -444,39 +494,39 @@ final trendingProdCont=Get.put(TrendingProductsController());
                               height: 10,
                             ),
                             Text(
-                              trendingProdCont.trendingModel.value.product!.product![index].discountPercentage.toString(),
+                              homeController.trendingModel.value.product!.product![index].discountPercentage.toString(),
                               style: GoogleFonts.poppins(
                                   fontSize: 16, fontWeight: FontWeight.w500,color: Color(0xffC22E2E)),
                             ),
                             const SizedBox(
-                              height: 7,
+                              height: 6,
                             ),
                             Text(
-                              trendingProdCont.trendingModel.value.product!.product![index].pname.toString(),
+                              homeController.trendingModel.value.product!.product![index].pname.toString(),
                               style: GoogleFonts.poppins(
                                   fontSize: 16, fontWeight: FontWeight.w500),
                             ),
                             const SizedBox(
-                              height: 7,
+                              height: 6,
                             ),
                             Text(
-                              '${trendingProdCont.trendingModel.value.product!.product![index].inStock.toString()} pieces',
+                              '${homeController.trendingModel.value.product!.product![index].inStock.toString()} pieces',
                               style: GoogleFonts.poppins(
                                   color: const Color(0xff858484), fontSize: 17),
                             ),
                             const SizedBox(
-                              height: 7,
+                              height: 6,
                             ),
                             Row(
                               children: [
                                 Text(
-                                  'KD ${trendingProdCont.trendingModel.value.product!.product![index].sPrice.toString()}',
+                                  'KD ${homeController.trendingModel.value.product!.product![index].sPrice.toString()}',
                                   style: GoogleFonts.poppins(
                                       fontSize: 16, fontWeight: FontWeight.w500),
                                 ),
                                 const SizedBox(width: 15,),
                                 Text(
-                                  'KD ${trendingProdCont.trendingModel.value.product!.product![index].pPrice.toString()}',
+                                  'KD ${homeController.trendingModel.value.product!.product![index].pPrice.toString()}',
                                   style: GoogleFonts.poppins(decoration: TextDecoration.lineThrough,color: const Color(0xff858484),
                                       fontSize: 16, fontWeight: FontWeight.w500),
                                 ),
@@ -551,15 +601,28 @@ final trendingProdCont=Get.put(TrendingProductsController());
                         'Popular Products',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border:
-                            Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                        child: const Icon(
-                          Icons.arrow_forward,
-                          color: AppTheme.buttonColor,
+                      InkWell(onTap: (){
+                        print("11  ${homeController.popularProdModal.value.product!.product!.length}");
+                        print("rr  ${index1}");
+                        index1=  index1+1;
+                        setState(() {
+                          if(index1==homeController.popularProdModal.value.product!.product!.length-1)
+                          {
+                            index1=0;
+                          }
+                        });
+                        scrollToItem1(index1);
+                      },
+                        child: Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border:
+                              Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                          child: const Icon(
+                            Icons.arrow_forward,
+                            color: AppTheme.buttonColor,
+                          ),
                         ),
                       )
                     ],
@@ -569,6 +632,77 @@ final trendingProdCont=Get.put(TrendingProductsController());
                   height: 10,
                 ),
                 Container(
+                  height: 250,
+                  margin: const EdgeInsets.fromLTRB(15,20,15,0),
+                  child: ScrollablePositionedList.builder(
+                      itemCount: homeController.popularProdModal.value.product!.product!.length,
+                      itemScrollController: itemController1,
+                      scrollDirection: Axis.horizontal,itemBuilder: (BuildContext context,int index){
+                    return InkWell(onTap: (){
+                      bottomSheet( homeController.popularProdModal.value.product!.product![index]);
+                    },
+                      child: Container(
+                        width: size.width*.5,
+                        margin: const EdgeInsets.only(right: 20),
+                        child:Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: homeController.popularProdModal.value.product!.product![index].featuredImage.toString(),
+                              height: 100,
+                              fit: BoxFit.cover,
+                              errorWidget: (context,
+                                  url, error) =>
+                                  Image.asset(
+                                      "assets/images/bag.png"),),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              homeController.popularProdModal.value.product!.product![index].discountPercentage.toString(),
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, fontWeight: FontWeight.w500,color: Color(0xffC22E2E)),
+                            ),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              homeController.popularProdModal.value.product!.product![index].pname.toString(),
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              '${homeController.popularProdModal.value.product!.product![index].inStock.toString()} pieces',
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xff858484), fontSize: 17),
+                            ),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'KD ${homeController.popularProdModal.value.product!.product![index].sPrice.toString()}',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16, fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(width: 15,),
+                                Text(
+                                  'KD ${homeController.popularProdModal.value.product!.product![index].pPrice.toString()}',
+                                  style: GoogleFonts.poppins(decoration: TextDecoration.lineThrough,color: const Color(0xff858484),
+                                      fontSize: 16, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            )
+                          ],
+                        ) ,),
+                    );
+                  }),
+                ),
+               /* Container(
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   height: size.height * .34,
                   child: GridView.builder(
@@ -616,14 +750,16 @@ final trendingProdCont=Get.put(TrendingProductsController());
                     },
                   ),
 
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Padding(
+                ),*/
+                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child:
-                  Image(image: AssetImage('assets/images/collectionbooks.png')),
+                   SizedBox(
+                     child: CachedNetworkImage(imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
+                       fit: BoxFit.cover,width: size.width,
+                     ),
+                   )
+
                 ),
                 const SizedBox(
                   height: 20,
@@ -687,86 +823,102 @@ final trendingProdCont=Get.put(TrendingProductsController());
                     },
                   ),
                 ),
-              ])):const Center(child: CircularProgressIndicator());
+              ])):const Center(child: CircularProgressIndicator(color: Colors.grey,));
         })
         );
   }
-Future bottomSheet(ProductElement e){
+Future bottomSheet(ProductElement e ){
   Size size = MediaQuery.of(context).size;
   return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.white,
       builder: (context) {
-        return  SingleChildScrollView(
-          child: SizedBox(
-            width: size.width,
-            height: size.height*.76,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(crossAxisAlignment:CrossAxisAlignment.start,
-                    children: [
-                      Align(alignment: Alignment.center,
-                        child: CachedNetworkImage(
-                          imageUrl: e.featuredImage.toString(),
-                          height: 100,
-                          fit: BoxFit.cover,
-                          errorWidget: (context,
-                              url, error) =>
-                              Image.asset(
-                                  "assets/images/bag.png"),),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        e.discountPercentage.toString(),
-                        style: GoogleFonts.poppins(
+        return  SizedBox(
+          width: size.width,
+          height: size.height*.76,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(crossAxisAlignment:CrossAxisAlignment.start,
+                      children: [
+                        Align(alignment: Alignment.center,
+                          child: CachedNetworkImage(
+                            imageUrl: e.featuredImage.toString(),
+                            height: 100,
+                            fit: BoxFit.cover,
+                            errorWidget: (context,
+                                url, error) =>
+                                Image.asset(
+                                    "assets/images/bag.png"),),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          e.discountPercentage.toString(),
+                          style: GoogleFonts.poppins(
 
-                            fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        e.pname.toString(),
-                        style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        '${e.inStock.toString()} pieces',
-                        style: GoogleFonts.poppins(
-                            color: const Color(0xff858484), fontSize: 17),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                'KD ${e.sPrice.toString()}',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                              const SizedBox(width: 15,),
-                              Text(
-                                'KD ${e.pPrice.toString()}',
-                                style: GoogleFonts.poppins(decoration: TextDecoration.lineThrough,color: const Color(0xff858484),
-                                    fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            'Add to list',
+                              fontSize: 14, fontWeight: FontWeight.w500,color: const Color(0xffC22E2E)),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          e.pname.toString(),
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          '${e.inStock.toString()} pieces',
+                          style: GoogleFonts.poppins(
+                              color: const Color(0xff858484), fontSize: 17),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'KD ${e.sPrice.toString()}',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16, fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(width: 15,),
+                                Text(
+                                  'KD ${e.pPrice.toString()}',
+                                  style: GoogleFonts.poppins(decoration: TextDecoration.lineThrough,color: const Color(0xff858484),
+                                      fontSize: 16, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'Add to list',
+                              style: GoogleFonts.poppins(
+                                shadows: [
+                                  const Shadow(
+                                      color: Colors.black,
+                                      offset: Offset(0, -4))
+                                ],
+                                color: Colors.transparent,
+                                fontSize: 16, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 20,),
+                        Align(alignment: Alignment.center,
+                          child: Text(
+                            'Description',
                             style: GoogleFonts.poppins(
                               shadows: [
                                 const Shadow(
@@ -774,58 +926,45 @@ Future bottomSheet(ProductElement e){
                                     offset: Offset(0, -4))
                               ],
                               color: Colors.transparent,
-                              fontSize: 16, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 20,),
-                      Align(alignment: Alignment.center,
-                        child: Text(
-                          'Description',
-                          style: GoogleFonts.poppins(
-                            shadows: [
-                              const Shadow(
-                                  color: Colors.black,
-                                  offset: Offset(0, -4))
-                            ],
-                            color: Colors.transparent,
-                            fontSize: 18, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
+                              fontSize: 18, fontWeight: FontWeight.w500,decoration: TextDecoration.underline,),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 15,),
-                      Text(Bidi.stripHtmlIfNeeded(e.longDescription.toString()),
-                        style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w400,),
-                      ),
-                      const SizedBox(height: 20,),
-                    ],),
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Row(children: [
-                        CircleAvatar(radius: 18,backgroundColor:Color(0xffEAEAEA),
-                          child:Center(child: Text("━",style: TextStyle(fontSize:16,fontWeight: FontWeight.w500,color: Colors.black),)) ,),
-                        SizedBox(width: 10,),
-                        Text("1",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
-                        SizedBox(width: 10,),
-                        CircleAvatar(radius: 18,backgroundColor:Color(0xffEAEAEA),
-                          child:Center(child: Text("+",style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: Colors.black),)) ,),
-
+                        const SizedBox(height: 15,),
+                        Text(Bidi.stripHtmlIfNeeded(e.longDescription.toString()),
+                          style: GoogleFonts.poppins(
+                            fontSize: 14, fontWeight: FontWeight.w400,),
+                        ),
+                        const SizedBox(height: 20,),
                       ],),
-                      InkWell(onTap: (){
-                        Get.offNamed(AddBagScreen.addBagScreen);
-                      },
+                  ),
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Row(children: [
+                      CircleAvatar(radius: 18,backgroundColor:Color(0xffEAEAEA),
+                        child:Center(child: Text("━",style: TextStyle(fontSize:16,fontWeight: FontWeight.w500,color: Colors.black),)) ,),
+                      SizedBox(width: 10,),
+                      Text("1",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
+                      SizedBox(width: 10,),
+                      CircleAvatar(radius: 18,backgroundColor:Color(0xffEAEAEA),
+                        child:Center(child: Text("+",style: TextStyle(fontSize:20,fontWeight: FontWeight.w600,color: Colors.black),)) ,),
 
-                        child: Container(decoration: BoxDecoration(color: const Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
-                          padding: const EdgeInsets.fromLTRB(20,9,20,9),
-
-                          child: Text("Add to Bag",style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.white),),),
-                      )
                     ],),
-                ],
-              ),
+                    InkWell(onTap: (){
+                      Get.offNamed(AddBagScreen.addBagScreen);
+                    },
+
+                      child: Container(decoration: BoxDecoration(color: const Color(0xff014E70),borderRadius: BorderRadius.circular(22)),
+                        padding: const EdgeInsets.fromLTRB(20,9,20,9),
+
+                        child: Text("Add to Bag",style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500,color: Colors.white),),),
+                    )
+                  ],),
+              ],
             ),
           ),
         );
       });
 }
+
 }

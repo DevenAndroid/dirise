@@ -20,9 +20,14 @@ class _SplashState extends State<Splash> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(const Duration(seconds: 5), () async {
+    Timer(const Duration(seconds: 4), () async {
       SharedPreferences pref = await SharedPreferences.getInstance();
-      Get.offAllNamed(MyRouters.loginScreen);
+      if(pref.getString("user") != null){
+        Get.offNamed(MyRouters.bottomNavBar);
+      }else{
+        Get.offAllNamed(MyRouters.loginScreen);
+      }
+
     });
   }
 

@@ -80,7 +80,7 @@ Future<LoginModal> loginRepo(email, password, context) async {
     return LoginModal.fromJson(jsonDecode(response.body));
   } else {
      Helpers.hideLoader(loader);
-    throw Exception('Failed to load data');
+    throw Exception(response.body);
   }
 }
 
