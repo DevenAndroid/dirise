@@ -13,6 +13,9 @@ class ApiUrls {
   static const String forgotPasswordUrl = "${apiBaseUrlNew}userforgototp";
   static const String changePasswordUrl = "${apiBaseUrlNew}change-password";
   static const String trendingProductsUrl = "${apiBaseUrlNew}trending-product";
+  static const String homeUrl = "${apiBaseUrlNew}home";
+  static const String categoryUrl = "${apiBaseUrlNew}category";
+  static const String popularProductUrl = "${apiBaseUrlNew}popular-product";
 
 }
 
