@@ -390,7 +390,7 @@ Get.toNamed(MyRouters.storeOpenScreen);
                                 activeTextColor:  const Color(0xFFFFFFFF),
                                 inactiveTextFontWeight: FontWeight.w600,
                                 inactiveColor: Colors.grey.shade400,
-                                activeColor: const Color(0xFF04666E),
+                                activeColor: AppTheme.buttonColor,
                                 onToggle: (val) {
                                   setState(() {
                                     state2 = val;

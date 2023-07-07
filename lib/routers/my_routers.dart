@@ -13,6 +13,7 @@ import 'package:dirise/screens/profile_screen.dart';
 import 'package:dirise/screens/scoopsnursery_screen.dart';
 import 'package:dirise/screens/termsconditions_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
+import 'package:dirise/vendorflow/vendor_order_list_screen.dart';
 import 'package:get/get.dart';
 
 
@@ -42,8 +43,11 @@ import '../screens/my_orders_screen.dart';
 import '../screens/officefurniture_sceen/officefurniture_screen.dart';
 import '../screens/selectd_order_screen.dart';
 import '../splash.dart';
+import '../vendorflow/add_money_screen.dart';
+import '../vendorflow/add_product_screen.dart';
 import '../vendorflow/all_product_screen.dart';
 import '../vendorflow/dashboard_screen.dart';
+import '../vendorflow/bank_account_screen.dart';
 import '../vendorflow/store_open_time_screen.dart';
 import '../vendorflow/thanku_screen.dart';
 import '../vendorflow/vendor_registration_screen.dart';
@@ -75,6 +79,11 @@ class MyRouters {
   static var vendorRegistration = "/vendorRegistration";
   static var thankUScreen = "/thankUScreen";
   static var allProductScreen = "/allProductScreen";
+  static var addProductScreen = "/addProductScreen";
+  static var orderListScreen = "/orderListScreen";
+  static var addMoneyScreen = "/addMoneyScreen";
+  static var bankAccount = "/bankAccount";
+
 
 
 
@@ -90,13 +99,17 @@ class MyRouters {
     GetPage(name: '/profileScreen', page: () => const Profile()),
     GetPage(name: '/otpScreen', page: () => const OtpScreen()),
     GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
+    GetPage(name: '/orderListScreen', page: () => const VendorOrderList()),
     GetPage(name: '/allProductScreen', page: () => const ProductScreen()),
+    GetPage(name: '/bankAccount', page: () => const BankDetailsScreen()),
     GetPage(name: '/thankUScreen', page: () => const ThankYouVendorScreen()),
     GetPage(name: '/editprofileScreen', page: () => const EditProfile()),
+    GetPage(name: '/addProductScreen', page: () => const AddProduct()),
     GetPage(name: '/newPasswordScreen', page: () => const NewPassword()),
     GetPage(name: '/termsConditionScreen', page: () => const TermCondition()),
     GetPage(name: '/calendarScreen', page: () =>   const EventCalendarScreen()),
     GetPage(name: '/eBookScreen', page: () =>  const EBookScreen()),
+    GetPage(name: '/addMoneyScreen', page: () =>  const WithdrawMoney()),
     GetPage(name: '/singleChair', page: () =>  const SingleChair()),
     GetPage(name: '/dashBoardScreen', page: () =>  const DashboardScreen()),
     GetPage(name: '/vendorRegistration', page: () =>  const VendorRegistrationScreen()),
