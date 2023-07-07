@@ -1,5 +1,7 @@
+import 'package:dirise/routers/my_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/common_colour.dart';
@@ -14,8 +16,10 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   String? selectProduct;
-  final List<String> product = ["vendor", "vendor"];
+  // final List<String> product = ["vendor", "vendor"];
   bool state1 = true;
+  String _ratingController = "vendor";
+  final List<String> optionMenu = ["vendor", "ffgsfgs"];
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: AddSize.size80 * 3.6,
+                        width: AddSize.size80 * 4.2,
                         decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(10),
@@ -80,7 +84,6 @@ class _ProductScreenState extends State<ProductScreen> {
                               filled: true,
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                  showDialogForItem();
                                   // vendorProductListController
                                   //     .getVendorProductList();
                                 },
@@ -107,11 +110,12 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          showDialogForItem();
                           // Get.toNamed(AddVendorProduct.addVendorProduct);
                         },
                         child: Container(
-                          height: AddSize.size20 * 2.2,
-                          width: AddSize.size20 * 2.2,
+                          height: AddSize.size20 * 2.5,
+                          width: AddSize.size20 * 2.5,
                           decoration: BoxDecoration(
                             color: AppTheme.buttonColor,
                             borderRadius: BorderRadius.circular(10),
@@ -126,8 +130,11 @@ class _ProductScreenState extends State<ProductScreen> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 20,),
-                  ListView.builder(itemCount: 7,
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ListView.builder(
+                    itemCount: 7,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
@@ -147,28 +154,30 @@ class _ProductScreenState extends State<ProductScreen> {
                                       height: AddSize.size80,
                                       width: AddSize.size80,
                                       child: const Image(
-                                        image:
-                                        AssetImage('assets/images/voicebook.png'),
+                                        image: AssetImage(
+                                            'assets/images/voicebook.png'),
                                       )),
                                   SizedBox(
                                     width: AddSize.size10,
                                   ),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Expanded(
                                               child: Text(
                                                 'Testasy Book',
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 16,
-                                                    fontWeight: FontWeight.w500),
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                               ),
                                             ),
                                             Container(
@@ -176,9 +185,11 @@ class _ProductScreenState extends State<ProductScreen> {
                                                 width: AddSize.size25,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.circular(40),
+                                                        BorderRadius.circular(
+                                                            40),
                                                     border: Border.all(
-                                                        color: AppTheme.buttonColor)),
+                                                        color: AppTheme
+                                                            .buttonColor)),
                                                 child: Center(
                                                   child: Icon(
                                                     Icons.edit,
@@ -238,7 +249,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         ),
                                         Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 'KD 6.350',
@@ -271,17 +282,20 @@ class _ProductScreenState extends State<ProductScreen> {
                                                 height: AddSize.size20 * 1.4,
                                                 padding: 2,
                                                 valueFontSize: AddSize.font12,
-                                                activeTextFontWeight: FontWeight.w600,
+                                                activeTextFontWeight:
+                                                    FontWeight.w600,
                                                 inactiveText: " Out",
                                                 activeText: "  In",
                                                 inactiveTextColor:
-                                                const Color(0xFFEBEBEB),
+                                                    const Color(0xFFEBEBEB),
                                                 activeTextColor:
-                                                const Color(0xFFFFFFFF),
+                                                    const Color(0xFFFFFFFF),
                                                 inactiveTextFontWeight:
-                                                FontWeight.w600,
-                                                inactiveColor: Colors.grey.shade400,
-                                                activeColor: AppTheme.buttonColor,
+                                                    FontWeight.w600,
+                                                inactiveColor:
+                                                    Colors.grey.shade400,
+                                                activeColor:
+                                                    AppTheme.buttonColor,
                                                 onToggle: (val) {
                                                   setState(() {
                                                     state1 = val;
@@ -295,154 +309,148 @@ class _ProductScreenState extends State<ProductScreen> {
                                   ),
                                 ])),
                           ),
-                          const SizedBox(height: 13,)
+                          const SizedBox(
+                            height: 13,
+                          )
                         ],
                       );
                     },
-
                   ),
                 ]))));
   }
 
-  showDialogForItem(){
-    return showDialog(context: context, builder: (context){
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Select Product Type',
-                style:
-                TextStyle(color: Colors.black, fontSize: 15,fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  showDialogForItem() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: const Color(0xffE2E2E2).withOpacity(.4)
-
-                      ),
-                      child: Row(
-                        //mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: DropdownButtonFormField(
-                                icon: const Icon(Icons
-                                    .keyboard_arrow_down_rounded),
-                                focusColor: Colors.grey.shade50,
-                                isExpanded: true,
-                                // iconEnabledColor: Colors.green,
-                                hint: Text(
-                                  'Category',
-                                  style: GoogleFonts.poppins(
-                                    // color: const Color(0xff4F5D62),
-                                      fontSize: AddSize.font16),
-                                  textAlign: TextAlign.start,
-                                ),
-                                decoration: InputDecoration(
-                                  fillColor: Colors.grey.shade50,
-                                  contentPadding:
-                                  const EdgeInsets.symmetric(
-                                      horizontal: 15,
-                                      vertical: 18),
-                                  // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey.shade300),
-                                    borderRadius:
-                                    BorderRadius.circular(10.0),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey.shade300),
-                                    borderRadius:
-                                    BorderRadius.circular(10.0),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.grey.shade300,
-                                          width: 3.0),
-                                      borderRadius:
-                                      BorderRadius.circular(
-                                          15.0)),
-                                ),
-                                value: selectProduct,
-                                items: product.map((value) {
-                                  return DropdownMenuItem(
-                                    value: value.toString(),
-                                    child: Row(
-                                      //mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          value.toString(),
-                                          style: TextStyle(
-                                              color: Colors.black45,
-                                              fontSize:
-                                              AddSize.font14),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  selectProduct =
-                                      newValue.toString();
-                                  setState(() {});
-                                },
-                                validator: (valid) {
-                                  if (selectProduct == null) {
-                                    return "Type is required";
-                                  } else {
-                                    return null;
-                                  }
-                                }),
-                          ),
-                        ],
-                      ),
-                    ),
+                  const Text(
+                    'Select Product Type',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Color(0xffE2E2E2).withOpacity(.4)),
+                          child: Row(
+
+                            children: [
+
+
+                              Expanded(
+                                child: DropdownButtonFormField<String>(
+                                  value: _ratingController,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedErrorBorder:
+                                    const OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.all(
+                                            Radius.circular(8)),
+                                        borderSide: BorderSide(
+                                            color: AppTheme
+                                                .secondaryColor)),
+                                    errorBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8)),
+                                        borderSide: BorderSide(
+                                            color: Color(0xffE2E2E2))),
+                                    focusedBorder:
+                                    const OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.all(
+                                            Radius.circular(8)),
+                                        borderSide: BorderSide(
+                                            color: AppTheme
+                                                .secondaryColor)),
+                                    disabledBorder:
+                                    const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(8)),
+                                      borderSide: BorderSide(
+                                          color: AppTheme.secondaryColor),
+                                    ),
+                                    enabledBorder:
+                                    const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(8)),
+                                      borderSide: BorderSide(
+                                          color: AppTheme.secondaryColor),
+                                    ),
+                                  ),
+                                  items: ["vendor", "customer"]
+                                      .map((label) => DropdownMenuItem(
+                                    child: Text(
+                                      label.toString(),
+                                      style: GoogleFonts.poppins(
+                                        color:
+                                        AppTheme.primaryColor,
+                                      ),
+                                    ),
+                                    value: label,
+                                  ))
+                                      .toList(),
+                                  hint: Text('Rating'),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _ratingController = value!;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Get.toNamed(MyRouters.addProductScreen);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.maxFinite, 50),
+                          backgroundColor: AppTheme.buttonColor,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(AddSize.size10)),
+                          textStyle: TextStyle(
+                              fontSize: AddSize.font20,
+                              fontWeight: FontWeight.w600)),
+                      child: Text(
+                        "Save",
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: AddSize.font18),
+                      )),
                 ],
               ),
-              SizedBox(height: 10,),
-
-
-              ElevatedButton(
-                  onPressed: () {
-
-                  },
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.maxFinite, 50),
-                      backgroundColor: AppTheme.buttonColor,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(AddSize.size10)),
-                      textStyle: TextStyle(
-                          fontSize: AddSize.font20,
-                          fontWeight: FontWeight.w600)),
-                  child: Text(
-                    "Save",
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: AddSize.font18),
-                  )),
-            ],
-          ),
-        ),
-      );
-    });
+            ),
+          );
+        });
   }
 }

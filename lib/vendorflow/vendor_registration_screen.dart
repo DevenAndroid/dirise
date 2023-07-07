@@ -17,15 +17,18 @@ import '../widgets/vendor_common_textfield.dart';
 
 class VendorRegistrationScreen extends StatefulWidget {
   const VendorRegistrationScreen({Key? key}) : super(key: key);
+
   // static var cookSettingScreen = "/cookSettingScreen";
 
   @override
-  State<VendorRegistrationScreen> createState() => _VendorRegistrationScreenState();
+  State<VendorRegistrationScreen> createState() =>
+      _VendorRegistrationScreenState();
 }
 
 class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
-  String? chooseOptionType;
-  final List<String> optionMenu = ["vendor", "vendor"];
+  String chooseOptionType = "";
+  String _ratingController = "vendor";
+  final List<String> optionMenu = ["vendor", "ffgsfgs"];
 
   RxBool showValidation = false.obs;
 
@@ -64,17 +67,20 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-       backgroundColor:  Color(0xffF4F4F4),
+      backgroundColor: Color(0xffF4F4F4),
       appBar: AppBar(
-        backgroundColor:  Color(0xffF4F4F4),
+        backgroundColor: Color(0xffF4F4F4),
         surfaceTintColor: Colors.white,
         leading: GestureDetector(
-          onTap: (){
+          onTap: () {
             // _scaffoldKey.currentState!.openDrawer();
           },
           child: Padding(
             padding: const EdgeInsets.all(18),
-            child: Image.asset('assets/icons/backicon.png',height: 20,),
+            child: Image.asset(
+              'assets/icons/backicon.png',
+              height: 20,
+            ),
           ),
         ),
         title: Text(
@@ -103,10 +109,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       children: [
                         VendorCommonTextfield(
                             obSecure: true,
-
                             controller: cookNameController,
                             hintText: "Store Name",
-
                             validator: MultiValidator([
                               RequiredValidator(
                                   errorText: 'Store name is required')
@@ -133,95 +137,82 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                               RequiredValidator(
                                   errorText: 'Store name is required')
                             ])),
-
                         SizedBox(
                           height: height * .007,
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: Color(0xffE2E2E2).withOpacity(.4)
-
-                                ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Color(0xffE2E2E2).withOpacity(.4)),
                                 child: Row(
-                                  //mainAxisSize: MainAxisSize.min,
+
                                   children: [
+
+
                                     Expanded(
-                                      child: DropdownButtonFormField(
-                                          icon: const Icon(Icons
-                                              .keyboard_arrow_down_rounded),
-                                          focusColor: Colors.grey.shade50,
-                                          isExpanded: true,
-                                          // iconEnabledColor: Colors.green,
-                                          hint: Text(
-                                            'Vendor Type',
-                                            style: GoogleFonts.poppins(
-                                                // color: const Color(0xff4F5D62),
-                                                fontSize: AddSize.font16),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                          decoration: InputDecoration(
-                                            fillColor: Colors.grey.shade50,
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 15,
-                                                    vertical: 18),
-                                            // .copyWith(top: maxLines! > 4 ? AddSize.size18 : 0),
-                                            focusedBorder: OutlineInputBorder(
+                                      child: DropdownButtonFormField<String>(
+                                        value: _ratingController,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          focusedErrorBorder:
+                                              const OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(8)),
+                                                  borderSide: BorderSide(
+                                                      color: AppTheme
+                                                          .secondaryColor)),
+                                          errorBorder: const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(8)),
                                               borderSide: BorderSide(
-                                                  color: Colors.grey.shade300),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey.shade300),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            border: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey.shade300,
-                                                    width: 3.0),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        15.0)),
+                                                  color: Color(0xffE2E2E2))),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(8)),
+                                                  borderSide: BorderSide(
+                                                      color: AppTheme
+                                                          .secondaryColor)),
+                                          disabledBorder:
+                                              const OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: AppTheme.secondaryColor),
                                           ),
-                                          value: chooseOptionType,
-                                          items: optionMenu.map((value) {
-                                            return DropdownMenuItem(
-                                              value: value.toString(),
-                                              child: Row(
-                                                //mainAxisAlignment: MainAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    value.toString(),
-                                                    style: TextStyle(
-                                                        color: Colors.black45,
-                                                        fontSize:
-                                                            AddSize.font14),
+                                          enabledBorder:
+                                              const OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8)),
+                                            borderSide: BorderSide(
+                                                color: AppTheme.secondaryColor),
+                                          ),
+                                        ),
+                                        items: ["vendor", "customer"]
+                                            .map((label) => DropdownMenuItem(
+                                                  child: Text(
+                                                    label.toString(),
+                                                    style: GoogleFonts.poppins(
+                                                      color:
+                                                          AppTheme.primaryColor,
+                                                    ),
                                                   ),
-                                                ],
-                                              ),
-                                            );
-                                          }).toList(),
-                                          onChanged: (newValue) {
-                                            chooseOptionType =
-                                                newValue.toString();
-                                            setState(() {});
-                                          },
-                                          validator: (valid) {
-                                            if (chooseOptionType == null) {
-                                              return "Type is required";
-                                            } else {
-                                              return null;
-                                            }
-                                          }),
+                                                  value: label,
+                                                ))
+                                            .toList(),
+                                        hint: Text('Rating'),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _ratingController = value!;
+                                          });
+                                        },
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -232,8 +223,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         SizedBox(
                           height: height * .02,
                         ),
-
-
                         VendorCommonTextfield(
                             obSecure: true,
                             controller: ppsController,
@@ -282,7 +271,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                                   ? Column(
                                       children: [
                                         Text(
-                                          "Upload Profile Picture",
+                                          "Upload",
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w300,
                                               color: const Color(0xff4F5D62),
@@ -303,7 +292,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                                               child: Image(
                                                   height: AddSize.size50,
                                                   width: AddSize.size50,
-                                                  image: const AssetImage('assets/icons/camera_icon.png'))),
+                                                  image: const AssetImage(
+                                                      'assets/icons/camera_icon.png'))),
                                         ),
                                       ],
                                     )
@@ -389,7 +379,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                                   ? Column(
                                       children: [
                                         Text(
-                                          "Upload PPS Card",
+                                          "Image",
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w300,
                                               color: const Color(0xff4F5D62),
@@ -410,7 +400,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                                               child: Image(
                                                   height: AddSize.size50,
                                                   width: AddSize.size50,
-                                                  image: const AssetImage('assets/icons/camera_icon.png'))),
+                                                  image: const AssetImage(
+                                                      'assets/icons/camera_icon.png'))),
                                         ),
                                       ],
                                     )
@@ -461,7 +452,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                               Get.toNamed(MyRouters.thankUScreen);
+                              Get.toNamed(MyRouters.thankUScreen);
                             },
                             style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(double.maxFinite, 60),
