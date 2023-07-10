@@ -1,10 +1,12 @@
 
 import 'package:get/get.dart';
+import '../model/author_modal.dart';
 import '../model/categories_modal.dart';
 import '../model/home_modal.dart';
 import '../model/popular_product_modal.dart';
 import '../model/trending_products_modal.dart';
 import '../repoistery/all_categories_repo.dart';
+import '../repoistery/author_repo.dart';
 import '../repoistery/home_repo.dart';
 import '../repoistery/popular_product_repo.dart';
 import '../repoistery/trending_product_repo.dart';
@@ -14,6 +16,7 @@ class TrendingProductsController extends GetxController {
   Rx<HomeModal> homeModal = HomeModal().obs;
   Rx<CategoriesModal> categoryModal = CategoriesModal().obs;
   Rx<PopularProductsModal> popularProdModal = PopularProductsModal().obs;
+  Rx<AuthorModal> authorModal = AuthorModal().obs;
   Future trendingData() async {
     await trendingProductsRepo().then((value) {
        trendingModel.value=value;
@@ -46,6 +49,14 @@ class TrendingProductsController extends GetxController {
       }
     });
   }
+  Future authorData() async {
+    await authorRepo().then((value) {
+      authorModal.value=value;
+      if(value.status==true){
+        print("aaaaaaaauhhorrrrrrrrrrrrrrrrrrr");
+      }
+    });
+  }
   @override
   void onInit() {
     // TODO: implement onInit
@@ -54,6 +65,7 @@ class TrendingProductsController extends GetxController {
     categoriesData();
     popularProductsData();
     homeData();
+    authorData();
 
   }
 }

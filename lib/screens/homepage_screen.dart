@@ -9,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../controller/home_controller.dart';
-import '../model/popular_product_modal.dart';
 import '../model/trending_products_modal.dart';
 import 'Authors/authors_screen.dart';
 import 'Authors/teacher_screen.dart';
@@ -795,7 +794,7 @@ Future scrollToItem1(int index) async {
                   height: 300,
                   margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: GridView.builder(
-                    itemCount: 2,
+                    itemCount: 1,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -806,15 +805,17 @@ Future scrollToItem1(int index) async {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.asset(
-                            height: size.height * .19,
-                            'assets/images/Soud Alsanousi.png',
-                          ),
+                          CachedNetworkImage(imageUrl: homeController.authorModal.value.data![index].profileImage.toString(), fit: BoxFit.cover,
+                              errorWidget: (context,
+                                  url, error) =>
+                                  Image.asset(
+                                      "assets/images/Soud Alsanousi.png")),
+
                           const SizedBox(
                             height: 10,
                           ),
                           Text(
-                            'Soud Alsanousi',
+                      homeController.authorModal.value.data![index].name.toString(),
                             style: GoogleFonts.poppins(
                                 fontSize: 18, fontWeight: FontWeight.w600),
                           ),
