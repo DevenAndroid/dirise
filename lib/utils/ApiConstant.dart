@@ -16,6 +16,7 @@ class ApiUrls {
   static const String homeUrl = "${apiBaseUrlNew}home";
   static const String categoryUrl = "${apiBaseUrlNew}category";
   static const String popularProductUrl = "${apiBaseUrlNew}popular-product";
+  static const String authorUrl = "${apiBaseUrlNew}authers-list";
 
 }
 
