@@ -73,6 +73,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         surfaceTintColor: Colors.white,
         leading: GestureDetector(
           onTap: () {
+            Get.back();
             // _scaffoldKey.currentState!.openDrawer();
           },
           child: Padding(
@@ -145,6 +146,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           children: [
                             Expanded(
                               child: Container(
+                                height: 58,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Color(0xffE2E2E2).withOpacity(.4)),
@@ -155,6 +157,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
 
                                     Expanded(
                                       child: DropdownButtonFormField<String>(
+                                        icon: Icon(Icons.keyboard_arrow_down),
+                                        iconSize: 30,
+                                        iconDisabledColor: Color(0xff97949A),
+                                        iconEnabledColor: Color(0xff97949A),
                                         value: _ratingController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
@@ -200,7 +206,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                                                     label.toString(),
                                                     style: GoogleFonts.poppins(
                                                       color:
-                                                          AppTheme.primaryColor,
+                                                         Color(0xff463B57),
                                                     ),
                                                   ),
                                                   value: label,
@@ -274,8 +280,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                                           "Upload",
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w300,
-                                              color: const Color(0xff4F5D62),
-                                              fontSize: AddSize.font14),
+                                              color: const Color(0xff463B57),
+                                              fontSize: AddSize.font16),
                                         ),
                                         SizedBox(
                                           height: AddSize.size10,
@@ -382,8 +388,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                                           "Image",
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w300,
-                                              color: const Color(0xff4F5D62),
-                                              fontSize: AddSize.font14),
+                                              color: const Color(0xff463B57),
+                                              fontSize: AddSize.font16),
                                         ),
                                         SizedBox(
                                           height: AddSize.size10,

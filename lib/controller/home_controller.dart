@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import '../model/categories_modal.dart';
 import '../model/home_modal.dart';
@@ -26,7 +28,7 @@ class TrendingProductsController extends GetxController {
     await homeRepo().then((value) {
       homeModal.value=value;
       if(value.status==true){
-        print("homeeeeeeeeee");
+        log("homeeeeeeeeee");
       }
     });
   }
@@ -34,7 +36,7 @@ class TrendingProductsController extends GetxController {
     await categoryRepo().then((value) {
       categoryModal.value=value;
       if(value.status==true){
-        print("Categorieeeeeee");
+        log("Categorieeeeeee");
       }
     });
   }
@@ -42,7 +44,7 @@ class TrendingProductsController extends GetxController {
     await popularProductsRepo().then((value) {
       popularProdModal.value=value;
       if(value.status==true){
-        print("popolarrrrrrrrrrrrrrrr");
+        log("popular");
       }
     });
   }

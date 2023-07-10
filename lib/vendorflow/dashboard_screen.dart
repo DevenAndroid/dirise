@@ -44,6 +44,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 GestureDetector(
                   onTap: (){
+                    Get.back();
                     // _scaffoldKey.currentState!.openDrawer();
                   },
                   child: Image.asset('assets/icons/backicon.png',height: 24,),

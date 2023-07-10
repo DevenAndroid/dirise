@@ -49,7 +49,7 @@ class _EBookScreenState extends State<EBookScreen> {
                   child: TextField(
                     maxLines: 1,
                     style: const TextStyle(fontSize: 17),
-                    textAlign: TextAlign.center,
+
                     textInputAction: TextInputAction.search,
                     decoration: InputDecoration(
                         filled: true,
@@ -81,6 +81,7 @@ class _EBookScreenState extends State<EBookScreen> {
                         hintText: 'Search E Book',
                         hintStyle:
                             GoogleFonts.poppins(color: AppTheme.buttonColor)),
+
                   ),
                 ),
               ],
