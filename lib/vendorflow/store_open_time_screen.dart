@@ -121,7 +121,8 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
         surfaceTintColor: Colors.white,
         leading: GestureDetector(
           onTap: (){
-            // _scaffoldKey.currentState!.openDrawer();
+            Get.back();
+
           },
           child: Padding(
             padding: const EdgeInsets.all(18),

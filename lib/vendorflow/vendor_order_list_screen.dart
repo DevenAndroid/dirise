@@ -2,6 +2,7 @@ import 'package:dirise/routers/my_routers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart' as intl;
 import '../widgets/common_colour.dart';
 import '../widgets/dimension_screen.dart';
@@ -19,6 +20,9 @@ class _VendorOrderListState extends State<VendorOrderList> {
   RxBool isValue = false.obs;
   String? selectedStatus;
   String? selectedTime;
+  String _statusController = "Filter";
+  String _filterController = "Status";
+  final List<String> optionMenu = ["vendor", "ffgsfgs"];
 
   final List<String> dropDownTimeList = [
     "This week",
@@ -80,9 +84,8 @@ class _VendorOrderListState extends State<VendorOrderList> {
                           bottomLeft: Radius.circular(20),
                           bottomRight: Radius.circular(20)),
                       image: DecorationImage(
-
-                        image: AssetImage('assets/icons/shortcontainer.png'),
-                        fit: BoxFit.fill,
+                        image: AssetImage('assets/images/orderlitscontainer.png',),
+                         fit: BoxFit.cover,
                       )),
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -124,7 +127,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                           ),
                           Container(
                               decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: AppTheme.buttonColor,
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.white24)),
                               child: Padding(
@@ -148,7 +151,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 28,
                                                   color:
-                                                      const Color(0xFF676363)),
+                                                       Colors.white),
                                         ),
                                         SizedBox(
                                           height: AddSize.size5,
@@ -161,8 +164,8 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                               .copyWith(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: AddSize.font14,
-                                                  color:
-                                                      const Color(0xFF676363)),
+                                              color:
+                                              Colors.white),
                                         ),
                                       ],
                                     ),
@@ -173,10 +176,10 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       },
                                       child: Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: AddSize.padding16,
-                                              vertical: AddSize.padding10),
+                                              horizontal: AddSize.padding20,
+                                              vertical: AddSize.padding12),
                                           decoration: BoxDecoration(
-                                              color: AppTheme.primaryColor,
+                                              color:Colors.white,
                                               borderRadius:
                                                   BorderRadius.circular(10)),
                                           child: Text(
@@ -186,8 +189,8 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                                 .headline5!
                                                 .copyWith(
                                                     fontWeight: FontWeight.w600,
-                                                    fontSize: AddSize.font14,
-                                                    color: Colors.white),
+                                                    fontSize: AddSize.font16,
+                                                    color:AppTheme.buttonColor),
                                           )),
                                     )
                                   ],
@@ -202,77 +205,214 @@ class _VendorOrderListState extends State<VendorOrderList> {
                           Row(
                             children: [
                               Expanded(
-                                  child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: Colors.white24)),
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    color: AppTheme.buttonColor,
+                                child: Container(
+                                  height: 58,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: AppTheme.buttonColor),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: DropdownButtonFormField<String>(
+                                          iconEnabledColor: Colors.white,
+                                          iconDisabledColor: Colors.white,
+
+                                          value: _statusController,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            focusedErrorBorder:
+                                                const OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(8)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.white24)),
+                                            errorBorder:
+                                                const OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(8)),
+                                                    borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xffE2E2E2))),
+                                            focusedBorder:
+                                                const OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(8)),
+                                                    borderSide: BorderSide(
+                                                        color: Colors.white24)),
+                                            disabledBorder:
+                                                const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(8)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.white24),
+                                            ),
+                                            enabledBorder:
+                                                const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(8)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.white24),
+                                            ),
+                                          ),
+                                          items: ["vendor", "customer"]
+                                              .map((label) => DropdownMenuItem(
+                                                    child: Text(
+                                                      label.toString(),
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    value: label,
+                                                  ))
+                                              .toList(),
+                                       // hint: Text('Rating',style: GoogleFonts.poppins(color: Colors.grey),),
+
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _statusController = value!;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  decoration: InputDecoration(
-                                      border: const OutlineInputBorder(
-                                          borderSide: BorderSide.none),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: AddSize.padding20,
-                                          vertical: AddSize.padding10),
-                                      hintText: 'FiIter',
-                                      hintStyle: TextStyle(
-                                          fontSize: AddSize.font14,
-                                          color: const Color(0xFF676363),
-                                          fontWeight: FontWeight.w400)),
-                                  readOnly: true,
-                                  onTap: () {
-                                    // selectDate();
-                                  },
-                                  // controller: TextEditingController(
-                                  //     text: format.format(DateTime.parse('45/5'))),
                                 ),
-                              )),
+                                //     child: Container(
+                                //   decoration: BoxDecoration(
+                                //       color: Colors.white,
+                                //       borderRadius: BorderRadius.circular(6),
+                                //       border: Border.all(color: Colors.white24)),
+                                //   child: TextFormField(
+                                //     style: const TextStyle(
+                                //       fontSize: 17,
+                                //       color: AppTheme.buttonColor,
+                                //     ),
+                                //     decoration: InputDecoration(
+                                //         border: const OutlineInputBorder(
+                                //             borderSide: BorderSide.none),
+                                //         contentPadding: EdgeInsets.symmetric(
+                                //             horizontal: AddSize.padding20,
+                                //             vertical: AddSize.padding10),
+                                //         hintText: 'FiIter',
+                                //         hintStyle: TextStyle(
+                                //             fontSize: AddSize.font14,
+                                //             color: const Color(0xFF676363),
+                                //             fontWeight: FontWeight.w400)),
+                                //     readOnly: true,
+                                //     onTap: () {
+                                //       // selectDate();
+                                //     },
+                                //     // controller: TextEditingController(
+                                //     //     text: format.format(DateTime.parse('45/5'))),
+                                //   ),
+                                // )
+                              ),
                               const SizedBox(
                                 width: 18,
                               ),
                               Expanded(
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(6),
-                                        border:
-                                            Border.all(color: Colors.white24)),
-                                    child: TextFormField(
-                                      style: const TextStyle(
-                                        fontSize: 17,
-                                        color: AppTheme.buttonColor,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        height: 58,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            color: AppTheme.buttonColor),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: DropdownButtonFormField<
+                                                  String>(
+                                                iconEnabledColor: Colors.white,
+                                                iconDisabledColor: Colors.white,
+                                                value: _filterController,
+                                                decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  focusedErrorBorder:
+                                                      const OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          8)),
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .white24)),
+                                                  errorBorder:
+                                                      const OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          8)),
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .white24)),
+                                                  focusedBorder:
+                                                      const OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          8)),
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .white24)),
+                                                  disabledBorder:
+                                                      const OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                8)),
+                                                    borderSide: BorderSide(
+                                                        color:
+                                                            Colors.white24),
+                                                  ),
+                                                  enabledBorder:
+                                                      const OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          8)),
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .white24)),
+                                                ),
+                                                items: ["vendor", "customer"]
+                                                    .map((label) =>
+                                                        DropdownMenuItem(
+                                                          child: Text(
+                                                            label.toString(),
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                              color: Colors.white,
+                                                            ),
+                                                          ),
+                                                          value: label,
+                                                        ))
+                                                    .toList(),
+                                                hint: Text('Rating'),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    _filterController =
+                                                        value!;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      decoration: InputDecoration(
-                                          border: const OutlineInputBorder(
-                                              borderSide: BorderSide.none),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: AddSize.padding20,
-                                              vertical: AddSize.padding10),
-                                          hintText: 'Status',
-                                          hintStyle: TextStyle(
-                                              fontSize: AddSize.font14,
-                                              color: const Color(0xFF676363),
-                                              fontWeight: FontWeight.w400)),
-                                      onTap: () {
-                                        // selectDate1();
-                                      },
-                                      readOnly: true,
-                                      //   controller: TextEditingController(
-                                      //       // text: format.format(DateTime.parse(
-                                      //       //     vendorOrderListController
-                                      //       //         .selectedDate1
-                                      //       //         .value ==
-                                      //       //         ""
-                                      //       //         ? DateTime.now().toString()
-                                      //       //         : vendorOrderListController
-                                      //       //         .selectedDate1.value))),
-                                      //     text: 'Date',
-                                      // ),
-                                    )),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -280,10 +420,11 @@ class _VendorOrderListState extends State<VendorOrderList> {
                             height: AddSize.size12,
                           ),
                           Container(
+                            height: 57,
                             decoration: BoxDecoration(
-                                color: Colors.white10,
+                                color: AppTheme.buttonColor,
                                 borderRadius: BorderRadius.circular(6),
-                                border: Border.all(color: Colors.white)),
+                                border: Border.all(color: Colors.white12)),
                             child: TextField(
                               // onTap: (){
                               //   vendorOrderListController.searchController.value=vendorOrderListController.model.value.data.orderList.length;
@@ -300,7 +441,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                               onSubmitted: (value) {},
                               decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: Colors.white,
+                                  fillColor: AppTheme.buttonColor,
                                   border: const OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius:
@@ -310,8 +451,8 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       vertical: AddSize.padding10),
                                   hintText: 'Search'.tr,
                                   hintStyle: TextStyle(
-                                      fontSize: AddSize.font14,
-                                      color: const Color(0xFF676363),
+                                      fontSize: AddSize.font16,
+                                      color:Colors.white,
                                       fontWeight: FontWeight.w400)),
                             ),
                           ),

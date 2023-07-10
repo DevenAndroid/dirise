@@ -80,7 +80,7 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
             filled: true,
             fillColor: Color(0xffE2E2E2).withOpacity(.4),
             counterStyle: const TextStyle(
-              color: AppTheme.primaryColor,
+              color: Color(0xff463B57),
               fontSize: 25,
             ),
             counter: const Offstage(),
@@ -93,7 +93,7 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
             prefixIcon: widget.prefix,
             suffixIcon: widget.suffixIcon,
             hintStyle:  GoogleFonts.poppins(
-              color: AppTheme.primaryColor,
+              color: Color(0xff463B57),
               fontSize: 15,
             ),
             /*errorStyle: const TextStyle(

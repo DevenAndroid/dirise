@@ -30,6 +30,7 @@ class _ProductScreenState extends State<ProductScreen> {
           surfaceTintColor: Colors.white,
           leading: GestureDetector(
             onTap: () {
+              Get.back();
               // _scaffoldKey.currentState!.openDrawer();
             },
             child: Padding(
@@ -348,6 +349,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     children: [
                       Expanded(
                         child: Container(
+                          height: 58,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
                               color: Color(0xffE2E2E2).withOpacity(.4)),

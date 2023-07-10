@@ -172,7 +172,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                   ElevatedButton(
                                       onPressed: () {
 
-Get.toNamed(MyRouters.bankAccount);
+Get.toNamed(MyRouters.orderDetails);
                                         
                                       },
                                       style: ElevatedButton.styleFrom(
@@ -230,7 +230,7 @@ Get.toNamed(MyRouters.bankAccount);
                                       height: 1.5,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 12,
-                                      color: AppTheme.primaryColor),
+                                      color: AppTheme.buttonColor),
                                 ),
                                 Text(
                                   "Date".tr,
@@ -238,7 +238,7 @@ Get.toNamed(MyRouters.bankAccount);
                                       height: 1.5,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 12,
-                                      color: AppTheme.primaryColor),
+                                      color: AppTheme.buttonColor),
                                 ),
                                 Text(
                                   "Status".tr,
@@ -246,7 +246,7 @@ Get.toNamed(MyRouters.bankAccount);
                                       height: 1.5,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 12,
-                                      color: AppTheme.primaryColor),
+                                      color: AppTheme.buttonColor),
                                 )
                               ],
                             ),

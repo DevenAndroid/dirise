@@ -13,6 +13,7 @@ import 'package:dirise/screens/profile_screen.dart';
 import 'package:dirise/screens/scoopsnursery_screen.dart';
 import 'package:dirise/screens/termsconditions_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
+import 'package:dirise/vendorflow/order_details_screen.dart';
 import 'package:dirise/vendorflow/vendor_order_list_screen.dart';
 import 'package:get/get.dart';
 
@@ -83,6 +84,7 @@ class MyRouters {
   static var orderListScreen = "/orderListScreen";
   static var addMoneyScreen = "/addMoneyScreen";
   static var bankAccount = "/bankAccount";
+  static var orderDetails = "/orderDetails";
 
 
 
@@ -102,6 +104,7 @@ class MyRouters {
     GetPage(name: '/orderListScreen', page: () => const VendorOrderList()),
     GetPage(name: '/allProductScreen', page: () => const ProductScreen()),
     GetPage(name: '/bankAccount', page: () => const BankDetailsScreen()),
+    GetPage(name: '/orderDetails', page: () => const OrderDetails()),
     GetPage(name: '/thankUScreen', page: () => const ThankYouVendorScreen()),
     GetPage(name: '/editprofileScreen', page: () => const EditProfile()),
     GetPage(name: '/addProductScreen', page: () => const AddProduct()),

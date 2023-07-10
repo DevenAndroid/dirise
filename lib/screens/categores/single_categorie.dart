@@ -1,10 +1,12 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
+import '../../controller/home_controller.dart';
 import '../../widgets/common_app_bar.dart';
 import 'general_library.dart';
 
@@ -17,6 +19,7 @@ class SingleCategories extends StatefulWidget {
 }
 
 class _SingleCategoriesState extends State<SingleCategories> {
+  final homeController=Get.put(TrendingProductsController());
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
     RxBool? status=false.obs;
     List<CheckBoxListTileModel> data1 =
     CheckBoxListTileModel.getList();
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar:const PreferredSize(
@@ -206,7 +210,17 @@ class _SingleCategoriesState extends State<SingleCategories> {
                             ],),
                           )
                         ));
-                  })
+                  }),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child:
+                  SizedBox(
+                    child: CachedNetworkImage(imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
+                      fit: BoxFit.cover,width: size.width,
+                    ),
+                  )
+
+              ),
 
             ],
           )
