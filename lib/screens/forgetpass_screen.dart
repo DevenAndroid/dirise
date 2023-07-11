@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -25,7 +24,7 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   final emailController = TextEditingController();
 
-  Future<CommonModel> forgotPasswordRepo({email,context}) async {
+  Future<CommonModel> forgotPasswordRepo({email, context}) async {
     OverlayEntry loader = Helpers.overlayLoader(context);
     Overlay.of(context).insert(loader);
     var map = <String, dynamic>{};
@@ -34,17 +33,17 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.acceptHeader: "application/json",
     };
-    final response = await http.post(Uri.parse(ApiUrls.forgotPasswordUrl),
-        body: jsonEncode(map), headers: header);
+    final response = await http.post(Uri.parse(ApiUrls.forgotPasswordUrl), body: jsonEncode(map), headers: header);
     if (response.statusCode == 200 || response.statusCode == 400) {
       log(response.body);
       Helpers.hideLoader(loader);
       return CommonModel.fromJson(jsonDecode(response.body));
     } else {
-       Helpers.hideLoader(loader);
+      Helpers.hideLoader(loader);
       throw Exception(response.body);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -55,8 +54,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           surfaceTintColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios,
-                color: Color(0xff014E70), size: 20),
+            icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
             onPressed: () => Navigator.of(context).pop(),
           ),
           titleSpacing: 0,
@@ -65,10 +63,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             children: [
               Text(
                 "Forgot Password",
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 22),
+                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
               ),
             ],
           ),
@@ -77,35 +72,33 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             padding: const EdgeInsets.only(left: 13, right: 13),
             child: Column(children: [
               Padding(
-                padding: const EdgeInsets.only(left: 8.0,right: 8,top: 10),
+                padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
                 child: Text(
                   'Enter the email address associated with your account',
-                  style: GoogleFonts.poppins(
-                      color: AppTheme.buttonColor, fontSize: 18),
+                  style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(
                 height: size.height * .05,
               ),
-              CommonTextfield(controller:emailController,obSecure: false, hintText: 'Email'),
+              CommonTextfield(controller: emailController, obSecure: false, hintText: 'Email'),
               SizedBox(
                 height: size.height * .03,
               ),
               CustomOutlineButton(
                 title: "Send Otp",
-                onPressed: (){
-                  forgotPasswordRepo(email: emailController.text,context: context).then((value) {
-                    if(value.status==true){
+                onPressed: () {
+                  forgotPasswordRepo(email: emailController.text, context: context).then((value) {
+                    if (value.status == true) {
                       showToast(value.message.toString());
-                      Get.toNamed(OtpScreen.route,arguments: [emailController.text,false]);
-                    }else{
+                      Get.toNamed(OtpScreen.route, arguments: [emailController.text, false]);
+                    } else {
                       showToast(value.message.toString());
                     }
                   });
-
                 },
-              ),                                                                                 
+              ),
             ])));
   }
 }

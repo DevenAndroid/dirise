@@ -17,7 +17,10 @@ import 'package:flutter/services.dart';
 class NewHelper {
   Future addFilePicker() async {
     try {
-      final item = await FilePicker.platform.pickFiles(type: FileType.custom,allowedExtensions: ['jpg','png','jpeg'],);
+      final item = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'png', 'jpeg'],
+      );
       if (item == null) {
         return null;
       } else {
@@ -45,12 +48,9 @@ class NewHelper {
     }
   }
 
-  Future<File?> addImagePicker(
-      {ImageSource imageSource = ImageSource.gallery,
-        int imageQuality = 50}) async {
+  Future<File?> addImagePicker({ImageSource imageSource = ImageSource.gallery, int imageQuality = 50}) async {
     try {
-      final item = await ImagePicker()
-          .pickImage(source: imageSource, imageQuality: imageQuality);
+      final item = await ImagePicker().pickImage(source: imageSource, imageQuality: imageQuality);
       if (item == null) {
         return null;
       } else {
@@ -63,7 +63,6 @@ class NewHelper {
 }
 
 class Helpers {
-
   Helpers.of(BuildContext context) {
     context = context;
   }
@@ -88,16 +87,14 @@ class Helpers {
         left: 0,
         child: Material(
           color: AppTheme.primaryColor.withOpacity(0.25),
-          child: LoadingAnimationWidget.fourRotatingDots(
-              color: AppTheme.buttonColor, size: 50),
+          child: LoadingAnimationWidget.fourRotatingDots(color: AppTheme.buttonColor, size: 50),
         ),
       );
     });
     return loader;
   }
 
-  static OverlayEntry overlayLoaderProgress(context,
-      {required RxString progress, required text}) {
+  static OverlayEntry overlayLoaderProgress(context, {required RxString progress, required text}) {
     OverlayEntry loader = OverlayEntry(builder: (context) {
       final size = MediaQuery.of(context).size;
       return Positioned(
@@ -114,8 +111,7 @@ class Helpers {
                 Card(
                   elevation: 5,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -131,16 +127,16 @@ class Helpers {
                         Obx(() {
                           return Center(
                               child: Text(
-                                "${progress.value}",
-                                style: TextStyle(),
-                              )
-                            // AddText(
-                            //   text: "${progress.value}",
-                            //   fontWeight: FontWeight.bold,
-                            //   fontSize: AddSize.font18,
-                            //   color: Colors.black,
-                            // ),
-                          );
+                            "${progress.value}",
+                            style: TextStyle(),
+                          )
+                              // AddText(
+                              //   text: "${progress.value}",
+                              //   fontWeight: FontWeight.bold,
+                              //   fontSize: AddSize.font18,
+                              //   color: Colors.black,
+                              // ),
+                              );
                         }),
                         SizedBox(
                           height: 30,
@@ -190,8 +186,7 @@ class Helpers {
     Uri uri = Uri(
         scheme: Uri.parse(baseUrl).scheme,
         host: Uri.parse(baseUrl).host,
-        port: Uri.parse(baseUrl)
-            .port, //GlobalConfiguration().getValue('base_url')
+        port: Uri.parse(baseUrl).port, //GlobalConfiguration().getValue('base_url')
         path: path + path);
     return uri;
   }
@@ -223,8 +218,7 @@ class Helpers {
       backgroundColor: Colors.black,
       content: Text(
         message,
-        style: const TextStyle(
-            fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.white),
+        style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.white),
       ),
     ));
   }
@@ -236,4 +230,3 @@ class Helpers {
     return (!regex.hasMatch(value)) ? false : true;
   }
 }
-

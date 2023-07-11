@@ -17,7 +17,6 @@ class ApiUrls {
   static const String categoryUrl = "${apiBaseUrlNew}category";
   static const String popularProductUrl = "${apiBaseUrlNew}popular-product";
   static const String authorUrl = "${apiBaseUrlNew}authers-list";
-
 }
 
 showToast(message) {
@@ -31,9 +30,9 @@ showToast(message) {
       textColor: const Color(0xffffffff),
       fontSize: 15);
 }
+
 Future<String> getUserToken() async {
   SharedPreferences sharedPreference = await SharedPreferences.getInstance();
-  LoginModal model = LoginModal.fromJson(
-      jsonDecode(sharedPreference.getString("userData")!));
+  LoginModal model = LoginModal.fromJson(jsonDecode(sharedPreference.getString("userData")!));
   return model.token.toString();
 }

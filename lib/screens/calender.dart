@@ -1,4 +1,3 @@
-
 // // Copyright 2019 Aleksander Woźniak
 // // SPDX-License-Identifier: Apache-2.0
 //
@@ -187,7 +186,6 @@ import '../widgets/event.dart';
 class EventCalendarScreen extends StatefulWidget {
   const EventCalendarScreen({Key? key}) : super(key: key);
 
-
   @override
   State<EventCalendarScreen> createState() => _EventCalendarScreenState();
 }
@@ -270,8 +268,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
           TextButton(
             child: const Text('Save'),
             onPressed: () {
-              if (titleController.text.isEmpty &&
-                  descpController.text.isEmpty) {
+              if (titleController.text.isEmpty && descpController.text.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Required title and description'),
@@ -285,18 +282,13 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                 log(descpController.text);
 
                 setState(() {
-                  if (mySelectedEvents[
-                          DateFormat('yyyy-MM-dd').format(_selectedDate!)] !=
-                      null) {
-                    mySelectedEvents[
-                            DateFormat('yyyy-MM-dd').format(_selectedDate!)]
-                        ?.add({
+                  if (mySelectedEvents[DateFormat('yyyy-MM-dd').format(_selectedDate!)] != null) {
+                    mySelectedEvents[DateFormat('yyyy-MM-dd').format(_selectedDate!)]?.add({
                       "eventTitle": titleController.text,
                       "eventDescp": descpController.text,
                     });
                   } else {
-                    mySelectedEvents[
-                        DateFormat('yyyy-MM-dd').format(_selectedDate!)] = [
+                    mySelectedEvents[DateFormat('yyyy-MM-dd').format(_selectedDate!)] = [
                       {
                         "eventTitle": titleController.text,
                         "eventDescp": descpController.text,
@@ -305,8 +297,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                   }
                 });
 
-                print(
-                    "New Event for backend developer ${json.encode(mySelectedEvents)}");
+                print("New Event for backend developer ${json.encode(mySelectedEvents)}");
                 titleController.clear();
                 descpController.clear();
                 Navigator.pop(context);
@@ -317,47 +308,38 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
         ],
       ),
     );
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         backgroundColor: const Color(0xffEBF1F4),
         title: Text(
           'My calendar',
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 18),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios,
-              color: Color(0xff014E70), size: 20),
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
-
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 20,top: 20),
+              padding: const EdgeInsets.only(left: 20, top: 20),
               child: Text(
                 'Create your event',
-                style: GoogleFonts.poppins(
-                    fontSize: 20, fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-
             ),
             TableCalendar(
               firstDay: kFirstDay,
               lastDay: kLastDay,
               focusedDay: _focusedDay,
-
-              headerStyle: const HeaderStyle(
-                  formatButtonVisible: false, titleCentered: true),
+              headerStyle: const HeaderStyle(formatButtonVisible: false, titleCentered: true),
               calendarFormat: _calendarFormat,
               calendarStyle: const CalendarStyle(outsideDaysVisible: false),
               onDaySelected: (selectedDay, focusedDay) {
@@ -390,21 +372,21 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Text(
                 'My events',
-                style: GoogleFonts.poppins(
-                    fontSize: 20, fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
             ..._listOfDayEvents(_selectedDate!).map(
               (myEvents) => Slidable(
                 // key: const ValueKey(0),
-                endActionPane:  ActionPane(
+                endActionPane: ActionPane(
                   motion: const ScrollMotion(),
                   children: [
                     // const SizedBox(width: 20,),
-                  Text('Delete',style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w500,fontSize: 17,
-                    color: AppTheme.buttonColor
-                  ),)
+                    Text(
+                      'Delete',
+                      style:
+                          GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 17, color: AppTheme.buttonColor),
+                    )
                   ],
                 ),
                 child: Container(
@@ -421,26 +403,18 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                       alignment: Alignment.center,
                       height: 50,
                       width: 50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppTheme.buttonColor),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: AppTheme.buttonColor),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             '6',
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
+                            style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
                           ),
                           Text(
                             'jun',
-                            style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
+                            style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
                           ),
                         ],
                       ),

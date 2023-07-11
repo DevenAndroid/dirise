@@ -17,9 +17,6 @@ import 'package:dirise/vendorflow/order_details_screen.dart';
 import 'package:dirise/vendorflow/vendor_order_list_screen.dart';
 import 'package:get/get.dart';
 
-
-
-
 import '../e-book/singlecategory_screen.dart';
 import '../screens/Authors/authors_screen.dart';
 
@@ -35,7 +32,6 @@ import '../screens/categores/check_out_screen.dart';
 import '../screens/categores/general_library.dart';
 import '../screens/categores/order_completed_screen.dart';
 import '../screens/categores/single_categorie.dart';
-
 
 import '../e-book/ebooklogin_screen.dart';
 import '../screens/faqs_screen.dart';
@@ -85,10 +81,6 @@ class MyRouters {
   static var bankAccount = "/bankAccount";
   static var orderDetails = "/orderDetails";
 
-
-
-
-
   static var route = [
     GetPage(name: '/', page: () => const Splash()),
     GetPage(name: LoginScreen.route, page: () => const LoginScreen()),
@@ -108,36 +100,28 @@ class MyRouters {
     GetPage(name: '/addProductScreen', page: () => const AddProduct()),
     GetPage(name: '/newPasswordScreen', page: () => const NewPassword()),
     GetPage(name: '/termsConditionScreen', page: () => const TermCondition()),
-    GetPage(name: '/calendarScreen', page: () =>   const EventCalendarScreen()),
-    GetPage(name: '/eBookScreen', page: () =>  const EBookScreen()),
-    GetPage(name: '/addMoneyScreen', page: () =>  const WithdrawMoney()),
-    GetPage(name: '/singleChair', page: () =>  const SingleChair()),
-    GetPage(name: '/dashBoardScreen', page: () =>  const DashboardScreen()),
-    GetPage(name: '/vendorRegistration', page: () =>  const VendorRegistrationScreen()),
-    GetPage(name: '/eBooKCategoryScreen', page: () =>  const EBook()),
-    GetPage(name: '/singleCategory', page: () =>  const SingleCategory()),
-
-    GetPage(name: '/scoopsNursery', page: () =>  const SchoolNursery()),
-    GetPage(name: '/storeOpenScreen', page: () =>  const SetTimeScreen()),
-
-    GetPage(name: '/officeFurnitureScreen', page: () =>  const OfficeFurniture()),
-    GetPage(
-        name: CategoriesScreen.categoriesScreen,
-        page: () => const CategoriesScreen()),
-    GetPage(
-        name: SingleCategories.singleCategoriesScreen,
-        page: () => const SingleCategories()),
-    GetPage(name: GeneralLibrary.generalLibrary, page: () =>  const GeneralLibrary()),
-    GetPage(name: AddBagScreen.addBagScreen, page: () =>  const AddBagScreen()),
-    GetPage(name: CheckOutScreen.checkOutScreen, page: () =>  const CheckOutScreen()),
-    GetPage(name: OrderCompleteScreen.orderCompleteScreen, page: () =>  const OrderCompleteScreen()),
-    GetPage(name: AuthorsScreen.authorsScreen, page: () =>  const AuthorsScreen()),
-    GetPage(name: SingleAuthorScreen.singleAuthorScreen, page: () =>  const SingleAuthorScreen()),
-    GetPage(name: TeacherScreen.teacherScreen, page: () =>  const TeacherScreen()),
-    GetPage(name: SelectedTeacher.selectedTeacher, page: () =>  const SelectedTeacher()),
-    GetPage(name: MyOrdersScreen.myOrdersScreen, page: () =>  const MyOrdersScreen()),
-    GetPage(name: SelectedOrderScreen.selectedOrderScreen, page: () =>  const SelectedOrderScreen()),
-
-
+    GetPage(name: '/calendarScreen', page: () => const EventCalendarScreen()),
+    GetPage(name: '/eBookScreen', page: () => const EBookScreen()),
+    GetPage(name: '/addMoneyScreen', page: () => const WithdrawMoney()),
+    GetPage(name: '/singleChair', page: () => const SingleChair()),
+    GetPage(name: '/dashBoardScreen', page: () => const DashboardScreen()),
+    GetPage(name: '/vendorRegistration', page: () => const VendorRegistrationScreen()),
+    GetPage(name: '/eBooKCategoryScreen', page: () => const EBook()),
+    GetPage(name: '/singleCategory', page: () => const SingleCategory()),
+    GetPage(name: '/scoopsNursery', page: () => const SchoolNursery()),
+    GetPage(name: '/storeOpenScreen', page: () => const SetTimeScreen()),
+    GetPage(name: '/officeFurnitureScreen', page: () => const OfficeFurniture()),
+    GetPage(name: CategoriesScreen.categoriesScreen, page: () => const CategoriesScreen()),
+    GetPage(name: SingleCategories.singleCategoriesScreen, page: () => const SingleCategories()),
+    GetPage(name: GeneralLibrary.generalLibrary, page: () => const GeneralLibrary()),
+    GetPage(name: AddBagScreen.addBagScreen, page: () => const AddBagScreen()),
+    GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),
+    GetPage(name: OrderCompleteScreen.orderCompleteScreen, page: () => const OrderCompleteScreen()),
+    GetPage(name: AuthorsScreen.authorsScreen, page: () => const AuthorsScreen()),
+    GetPage(name: SingleAuthorScreen.singleAuthorScreen, page: () => const SingleAuthorScreen()),
+    GetPage(name: TeacherScreen.teacherScreen, page: () => const TeacherScreen()),
+    GetPage(name: SelectedTeacher.selectedTeacher, page: () => const SelectedTeacher()),
+    GetPage(name: MyOrdersScreen.myOrdersScreen, page: () => const MyOrdersScreen()),
+    GetPage(name: SelectedOrderScreen.selectedOrderScreen, page: () => const SelectedOrderScreen()),
   ];
 }

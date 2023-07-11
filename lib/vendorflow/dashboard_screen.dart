@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/customsize.dart';
 import '../widgets/dimension_screen.dart';
 
-
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
   static var dashboardScreen = "/dashboardScreen";
@@ -33,21 +32,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
         key: _scaffoldKey,
-
         appBar: AppBar(
           leading: Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Column(
-
               children: [
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Get.back();
                     // _scaffoldKey.currentState!.openDrawer();
                   },
-                  child: Image.asset('assets/icons/backicon.png',height: 24,),
+                  child: Image.asset(
+                    'assets/icons/backicon.png',
+                    height: 24,
+                  ),
                 ),
               ],
             ),
@@ -55,29 +55,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
           toolbarHeight: 60,
           backgroundColor: Colors.transparent,
           elevation: 0,
-
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Hi, Demo Vendor...",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: AddSize.font22,
-                    color: const Color(0xff292F45)),),
-              const SizedBox(height: 3 ,),
+              Text(
+                "Hi, Demo Vendor...",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: AddSize.font22, color: const Color(0xff292F45)),
+              ),
+              const SizedBox(
+                height: 3,
+              ),
               Row(
                 children: [
-                  const Text("Store Time :",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color:  Color(0xff737A8A)),),
-                  const Text(" 10am to 9pm",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                     color: AppTheme.buttonColor),),
+                  const Text(
+                    "Store Time :",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Color(0xff737A8A)),
+                  ),
+                  const Text(
+                    " 10am to 9pm",
+                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.buttonColor),
+                  ),
                   addWidth(5),
                   InkWell(
                     onTap: () {
@@ -97,10 +95,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 16.0,top: 8),
+                  padding: const EdgeInsets.only(right: 16.0, top: 8),
                   child: GestureDetector(
-                    onTap: () async {
-                    },
+                    onTap: () async {},
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
                       radius: 20,
@@ -114,31 +111,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             // color: Colors.brown
                           ),
                           child: Image.asset('assets/images/vendorprofile.png')
-                        // Obx(() {
-                        //   return CachedNetworkImage(
-                        //     fit: BoxFit.cover,
-                        //     imageUrl: profileController.isDataLoading.value
-                        //         ? profileController
-                        //         .model.value.data!.profileImage!
-                        //         : '',
-                        //     height: AddSize.size30,
-                        //     width: AddSize.size30,
-                        //     errorWidget: (_, __, ___) => const SizedBox(),
-                        //     placeholder: (_, __) => const SizedBox(),
-                        //   );
-                        // })
-                      ),
+                          // Obx(() {
+                          //   return CachedNetworkImage(
+                          //     fit: BoxFit.cover,
+                          //     imageUrl: profileController.isDataLoading.value
+                          //         ? profileController
+                          //         .model.value.data!.profileImage!
+                          //         : '',
+                          //     height: AddSize.size30,
+                          //     width: AddSize.size30,
+                          //     errorWidget: (_, __, ___) => const SizedBox(),
+                          //     placeholder: (_, __) => const SizedBox(),
+                          //   );
+                          // })
+                          ),
                     ),
                   ),
                 ),
                 Positioned(
                     top: 9,
-                    child: Column(
-                        children:[
-                          Image.asset('assets/icons/active.png',height: 12,),
-                        ]
-                    )
-                )
+                    child: Column(children: [
+                      Image.asset(
+                        'assets/icons/active.png',
+                        height: 12,
+                      ),
+                    ]))
               ],
             )
           ],
@@ -155,11 +152,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const Text(
                   "This Month Report",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Color(0xFF292F45)
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF292F45)),
                 ),
                 const SizedBox(
                   height: 10,
@@ -172,24 +165,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     childAspectRatio: AddSize.size15 / AddSize.size12,
                     children: List.generate(
                       4,
-                          (index) => Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AddSize.padding16,
-                            vertical: AddSize.padding16),
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade300,
-                                offset: const Offset(
-                                  .1,
-                                  .1,
-                                ),
-                                blurRadius: 19.0,
-                                spreadRadius: 1.0,
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white),
+                      (index) => Container(
+                        padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300,
+                            offset: const Offset(
+                              .1,
+                              .1,
+                            ),
+                            blurRadius: 19.0,
+                            spreadRadius: 1.0,
+                          ),
+                        ], borderRadius: BorderRadius.circular(10), color: Colors.white),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -234,10 +222,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                           // ? "${vendorDashboardController.model.value.data!.soldItemsPercent.toString()} %"
                                           //     : "${vendorDashboardController.model.value.data!.orderReceivedPercent.toString()} %",
                                           "10%",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5!
-                                              .copyWith(
+                                          style: Theme.of(context).textTheme.headline5!.copyWith(
                                               height: 1.5,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 15,
@@ -265,23 +250,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             const Text(
                               '€234.00',
                               style: TextStyle(
-                                  height: 1.5,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 22,
-                                  color:  Color(0xFF454B5C)),
+                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 22, color: Color(0xFF454B5C)),
                             ),
                             Text(
                               index == 0
                                   ? "Gross Sales"
                                   : index == 1
-                                  ? "Earning"
-                                  : index == 2
-                                  ? "Sold items"
-                                  : "Order Received",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(
+                                      ? "Earning"
+                                      : index == 2
+                                          ? "Sold items"
+                                          : "Order Received",
+                              style: Theme.of(context).textTheme.headline5!.copyWith(
                                   height: 1.5,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
@@ -302,7 +281,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           boxShadow: [
                             BoxShadow(
                               color: const Color(0xFF37C666).withOpacity(0.10),
-                              offset: const Offset(.1, .1,
+                              offset: const Offset(
+                                .1,
+                                .1,
                               ),
                               blurRadius: 20.0,
                               spreadRadius: 1.0,
@@ -310,20 +291,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ],
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
-                                onTap: (){
-Get.toNamed(MyRouters.storeOpenScreen);
+                                onTap: () {
+                                  Get.toNamed(MyRouters.storeOpenScreen);
                                 },
-                                child: const Text("Store",
-                                  style: TextStyle(
-                                      color : Color(0xFF454B5C),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15
-                                  ),),
+                                child: const Text(
+                                  "Store",
+                                  style: TextStyle(color: Color(0xFF454B5C), fontWeight: FontWeight.w500, fontSize: 15),
+                                ),
                               ),
                               FlutterSwitch(
                                 showOnOff: true,
@@ -335,13 +314,13 @@ Get.toNamed(MyRouters.storeOpenScreen);
                                 inactiveText: " OFF",
                                 activeText: "  On",
                                 inactiveTextColor: const Color(0xFFEBEBEB),
-                                activeTextColor:  const Color(0xFFFFFFFF),
+                                activeTextColor: const Color(0xFFFFFFFF),
                                 inactiveTextFontWeight: FontWeight.w600,
                                 inactiveColor: Colors.grey.shade400,
-                                activeColor:  AppTheme.buttonColor,
+                                activeColor: AppTheme.buttonColor,
                                 onToggle: (val) {
                                   setState(() {
-                                    state1= val;
+                                    state1 = val;
                                   });
                                 },
                                 value: state1,
@@ -360,7 +339,9 @@ Get.toNamed(MyRouters.storeOpenScreen);
                           boxShadow: [
                             BoxShadow(
                               color: const Color(0xFF37C666).withOpacity(0.10),
-                              offset: const Offset(.1, .1,
+                              offset: const Offset(
+                                .1,
+                                .1,
                               ),
                               blurRadius: 20.0,
                               spreadRadius: 1.0,
@@ -368,16 +349,14 @@ Get.toNamed(MyRouters.storeOpenScreen);
                           ],
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text("Self\nDelivery",
-                                style: TextStyle(
-                                    color : Color(0xFF454B5C),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15
-                                ),),
+                              const Text(
+                                "Self\nDelivery",
+                                style: TextStyle(color: Color(0xFF454B5C), fontWeight: FontWeight.w500, fontSize: 15),
+                              ),
                               FlutterSwitch(
                                 showOnOff: true,
                                 width: AddSize.size30 * 2.2,
@@ -388,7 +367,7 @@ Get.toNamed(MyRouters.storeOpenScreen);
                                 inactiveText: " OFF",
                                 activeText: "  On",
                                 inactiveTextColor: const Color(0xFFEBEBEB),
-                                activeTextColor:  const Color(0xFFFFFFFF),
+                                activeTextColor: const Color(0xFFFFFFFF),
                                 inactiveTextFontWeight: FontWeight.w600,
                                 inactiveColor: Colors.grey.shade400,
                                 activeColor: AppTheme.buttonColor,
@@ -406,7 +385,6 @@ Get.toNamed(MyRouters.storeOpenScreen);
                     ),
                   ],
                 ),
-
                 addHeight(10),
                 Container(
                   decoration: BoxDecoration(
@@ -425,7 +403,7 @@ Get.toNamed(MyRouters.storeOpenScreen);
                       borderRadius: BorderRadius.circular(10)),
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: AddSize.padding16,
+                      horizontal: AddSize.padding16,
                     ),
                     child: Column(
                       children: [
@@ -434,10 +412,7 @@ Get.toNamed(MyRouters.storeOpenScreen);
                           children: [
                             Text(
                               "Latest Sales",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(
+                              style: Theme.of(context).textTheme.headline5!.copyWith(
                                   height: 1.5,
                                   color: const Color(0xff454B5C),
                                   fontWeight: FontWeight.w500,
@@ -451,9 +426,8 @@ Get.toNamed(MyRouters.storeOpenScreen);
                                 child: const Text(
                                   "See All",
                                   style: TextStyle(
-                                      decoration:
-                                      TextDecoration.underline,
-                                   decorationColor: AppTheme.buttonColor,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: AppTheme.buttonColor,
                                       height: 1.5,
                                       fontWeight: FontWeight.w700,
                                       color: AppTheme.buttonColor,
@@ -466,29 +440,20 @@ Get.toNamed(MyRouters.storeOpenScreen);
                           children: [
                             Text(
                               "Order No.",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Color(0xFF52AC1A)),
+                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Color(0xFF52AC1A)),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: Text(
                                 "Status",
                                 style: TextStyle(
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Color(0xFF52AC1A)),
+                                    height: 1.5, fontWeight: FontWeight.w600, fontSize: 14, color: Color(0xFF52AC1A)),
                               ),
                             ),
                             Text(
                               "Earning",
                               style: TextStyle(
-                                  height: 1.5,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: Color(0xFF52AC1A)),
+                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 14, color: Color(0xFF52AC1A)),
                             )
                           ],
                         ),
@@ -506,29 +471,27 @@ Get.toNamed(MyRouters.storeOpenScreen);
                                   height: AddSize.size5,
                                 ),
                                 Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     const Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           "#1234",
                                           style: TextStyle(
                                               color: Color(0xFF454B5C),
                                               height: 1.5,
-                                              fontWeight:
-                                              FontWeight.w500,
+                                              fontWeight: FontWeight.w500,
                                               fontSize: 15),
                                         ),
-                                        SizedBox(height: 5,),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
                                         Text(
                                           '2 June, 2021 - 11:57PM',
                                           style: TextStyle(
                                               height: 1.5,
-                                              fontWeight:
-                                              FontWeight.w500,
+                                              fontWeight: FontWeight.w500,
                                               fontSize: 13,
                                               color: Color(0xFF8C9BB2)),
                                         ),
@@ -538,10 +501,7 @@ Get.toNamed(MyRouters.storeOpenScreen);
                                     const Text(
                                       'Processing',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14,
-                                          color:  Color(0xFFFFB26B)
-                                      ),
+                                          fontWeight: FontWeight.w600, fontSize: 14, color: Color(0xFFFFB26B)),
                                     ),
                                     const Spacer(),
                                     const Text(
@@ -574,4 +534,3 @@ Get.toNamed(MyRouters.storeOpenScreen);
         ));
   }
 }
-

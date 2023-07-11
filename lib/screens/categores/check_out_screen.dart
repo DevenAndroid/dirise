@@ -27,8 +27,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         surfaceTintColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios,
-              color: Color(0xff014E70), size: 20),
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
           onPressed: () => Navigator.of(context).pop(),
         ),
         titleSpacing: 0,
@@ -37,10 +36,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           children: [
             Text(
               "Checkout",
-              style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 22),
+              style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
             ),
           ],
         ),
@@ -58,10 +54,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 10,),
-                    Text("Delivery to",
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500, fontSize: 18)),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text("Delivery to", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                     const SizedBox(
                       height: 15,
                     ),
@@ -78,8 +74,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           width: size.width,
                           alignment: Alignment.center,
                           child: Text("Add Address ",
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500, fontSize: 18)),
+                              style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                         ),
                       ),
                     ),
@@ -92,8 +87,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         },
                         child: Align(
                             alignment: Alignment.topRight,
-                            child: Text("Change Address",
-                                style: GoogleFonts.poppins(fontSize: 14)))),
+                            child: Text("Change Address", style: GoogleFonts.poppins(fontSize: 14)))),
                     const SizedBox(
                       height: 10,
                     ),
@@ -114,9 +108,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 15),
-                        Text("Payment",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500, fontSize: 18)),
+                        Text("Payment", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                         const SizedBox(
                           height: 15,
                         ),
@@ -126,8 +118,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               width: size.width * .3,
                               height: size.height * .08,
                               decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: const Color(0xffAFB1B1)),
+                                  border: Border.all(color: const Color(0xffAFB1B1)),
                                   borderRadius: BorderRadius.circular(12)),
                               alignment: Alignment.center,
                               child: Column(
@@ -148,10 +139,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             Container(
                               width: size.width * .3,
                               height: size.height * .08,
-
                               decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: const Color(0xffAFB1B1)),
+                                  border: Border.all(color: const Color(0xffAFB1B1)),
                                   borderRadius: BorderRadius.circular(12)),
                               alignment: Alignment.center,
                               child: Column(
@@ -162,9 +151,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     color: Color(0xffAFB1B1),
                                   ),
                                   Text("Credit Card",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12)),
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12)),
                                 ],
                               ),
                             )
@@ -191,99 +178,91 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 15,),
+                        const SizedBox(
+                          height: 15,
+                        ),
                         Text("Add delivery instructions",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500, fontSize: 18)),
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                         const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
                           style: GoogleFonts.poppins(),
                           decoration: InputDecoration.collapsed(
-                              hintText:
-                                  "Add delivery instructions to help us with the delivery",
-                              hintStyle: GoogleFonts.poppins(
-                                  color: const Color(0xff949495), fontSize: 14)),
+                              hintText: "Add delivery instructions to help us with the delivery",
+                              hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14)),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 30,),
+                const SizedBox(
+                  height: 30,
+                ),
               ],
             ),
-          Column(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 15,),
-                      Text("Have a coupon code?",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500, fontSize: 18)),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // Expanded(child: CommonTextfield(obSecure: false, hintText: 'Enter Code',)),
-                          Expanded(
-                            child: TextFormField(
-                              style: GoogleFonts.poppins(),
-                              decoration: InputDecoration.collapsed(
-                                  hintText: "Enter Code",
-                                  hintStyle: GoogleFonts.poppins(
-                                      color: const Color(0xff949495), fontSize: 14)),
+            Column(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text("Have a coupon code?",
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Expanded(child: CommonTextfield(obSecure: false, hintText: 'Enter Code',)),
+                            Expanded(
+                              child: TextFormField(
+                                style: GoogleFonts.poppins(),
+                                decoration: InputDecoration.collapsed(
+                                    hintText: "Enter Code",
+                                    hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14)),
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: const Color(0xff014E70),
-                                borderRadius: BorderRadius.circular(22)),
-                            padding: const EdgeInsets.fromLTRB(22, 9, 22, 9),
-                            child: Text(
-                              "Apply",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
+                            const SizedBox(
+                              width: 20,
                             ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 15,),
-
-                  ],),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                              padding: const EdgeInsets.fromLTRB(22, 9, 22, 9),
+                              child: Text(
+                                "Apply",
+                                style:
+                                    GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-
-            ],
-          ),
-
-
+              ],
+            ),
             const SizedBox(
               height: 30,
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-
                 children: [
-                  Text("Your Order",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500, fontSize: 18)),
+                  Text("Your Order", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                   const SizedBox(
                     height: 10,
                   ),
@@ -291,13 +270,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Subtotal (4 items)",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff949495))),
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
                       Text("KWD 21.00",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff949495))),
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
                     ],
                   ),
                   const SizedBox(
@@ -306,19 +281,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Total",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500, fontSize: 18)),
-                      Text("KWD 21.00",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500, fontSize: 18)),
+                      Text("Total", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                      Text("KWD 21.00", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                     ],
                   ),
-                  const SizedBox(height: 30,),
+                  const SizedBox(
+                    height: 30,
+                  ),
                 ],
               ),
             )
-
           ],
         ),
       ),
@@ -333,10 +305,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           child: Align(
               alignment: Alignment.center,
               child: Text("Complete Payment",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 19,
-                      color: Colors.white))),
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
         ),
       ),
     );
@@ -361,11 +330,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Area *',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: const Color(0xff585858)),
+                          fontWeight: FontWeight.w500, fontSize: 18, color: const Color(0xff585858)),
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'Select area',
@@ -373,11 +342,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Block *',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: const Color(0xff585858)),
+                          fontWeight: FontWeight.w500, fontSize: 18, color: const Color(0xff585858)),
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'Select block',
@@ -385,11 +354,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Street and avenue * ',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: const Color(0xff585858)),
+                          fontWeight: FontWeight.w500, fontSize: 18, color: const Color(0xff585858)),
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'Select Street and avenue  ',
@@ -397,9 +366,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Address type *',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: const Color(0xff585858)),
+                          fontWeight: FontWeight.w500, fontSize: 18, color: const Color(0xff585858)),
                     ),
                     const SizedBox(
                       height: 12,
@@ -409,50 +376,47 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       children: [
                         Container(
                           width: size.width * .25,
-                          height: size.height*.075,
+                          height: size.height * .075,
                           decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: const Color(0xffAFB1B1)),
+                              border: Border.all(color: const Color(0xffAFB1B1)),
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
                           child: Text(
                             'House',
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                              ),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                         Container(
                           width: size.width * .25,
-                          height: size.height*.075,
+                          height: size.height * .075,
                           decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: const Color(0xffAFB1B1)),
+                              border: Border.all(color: const Color(0xffAFB1B1)),
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
                           child: Text(
                             'Farm',
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                               ),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                         Container(
                           width: size.width * .25,
-                          height: size.height*.075,
+                          height: size.height * .075,
                           decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: const Color(0xffAFB1B1)),
+                              border: Border.all(color: const Color(0xffAFB1B1)),
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
                           child: Text(
                             'office',
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                               ),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
                           ),
                         )
                       ],
@@ -461,11 +425,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'House No *',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: const Color(0xff585858)),
+                          fontWeight: FontWeight.w500, fontSize: 18, color: const Color(0xff585858)),
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'House No ',
@@ -473,11 +437,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Name this Address * ',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: const Color(0xff585858)),
+                          fontWeight: FontWeight.w500, fontSize: 18, color: const Color(0xff585858)),
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'e.g. Home / Office / Gym',
@@ -485,9 +449,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Text(
                       'Contact Number *',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: const Color(0xff585858)),
+                          fontWeight: FontWeight.w500, fontSize: 18, color: const Color(0xff585858)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8, bottom: 15),
@@ -496,17 +458,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         hintText: 'Enter Contact Number ',
                       ),
                     ),
-                  Container(
+                    Container(
                       decoration: const BoxDecoration(color: Color(0xff014E70)),
                       height: 56,
                       alignment: Alignment.bottomCenter,
                       child: Align(
                           alignment: Alignment.center,
                           child: Text("Save",
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 19,
-                                  color: Colors.white))),
+                              style:
+                                  GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                     ),
                   ],
                 ),
@@ -534,23 +494,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CommonTextfield(
-                onTap: (){
-                  bottemSheet();
-                },
+                      onTap: () {
+                        bottemSheet();
+                      },
                       obSecure: false,
                       hintText: '+ Add Address',
-
-
-
-
                     ),
                     Container(
                       width: size.width,
                       margin: const EdgeInsets.only(top: 20),
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: const Color(0xffDCDCDC))),
+                          borderRadius: BorderRadius.circular(10), border: Border.all(color: const Color(0xffDCDCDC))),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -566,9 +521,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 Text(
                                   'Home \nKifan \nBlock 3 \nStreet 33 \nHouse No. 1',
                                   style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
-                                      color: const Color(0xff585858)),
+                                      fontWeight: FontWeight.w500, fontSize: 16, color: const Color(0xff585858)),
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -577,11 +530,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   child: Text(
                                     'Edit',
                                     style: GoogleFonts.poppins(
-                                        shadows: [
-                                          const Shadow(
-                                              color: Color(0xff014E70),
-                                              offset: Offset(0, -4))
-                                        ],
+                                        shadows: [const Shadow(color: Color(0xff014E70), offset: Offset(0, -4))],
                                         color: Colors.transparent,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -600,7 +549,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ),
             ),
           );
-        }
-        );
+        });
   }
 }

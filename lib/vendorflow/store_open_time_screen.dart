@@ -1,5 +1,3 @@
-
-
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +7,6 @@ import '../routers/my_routers.dart';
 import '../widgets/common_button.dart';
 import '../widgets/customsize.dart';
 import '../widgets/dimension_screen.dart';
-
 
 class SetTimeScreen extends StatefulWidget {
   const SetTimeScreen({Key? key}) : super(key: key);
@@ -120,21 +117,20 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         leading: GestureDetector(
-          onTap: (){
+          onTap: () {
             Get.back();
-
           },
           child: Padding(
             padding: const EdgeInsets.all(18),
-            child: Image.asset('assets/icons/backicon.png',height: 20,),
+            child: Image.asset(
+              'assets/icons/backicon.png',
+              height: 20,
+            ),
           ),
         ),
         title: Text(
           "Set Store Time",
-          style: GoogleFonts.raleway(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: const Color(0xff303C5E)),
+          style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
         ),
       ),
       body: SingleChildScrollView(
@@ -154,8 +150,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color:AppTheme.buttonColor)),
+                            borderRadius: BorderRadius.circular(10), border: Border.all(color: AppTheme.buttonColor)),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -163,25 +158,21 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                             Theme(
                               data: ThemeData(
                                   checkboxTheme: CheckboxThemeData(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5)))),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)))),
                               child: Checkbox(
-                                 activeColor:AppTheme.buttonColor,
+                                activeColor: AppTheme.buttonColor,
                                 checkColor: Colors.white,
                                 value: select,
                                 onChanged: (value) {
                                   select = value!;
-                                  setState(() {
-
-                                  });
+                                  setState(() {});
                                 },
                               ),
                             ),
-                            const Text("Sun",style: TextStyle(
-                                color: Color(0xFF9C9CB4),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300
-                            ),),
+                            const Text(
+                              "Sun",
+                              style: TextStyle(color: Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
+                            ),
                             /* Spacer(),
                                  GestureDetector(
                                    onTap: () async {
@@ -264,8 +255,10 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                                   fontWeight: FontWeight.w400,
                                 ),
                                 value: dropdownvalue,
-                                icon: const Icon(Icons.keyboard_arrow_down,
-                                  color: Color(0xFF9C9CB4),),
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Color(0xFF9C9CB4),
+                                ),
                                 items: items.map((String items) {
                                   return DropdownMenuItem(
                                     value: items,
@@ -280,11 +273,10 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                               ),
                             ),
                             addWidth(15),
-                            const Text("To",style: TextStyle(
-                                color: Color(0xFF9C9CB4),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300
-                            ),),
+                            const Text(
+                              "To",
+                              style: TextStyle(color: Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
+                            ),
                             addWidth(15),
                             DropdownButtonHideUnderline(
                               child: DropdownButton(
@@ -295,8 +287,10 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                                   fontWeight: FontWeight.w400,
                                 ),
                                 value: dropdownvalue1,
-                                icon: const Icon(Icons.keyboard_arrow_down,
-                                  color: Color(0xFF9C9CB4),),
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Color(0xFF9C9CB4),
+                                ),
                                 items: items1.map((String items) {
                                   return DropdownMenuItem(
                                     value: items,
@@ -347,8 +341,9 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
               const SizedBox(
                 height: 93,
               ),
-              CustomOutlineButton(title: 'Save',
-                onPressed: (){
+              CustomOutlineButton(
+                title: 'Save',
+                onPressed: () {
                   Get.toNamed(MyRouters.allProductScreen);
                 },
               ),
@@ -394,7 +389,6 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
     );
   }
 
-
   CheckboxListTile buildCheckboxListTile(int index, BuildContext context) {
     return CheckboxListTile(
       checkColor: Colors.white,
@@ -406,10 +400,10 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
         // .substring(0, 3)
         // .toString())
         // .capitalizeFirst!,
-        style: Theme.of(context).textTheme.headline6!.copyWith(
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
-            fontSize: AddSize.font14),
+        style: Theme.of(context)
+            .textTheme
+            .headline6!
+            .copyWith(fontWeight: FontWeight.w400, color: Colors.black, fontSize: AddSize.font14),
       ),
       // value: setStoreTimeController.model.value.data![index].status!,
       value: select,
@@ -434,7 +428,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    //horizontal: AddSize.padding10,
+                      //horizontal: AddSize.padding10,
                       vertical: AddSize.padding10),
                   child: Row(
                     children: [
@@ -460,14 +454,14 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                       // ),
                       Text(
                         "To",
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                            fontSize: AddSize.font14),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(fontWeight: FontWeight.w400, color: Colors.black, fontSize: AddSize.font14),
                       ),
                       const Icon(
                         Icons.keyboard_arrow_down_outlined,
-                        color:Colors.black,
+                        color: Colors.black,
                       )
                     ],
                   ),
@@ -478,10 +472,10 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
             //const Spacer(),
             Text(
               "To",
-              style: Theme.of(context).textTheme.headline6!.copyWith(
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                  fontSize: AddSize.font14),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontWeight: FontWeight.w400, color: Colors.black, fontSize: AddSize.font14),
             ),
             const SizedBox(
               width: 8,
@@ -497,7 +491,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    // horizontal: AddSize.padding10,
+                      // horizontal: AddSize.padding10,
                       vertical: AddSize.padding10),
                   child: Row(
                     children: [

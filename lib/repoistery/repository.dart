@@ -14,7 +14,6 @@ import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
 
 class Repositories {
-
   static String userInfo = "login_user";
 
   Future<dynamic> postApi({
@@ -30,20 +29,17 @@ class Repositories {
       Overlay.of(context).insert(loader);
     }
 
-
     LoginModal model = LoginModal();
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if (preferences.getString(userInfo) != null) {
-      model = LoginModal.fromJson(
-          jsonDecode(preferences.getString(userInfo)!));
+      model = LoginModal.fromJson(jsonDecode(preferences.getString(userInfo)!));
     }
 
     try {
       final Map<String, String> headers = {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-        if (model.token != null)
-          HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
+        if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
 
       if (kDebugMode) {
@@ -54,8 +50,7 @@ class Repositories {
         }
       }
 
-      http.Response response = await http.post(Uri.parse(url),
-          body: jsonEncode(mapData), headers: headers);
+      http.Response response = await http.post(Uri.parse(url), body: jsonEncode(mapData), headers: headers);
 
       if (kDebugMode) {
         if (showResponse == true) {
@@ -68,9 +63,7 @@ class Repositories {
 
       Helpers.hideLoader(loader);
 
-      if (response.statusCode == 200 ||
-          response.statusCode == 404 ||
-          response.statusCode == 400) {
+      if (response.statusCode == 200 || response.statusCode == 404 || response.statusCode == 400) {
         return response.body;
       } else if (response.statusCode == 401) {
         logOutUser();
@@ -109,15 +102,13 @@ class Repositories {
     LoginModal model = LoginModal();
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if (preferences.getString(userInfo) != null) {
-      model = LoginModal.fromJson(
-          jsonDecode(preferences.getString(userInfo)!));
+      model = LoginModal.fromJson(jsonDecode(preferences.getString(userInfo)!));
     }
     try {
       final Map<String, String> headers = {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-        if (model.token != null)
-          HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
+        if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
 
       if (kDebugMode) {
@@ -176,15 +167,13 @@ class Repositories {
     LoginModal model = LoginModal();
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if (preferences.getString(userInfo) != null) {
-      model = LoginModal.fromJson(
-          jsonDecode(preferences.getString(userInfo)!));
+      model = LoginModal.fromJson(jsonDecode(preferences.getString(userInfo)!));
     }
     try {
       final Map<String, String> headers = {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-        if (model.token != null)
-          HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
+        if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
 
       if (kDebugMode) {
@@ -241,15 +230,13 @@ class Repositories {
     LoginModal model = LoginModal();
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if (preferences.getString(userInfo) != null) {
-      model = LoginModal.fromJson(
-          jsonDecode(preferences.getString(userInfo)!));
+      model = LoginModal.fromJson(jsonDecode(preferences.getString(userInfo)!));
     }
     try {
       final Map<String, String> headers = {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-        if (model.token != null)
-          HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
+        if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
@@ -258,8 +245,7 @@ class Repositories {
       request.fields.addAll(mapData);
       for (var item in images.entries) {
         if (item.value.path != "") {
-          request.files
-              .add(await _multipartFile(item.key.toString(), item.value));
+          request.files.add(await _multipartFile(item.key.toString(), item.value));
         }
       }
       if (kDebugMode) {
@@ -288,15 +274,12 @@ class Repositories {
       throw Exception(e);
     } catch (e) {
       Helpers.hideLoader(loader);
-      showToast(
-          "Something went wrong.....${e.toString().substring(0, math.min(e.toString().length, 50))}");
+      showToast("Something went wrong.....${e.toString().substring(0, math.min(e.toString().length, 50))}");
       throw Exception(e);
     }
   }
 
-
-  Future<http.MultipartFile> _multipartFile(
-      String? fieldName, File file1) async {
+  Future<http.MultipartFile> _multipartFile(String? fieldName, File file1) async {
     return http.MultipartFile(
       fieldName ?? 'file',
       http.ByteStream(Stream.castFrom(file1.openRead())),
@@ -316,8 +299,11 @@ class Repositories {
 class CloseableMultipartRequest extends http.MultipartRequest {
   http.Client client = http.Client();
 
-  CloseableMultipartRequest(String method, Uri uri,{
-    required this.onProgress,}) : super(method, uri);
+  CloseableMultipartRequest(
+    String method,
+    Uri uri, {
+    required this.onProgress,
+  }) : super(method, uri);
 
   void close() => client.close();
 
@@ -341,7 +327,6 @@ class CloseableMultipartRequest extends http.MultipartRequest {
       rethrow;
     }
   }
-
 
   final void Function(int bytes, int totalBytes) onProgress;
 
@@ -372,4 +357,3 @@ class CloseableMultipartRequest extends http.MultipartRequest {
         onDone();
       }));
 }
-

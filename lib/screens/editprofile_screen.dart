@@ -14,11 +14,10 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text(
           'Edit profile',
@@ -27,7 +26,7 @@ class _EditProfileState extends State<EditProfile> {
         centerTitle: true,
         backgroundColor: AppTheme.buttonColor,
         leading: InkWell(
-          onTap: (){
+          onTap: () {
             Get.back();
           },
           child: const Icon(
@@ -38,54 +37,75 @@ class _EditProfileState extends State<EditProfile> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Name',style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w500),),
-              const SizedBox(height: 10,),
+              Text(
+                'Name',
+                style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               CommonTextfield(obSecure: false, hintText: 'Williams jones'),
-              const SizedBox(height: 10,),
-              Text('Email',style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w500),),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Email',
+                style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               CommonTextfield(obSecure: false, hintText: 'williamsjones@gmail.com'),
-              const SizedBox(height: 10,),
-              Text('Mobile number',style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w500),),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Mobile number',
+                style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               CommonTextfield(obSecure: false, hintText: '+91 987-654-3210'),
-              const SizedBox(height: 10,),
-              Text('Address',style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w500),),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Address',
+                style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               CommonTextfield(obSecure: false, hintText: 'Riverside Building, County hall,'),
-               SizedBox(
-                height: size.height*.3,
+              SizedBox(
+                height: size.height * .3,
               ),
               SizedBox(
                 width: double.infinity,
-                height: size.height*.07,
+                height: size.height * .07,
                 child: ElevatedButton(
-
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppTheme.buttonColor,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                       textStyle: const TextStyle(
                         fontWeight: FontWeight.bold,
-                      )), onPressed: () {
-
-
-                }, child: Text('Save',style: GoogleFonts.poppins(
-                    fontSize: 18,fontWeight: FontWeight.w600,color: Colors.white
-                ),),
-
+                      )),
+                  onPressed: () {},
+                  child: Text(
+                    'Save',
+                    style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+                  ),
                 ),
               ),
-
             ],
           ),
         ),
       ),
-
     );
   }
 }

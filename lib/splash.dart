@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'screens/bottomavbar.dart';
 
-
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
 
@@ -26,13 +25,16 @@ class _SplashState extends State<Splash> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: Container(
-          color: AppTheme.buttonColor,
+      color: AppTheme.buttonColor,
       height: size.height,
       width: size.width,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(color: Colors.white,height: 90,
+          Image.asset(
+            color: Colors.white,
+            height: 90,
             ('assets/images/diriselogo.png'),
             fit: BoxFit.fill,
           ),

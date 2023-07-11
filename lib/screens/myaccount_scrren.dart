@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +16,7 @@ enum SingingCharacter { lafayette, jefferson }
 
 class _EbookAccountState extends State<EbookAccount> {
   SingingCharacter? _character = SingingCharacter.lafayette;
-  RxString language="".obs;
+  RxString language = "".obs;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +38,8 @@ class _EbookAccountState extends State<EbookAccount> {
                 children: [
                   Text(
                     "Account",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF014E70),
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF014E70), fontSize: 24, fontWeight: FontWeight.w600),
                   ),
                   Image.asset(
                     'assets/images/myaccount.png',
@@ -50,10 +47,8 @@ class _EbookAccountState extends State<EbookAccount> {
                   ),
                   Text(
                     "Hi Bader",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xff000000),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xff000000), fontSize: 16, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -62,7 +57,6 @@ class _EbookAccountState extends State<EbookAccount> {
         ),
       ),
       body: SingleChildScrollView(
-
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Column(children: [
@@ -81,10 +75,8 @@ class _EbookAccountState extends State<EbookAccount> {
                   ),
                   Text(
                     "Profile",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF2A3032),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -105,10 +97,9 @@ class _EbookAccountState extends State<EbookAccount> {
               height: 5,
             ),
             GestureDetector(
-onTap: (){
-  Get.toNamed(MyRouters.eBookScreen);
-},
-
+              onTap: () {
+                Get.toNamed(MyRouters.eBookScreen);
+              },
               child: Row(
                 children: [
                   Image.asset(height: 25, 'assets/icons/ebook.png'),
@@ -117,10 +108,8 @@ onTap: (){
                   ),
                   Text(
                     "E Books",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF2A3032),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -140,9 +129,10 @@ onTap: (){
             const SizedBox(
               height: 5,
             ),
-            InkWell(onTap: (){
-              Get.toNamed(MyOrdersScreen.myOrdersScreen);
-            },
+            InkWell(
+              onTap: () {
+                Get.toNamed(MyOrdersScreen.myOrdersScreen);
+              },
               child: Row(
                 children: [
                   Image.asset(height: 25, 'assets/icons/order.png'),
@@ -151,45 +141,8 @@ onTap: (){
                   ),
                   Text(
                     "Orders",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF2A3032),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  const Spacer(),
-                  const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 15,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            const Divider(
-              thickness: 1,
-
-              color: Color(0x1A000000),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            GestureDetector(onTap: (){
-              Get.toNamed(MyRouters.calendarScreen);
-            },
-              child: Row(
-                children: [
-                  Image.asset(height: 25, 'assets/icons/calendar.png'),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "My Calender",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF2A3032),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -210,10 +163,41 @@ onTap: (){
               height: 5,
             ),
             GestureDetector(
-              onTap: (){
-
-                  Get.toNamed(MyRouters.faqsScreen);
-
+              onTap: () {
+                Get.toNamed(MyRouters.calendarScreen);
+              },
+              child: Row(
+                children: [
+                  Image.asset(height: 25, 'assets/icons/calendar.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "My Calender",
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const Divider(
+              thickness: 1,
+              color: Color(0x1A000000),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(MyRouters.faqsScreen);
               },
               child: Row(
                 children: [
@@ -223,10 +207,8 @@ onTap: (){
                   ),
                   Text(
                     "Faq's",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF2A3032),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -237,7 +219,7 @@ onTap: (){
               ),
             ),
             const SizedBox(
-              height:5,
+              height: 5,
             ),
             const Divider(
               thickness: 1,
@@ -252,84 +234,80 @@ onTap: (){
                     context: context,
                     builder: (BuildContext context) {
                       return Container(
-                        height: 330,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20))),
-                        child: Obx((){
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 20, right: 20,top: 20),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: const Color(0xffDCDCDC)),
-                                          borderRadius:
-                                          BorderRadius.circular(15)),
-                                      child: RadioListTile(title:const Text('Arabic') ,
-                                        activeColor: const Color(0xff014E70),
-                                        value: "arabic", groupValue: language.value, onChanged: (value) {
-                                          setState(() {
-                                            language.value=value!;
-                                          });
-                                        },)),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 20, right: 20),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: const Color(0xffDCDCDC)),
-                                          borderRadius:
-                                          BorderRadius.circular(15)),
-                                      child: RadioListTile(title:Text('English') ,
-                                        activeColor: const Color(0xff014E70),
-                                        value: "english", groupValue: language.value, onChanged: (value) {
-                                          setState(() {
-                                            language.value=value!;
-                                          });
-                                        },)
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: size.height * .08,
-                                ),
-                                Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20, right: 20),
+                          height: 330,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                          child: Obx(() {
+                            return Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                                     child: Container(
-                                      height: 56,
-                                      width: MediaQuery.sizeOf(context).width,
-                                      color: const Color(0xff014E70),
-                                      child: const Center(
-                                        child: Text(
-                                          'Apply',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(color: const Color(0xffDCDCDC)),
+                                            borderRadius: BorderRadius.circular(15)),
+                                        child: RadioListTile(
+                                          title: const Text('Arabic'),
+                                          activeColor: const Color(0xff014E70),
+                                          value: "arabic",
+                                          groupValue: language.value,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              language.value = value!;
+                                            });
+                                          },
+                                        )),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20, right: 20),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(color: const Color(0xffDCDCDC)),
+                                            borderRadius: BorderRadius.circular(15)),
+                                        child: RadioListTile(
+                                          title: Text('English'),
+                                          activeColor: const Color(0xff014E70),
+                                          value: "english",
+                                          groupValue: language.value,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              language.value = value!;
+                                            });
+                                          },
+                                        )),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * .08,
+                                  ),
+                                  Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 20, right: 20),
+                                      child: Container(
+                                        height: 56,
+                                        width: MediaQuery.sizeOf(context).width,
+                                        color: const Color(0xff014E70),
+                                        child: const Center(
+                                          child: Text(
+                                            'Apply',
+                                            style: TextStyle(
+                                                fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        })
-                      );
+                                  )
+                                ],
+                              ),
+                            );
+                          }));
                     });
               },
               child: Row(
@@ -340,10 +318,8 @@ onTap: (){
                   ),
                   Text(
                     "Language",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF2A3032),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -365,32 +341,25 @@ onTap: (){
             ),
             Row(
               children: [
-
                 Image.asset(height: 25, 'assets/icons/aboutus.png'),
                 const SizedBox(
                   width: 20,
                 ),
                 Text(
                   "About Us",
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xFF2A3032),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                  style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const Spacer(),
                 const Icon(
                   Icons.arrow_forward_ios,
                   size: 15,
                 ),
-
-
               ],
             ),
             const SizedBox(
               height: 5,
             ),
             const Divider(
-
               thickness: 1,
               color: Color(0x1A000000),
             ),
@@ -398,29 +367,25 @@ onTap: (){
               height: 5,
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(MyRouters.termsConditionScreen);
               },
               child: Row(
                 children: [
-
                   Image.asset(height: 25, 'assets/icons/termscondition.png'),
                   const SizedBox(
                     width: 20,
                   ),
                   Text(
                     "Terms Of Conditions",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF2A3032),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
-
                 ],
               ),
             ),
@@ -428,7 +393,6 @@ onTap: (){
               height: 5,
             ),
             const Divider(
-
               thickness: 1,
               color: Color(0x1A000000),
             ),
@@ -436,29 +400,23 @@ onTap: (){
               height: 5,
             ),
             GestureDetector(
-              onTap: (){
-
-              },
+              onTap: () {},
               child: Row(
                 children: [
-
                   Image.asset(height: 18, 'assets/icons/policy.png'),
                   const SizedBox(
                     width: 20,
                   ),
                   Text(
                     "Return policy",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF2A3032),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
-
                 ],
               ),
             ),
@@ -466,7 +424,6 @@ onTap: (){
               height: 5,
             ),
             const Divider(
-
               thickness: 1,
               color: Color(0x1A000000),
             ),
@@ -475,31 +432,25 @@ onTap: (){
             ),
             Row(
               children: [
-
                 Image.asset(height: 25, 'assets/icons/signout.png'),
                 const SizedBox(
                   width: 20,
                 ),
                 Text(
                   "Sign Out",
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xFF2A3032),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                  style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const Spacer(),
                 const Icon(
                   Icons.arrow_forward_ios,
                   size: 15,
                 ),
-
               ],
             ),
             const SizedBox(
               height: 5,
             ),
             const Divider(
-
               thickness: 1,
               color: Color(0x1A000000),
             ),
@@ -507,30 +458,25 @@ onTap: (){
               height: 5,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(MyRouters.vendorRegistration);
-
               },
               child: Row(
                 children: [
-
                   Image.asset(height: 25, 'assets/icons/signout.png'),
                   const SizedBox(
                     width: 20,
                   ),
                   Text(
                     "Vendor flow",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xFF2A3032),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
-
                 ],
               ),
             ),

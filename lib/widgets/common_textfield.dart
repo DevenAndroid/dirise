@@ -53,8 +53,6 @@ class CommonTextfield extends StatefulWidget {
 }
 
 class _CommonTextfieldState extends State<CommonTextfield> {
-
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -90,7 +88,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
           labelText: widget.labelText,
           prefixIcon: widget.prefix,
           suffixIcon: widget.suffixIcon,
-          hintStyle:  GoogleFonts.poppins(
+          hintStyle: GoogleFonts.poppins(
             color: AppTheme.primaryColor,
             fontSize: 15,
           ),
@@ -98,18 +96,13 @@ class _CommonTextfieldState extends State<CommonTextfield> {
               overflow: TextOverflow.clip,
             // ),*/
 
-
-
-
           border: InputBorder.none,
-         focusedErrorBorder: const OutlineInputBorder(
-             borderRadius: BorderRadius.all(Radius.circular(8)),
-             borderSide: BorderSide(color: AppTheme.secondaryColor)
-         ),
+          focusedErrorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(color: AppTheme.secondaryColor)),
           errorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor)
-          ),
+              borderSide: BorderSide(color: AppTheme.secondaryColor)),
           focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)),
               borderSide: BorderSide(color: AppTheme.secondaryColor)),
