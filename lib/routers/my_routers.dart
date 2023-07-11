@@ -26,7 +26,7 @@ import '../screens/Authors/single_author_screen.dart';
 import '../screens/Authors/teacher_screen.dart';
 import '../screens/calender.dart';
 
-import '../screens/categores/add_bag_screen.dart';
+import '../screens/check_out/add_bag_screen.dart';
 import '../screens/categores/categories_screen.dart';
 import '../screens/categores/check_out_screen.dart';
 import '../screens/categores/general_library.dart';
@@ -112,9 +112,10 @@ class MyRouters {
     GetPage(name: '/storeOpenScreen', page: () => const SetTimeScreen()),
     GetPage(name: '/officeFurnitureScreen', page: () => const OfficeFurniture()),
     GetPage(name: CategoriesScreen.categoriesScreen, page: () => const CategoriesScreen()),
+    GetPage(name: BagsScreen.addBagScreen, page: () => const BagsScreen()),
     GetPage(name: SingleCategories.singleCategoriesScreen, page: () => const SingleCategories()),
     GetPage(name: GeneralLibrary.generalLibrary, page: () => const GeneralLibrary()),
-    GetPage(name: AddBagScreen.addBagScreen, page: () => const AddBagScreen()),
+    GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),
     GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),
     GetPage(name: OrderCompleteScreen.orderCompleteScreen, page: () => const OrderCompleteScreen()),
     GetPage(name: AuthorsScreen.authorsScreen, page: () => const AuthorsScreen()),

@@ -35,7 +35,7 @@ class _NewPasswordState extends State<NewPassword> {
     email = Get.arguments[0];
   }
 
-  Future<CommonModel> changePasswordRepo({password, email, context}) async {
+  Future<ModelCommonResponse> changePasswordRepo({password, email, context}) async {
     OverlayEntry loader = Helpers.overlayLoader(context);
     Overlay.of(context).insert(loader);
     var map = <String, dynamic>{};
@@ -49,7 +49,7 @@ class _NewPasswordState extends State<NewPassword> {
     if (response.statusCode == 200 || response.statusCode == 400) {
       log(response.body);
       Helpers.hideLoader(loader);
-      return CommonModel.fromJson(jsonDecode(response.body));
+      return ModelCommonResponse.fromJson(jsonDecode(response.body));
     } else {
       Helpers.hideLoader(loader);
       throw Exception(response.body);

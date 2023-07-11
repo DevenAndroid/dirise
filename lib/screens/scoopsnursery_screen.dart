@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/common_colour.dart';
-import 'categores/add_bag_screen.dart';
+import 'check_out/add_bag_screen.dart';
 
 class SchoolNursery extends StatefulWidget {
   const SchoolNursery({Key? key}) : super(key: key);
@@ -397,7 +397,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.toNamed(AddBagScreen.addBagScreen);
+                              Get.toNamed(BagsScreen.addBagScreen);
                             },
                             child: Container(
                               height: 36,

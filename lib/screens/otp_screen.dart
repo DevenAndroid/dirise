@@ -29,7 +29,7 @@ class _OtpScreenState extends State<OtpScreen> {
     map['email'] = email;
     map['otp'] = _otpController.text.trim();
     repositories.postApi(url: ApiUrls.verifyOtpEmail, context: context, mapData: map).then((value) {
-      CommonModel response = CommonModel.fromJson(jsonDecode(value));
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message);
       if (response.status == true) {
         if (check == true) {

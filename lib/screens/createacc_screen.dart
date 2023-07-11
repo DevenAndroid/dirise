@@ -36,7 +36,7 @@ class _CreateAccState extends State<CreateAcc> {
     map['phone'] = _mobileNumberController.text.trim();
     map['password'] = _passwordController.text.trim();
     repositories.postApi(url: ApiUrls.signInUrl, context: context, mapData: map).then((value) {
-      CommonModel response = CommonModel.fromJson(jsonDecode(value));
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         Get.toNamed(OtpScreen.route, arguments: [_emailController.text, true]);

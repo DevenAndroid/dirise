@@ -24,7 +24,7 @@ class ForgetPassword extends StatefulWidget {
 class _ForgetPasswordState extends State<ForgetPassword> {
   final emailController = TextEditingController();
 
-  Future<CommonModel> forgotPasswordRepo({email, context}) async {
+  Future<ModelCommonResponse> forgotPasswordRepo({email, context}) async {
     OverlayEntry loader = Helpers.overlayLoader(context);
     Overlay.of(context).insert(loader);
     var map = <String, dynamic>{};
@@ -37,7 +37,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     if (response.statusCode == 200 || response.statusCode == 400) {
       log(response.body);
       Helpers.hideLoader(loader);
-      return CommonModel.fromJson(jsonDecode(response.body));
+      return ModelCommonResponse.fromJson(jsonDecode(response.body));
     } else {
       Helpers.hideLoader(loader);
       throw Exception(response.body);

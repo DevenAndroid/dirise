@@ -1,9 +1,14 @@
+import 'dart:convert';
+
+import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/widgets/customsize.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../controller/cart_controller.dart';
+import '../../utils/ApiConstant.dart';
 import '../../widgets/common_textfield.dart';
 import 'order_completed_screen.dart';
 
@@ -17,6 +22,25 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
+
+  final cartController = Get.put(CartController());
+  bool couponApplied = false;
+  final TextEditingController couponController = TextEditingController();
+  
+  applyCouponCode(){
+    if(couponController.text.trim().isEmpty){
+      showToast("Please enter coupon code");
+      return;
+    }
+    Map<String, dynamic> map = {};
+    map["coupon_code"] = couponController.text.trim();
+    map["total_price"] = cartController.cartModel.subtotal.toString();
+    cartController.repositories.postApi(url: ApiUrls.applyCouponUrl,context: context,mapData: map).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(response.message);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -225,6 +249,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             Expanded(
                               child: TextFormField(
                                 style: GoogleFonts.poppins(),
+                                controller: couponController,
                                 decoration: InputDecoration.collapsed(
                                     hintText: "Enter Code",
                                     hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14)),
@@ -233,14 +258,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             const SizedBox(
                               width: 20,
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
-                              padding: const EdgeInsets.fromLTRB(22, 9, 22, 9),
-                              child: Text(
-                                "Apply",
-                                style:
-                                    GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+                            GestureDetector(
+                              onTap: (){
+                                applyCouponCode();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                                padding: const EdgeInsets.fromLTRB(22, 9, 22, 9),
+                                child: Text(
+                                  "Apply",
+                                  style:
+                                      GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+                                ),
                               ),
                             )
                           ],
@@ -269,9 +299,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Subtotal (4 items)",
+                      Text("Subtotal (${cartController.cartModel.totalQuantity} items)",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
-                      Text("KWD 21.00",
+                      Text("KWD ${cartController.cartModel.subtotal.toString()}",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
                     ],
                   ),
@@ -282,7 +312,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Total", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                      Text("KWD 21.00", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                      Text("KWD ${cartController.cartModel.total.toString()}", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                     ],
                   ),
                   const SizedBox(

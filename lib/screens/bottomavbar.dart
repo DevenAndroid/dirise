@@ -1,4 +1,4 @@
-import 'package:dirise/screens/homepage_screen.dart';
+import 'package:dirise/screens/home_pages/homepage_screen.dart';
 
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:flutter/material.dart';

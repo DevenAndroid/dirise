@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../widgets/common_colour.dart';
-import '../categores/add_bag_screen.dart';
+import '../check_out/add_bag_screen.dart';
 
 class SingleChair extends StatefulWidget {
   const SingleChair({Key? key}) : super(key: key);
@@ -293,7 +293,7 @@ class _SingleChairState extends State<SingleChair> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.offNamed(AddBagScreen.addBagScreen);
+                          Get.offNamed(BagsScreen.addBagScreen);
                         },
                         child: Container(
                           decoration:

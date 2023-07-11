@@ -1,6 +1,8 @@
+import 'package:dirise/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../routers/my_routers.dart';
 import 'my_orders_screen.dart';
@@ -430,22 +432,29 @@ class _EbookAccountState extends State<EbookAccount> {
             const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-                Image.asset(height: 25, 'assets/icons/signout.png'),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "Sign Out",
-                  style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                ),
-              ],
+            GestureDetector(
+              onTap: () async {
+                SharedPreferences shared = await SharedPreferences.getInstance();
+                await shared.clear();
+                Get.toNamed(LoginScreen.route);
+              },
+              child: Row(
+                children: [
+                  Image.asset(height: 25, 'assets/icons/signout.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Sign Out",
+                    style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 5,

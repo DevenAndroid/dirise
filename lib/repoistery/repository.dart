@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:math' as math;
+import 'package:client_information/client_information.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,9 +14,19 @@ import '../model/login_model.dart';
 import '../screens/login_screen.dart';
 import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
+String deviceId = "";
 
 class Repositories {
   static String userInfo = "login_user";
+  Future assignDeviceToken() async {
+    try {
+      await ClientInformation.fetch().then((value) {
+        deviceId = value.deviceId.toString();
+      });
+    } on PlatformException {
+      log('Failed to get client information');
+    }
+  }
 
   Future<dynamic> postApi({
     BuildContext? context,
@@ -22,7 +34,7 @@ class Repositories {
     // bool? showLoader = false,
     bool? showMap = false,
     bool? showResponse = true,
-    dynamic mapData,
+    Map<String, dynamic>? mapData,
   }) async {
     OverlayEntry loader = Helpers.overlayLoader(context);
     if (context != null) {
@@ -33,6 +45,11 @@ class Repositories {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if (preferences.getString(userInfo) != null) {
       model = LoginModal.fromJson(jsonDecode(preferences.getString(userInfo)!));
+    } else {
+      await assignDeviceToken();
+      mapData ??= {};
+
+      mapData["device_id"] = deviceId;
     }
 
     try {
@@ -49,6 +66,7 @@ class Repositories {
           log("API mapData.....  $headers");
         }
       }
+      mapData ??= {};
 
       http.Response response = await http.post(Uri.parse(url), body: jsonEncode(mapData), headers: headers);
 

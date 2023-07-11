@@ -30,7 +30,7 @@ class TrendingProductsController extends GetxController {
   }
 
   Future categoriesData() async {
-    repositories.postApi(url: ApiUrls.categoryUrl, mapData: {}).then((value) {
+    await repositories.postApi(url: ApiUrls.categoryUrl, mapData: {}).then((value) {
       categoryModal.value = CategoriesModal.fromJson(jsonDecode(value));
     });
   }
@@ -51,7 +51,7 @@ class TrendingProductsController extends GetxController {
   void onInit() {
     super.onInit();
     trendingData();
-    categoriesData();
+    // categoriesData();
     popularProductsData();
     homeData();
     authorData();

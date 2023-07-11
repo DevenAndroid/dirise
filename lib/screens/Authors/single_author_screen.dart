@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../categores/add_bag_screen.dart';
+import '../check_out/add_bag_screen.dart';
 
 class SingleAuthorScreen extends StatefulWidget {
   const SingleAuthorScreen({super.key});
@@ -455,7 +455,7 @@ class _SingleAuthorScreenState extends State<SingleAuthorScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.toNamed(AddBagScreen.addBagScreen);
+                          Get.toNamed(BagsScreen.addBagScreen);
                         },
                         child: Container(
                           decoration:

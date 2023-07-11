@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/common_app_bar.dart';
-import 'add_bag_screen.dart';
+import '../check_out/add_bag_screen.dart';
 
 class GeneralLibrary extends StatefulWidget {
   const GeneralLibrary({super.key});
@@ -428,7 +428,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                       ),
                       InkWell(
                         onTap: () {
-                          Get.offNamed(AddBagScreen.addBagScreen);
+                          Get.offNamed(BagsScreen.addBagScreen);
                         },
                         child: Container(
                           decoration:
