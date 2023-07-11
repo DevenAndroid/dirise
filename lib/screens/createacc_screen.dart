@@ -1,15 +1,17 @@
-import 'dart:developer';
+import 'dart:convert';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../repoistery/sign_up_repo.dart';
+import '../model/common_modal.dart';
+import '../repoistery/repository.dart';
 import '../routers/my_routers.dart';
 import '../utils/ApiConstant.dart';
 import '../widgets/common_button.dart';
 import '../widgets/common_textfield.dart';
+import 'otp_screen.dart';
 
 class CreateAcc extends StatefulWidget {
   const CreateAcc({Key? key}) : super(key: key);
@@ -21,33 +23,38 @@ class CreateAcc extends StatefulWidget {
 class _CreateAccState extends State<CreateAcc> {
   final formKey1 = GlobalKey<FormState>();
 
-  // Rx<CommonModel>model<CommonModel>;
-
-  TextEditingController nameController = TextEditingController();
-  TextEditingController mobileNumberController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _mobileNumberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final Repositories repositories = Repositories();
 
   registerApi() {
-      registerRepo(
-           name: nameController.text,
-           email: emailController.text,
-        phone: mobileNumberController.text,
-        password: passwordController.text,
-        context: context
-              )
-          .then((value) {
-        log(value.message.toString());
-        if (value.status == true) {
-           Get.toNamed(MyRouters.otpScreen,arguments: [emailController.text,true]);
-           showToast(value.otp.toString());
-        }else{
-          showToast(value.message.toString());
+    Map<String, dynamic> map = {};
+    map['email'] = _emailController.text.trim();
+    map['name'] = _nameController.text.trim();
+    map['phone'] = _mobileNumberController.text.trim();
+    map['password'] = _passwordController.text.trim();
+    repositories.postApi(
+      url: ApiUrls.signInUrl,
+      context: context,
+      mapData: map
+    ).then((value) {
+      CommonModel response = CommonModel.fromJson(jsonDecode(value));
+      showToast(response.message.toString());
+      if(response.status == true){
+        Get.toNamed(OtpScreen.route,arguments: [_emailController.text,true]);
+      }
+    });
+  }
 
-        }
-
-      });
-
+  @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+    _mobileNumberController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   @override
@@ -95,7 +102,7 @@ class _CreateAccState extends State<CreateAcc> {
                   height: size.height * .08,
                 ),
                 CommonTextfield(
-                    controller: nameController,
+                    controller: _nameController,
                     obSecure: false,
                     hintText: 'Name',
                   validator: MultiValidator([
@@ -105,7 +112,7 @@ class _CreateAccState extends State<CreateAcc> {
                   height: size.height * .01,
                 ),
                 CommonTextfield(
-                    controller: emailController,
+                    controller: _emailController,
                     obSecure: false,
                     hintText: 'Email',
                   validator: MultiValidator([
@@ -115,7 +122,7 @@ class _CreateAccState extends State<CreateAcc> {
                   height: size.height * .01,
                 ),
                 CommonTextfield(
-                    controller: passwordController,
+                    controller: _passwordController,
                     obSecure: false,
                     hintText: 'Password',
                   validator: MultiValidator([
@@ -158,7 +165,7 @@ class _CreateAccState extends State<CreateAcc> {
                     Flexible(
                         flex: 3,
                         child: CommonTextfield(
-                            controller: mobileNumberController,
+                            controller: _mobileNumberController,
                             obSecure: false,
 
                             hintText: '987-654-3210',

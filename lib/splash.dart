@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
+import 'screens/bottomavbar.dart';
 
 
 class Splash extends StatefulWidget {
@@ -18,16 +15,9 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Timer(const Duration(seconds: 4), () async {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      if(pref.getString("user") != null){
-        Get.offNamed(MyRouters.bottomNavBar);
-      }else{
-        Get.offAllNamed(MyRouters.loginScreen);
-      }
-
+    Timer(const Duration(seconds: 3), () async {
+      Get.offNamed(BottomNavbar.route);
     });
   }
 

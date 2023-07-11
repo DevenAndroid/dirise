@@ -1,4 +1,3 @@
-
 import 'package:dirise/screens/homepage_screen.dart';
 
 import 'package:dirise/screens/whishlist_screen.dart';
@@ -12,6 +11,7 @@ import 'categores/categories_screen.dart';
 import 'myaccount_scrren.dart';
 
 class BottomNavbar extends StatefulWidget {
+  static String route = "/BottomNavbar";
   const BottomNavbar({Key? key}) : super(key: key);
 
   @override
@@ -169,36 +169,36 @@ class _BottomNavbarState extends State<BottomNavbar> {
                           children: [
                             bottomController.pageIndex.value == 2
                                 ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset(
-                                      'assets/icons/heart.png',
-                                      color: AppTheme.buttonColor,
-                                      height: 20,
-                                    ),
-                                  )
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(
+                                'assets/icons/heart.png',
+                                color: AppTheme.buttonColor,
+                                height: 20,
+                              ),
+                            )
                                 : Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset(
-                                      'assets/icons/heart.png',
-                                      color: AppTheme.primaryColor,
-                                      height: 20,
-                                    ),
-                                  ),
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(
+                                'assets/icons/heart.png',
+                                color: AppTheme.primaryColor,
+                                height: 20,
+                              ),
+                            ),
                             bottomController.pageIndex.value == 2
                                 ? const Text(
-                                    "Favorite ",
-                                    style: TextStyle(
-                                        color: AppTheme.buttonColor,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400),
-                                  )
+                              "Favorite ",
+                              style: TextStyle(
+                                  color: AppTheme.buttonColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
+                            )
                                 : const Text(
-                                    "  Favorite ",
-                                    style: TextStyle(
-                                        color: AppTheme.primaryColor,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400),
-                                  )
+                              "  Favorite ",
+                              style: TextStyle(
+                                  color: AppTheme.primaryColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
+                            )
                           ],
                         ),
                       ),
@@ -214,36 +214,36 @@ class _BottomNavbarState extends State<BottomNavbar> {
                         children: [
                           bottomController.pageIndex.value == 3
                               ? Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    'assets/icons/profile.png',
-                                    height: 20,
-                                    color: AppTheme.buttonColor,
-                                  ),
-                                )
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              'assets/icons/profile.png',
+                              height: 20,
+                              color: AppTheme.buttonColor,
+                            ),
+                          )
                               : Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    'assets/icons/profile.png',
-                                    color: AppTheme.primaryColor,
-                                    height: 20,
-                                  ),
-                                ),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              'assets/icons/profile.png',
+                              color: AppTheme.primaryColor,
+                              height: 20,
+                            ),
+                          ),
                           bottomController.pageIndex.value == 3
                               ? const Text(
-                                  "My Account",
-                                  style: TextStyle(
-                                      color: AppTheme.buttonColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400),
-                                )
+                            "My Account",
+                            style: TextStyle(
+                                color: AppTheme.buttonColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400),
+                          )
                               : const Text(
-                                  "My Account",
-                                  style: TextStyle(
-                                      color: AppTheme.primaryColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400),
-                                )
+                            "My Account",
+                            style: TextStyle(
+                                color: AppTheme.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400),
+                          )
                         ],
                       ),
                     ),

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../bottomavbar.dart';
+
 class OrderCompleteScreen extends StatefulWidget {
   const OrderCompleteScreen({super.key});
   static var orderCompleteScreen= "/orderCompleteScreen";
@@ -101,7 +103,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
       ),
     ),
       bottomNavigationBar: InkWell(onTap: (){
-        Get.offAllNamed(MyRouters.bottomNavBar);
+        Get.offAllNamed(BottomNavbar.route);
       },
         child: Padding(
           padding: const EdgeInsets.all(20),

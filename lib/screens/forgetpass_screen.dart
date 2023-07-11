@@ -13,6 +13,7 @@ import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
 import '../widgets/common_button.dart';
 import '../widgets/common_textfield.dart';
+import 'otp_screen.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({Key? key}) : super(key: key);
@@ -97,7 +98,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   forgotPasswordRepo(email: emailController.text,context: context).then((value) {
                     if(value.status==true){
                       showToast(value.message.toString());
-                      Get.toNamed(MyRouters.otpScreen,arguments: [emailController.text,false]);
+                      Get.toNamed(OtpScreen.route,arguments: [emailController.text,false]);
                     }else{
                       showToast(value.message.toString());
                     }

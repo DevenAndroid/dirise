@@ -14,6 +14,7 @@ import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
 import '../widgets/common_button.dart';
 import '../widgets/common_textfield.dart';
+import 'login_screen.dart';
 
 class NewPassword extends StatefulWidget {
   const NewPassword({Key? key}) : super(key: key);
@@ -104,7 +105,7 @@ class _NewPasswordState extends State<NewPassword> {
                         changePasswordRepo(password: passwordController.text,email: email,context: context).then((value){
                           if(value.status==true){
                             showToast(value.message.toString());
-                            Get.offNamed(MyRouters.loginScreen);
+                            Get.offNamed(LoginScreen.route);
                           }else{
                             showToast(value.message.toString());
                           }

@@ -1,19 +1,19 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:dirise/routers/my_routers.dart';
+import 'package:dirise/utils/ApiConstant.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../repoistery/login_repo.dart';
+import '../model/login_model.dart';
+import '../repoistery/repository.dart';
 import '../widgets/common_button.dart';
+import 'bottomavbar.dart';
 
 class LoginScreen extends StatefulWidget {
+  static String route = "/LoginScreen";
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final loginFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final Repositories repositories = Repositories();
 
   //final controller = Get.put(CustomNavigationBarController());
 
@@ -64,6 +65,20 @@ class _LoginScreenState extends State<LoginScreen> {
   //     }
   //   });
   // }
+
+  loginUserApi() {
+    if (loginFormKey.currentState!.validate()) {
+      Map<String, dynamic> map = {};
+      map['email'] = emailController.text.trim();
+      map['password'] = passwordController.text.trim();
+      repositories.postApi(url: ApiUrls.loginUrl, context: context, mapData: map).then((value) async {
+        LoginModal response = LoginModal.fromJson(jsonDecode(value));
+        repositories.saveLoginDetails(jsonEncode(response));
+        showToast(response.message.toString());
+        Get.offAllNamed(BottomNavbar.route);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,25 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomOutlineButton(
                   title: "Sign In",
                   onPressed: () {
-
-                    //Get.offAllNamed(MyRouters.bottomNavBar);
-                    if (loginFormKey.currentState!.validate()) {
-                      loginRepo(emailController.text, passwordController.text,
-                              context)
-                          .then((value) async {
-                        if (value.status == true) {
-                          Get.offAllNamed(MyRouters.bottomNavBar);
-                          SharedPreferences pref =
-                              await SharedPreferences.getInstance();
-                          pref.setString('user', jsonEncode(value));
-                          if (kDebugMode) {
-                            print("User Token :: ${pref.getString("user")}");
-                          }
-                          //controller.getUser();
-
-                        }
-                      });
-                    }
+                    loginUserApi();
                   },
                 ),
                 SizedBox(
@@ -155,8 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Text(
                         'Forget Password?',
-                        style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ),
                     InkWell(
@@ -165,8 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Text(
                         'Sign Up',
-                        style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ),
                   ],
@@ -238,8 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 62,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                color: const Color(0xffCACACA), width: 2)),
+                            border: Border.all(color: const Color(0xffCACACA), width: 2)),
                         child: Center(
                           child: Image.asset(
                             'assets/icons/google.png',
@@ -255,9 +249,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Container(
                         height: 62,
                         width: 62,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color(0xff0B60A8)),
+                        decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
                         child: Center(
                           child: Image.asset(
                             'assets/icons/facebook.png',

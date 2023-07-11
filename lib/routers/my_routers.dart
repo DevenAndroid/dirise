@@ -55,15 +55,14 @@ import '../vendorflow/vendor_registration_screen.dart';
 
 class MyRouters {
   static var splash = "/splash";
-  static var loginScreen = "/loginScreen";
   static var createAccScreen = "/createAccScreen";
   static var forgetPassword = "/forgetPassword";
 
-  static var bottomNavBar = "/bottomNavBar";
+  // static var bottomNavBar = "/bottomNavBar";
   static var categoryScreen = "/categoryScreen";
   static var whishlistScreen = "/whishlistScreen";
   static var profileScreen = "/profileScreen";
-  static var otpScreen = "/otpScreen";
+  // static var otpScreen = "/otpScreen";
   static var newPasswordScreen = "/newPasswordScreen";
   static var editprofileScreen = "/editprofileScreen";
   static var faqsScreen = "/faqsScreen";
@@ -91,15 +90,14 @@ class MyRouters {
 
 
   static var route = [
-
     GetPage(name: '/', page: () => const Splash()),
-    GetPage(name: '/loginScreen', page: () => const LoginScreen()),
+    GetPage(name: LoginScreen.route, page: () => const LoginScreen()),
     GetPage(name: '/createAccScreen', page: () => const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () => const ForgetPassword()),
-    GetPage(name: '/bottomNavBar', page: () => const BottomNavbar()),
+    GetPage(name: BottomNavbar.route, page: () => const BottomNavbar()),
     GetPage(name: '/whishlistScreen', page: () => const Whishlist()),
     GetPage(name: '/profileScreen', page: () => const Profile()),
-    GetPage(name: '/otpScreen', page: () => const OtpScreen()),
+    GetPage(name: OtpScreen.route, page: () => const OtpScreen()),
     GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
     GetPage(name: '/orderListScreen', page: () => const VendorOrderList()),
     GetPage(name: '/allProductScreen', page: () => const ProductScreen()),

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../widgets/common_colour.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -62,21 +63,9 @@ class NewHelper {
 }
 
 class Helpers {
-  late BuildContext context;
-  late DateTime currentBackPressTime;
 
   Helpers.of(BuildContext context) {
     context = context;
-  }
-
-  Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
-      currentBackPressTime = now;
-      return Future.value(false);
-    }
-    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-    return Future.value(true);
   }
 
   String convertToBase64(String credentials) {
@@ -98,11 +87,9 @@ class Helpers {
         top: 0,
         left: 0,
         child: Material(
-          color: AppTheme.primaryColor.withOpacity(0.02),
-          child: const CupertinoActivityIndicator(
-            color: AppTheme.primaryColor,
-            radius: 30,
-          ),
+          color: AppTheme.primaryColor.withOpacity(0.25),
+          child: LoadingAnimationWidget.fourRotatingDots(
+              color: AppTheme.buttonColor, size: 50),
         ),
       );
     });
