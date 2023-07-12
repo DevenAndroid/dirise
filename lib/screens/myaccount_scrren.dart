@@ -1,9 +1,19 @@
-
+import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../routers/my_routers.dart';
+import '../vendorflow/add_money_screen.dart';
+import '../vendorflow/all_product_screen.dart';
+import '../vendorflow/bank_account_screen.dart';
+import '../vendorflow/dashboard_screen.dart';
+import '../vendorflow/dashboard_screen.dart';
+import '../vendorflow/dashboard_screen.dart';
+import '../vendorflow/store_open_time_screen.dart';
+import '../vendorflow/vendor_order_list_screen.dart';
+import '../vendorflow/vendor_registration_screen.dart';
+import '../widgets/dimension_screen.dart';
 import 'my_orders_screen.dart';
 
 class EbookAccount extends StatefulWidget {
@@ -17,7 +27,29 @@ enum SingingCharacter { lafayette, jefferson }
 
 class _EbookAccountState extends State<EbookAccount> {
   SingingCharacter? _character = SingingCharacter.lafayette;
-  RxString language="".obs;
+  RxString language = "".obs;
+  final RxBool _isValue = false.obs;
+  final RxBool _isValue1 = false.obs;
+  var vendor = [
+    'Dashboard',
+    'Order',
+    'Products',
+    'Store open time',
+    'Vendor Information',
+    'Bank Details',
+    'Withdraw'
+  ];
+  var vendorRoutes = [
+    DashboardScreen.dashboardScreen,
+    VendorOrderList.vendorOrderList,
+    ProductScreen.productScreen,
+    // VendorOrderList.vendorOrderList,
+    SetTimeScreen.setTimeScreen,
+    // VendorOrderList.vendorOrderList,
+    VendorRegistrationScreen.registrationScreen,
+    BankDetailsScreen.bankDetailsScreen,
+    WithdrawMoney.withdrawMoney,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +57,12 @@ class _EbookAccountState extends State<EbookAccount> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(130),
+        preferredSize: const Size.fromHeight(150),
         child: Container(
-          color: const Color(0xffEBF1F4),
+          color: AppTheme.buttonColor,
           child: SafeArea(
             child: Container(
-              height: 194,
-              width: MediaQuery.sizeOf(context).width,
-              color: const Color(0xffEBF1F4),
+              color: AppTheme.buttonColor,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,20 +70,29 @@ class _EbookAccountState extends State<EbookAccount> {
                   Text(
                     "Account",
                     style: GoogleFonts.poppins(
-                        color: const Color(0xFF014E70),
+                        color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   Image.asset(
                     'assets/images/myaccount.png',
                     height: 60,
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Text(
                     "Hi Bader",
                     style: GoogleFonts.poppins(
-                        color: const Color(0xff000000),
+                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
@@ -62,7 +101,6 @@ class _EbookAccountState extends State<EbookAccount> {
         ),
       ),
       body: SingleChildScrollView(
-
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Column(children: [
@@ -105,10 +143,9 @@ class _EbookAccountState extends State<EbookAccount> {
               height: 5,
             ),
             GestureDetector(
-onTap: (){
-  Get.toNamed(MyRouters.eBookScreen);
-},
-
+              onTap: () {
+                Get.toNamed(MyRouters.eBookScreen);
+              },
               child: Row(
                 children: [
                   Image.asset(height: 25, 'assets/icons/ebook.png'),
@@ -140,9 +177,10 @@ onTap: (){
             const SizedBox(
               height: 5,
             ),
-            InkWell(onTap: (){
-              Get.toNamed(MyOrdersScreen.myOrdersScreen);
-            },
+            InkWell(
+              onTap: () {
+                Get.toNamed(MyOrdersScreen.myOrdersScreen);
+              },
               child: Row(
                 children: [
                   Image.asset(height: 25, 'assets/icons/order.png'),
@@ -169,15 +207,15 @@ onTap: (){
             ),
             const Divider(
               thickness: 1,
-
               color: Color(0x1A000000),
             ),
             const SizedBox(
               height: 5,
             ),
-            GestureDetector(onTap: (){
-              Get.toNamed(MyRouters.calendarScreen);
-            },
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(MyRouters.calendarScreen);
+              },
               child: Row(
                 children: [
                   Image.asset(height: 25, 'assets/icons/calendar.png'),
@@ -210,10 +248,8 @@ onTap: (){
               height: 5,
             ),
             GestureDetector(
-              onTap: (){
-
-                  Get.toNamed(MyRouters.faqsScreen);
-
+              onTap: () {
+                Get.toNamed(MyRouters.faqsScreen);
               },
               child: Row(
                 children: [
@@ -237,7 +273,7 @@ onTap: (){
               ),
             ),
             const SizedBox(
-              height:5,
+              height: 5,
             ),
             const Divider(
               thickness: 1,
@@ -248,88 +284,223 @@ onTap: (){
             ),
             GestureDetector(
               onTap: () {
+                Get.toNamed(MyRouters.faqsScreen);
+              },
+              child: Row(
+                children: [
+                  Image.asset(height: 25, 'assets/images/digitalreader.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Digital Pdf Reader",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF2A3032),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const Divider(
+              thickness: 1,
+              color: Color(0x1A000000),
+            ),
+
+            Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    // _isValue.value = !_isValue.value;
+                  },
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Image(
+                      height: 25,
+                      image: AssetImage(
+                        'assets/icons/vendoricon.png',
+                      ),
+                    ),
+                    textColor: AppTheme.primaryColor,
+                    iconColor: AppTheme.primaryColor,
+                    title: Text(
+                      'Vendor partner',
+                      style: GoogleFonts.poppins(
+                          color: const Color(0xFF2A3032),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    trailing: GestureDetector(
+                        onTap: () {
+                          _isValue.value =!_isValue.value;
+                          setState(() {
+
+                          });
+                          // print(_isValue.value);
+                        },
+                        child: Icon(_isValue.value == true
+                            ? Icons.keyboard_arrow_up_rounded
+                            : Icons.keyboard_arrow_down_outlined)),
+                  ),
+                )
+              ],
+            ),
+            _isValue.value == true
+                ? Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    children: List.generate(
+                        vendor.length,
+
+                        (index) => GestureDetector(
+                              onTap: () {
+                                Get.toNamed(vendorRoutes[index]);
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: AddSize.size5),
+                                child: Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 40,
+                                    ),
+                                    Text(
+                                      vendor[index],
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey.shade500),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
+                  )
+                : SizedBox(),
+            const Divider(
+              thickness: 1,
+              color: Color(0x1A000000),
+            ),
+            GestureDetector(
+              onTap: () {
                 showModalBottomSheet<void>(
                     context: context,
                     builder: (BuildContext context) {
                       return Container(
-                        height: 330,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20))),
-                        child: Obx((){
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 20, right: 20,top: 20),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: const Color(0xffDCDCDC)),
-                                          borderRadius:
-                                          BorderRadius.circular(15)),
-                                      child: RadioListTile(title:const Text('Arabic') ,
-                                        activeColor: const Color(0xff014E70),
-                                        value: "arabic", groupValue: language.value, onChanged: (value) {
-                                          setState(() {
-                                            language.value=value!;
-                                          });
-                                        },)),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 20, right: 20),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: const Color(0xffDCDCDC)),
-                                          borderRadius:
-                                          BorderRadius.circular(15)),
-                                      child: RadioListTile(title:Text('English') ,
-                                        activeColor: const Color(0xff014E70),
-                                        value: "english", groupValue: language.value, onChanged: (value) {
-                                          setState(() {
-                                            language.value=value!;
-                                          });
-                                        },)
+                          height: 330,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20))),
+                          child: Obx(() {
+                            return Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 20, top: 20),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: const Color(0xffDCDCDC)),
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        child: RadioListTile(
+                                          title: const Text('Arabic'),
+                                          activeColor: const Color(0xff014E70),
+                                          value: "arabic",
+                                          groupValue: language.value,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              language.value = value!;
+                                            });
+                                          },
+                                        )),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: size.height * .08,
-                                ),
-                                Center(
-                                  child: Padding(
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
                                     padding: const EdgeInsets.only(
                                         left: 20, right: 20),
                                     child: Container(
-                                      height: 56,
-                                      width: MediaQuery.sizeOf(context).width,
-                                      color: const Color(0xff014E70),
-                                      child: const Center(
-                                        child: Text(
-                                          'Apply',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: const Color(0xffDCDCDC)),
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        child: RadioListTile(
+                                          title: Text('English'),
+                                          activeColor: const Color(0xff014E70),
+                                          value: "english",
+                                          groupValue: language.value,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              language.value = value!;
+                                            });
+                                          },
+                                        )),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 20),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: const Color(0xffDCDCDC)),
+                                            borderRadius:
+                                            BorderRadius.circular(15)),
+                                        child: RadioListTile(
+                                          title: Text('Several languages'),
+                                          activeColor: const Color(0xff014E70),
+                                          value: "Several languages",
+                                          groupValue: language.value,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              language.value = value!;
+                                            });
+                                          },
+                                        )),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * .08,
+                                  ),
+                                  Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 20, right: 20),
+                                      child: Container(
+                                        height: 56,
+                                        width: MediaQuery.sizeOf(context).width,
+                                        color: const Color(0xff014E70),
+                                        child: const Center(
+                                          child: Text(
+                                            'Apply',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        })
-                      );
+                                  )
+                                ],
+                              ),
+                            );
+                          }));
                     });
               },
               child: Row(
@@ -365,7 +536,6 @@ onTap: (){
             ),
             Row(
               children: [
-
                 Image.asset(height: 25, 'assets/icons/aboutus.png'),
                 const SizedBox(
                   width: 20,
@@ -382,15 +552,12 @@ onTap: (){
                   Icons.arrow_forward_ios,
                   size: 15,
                 ),
-
-
               ],
             ),
             const SizedBox(
               height: 5,
             ),
             const Divider(
-
               thickness: 1,
               color: Color(0x1A000000),
             ),
@@ -398,12 +565,11 @@ onTap: (){
               height: 5,
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(MyRouters.termsConditionScreen);
               },
               child: Row(
                 children: [
-
                   Image.asset(height: 25, 'assets/icons/termscondition.png'),
                   const SizedBox(
                     width: 20,
@@ -420,7 +586,6 @@ onTap: (){
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
-
                 ],
               ),
             ),
@@ -428,7 +593,6 @@ onTap: (){
               height: 5,
             ),
             const Divider(
-
               thickness: 1,
               color: Color(0x1A000000),
             ),
@@ -436,12 +600,9 @@ onTap: (){
               height: 5,
             ),
             GestureDetector(
-              onTap: (){
-
-              },
+              onTap: () {},
               child: Row(
                 children: [
-
                   Image.asset(height: 18, 'assets/icons/policy.png'),
                   const SizedBox(
                     width: 20,
@@ -458,7 +619,6 @@ onTap: (){
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
-
                 ],
               ),
             ),
@@ -466,40 +626,40 @@ onTap: (){
               height: 5,
             ),
             const Divider(
-
               thickness: 1,
               color: Color(0x1A000000),
             ),
             const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-
-                Image.asset(height: 25, 'assets/icons/signout.png'),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  "Sign Out",
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xFF2A3032),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
-                const Spacer(),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                ),
-
-              ],
+            InkWell(onTap: (){
+              Get.toNamed(MyRouters.loginScreen);
+            },
+              child: Row(
+                children: [
+                  Image.asset(height: 25, 'assets/icons/signout.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Sign Out",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF2A3032),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 5,
             ),
             const Divider(
-
               thickness: 1,
               color: Color(0x1A000000),
             ),
@@ -507,13 +667,11 @@ onTap: (){
               height: 5,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(MyRouters.vendorRegistration);
-
               },
               child: Row(
                 children: [
-
                   Image.asset(height: 25, 'assets/icons/signout.png'),
                   const SizedBox(
                     width: 20,
@@ -530,7 +688,6 @@ onTap: (){
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
-
                 ],
               ),
             ),

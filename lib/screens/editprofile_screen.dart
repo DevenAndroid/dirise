@@ -22,7 +22,7 @@ class _EditProfileState extends State<EditProfile> {
       appBar: AppBar(
         title: Text(
           'Edit profile',
-          style: GoogleFonts.poppins(color: Colors.white),
+          style: GoogleFonts.poppins(color: Colors.white,fontSize: 20),
         ),
         centerTitle: true,
         backgroundColor: AppTheme.buttonColor,

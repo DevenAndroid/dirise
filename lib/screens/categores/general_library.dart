@@ -146,7 +146,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                         });
                   },
                   child: Container(
-                    height: 36,
+                    height: 40,
                     padding: const EdgeInsets.fromLTRB(10,0,10,0),
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -181,7 +181,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 20,
                 childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 1.3)
+                    (MediaQuery.of(context).size.height / 1.2)
             ),
             itemBuilder: (BuildContext context, int index){
               return InkWell(onTap: (){
@@ -227,10 +227,26 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                           height: 4,
                         ),
 
-                        Text(
-                          'KD 12.700',
-                          style: GoogleFonts.poppins(
-                              fontSize: 16, fontWeight: FontWeight.w500),
+                        Row(
+                          children: [
+                            Text(
+                              'KD 12.700',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(width: 5,),
+                            Text(
+                              'KD 12.700',
+                              style: GoogleFonts.poppins(
+                                  decoration:
+                                  TextDecoration.lineThrough,
+                                  decorationColor: Color(0xff858484),
+
+                                  color: const Color(0xff858484),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
                         )
                       ],
                     ),
@@ -240,6 +256,8 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
             },
           ),
         ),
+                SizedBox(height: 10,),
+                Image(image: AssetImage('assets/images/collectionbooks.png'),),
 
               ],
             )
@@ -256,7 +274,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
         builder: (context) {
           return  SizedBox(
             width: size.width,
-            height: size.height*.77,
+            height: size.height*.9,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 25),
               child: Column(
@@ -316,6 +334,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                           Text(
                             'KD 12.700',
                             style: GoogleFonts.poppins(decoration: TextDecoration.lineThrough,
+                                decorationColor: Color(0xff858484),
                                 fontSize: 16, fontWeight: FontWeight.w500,color: const Color(0xff858484)),
                           ),
                         ],),

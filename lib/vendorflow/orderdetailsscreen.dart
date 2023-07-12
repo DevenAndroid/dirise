@@ -11,6 +11,7 @@ import '../widgets/dimension_screen.dart';
 
 class OrderDetails extends StatefulWidget {
   const OrderDetails({Key? key}) : super(key: key);
+  static var orderDetails = "/orderDetails";
 
   @override
   State<OrderDetails> createState() => _OrderDetailsState();

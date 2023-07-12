@@ -314,17 +314,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              GestureDetector(
-                                onTap: (){
-Get.toNamed(MyRouters.storeOpenScreen);
-                                },
-                                child: const Text("Store",
-                                  style: TextStyle(
-                                      color : Color(0xFF454B5C),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15
-                                  ),),
-                              ),
+                              const Text("Store",
+                                style: TextStyle(
+                                    color : Color(0xFF454B5C),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15
+                                ),),
                               FlutterSwitch(
                                 showOnOff: true,
                                 width: AddSize.size30 * 2.2,

@@ -56,7 +56,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       itemCount: categories.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          crossAxisSpacing: 10,
+                          crossAxisSpacing: 15,
                           mainAxisSpacing: 10,
                           mainAxisExtent: 80
                       ),
@@ -101,7 +101,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                         ),
                                       ),
                                     ],),
-                                )
+                                ),
 
                               ],
                             ),
@@ -161,6 +161,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
 
 
+                   SizedBox(height: 50,),
 
 
                 ],

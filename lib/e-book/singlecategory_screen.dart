@@ -17,7 +17,7 @@ class _SingleCategoryState extends State<SingleCategory> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
         child: Container(
-          color: const Color(0xffEBF1F4),
+          color:AppTheme.buttonColor,
 
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -27,7 +27,7 @@ class _SingleCategoryState extends State<SingleCategory> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back_ios,
-                      color: Color(0xff014E70), size: 20),
+                      color: Colors.white, size: 20),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
