@@ -40,10 +40,7 @@ class _AddProductState extends State<AddProduct> {
     var width = MediaQuery.of(context).size.width;
     return Obx(() {
       return Scaffold(
-
-
           appBar: AppBar(
-
             backgroundColor: const Color(0xffF4F4F4),
             surfaceTintColor: Colors.white,
             leading: GestureDetector(
@@ -61,10 +58,7 @@ class _AddProductState extends State<AddProduct> {
             ),
             title: Text(
               "Add Product",
-              style: GoogleFonts.raleway(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xff303C5E)),
+              style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
             ),
           ),
           body: SingleChildScrollView(
@@ -77,235 +71,186 @@ class _AddProductState extends State<AddProduct> {
                         color: Colors.white,
                         surfaceTintColor: Colors.white,
                         child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: AddSize.padding16,
-                                vertical: AddSize.padding20),
+                            padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
                             child: Column(children: [
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-
-                                    DottedBorder(
-                                      radius: const Radius.circular(10),
-                                      borderType: BorderType.RRect,
-                                      dashPattern: const [3, 5],
-                                      color: Colors.grey.shade500,
-                                      strokeWidth: 1,
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: AddSize.padding16,
-                                            vertical: AddSize.padding16),
-                                        width: AddSize.screenWidth,
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.shade50,
-                                          borderRadius: BorderRadius.circular(10),
+                              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                DottedBorder(
+                                  radius: const Radius.circular(10),
+                                  borderType: BorderType.RRect,
+                                  dashPattern: const [3, 5],
+                                  color: Colors.grey.shade500,
+                                  strokeWidth: 1,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                                    width: AddSize.screenWidth,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade50,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        const Image(
+                                          height: 30,
+                                          image: AssetImage(
+                                            'assets/icons/pdfdownload.png',
+                                          ),
                                         ),
-                                        child: Column(
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          "Upload Product image",
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w300,
+                                              color: const Color(0xff463B57),
+                                              fontSize: AddSize.font14),
+                                        ),
+                                        SizedBox(
+                                          height: height * .01,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: height * .02,
+                                ),
+                                VendorCommonTextfield(
+                                    obSecure: true,
+
+                                    // controller: cookNameController,
+                                    hintText: "Enter Product Name",
+                                    validator:
+                                        MultiValidator([RequiredValidator(errorText: 'Product name is required')])),
+                                SizedBox(
+                                  height: height * .007,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: VendorCommonTextfield(
+                                          obSecure: true,
+                                          // controller: phoneController,
+                                          hintText: "SKU",
+                                          validator: MultiValidator([RequiredValidator(errorText: 'SKU is required')])),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Expanded(
+                                      child: VendorCommonTextfield(
+                                          obSecure: true,
+                                          // controller: phoneController,
+                                          hintText: "Price",
+                                          validator:
+                                              MultiValidator([RequiredValidator(errorText: 'Price is required')])),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: height * .007,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        height: 58,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            color: Color(0xffE2E2E2).withOpacity(.4)),
+                                        child: Row(
                                           children: [
-                                            const Image(
-                                              height: 30,
-                                              image: AssetImage(
-                                                'assets/icons/pdfdownload.png',
+                                            Expanded(
+                                              child: DropdownButtonFormField<String>(
+                                                icon: Icon(Icons.keyboard_arrow_down),
+                                                iconSize: 30,
+                                                iconDisabledColor: Color(0xff97949A),
+                                                iconEnabledColor: Color(0xff97949A),
+                                                value: _ratingController,
+                                                decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  focusedErrorBorder: const OutlineInputBorder(
+                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                      borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                                  errorBorder: const OutlineInputBorder(
+                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                      borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                                                  focusedBorder: const OutlineInputBorder(
+                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                      borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                                  disabledBorder: const OutlineInputBorder(
+                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                    borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                                  ),
+                                                  enabledBorder: const OutlineInputBorder(
+                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                    borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                                  ),
+                                                ),
+                                                items: ["vendor", "customer"]
+                                                    .map((label) => DropdownMenuItem(
+                                                          child: Text(
+                                                            label.toString(),
+                                                            style: GoogleFonts.poppins(
+                                                              color: Color(0xff463B57),
+                                                            ),
+                                                          ),
+                                                          value: label,
+                                                        ))
+                                                    .toList(),
+                                                hint: Text('Rating'),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    _ratingController = value!;
+                                                  });
+                                                },
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              height: 15,
-                                            ),
-                                            Text(
-                                              "Upload Product image",
-                                              style: GoogleFonts.poppins(
-                                                  fontWeight: FontWeight.w300,
-                                                  color: const Color(0xff463B57),
-                                                  fontSize: AddSize.font14),
-                                            ),
-                                            SizedBox(
-                                              height: height * .01,
                                             ),
                                           ],
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: height * .02,
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: height * .02,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: VendorCommonTextfield(
+                                          obSecure: true,
+                                          // controller: addressController,
+                                          hintText: "Min Qty",
+                                          validator:
+                                              MultiValidator([RequiredValidator(errorText: 'Min Qty is required')])),
                                     ),
-                                    VendorCommonTextfield(
-                                        obSecure: true,
-
-                                        // controller: cookNameController,
-                                        hintText: "Enter Product Name",
-                                        validator: MultiValidator([
-                                          RequiredValidator(
-                                              errorText:
-                                                  'Product name is required')
-                                        ])),
-                                    SizedBox(
-                                      height: height * .007,
+                                    const SizedBox(
+                                      width: 15,
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: VendorCommonTextfield(
-                                              obSecure: true,
-                                              // controller: phoneController,
-                                              hintText: "SKU",
-                                              validator: MultiValidator([
-                                                RequiredValidator(
-                                                    errorText:
-                                                        'SKU is required')
-                                              ])),
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        Expanded(
-                                          child: VendorCommonTextfield(
-                                              obSecure: true,
-                                              // controller: phoneController,
-                                              hintText: "Price",
-                                              validator: MultiValidator([
-                                                RequiredValidator(
-                                                    errorText:
-                                                        'Price is required')
-                                              ])),
-                                        ),
-                                      ],
+                                    Expanded(
+                                      child: VendorCommonTextfield(
+                                          obSecure: true,
+                                          // controller: addressController,
+                                          hintText: "Max Qty",
+                                          validator:
+                                              MultiValidator([RequiredValidator(errorText: 'Max Qty is required')])),
                                     ),
-                                    SizedBox(
-                                      height: height * .007,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            height: 58,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10.0),
-                                                color: Color(0xffE2E2E2).withOpacity(.4)),
-                                            child: Row(
-
-                                              children: [
-
-
-                                                Expanded(
-                                                  child: DropdownButtonFormField<String>(
-
-                                                    icon: Icon(Icons.keyboard_arrow_down),
-                                                    iconSize: 30,
-                                                    iconDisabledColor: Color(0xff97949A),
-                                                    iconEnabledColor: Color(0xff97949A),
-                                                    value: _ratingController,
-                                                    decoration: InputDecoration(
-                                                      border: InputBorder.none,
-                                                      focusedErrorBorder:
-                                                      const OutlineInputBorder(
-                                                          borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(8)),
-                                                          borderSide: BorderSide(
-                                                              color: AppTheme
-                                                                  .secondaryColor)),
-                                                      errorBorder: const OutlineInputBorder(
-                                                          borderRadius: BorderRadius.all(
-                                                              Radius.circular(8)),
-                                                          borderSide: BorderSide(
-                                                              color: Color(0xffE2E2E2))),
-                                                      focusedBorder:
-                                                      const OutlineInputBorder(
-                                                          borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(8)),
-                                                          borderSide: BorderSide(
-                                                              color: AppTheme
-                                                                  .secondaryColor)),
-                                                      disabledBorder:
-                                                      const OutlineInputBorder(
-                                                        borderRadius: BorderRadius.all(
-                                                            Radius.circular(8)),
-                                                        borderSide: BorderSide(
-                                                            color: AppTheme.secondaryColor),
-                                                      ),
-                                                      enabledBorder:
-                                                      const OutlineInputBorder(
-                                                        borderRadius: BorderRadius.all(
-                                                            Radius.circular(8)),
-                                                        borderSide: BorderSide(
-                                                            color: AppTheme.secondaryColor),
-                                                      ),
-                                                    ),
-                                                    items: ["vendor", "customer"]
-                                                        .map((label) => DropdownMenuItem(
-                                                      child: Text(
-                                                        label.toString(),
-                                                        style: GoogleFonts.poppins(
-                                                          color:
-                                                          Color(0xff463B57),
-                                                        ),
-                                                      ),
-                                                      value: label,
-                                                    ))
-                                                        .toList(),
-                                                    hint: Text('Rating'),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        _ratingController = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: height * .02,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: VendorCommonTextfield(
-                                              obSecure: true,
-                                              // controller: addressController,
-                                              hintText: "Min Qty",
-                                              validator: MultiValidator([
-                                                RequiredValidator(
-                                                    errorText:
-                                                        'Min Qty is required')
-                                              ])),
-                                        ),
-                                        const SizedBox(
-                                          width: 15,
-                                        ),
-                                        Expanded(
-                                          child: VendorCommonTextfield(
-                                              obSecure: true,
-                                              // controller: addressController,
-                                              hintText: "Max Qty",
-                                              validator: MultiValidator([
-                                                RequiredValidator(
-                                                    errorText:
-                                                        'Max Qty is required')
-                                              ])),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: height * .02,
-                                    ),
-                                    VendorCommonTextfield(
-                                        obSecure: true,
-                                        // controller: ppsController,
-                                        hintText: "Description",
-                                        validator: MultiValidator([
-                                          RequiredValidator(
-                                              errorText:
-                                                  'Description is required')
-                                        ])),
-                                  ])
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: height * .02,
+                                ),
+                                VendorCommonTextfield(
+                                    obSecure: true,
+                                    // controller: ppsController,
+                                    hintText: "Description",
+                                    validator:
+                                        MultiValidator([RequiredValidator(errorText: 'Description is required')])),
+                              ])
                             ]))),
                     const SizedBox(
                       height: 15,
@@ -314,9 +259,7 @@ class _AddProductState extends State<AddProduct> {
                         color: Colors.white,
                         surfaceTintColor: Colors.white,
                         child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: AddSize.padding16,
-                                vertical: AddSize.padding20),
+                            padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -338,8 +281,7 @@ class _AddProductState extends State<AddProduct> {
                                   strokeWidth: 1,
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: AddSize.padding16,
-                                        vertical: AddSize.padding16),
+                                        horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                     width: AddSize.screenWidth,
                                     decoration: BoxDecoration(
                                       color: Colors.grey.shade50,
@@ -381,8 +323,7 @@ class _AddProductState extends State<AddProduct> {
                                   strokeWidth: 1,
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: AddSize.padding16,
-                                        vertical: AddSize.padding16),
+                                        horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                     width: AddSize.screenWidth,
                                     decoration: BoxDecoration(
                                       color: Colors.grey.shade50,
@@ -443,143 +384,129 @@ class _AddProductState extends State<AddProduct> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(16, 11, 20, 0),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                   Text(
-                                    'Image Gallery',style: GoogleFonts.poppins(
-                                     fontSize: 14,
-                                     fontWeight: FontWeight.w600,
-                                     color: Color(0xFF000000),
-                                  ),
-
+                                  Text(
+                                    'Image Gallery',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF000000),
+                                    ),
                                   ),
                                   InkWell(
                                     onTap: () {
-
-                                        showModalBottomSheet(
-                                            context: context,
-                                            isScrollControlled: true,
-                                            enableDrag: false,
-                                            backgroundColor: Colors.transparent,
-                                            elevation: 0,
-                                            builder: (context) {
-                                              return Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  SizedBox(
-                                                    height: AddSize.size20,
+                                      showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          enableDrag: false,
+                                          backgroundColor: Colors.transparent,
+                                          elevation: 0,
+                                          builder: (context) {
+                                            return Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                SizedBox(
+                                                  height: AddSize.size20,
+                                                ),
+                                                Container(
+                                                  width: double.maxFinite,
+                                                  decoration: const BoxDecoration(
+                                                    color: Colors.white,
                                                   ),
-                                                  Container(
-                                                    width: double.maxFinite,
-                                                    decoration: const BoxDecoration(
-                                                      color: Colors.white,
-                                                    ),
-                                                    child: Padding(
-                                                      padding: EdgeInsets.symmetric(
-                                                          horizontal: AddSize.padding16,
-                                                          vertical: AddSize.padding16),
-                                                      child: Column(
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              NewHelper()
-                                                                  .addImagePicker(imageSource: ImageSource.camera)
-                                                                  .then((value) {
-                                                                for (var i = 0; i < imageList.length; i++) {
-                                                                  if (imageList[i].path == "") {
-                                                                    imageList[i] = value!;
-                                                                    Get.back();
-                                                                    break;
+                                                  child: Padding(
+                                                    padding: EdgeInsets.symmetric(
+                                                        horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                                                    child: Column(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            NewHelper()
+                                                                .addImagePicker(imageSource: ImageSource.camera)
+                                                                .then((value) {
+                                                              for (var i = 0; i < imageList.length; i++) {
+                                                                if (imageList[i].path == "") {
+                                                                  imageList[i] = value!;
+                                                                  Get.back();
+                                                                  break;
+                                                                }
+                                                              }
+                                                            });
+                                                          },
+                                                          child: Text(
+                                                            "Take picture",
+                                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                                                color: AppTheme.buttonColor,
+                                                                fontWeight: FontWeight.w500,
+                                                                fontSize: AddSize.font16),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: AddSize.size12,
+                                                        ),
+                                                        const Divider(),
+                                                        SizedBox(
+                                                          height: AddSize.size12,
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            NewHelper().addFilePickerList().then((value) {
+                                                              if (value != null) {
+                                                                for (var item in value) {
+                                                                  if (imageList.length < 6) {
+                                                                    imageList.add(item);
                                                                   }
                                                                 }
-                                                              });
+                                                              }
+                                                            });
+                                                          },
+                                                          child: Text(
+                                                            "Choose From Gallery",
+                                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                                                color: AppTheme.buttonColor,
+                                                                fontWeight: FontWeight.w500,
+                                                                fontSize: AddSize.font16),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: AddSize.size12,
+                                                        ),
+                                                        ElevatedButton(
+                                                            onPressed: () {
+                                                              // Get.toNamed(MyRouters.thankUScreen);
                                                             },
+                                                            style: ElevatedButton.styleFrom(
+                                                                minimumSize: const Size(double.maxFinite, 60),
+                                                                backgroundColor: AppTheme.buttonColor,
+                                                                elevation: 0,
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(AddSize.size10)),
+                                                                textStyle: TextStyle(
+                                                                    fontSize: AddSize.font20,
+                                                                    fontWeight: FontWeight.w600)),
                                                             child: Text(
-                                                              "Take picture",
-                                                              style: Theme.of(context)
-                                                                  .textTheme
-                                                                  .headlineSmall!
-                                                                  .copyWith(
-                                                                  color: AppTheme.buttonColor,
+                                                              "Submit",
+                                                              style: Theme.of(context).textTheme.headline5!.copyWith(
+                                                                  color: Colors.white,
                                                                   fontWeight: FontWeight.w500,
-                                                                  fontSize: AddSize.font16),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: AddSize.size12,
-                                                          ),
-                                                          const Divider(),
-                                                          SizedBox(
-                                                            height: AddSize.size12,
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              NewHelper().addFilePickerList().then((value) {
-                                                                if (value != null) {
-                                                                  for (var item in value) {
-                                                                    if (imageList.length < 6) {
-                                                                      imageList.add(item);
-                                                                    }
-                                                                  }
-                                                                }
-                                                              });
-                                                            },
-                                                            child: Text(
-                                                              "Choose From Gallery",
-                                                              style: Theme.of(context)
-                                                                  .textTheme
-                                                                  .headlineSmall!
-                                                                  .copyWith(
-                                                                  color: AppTheme.buttonColor,
-                                                                  fontWeight: FontWeight.w500,
-                                                                  fontSize: AddSize.font16),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: AddSize.size12,
-                                                          ),
-                                                          ElevatedButton(
-                                                              onPressed: () {
-                                                                // Get.toNamed(MyRouters.thankUScreen);
-                                                              },
-                                                              style: ElevatedButton.styleFrom(
-                                                                  minimumSize: const Size(double.maxFinite, 60),
-                                                                  backgroundColor: AppTheme.buttonColor,
-                                                                  elevation: 0,
-                                                                  shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                      BorderRadius.circular(AddSize.size10)),
-                                                                  textStyle: TextStyle(
-                                                                      fontSize: AddSize.font20,
-                                                                      fontWeight: FontWeight.w600)),
-                                                              child: Text(
-                                                                "Submit",
-                                                                style: Theme.of(context)
-                                                                    .textTheme
-                                                                    .headline5!
-                                                                    .copyWith(
-                                                                    color: Colors.white,
-                                                                    fontWeight: FontWeight.w500,
-                                                                    fontSize: AddSize.font18),
-                                                              )),
-                                                        ],
-                                                      ),
+                                                                  fontSize: AddSize.font18),
+                                                            )),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              );
-                                            });
-
-
+                                                ),
+                                              ],
+                                            );
+                                          });
                                     },
-                                    child:  Text(
-                                      'Choose From Gallery',style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      color: AppTheme.buttonColor,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-
+                                    child: Text(
+                                      'Choose From Gallery',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        color: AppTheme.buttonColor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -594,42 +521,34 @@ class _AddProductState extends State<AddProduct> {
                                 itemCount: imageList.length,
                                 itemBuilder: (context, index) {
                                   return Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-
                                         child: Stack(
                                           children: [
                                             Container(
-
-
                                               padding: EdgeInsets.symmetric(
-                                                  horizontal: AddSize.padding16,
-                                                  vertical: AddSize.padding16),
+                                                  horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                               width: 80,
                                               decoration: BoxDecoration(
                                                 color: Colors.grey.shade50,
                                                 borderRadius: BorderRadius.circular(15),
                                               ),
-                                               child: Image.file(imageList[index],
-                                                 width: 40,
-                                               ),
-
-
+                                              child: Image.file(
+                                                imageList[index],
+                                                width: 40,
+                                              ),
                                             ),
                                             const Positioned(
-
-
-                                              right: 5,
+                                                right: 5,
                                                 top: 5,
-                                                child:
-                                                Image(height: 13,image: AssetImage('assets/icons/delete.png'),))
+                                                child: Image(
+                                                  height: 13,
+                                                  image: AssetImage('assets/icons/delete.png'),
+                                                ))
                                           ],
                                         ),
-
-
                                       ),
                                     ],
                                   );
@@ -643,30 +562,22 @@ class _AddProductState extends State<AddProduct> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                           Get.toNamed(MyRouters.orderListScreen);
+                          Get.toNamed(MyRouters.orderListScreen);
                         },
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 60),
                             backgroundColor: AppTheme.buttonColor,
                             elevation: 0,
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(AddSize.size10)),
-                            textStyle: TextStyle(
-                                fontSize: AddSize.font20,
-                                fontWeight: FontWeight.w600)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
+                            textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                         child: Text(
                           "Upload",
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
-                              .copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: AddSize.font18),
+                              .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
                         )),
                   ]))));
     });
-
   }
 }

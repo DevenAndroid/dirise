@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,10 +24,7 @@ class _EbookAccountState extends State<EbookAccount> {
               children: [
                 Text(
                   "Account",
-                  style: GoogleFonts.poppins(
-                      color: const Color(0xFF014E70),
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600),
+                  style: GoogleFonts.poppins(color: const Color(0xFF014E70), fontSize: 24, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(
                   height: 20,
@@ -45,10 +41,7 @@ class _EbookAccountState extends State<EbookAccount> {
                     child: const Center(
                       child: Text(
                         'Login Or Sign up',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
                       ),
                     ),
                   ),
@@ -70,10 +63,7 @@ class _EbookAccountState extends State<EbookAccount> {
               ),
               Text(
                 "Faq's",
-                style: GoogleFonts.poppins(
-                    color: const Color(0xFF2A3032),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const Spacer(),
               const Icon(
@@ -106,10 +96,7 @@ class _EbookAccountState extends State<EbookAccount> {
               ),
               Text(
                 "Language",
-                style: GoogleFonts.poppins(
-                    color: const Color(0xFF2A3032),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const Spacer(),
               const Icon(
@@ -142,10 +129,7 @@ class _EbookAccountState extends State<EbookAccount> {
               ),
               Text(
                 "About Us",
-                style: GoogleFonts.poppins(
-                    color: const Color(0xFF2A3032),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const Spacer(),
               const Icon(
@@ -178,10 +162,7 @@ class _EbookAccountState extends State<EbookAccount> {
               ),
               Text(
                 "Terms Of Conditions",
-                style: GoogleFonts.poppins(
-                    color: const Color(0xFF2A3032),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const Spacer(),
               const Icon(
@@ -214,10 +195,7 @@ class _EbookAccountState extends State<EbookAccount> {
               ),
               Text(
                 "Return policy",
-                style: GoogleFonts.poppins(
-                    color: const Color(0xFF2A3032),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+                style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const Spacer(),
               const Icon(

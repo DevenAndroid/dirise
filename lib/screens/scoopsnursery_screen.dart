@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/common_colour.dart';
-import 'categores/add_bag_screen.dart';
+import 'check_out/add_bag_screen.dart';
 
 class SchoolNursery extends StatefulWidget {
   const SchoolNursery({Key? key}) : super(key: key);
@@ -27,14 +27,12 @@ class _SchoolNurseryState extends State<SchoolNursery> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios,
-                        color: Color(0xff014E70), size: 20),
+                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
                     'Schoops & Nurseries',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18, fontWeight: FontWeight.w600),
+                    style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   const Spacer(),
                   Container(
@@ -42,9 +40,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                     alignment: Alignment.center,
                     height: 42,
                     width: 70,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppTheme.buttonColor),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: AppTheme.buttonColor),
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -102,27 +98,20 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                         children: [
                           Text(
                             ("English Play Group"),
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
+                            style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 5, bottom: 5),
                             child: Text(
                               ("Education Summer Camp"),
                               style: GoogleFonts.poppins(
-                                  color: Colors.grey.withOpacity(.7),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500),
+                                  color: Colors.grey.withOpacity(.7), fontSize: 12, fontWeight: FontWeight.w500),
                             ),
                           ),
                           Text(
                             ("24 items"),
                             style: GoogleFonts.poppins(
-                                color: const Color(0xff014E70),
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
+                                color: const Color(0xff014E70), fontSize: 18, fontWeight: FontWeight.w500),
                           )
                         ],
                       ),
@@ -134,10 +123,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                 ),
                 Text(
                   ("Brief"),
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500),
+                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
                   height: 10,
@@ -145,10 +131,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                 Text(
                   ("to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher's Synopsis"),
                   style: GoogleFonts.poppins(
-                      color: const Color(0xff014E70),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      height: 1.6),
+                      color: const Color(0xff014E70), fontSize: 14, fontWeight: FontWeight.w500, height: 1.6),
                 ),
                 const SizedBox(
                   height: 20,
@@ -168,9 +151,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                         Text(
                           ("Teacher@gmail.com"),
                           style: GoogleFonts.poppins(
-                              color: const Color(0xff7D7D7D),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
+                              color: const Color(0xff7D7D7D), fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -186,19 +167,12 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                         Text(
                           ("+965 6565655"),
                           style: GoogleFonts.poppins(
-                              color: const Color(0xff7D7D7D),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500),
+                              color: const Color(0xff7D7D7D), fontSize: 14, fontWeight: FontWeight.w500),
                         ),
                       ],
                     )
                   ],
                 ),
-
-
-
-
-
                 const SizedBox(
                   height: 15,
                 ),
@@ -208,14 +182,14 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                 const SizedBox(
                   height: 15,
                 ),
-                Text('Courses',style: GoogleFonts.poppins(
-                  fontSize: 20,fontWeight: FontWeight.w500
-                ),),
+                Text(
+                  'Courses',
+                  style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
                 const SizedBox(
                   height: 15,
                 ),
                 SizedBox(
-
                   child: GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -242,30 +216,26 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                                 height: size.height * .2,
                                 'assets/images/epg.png',
                               ),
-
                               const SizedBox(
                                 height: 5,
                               ),
                               Text(
                                 'Roco NoteBook',
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500, fontSize: 14),
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14),
                               ),
                               const SizedBox(
                                 height: 5,
                               ),
                               Text(
                                 '1 piece',
-                                style: GoogleFonts.poppins(
-                                    color: const Color(0xff858484)),
+                                style: GoogleFonts.poppins(color: const Color(0xff858484)),
                               ),
                               const SizedBox(
                                 height: 5,
                               ),
                               Text(
                                 'KD 12.700',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 14, fontWeight: FontWeight.w500),
+                                style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
                               )
                             ],
                           ),
@@ -291,7 +261,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
             width: size.width,
             height: size.height * .7,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -308,30 +278,26 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                         ),
                       ),
                       const SizedBox(
-                        height:30,
+                        height: 30,
                       ),
                       Text(
                         '50% off',
                         style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xffC22E2E)),
+                            fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Text(
                         'Ecstasy 165 days ',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500, fontSize: 16),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
                       Text(
                         '1 piece',
-                        style: GoogleFonts.poppins(
-                            color: const Color(0xff858484), fontSize: 16),
+                        style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
                       ),
                       const SizedBox(
                         height: 5,
@@ -344,9 +310,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                               Text(
                                 'KD 12.700',
                                 style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xff014E70)),
+                                    fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                               ),
                               const SizedBox(
                                 width: 15,
@@ -364,10 +328,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                           Text(
                             'Add to list',
                             style: GoogleFonts.poppins(
-                              shadows: [
-                                const Shadow(
-                                    color: Colors.black, offset: Offset(0, -4))
-                              ],
+                              shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                               color: Colors.transparent,
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -384,10 +345,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                         child: Text(
                           'Description',
                           style: GoogleFonts.poppins(
-                            shadows: [
-                              const Shadow(
-                                  color: Colors.black, offset: Offset(0, -4))
-                            ],
+                            shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                             color: Colors.transparent,
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -405,7 +363,9 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const SizedBox(height: 50,),
+                      const SizedBox(
+                        height: 50,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -414,9 +374,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                               Container(
                                 height: 35,
                                 width: 35,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Color(0xffEAEAEA)),
+                                decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xffEAEAEA)),
                                 child: const Icon(Icons.remove),
                               ),
                               const SizedBox(
@@ -424,8 +382,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                               ),
                               const Text(
                                 "1",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 20),
+                                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -433,32 +390,25 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                               Container(
                                 height: 35,
                                 width: 35,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Color(0xffEAEAEA)),
+                                decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xffEAEAEA)),
                                 child: const Icon(Icons.add),
                               ),
                             ],
                           ),
                           InkWell(
                             onTap: () {
-
-                              Get.toNamed(AddBagScreen.addBagScreen);
+                              Get.toNamed(BagsScreen.addBagScreen);
                             },
                             child: Container(
                               height: 36,
                               width: 140,
                               decoration: BoxDecoration(
-                                  color: const Color(0xff014E70),
-                                  borderRadius: BorderRadius.circular(22)),
+                                  color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               child: Center(
                                 child: Text(
                                   "Add to Bag",
                                   style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
-
+                                      fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
                                 ),
                               ),
                             ),
@@ -467,12 +417,10 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
           );
         });
   }
-
 }

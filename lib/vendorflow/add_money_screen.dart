@@ -12,8 +12,6 @@ class WithdrawMoney extends StatefulWidget {
 }
 
 class _WithdrawMoneyState extends State<WithdrawMoney> {
-
-
   final TextEditingController addMoneyController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final List<String> moneyList = ["500", "800", "1000"];
@@ -28,11 +26,15 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Withdrawal money',style: TextStyle(
-          fontSize: 17,
-          fontWeight: FontWeight.w600,
-          color: Color(0xff423E5E),
-        ),),
+        appBar: AppBar(
+          title: Text(
+            'Withdrawal money',
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+              color: Color(0xff423E5E),
+            ),
+          ),
           leading: GestureDetector(
             onTap: () {
               Get.back();
@@ -45,14 +47,13 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                 height: 23,
               ),
             ),
-          ),),
+          ),
+        ),
         // appBar: backAppBar(title: "Withdrawal money".tr, context: context),
-        body:SingleChildScrollView(
+        body: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AddSize.padding16,
-                  vertical: AddSize.padding10),
+              padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -62,7 +63,9 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                         boxShadow: [
                           BoxShadow(
                             color: const Color(0xFF37C666).withOpacity(0.10),
-                            offset: const Offset(.1, .1,
+                            offset: const Offset(
+                              .1,
+                              .1,
                             ),
                             blurRadius: 20.0,
                             spreadRadius: 1.0,
@@ -71,34 +74,25 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                       ),
                       child: Card(
                           elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           color: Colors.white,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: AddSize.padding16,
-                                vertical: AddSize.padding16),
+                            padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       "My Balance".tr,
                                       style: const TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 16,
-                                          color: Colors.black),
+                                          fontWeight: FontWeight.w400, fontSize: 16, color: Colors.black),
                                     ),
                                     const Text(
                                       "€240.00",
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 31,
-                                          color:Color(0xFF262F33)),
+                                          fontWeight: FontWeight.w600, fontSize: 31, color: Color(0xFF262F33)),
                                     ),
                                   ],
                                 ),
@@ -109,7 +103,10 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                     color: AppTheme.buttonColor,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child: const Icon(Icons.account_balance_wallet_sharp,color: Colors.white,),
+                                  child: const Icon(
+                                    Icons.account_balance_wallet_sharp,
+                                    color: Colors.white,
+                                  ),
                                 )
                               ],
                             ),
@@ -123,7 +120,9 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                         boxShadow: [
                           BoxShadow(
                             color: const Color(0xFF37C666).withOpacity(0.10),
-                            offset: const Offset(.1, .1,
+                            offset: const Offset(
+                              .1,
+                              .1,
                             ),
                             blurRadius: 20.0,
                             spreadRadius: 1.0,
@@ -132,25 +131,17 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                       ),
                       child: Card(
                           elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           color: Colors.white,
                           child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AddSize.padding16,
-                                  vertical: AddSize.padding16),
+                              padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                               child: Column(
                                 children: [
                                   TextFormField(
                                       keyboardType: TextInputType.number,
                                       textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: AddSize.font24),
+                                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                                          color: Colors.black, fontWeight: FontWeight.w600, fontSize: AddSize.font24),
                                       controller: addMoneyController,
                                       cursorColor: const Color(0xFF7ED957),
                                       // validator: validateMoney,
@@ -159,11 +150,10 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                     height: AddSize.size15,
                                   ),
                                   Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: List.generate(
                                       moneyList.length,
-                                          (index) => chipList(moneyList[index]),
+                                      (index) => chipList(moneyList[index]),
                                     ),
                                   ),
                                   SizedBox(
@@ -171,28 +161,18 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                   ),
                                   ElevatedButton(
                                       onPressed: () {
-
-Get.toNamed(MyRouters.orderDetails);
-                                        
+                                        Get.toNamed(MyRouters.orderDetails);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                          minimumSize: Size(double.maxFinite,
-                                              AddSize.size50),
-                                          primary:  AppTheme.buttonColor,
+                                          minimumSize: Size(double.maxFinite, AddSize.size50),
+                                          primary: AppTheme.buttonColor,
                                           elevation: 0,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(10)),
-                                          textStyle: TextStyle(
-                                              fontSize: AddSize.font20,
-                                              fontWeight: FontWeight.w500)),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                          textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w500)),
                                       child: Text(
                                         "Withdrawal".tr.toUpperCase(),
                                         style: const TextStyle(
-                                            color:
-                                            Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 18),
+                                            color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
                                       )),
                                 ],
                               ))),
@@ -206,7 +186,9 @@ Get.toNamed(MyRouters.orderDetails);
                           boxShadow: [
                             BoxShadow(
                               color: const Color(0xFF37C666).withOpacity(0.10),
-                              offset: const Offset(.1, .1,
+                              offset: const Offset(
+                                .1,
+                                .1,
                               ),
                               blurRadius: 20.0,
                               spreadRadius: 1.0,
@@ -215,14 +197,11 @@ Get.toNamed(MyRouters.orderDetails);
                           // color: AppTheme.backgroundcolor,
                           borderRadius: BorderRadius.circular(20)),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AddSize.padding16,
-                            vertical: AddSize.padding10),
+                        padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
                         child: Column(
                           children: [
                             Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   "Amount".tr,
@@ -255,24 +234,18 @@ Get.toNamed(MyRouters.orderDetails);
                               physics: BouncingScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: 5,
-                              itemBuilder:
-                                  (BuildContext context, int index) {
+                              itemBuilder: (BuildContext context, int index) {
                                 return Column(
                                   children: [
                                     SizedBox(
                                       height: AddSize.size5,
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: const [
                                         Text(
                                           "€450.00",
-                                          style: TextStyle(
-                                              height: 1.5,
-                                              fontWeight:
-                                              FontWeight.w600,
-                                              fontSize:12),
+                                          style: TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 12),
                                         ),
                                         Text(
                                           "Monday, 2 June, 2021",
@@ -282,23 +255,20 @@ Get.toNamed(MyRouters.orderDetails);
                                               fontWeight: FontWeight.w300,
                                               fontSize: 11),
                                         ),
-                                        Text('Pending',
+                                        Text(
+                                          'Pending',
                                           style: TextStyle(
                                               height: 1.5,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 12,
                                               color: Color(0xFFFFB26B)),
                                         )
-
                                       ],
                                     ),
-                                    index != 4
-                                        ? const Divider()
-                                        : const SizedBox(),
+                                    index != 4 ? const Divider() : const SizedBox(),
                                     SizedBox(
                                       height: AddSize.size5,
                                     ),
-
                                   ],
                                 );
                               },
@@ -310,25 +280,19 @@ Get.toNamed(MyRouters.orderDetails);
                   ],
                 ),
               ),
-            ))
-    );
+            )));
   }
 
   chipList(title) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return ChoiceChip(
-      padding: EdgeInsets.symmetric(
-          horizontal: width * .005, vertical: height * .005),
+      padding: EdgeInsets.symmetric(horizontal: width * .005, vertical: height * .005),
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-          side: BorderSide(color: Colors.grey.shade300)),
+          borderRadius: BorderRadius.circular(30), side: BorderSide(color: Colors.grey.shade300)),
       label: Text("+€${title}",
-          style: const TextStyle(
-              color: Color(0xFF262F33),
-              fontSize: 14,
-              fontWeight: FontWeight.w500)),
+          style: const TextStyle(color: Color(0xFF262F33), fontSize: 14, fontWeight: FontWeight.w500)),
       selected: false,
       onSelected: (value) {
         setState(() {
