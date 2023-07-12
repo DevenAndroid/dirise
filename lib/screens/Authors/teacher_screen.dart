@@ -1,4 +1,5 @@
 import 'package:dirise/screens/Authors/singel_teacher_screen.dart';
+import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -164,27 +165,56 @@ class _TeacherScreenState extends State<TeacherScreen> {
                           );
                         });
                   },
-                  child: Container(
-                    height: 40,
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: const Color(0xff014E70)),
-                        color: const Color(0xffEBF1F4),
-                        borderRadius: BorderRadius.circular(22)),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 10),
-                          child: Text(
-                            "Education Level",
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-                          ),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 35,
+                        width: size.width*.4,
+                        // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff014E70)),
+                            color: const Color(0xffEBF1F4),
+                            borderRadius: BorderRadius.circular(22)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 10),
+                              child: Text(
+                                "Education Level",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                              ),
+                            ),
+                            const Icon(Icons.keyboard_arrow_down_outlined,color: AppTheme.buttonColor,)
+                          ],
                         ),
-                        const Icon(Icons.keyboard_arrow_down_outlined)
-                      ],
-                    ),
+                      ),
+                      SizedBox(width: 20,),
+                      Container(
+                         height: 35,
+                         width: size.width*.27,
+                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff014E70)),
+                            color: const Color(0xffEBF1F4),
+                            borderRadius: BorderRadius.circular(22)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 10),
+                              child: Text(
+                                "Course",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                              ),
+                            ),
+                            const Icon(Icons.keyboard_arrow_down_outlined,color: AppTheme.buttonColor,)
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(

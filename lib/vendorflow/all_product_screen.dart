@@ -9,6 +9,7 @@ import '../widgets/dimension_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({Key? key}) : super(key: key);
+  static var allProductScreen = "/allProductScreen";
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();

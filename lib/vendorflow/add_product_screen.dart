@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -31,6 +32,7 @@ class _AddProductState extends State<AddProduct> {
   bool state1 = true;
   String _ratingController = "vendor";
   final List<String> optionMenu = ["vendor", "ffgsfgs"];
+
 
   // Rx<File> image = File("").obs;
   // Rx<File> image1 = File("").obs;
@@ -431,7 +433,8 @@ class _AddProductState extends State<AddProduct> {
                                                                   break;
                                                                 }
                                                               }
-                                                            });
+                                                            }
+                                                            );
                                                           },
                                                           child: Text(
                                                             "Take picture",

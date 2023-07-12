@@ -269,7 +269,12 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                       );
                     },
                   ),
+
+
                 ),
+
+                SizedBox(height: 10,),
+                Image(image: AssetImage('assets/images/collectionbooks.png'),),
               ],
             )),
       ),

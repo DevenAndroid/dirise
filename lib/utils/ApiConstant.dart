@@ -21,6 +21,8 @@ class ApiUrls {
   static const String cartListUrl = "${apiBaseUrlNew}cart-list";
   static const String deleteCartUrl = "${apiBaseUrlNew}delete-cart";
   static const String applyCouponUrl = "${apiBaseUrlNew}apply-coupon";
+  static const String updateProfile = "${apiBaseUrlNew}edit-account";
+  static const String userProfile = "${apiBaseUrlNew}my-account";
 }
 
 showToast(message) {
@@ -35,7 +37,7 @@ showToast(message) {
       fontSize: 15);
 }
 
-Future<String> getUserToken() async {
+Future getUserToken() async {
   SharedPreferences sharedPreference = await SharedPreferences.getInstance();
   LoginModal model = LoginModal.fromJson(jsonDecode(sharedPreference.getString("userData")!));
   return model.token.toString();
