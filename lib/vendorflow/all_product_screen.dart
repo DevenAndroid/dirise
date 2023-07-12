@@ -9,6 +9,7 @@ import '../widgets/dimension_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({Key? key}) : super(key: key);
+  static var productScreen = "/productScreen";
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -60,7 +61,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: AddSize.size80 * 4.2,
+                        width: 260,
                         decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(10),
@@ -430,7 +431,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        Get.toNamed(MyRouters.addProductScreen);
+                        Get.back();
                       },
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.maxFinite, 50),

@@ -18,7 +18,7 @@ import '../widgets/vendor_common_textfield.dart';
 class VendorRegistrationScreen extends StatefulWidget {
   const VendorRegistrationScreen({Key? key}) : super(key: key);
 
-  // static var cookSettingScreen = "/cookSettingScreen";
+   static var registrationScreen = "/registrationScreen";
 
   @override
   State<VendorRegistrationScreen> createState() =>

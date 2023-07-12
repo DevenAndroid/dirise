@@ -19,7 +19,7 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         title: Text(
           'My profile',
-          style: GoogleFonts.poppins(color: Colors.white),
+          style: GoogleFonts.poppins(color: Colors.white,fontSize: 20),
         ),
         centerTitle: true,
         backgroundColor: AppTheme.buttonColor,
@@ -235,14 +235,9 @@ class _ProfileState extends State<Profile> {
        
                 ],
               ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Divider(
-                color: Color(0xffEFEFEF),
-              ),
+
               SizedBox(
-                height: size.height * .09,
+                height: size.height * .23,
               ),
               SizedBox(
                 width: double.infinity,
@@ -267,9 +262,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: size.height * .1,
-              )
+
             ],
           ),
         ),

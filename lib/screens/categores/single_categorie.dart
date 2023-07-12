@@ -48,106 +48,112 @@ class _SingleCategoriesState extends State<SingleCategories> {
               InkWell(
                 onTap: () {
                   showModalBottomSheet(
+                      isScrollControlled: true,
                       context: context,
                       builder: (context) {
-                        return  Column(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 27,top: 15,bottom: 10),
-                                child: Text(
-                                  "Library Type",
-                                  style:
-                                  GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                              Obx(() {return
-                                Column(
-                                  children: List.generate(
-                                      data1.length,
-                                          (index) => Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Theme(
-                                            data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
-                                            child: CheckboxListTile(
-                                              controlAffinity:
-                                              ListTileControlAffinity.leading,
-                                              dense: true,
-                                              visualDensity:VisualDensity.compact,
-                                              activeColor: const Color(0xff014E70),
 
-                                              value: data1[index].isCheck!.value,
-                                              onChanged: ( value) {
-                                                setState(() {
-                                                  data1[index].isCheck!.value=value!;
-                                                });
-                                              },
-                                              title: Row(
-                                                children: [
-                                                  Text(
-                                                    data1[index].title.toString(),
-                                                    style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      color: Colors.black,
-                                                      fontSize: 16,
+                        return  SizedBox(
+                          height: size.height*.67,
+
+                          child: Column(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 27,top: 15,bottom: 10),
+                                  child: Text(
+                                    "Library Type",
+                                    style:
+                                    GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                                Obx(() {return
+                                  Column(
+                                    children: List.generate(
+                                        data1.length,
+                                            (index) => Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Theme(
+                                              data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
+                                              child: CheckboxListTile(
+                                                controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                                dense: true,
+                                                visualDensity:VisualDensity.compact,
+                                                activeColor: const Color(0xff014E70),
+
+                                                value: data1[index].isCheck!.value,
+                                                onChanged: ( value) {
+                                                  setState(() {
+                                                    data1[index].isCheck!.value=value!;
+                                                  });
+                                                },
+                                                title: Row(
+                                                  children: [
+                                                    Text(
+                                                      data1[index].title.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Colors.black,
+                                                        fontSize: 16,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  const SizedBox(width: 10,),
-                                                  Text(
-                                                    data1[index].number.toString(),
-                                                    style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      color: const Color(0xffADADAD),
-                                                      fontSize: 16,
+                                                    const SizedBox(width: 10,),
+                                                    Text(
+                                                      data1[index].number.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w500,
+                                                        color: const Color(0xffADADAD),
+                                                        fontSize: 16,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      )
-                                  ),
-                                );}),
-                            ],),
-                            Align(alignment: Alignment.bottomCenter,
+                                          ],
+                                        )
+                                    ),
+                                  );}),
+                              ],),
+                              Align(alignment: Alignment.bottomCenter,
 
-                              child: Column(
-                                children: [
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: 47,
-                                    width:MediaQuery.of(context).size.width *.87,
-                                    decoration: const BoxDecoration(
-                                    color: Color(0xff014E70)
-                                  ),
-                                  child: Text(
-                                    "Apply",
-                                    style:
-                                    GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.white),
-                                  ),),
-                                  const SizedBox(height: 20,),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    margin: const EdgeInsets.only(bottom: 10),
-                                    height: 47,
-                                    width:MediaQuery.of(context).size.width *.87,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: const Color(0xff014E70))
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      height: 55,
+                                      width:MediaQuery.of(context).size.width *.87,
+                                      decoration: const BoxDecoration(
+                                      color: Color(0xff014E70)
                                     ),
                                     child: Text(
-                                      "Clear All",
+                                      "Apply",
                                       style:
-                                      GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
+                                      GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.white),
                                     ),),
-                                ],
+                                    const SizedBox(height: 20,),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      height: 55,
+                                      width:MediaQuery.of(context).size.width *.87,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: const Color(0xff014E70))
+                                      ),
+                                      child: Text(
+                                        "Clear All",
+                                        style:
+                                        GoogleFonts.poppins(fontSize: 18,fontWeight: FontWeight.w500,color: const Color(0xff014E70)),
+                                      ),),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       });
                 },
@@ -211,16 +217,8 @@ class _SingleCategoriesState extends State<SingleCategories> {
                           )
                         ));
                   }),
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  child:
-                  SizedBox(
-                    child: CachedNetworkImage(imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
-                      fit: BoxFit.cover,width: size.width,
-                    ),
-                  )
-
-              ),
+              SizedBox(height: 10,),
+              Image(image: AssetImage('assets/images/collectionbooks.png'),),
 
             ],
           )

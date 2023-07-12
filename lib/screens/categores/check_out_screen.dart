@@ -408,8 +408,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          width: size.width * .25,
-                          height: size.height*.075,
+                          width: size.width * .21,
+                          height: size.height*.080,
                           decoration: BoxDecoration(
                               border:
                                   Border.all(color: const Color(0xffAFB1B1)),
@@ -424,15 +424,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                         ),
                         Container(
-                          width: size.width * .25,
-                          height: size.height*.075,
+                          width: size.width * .21,
+                          height: size.height*.080,
                           decoration: BoxDecoration(
                               border:
                                   Border.all(color: const Color(0xffAFB1B1)),
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
                           child: Text(
-                            'Farm',
+                            'Chalet',
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 20,
@@ -440,21 +440,37 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                         ),
                         Container(
-                          width: size.width * .25,
-                          height: size.height*.075,
+                          width: size.width * .21,
+                          height: size.height*.080,
                           decoration: BoxDecoration(
                               border:
                                   Border.all(color: const Color(0xffAFB1B1)),
                               borderRadius: BorderRadius.circular(12)),
                           alignment: Alignment.center,
                           child: Text(
-                            'office',
+                            'Office',
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 20,
                                ),
                           ),
-                        )
+                        ),
+                        Container(
+                          width: size.width * .21,
+                          height: size.height*.080,
+                          decoration: BoxDecoration(
+                              border:
+                              Border.all(color: const Color(0xffAFB1B1)),
+                              borderRadius: BorderRadius.circular(12)),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'House',
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 15),
@@ -469,6 +485,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     CommonTextfield(
                       obSecure: false,
                       hintText: 'House No ',
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      'Floor and Apartment *',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                          color: const Color(0xff585858)),
+                    ),
+                    const SizedBox(height: 12,),
+                    CommonTextfield(
+                      obSecure: false,
+                      hintText: 'Floor and Apartment',
                     ),
                     Text(
                       'Name this Address * ',
@@ -524,7 +553,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         backgroundColor: Colors.white,
         builder: (context) {
           return Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 40),
             child: SizedBox(
               width: size.width,
               height: size.height * .8,
@@ -539,6 +568,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 },
                       obSecure: false,
                       hintText: '+ Add Address',
+
 
 
 
