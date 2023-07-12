@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../widgets/common_colour.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -16,7 +18,10 @@ import 'package:flutter/services.dart';
 class NewHelper {
   Future addFilePicker() async {
     try {
-      final item = await FilePicker.platform.pickFiles(type: FileType.custom,allowedExtensions: ['jpg','png','jpeg'],);
+      final item = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'png', 'jpeg'],
+      );
       if (item == null) {
         return null;
       } else {
@@ -44,12 +49,9 @@ class NewHelper {
     }
   }
 
-  Future<File?> addImagePicker(
-      {ImageSource imageSource = ImageSource.gallery,
-        int imageQuality = 50}) async {
+  Future<File?> addImagePicker({ImageSource imageSource = ImageSource.gallery, int imageQuality = 50}) async {
     try {
-      final item = await ImagePicker()
-          .pickImage(source: imageSource, imageQuality: imageQuality);
+      final item = await ImagePicker().pickImage(source: imageSource, imageQuality: imageQuality);
       if (item == null) {
         return null;
       } else {
@@ -62,21 +64,8 @@ class NewHelper {
 }
 
 class Helpers {
-  late BuildContext context;
-  late DateTime currentBackPressTime;
-
   Helpers.of(BuildContext context) {
     context = context;
-  }
-
-  Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
-      currentBackPressTime = now;
-      return Future.value(false);
-    }
-    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-    return Future.value(true);
   }
 
   String convertToBase64(String credentials) {
@@ -98,19 +87,15 @@ class Helpers {
         top: 0,
         left: 0,
         child: Material(
-          color: AppTheme.primaryColor.withOpacity(0.02),
-          child: const CupertinoActivityIndicator(
-            color: AppTheme.primaryColor,
-            radius: 30,
-          ),
+          color: AppTheme.primaryColor.withOpacity(0.25),
+          child: LoadingAnimationWidget.fourRotatingDots(color: AppTheme.buttonColor, size: 50),
         ),
       );
     });
     return loader;
   }
 
-  static OverlayEntry overlayLoaderProgress(context,
-      {required RxString progress, required text}) {
+  static OverlayEntry overlayLoaderProgress(context, {required RxString progress, required text}) {
     OverlayEntry loader = OverlayEntry(builder: (context) {
       final size = MediaQuery.of(context).size;
       return Positioned(
@@ -127,8 +112,7 @@ class Helpers {
                 Card(
                   elevation: 5,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -144,16 +128,16 @@ class Helpers {
                         Obx(() {
                           return Center(
                               child: Text(
-                                "${progress.value}",
-                                style: TextStyle(),
-                              )
-                            // AddText(
-                            //   text: "${progress.value}",
-                            //   fontWeight: FontWeight.bold,
-                            //   fontSize: AddSize.font18,
-                            //   color: Colors.black,
-                            // ),
-                          );
+                            "${progress.value}",
+                            style: TextStyle(),
+                          )
+                              // AddText(
+                              //   text: "${progress.value}",
+                              //   fontWeight: FontWeight.bold,
+                              //   fontSize: AddSize.font18,
+                              //   color: Colors.black,
+                              // ),
+                              );
                         }),
                         SizedBox(
                           height: 30,
@@ -203,8 +187,7 @@ class Helpers {
     Uri uri = Uri(
         scheme: Uri.parse(baseUrl).scheme,
         host: Uri.parse(baseUrl).host,
-        port: Uri.parse(baseUrl)
-            .port, //GlobalConfiguration().getValue('base_url')
+        port: Uri.parse(baseUrl).port, //GlobalConfiguration().getValue('base_url')
         path: path + path);
     return uri;
   }
@@ -236,8 +219,7 @@ class Helpers {
       backgroundColor: Colors.black,
       content: Text(
         message,
-        style: const TextStyle(
-            fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.white),
+        style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.white),
       ),
     ));
   }
@@ -250,3 +232,14 @@ class Helpers {
   }
 }
 
+extension ConvertToNum on String{
+  num? get convertToNum{
+    return num.tryParse(this);
+  }
+}
+
+extension GetTotal on List<num>{
+  num get getTotal{
+    return sum;
+  }
+}

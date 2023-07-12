@@ -59,6 +59,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
     return TextFormField(
         style: const TextStyle(),
         autofocus: false,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         textInputAction: TextInputAction.next,
         onFieldSubmitted: widget.onFieldSubmitted,
         inputFormatters: widget.inputFormatters,
@@ -78,6 +79,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
             fontSize: 25,
           ),
           counter: const Offstage(),
+          contentPadding: const EdgeInsets.all(15),
           errorMaxLines: 2,
           enabled: widget.enabled,
           //   fillColor: Colors.transparent,
@@ -90,7 +92,6 @@ class _CommonTextfieldState extends State<CommonTextfield> {
             color: AppTheme.primaryColor,
             fontSize: 15,
           ),
-
           /*errorStyle: const TextStyle(
               overflow: TextOverflow.clip,
             // ),*/

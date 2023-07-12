@@ -66,21 +66,21 @@ class _EBookScreenState extends State<EBookScreen> {
                         enabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
                             borderSide:
-                                BorderSide(color: AppTheme.buttonColor)),
+                            BorderSide(color: AppTheme.buttonColor)),
                         disabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
                             borderSide:
-                                BorderSide(color: AppTheme.buttonColor)),
+                            BorderSide(color: AppTheme.buttonColor)),
                         focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
                             borderSide:
-                                BorderSide(color: AppTheme.buttonColor)),
+                            BorderSide(color: AppTheme.buttonColor)),
                         fillColor: Colors.white,
                         contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 60),
+                        const EdgeInsets.symmetric(horizontal: 60),
                         hintText: 'Search E Book',
                         hintStyle:
-                            GoogleFonts.poppins(color: AppTheme.buttonColor)),
+                        GoogleFonts.poppins(color: AppTheme.buttonColor)),
                   ),
                 ),
               ],

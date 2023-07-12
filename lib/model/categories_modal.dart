@@ -41,15 +41,15 @@ class Data {
 
   Data(
       {this.id,
-        this.title,
-        this.slug,
-        this.categoryImage,
-        this.categoryImageBanner,
-        this.parentId,
-        this.arabDescription,
-        this.arabTitle,
-        this.count,
-        this.childCategory});
+      this.title,
+      this.slug,
+      this.categoryImage,
+      this.categoryImageBanner,
+      this.parentId,
+      this.arabDescription,
+      this.arabTitle,
+      this.count,
+      this.childCategory});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -81,8 +81,7 @@ class Data {
     data['arab_title'] = this.arabTitle;
     data['count'] = this.count;
     if (this.childCategory != null) {
-      data['child_category'] =
-          this.childCategory!.map((v) => v.toJson()).toList();
+      data['child_category'] = this.childCategory!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -100,13 +99,13 @@ class ChildCategory {
 
   ChildCategory(
       {this.id,
-        this.title,
-        this.slug,
-        this.categoryImage,
-        this.parentId,
-        this.arabDescription,
-        this.arabTitle,
-        this.subChildCategory});
+      this.title,
+      this.slug,
+      this.categoryImage,
+      this.parentId,
+      this.arabDescription,
+      this.arabTitle,
+      this.subChildCategory});
 
   ChildCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -133,7 +132,7 @@ class ChildCategory {
     data['parent_id'] = this.parentId;
     data['arab_description'] = this.arabDescription;
     data['arab_title'] = this.arabTitle;
-   /* if (this.subChildCategory != null) {
+    /* if (this.subChildCategory != null) {
       data['sub_child_category'] =
           this.subChildCategory!.map((v) => v!.toJson()).toList();
     }*/

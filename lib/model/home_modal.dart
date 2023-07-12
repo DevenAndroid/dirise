@@ -29,12 +29,7 @@ class Home {
   String? saleBannerAltTag;
   String? saleBannerUrl;
 
-  Home(
-      {this.content,
-        this.slider,
-        this.bannerImg,
-        this.saleBannerAltTag,
-        this.saleBannerUrl});
+  Home({this.content, this.slider, this.bannerImg, this.saleBannerAltTag, this.saleBannerUrl});
 
   Home.fromJson(Map<String, dynamic> json) {
     content = json['content'];

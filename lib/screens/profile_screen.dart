@@ -38,20 +38,18 @@ class _ProfileState extends State<Profile> {
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
           child: Column(
             children: [
-              GestureDetector(onTap: (){
-
-                Get.toNamed(MyRouters.editprofileScreen);
-              },
-                child: Image.asset(
-                    height: size.height * .2, 'assets/images/profile.png'),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(MyRouters.editprofileScreen);
+                },
+                child: Image.asset(height: size.height * .2, 'assets/images/profile.png'),
               ),
               Row(
                 children: [
                   Container(
                     height: 50,
                     width: 50,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: AppTheme.buttonColor),
+                    decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Image.asset(
@@ -69,16 +67,17 @@ class _ProfileState extends State<Profile> {
                       Text(
                         'Name',
                         style: GoogleFonts.poppins(
-                         fontSize: 14,
-                            color: const Color(0xff454545),
-                          ),
-
+                          fontSize: 14,
+                          color: const Color(0xff454545),
+                        ),
                       ),
-                      const SizedBox(height: 3,),
+                      const SizedBox(
+                        height: 3,
+                      ),
                       Text(
                         'Williams Jones',
                         style: GoogleFonts.poppins(
-                            color: const Color(0xff21181A),fontSize: 16,fontWeight: FontWeight.w500),
+                            color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ],
                   )
@@ -98,8 +97,7 @@ class _ProfileState extends State<Profile> {
                   Container(
                     height: 50,
                     width: 50,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: AppTheme.buttonColor),
+                    decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Image.asset(
@@ -120,17 +118,17 @@ class _ProfileState extends State<Profile> {
                           fontSize: 14,
                           color: const Color(0xff454545),
                         ),
-
                       ),
-                      const SizedBox(height: 3,),
+                      const SizedBox(
+                        height: 3,
+                      ),
                       Text(
                         'williamsjones@gmail.com',
                         style: GoogleFonts.poppins(
-                            color: const Color(0xff21181A),fontSize: 16,fontWeight: FontWeight.w500),
+                            color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ],
                   )
-
                 ],
               ),
               const SizedBox(
@@ -147,8 +145,7 @@ class _ProfileState extends State<Profile> {
                   Container(
                     height: 50,
                     width: 50,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: AppTheme.buttonColor),
+                    decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Image.asset(
@@ -160,7 +157,6 @@ class _ProfileState extends State<Profile> {
                   const SizedBox(
                     width: 15,
                   ),
-
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -170,17 +166,17 @@ class _ProfileState extends State<Profile> {
                           fontSize: 14,
                           color: const Color(0xff454545),
                         ),
-
                       ),
-                      const SizedBox(height: 3,),
+                      const SizedBox(
+                        height: 3,
+                      ),
                       Text(
                         '+91 987-654-3210',
                         style: GoogleFonts.poppins(
-                            color: const Color(0xff21181A),fontSize: 16,fontWeight: FontWeight.w500),
+                            color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ],
                   )
-
                 ],
               ),
               const SizedBox(
@@ -197,8 +193,7 @@ class _ProfileState extends State<Profile> {
                   Container(
                     height: 50,
                     width: 50,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: AppTheme.buttonColor),
+                    decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Image.asset(
@@ -210,7 +205,6 @@ class _ProfileState extends State<Profile> {
                   const SizedBox(
                     width: 15,
                   ),
-
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,18 +215,18 @@ class _ProfileState extends State<Profile> {
                             fontSize: 14,
                             color: const Color(0xff454545),
                           ),
-
                         ),
-                        const SizedBox(height: 3,),
+                        const SizedBox(
+                          height: 3,
+                        ),
                         Text(
                           'Riverside Building, County Hall, London SE1 7PB, United Kingdom',
                           style: GoogleFonts.poppins(
-                              color: const Color(0xff21181A),fontSize: 16,fontWeight: FontWeight.w500),
+                              color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
                   )
-       
                 ],
               ),
 
@@ -245,8 +239,7 @@ class _ProfileState extends State<Profile> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppTheme.buttonColor,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                       textStyle: const TextStyle(
                         fontWeight: FontWeight.bold,
                       )),
@@ -255,10 +248,7 @@ class _ProfileState extends State<Profile> {
                   },
                   child: Text(
                     'Edit profile',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                    style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
                   ),
                 ),
               ),

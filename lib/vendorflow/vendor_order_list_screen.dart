@@ -24,13 +24,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
   String _filterController = "Status";
   final List<String> optionMenu = ["vendor", "ffgsfgs"];
 
-  final List<String> dropDownTimeList = [
-    "This week",
-    "Last week",
-    "This month",
-    "Last three month",
-    "Custom"
-  ];
+  final List<String> dropDownTimeList = ["This week", "Last week", "This month", "Last three month", "Custom"];
   final List<String> dropDownStatusList = ["Completed", "Pending"];
 
   final format = intl.DateFormat('dd-MM-yyyy');
@@ -80,17 +74,16 @@ class _VendorOrderListState extends State<VendorOrderList> {
                   width: AddSize.screenWidth * 1,
                   decoration: const BoxDecoration(
                       color: AppTheme.buttonColor,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
+                      borderRadius:
+                          BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
                       image: DecorationImage(
-                        image: AssetImage('assets/images/orderlitscontainer.png',),
-                         fit: BoxFit.cover,
+                        image: AssetImage(
+                          'assets/images/orderlitscontainer.png',
+                        ),
+                        fit: BoxFit.cover,
                       )),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AddSize.padding16,
-                        vertical: AddSize.padding10),
+                    padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
                     child: SafeArea(
                       child: Column(
                         children: [
@@ -131,41 +124,30 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.white24)),
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AddSize.padding16,
-                                    vertical: AddSize.padding16),
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           '€450.00',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline5!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 28,
-                                                  color:
-                                                       Colors.white),
+                                              .copyWith(fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),
                                         ),
                                         SizedBox(
                                           height: AddSize.size5,
                                         ),
                                         Text(
                                           "Your earning this month".tr,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: AddSize.font14,
-                                              color:
-                                              Colors.white),
+                                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: AddSize.font14,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -176,21 +158,15 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       },
                                       child: Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: AddSize.padding20,
-                                              vertical: AddSize.padding12),
+                                              horizontal: AddSize.padding20, vertical: AddSize.padding12),
                                           decoration: BoxDecoration(
-                                              color:Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
+                                              color: Colors.white, borderRadius: BorderRadius.circular(10)),
                                           child: Text(
                                             "Withdrawal".tr,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5!
-                                                .copyWith(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: AddSize.font16,
-                                                    color:AppTheme.buttonColor),
+                                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: AddSize.font16,
+                                                color: AppTheme.buttonColor),
                                           )),
                                     )
                                   ],
@@ -208,8 +184,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                 child: Container(
                                   height: 58,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: AppTheme.buttonColor),
+                                      borderRadius: BorderRadius.circular(10.0), color: AppTheme.buttonColor),
                                   child: Row(
                                     children: [
                                       Expanded(
@@ -220,56 +195,36 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                           value: _statusController,
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            focusedErrorBorder:
-                                                const OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(8)),
-                                                    borderSide: BorderSide(
-                                                        color: Colors.white24)),
-                                            errorBorder:
-                                                const OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(8)),
-                                                    borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xffE2E2E2))),
-                                            focusedBorder:
-                                                const OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(8)),
-                                                    borderSide: BorderSide(
-                                                        color: Colors.white24)),
-                                            disabledBorder:
-                                                const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8)),
-                                              borderSide: BorderSide(
-                                                  color: Colors.white24),
+                                            focusedErrorBorder: const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                borderSide: BorderSide(color: Colors.white24)),
+                                            errorBorder: const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                                            focusedBorder: const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                borderSide: BorderSide(color: Colors.white24)),
+                                            disabledBorder: const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                                              borderSide: BorderSide(color: Colors.white24),
                                             ),
-                                            enabledBorder:
-                                                const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8)),
-                                              borderSide: BorderSide(
-                                                  color: Colors.white24),
+                                            enabledBorder: const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                                              borderSide: BorderSide(color: Colors.white24),
                                             ),
                                           ),
                                           items: ["vendor", "customer"]
                                               .map((label) => DropdownMenuItem(
                                                     child: Text(
                                                       label.toString(),
-                                                      style:
-                                                          GoogleFonts.poppins(
+                                                      style: GoogleFonts.poppins(
                                                         color: Colors.white,
                                                       ),
                                                     ),
                                                     value: label,
                                                   ))
                                               .toList(),
-                                       // hint: Text('Rating',style: GoogleFonts.poppins(color: Colors.grey),),
+                                          // hint: Text('Rating',style: GoogleFonts.poppins(color: Colors.grey),),
 
                                           onChanged: (value) {
                                             setState(() {
@@ -321,77 +276,38 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       child: Container(
                                         height: 58,
                                         decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            color: AppTheme.buttonColor),
+                                            borderRadius: BorderRadius.circular(10.0), color: AppTheme.buttonColor),
                                         child: Row(
                                           children: [
                                             Expanded(
-                                              child: DropdownButtonFormField<
-                                                  String>(
+                                              child: DropdownButtonFormField<String>(
                                                 iconEnabledColor: Colors.white,
                                                 iconDisabledColor: Colors.white,
                                                 value: _filterController,
                                                 decoration: InputDecoration(
                                                   border: InputBorder.none,
-                                                  focusedErrorBorder:
-                                                      const OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          8)),
-                                                          borderSide: BorderSide(
-                                                              color: Colors
-                                                                  .white24)),
-                                                  errorBorder:
-                                                      const OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          8)),
-                                                          borderSide: BorderSide(
-                                                              color: Colors
-                                                                  .white24)),
-                                                  focusedBorder:
-                                                      const OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          8)),
-                                                          borderSide: BorderSide(
-                                                              color: Colors
-                                                                  .white24)),
-                                                  disabledBorder:
-                                                      const OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                8)),
-                                                    borderSide: BorderSide(
-                                                        color:
-                                                            Colors.white24),
+                                                  focusedErrorBorder: const OutlineInputBorder(
+                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                      borderSide: BorderSide(color: Colors.white24)),
+                                                  errorBorder: const OutlineInputBorder(
+                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                      borderSide: BorderSide(color: Colors.white24)),
+                                                  focusedBorder: const OutlineInputBorder(
+                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                      borderSide: BorderSide(color: Colors.white24)),
+                                                  disabledBorder: const OutlineInputBorder(
+                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                    borderSide: BorderSide(color: Colors.white24),
                                                   ),
-                                                  enabledBorder:
-                                                      const OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          8)),
-                                                          borderSide: BorderSide(
-                                                              color: Colors
-                                                                  .white24)),
+                                                  enabledBorder: const OutlineInputBorder(
+                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                      borderSide: BorderSide(color: Colors.white24)),
                                                 ),
                                                 items: ["vendor", "customer"]
-                                                    .map((label) =>
-                                                        DropdownMenuItem(
+                                                    .map((label) => DropdownMenuItem(
                                                           child: Text(
                                                             label.toString(),
-                                                            style: GoogleFonts
-                                                                .poppins(
+                                                            style: GoogleFonts.poppins(
                                                               color: Colors.white,
                                                             ),
                                                           ),
@@ -401,8 +317,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                                 hint: Text('Rating'),
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    _filterController =
-                                                        value!;
+                                                    _filterController = value!;
                                                   });
                                                 },
                                               ),
@@ -443,17 +358,12 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                   filled: true,
                                   fillColor: AppTheme.buttonColor,
                                   border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(4))),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: AddSize.padding20,
-                                      vertical: AddSize.padding10),
+                                      borderSide: BorderSide.none, borderRadius: BorderRadius.all(Radius.circular(4))),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
                                   hintText: 'Search'.tr,
                                   hintStyle: TextStyle(
-                                      fontSize: AddSize.font16,
-                                      color:Colors.white,
-                                      fontWeight: FontWeight.w400)),
+                                      fontSize: AddSize.font16, color: Colors.white, fontWeight: FontWeight.w400)),
                             ),
                           ),
                           SizedBox(
@@ -469,21 +379,15 @@ class _VendorOrderListState extends State<VendorOrderList> {
                       // color: AppTheme.backgroundcolor,
                       ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AddSize.padding16, vertical: 25),
+                    padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: 25),
                     child: Column(children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "Latest Sales".tr,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline5!
-                                .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xFF454B5C),
-                                    fontSize: AddSize.font16),
+                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                                fontWeight: FontWeight.w600, color: const Color(0xFF454B5C), fontSize: AddSize.font16),
                           ),
                         ],
                       ),
@@ -495,36 +399,27 @@ class _VendorOrderListState extends State<VendorOrderList> {
                         children: [
                           Text(
                             "Order No.".tr,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline5!
-                                .copyWith(
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: AddSize.font12,
-                                    color: const Color(0xFF04666E)),
+                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                                height: 1.5,
+                                fontWeight: FontWeight.w600,
+                                fontSize: AddSize.font12,
+                                color: const Color(0xFF04666E)),
                           ),
                           Text(
                             "                Status".tr,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline5!
-                                .copyWith(
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: AddSize.font12,
-                                    color: const Color(0xFF04666E)),
+                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                                height: 1.5,
+                                fontWeight: FontWeight.w600,
+                                fontSize: AddSize.font12,
+                                color: const Color(0xFF04666E)),
                           ),
                           Text(
                             "Earning".tr,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline5!
-                                .copyWith(
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: AddSize.font12,
-                                    color: const Color(0xFF04666E)),
+                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                                height: 1.5,
+                                fontWeight: FontWeight.w600,
+                                fontSize: AddSize.font12,
+                                color: const Color(0xFF04666E)),
                           )
                         ],
                       ),
@@ -546,25 +441,19 @@ class _VendorOrderListState extends State<VendorOrderList> {
                               children: [
                                 // addHeight(5),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           '#1234',
                                           // '# ${vendorOrderListController.model.value.data!.orderList![index].id.toString()}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5!
-                                              .copyWith(
-                                                  height: 1.5,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: AddSize.font14,
-                                                  color:
-                                                      const Color(0xFF454B5C)),
+                                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                                              height: 1.5,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: AddSize.font14,
+                                              color: const Color(0xFF454B5C)),
                                         ),
                                         Text(
                                           '2 June, 2021 - 11:57PM',
@@ -575,15 +464,11 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                           //     .orderList![index]
                                           //     .date
                                           //     .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5!
-                                              .copyWith(
-                                                  height: 1.5,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 11,
-                                                  color:
-                                                      const Color(0xFF8C9BB2)),
+                                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                                              height: 1.5,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 11,
+                                              color: const Color(0xFF8C9BB2)),
                                         ),
                                       ],
                                     ),
@@ -596,26 +481,20 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       //     .orderList![index]
                                       //     .status
                                       //     .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(
-                                              height: 1.5,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 12,
-                                              color: const Color(0xFFFFB26B)),
+                                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                                          height: 1.5,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12,
+                                          color: const Color(0xFFFFB26B)),
                                     ),
                                     Text(
                                       // "₹ ${vendorOrderListController.model.value.data!.orderList![index].amount.toString()}",
                                       '€45.00',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5!
-                                          .copyWith(
-                                              height: 1.5,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: AddSize.font14,
-                                              color: Colors.black),
+                                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                                          height: 1.5,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: AddSize.font14,
+                                          color: Colors.black),
                                     ),
                                   ],
                                 ),

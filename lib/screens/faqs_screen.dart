@@ -11,7 +11,7 @@ class FaqsScreen extends StatefulWidget {
 }
 
 class _FaqsScreenState extends State<FaqsScreen> {
-  bool senderExpansion  = true;
+  bool senderExpansion = true;
 
   @override
   Widget build(BuildContext context) {
@@ -20,85 +20,79 @@ class _FaqsScreenState extends State<FaqsScreen> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(140),
           child: Container(
-
               child: SafeArea(
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back_ios,
-                          color: Color(0xff014E70), size: 20),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    Text(
-                      'Faqs',
-                      style: GoogleFonts.poppins(
-                          fontSize: 18, fontWeight: FontWeight.w600),
-                    )
-                  ],
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-              ))),
-      body: ListView.builder(itemCount: 6,itemBuilder: (context, index) {
-        return Column(
-          children: [
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-              child: Container(
-
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: const Color(0xffDCDCDC), width: 1),
-
-                ),
-                child: Theme(
-                  data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                  child: ExpansionTile(
-                    trailing: (senderExpansion == false )
-                        ? const Icon(Icons.add,color: AppTheme.buttonColor,)
-                        :const Icon(Icons.remove,color: AppTheme.buttonColor,),
-                    onExpansionChanged: (value) {
-                      setState(() {
-                        senderExpansion = value;
-                      });
-
-                    },
-
-
-                    title: Text(
-                      "What is agarwood? ",
-                      style: GoogleFonts.poppins(
-                        color: const Color(0xFF1D1D1D),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
+                Text(
+                  'Faqs',
+                  style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+          ))),
+      body: ListView.builder(
+        itemCount: 6,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: const Color(0xffDCDCDC), width: 1),
+                  ),
+                  child: Theme(
+                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      trailing: (senderExpansion == false)
+                          ? const Icon(
+                              Icons.add,
+                              color: AppTheme.buttonColor,
+                            )
+                          : const Icon(
+                              Icons.remove,
+                              color: AppTheme.buttonColor,
+                            ),
+                      onExpansionChanged: (value) {
+                        setState(() {
+                          senderExpansion = value;
+                        });
+                      },
+                      title: Text(
+                        "What is agarwood? ",
+                        style: GoogleFonts.poppins(
+                          color: const Color(0xFF1D1D1D),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                    children: <Widget>[
-                      ListTile(visualDensity: VisualDensity.compact,
-
-                        dense: true,
-                        iconColor: const Color(0xFF07B6CA),
-
-                        subtitle: Text(
-                          "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley..",
-                          style: GoogleFonts.poppins(
-                            color: const Color(0xFFBBBBBB),
-                            fontWeight: FontWeight.w400,
-                            fontSize: 13,
-
+                      children: <Widget>[
+                        ListTile(
+                          visualDensity: VisualDensity.compact,
+                          dense: true,
+                          iconColor: const Color(0xFF07B6CA),
+                          subtitle: Text(
+                            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley..",
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xFFBBBBBB),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 13,
+                            ),
                           ),
                         ),
-
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-
-          ],
-        );
-      },
-
+            ],
+          );
+        },
       ),
     );
   }
