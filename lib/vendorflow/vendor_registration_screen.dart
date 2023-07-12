@@ -457,9 +457,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           height: height * .02,
                         ),
                         ElevatedButton(
-                            onPressed: () {
-                              Get.toNamed(MyRouters.thankUScreen);
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(double.maxFinite, 60),
                                 backgroundColor: AppTheme.buttonColor,
