@@ -7,16 +7,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../routers/my_routers.dart';
 import 'my_orders_screen.dart';
 
-class EbookAccount extends StatefulWidget {
-  const EbookAccount({Key? key}) : super(key: key);
+class MyAccountScreen extends StatefulWidget {
+  const MyAccountScreen({Key? key}) : super(key: key);
 
   @override
-  State<EbookAccount> createState() => _EbookAccountState();
+  State<MyAccountScreen> createState() => _MyAccountScreenState();
 }
 
 enum SingingCharacter { lafayette, jefferson }
 
-class _EbookAccountState extends State<EbookAccount> {
+class _MyAccountScreenState extends State<MyAccountScreen> {
   SingingCharacter? _character = SingingCharacter.lafayette;
   RxString language = "".obs;
 

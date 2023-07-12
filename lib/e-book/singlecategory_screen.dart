@@ -17,7 +17,8 @@ class _SingleCategoryState extends State<SingleCategory> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
         child: Container(
-          color: const Color(0xffEBF1F4),
+          color:AppTheme.buttonColor,
+
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +26,8 @@ class _SingleCategoryState extends State<SingleCategory> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                  icon: const Icon(Icons.arrow_back_ios,
+                      color: Colors.white, size: 20),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
@@ -58,15 +60,13 @@ class _SingleCategoryState extends State<SingleCategory> {
                   fontSize: 20,
                 ),
               ),
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5,),
               Text('Author Name',
-                  style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 20, color: const Color(0XFFACACAC))),
-              const SizedBox(
-                height: 30,
-              ),
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      color: const Color(0XFFACACAC))),
+              const SizedBox(height: 30,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -74,7 +74,8 @@ class _SingleCategoryState extends State<SingleCategory> {
                     height: 80,
                     width: 110,
                     decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xffE8E8E8)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Color(0xffE8E8E8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -82,9 +83,13 @@ class _SingleCategoryState extends State<SingleCategory> {
                         Text(
                           '4.4',
                           style: GoogleFonts.poppins(
-                              fontSize: 24, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: AppTheme.buttonColor),
                         ),
-                        Text('Rating', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500)),
+                        Text('Rating',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),
@@ -95,7 +100,8 @@ class _SingleCategoryState extends State<SingleCategory> {
                     height: 80,
                     width: 120,
                     decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xffE8E8E8)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Color(0xffE8E8E8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -103,9 +109,13 @@ class _SingleCategoryState extends State<SingleCategory> {
                         Text(
                           '362',
                           style: GoogleFonts.poppins(
-                              fontSize: 24, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: AppTheme.buttonColor),
                         ),
-                        Text('No. of page', style: GoogleFonts.poppins(fontSize: 17, fontWeight: FontWeight.w500)),
+                        Text('No. of page',
+                            style: GoogleFonts.poppins(
+                                fontSize: 17, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),
@@ -116,12 +126,14 @@ class _SingleCategoryState extends State<SingleCategory> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+
                 children: [
                   Container(
                     height: 90,
                     width: 110,
                     decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xffE8E8E8)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Color(0xffE8E8E8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -129,9 +141,13 @@ class _SingleCategoryState extends State<SingleCategory> {
                         Text(
                           'Eng',
                           style: GoogleFonts.poppins(
-                              fontSize: 24, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: AppTheme.buttonColor),
                         ),
-                        Text('Language', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500)),
+                        Text('Language',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),
@@ -142,7 +158,8 @@ class _SingleCategoryState extends State<SingleCategory> {
                     height: 90,
                     width: 110,
                     decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xffE8E8E8)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Color(0xffE8E8E8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -150,9 +167,13 @@ class _SingleCategoryState extends State<SingleCategory> {
                         Text(
                           '2h14m',
                           style: GoogleFonts.poppins(
-                              fontSize: 22, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                              color: AppTheme.buttonColor),
                         ),
-                        Text('Audio', style: GoogleFonts.poppins(fontSize: 17, fontWeight: FontWeight.w500)),
+                        Text('Audio',
+                            style: GoogleFonts.poppins(
+                                fontSize: 17, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),

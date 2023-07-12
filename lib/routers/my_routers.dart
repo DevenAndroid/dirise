@@ -13,7 +13,7 @@ import 'package:dirise/screens/profile_screen.dart';
 import 'package:dirise/screens/scoopsnursery_screen.dart';
 import 'package:dirise/screens/termsconditions_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
-import 'package:dirise/vendorflow/order_details_screen.dart';
+// import 'package:dirise/vendorflow/order_details_screen.dart';
 import 'package:dirise/vendorflow/vendor_order_list_screen.dart';
 import 'package:get/get.dart';
 
@@ -45,6 +45,7 @@ import '../vendorflow/add_product_screen.dart';
 import '../vendorflow/all_product_screen.dart';
 import '../vendorflow/dashboard_screen.dart';
 import '../vendorflow/bank_account_screen.dart';
+import '../vendorflow/orderdetailsscreen.dart';
 import '../vendorflow/store_open_time_screen.dart';
 import '../vendorflow/thanku_screen.dart';
 import '../vendorflow/vendor_registration_screen.dart';
@@ -106,7 +107,7 @@ class MyRouters {
     GetPage(name: '/singleChair', page: () => const SingleChair()),
     GetPage(name: '/dashBoardScreen', page: () => const DashboardScreen()),
     GetPage(name: '/vendorRegistration', page: () => const VendorRegistrationScreen()),
-    GetPage(name: '/eBooKCategoryScreen', page: () => const EBook()),
+    // GetPage(name: '/eBooKCategoryScreen', page: () => const EBook()),
     GetPage(name: '/singleCategory', page: () => const SingleCategory()),
     GetPage(name: '/scoopsNursery', page: () => const SchoolNursery()),
     GetPage(name: '/storeOpenScreen', page: () => const SetTimeScreen()),

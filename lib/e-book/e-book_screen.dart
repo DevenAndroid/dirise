@@ -23,19 +23,21 @@ class _EBookScreenState extends State<EBookScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(140),
         child: Container(
-          color: const Color(0xffEBF1F4),
+          color:AppTheme.buttonColor,
           child: SafeArea(
             child: Column(
               children: [
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                      icon: const Icon(Icons.arrow_back_ios,
+                          color: Colors.white, size: 20),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     Text(
                       'E books',
-                      style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                      style: GoogleFonts.poppins(color: Colors.white,
+                          fontSize: 18, fontWeight: FontWeight.w600),
                     )
                   ],
                 ),
@@ -49,6 +51,7 @@ class _EBookScreenState extends State<EBookScreen> {
                     style: const TextStyle(fontSize: 17),
                     textInputAction: TextInputAction.search,
                     decoration: InputDecoration(
+
                         filled: true,
                         // prefixIcon:
                         //     Icon(Icons.search, color: Color(0xFFC33D18)),
@@ -61,18 +64,23 @@ class _EBookScreenState extends State<EBookScreen> {
                         ),
                         border: InputBorder.none,
                         enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide: BorderSide(color: AppTheme.buttonColor)),
+                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                            borderSide:
+                            BorderSide(color: AppTheme.buttonColor)),
                         disabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide: BorderSide(color: AppTheme.buttonColor)),
+                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                            borderSide:
+                            BorderSide(color: AppTheme.buttonColor)),
                         focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide: BorderSide(color: AppTheme.buttonColor)),
+                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                            borderSide:
+                            BorderSide(color: AppTheme.buttonColor)),
                         fillColor: Colors.white,
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 50),
+                        contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 60),
                         hintText: 'Search E Book',
-                        hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor)),
+                        hintStyle:
+                        GoogleFonts.poppins(color: AppTheme.buttonColor)),
                   ),
                 ),
               ],
@@ -83,20 +91,23 @@ class _EBookScreenState extends State<EBookScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
         child: DefaultTabController(
-          length: 2,
+          length: 3,
           child: Column(
             children: [
               Text(
                 'My Book Library',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 20),
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600, fontSize: 20),
               ),
               const SizedBox(
                 height: 20,
               ),
               TabBar(
-                indicatorPadding: EdgeInsets.symmetric(horizontal: 35, vertical: 6),
+                indicatorPadding:
+                EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 indicator: const BoxDecoration(
-                    color: AppTheme.buttonColor, borderRadius: BorderRadius.all(Radius.circular(20))),
+                    color: AppTheme.buttonColor,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
                 indicatorColor: Colors.transparent,
                 unselectedLabelColor: AppTheme.buttonColor,
                 labelColor: Colors.white,
@@ -111,6 +122,9 @@ class _EBookScreenState extends State<EBookScreen> {
                   ),
                   Tab(
                     text: 'Voice',
+                  ),
+                  Tab(
+                    text: 'Digital reader',
                   )
                 ],
                 indicatorSize: TabBarIndicatorSize.tab,
@@ -129,7 +143,8 @@ class _EBookScreenState extends State<EBookScreen> {
                           ),
                           Text(
                             'Roco NoteBook',
-                            style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                            style: GoogleFonts.poppins(
+                                fontSize: 16, fontWeight: FontWeight.w500),
                           )
                         ],
                       ),
@@ -152,7 +167,33 @@ class _EBookScreenState extends State<EBookScreen> {
                             ),
                             Text(
                               'Eustasy 165 days',
-                              style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed(MyRouters.singleCategory);
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              height: size.height * .2,
+                              'assets/images/voicebook.png',
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Eustasy 165 days',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
                             )
                           ],
                         ),
