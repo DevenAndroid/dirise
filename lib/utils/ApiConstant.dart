@@ -21,6 +21,8 @@ class ApiUrls {
   static const String cartListUrl = "${apiBaseUrlNew}cart-list";
   static const String deleteCartUrl = "${apiBaseUrlNew}delete-cart";
   static const String applyCouponUrl = "${apiBaseUrlNew}apply-coupon";
+  static const String addressListUrl = "${apiBaseUrlNew}address";
+  static const String editAddressUrl = "${apiBaseUrlNew}edit-address";
 }
 
 showToast(message) {

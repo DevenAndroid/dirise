@@ -26,7 +26,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const HomePage(),
     const CategoriesScreen(),
     const Whishlist(),
-    const EbookAccount(),
+    const MyAccountScreen(),
   ];
 
   @override
@@ -35,7 +35,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
       return Scaffold(
         body: pages.elementAt(bottomController.pageIndex.value),
         extendBody: true,
-        // extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
         bottomNavigationBar: buildMyNavBar(context),
       );

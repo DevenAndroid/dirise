@@ -4,6 +4,7 @@ import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/repoistery/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../model/model_address_list.dart';
 import '../model/model_cart_response.dart';
 import '../utils/ApiConstant.dart';
 
@@ -13,6 +14,16 @@ class CartController extends GetxController{
   final Repositories repositories = Repositories();
   ModelCartResponse cartModel = ModelCartResponse(cart: []);
   bool apiLoaded = false;
+  ModelUserAddressList addressListModel = ModelUserAddressList();
+  bool addressLoaded = false;
+
+  getAddress(){
+    repositories.postApi(url: ApiUrls.addressListUrl).then((value) {
+      addressListModel = ModelUserAddressList.fromJson(jsonDecode(value));
+      addressLoaded = true;
+      updateUI();
+    });
+  }
 
   removeItemFromCart({
     required String productId,
