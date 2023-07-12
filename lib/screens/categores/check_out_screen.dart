@@ -1,10 +1,7 @@
 import 'dart:convert';
-
 import 'package:dirise/model/common_modal.dart';
-import 'package:dirise/widgets/customsize.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
