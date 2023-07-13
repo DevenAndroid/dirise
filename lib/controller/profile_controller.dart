@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../model/profile_model.dart';
-import '../repoistery/profile_repo.dart';
+// import '../repoistery/profile_repo.dart';
 import '../repoistery/repository.dart';
 import '../routers/my_routers.dart';
 import '../utils/ApiConstant.dart';

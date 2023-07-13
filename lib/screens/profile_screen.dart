@@ -104,8 +104,8 @@ class _ProfileState extends State<Profile> {
                                 height: 3,
                               ),
                               Text(
-                                "${profileController.model.value.user!.firstName.toString()} " +
-                                    " ${profileController.model.value.user!.lastName.toString()}",
+                               profileController.model.value.user!.name.toString(),
+
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -218,47 +218,47 @@ class _ProfileState extends State<Profile> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Image.asset(
-                                'assets/icons/location.png',
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Address',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: const Color(0xff454545),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  profileController.model.value.user!.address.toString(),
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Container(
+                      //       height: 50,
+                      //       width: 50,
+                      //       decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.all(15),
+                      //         child: Image.asset(
+                      //           'assets/icons/location.png',
+                      //           color: Colors.white,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 15,
+                      //     ),
+                      //     Expanded(
+                      //       child: Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             'Address',
+                      //             style: GoogleFonts.poppins(
+                      //               fontSize: 14,
+                      //               color: const Color(0xff454545),
+                      //             ),
+                      //           ),
+                      //           const SizedBox(
+                      //             height: 3,
+                      //           ),
+                      //           Text(
+                      //             profileController.model.value.user!.address.toString(),
+                      //             style: GoogleFonts.poppins(
+                      //                 color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
                       SizedBox(
                         height: size.height * .23,
                       ),
