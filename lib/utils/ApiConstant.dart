@@ -23,6 +23,8 @@ class ApiUrls {
   static const String applyCouponUrl = "${apiBaseUrlNew}apply-coupon";
   static const String updateProfile = "${apiBaseUrlNew}edit-account";
   static const String userProfile = "${apiBaseUrlNew}my-account";
+  static const String addressListUrl = "${apiBaseUrlNew}address";
+  static const String editAddressUrl = "${apiBaseUrlNew}edit-address";
 }
 
 showToast(message) {
