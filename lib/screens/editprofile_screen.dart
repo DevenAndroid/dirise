@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dirise/model/common_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -49,9 +51,35 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     profileController.getDataProfile();
+  }
+
+  updateProfile(){
+
+    if (formKeyProfile.currentState!.validate()) {
+      Map map = <String, String>{};
+      map['first_name'] = profileController.firstNameController.text.trim();
+      map['last_name'] = profileController.lastNameController.text.trim();
+
+      map['email'] = profileController.emailController.text.trim();
+      map['phone'] = profileController.phoneController.text.trim();
+      map['password'] = profileController.passwordController.text.trim();
+
+      repositories.multiPartApi(
+          mapData: map, images: {
+            "profile" : image
+      }, url: ApiUrls.updateProfile,
+        context: context
+      ).then((value) {
+        ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+        showToast(response.message.toString());
+
+        if (response.status == true) {
+          profileController.getDataProfile();
+        }
+      });
+    }
   }
 
   @override
@@ -206,28 +234,7 @@ class _EditProfileState extends State<EditProfile> {
                             fontWeight: FontWeight.bold,
                           )),
                       onPressed: () {
-                        if (formKeyProfile.currentState!.validate()) {
-                          Map map = <String, String>{};
-                          map['first_name'] = profileController.firstNameController.text.trim();
-                          map['last_name'] = profileController.lastNameController.text.trim();
-
-                          map['email'] = profileController.emailController.text.trim();
-                          map['phone'] = profileController.phoneController.text.trim();
-                          map['password'] = profileController.passwordController.text.trim();
-
-                          updateProfile(
-                            fieldName1: 'profile',
-                            mapData: map,
-                            context: context,
-                            file1: image,
-                          ).then((value) {
-                            if (value.status == true) {
-                              profileController.getDataProfile();
-                              showToast(value.message.toString());
-                            }
-                            showToast(value.message.toString());
-                          });
-                        }
+                        updateProfile();
                         // Get.toNamed(MyRouters.doctorNavbar);
                       },
                       child: Text(
