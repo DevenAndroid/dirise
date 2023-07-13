@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final Repositories repositories = Repositories();
+  RxBool hide = true.obs;
 
   //final controller = Get.put(CustomNavigationBarController());
 
@@ -128,14 +129,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: size.height * .01,
                 ),
-                CommonTextfield(
-                  controller: passwordController,
-                  obSecure: false,
-                  hintText: 'Password',
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'password is required'),
-                  ]),
-                ),
+                Obx(() {
+                  return CommonTextfield(
+                    controller: passwordController,
+                    obSecure: hide.value,
+                    suffixIcon: IconButton(
+                      onPressed: (){
+                        hide.value = !hide.value;
+                      },
+                      icon: hide.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                    ),
+                    hintText: 'Password',
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: 'Password is required'),
+                    ]),
+                  );
+                }),
                 const SizedBox(
                   height: 35,
                 ),
@@ -263,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     children: [
                       TextSpan(
-                        text: 'Already have an Account?',
+                        text: 'Already have an Account? ',
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       TextSpan(text: 'Sign Up',style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: AppTheme.buttonColor,decoration: TextDecoration.underline),

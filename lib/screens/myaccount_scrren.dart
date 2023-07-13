@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controller/cart_controller.dart';
 import '../controller/profile_controller.dart';
 import '../routers/my_routers.dart';
 import '../vendorflow/add_money_screen.dart';
@@ -41,6 +42,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   ];
 
   final profileController = Get.put(ProfileController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -609,6 +611,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 profileController.userLoggedIn = false;
                 profileController.updateUI();
                 profileController.getDataProfile();
+                cartController.getCart();
               },
               child: Row(
                 children: [

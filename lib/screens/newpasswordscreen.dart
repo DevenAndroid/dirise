@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:dirise/routers/my_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/common_modal.dart';
@@ -91,8 +88,8 @@ class _NewPasswordState extends State<NewPassword> {
                       ),
                       hintText: 'New Password',
                       validator: MultiValidator([
-                        RequiredValidator(errorText: "password in required"),
-                        MinLengthValidator(8, errorText: "password must be 8 digits long")
+                        RequiredValidator(errorText: "Password in required"),
+                        MinLengthValidator(8, errorText: "Password must be 8 digits long")
                       ]),
                     );
                   }),

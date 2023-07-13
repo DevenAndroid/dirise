@@ -33,6 +33,14 @@ class _OtpScreenState extends State<OtpScreen> {
   Map<String, dynamic> tempMap = {};
 
   verifyOtp() {
+    if(_otpController.text.trim().isEmpty){
+      showToast("Please enter OTP");
+      return;
+    }
+    if(_otpController.text.trim().length < 4){
+      showToast("Enter complete OTP");
+      return;
+    }
     Map<String, dynamic> map = {};
     map['email'] = email;
     map['otp'] = _otpController.text.trim();
@@ -93,7 +101,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   setTimer() {
     timerInt.value = 30;
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       timerInt.value--;
       if (timerInt.value == 0) {
         timer.cancel();
@@ -226,32 +234,39 @@ class _OtpScreenState extends State<OtpScreen> {
                             SizedBox(
                               height: size.height * .2,
                             ),
-                            SizedBox(
-                              width: double.infinity,
-                              height: size.height * .075,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppTheme.buttonColor,
-                                    shape:
-                                    const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                                    textStyle: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                                onPressed: () {
-                                  verifyOtp();
-                                },
-                                child: Text(
-                                  'Verify OTP',
-                                  style:
-                                  GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
                     ))
               ])),
-        ));
+        ),
+      bottomNavigationBar:
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0).copyWith(bottom: 10),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: AppTheme.buttonColor,
+                shape:
+                const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                )),
+            onPressed: () {
+              verifyOtp();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Verify OTP',
+                style:
+                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

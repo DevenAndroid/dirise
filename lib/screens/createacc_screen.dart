@@ -22,6 +22,7 @@ class CreateAcc extends StatefulWidget {
 
 class _CreateAccState extends State<CreateAcc> {
   final formKey1 = GlobalKey<FormState>();
+  RxBool hide = true.obs;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _mobileNumberController = TextEditingController();
@@ -96,7 +97,7 @@ class _CreateAccState extends State<CreateAcc> {
                     obSecure: false,
                     hintText: 'Name',
                     validator: MultiValidator([
-                      RequiredValidator(errorText: 'name is required'),
+                      RequiredValidator(errorText: 'Name is required'),
                     ])),
                 SizedBox(
                   height: size.height * .01,
@@ -106,32 +107,40 @@ class _CreateAccState extends State<CreateAcc> {
                   obSecure: false,
                   hintText: 'Email',
                   validator: MultiValidator([
-                    RequiredValidator(errorText: 'email is required'),
-                    EmailValidator(errorText: 'enter valid email address'),
+                    RequiredValidator(errorText: 'Email is required'),
+                    EmailValidator(errorText: 'Enter valid email address'),
                   ]),
                 ),
                 SizedBox(
                   height: size.height * .01,
                 ),
-                CommonTextfield(
-                  controller: _passwordController,
-                  obSecure: false,
-                  hintText: 'Password',
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'password is required'),
-                    MinLengthValidator(8, errorText: 'Password must be at least 8 digits long')
-                  ]),
-                ),
+                Obx(() {
+                  return CommonTextfield(
+                    controller: _passwordController,
+                    obSecure: hide.value,
+                    suffixIcon: IconButton(
+                      onPressed: (){
+                        hide.value = !hide.value;
+                      },
+                      icon: hide.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                    ),
+                    hintText: 'Password',
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: 'Password is required'),
+                      MinLengthValidator(8, errorText: 'Password must be at least 8 digits long')
+                    ]),
+                  );
+                }),
                 SizedBox(
                   height: size.height * .01,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 56,
-                      child: Container(
+                IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 56,
                         decoration: BoxDecoration(
                             border: Border.all(color: AppTheme.secondaryColor), borderRadius: BorderRadius.circular(8)),
                         child: const Center(
@@ -145,23 +154,22 @@ class _CreateAccState extends State<CreateAcc> {
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Flexible(
-                        flex: 3,
-                        child: CommonTextfield(
-                          controller: _mobileNumberController,
-                          obSecure: false,
-                          hintText: '987-654-3210',
-                          keyboardType: TextInputType.phone,
-                          validator: MultiValidator([
-                            RequiredValidator(errorText: 'phone no is required'),
-                            MinLengthValidator(10, errorText: 'phone no must be at least 10 digits long')
-                          ]),
-                        )),
-                  ],
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                          child: CommonTextfield(
+                            controller: _mobileNumberController,
+                            obSecure: false,
+                            hintText: '987-654-3210',
+                            keyboardType: TextInputType.phone,
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: 'Phone no is required'),
+                              MinLengthValidator(10, errorText: 'Phone no must be at least 10 digits long')
+                            ]),
+                          )),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: size.height * .03,

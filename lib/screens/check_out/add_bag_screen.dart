@@ -54,6 +54,7 @@ class _BagsScreenState extends State<BagsScreen> {
         body: Obx(() {
           if (cartController.refreshInt.value > 0) {}
           return cartController.apiLoaded ?
+          cartController.cartModel.cart!.isNotEmpty ?
           ListView.builder(
               itemCount: cartController.cartModel.cart!.length,
               padding: const EdgeInsets.only(left: 15, right: 10),
@@ -157,7 +158,24 @@ class _BagsScreenState extends State<BagsScreen> {
                     ),
                   ),
                 );
-              }) :
+              }) : Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Center(
+            child: Text("Bag is empty\n"
+                    "Checkout products to added them in bag",
+                  textAlign: TextAlign.center,
+            ),
+          ),
+                  Center(
+            child: TextButton(
+                onPressed: (){
+                  Get.back();
+                }, child: Text("Browse")),
+          ),
+                ],
+              ) :
           const Center(
             child: CircularProgressIndicator.adaptive(),
           );
@@ -165,6 +183,7 @@ class _BagsScreenState extends State<BagsScreen> {
         bottomNavigationBar: Obx(() {
           if (cartController.refreshInt.value > 0) {}
           return cartController.apiLoaded ?
+          cartController.cartModel.cart!.isNotEmpty ?
           Container(
             decoration: const BoxDecoration(color: Color(0xff014E70)),
             child: Padding(
@@ -212,7 +231,7 @@ class _BagsScreenState extends State<BagsScreen> {
                 ],
               ),
             ),
-          ) :
+          ) : const SizedBox.shrink() :
           const SizedBox.shrink();
         }));
   }
