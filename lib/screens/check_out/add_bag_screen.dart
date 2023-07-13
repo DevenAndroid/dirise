@@ -172,7 +172,7 @@ class _BagsScreenState extends State<BagsScreen> {
             child: TextButton(
                 onPressed: (){
                   Get.back();
-                }, child: Text("Browse")),
+                }, child: const Text("Browse")),
           ),
                 ],
               ) :
