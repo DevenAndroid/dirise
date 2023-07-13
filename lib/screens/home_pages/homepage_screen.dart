@@ -47,15 +47,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(150),
           child: Container(
             color: AppTheme.buttonColor,
-
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,10 +66,10 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 18,top: 5),
+                            padding: const EdgeInsets.only(left: 18, top: 5),
                             child: Text(
                               'Driver order to',
-                              style: GoogleFonts.poppins(fontSize: 18,color: Colors.white),
+                              style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
                             ),
                           ),
                           const Padding(
@@ -96,8 +93,7 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                             image: AssetImage(
                               'assets/images/diries logo.png',
-                            )
-                        ),
+                            )),
                       ),
                       const Spacer(),
                       cartWidget(),
@@ -145,323 +141,179 @@ class _HomePageState extends State<HomePage> {
         body: Obx(() {
           return homeController.trendingModel.value.status == true
               ? SingleChildScrollView(
-              child: Column(children: [
-                homeController.homeModal.value.home != null ?
-                  Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                      child: SizedBox(
-                        height: size.height * 0.22,
-                        child: Swiper(
-                          autoplay: true,
-                          outer: false,
-                          autoplayDelay: 5000,
-                          autoplayDisableOnInteraction: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: CachedNetworkImage(
-                                      imageUrl: homeController.homeModal.value.home!.slider![index].image.toString(),
-                                      fit: BoxFit.cover,
-                                      placeholder: (context, url) => const SizedBox(),
-                                      errorWidget: (context, url, error) => const SizedBox()),
+                  child: Column(children: [
+                  if (homeController.homeModal.value.home != null)
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                        child: SizedBox(
+                          height: size.height * 0.22,
+                          child: Swiper(
+                            autoplay: true,
+                            outer: false,
+                            autoplayDelay: 5000,
+                            autoplayDisableOnInteraction: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: CachedNetworkImage(
+                                        imageUrl: homeController.homeModal.value.home!.slider![index].image.toString(),
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) => const SizedBox(),
+                                        errorWidget: (context, url, error) => const SizedBox()),
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          itemCount: homeController.homeModal.value.home!.slider!.length,
-                          pagination: const SwiperPagination(),
-                          control: const SwiperControl(size: 0), // remove arrows
-                        ),
-                      )) :
-                  Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                      child: SizedBox(
-                        height: size.height * 0.22,
-                        child: Swiper(
-                          autoplay: true,
-                          outer: false,
-                          autoplayDelay: 5000,
-                          autoplayDisableOnInteraction: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: CachedNetworkImage(
-                                      imageUrl: "",
-                                      fit: BoxFit.cover,
-                                      placeholder: (context, url) => const SizedBox(),
-                                      errorWidget: (context, url, error) => const SizedBox()),
-                                ),
-                              ),
-                            ).toShimmer;
-                          },
-                          itemCount: 4,
-                          pagination: const SwiperPagination(),
-                          control: const SwiperControl(size: 0), // remove arrows
-                        ),
-                      )),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 60,
-                        width: size.width * .40,
-                        decoration: const BoxDecoration(
-                            color: Color(0xffF0F0F0),
-                            borderRadius:
-                            BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8),
-                          child: Row(
-                            children: [
-                              Text(
-                                'News & Trends',
-                                style: GoogleFonts.poppins(
-                                  color: AppTheme.buttonColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Image(height: 20, image: AssetImage('assets/icons/trends.png'))
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 60,
-                        width: 170,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color(0xffF0F0F0),
-                            ),
-                            borderRadius: const BorderRadius.only(
-                                bottomRight: Radius.circular(10), topRight: Radius.circular(10))),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 15, left: 7),
-                          child: InkWell(
-                            onTap: () {
-                              showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return SizedBox(
-                                      height: size.height * .7,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 30, right: 18, left: 18),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Image.asset('assets/images/aritificial.png'),
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
-                                            Text(
-                                              "Artificial Intelligence Gains a Foot Hold In Writing",
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppTheme.buttonColor),
-                                            ),
-                                            const SizedBox(
-                                              height: 20,
-                                            ),
-                                            Text(
-                                              "Artificial Intelligence (Al) is gaining a strong foothold in various niches, and blogging is no exception. By making use of the best Al writing tools, you can create a long-form affiliate blog post in 10 to 15 minutes (instead of spending hours writing it yourself) and generate traffic.",
-                                              style:
-                                              GoogleFonts.poppins(fontSize: 14, color: const Color(0xff484848)),
-                                            ),
-                                            const SizedBox(
-                                              height: 40,
-                                            ),
-                                            Text(
-                                              'Published: 06/06/2023',
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  });
+                              );
                             },
-                            child: Text(
-                              "Artificial Intelligence Gains  a Foot Hold In Writing",
-                              style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
-                            ),
+                            itemCount: homeController.homeModal.value.home!.slider!.length,
+                            pagination: const SwiperPagination(),
+                            control: const SwiperControl(size: 0), // remove arrows
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const CategoryItems(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Trending Products',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          index1 = index1 + 1;
-                          setState(() {
-                            if (index1 == homeController.trendingModel.value.product!.product!.length - 1) {
-                              index1 = 0;
-                            }
-                          });
-                          scrollToItem(index1);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                          child: const Icon(
-                            Icons.arrow_forward,
-                            color: AppTheme.buttonColor,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 250,
-                  margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                  child: ScrollablePositionedList.builder(
-                      itemCount: homeController.trendingModel.value.product!.product!.length,
-                      itemScrollController: itemController,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          onTap: () {
-                            bottomSheet(homeController.trendingModel.value.product!.product![index]);
-                          },
-                          child: Container(
-                            width: size.width * .5,
-                            margin: const EdgeInsets.only(right: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                        )),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 60,
+                          width: size.width * .40,
+                          decoration: const BoxDecoration(
+                              color: Color(0xffF0F0F0),
+                              borderRadius:
+                                  BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8),
+                            child: Row(
                               children: [
-                                CachedNetworkImage(
-                                  imageUrl: homeController.trendingModel.value.product!.product![index].featuredImage
-                                      .toString(),
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                  errorWidget: (context, url, error) => Image.asset("assets/images/bag.png"),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
                                 Text(
-                                  homeController.trendingModel.value.product!.product![index].discountPercentage
-                                      .toString(),
+                                  'News & Trends',
                                   style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                                    color: AppTheme.buttonColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                                 const SizedBox(
-                                  height: 6,
+                                  width: 10,
                                 ),
-                                Text(
-                                  homeController.trendingModel.value.product!.product![index].pname.toString(),
-                                  style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                                ),
-                                const SizedBox(
-                                  height: 6,
-                                ),
-                                Text(
-                                  '${homeController.trendingModel.value.product!.product![index].inStock
-                                      .toString()} pieces',
-                                  style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 17),
-                                ),
-                                const SizedBox(
-                                  height: 6,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'KD ${homeController.trendingModel.value.product!.product![index].sPrice
-                                          .toString()}',
-                                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                                    ),
-                                    const SizedBox(
-                                      width: 15,
-                                    ),
-                                    Text(
-                                      'KD ${homeController.trendingModel.value.product!.product![index].pPrice
-                                          .toString()}',
-                                      style: GoogleFonts.poppins(
-                                          decoration: TextDecoration.lineThrough,
-                                          color: const Color(0xff858484),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
-                                )
+                                const Image(height: 20, image: AssetImage('assets/icons/trends.png'))
                               ],
                             ),
                           ),
-                        );
-                      }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Popular Products',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          index1 = index1 + 1;
-                          setState(() {
-                            if (index1 == homeController.popularProdModal.value.product!.product!.length - 1) {
-                              index1 = 0;
-                            }
-                          });
-                          scrollToItem1(index1);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
+                        ),
+                        Container(
+                          height: 60,
+                          width: 170,
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                          child: const Icon(
-                            Icons.arrow_forward,
-                            color: AppTheme.buttonColor,
+                              border: Border.all(
+                                color: const Color(0xffF0F0F0),
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                  bottomRight: Radius.circular(10), topRight: Radius.circular(10))),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 15, left: 7),
+                            child: InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return SizedBox(
+                                        height: size.height * .7,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 30, right: 18, left: 18),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Image.asset('assets/images/aritificial.png'),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                "Artificial Intelligence Gains a Foot Hold In Writing",
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: AppTheme.buttonColor),
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                "Artificial Intelligence (Al) is gaining a strong foothold in various niches, and blogging is no exception. By making use of the best Al writing tools, you can create a long-form affiliate blog post in 10 to 15 minutes (instead of spending hours writing it yourself) and generate traffic.",
+                                                style:
+                                                    GoogleFonts.poppins(fontSize: 14, color: const Color(0xff484848)),
+                                              ),
+                                              const SizedBox(
+                                                height: 40,
+                                              ),
+                                              Text(
+                                                'Published: 06/06/2023',
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: Text(
+                                "Artificial Intelligence Gains  a Foot Hold In Writing",
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
+                              ),
+                            ),
                           ),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                if (homeController.popularProdModal.value.product != null)
+                  const CategoryItems(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Trending Products',
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            index1 = index1 + 1;
+                            setState(() {
+                              if (index1 == homeController.trendingModel.value.product!.product!.length - 1) {
+                                index1 = 0;
+                              }
+                            });
+                            scrollToItem(index1);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                            child: const Icon(
+                              Icons.arrow_forward,
+                              color: AppTheme.buttonColor,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                   Container(
                     height: 250,
                     margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                     child: ScrollablePositionedList.builder(
-                        itemCount: homeController.popularProdModal.value.product!.product!.length,
-                        itemScrollController: itemController1,
+                        itemCount: homeController.trendingModel.value.product!.product!.length,
+                        itemScrollController: itemController,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
-                              bottomSheet(homeController.popularProdModal.value.product!.product![index]);
+                              bottomSheet(homeController.trendingModel.value.product!.product![index]);
                             },
                             child: Container(
                               width: size.width * .5,
@@ -470,8 +322,7 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   CachedNetworkImage(
-                                    imageUrl: homeController
-                                        .popularProdModal.value.product!.product![index].featuredImage
+                                    imageUrl: homeController.trendingModel.value.product!.product![index].featuredImage
                                         .toString(),
                                     height: 100,
                                     fit: BoxFit.cover,
@@ -481,7 +332,7 @@ class _HomePageState extends State<HomePage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    homeController.popularProdModal.value.product!.product![index].discountPercentage
+                                    homeController.trendingModel.value.product!.product![index].discountPercentage
                                         .toString(),
                                     style: GoogleFonts.poppins(
                                         fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
@@ -490,15 +341,14 @@ class _HomePageState extends State<HomePage> {
                                     height: 6,
                                   ),
                                   Text(
-                                    homeController.popularProdModal.value.product!.product![index].pname.toString(),
+                                    homeController.trendingModel.value.product!.product![index].pname.toString(),
                                     style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                                   ),
                                   const SizedBox(
                                     height: 6,
                                   ),
                                   Text(
-                                    '${homeController.popularProdModal.value.product!.product![index].inStock
-                                        .toString()} pieces',
+                                    '${homeController.trendingModel.value.product!.product![index].inStock.toString()} pieces',
                                     style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 17),
                                   ),
                                   const SizedBox(
@@ -507,20 +357,18 @@ class _HomePageState extends State<HomePage> {
                                   Row(
                                     children: [
                                       Text(
-                                        'KD ${homeController.popularProdModal.value.product!.product![index].sPrice
-                                            .toString()}',
+                                        'KD ${homeController.trendingModel.value.product!.product![index].sPrice.toString()}',
                                         style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                                       ),
                                       const SizedBox(
                                         width: 15,
                                       ),
                                       Text(
-                                        'KD ${homeController.popularProdModal.value.product!.product![index].pPrice
-                                            .toString()}',
+                                        'KD ${homeController.trendingModel.value.product!.product![index].pPrice.toString()}',
                                         style: GoogleFonts.poppins(
                                             decoration: TextDecoration.lineThrough,
                                             color: const Color(0xff858484),
-                                            fontSize: 16,
+                                            fontSize: 13,
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ],
@@ -531,84 +379,197 @@ class _HomePageState extends State<HomePage> {
                           );
                         }),
                   ),
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: SizedBox(
-                      child: CachedNetworkImage(
-                        imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
-                        fit: BoxFit.cover,
-                        width: size.width,
-                      ),
-                    )),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Shop By Author',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                        child: const Icon(
-                          Icons.arrow_forward,
-                          color: AppTheme.buttonColor,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Popular Products',
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                if (homeController.authorModal.value.data != null)
-                  Container(
-                    height: 300,
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    child: GridView.builder(
-                      itemCount: 1,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, mainAxisSpacing: 200, childAspectRatio: 0.1),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CachedNetworkImage(
-                                imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
-                                fit: BoxFit.cover,
-                                errorWidget: (context, url, error) =>
-                                    Image.asset("assets/images/Soud Alsanousi.png")),
-                            const SizedBox(
-                              height: 10,
+                        InkWell(
+                          onTap: () {
+                            index1 = index1 + 1;
+                            setState(() {
+                              if (index1 == homeController.popularProdModal.value.product!.product!.length - 1) {
+                                index1 = 0;
+                              }
+                            });
+                            scrollToItem1(index1);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                            child: const Icon(
+                              Icons.arrow_forward,
+                              color: AppTheme.buttonColor,
                             ),
-                            Text(
-                              homeController.authorModal.value.data![index].name.toString(),
-                              style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        );
-                      },
+                          ),
+                        )
+                      ],
                     ),
                   ),
-              ]))
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  if (homeController.popularProdModal.value.product != null)
+                    Container(
+                      height: 250,
+                      margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                      child: ScrollablePositionedList.builder(
+                          itemCount: homeController.popularProdModal.value.product!.product!.length,
+                          itemScrollController: itemController1,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return InkWell(
+                              onTap: () {
+                                bottomSheet(homeController.popularProdModal.value.product!.product![index]);
+                              },
+                              child: Container(
+                                width: size.width * .5,
+                                margin: const EdgeInsets.only(right: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CachedNetworkImage(
+                                      imageUrl: homeController
+                                          .popularProdModal.value.product!.product![index].featuredImage
+                                          .toString(),
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                      errorWidget: (context, url, error) => Image.asset("assets/images/bag.png"),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      homeController.popularProdModal.value.product!.product![index].discountPercentage
+                                          .toString(),
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Text(
+                                      homeController.popularProdModal.value.product!.product![index].pname.toString(),
+                                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Text(
+                                      '${homeController.popularProdModal.value.product!.product![index].inStock.toString()} pieces',
+                                      style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 17),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'KD ${homeController.popularProdModal.value.product!.product![index].sPrice.toString()}',
+                                          style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(
+                                          width: 15,
+                                        ),
+                                        Text(
+                                          'KD ${homeController.popularProdModal.value.product!.product![index].pPrice.toString()}',
+                                          style: GoogleFonts.poppins(
+                                              decoration: TextDecoration.lineThrough,
+                                              color: const Color(0xff858484),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: SizedBox(
+                        child: CachedNetworkImage(
+                          imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
+                          fit: BoxFit.cover,
+                          width: size.width,
+                        ),
+                      )),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Shop By Author',
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                          child: const Icon(
+                            Icons.arrow_forward,
+                            color: AppTheme.buttonColor,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  if (homeController.authorModal.value.data != null)
+                    Container(
+                      height: 300,
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: GridView.builder(
+                        itemCount: 1,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, mainAxisSpacing: 200, childAspectRatio: 0.1),
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CachedNetworkImage(
+                                  imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
+                                  fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) =>
+                                      Image.asset("assets/images/Soud Alsanousi.png")),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                homeController.authorModal.value.data![index].name.toString(),
+                                style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                ]))
               : const Center(
-              child: CircularProgressIndicator(
-                color: Colors.grey,
-              ));
+                  child: CircularProgressIndicator(
+                  color: Colors.grey,
+                ));
         }));
   }
 
   cartWidget() {
     return Obx(() {
-      if(cartController.refreshInt.value > 0){}
+      if (cartController.refreshInt.value > 0) {}
       return GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
@@ -635,11 +596,12 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   width: 10,
                 ),
-                cartController.apiLoaded ?
-                Text(
-                  cartController.cartModel.totalQuantity.toString(),
-                  style: const TextStyle(color: AppTheme.buttonColor, fontSize: 20),
-                ) : const CupertinoActivityIndicator(),
+                cartController.apiLoaded
+                    ? Text(
+                        cartController.cartModel.totalQuantity.toString(),
+                        style: const TextStyle(color: AppTheme.buttonColor, fontSize: 20),
+                      )
+                    : const CupertinoActivityIndicator(),
                 const SizedBox(
                   width: 8,
                 ),
@@ -652,9 +614,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future bottomSheet(ProductElement productDetails) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     RxInt productQuantity = 1.obs;
     log("Product Details.....   ${productDetails.toJson()}");
     return showModalBottomSheet(
@@ -793,9 +753,9 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: Color(0xffEAEAEA),
                               child: Center(
                                   child: Text(
-                                    "━",
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                                  )),
+                                "━",
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                              )),
                             ),
                           ),
                           const SizedBox(
@@ -812,9 +772,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              if ((productDetails.inStock
-                                  .toString()
-                                  .convertToNum ?? 0) > productQuantity.value) {
+                              if ((productDetails.inStock.toString().convertToNum ?? 0) > productQuantity.value) {
                                 productQuantity.value++;
                               } else {
                                 showToast("Cannot add more");
@@ -825,9 +783,9 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: Color(0xffEAEAEA),
                               child: Center(
                                   child: Text(
-                                    "+",
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
-                                  )),
+                                "+",
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+                              )),
                             ),
                           ),
                         ],
@@ -848,7 +806,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         child: Container(
                           decoration:
-                          BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                              BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                           padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                           child: Text(
                             "Add to Bag",

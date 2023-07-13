@@ -12,11 +12,11 @@ String modelCartResponseToJson(ModelCartResponse data) => json.encode(data.toJso
 
 class ModelCartResponse {
   bool? status;
-  String? message;
-  int? subtotal;
-  int? shipping;
-  int? total;
-  int? discount;
+  dynamic message;
+  dynamic subtotal;
+  dynamic shipping;
+  dynamic total;
+  dynamic discount;
   List<Cart>? cart = [];
 
   ModelCartResponse({
@@ -57,68 +57,68 @@ class ModelCartResponse {
 }
 
 class Cart {
-  int? id;
-  int? vendorId;
-  int? catId;
-  int? catId2;
-  int? catId3;
-  String? brandSlug;
-  String? slug;
-  String? pname;
+  dynamic id;
+  dynamic vendorId;
+  dynamic catId;
+  dynamic catId2;
+  dynamic catId3;
+  dynamic brandSlug;
+  dynamic slug;
+  dynamic pname;
   dynamic arabPname;
-  String? productType;
-  String? skuId;
-  int? pPrice;
-  int? sPrice;
+  dynamic productType;
+  dynamic skuId;
+  // dynamic pPrice;
+  dynamic sPrice;
   dynamic commission;
-  int? cartNew;
-  int? bestSaller;
-  int? featured;
-  String? taxApply;
+  dynamic cartNew;
+  dynamic bestSaller;
+  dynamic featured;
+  dynamic taxApply;
   dynamic taxType;
-  String? shortDescription;
+  dynamic shortDescription;
   dynamic arabShortDescription;
-  String? longDescription;
+  dynamic longDescription;
   dynamic arabLongDescription;
-  String? featuredImage;
+  dynamic featuredImage;
   List<String>? galleryImage;
-  String? inStock;
+  dynamic inStock;
   dynamic stockAlert;
   dynamic shippingType;
   dynamic shippingCharge;
-  int? avgRating;
-  String? metaTitle;
-  String? metaKeyword;
-  String? metaDescription;
-  int? parentId;
+  dynamic avgRating;
+  dynamic metaTitle;
+  dynamic metaKeyword;
+  dynamic metaDescription;
+  dynamic parentId;
   dynamic serviceStartTime;
   dynamic serviceEndTime;
   dynamic serviceDuration;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int? topHunderd;
-  String? returnDays;
-  int? isPublish;
-  int? inOffer;
-  String? forAuction;
+  dynamic topHunderd;
+  dynamic returnDays;
+  dynamic isPublish;
+  dynamic inOffer;
+  dynamic forAuction;
   dynamic returnPolicyDesc;
-  int? cartId;
-  String? qty;
+  dynamic cartId;
+  dynamic qty;
   bool? inCart;
   bool? inWishlist;
-  String? currencySign;
-  String? currencyCode;
+  dynamic currencySign;
+  dynamic currencyCode;
   List<dynamic>? attributes;
   List<dynamic>? variants;
-  String? buyAvailable;
-  String? bidPrice;
-  String? startDate;
-  String? endDate;
-  String? startTime;
-  String? endTime;
-  String? minBidPrice;
-  String? stepPrice;
-  String? currentBid;
+  dynamic buyAvailable;
+  dynamic bidPrice;
+  dynamic startDate;
+  dynamic endDate;
+  dynamic startTime;
+  dynamic endTime;
+  dynamic minBidPrice;
+  dynamic stepPrice;
+  dynamic currentBid;
 
   Cart({
     this.id,
@@ -132,7 +132,7 @@ class Cart {
     this.arabPname,
     this.productType,
     this.skuId,
-    this.pPrice,
+    // this.pPrice,
     this.sPrice,
     this.commission,
     this.cartNew,
@@ -197,7 +197,7 @@ class Cart {
     arabPname: json["arab_pname"],
     productType: json["product_type"],
     skuId: json["sku_id"],
-    pPrice: json["p_price"],
+    // pPrice: json["p_price"],
     sPrice: json["s_price"],
     commission: json["commission"],
     cartNew: json["new"],
@@ -262,7 +262,7 @@ class Cart {
     "arab_pname": arabPname,
     "product_type": productType,
     "sku_id": skuId,
-    "p_price": pPrice,
+    // "p_price": pPrice,
     "s_price": sPrice,
     "commission": commission,
     "new": cartNew,

@@ -149,7 +149,7 @@ class _BagsScreenState extends State<BagsScreen> {
                           ),
                         ),
                         Text(
-                          'KD ${cart.pPrice}',
+                          'KD ${cart.sPrice}',
                           style: GoogleFonts.poppins(
                               fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                         ),
@@ -184,7 +184,7 @@ class _BagsScreenState extends State<BagsScreen> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Text("KD ${cartController.cartModel.cart!.map((e) => e.pPrice.toString().convertToNum ?? 0).toList().getTotal}",
+                      Text("KD ${cartController.cartModel.subtotal}",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
                     ],
                   ),
