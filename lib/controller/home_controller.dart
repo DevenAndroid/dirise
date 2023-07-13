@@ -51,7 +51,6 @@ class TrendingProductsController extends GetxController {
   void onInit() {
     super.onInit();
     trendingData();
-    // categoriesData();
     popularProductsData();
     homeData();
     authorData();

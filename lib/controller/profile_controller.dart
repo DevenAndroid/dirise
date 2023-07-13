@@ -1,64 +1,57 @@
-// import 'dart:developer';
-//
-// import 'package:firebase_database/firebase_database.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:fresh2_arrive/model/user_profile_model.dart';
-// import 'package:get/get.dart';
-// import 'package:image_picker/image_picker.dart';
-// import 'dart:io';
-// import '../repoistery/profile_repo.dart';
-// import '../repositories/user_profile_repository.dart';
-// import '../resources/api_url.dart';
-// import '../utils/ApiConstant.dart';
-//
-// class ProfileController extends GetxController {
-//   RxBool isDataLoading = false.obs;
-//   Rx<ProfileModel> model = ProfileModel().obs;
-//   Rx<File> image = File("").obs;
-//   final ImagePicker picker = ImagePicker();
-//   TextEditingController nameController = TextEditingController();
-//   TextEditingController emailController = TextEditingController();
-//   TextEditingController mobileController = TextEditingController();
-//   // FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
-//   String userId = "";
-//   getCurrentUserId() async {
-//     userId = await getUserToken();
-//   }
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     getData();
-//   }
-//
-//   getData() async {
-//     isDataLoading.value = false;
-//     userProfileData().then((value) {
-//       isDataLoading.value = true;
-//       model.value = value;
-//       if (isDataLoading.value &&
-//           model.value.data != null) {
-//         nameController.text =
-//             model.value.data!.name.toString();
-//         emailController.text =
-//             model.value.data!.email.toString();
-//         mobileController.text =
-//             model.value.data!.phone.toString();
-//         addressController.text =
-//             model.value.data!.address.toString();
-//       }
-//     });
-//   }
-//
-//
-//   updateUserDetailsOnFirebaseDatabase() async {
-//     String myUserId = (await getUserId()).toString();
-//     Map<String, dynamic> updates = {};
-//     Map<String, dynamic> newMessageMap = {};
-//     newMessageMap["user_details"] = model.value.data!.toJson();
-//     updates["users/$myUserId"] = newMessageMap;
-//     firebaseDatabase.ref().update(updates).then((value) {
-//       log("Firebase message updated...........");
-//     });
-//   }
-//
-// }
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../model/profile_model.dart';
+import '../repoistery/profile_repo.dart';
+import '../repoistery/repository.dart';
+import '../routers/my_routers.dart';
+import '../utils/ApiConstant.dart';
+
+
+class ProfileController extends GetxController {
+  Rx<profileModel> model = profileModel().obs;
+  final Repositories repositories = Repositories();
+  RxBool isDataLoading = false.obs;
+  final ImagePicker picker = ImagePicker();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  Rx<RxStatus> statusOfProfile = RxStatus.empty().obs;
+  @override
+  void onInit() {
+    super.onInit();
+    getDataProfile();
+  }
+
+  getDataProfile() {
+    userProfileData().then((value) {
+      if (value.status == true) {
+
+
+        model.value = value;
+
+        firstNameController.text = model.value.user!.name.toString();
+        lastNameController.text = model.value.user!.lastName.toString();
+        emailController.text = model.value.user!.email.toString();
+        phoneController.text = model.value.user!.phone.toString();
+        addressController.text = model.value.user!.address.toString();
+
+        statusOfProfile.value = RxStatus.success();
+        showToast(value.message.toString());
+      } else {
+        statusOfProfile.value = RxStatus.error();
+        showToast(value.message.toString());
+      }
+    }
+      // showToast(value.message.toString());
+
+    );
+  }
+
+
+}
