@@ -492,6 +492,7 @@ class _HomePageState extends State<HomePage> {
                             );
                           }),
                     ),
+                  if(homeController.homeModal.value.home != null)
                   Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: SizedBox(

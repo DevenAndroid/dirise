@@ -29,6 +29,8 @@ class _NewPasswordState extends State<NewPassword> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   String email = "";
+  RxBool hide1 = true.obs;
+  RxBool hide2 = true.obs;
   @override
   void initState() {
     super.initState();
@@ -77,32 +79,48 @@ class _NewPasswordState extends State<NewPassword> {
                   SizedBox(
                     height: size.height * .08,
                   ),
-                  CommonTextfield(
-                    controller: passwordController,
-                    obSecure: false,
-                    hintText: 'New Password',
-                    validator: MultiValidator([
-                      RequiredValidator(errorText: "password in required"),
-                      MinLengthValidator(8, errorText: "password must be 8 digits long")
-                    ]),
-                  ),
+                  Obx(() {
+                    return CommonTextfield(
+                      controller: passwordController,
+                      obSecure: hide1.value,
+                      suffixIcon: IconButton(
+                        onPressed: (){
+                          hide1.value = !hide1.value;
+                        },
+                        icon: hide1.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                      ),
+                      hintText: 'New Password',
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "password in required"),
+                        MinLengthValidator(8, errorText: "password must be 8 digits long")
+                      ]),
+                    );
+                  }),
                   SizedBox(
                     height: size.height * .01,
                   ),
-                  CommonTextfield(
+                  Obx(() {
+                    return CommonTextfield(
                     controller: newPasswordController,
-                    obSecure: false,
+                    obSecure: hide2.value,
+                    suffixIcon: IconButton(
+                      onPressed: (){
+                        hide2.value = !hide2.value;
+                      },
+                      icon: hide2.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                    ),
                     hintText: 'Confirm New Password',
                     validator: (value) {
                       if (value!.trim().isEmpty) {
                         return 'Conform password is required ';
-                      } else if (value!.trim() != passwordController.text.trim()) {
+                      } else if (value.trim() != passwordController.text.trim()) {
                         return 'Conform password not matching';
                       } else {
                         return null;
                       }
                     },
-                  ),
+                    );
+                  }),
                   SizedBox(
                     height: size.height * .03,
                   ),

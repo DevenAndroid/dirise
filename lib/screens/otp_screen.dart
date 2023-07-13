@@ -44,7 +44,7 @@ class _OtpScreenState extends State<OtpScreen> {
           Get.offAllNamed(BottomNavbar.route);
           Get.toNamed(LoginScreen.route);
         } else {
-          Get.toNamed(MyRouters.newPasswordScreen, arguments: [email]);
+          Get.offNamed(MyRouters.newPasswordScreen, arguments: [email]);
         }
       }
     });
