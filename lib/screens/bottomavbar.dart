@@ -77,6 +77,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                       height: 20,
                                     ),
                                   )
+
                                 : Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Image.asset(

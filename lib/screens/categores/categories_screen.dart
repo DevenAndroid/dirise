@@ -79,7 +79,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               return InkWell(
                                 onTap: () {
                                   if (index == 0) {
-                                    // Get.toNamed(SingleCategories.singleCategoriesScreen);
+                                     Get.toNamed(SingleCategories.singleCategoriesScreen);
                                   } else if (index == 1) {
                                     Get.toNamed(AuthorsScreen.authorsScreen);
                                   } else if (index == 2) {

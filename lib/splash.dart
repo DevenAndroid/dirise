@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dirise/screens/login_screen.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () async {
-      Get.offNamed(BottomNavbar.route);
+      Get.offNamed(LoginScreen.route);
     });
   }
 

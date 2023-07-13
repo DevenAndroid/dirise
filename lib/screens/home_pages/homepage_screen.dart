@@ -54,8 +54,8 @@ class _HomePageState extends State<HomePage> {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(150),
           child: Container(
-            color: const Color(0xffEBF1F4),
-            margin: const EdgeInsets.only(top: 9),
+            color: AppTheme.buttonColor,
+
             child: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,10 +69,10 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 18),
+                            padding: const EdgeInsets.only(left: 18,top: 5),
                             child: Text(
                               'Driver order to',
-                              style: GoogleFonts.poppins(fontSize: 18),
+                              style: GoogleFonts.poppins(fontSize: 18,color: Colors.white),
                             ),
                           ),
                           const Padding(
@@ -93,9 +93,11 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.only(left: 20, top: 7),
                         child: Image(
                             height: 23,
+                            color: Colors.white,
                             image: AssetImage(
                               'assets/images/diries logo.png',
-                            )),
+                            )
+                        ),
                       ),
                       const Spacer(),
                       cartWidget(),

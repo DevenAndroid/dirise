@@ -27,7 +27,7 @@ class CommonAppBar extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             height: 38,
-            width: 60,
+            width: 63,
             margin: const EdgeInsets.only(right: 15),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: const Color(0xff014E70)),
             child: Row(
@@ -35,7 +35,7 @@ class CommonAppBar extends StatelessWidget {
               children: [
                 SvgPicture.asset("assets/images/bag1.svg"),
                 const SizedBox(
-                  width: 4,
+                  width: 7,
                 ),
                 const Text(
                   ("0"),

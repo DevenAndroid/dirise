@@ -4,6 +4,7 @@ import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/utils/ApiConstant.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ import 'bottomavbar.dart';
 
 class LoginScreen extends StatefulWidget {
   static String route = "/LoginScreen";
+
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -145,24 +147,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: size.height * .02,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
                       onTap: () {
                         Get.toNamed(MyRouters.forgetPassword);
                       },
                       child: Text(
-                        'Forget Password?',
-                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.toNamed(MyRouters.createAccScreen);
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                        'Forget Password',
+                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500,color: AppTheme.buttonColor),
                       ),
                     ),
                   ],
@@ -262,6 +255,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
+                SizedBox(height: size.height*.07,),
+                RichText(
+                  text: TextSpan(
+
+                    children: [
+                      TextSpan(
+                        text: 'Already have an Account?',
+                        style: GoogleFonts.poppins(color: Colors.black),
+                      ),
+                      TextSpan(text: 'Sign Up',style: GoogleFonts.poppins(fontWeight: FontWeight.bold,color: AppTheme.buttonColor,decoration: TextDecoration.underline),
+
+                          recognizer: TapGestureRecognizer()..onTap = () {
+                        Get.toNamed(MyRouters.createAccScreen);
+
+                      },
+
+                      ),
+                    ],
+
+                  ),
+                )
               ],
             ),
           ),

@@ -129,7 +129,7 @@ class _CreateAccState extends State<CreateAcc> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 56,
+                      height: 58,
                       child: Container(
                         decoration: BoxDecoration(
                             border: Border.all(color: AppTheme.secondaryColor), borderRadius: BorderRadius.circular(8)),
