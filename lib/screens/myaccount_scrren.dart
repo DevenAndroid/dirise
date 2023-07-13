@@ -30,7 +30,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   RxString language = "".obs;
   final RxBool _isValue = false.obs;
   final RxBool _isValue1 = false.obs;
-  var vendor = ['Dashboard', 'Order', 'Products', 'Store open time', 'Vendor Information', 'Bank Details', 'Withdraw'];
+  var vendor = ['Dashboard', 'Order', 'Products', 'Store open time', 'Store setting', 'Bank Details', 'Earning'];
   var vendorRoutes = [
     DashboardScreen.dashboardScreen,
     VendorOrderList.vendorOrderList,
@@ -281,13 +281,17 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            Column(
+            Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
                   onTap: () {
                     // _isValue.value = !_isValue.value;
                   },
                   child: ListTile(
+                    dense: true,
+               horizontalTitleGap:AddSize.font24,
+                    visualDensity: VisualDensity.compact,
+                    // visualDensity:  VisualDensity(horizontal: -0, vertical: 0),
                     contentPadding: EdgeInsets.zero,
                     leading: const Image(
                       height: 25,
@@ -335,11 +339,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                       vendor[index],
                                       style: TextStyle(
                                           fontSize: 16, fontWeight: FontWeight.w400, color: Colors.grey.shade500),
-                                    )
+                                    ),
+
                                   ],
                                 ),
                               ),
-                            )),
+                            )
+                    ),
+
                   )
                 : SizedBox(),
             const Divider(
@@ -575,6 +582,40 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             ),
             const SizedBox(
               height: 5,
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            GestureDetector(
+              onTap: () {
+
+                Get.toNamed(MyRouters.privacyPolicy);
+              },
+              child: Row(
+                children: [
+                  Image.asset(height: 22, 'assets/images/privacypolicy.png'),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "Privacy Policy",
+                    style:
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const Divider(
+              thickness: 1,
+              color: Color(0x1A000000),
             ),
             GestureDetector(
               onTap: () async {

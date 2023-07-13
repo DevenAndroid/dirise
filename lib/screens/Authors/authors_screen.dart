@@ -36,130 +36,191 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                const Image(image: AssetImage('assets/images/storybooks.png')),
+
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: const Image(image: AssetImage('assets/images/storybooks.png'))),
                 const SizedBox(
                   height: 20,
                 ),
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
+                      isScrollControlled: true,
                         context: context,
                         builder: (context) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 26, top: 15, bottom: 10),
-                                    child: Text(
-                                      "Country",
-                                      style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
+                          return SizedBox(
+                            height: size.height*.77,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 26, top: 15, bottom: 10),
+                                      child: Text(
+                                        "Country",
+                                        style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
+                                      ),
                                     ),
-                                  ),
-                                  Obx(() {
-                                    return Column(
-                                      children: List.generate(
-                                          data.length,
-                                          (index) => Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Theme(
-                                                    data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
-                                                    child: CheckboxListTile(
-                                                      controlAffinity: ListTileControlAffinity.leading,
-                                                      dense: true,
-                                                      visualDensity: VisualDensity.compact,
-                                                      activeColor: const Color(0xff014E70),
-                                                      value: status.value,
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          status.value = value!;
-                                                        });
-                                                      },
-                                                      title: Text(
-                                                        data[index],
-                                                        style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w500,
-                                                          color: Colors.black,
-                                                          fontSize: 16,
+                                    Obx(() {
+                                      return Column(
+                                        children: List.generate(
+                                            data.length,
+                                            (index) => Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Theme(
+                                                      data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
+                                                      child: CheckboxListTile(
+                                                        controlAffinity: ListTileControlAffinity.leading,
+                                                        dense: true,
+                                                        visualDensity: VisualDensity.compact,
+                                                        activeColor: const Color(0xff014E70),
+                                                        value: status.value,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            status.value = value!;
+                                                          });
+                                                        },
+                                                        title: Text(
+                                                          data[index],
+                                                          style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w500,
+                                                            color: Colors.black,
+                                                            fontSize: 16,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              )),
-                                    );
-                                  }),
-                                ],
-                              ),
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: 47,
-                                      width: MediaQuery.of(context).size.width * .87,
-                                      decoration: const BoxDecoration(color: Color(0xff014E70)),
-                                      child: Text(
-                                        "Apply",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: 47,
-                                      margin: const EdgeInsets.only(bottom: 10),
-                                      width: MediaQuery.of(context).size.width * .87,
-                                      decoration: BoxDecoration(border: Border.all(color: const Color(0xff014E70))),
-                                      child: Text(
-                                        "Clear All",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-                                      ),
-                                    ),
+                                                  ],
+                                                )),
+                                      );
+                                    }),
                                   ],
                                 ),
-                              ),
-                            ],
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        height: 47,
+                                        width: MediaQuery.of(context).size.width * .87,
+                                        decoration: const BoxDecoration(color: Color(0xff014E70)),
+                                        child: Text(
+                                          "Apply",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        height: 47,
+                                        margin: const EdgeInsets.only(bottom: 10),
+                                        width: MediaQuery.of(context).size.width * .87,
+                                        decoration: BoxDecoration(border: Border.all(color: const Color(0xff014E70))),
+                                        child: Text(
+                                          "Clear All",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           );
                         });
                   },
-                  child: Container(
-                    height: 35,
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: const Color(0xff014E70)),
-                        color: const Color(0xffEBF1F4),
-                        borderRadius: BorderRadius.circular(22)),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 10),
-                          child: Text(
-                            "Country",
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-                          ),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 35,
+                         padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff014E70)),
+                            color: const Color(0xffEBF1F4),
+                            borderRadius: BorderRadius.circular(22)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 10),
+                              child: Text(
+                                "Country",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                              ),
+                            ),
+                            const Icon(
+                              Icons.keyboard_arrow_down_outlined,
+                              color: Color(0xff014E70),
+                            )
+                          ],
                         ),
-                        const Icon(
-                          Icons.keyboard_arrow_down_outlined,
-                          color: Color(0xff014E70),
-                        )
-                      ],
-                    ),
+                      ),
+                      SizedBox(width: 8,),
+                      Container(
+                        height: 35,
+                        padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff014E70)),
+                            color: const Color(0xffEBF1F4),
+                            borderRadius: BorderRadius.circular(22)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 10),
+                              child: Text(
+                                "language",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                              ),
+                            ),
+                            const Icon(
+                              Icons.keyboard_arrow_down_outlined,
+                              color: Color(0xff014E70),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 8,),
+                      Container(
+                        height: 35,
+                        padding: const EdgeInsets.fromLTRB(3, 0, 3, 0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff014E70)),
+                            color: const Color(0xffEBF1F4),
+                            borderRadius: BorderRadius.circular(22)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 10),
+                              child: Text(
+                                "Topic",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                              ),
+                            ),
+                            const Icon(
+                              Icons.keyboard_arrow_down_outlined,
+                              color: Color(0xff014E70),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
+
                 ),
                 const SizedBox(
                   height: 25,

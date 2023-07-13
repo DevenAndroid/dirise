@@ -40,7 +40,7 @@ class _FaqsScreenState extends State<FaqsScreen> {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -48,44 +48,53 @@ class _FaqsScreenState extends State<FaqsScreen> {
                   ),
                   child: Theme(
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                    child: ExpansionTile(
-                      trailing: (senderExpansion == false)
-                          ? const Icon(
-                              Icons.add,
-                              color: AppTheme.buttonColor,
-                            )
-                          : const Icon(
-                              Icons.remove,
-                              color: AppTheme.buttonColor,
-                            ),
-                      onExpansionChanged: (value) {
-                        setState(() {
-                          senderExpansion = value;
-                        });
-                      },
-                      title: Text(
-                        "What is agarwood? ",
-                        style: GoogleFonts.poppins(
-                          color: const Color(0xFF1D1D1D),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                        ),
-                      ),
-                      children: <Widget>[
-                        ListTile(
-                          visualDensity: VisualDensity.compact,
-                          dense: true,
-                          iconColor: const Color(0xFF07B6CA),
-                          subtitle: Text(
-                            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley..",
+                    child: ListTileTheme(
+                      contentPadding: EdgeInsets.all(0),
+                      dense: true,
+                      horizontalTitleGap: 0.0,
+                      minLeadingWidth: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0,right: 8),
+                        child: ExpansionTile(
+                          trailing: (senderExpansion == false)
+                              ? const Icon(
+                                  Icons.add,
+                                  color: AppTheme.buttonColor,
+                                )
+                              : const Icon(
+                                  Icons.remove,
+                                  color: AppTheme.buttonColor,
+                                ),
+                          onExpansionChanged: (value) {
+                            setState(() {
+                              senderExpansion = value;
+                            });
+                          },
+                          title: Text(
+                            "What is agarwood? ",
                             style: GoogleFonts.poppins(
-                              color: const Color(0xFFBBBBBB),
+                              color: const Color(0xFF1D1D1D),
                               fontWeight: FontWeight.w400,
-                              fontSize: 13,
+                              fontSize: 16,
                             ),
                           ),
+                          children: <Widget>[
+                            ListTile(
+                              visualDensity: VisualDensity.compact,
+                              dense: true,
+                              iconColor: const Color(0xFF07B6CA),
+                              subtitle: Text(
+                                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley..",
+                                style: GoogleFonts.poppins(
+                                  color: const Color(0xFFBBBBBB),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

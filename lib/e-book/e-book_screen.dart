@@ -91,7 +91,7 @@ class _EBookScreenState extends State<EBookScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
         child: DefaultTabController(
-          length: 3,
+          length: 2,
           child: Column(
             children: [
               Text(
@@ -104,7 +104,7 @@ class _EBookScreenState extends State<EBookScreen> {
               ),
               TabBar(
                 indicatorPadding:
-                EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                EdgeInsets.symmetric(horizontal: 35, vertical: 6),
                 indicator: const BoxDecoration(
                     color: AppTheme.buttonColor,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -123,9 +123,7 @@ class _EBookScreenState extends State<EBookScreen> {
                   Tab(
                     text: 'Voice',
                   ),
-                  Tab(
-                    text: 'Digital reader',
-                  )
+
                 ],
                 indicatorSize: TabBarIndicatorSize.tab,
               ),
@@ -174,31 +172,7 @@ class _EBookScreenState extends State<EBookScreen> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed(MyRouters.singleCategory);
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              height: size.height * .2,
-                              'assets/images/voicebook.png',
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Eustasy 165 days',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+
                   ],
                 ),
               ),

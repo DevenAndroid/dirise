@@ -41,6 +41,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         preferredSize: Size.fromHeight(60),
         child: CommonAppBar(
           titleText: 'Categories',
+
         ),
       ),
       body: Obx(() {
@@ -74,7 +75,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: categories.length,
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, mainAxisExtent: 80),
+                                crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 10, mainAxisExtent: 80),
                             itemBuilder: (BuildContext context, int index) {
                               return InkWell(
                                 onTap: () {

@@ -40,7 +40,7 @@ class CommonAppBar extends StatelessWidget {
                 const Text(
                   ("0"),
                   style: TextStyle(color: Colors.white, fontSize: 22),
-                ),
+                )
               ],
             ),
           ),

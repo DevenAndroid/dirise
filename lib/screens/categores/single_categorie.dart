@@ -41,10 +41,10 @@ class _SingleCategoriesState extends State<SingleCategories> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                const Image(image: AssetImage('assets/images/storybooks.png')),
+              SizedBox(height: 3,),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: const Image(image: AssetImage('assets/images/storybooks.png'))),
                 const SizedBox(
                   height: 20,
                 ),

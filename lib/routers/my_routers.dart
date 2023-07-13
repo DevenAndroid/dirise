@@ -40,6 +40,7 @@ import '../screens/faqs_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/my_orders_screen.dart';
 import '../screens/officefurniture_sceen/officefurniture_screen.dart';
+import '../screens/privacy_policy_screen.dart';
 import '../screens/selectd_order_screen.dart';
 import '../splash.dart';
 import '../vendorflow/add_money_screen.dart';
@@ -85,6 +86,7 @@ class MyRouters {
   static var orderDetails = "/orderDetails";
   static var returnPolicy = "/returnPolicy";
   static var aboutUs = "/aboutUs";
+  static var privacyPolicy = "/privacyPolicy";
 
   static var route = [
     GetPage(name: '/', page: () => const BottomNavbar()),
@@ -93,6 +95,7 @@ class MyRouters {
     GetPage(name: '/createAccScreen', page: () => const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () => const ForgetPassword()),
     GetPage(name: BottomNavbar.route, page: () => const BottomNavbar()),
+    GetPage(name: PrivacyPolicy.route, page: () => const PrivacyPolicy()),
     GetPage(name: '/whishlistScreen', page: () => const Whishlist()),
     GetPage(name: '/profileScreen', page: () => const Profile()),
     GetPage(name: OtpScreen.route, page: () => const OtpScreen()),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_colour.dart';
 
 class OfficeFurniture extends StatefulWidget {
@@ -18,65 +19,27 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Office Furniture",
-              style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 19),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              alignment: Alignment.center,
-              height: 42,
-              width: 70,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: AppTheme.buttonColor),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image(
-                    height: 25,
-                    image: AssetImage(
-                      'assets/icons/whishlist.png',
-                    ),
-                    color: Colors.white,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '0',
-                    style: TextStyle(color: Colors.white, fontSize: 23),
-                  ),
-                ],
-              ),
-            ),
-          ],
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: CommonAppBar(
+          titleText: 'Office Furniture',
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Container(
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(21)),
                 child: Image.asset('assets/images/officebannerimage.png'),
               ),
             ),
             const SizedBox(
-              height: 5,
+              height: 13,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Container(
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: const Color(0xffF5F5F5)),
                   child: Row(
@@ -101,7 +64,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
               height: 15,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Container(
                 height: 70,
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: const Color(0xffF5F5F5)),

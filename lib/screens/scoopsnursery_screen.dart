@@ -31,7 +31,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
-                    'Schoops & Nurseries',
+                    'Schools & Nurseries',
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   const Spacer(),

@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(150),
+          preferredSize: const Size.fromHeight(155),
           child: Container(
             color: AppTheme.buttonColor,
             child: SafeArea(
@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 18, top: 5),
                             child: Text(
-                              'Driver order to',
+                              'Deliver order to',
                               style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
                             ),
                           ),
@@ -99,6 +99,7 @@ class _HomePageState extends State<HomePage> {
                       cartWidget(),
                     ],
                   ),
+                  SizedBox(height: 10,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: TextField(
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.all(Radius.circular(8)),
                               borderSide: BorderSide(color: AppTheme.buttonColor)),
                           fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.only(left: 13),
+                          contentPadding:  EdgeInsets.all(15),
                           hintText: 'what are you looking for?',
                           hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                     ),
@@ -304,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Container(
-                    height: 250,
+                    height: 220,
                     margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                     child: ScrollablePositionedList.builder(
                         itemCount: homeController.trendingModel.value.product!.product!.length,
@@ -338,21 +339,21 @@ class _HomePageState extends State<HomePage> {
                                         fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                                   ),
                                   const SizedBox(
-                                    height: 6,
+                                    height: 3,
                                   ),
                                   Text(
                                     homeController.trendingModel.value.product!.product![index].pname.toString(),
                                     style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                                   ),
                                   const SizedBox(
-                                    height: 6,
+                                    height: 3,
                                   ),
                                   Text(
                                     '${homeController.trendingModel.value.product!.product![index].inStock.toString()} pieces',
                                     style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 17),
                                   ),
                                   const SizedBox(
-                                    height: 6,
+                                    height: 3,
                                   ),
                                   Row(
                                     children: [
@@ -416,7 +417,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   if (homeController.popularProdModal.value.product != null)
                     Container(
-                      height: 250,
+                      height: 230,
                       margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                       child: ScrollablePositionedList.builder(
                           itemCount: homeController.popularProdModal.value.product!.product!.length,
@@ -451,22 +452,22 @@ class _HomePageState extends State<HomePage> {
                                           fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                                     ),
                                     const SizedBox(
-                                      height: 6,
+                                      height: 3,
                                     ),
                                     Text(
                                       homeController.popularProdModal.value.product!.product![index].pname.toString(),
                                       style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                                     ),
                                     const SizedBox(
-                                      height: 6,
+                                      height: 3,
                                     ),
                                     Text(
                                       '${homeController.popularProdModal.value.product!.product![index].inStock.toString()} pieces',
                                       style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 17),
                                     ),
-                                    const SizedBox(
-                                      height: 6,
-                                    ),
+                                const SizedBox(
+                                  height: 3,
+                                ),
                                     Row(
                                       children: [
                                         Text(
@@ -580,12 +581,13 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             alignment: Alignment.center,
             height: 40,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(
-                  width: 6,
+                  width: 10,
                 ),
                 const Image(
                   height: 25,
@@ -594,7 +596,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 5,
                 ),
                 cartController.apiLoaded
                     ? Text(
@@ -603,7 +605,7 @@ class _HomePageState extends State<HomePage> {
                       )
                     : const CupertinoActivityIndicator(),
                 const SizedBox(
-                  width: 8,
+                  width: 10,
                 ),
               ],
             ),
