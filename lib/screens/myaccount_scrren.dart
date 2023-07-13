@@ -17,7 +17,7 @@ class MyAccountScreen extends StatefulWidget {
 enum SingingCharacter { lafayette, jefferson }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
-  SingingCharacter? _character = SingingCharacter.lafayette;
+  final SingingCharacter? _character = SingingCharacter.lafayette;
   RxString language = "".obs;
 
   @override

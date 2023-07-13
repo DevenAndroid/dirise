@@ -110,7 +110,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                 cart.featuredImage.toString(),
                                 height: size.height * .12,
                                 width: size.height * .12,
-                                errorBuilder: (_,__,___)=> SizedBox.shrink(),
+                                errorBuilder: (_,__,___)=> const SizedBox.shrink(),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -196,7 +196,7 @@ class _BagsScreenState extends State<BagsScreen> {
                           },
                           child: Text("Checkout",
                               style:
-                              GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
+                              GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white))),
                       const SizedBox(
                         width: 10,
                       ),

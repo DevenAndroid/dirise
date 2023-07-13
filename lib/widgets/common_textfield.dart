@@ -24,9 +24,9 @@ class CommonTextfield extends StatefulWidget {
   final Widget? suffixIcon;
   final Widget? prefix;
 
-  List<TextInputFormatter>? inputFormatters = [];
+  final List<TextInputFormatter>? inputFormatters;
 
-  CommonTextfield({
+  const CommonTextfield({super.key,
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
@@ -55,7 +55,6 @@ class CommonTextfield extends StatefulWidget {
 class _CommonTextfieldState extends State<CommonTextfield> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return TextFormField(
         style: const TextStyle(),
         autofocus: false,
@@ -79,7 +78,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
             fontSize: 25,
           ),
           counter: const Offstage(),
-          contentPadding: const EdgeInsets.all(15),
+          contentPadding: const EdgeInsets.all(14),
           errorMaxLines: 2,
           enabled: widget.enabled,
           //   fillColor: Colors.transparent,

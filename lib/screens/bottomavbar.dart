@@ -1,12 +1,8 @@
 import 'package:dirise/screens/home_pages/homepage_screen.dart';
-
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controller/homepage_controller.dart';
-import '../e-book/ebooklogin_screen.dart';
 import '../widgets/common_colour.dart';
 import 'categores/categories_screen.dart';
 import 'myaccount_scrren.dart';
@@ -26,7 +22,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const HomePage(),
     const CategoriesScreen(),
     const Whishlist(),
-    const EbookAccount(),
+    const MyAccountScreen(),
   ];
 
   @override
@@ -35,7 +31,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
       return Scaffold(
         body: pages.elementAt(bottomController.pageIndex.value),
         extendBody: true,
-        // extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
         bottomNavigationBar: buildMyNavBar(context),
       );
@@ -97,7 +92,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                         color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
                                 : const Text(
-                                    "  Home ",
+                                    " Home ",
                                     style: TextStyle(
                                         color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
@@ -178,12 +173,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                   ),
                             bottomController.pageIndex.value == 2
                                 ? const Text(
-                                    "Favorite ",
+                                    " Favorite ",
                                     style: TextStyle(
                                         color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
                                 : const Text(
-                                    "  Favorite ",
+                                    " Favorite ",
                                     style: TextStyle(
                                         color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )

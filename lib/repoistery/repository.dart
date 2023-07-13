@@ -58,6 +58,7 @@ class Repositories {
         HttpHeaders.acceptHeader: 'application/json',
         if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
+      mapData ??= {};
 
       if (kDebugMode) {
         log("API Url.....  $url");
@@ -66,7 +67,6 @@ class Repositories {
           log("API mapData.....  $headers");
         }
       }
-      mapData ??= {};
 
       http.Response response = await http.post(Uri.parse(url), body: jsonEncode(mapData), headers: headers);
 
