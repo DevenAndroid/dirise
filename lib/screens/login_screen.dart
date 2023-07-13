@@ -78,7 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
         LoginModal response = LoginModal.fromJson(jsonDecode(value));
         repositories.saveLoginDetails(jsonEncode(response));
         showToast(response.message.toString());
-        Get.offAllNamed(BottomNavbar.route);
+        if(response.status == true) {
+          Get.offAllNamed(BottomNavbar.route);
+        }
       });
     }
   }

@@ -70,7 +70,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     ),
                     profileController.userLoggedIn
                         ? Image.network(
-                            profileController.model.user!.profileImage.toString(),
+                      profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
                             errorBuilder: (_, __, ___) => const SizedBox(
                               height: 60,
                               width: 60,
@@ -82,7 +82,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             width: 60,
                           ),
                     Text(
-                      profileController.userLoggedIn ? profileController.model.user!.name : "Guest User",
+                      profileController.userLoggedIn ? profileController.apiLoaded ? profileController.model.user!.name : "" : "Guest User",
                       style: GoogleFonts.poppins(
                           color: const Color(0xff000000), fontSize: 16, fontWeight: FontWeight.w400),
                     ),
@@ -606,6 +606,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 } else {
                   Get.toNamed(LoginScreen.route);
                 }
+                profileController.userLoggedIn = false;
+                profileController.updateUI();
                 profileController.getDataProfile();
               },
               child: Row(
