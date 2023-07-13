@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controller/profile_controller.dart';
 import '../routers/my_routers.dart';
 import '../vendorflow/add_money_screen.dart';
 import '../vendorflow/all_product_screen.dart';
@@ -26,10 +27,8 @@ class MyAccountScreen extends StatefulWidget {
 enum SingingCharacter { lafayette, jefferson }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
-  final SingingCharacter? _character = SingingCharacter.lafayette;
   RxString language = "".obs;
   final RxBool _isValue = false.obs;
-  final RxBool _isValue1 = false.obs;
   var vendor = ['Dashboard', 'Order', 'Products', 'Store open time', 'Vendor Information', 'Bank Details', 'Withdraw'];
   var vendorRoutes = [
     DashboardScreen.dashboardScreen,
@@ -41,9 +40,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     WithdrawMoney.withdrawMoney,
   ];
 
+  final profileController = Get.put(ProfileController());
+
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -53,28 +57,43 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           child: SafeArea(
             child: Container(
               height: 194,
-              width: MediaQuery.sizeOf(context).width,
+              width: MediaQuery
+                  .sizeOf(context)
+                  .width,
               color: const Color(0xffEBF1F4),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Account",
-                    style:
-                        GoogleFonts.poppins(color: const Color(0xFF014E70), fontSize: 24, fontWeight: FontWeight.w600),
-                  ),
-                  Image.asset(
-                    'assets/images/myaccount.png',
-                    height: 60,
-                  ),
-                  Text(
-                    "Hi Bader",
-                    style:
-                        GoogleFonts.poppins(color: const Color(0xff000000), fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
+              child: Obx(() {
+                if(profileController.refreshInt.value > 0){}
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Account",
+                      style:
+                      GoogleFonts.poppins(color: const Color(0xFF014E70), fontSize: 24, fontWeight: FontWeight.w600),
+                    ),
+                    profileController.userLoggedIn ?
+                        Image.network(
+                            profileController.model.user!.profileImage.toString(),
+                          errorBuilder: (_,__,___)=> SizedBox(
+                            height: 60,
+                            width: 60,
+                          ),
+                        ):
+                    Image.asset(
+                      'assets/images/myaccount.png',
+                      height: 60,
+                      width: 60,
+                    ),
+                    Text(
+                      profileController.userLoggedIn ?
+                      profileController.model.user!.name : "Guest User",
+                      style:
+                      GoogleFonts.poppins(color: const Color(0xff000000), fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                );
+              }),
             ),
           ),
         ),
@@ -99,7 +118,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "Profile",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -132,7 +151,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "E Books",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -165,7 +184,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "Orders",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -198,7 +217,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "My Calender",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -231,7 +250,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "Faq's",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -264,7 +283,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "Digital Pdf Reader",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -317,30 +336,31 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             ),
             _isValue.value == true
                 ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: List.generate(
-                        vendor.length,
-                        (index) => GestureDetector(
-                              onTap: () {
-                                Get.toNamed(vendorRoutes[index]);
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: AddSize.size5),
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 40,
-                                    ),
-                                    Text(
-                                      vendor[index],
-                                      style: TextStyle(
-                                          fontSize: 16, fontWeight: FontWeight.w400, color: Colors.grey.shade500),
-                                    )
-                                  ],
-                                ),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(
+                  vendor.length,
+                      (index) =>
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(vendorRoutes[index]);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: AddSize.size5),
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 40,
                               ),
-                            )),
-                  )
+                              Text(
+                                vendor[index],
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w400, color: Colors.grey.shade500),
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+            )
                 : SizedBox(),
             const Divider(
               thickness: 1,
@@ -356,7 +376,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius:
-                                  BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                              BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                           child: Obx(() {
                             return Center(
                               child: Column(
@@ -430,7 +450,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                       padding: const EdgeInsets.only(left: 20, right: 20),
                                       child: Container(
                                         height: 56,
-                                        width: MediaQuery.sizeOf(context).width,
+                                        width: MediaQuery
+                                            .sizeOf(context)
+                                            .width,
                                         color: const Color(0xff014E70),
                                         child: const Center(
                                           child: Text(
@@ -457,7 +479,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "Language",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -478,7 +500,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(MyRouters.aboutUs);
               },
               child: Row(
@@ -489,7 +511,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   ),
                   Text(
                     "About Us",
-                    style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -522,7 +545,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "Terms Of Conditions",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -544,7 +567,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             ),
             GestureDetector(
               onTap: () {
-
                 Get.toNamed(MyRouters.returnPolicy);
               },
               child: Row(
@@ -556,7 +578,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "Return policy",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -591,7 +613,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Text(
                     "Sign Out",
                     style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(

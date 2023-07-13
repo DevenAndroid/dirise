@@ -4,7 +4,6 @@ import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../controller/profile_controller.dart';
 
 class Profile extends StatefulWidget {
@@ -19,7 +18,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     profileController.getDataProfile();
   }
@@ -46,7 +44,8 @@ class _ProfileState extends State<Profile> {
         ),
       ),
       body: Obx(() {
-        return profileController.statusOfProfile.value.isSuccess
+        if(profileController.refreshInt.value > 0){}
+        return profileController.apiLoaded
             ? SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
@@ -66,7 +65,7 @@ class _ProfileState extends State<Profile> {
                               width: 120,
                               height: 120,
                               fit: BoxFit.cover,
-                              imageUrl: profileController.model.value.user!.profileImage.toString(),
+                              imageUrl: profileController.model.user!.profileImage.toString(),
                               placeholder: (context, url) => const SizedBox(),
                               errorWidget: (context, url, error) => const SizedBox(),
                             ),
@@ -104,8 +103,7 @@ class _ProfileState extends State<Profile> {
                                 height: 3,
                               ),
                               Text(
-                               profileController.model.value.user!.name.toString(),
-
+                               profileController.model.user!.name.toString(),
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -153,7 +151,7 @@ class _ProfileState extends State<Profile> {
                                 height: 3,
                               ),
                               Text(
-                                profileController.model.value.user!.email.toString(),
+                                profileController.model.user!.email.toString(),
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -201,7 +199,7 @@ class _ProfileState extends State<Profile> {
                                 height: 3,
                               ),
                               Text(
-                                profileController.model.value.user!.phone.toString(),
+                                profileController.model.user!.phone.toString(),
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -285,10 +283,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               )
-            : profileController.statusOfProfile.value.isError
-                ? SizedBox()
-                : const CircularProgressIndicator();
-        ;
+            : const Center(child: CircularProgressIndicator());
       }),
     );
   }
