@@ -78,7 +78,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
             fontSize: 25,
           ),
           counter: const Offstage(),
-          contentPadding: const EdgeInsets.all(14),
+
           errorMaxLines: 2,
           enabled: widget.enabled,
           //   fillColor: Colors.transparent,

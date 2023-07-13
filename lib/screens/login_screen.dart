@@ -154,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Get.toNamed(MyRouters.forgetPassword);
                       },
                       child: Text(
-                        'Forget Password',
+                        'Forgot Password',
                         style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500,color: AppTheme.buttonColor),
                       ),
                     ),
@@ -264,7 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: 'Already have an Account?',
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
-                      TextSpan(text: 'Sign Up',style: GoogleFonts.poppins(fontWeight: FontWeight.bold,color: AppTheme.buttonColor,decoration: TextDecoration.underline),
+                      TextSpan(text: 'Sign Up',style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: AppTheme.buttonColor,decoration: TextDecoration.underline),
 
                           recognizer: TapGestureRecognizer()..onTap = () {
                         Get.toNamed(MyRouters.createAccScreen);

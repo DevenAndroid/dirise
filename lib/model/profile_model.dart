@@ -23,14 +23,14 @@ class profileModel {
 }
 
 class User {
-  int? id;
-  String? name;
-  String? firstName;
-  String? lastName;
-  String? email;
-  Null? dob;
-  Null? countryCode;
-  String? phone;
+  dynamic id;
+  dynamic name;
+  dynamic firstName;
+  dynamic lastName;
+  dynamic email;
+  dynamic dob;
+  dynamic countryCode;
+  dynamic phone;
   dynamic description;
   dynamic categoryId;
   dynamic bio;
@@ -39,24 +39,24 @@ class User {
   dynamic deviceId;
   dynamic deviceToken;
   dynamic emailVerifiedAt;
-  String? newSocialUser;
-  String? customerId;
-  Null? defaultCard;
-  String? userWallet;
-  int? isMobileVerified;
-  int? otpVerified;
-  int? isApproved;
-  int? vendorWallet;
-  String? profileImage;
-  Null? bannerProfile;
-  Null? categoryImage;
-  dynamic? address;
-  int?   block;
-  Null? stripeId;
-  String? currency;
-  String? createdAt;
-  String? updatedAt;
-  Null?  deletedAt;
+  dynamic newSocialUser;
+  dynamic customerId;
+  dynamic defaultCard;
+  dynamic userWallet;
+  dynamic isMobileVerified;
+  dynamic otpVerified;
+  dynamic isApproved;
+  dynamic vendorWallet;
+  dynamic profileImage;
+  dynamic bannerProfile;
+  dynamic categoryImage;
+  dynamic address;
+  dynamic   block;
+  dynamic stripeId;
+  dynamic currency;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic  deletedAt;
 
   User(
       {this.id,
