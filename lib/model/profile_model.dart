@@ -1,11 +1,11 @@
-class profileModel {
+class ProfileModel {
   bool? status;
   String? message;
   User? user;
 
-  profileModel({this.status, this.message, this.user});
+  ProfileModel({this.status, this.message, this.user});
 
-  profileModel.fromJson(Map<String, dynamic> json) {
+  ProfileModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
