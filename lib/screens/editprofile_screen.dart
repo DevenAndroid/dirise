@@ -1,26 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/model/common_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-
-// import 'package:image_picker/image_picker.dart';
-
 import '../controller/profile_controller.dart';
-import '../model/profile_model.dart';
 import '../repoistery/repository.dart';
-import '../repoistery/update_profile_repo.dart';
 import '../utils/ApiConstant.dart';
-import '../utils/helper.dart';
 import '../widgets/common_colour.dart';
 import '../widgets/common_textfield.dart';
-import '../widgets/dimension_screen.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);

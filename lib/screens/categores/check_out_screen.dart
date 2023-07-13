@@ -53,6 +53,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       cartController.updateUI();
     });
   }
+  RxBool showValidation = false.obs;
 
   @override
   void initState() {
@@ -376,41 +377,55 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 height: 15,
               ),
               if (cartController.addressLoaded) ...[
-                InkWell(
-                  onTap: () {
-                    bottomSheetChangeAddress();
-                  },
-                  child: DottedBorder(
-                    color: const Color(0xff014E70),
-                    strokeWidth: 1.2,
-                    dashPattern: const [6, 3, 0, 3],
-                    child: Container(
-                      // height: 50,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      width: size.width,
-                      alignment: Alignment.center,
-                      child: selectedAddress.id != null
-                          ? Text(selectedAddress.getShortAddress,
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))
-                          : Text("Select Address ",
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                    ),
-                  ),
+                Row(
+                  children: [
+                    Flexible(
+                        child:
+                        Text("Delivery to", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+                    if (!cartController.addressLoaded)
+                      const Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: CupertinoActivityIndicator(),
+                      )
+                  ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                if (selectedAddress.id != null)
-                  InkWell(
-                      onTap: () {
-                        bottomSheetChangeAddress();
-                      },
-                      child: Align(
-                          alignment: Alignment.topRight,
-                          child: Text("Change Address", style: GoogleFonts.poppins(fontSize: 14)))),
-                const SizedBox(
-                  height: 10,
-                ),
+
+
+                // InkWell(
+                //   onTap: () {
+                //     bottomSheetChangeAddress();
+                //   },
+                //   child: DottedBorder(
+                //     color: const Color(0xff014E70),
+                //     strokeWidth: 1.2,
+                //     dashPattern: const [6, 3, 0, 3],
+                //     child: Container(
+                //       // height: 50,
+                //       padding: const EdgeInsets.symmetric(vertical: 8),
+                //       width: size.width,
+                //       alignment: Alignment.center,
+                //       child: selectedAddress.id != null
+                //           ? Text(selectedAddress.getShortAddress,
+                //           style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))
+                //           : Text("Select Address ",
+                //           style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 15,
+                // ),
+                // if (selectedAddress.id != null)
+                //   InkWell(
+                //       onTap: () {
+                //         bottomSheetChangeAddress();
+                //       },
+                //       child: Align(
+                //           alignment: Alignment.topRight,
+                //           child: Text("Change Address", style: GoogleFonts.poppins(fontSize: 14)))),
+                // const SizedBox(
+                //   height: 10,
+                // ),
               ],
             ],
           );
