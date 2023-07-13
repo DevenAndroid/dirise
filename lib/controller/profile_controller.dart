@@ -39,12 +39,18 @@ class ProfileController extends GetxController {
     });
   }
 
-  getDataProfile() {
-    repositories.postApi(url: ApiUrls.userProfile).then((value) {
-      model = ProfileModel.fromJson(jsonDecode(value));
-      apiLoaded = true;
+  Future getDataProfile() async {
+    await checkUserLoggedIn();
+    if(userLoggedIn) {
+      await repositories.postApi(url: ApiUrls.userProfile).then((value) {
+        model = ProfileModel.fromJson(jsonDecode(value));
+        apiLoaded = true;
+        updateUI();
+      });
+    } else {
+      model = ProfileModel();
       updateUI();
-    });
+    }
   }
 
 }

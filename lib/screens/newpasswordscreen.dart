@@ -14,6 +14,7 @@ import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
 import '../widgets/common_button.dart';
 import '../widgets/common_textfield.dart';
+import 'bottomavbar.dart';
 import 'login_screen.dart';
 
 class NewPassword extends StatefulWidget {
@@ -30,7 +31,6 @@ class _NewPasswordState extends State<NewPassword> {
   String email = "";
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     email = Get.arguments[0];
   }
@@ -115,7 +115,8 @@ class _NewPasswordState extends State<NewPassword> {
                             .then((value) {
                           if (value.status == true) {
                             showToast(value.message.toString());
-                            Get.offNamed(LoginScreen.route);
+                            Get.offNamed(BottomNavbar.route);
+                            Get.toNamed(LoginScreen.route);
                           } else {
                             showToast(value.message.toString());
                           }

@@ -39,7 +39,7 @@ class _CreateAccState extends State<CreateAcc> {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
-        Get.toNamed(OtpScreen.route, arguments: [_emailController.text, true]);
+        Get.toNamed(OtpScreen.route, arguments: [_emailController.text, true, map]);
       }
     });
   }
@@ -49,7 +49,7 @@ class _CreateAccState extends State<CreateAcc> {
     super.dispose();
     _nameController.dispose();
     _mobileNumberController.dispose();
-    // _emailController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
   }
 
@@ -102,12 +102,66 @@ class _CreateAccState extends State<CreateAcc> {
                   height: size.height * .01,
                 ),
                 CommonTextfield(
-                  controller:_mobileNumberController,
+                  controller: _emailController,
                   obSecure: false,
-                  hintText: 'Phone Number',
+                  hintText: 'Email',
                   validator: MultiValidator([
                     RequiredValidator(errorText: 'email is required'),
+                    EmailValidator(errorText: 'enter valid email address'),
                   ]),
+                ),
+                SizedBox(
+                  height: size.height * .01,
+                ),
+                CommonTextfield(
+                  controller: _passwordController,
+                  obSecure: false,
+                  hintText: 'Password',
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: 'password is required'),
+                    MinLengthValidator(8, errorText: 'Password must be at least 8 digits long')
+                  ]),
+                ),
+                SizedBox(
+                  height: size.height * .01,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 56,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: AppTheme.secondaryColor), borderRadius: BorderRadius.circular(8)),
+                        child: const Center(
+                          child: CountryCodePicker(
+                            onChanged: print,
+                            initialSelection: 'IT',
+                            favorite: [' +39', 'FR'],
+                            showCountryOnly: false,
+                            showOnlyCountryWhenClosed: false,
+                            alignLeft: false,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Flexible(
+                        flex: 3,
+                        child: CommonTextfield(
+                          controller: _mobileNumberController,
+                          obSecure: false,
+                          hintText: '987-654-3210',
+                          keyboardType: TextInputType.phone,
+                          validator: MultiValidator([
+                            RequiredValidator(errorText: 'phone no is required'),
+                            MinLengthValidator(10, errorText: 'phone no must be at least 10 digits long')
+                          ]),
+                        )),
+                  ],
                 ),
                 SizedBox(
                   height: size.height * .03,
