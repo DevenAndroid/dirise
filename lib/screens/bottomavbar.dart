@@ -56,7 +56,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Flexible(
                     child: Padding(
@@ -136,7 +136,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                         color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
                                 : const Text(
-                                    "  Categories ",
+                                    " Categories ",
                                     style: TextStyle(
                                         color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
@@ -220,7 +220,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                       TextStyle(color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
                                 )
                               : const Text(
-                                  "My Account",
+                                  "My Account ",
                                   style: TextStyle(
                                       color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
                                 )
