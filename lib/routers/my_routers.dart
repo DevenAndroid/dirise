@@ -87,7 +87,8 @@ class MyRouters {
   static var aboutUs = "/aboutUs";
 
   static var route = [
-    GetPage(name: '/', page: () => const Splash()),
+    GetPage(name: '/', page: () => const BottomNavbar()),
+    // GetPage(name: '/', page: () => const Splash()),
     GetPage(name: LoginScreen.route, page: () => const LoginScreen()),
     GetPage(name: '/createAccScreen', page: () => const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () => const ForgetPassword()),

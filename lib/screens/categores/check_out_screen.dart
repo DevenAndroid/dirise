@@ -54,50 +54,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
   }
 
-  updateAddressApi({
-    required String firstName,
-    required String lastName,
-    required String phone,
-    required String alternatePhone,
-    required String address,
-    required String address2,
-    required String city,
-    required String country,
-    required String state,
-    required String zipCode,
-    required String landmark,
-    required String title,
-    id}) {
-
-    Map<String, dynamic> map = {};
-
-    if (id != null) {
-      map["id"] = id;
-    }
-    map["first_name"] = firstName;
-    map["last_name"] = lastName;
-    map["phone"] = phone;
-    map["alternate_phone"] = alternatePhone;
-    map["address"] = address;
-    map["address2"] = address2;
-    map["city"] = city;
-    map["address_type"] = "shipping";
-    map["country"] = country;
-    map["state"] = state;
-    map["zip_code"] = zipCode;
-    map["landmark"] = landmark;
-    map["title"] = title;
-
-    cartController.repositories.postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map).then((value) {
-      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
-      showToast(response.message.toString());
-      if(response.status == true) {
-        cartController.getAddress();
-        Get.back();
-      }
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -664,7 +620,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
                           if(formKey.currentState!.validate()) {
-                            updateAddressApi(
+                            cartController.updateAddressApi(
+                              context: context,
                                 firstName: firstNameController.text.trim(),
                                 title: titleController.text.trim(),
                                 lastName: lastNameController.text.trim(),

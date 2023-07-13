@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
           return homeController.trendingModel.value.status == true
               ? SingleChildScrollView(
               child: Column(children: [
-                if (homeController.homeModal.value.home != null)
+                homeController.homeModal.value.home != null ?
                   Padding(
                       padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                       child: SizedBox(
@@ -172,6 +172,35 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                           itemCount: homeController.homeModal.value.home!.slider!.length,
+                          pagination: const SwiperPagination(),
+                          control: const SwiperControl(size: 0), // remove arrows
+                        ),
+                      )) :
+                  Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                      child: SizedBox(
+                        height: size.height * 0.22,
+                        child: Swiper(
+                          autoplay: true,
+                          outer: false,
+                          autoplayDelay: 5000,
+                          autoplayDisableOnInteraction: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: CachedNetworkImage(
+                                      imageUrl: "",
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) => const SizedBox(),
+                                      errorWidget: (context, url, error) => const SizedBox()),
+                                ),
+                              ),
+                            ).toShimmer;
+                          },
+                          itemCount: 4,
                           pagination: const SwiperPagination(),
                           control: const SwiperControl(size: 0), // remove arrows
                         ),

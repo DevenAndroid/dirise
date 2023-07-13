@@ -9,6 +9,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shimmer/shimmer.dart';
 import '../widgets/common_colour.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -241,5 +242,15 @@ extension ConvertToNum on String{
 extension GetTotal on List<num>{
   num get getTotal{
     return sum;
+  }
+}
+
+extension ToShimmer on Widget{
+  Widget get toShimmer{
+    return Shimmer.fromColors(
+      baseColor: Colors.grey,
+      highlightColor: Colors.white,
+      child: this,
+    );
   }
 }
