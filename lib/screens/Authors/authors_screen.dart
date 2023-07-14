@@ -50,7 +50,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                         context: context,
                         builder: (context) {
                           return SizedBox(
-                            height: size.height*.77,
+                            height: size.height*.7,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,9 +59,9 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 26, top: 15, bottom: 10),
+                                      padding: const EdgeInsets.only(left: 24, top: 25, bottom: 10),
                                       child: Text(
-                                        "Country",
+                                        "Language",
                                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
                                       ),
                                     ),
@@ -74,23 +74,26 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                                   children: [
                                                     Theme(
                                                       data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
-                                                      child: CheckboxListTile(
-                                                        controlAffinity: ListTileControlAffinity.leading,
-                                                        dense: true,
-                                                        visualDensity: VisualDensity.compact,
-                                                        activeColor: const Color(0xff014E70),
-                                                        value: status.value,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            status.value = value!;
-                                                          });
-                                                        },
-                                                        title: Text(
-                                                          data[index],
-                                                          style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w500,
-                                                            color: Colors.black,
-                                                            fontSize: 16,
+                                                      child: ListTileTheme(
+                                                        horizontalTitleGap: 5,
+                                                        child: CheckboxListTile(
+                                                          controlAffinity: ListTileControlAffinity.leading,
+                                                          dense: true,
+                                                          visualDensity: VisualDensity.compact,
+                                                          activeColor: const Color(0xff014E70),
+                                                          value: status.value,
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              status.value = value!;
+                                                            });
+                                                          },
+                                                          title: Text(
+                                                            data[index],
+                                                            style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black,
+                                                              fontSize: 16,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -154,7 +157,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                             Padding(
                               padding: const EdgeInsets.only(left: 8, right: 10),
                               child: Text(
-                                "Country",
+                                "Topic",
                                 style: GoogleFonts.poppins(
                                     fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                               ),

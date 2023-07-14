@@ -36,7 +36,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bank Details',
+        title: const Text('Bank Details',
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w600,
@@ -58,10 +58,10 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
       ),
       // appBar: backAppBar(title: 'Bank Details', context: context),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             // addHeight(50),
@@ -75,8 +75,8 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(11), boxShadow: [
                   BoxShadow(
-                    color: Color(0xFF5F5F5F).withOpacity(0.2),
-                    offset: Offset(0.0, 0.5),
+                    color: const Color(0xFF5F5F5F).withOpacity(0.2),
+                    offset: const Offset(0.0, 0.5),
                     blurRadius: 5,
                   ),
                 ]),
@@ -86,9 +86,9 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                       height: 50,
                       width: Get.width,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFE2E2E2), width: 1),
+                        border: Border.all(color: const Color(0xFFE2E2E2), width: 1),
                         borderRadius: BorderRadius.circular(6),
-                        color: Color(0xFFF9F9F9),
+                        color: const Color(0xFFF9F9F9),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: Padding(
@@ -106,7 +106,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                                   child: Text(
                                     items,
                                     style: GoogleFonts.raleway(
-                                        fontSize: 13, fontWeight: FontWeight.w400, color: Color(0xFF463C3E)),
+                                        fontSize: 13, fontWeight: FontWeight.w400, color: const Color(0xFF463C3E)),
                                   ),
                                 ),
                               );
@@ -121,7 +121,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                       ),
                     ),
                     // addHeight(15),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     CommonTextfield(
@@ -129,7 +129,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                       hintText: 'IBAN',
                       onTap: () {},
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     CommonTextfield(
@@ -137,7 +137,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                       onTap: () {},
                       obSecure: true,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     CommonTextfield(
@@ -145,7 +145,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                       hintText: 'BIC/SWIFT code',
                       onTap: () {},
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     CustomOutlineButton(

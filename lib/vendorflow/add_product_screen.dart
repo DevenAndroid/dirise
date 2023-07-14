@@ -162,32 +162,32 @@ class _AddProductState extends State<AddProduct> {
                                         height: 58,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(10.0),
-                                            color: Color(0xffE2E2E2).withOpacity(.4)),
+                                            color: const Color(0xffE2E2E2).withOpacity(.4)),
                                         child: Row(
                                           children: [
                                             Expanded(
                                               child: DropdownButtonFormField<String>(
-                                                icon: Icon(Icons.keyboard_arrow_down),
+                                                icon: const Icon(Icons.keyboard_arrow_down),
                                                 iconSize: 30,
-                                                iconDisabledColor: Color(0xff97949A),
-                                                iconEnabledColor: Color(0xff97949A),
+                                                iconDisabledColor: const Color(0xff97949A),
+                                                iconEnabledColor: const Color(0xff97949A),
                                                 value: _ratingController,
-                                                decoration: InputDecoration(
+                                                decoration: const InputDecoration(
                                                   border: InputBorder.none,
-                                                  focusedErrorBorder: const OutlineInputBorder(
+                                                  focusedErrorBorder: OutlineInputBorder(
                                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                                       borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                                  errorBorder: const OutlineInputBorder(
+                                                  errorBorder: OutlineInputBorder(
                                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                                       borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                                                  focusedBorder: const OutlineInputBorder(
+                                                  focusedBorder: OutlineInputBorder(
                                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                                       borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                                  disabledBorder: const OutlineInputBorder(
+                                                  disabledBorder: OutlineInputBorder(
                                                     borderRadius: BorderRadius.all(Radius.circular(8)),
                                                     borderSide: BorderSide(color: AppTheme.secondaryColor),
                                                   ),
-                                                  enabledBorder: const OutlineInputBorder(
+                                                  enabledBorder: OutlineInputBorder(
                                                     borderRadius: BorderRadius.all(Radius.circular(8)),
                                                     borderSide: BorderSide(color: AppTheme.secondaryColor),
                                                   ),
@@ -197,13 +197,13 @@ class _AddProductState extends State<AddProduct> {
                                                           child: Text(
                                                             label.toString(),
                                                             style: GoogleFonts.poppins(
-                                                              color: Color(0xff463B57),
+                                                              color: const Color(0xff463B57),
                                                             ),
                                                           ),
                                                           value: label,
                                                         ))
                                                     .toList(),
-                                                hint: Text('Rating'),
+                                                hint: const Text('Rating'),
                                                 onChanged: (value) {
                                                   setState(() {
                                                     _ratingController = value!;
@@ -393,7 +393,7 @@ class _AddProductState extends State<AddProduct> {
                                     style: GoogleFonts.poppins(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
-                                      color: Color(0xFF000000),
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                   InkWell(

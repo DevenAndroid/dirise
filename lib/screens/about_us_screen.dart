@@ -39,17 +39,17 @@ class _AboutUSState extends State<AboutUS> {
               Text(
                 "Welcome to DIRISE application, your one-stop solution for the entrepreneurial path!",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              ),SizedBox(height: 15,),
+              ),const SizedBox(height: 15,),
               Text(
                 "DIRISE application combines all the resources you need in one centralized platform. No more time-consuming searches or scattered information. saving you precious time, effort, and money as you navigate entrepreneurship.",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               Text(
                 "With DIRISE application, you can access a collection of best selling books, specialized courses, interactive workshops, and enlightening webinars. With our app, you have digital access to a wealth of resources that will equip you with the essential tools and insights to kickstart your entrepreneurial path. You will find all the resources you need to learn or to start a business in one place.",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               Text(
                 "Download the DIRISE application today and let us be the catalyst for your entrepreneurial success.",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),

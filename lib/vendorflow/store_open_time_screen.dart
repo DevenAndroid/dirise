@@ -245,7 +245,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                                    ),
                                  ),
 */
-                            Spacer(),
+                            const Spacer(),
                             DropdownButtonHideUnderline(
                               child: DropdownButton(
                                 isExpanded: false,
@@ -493,7 +493,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                   padding: EdgeInsets.symmetric(
                       // horizontal: AddSize.padding10,
                       vertical: AddSize.padding10),
-                  child: Row(
+                  child: const Row(
                     children: [
                       // Expanded(
                       //   child: Obx(() {
@@ -515,7 +515,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                       //     );
                       //   }),
                       // ),
-                      const Icon(
+                      Icon(
                         Icons.keyboard_arrow_down_outlined,
                         color: Colors.black,
                       )

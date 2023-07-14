@@ -55,7 +55,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                         context: context,
                         builder: (context) {
                           return SizedBox(
-                            height: size.height*.67,
+                            height: size.height*.7,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,39 +79,42 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                                   children: [
                                                     Theme(
                                                       data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
-                                                      child: CheckboxListTile(
-                                                        controlAffinity: ListTileControlAffinity.leading,
-                                                        dense: true,
-                                                        visualDensity: VisualDensity.compact,
-                                                        activeColor: const Color(0xff014E70),
-                                                        value: data1[index].isCheck!.value,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            data1[index].isCheck!.value = value!;
-                                                          });
-                                                        },
-                                                        title: Row(
-                                                          children: [
-                                                            Text(
-                                                              data1[index].title.toString(),
-                                                              style: GoogleFonts.poppins(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: Colors.black,
-                                                                fontSize: 16,
+                                                      child: ListTileTheme(
+                                                        horizontalTitleGap: 5,
+                                                        child: CheckboxListTile(
+                                                          controlAffinity: ListTileControlAffinity.leading,
+                                                          dense: true,
+                                                          visualDensity: VisualDensity.compact,
+                                                          activeColor: const Color(0xff014E70),
+                                                          value: data1[index].isCheck!.value,
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              data1[index].isCheck!.value = value!;
+                                                            });
+                                                          },
+                                                          title: Row(
+                                                            children: [
+                                                              Text(
+                                                                data1[index].title.toString(),
+                                                                style: GoogleFonts.poppins(
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: Colors.black,
+                                                                  fontSize: 16,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Text(
-                                                              data1[index].number.toString(),
-                                                              style: GoogleFonts.poppins(
-                                                                fontWeight: FontWeight.w500,
-                                                                color: const Color(0xffADADAD),
-                                                                fontSize: 16,
+                                                              const SizedBox(
+                                                                width: 10,
                                                               ),
-                                                            ),
-                                                          ],
+                                                              Text(
+                                                                data1[index].number.toString(),
+                                                                style: GoogleFonts.poppins(
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: const Color(0xffADADAD),
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -127,7 +130,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                     children: [
                                       Container(
                                         alignment: Alignment.center,
-                                        height: 55,
+                                        height: 48,
                                         width: MediaQuery.of(context).size.width * .87,
                                         decoration: const BoxDecoration(color: Color(0xff014E70)),
                                         child: Text(
@@ -142,7 +145,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                       Container(
                                         alignment: Alignment.center,
                                         margin: const EdgeInsets.only(bottom: 10),
-                                        height: 55,
+                                        height: 48,
                                         width: MediaQuery.of(context).size.width * .87,
                                         decoration: BoxDecoration(border: Border.all(color: const Color(0xff014E70))),
                                         child: Text(

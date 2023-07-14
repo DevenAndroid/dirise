@@ -39,22 +39,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
               Text(
                 "For users with a separate Doc Send or Drop Lorem  Sign account, the DocSend Terms of Service can found here, and the Lorem Sign Terms of Service can found here.",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              ),SizedBox(height: 15,),
+              ),const SizedBox(height: 15,),
               Text(
                 "Thanks for using Dropbox! Our mission is to create a more enlightened way of working, and help you and those you work with stay coordinated. We do so by providing an intuitive, unified platform and suite of apps and services that keep your content safe, accessible and in sync. These terms of service (“Terms”) cover your use and access to our services",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               Text(
                 "When you use our Services, you provide us with things like your files, content, messages, contacts, and so on (“Your Stuff”). Your Stuff is yours.",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               Text(
                 "unified platform and suite of apps and services that keep your content safe, accessible and in sync. These terms of service (“Terms”) cover your use and access to our ",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               Text(
                 "unified platform and suite of apps and services that keep your content safe, accessible and in sync. These terms of service (“Terms”) cover your use and access to our ",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),

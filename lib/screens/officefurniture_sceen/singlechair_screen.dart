@@ -113,7 +113,7 @@ class _SingleChairState extends State<SingleChair> {
         builder: (context) {
           return SizedBox(
             width: size.width,
-            height: size.height * .77,
+            height: size.height * .79,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,9 +126,9 @@ class _SingleChairState extends State<SingleChair> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          height: size.height * .2,
+                          height: size.height * .24,
                           width: size.width * .7,
-                          'assets/images/bag.png',
+                          'assets/images/chairgaming.png',
                         ),
                       ),
                     ),
@@ -231,7 +231,7 @@ class _SingleChairState extends State<SingleChair> {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                   ],
                 ),

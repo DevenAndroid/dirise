@@ -76,7 +76,7 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
           controller: widget.controller,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Color(0xffE2E2E2).withOpacity(.4),
+            fillColor: const Color(0xffE2E2E2).withOpacity(.4),
             counterStyle: const TextStyle(
               color: Color(0xff463B57),
               fontSize: 25,
@@ -91,7 +91,7 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
             prefixIcon: widget.prefix,
             suffixIcon: widget.suffixIcon,
             hintStyle: GoogleFonts.poppins(
-              color: Color(0xff463B57),
+              color: const Color(0xff463B57),
               fontSize: 15,
             ),
             /*errorStyle: const TextStyle(

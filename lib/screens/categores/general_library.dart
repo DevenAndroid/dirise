@@ -69,7 +69,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                             child: Text(
                               ("Books, Stationary and Electronics"),
                               style: GoogleFonts.poppins(
-                                  color: Color(0xff8F8F8F), fontSize: 13, fontWeight: FontWeight.w500),
+                                  color: const Color(0xff8F8F8F), fontSize: 13, fontWeight: FontWeight.w500),
                             ),
                           ),
                           Text(
@@ -116,23 +116,27 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                                                 children: [
                                                   Theme(
                                                     data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
-                                                    child: CheckboxListTile(
-                                                      controlAffinity: ListTileControlAffinity.leading,
-                                                      dense: true,
-                                                      visualDensity: VisualDensity.compact,
-                                                      activeColor: const Color(0xff014E70),
-                                                      value: status.value,
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          status.value = value!;
-                                                        });
-                                                      },
-                                                      title: Text(
-                                                        data[index],
-                                                        style: GoogleFonts.poppins(
-                                                          fontWeight: FontWeight.w500,
-                                                          color: Colors.black,
-                                                          fontSize: 16,
+                                                    child: ListTileTheme(
+                                                      horizontalTitleGap: 5,
+                                                      child: CheckboxListTile(
+
+                                                        controlAffinity: ListTileControlAffinity.leading,
+                                                        dense: true,
+                                                        visualDensity: VisualDensity.compact,
+                                                        activeColor: const Color(0xff014E70),
+                                                        value: status.value,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            status.value = value!;
+                                                          });
+                                                        },
+                                                        title: Text(
+                                                          data[index],
+                                                          style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w500,
+                                                            color: Colors.black,
+                                                            fontSize: 16,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -275,8 +279,8 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
 
                 ),
 
-                SizedBox(height: 10,),
-                Image(image: AssetImage('assets/images/collectionbooks.png'),),
+                const SizedBox(height: 10,),
+                const Image(image: AssetImage('assets/images/collectionbooks.png'),),
               ],
             )),
       ),

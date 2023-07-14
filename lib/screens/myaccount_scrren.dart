@@ -348,7 +348,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     ),
 
                   )
-                : SizedBox(),
+                : const SizedBox(),
             const Divider(
               thickness: 1,
               color: Color(0x1A000000),
@@ -398,7 +398,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                             border: Border.all(color: const Color(0xffDCDCDC)),
                                             borderRadius: BorderRadius.circular(15)),
                                         child: RadioListTile(
-                                          title: Text('English'),
+                                          title: const Text('English'),
                                           activeColor: const Color(0xff014E70),
                                           value: "english",
                                           groupValue: language.value,
@@ -419,7 +419,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                               border: Border.all(color: const Color(0xffDCDCDC)),
                                               borderRadius: BorderRadius.circular(15)),
                                           child: RadioListTile(
-                                            title: Text('Several languages'),
+                                            title: const Text('Several languages'),
                                             activeColor: const Color(0xff014E70),
                                             value: "Several languages",
                                             groupValue: language.value,
@@ -430,7 +430,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                             },
                                           ))),
                                   SizedBox(
-                                    height: size.height * .08,
+                                    height: size.height * .05,
                                   ),
                                   Center(
                                     child: Padding(

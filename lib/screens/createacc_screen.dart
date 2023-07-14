@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dirise/widgets/common_colour.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,8 @@ class _CreateAccState extends State<CreateAcc> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final Repositories repositories = Repositories();
+  bool showValidation = false;
+  bool? _isValue = false;
 
   registerApi() {
     Map<String, dynamic> map = {};
@@ -42,7 +45,11 @@ class _CreateAccState extends State<CreateAcc> {
         Get.toNamed(OtpScreen.route, arguments: [_emailController.text, true]);
       }
     });
+
+
   }
+
+
 
   @override
   void dispose() {
@@ -94,7 +101,7 @@ class _CreateAccState extends State<CreateAcc> {
                 CommonTextfield(
                     controller: _nameController,
                     obSecure: false,
-                    hintText: 'Name',
+                    hintText: 'Email',
                     validator: MultiValidator([
                       RequiredValidator(errorText: 'name is required'),
                     ])),
@@ -104,7 +111,7 @@ class _CreateAccState extends State<CreateAcc> {
                 CommonTextfield(
                   controller: _emailController,
                   obSecure: false,
-                  hintText: 'Email',
+                  hintText: 'Password',
                   validator: MultiValidator([
                     RequiredValidator(errorText: 'email is required'),
                   ]),
@@ -115,51 +122,40 @@ class _CreateAccState extends State<CreateAcc> {
                 CommonTextfield(
                   controller: _passwordController,
                   obSecure: false,
-                  hintText: 'Password',
+                  hintText: 'Confirm Password',
                   validator: MultiValidator([
                     RequiredValidator(errorText: 'password is required'),
                     MinLengthValidator(8, errorText: 'Password must be at least 8 digits long')
                   ]),
                 ),
-                SizedBox(
-                  height: size.height * .01,
-                ),
+
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 58,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppTheme.secondaryColor), borderRadius: BorderRadius.circular(8)),
-                        child: const Center(
-                          child: CountryCodePicker(
-                            onChanged: print,
-                            initialSelection: 'IT',
-                            favorite: [' +39', 'FR'],
-                            showCountryOnly: false,
-                            showOnlyCountryWhenClosed: false,
-                            alignLeft: false,
+                    Transform.translate(
+                      offset: const Offset(-8, 0),
+                      child: Checkbox(
+                          visualDensity: const VisualDensity(horizontal: -1, vertical: -3),
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          side: BorderSide(
+                              color: showValidation == false
+                                  ? AppTheme.buttonColor
+                                  : Colors.red,
                           ),
-                        ),
-                      ),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)),
+                          value: _isValue,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              _isValue = value;
+                            });
+                          }),
                     ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Flexible(
-                        flex: 3,
-                        child: CommonTextfield(
-                          controller: _mobileNumberController,
-                          obSecure: false,
-                          hintText: '987-654-3210',
-                          keyboardType: TextInputType.phone,
-                          validator: MultiValidator([
-                            RequiredValidator(errorText: 'phone no is required'),
-                            MinLengthValidator(10, errorText: 'phone no must be at least 10 digits long')
-                          ]),
-                        )),
+                    Text(
+                      "privacy  policy",
+                      style:GoogleFonts.poppins(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,color: const Color(0xff808384)),
+                    )
                   ],
                 ),
                 SizedBox(
@@ -170,9 +166,33 @@ class _CreateAccState extends State<CreateAcc> {
                   onPressed: () {
                     if (formKey1.currentState!.validate()) {
                       registerApi();
+                    }else {
+                      showValidation = true;
+                      setState(() {});
                     }
                   },
                 ),
+                SizedBox(height: size.height*.02,),
+                RichText(
+                  text: TextSpan(
+
+                    children: [
+                      TextSpan(
+                        text: 'Already have an Account?',
+                        style: GoogleFonts.poppins(color: Colors.black),
+                      ),
+                      TextSpan(text: 'Sign In',style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: AppTheme.buttonColor,decoration: TextDecoration.underline),
+
+                        recognizer: TapGestureRecognizer()..onTap = () {
+                          Get.toNamed(MyRouters.loginScreen);
+
+                        },
+
+                      ),
+                    ],
+
+                  ),
+                )
               ],
             ),
           ),

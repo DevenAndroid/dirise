@@ -12,7 +12,7 @@ import 'package:dirise/screens/officefurniture_sceen/singlechair_screen.dart';
 import 'package:dirise/screens/otp_screen.dart';
 import 'package:dirise/screens/profile_screen.dart';
 import 'package:dirise/screens/return_policy_screen.dart';
-import 'package:dirise/screens/scoopsnursery_screen.dart';
+import 'package:dirise/screens/schoolnursery_screen.dart';
 import 'package:dirise/screens/termsconditions_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 // import 'package:dirise/vendorflow/order_details_screen.dart';
@@ -41,6 +41,9 @@ import '../screens/login_screen.dart';
 import '../screens/my_orders_screen.dart';
 import '../screens/officefurniture_sceen/officefurniture_screen.dart';
 import '../screens/privacy_policy_screen.dart';
+import '../screens/public_speaker_screen/publicspeaker_screen.dart';
+import '../screens/public_speaker_screen/single_public_speaker_screen.dart';
+import '../screens/school_nursery_category.dart';
 import '../screens/selectd_order_screen.dart';
 import '../splash.dart';
 import '../vendorflow/add_money_screen.dart';
@@ -62,7 +65,7 @@ class MyRouters {
   static var categoryScreen = "/categoryScreen";
   static var whishlistScreen = "/whishlistScreen";
   static var profileScreen = "/profileScreen";
-  // static var otpScreen = "/otpScreen";
+   static var loginScreen = "/loginScreen";
   static var newPasswordScreen = "/newPasswordScreen";
   static var editprofileScreen = "/editprofileScreen";
   static var faqsScreen = "/faqsScreen";
@@ -87,6 +90,9 @@ class MyRouters {
   static var returnPolicy = "/returnPolicy";
   static var aboutUs = "/aboutUs";
   static var privacyPolicy = "/privacyPolicy";
+  static var schoolNursery = "/schoolNursery";
+  static var publicSpeaker = "/publicSpeaker";
+  static var singlePublicCategory = "/singlePublicCategory";
 
   static var route = [
     GetPage(name: '/', page: () => const BottomNavbar()),
@@ -103,9 +109,12 @@ class MyRouters {
     GetPage(name: '/orderListScreen', page: () => const VendorOrderList()),
     GetPage(name: ProductScreen.allProductScreen, page: () => const ProductScreen()),
     GetPage(name: AboutUS.aboutUs, page: () => const AboutUS()),
+    GetPage(name: PublicSpeakerCategory.singlePublicCategory, page: () => const PublicSpeakerCategory()),
+    GetPage(name: SchoolNursery.schoolNursery, page: () => const SchoolNursery()),
     GetPage(name: BankDetailsScreen.bankDetailsScreen, page: () => const BankDetailsScreen()),
     GetPage(name: OrderDetails.orderDetails, page: () => const OrderDetails()),
     GetPage(name: ReturnPolicy.returnPolicy, page: () => const ReturnPolicy()),
+    GetPage(name: PublicSpeaker.publicSpeaker, page: () => const PublicSpeaker()),
     GetPage(name: '/thankUScreen', page: () => const ThankYouVendorScreen()),
     GetPage(name: '/editprofileScreen', page: () => const EditProfile()),
     GetPage(name: '/addProductScreen', page: () => const AddProduct()),
@@ -117,9 +126,9 @@ class MyRouters {
     GetPage(name: '/singleChair', page: () => const SingleChair()),
     GetPage(name: DashboardScreen.dashboardScreen, page: () => const DashboardScreen()),
     GetPage(name: VendorRegistrationScreen.registrationScreen, page: () => const VendorRegistrationScreen()),
-    // GetPage(name: '/eBooKCategoryScreen', page: () => const EBook()),
+     GetPage(name: '/eBooKCategoryScreen', page: () => const EBookCategory()),
     GetPage(name: '/singleCategory', page: () => const SingleCategory()),
-    GetPage(name: '/scoopsNursery', page: () => const SchoolNursery()),
+    GetPage(name: '/scoopsNursery', page: () => const SchoolNurseryCategory()),
     GetPage(name: SetTimeScreen.setTimeScreen, page: () => const SetTimeScreen()),
     GetPage(name: '/officeFurnitureScreen', page: () => const OfficeFurniture()),
     GetPage(name: CategoriesScreen.categoriesScreen, page: () => const CategoriesScreen()),

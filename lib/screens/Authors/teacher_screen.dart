@@ -32,15 +32,15 @@ class _TeacherScreenState extends State<TeacherScreen> {
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.symmetric(horizontal: 13.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                ClipRRect(
+                const ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    child: const Image(image: AssetImage('assets/images/storybooks.png'))),
+                    child: Image(image: AssetImage('assets/images/storybooks.png'))),
                 const SizedBox(
                   height: 20,
                 ),
@@ -51,7 +51,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                         context: context,
                         builder: (context) {
                           return SizedBox(
-                            height: size.height*.78,
+                            height: size.height*.72,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,23 +75,26 @@ class _TeacherScreenState extends State<TeacherScreen> {
                                                   children: [
                                                     Theme(
                                                       data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
-                                                      child: CheckboxListTile(
-                                                        controlAffinity: ListTileControlAffinity.leading,
-                                                        dense: true,
-                                                        visualDensity: VisualDensity.compact,
-                                                        activeColor: const Color(0xff014E70),
-                                                        value: status.value,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            status.value = value!;
-                                                          });
-                                                        },
-                                                        title: Text(
-                                                          data[index],
-                                                          style: GoogleFonts.poppins(
-                                                            fontWeight: FontWeight.w500,
-                                                            color: Colors.black,
-                                                            fontSize: 16,
+                                                      child: ListTileTheme(
+                                                        horizontalTitleGap: 5,
+                                                        child: CheckboxListTile(
+                                                          controlAffinity: ListTileControlAffinity.leading,
+                                                          dense: true,
+                                                          visualDensity: VisualDensity.compact,
+                                                          activeColor: const Color(0xff014E70),
+                                                          value: status.value,
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              status.value = value!;
+                                                            });
+                                                          },
+                                                          title: Text(
+                                                            data[index],
+                                                            style: GoogleFonts.poppins(
+                                                              fontWeight: FontWeight.w500,
+                                                              color: Colors.black,
+                                                              fontSize: 16,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -108,7 +111,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                                     children: [
                                       Container(
                                         alignment: Alignment.center,
-                                        height: 47,
+                                        height: 48,
                                         width: MediaQuery.of(context).size.width * .87,
                                         decoration: const BoxDecoration(color: Color(0xff014E70)),
                                         child: Text(
@@ -122,7 +125,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                                       ),
                                       Container(
                                         alignment: Alignment.center,
-                                        height: 47,
+                                        height: 48,
                                         margin: const EdgeInsets.only(bottom: 10),
                                         width: MediaQuery.of(context).size.width * .87,
                                         decoration: BoxDecoration(border: Border.all(color: const Color(0xff014E70))),
@@ -144,7 +147,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                     children: [
                       Container(
                         height: 35,
-                        width: size.width*.4,
+                        width: size.width*.42,
                         // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         decoration: BoxDecoration(
                             border: Border.all(color: const Color(0xff014E70)),
@@ -165,7 +168,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(width: 20,),
+                      const SizedBox(width: 20,),
                       Container(
                          height: 35,
                          width: size.width*.27,
@@ -215,7 +218,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          margin: const EdgeInsets.only(left: 5),
+                          margin: const EdgeInsets.only(left: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

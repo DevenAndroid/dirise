@@ -317,28 +317,28 @@ class _ProductScreenState extends State<ProductScreen> {
                         child: Container(
                           height: 58,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0), color: Color(0xffE2E2E2).withOpacity(.4)),
+                              borderRadius: BorderRadius.circular(10.0), color: const Color(0xffE2E2E2).withOpacity(.4)),
                           child: Row(
                             children: [
                               Expanded(
                                 child: DropdownButtonFormField<String>(
                                   value: _ratingController,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    focusedErrorBorder: const OutlineInputBorder(
+                                    focusedErrorBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(8)),
                                         borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                    errorBorder: const OutlineInputBorder(
+                                    errorBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(8)),
                                         borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                                    focusedBorder: const OutlineInputBorder(
+                                    focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(8)),
                                         borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                    disabledBorder: const OutlineInputBorder(
+                                    disabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(color: AppTheme.secondaryColor),
                                     ),
-                                    enabledBorder: const OutlineInputBorder(
+                                    enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(color: AppTheme.secondaryColor),
                                     ),
@@ -354,7 +354,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                             value: label,
                                           ))
                                       .toList(),
-                                  hint: Text('Rating'),
+                                  hint: const Text('Rating'),
                                   onChanged: (value) {
                                     setState(() {
                                       _ratingController = value!;
@@ -368,7 +368,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   ElevatedButton(

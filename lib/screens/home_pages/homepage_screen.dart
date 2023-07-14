@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                       cartWidget(),
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: TextField(
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.all(Radius.circular(8)),
                               borderSide: BorderSide(color: AppTheme.buttonColor)),
                           fillColor: Colors.white,
-                          contentPadding:  EdgeInsets.all(15),
+                          contentPadding:  const EdgeInsets.all(15),
                           hintText: 'what are you looking for?',
                           hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                     ),
@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  width: 10,
+                                  width: 8,
                                 ),
                                 const Image(height: 20, image: AssetImage('assets/icons/trends.png'))
                               ],
@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Container(
                           height: 60,
-                          width: 170,
+                          width: 200,
                           decoration: BoxDecoration(
                               border: Border.all(
                                 color: const Color(0xffF0F0F0),

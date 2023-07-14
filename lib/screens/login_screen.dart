@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CommonTextfield(
                   controller: emailController,
                   obSecure: false,
-                  hintText: 'Email or Phone number',
+                  hintText: 'Email',
                   validator: (value) {
                     if (emailController.text.isEmpty) {
                       return "Please enter your email";
@@ -261,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     children: [
                       TextSpan(
-                        text: 'Already have an Account?',
+                        text: 'dont have account',
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       TextSpan(text: 'Sign Up',style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: AppTheme.buttonColor,decoration: TextDecoration.underline),
