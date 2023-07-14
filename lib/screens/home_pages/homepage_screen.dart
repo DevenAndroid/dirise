@@ -534,7 +534,7 @@ class _HomePageState extends State<HomePage> {
                       height: 300,
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: GridView.builder(
-                        itemCount: 1,
+                        itemCount: homeController.authorModal.value.data!.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

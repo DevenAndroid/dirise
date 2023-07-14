@@ -33,9 +33,9 @@ class ProfileController extends GetxController {
   void onInit() {
     super.onInit();
     checkUserLoggedIn().then((value) {
-      if(value){
+      // if(value){
         getDataProfile();
-      }
+      // }
     });
   }
 

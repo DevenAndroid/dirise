@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../controller/cart_controller.dart';
 import '../controller/profile_controller.dart';
 import '../routers/my_routers.dart';
