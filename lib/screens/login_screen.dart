@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../model/login_model.dart';
 import '../repoistery/repository.dart';
 import '../widgets/common_button.dart';
-import 'bottomavbar.dart';
+import '../bottomavbar.dart';
 
 class LoginScreen extends StatefulWidget {
   static String route = "/LoginScreen";

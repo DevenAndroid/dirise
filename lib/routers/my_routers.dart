@@ -1,6 +1,6 @@
 import 'package:dirise/e-book/ebookcategory_screen.dart';
 import 'package:dirise/screens/about_us_screen.dart';
-import 'package:dirise/screens/bottomavbar.dart';
+import 'package:dirise/bottomavbar.dart';
 
 import 'package:dirise/screens/createacc_screen.dart';
 import 'package:dirise/screens/editprofile_screen.dart';
@@ -30,7 +30,7 @@ import '../screens/calender.dart';
 
 import '../screens/check_out/add_bag_screen.dart';
 import '../screens/categores/categories_screen.dart';
-import '../screens/categores/check_out_screen.dart';
+import '../screens/check_out/check_out_screen.dart';
 import '../screens/categores/general_library.dart';
 import '../screens/categores/order_completed_screen.dart';
 import '../screens/categores/single_categorie.dart';
@@ -41,7 +41,7 @@ import '../screens/login_screen.dart';
 import '../screens/my_orders_screen.dart';
 import '../screens/officefurniture_sceen/officefurniture_screen.dart';
 import '../screens/selectd_order_screen.dart';
-import '../splash.dart';
+import '../screens/splash.dart';
 import '../vendorflow/add_money_screen.dart';
 import '../vendorflow/add_product_screen.dart';
 import '../vendorflow/all_product_screen.dart';
@@ -125,7 +125,7 @@ class MyRouters {
     GetPage(name: GeneralLibrary.generalLibrary, page: () => const GeneralLibrary()),
     GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),
     GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),
-    GetPage(name: OrderCompleteScreen.orderCompleteScreen, page: () => const OrderCompleteScreen()),
+    GetPage(name: OrderCompleteScreen.route, page: () => const OrderCompleteScreen()),
     GetPage(name: AuthorsScreen.authorsScreen, page: () => const AuthorsScreen()),
     GetPage(name: SingleAuthorScreen.singleAuthorScreen, page: () => const SingleAuthorScreen()),
     GetPage(name: TeacherScreen.teacherScreen, page: () => const TeacherScreen()),

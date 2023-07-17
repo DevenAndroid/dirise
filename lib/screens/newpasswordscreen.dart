@@ -11,7 +11,7 @@ import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
 import '../widgets/common_button.dart';
 import '../widgets/common_textfield.dart';
-import 'bottomavbar.dart';
+import '../bottomavbar.dart';
 import 'login_screen.dart';
 
 class NewPassword extends StatefulWidget {

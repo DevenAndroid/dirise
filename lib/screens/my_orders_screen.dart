@@ -1,4 +1,6 @@
+import 'package:dirise/repoistery/repository.dart';
 import 'package:dirise/screens/selectd_order_screen.dart';
+import 'package:dirise/utils/ApiConstant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +15,20 @@ class MyOrdersScreen extends StatefulWidget {
 }
 
 class _MyOrdersScreenState extends State<MyOrdersScreen> {
+  final Repositories repositories = Repositories();
+  
+  Future getOrdersList() async {
+    await repositories.postApi(url: ApiUrls.myOrdersListUrl).then((value) {
+
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getOrdersList();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

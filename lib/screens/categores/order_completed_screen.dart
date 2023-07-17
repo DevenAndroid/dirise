@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../bottomavbar.dart';
+import '../../bottomavbar.dart';
 
 class OrderCompleteScreen extends StatefulWidget {
   const OrderCompleteScreen({super.key});
-  static var orderCompleteScreen = "/orderCompleteScreen";
+  static var route = "/orderCompleteScreen";
 
   @override
   State<OrderCompleteScreen> createState() => _OrderCompleteScreenState();

@@ -12,7 +12,7 @@ import '../model/common_modal.dart';
 import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
 import '../widgets/common_colour.dart';
-import 'bottomavbar.dart';
+import '../bottomavbar.dart';
 import 'login_screen.dart';
 import 'package:http/http.dart' as http;
 

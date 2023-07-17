@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
-import '../categores/check_out_screen.dart';
+import 'check_out_screen.dart';
 
 class BagsScreen extends StatefulWidget {
   const BagsScreen({super.key});
