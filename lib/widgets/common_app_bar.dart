@@ -22,7 +22,7 @@ class CommonAppBar extends StatelessWidget {
         children: [
           Text(
             titleText!,
-            style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 21),
+            style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
           ),
           Container(
             alignment: Alignment.center,
