@@ -1,5 +1,6 @@
+import 'package:dirise/repoistery/repository.dart';
 import 'package:dirise/screens/selectd_order_screen.dart';
-import 'package:dirise/widgets/common_colour.dart';
+import 'package:dirise/utils/ApiConstant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,16 +15,30 @@ class MyOrdersScreen extends StatefulWidget {
 }
 
 class _MyOrdersScreenState extends State<MyOrdersScreen> {
+  final Repositories repositories = Repositories();
+  
+  Future getOrdersList() async {
+    await repositories.postApi(url: ApiUrls.myOrdersListUrl).then((value) {
+
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getOrdersList();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: AppTheme.buttonColor,
+        backgroundColor: const Color(0xffEBF1F4).withOpacity(.7),
         surfaceTintColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
           onPressed: () => Navigator.of(context).pop(),
         ),
         titleSpacing: 0,
@@ -32,7 +47,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
           children: [
             Text(
               "Order",
-              style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 22),
+              style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
             ),
           ],
         ),

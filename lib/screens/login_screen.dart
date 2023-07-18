@@ -12,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../model/login_model.dart';
 import '../repoistery/repository.dart';
 import '../widgets/common_button.dart';
-import 'bottomavbar.dart';
+import '../bottomavbar.dart';
 
 class LoginScreen extends StatefulWidget {
   static String route = "/LoginScreen";
@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final Repositories repositories = Repositories();
+  RxBool hide = true.obs;
 
   //final controller = Get.put(CustomNavigationBarController());
 
@@ -78,7 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
         LoginModal response = LoginModal.fromJson(jsonDecode(value));
         repositories.saveLoginDetails(jsonEncode(response));
         showToast(response.message.toString());
-        Get.offAllNamed(BottomNavbar.route);
+        if(response.status == true) {
+          Get.offAllNamed(BottomNavbar.route);
+        }
       });
     }
   }
@@ -109,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CommonTextfield(
                   controller: emailController,
                   obSecure: false,
-                  hintText: 'Email',
+                  hintText: 'Email or Phone number',
                   validator: (value) {
                     if (emailController.text.isEmpty) {
                       return "Please enter your email";
@@ -126,14 +129,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: size.height * .01,
                 ),
-                CommonTextfield(
-                  controller: passwordController,
-                  obSecure: false,
-                  hintText: 'Password',
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'password is required'),
-                  ]),
-                ),
+                Obx(() {
+                  return CommonTextfield(
+                    controller: passwordController,
+                    obSecure: hide.value,
+                    suffixIcon: IconButton(
+                      onPressed: (){
+                        hide.value = !hide.value;
+                      },
+                      icon: hide.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                    ),
+                    hintText: 'Password',
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: 'Password is required'),
+                    ]),
+                  );
+                }),
                 const SizedBox(
                   height: 35,
                 ),
@@ -261,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     children: [
                       TextSpan(
-                        text: 'dont have account',
+                        text: 'Already have an Account? ',
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       TextSpan(text: 'Sign Up',style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: AppTheme.buttonColor,decoration: TextDecoration.underline),

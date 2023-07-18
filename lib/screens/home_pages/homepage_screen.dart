@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                const Image(height: 20, image: AssetImage('assets/icons/trends.png'))
+                                const Expanded(child: Image(height: 20, image: AssetImage('assets/icons/trends.png')))
                               ],
                             ),
                           ),
@@ -493,15 +493,16 @@ class _HomePageState extends State<HomePage> {
                             );
                           }),
                     ),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: SizedBox(
-                        child: CachedNetworkImage(
-                          imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
-                          fit: BoxFit.cover,
-                          width: size.width,
-                        ),
-                      )),
+                  if (homeController.homeModal.value.home != null)
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: SizedBox(
+                          child: CachedNetworkImage(
+                            imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
+                            fit: BoxFit.cover,
+                            width: size.width,
+                          ),
+                        )),
                   const SizedBox(
                     height: 20,
                   ),
@@ -534,7 +535,7 @@ class _HomePageState extends State<HomePage> {
                       height: 300,
                       margin: const EdgeInsets.symmetric(horizontal: 15),
                       child: GridView.builder(
-                        itemCount: 1,
+                        itemCount: homeController.authorModal.value.data!.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

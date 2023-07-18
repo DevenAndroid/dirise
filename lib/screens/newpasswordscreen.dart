@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:dirise/routers/my_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/common_modal.dart';
@@ -14,6 +11,7 @@ import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
 import '../widgets/common_button.dart';
 import '../widgets/common_textfield.dart';
+import '../bottomavbar.dart';
 import 'login_screen.dart';
 
 class NewPassword extends StatefulWidget {
@@ -28,9 +26,10 @@ class _NewPasswordState extends State<NewPassword> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   String email = "";
+  RxBool hide1 = true.obs;
+  RxBool hide2 = true.obs;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     email = Get.arguments[0];
   }
@@ -77,32 +76,48 @@ class _NewPasswordState extends State<NewPassword> {
                   SizedBox(
                     height: size.height * .08,
                   ),
-                  CommonTextfield(
-                    controller: passwordController,
-                    obSecure: false,
-                    hintText: 'New Password',
-                    validator: MultiValidator([
-                      RequiredValidator(errorText: "password in required"),
-                      MinLengthValidator(8, errorText: "password must be 8 digits long")
-                    ]),
-                  ),
+                  Obx(() {
+                    return CommonTextfield(
+                      controller: passwordController,
+                      obSecure: hide1.value,
+                      suffixIcon: IconButton(
+                        onPressed: (){
+                          hide1.value = !hide1.value;
+                        },
+                        icon: hide1.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                      ),
+                      hintText: 'New Password',
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "Password in required"),
+                        MinLengthValidator(8, errorText: "Password must be 8 digits long")
+                      ]),
+                    );
+                  }),
                   SizedBox(
                     height: size.height * .01,
                   ),
-                  CommonTextfield(
+                  Obx(() {
+                    return CommonTextfield(
                     controller: newPasswordController,
-                    obSecure: false,
+                    obSecure: hide2.value,
+                    suffixIcon: IconButton(
+                      onPressed: (){
+                        hide2.value = !hide2.value;
+                      },
+                      icon: hide2.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                    ),
                     hintText: 'Confirm New Password',
                     validator: (value) {
                       if (value!.trim().isEmpty) {
                         return 'Conform password is required ';
-                      } else if (value!.trim() != passwordController.text.trim()) {
+                      } else if (value.trim() != passwordController.text.trim()) {
                         return 'Conform password not matching';
                       } else {
                         return null;
                       }
                     },
-                  ),
+                    );
+                  }),
                   SizedBox(
                     height: size.height * .03,
                   ),
@@ -115,7 +130,8 @@ class _NewPasswordState extends State<NewPassword> {
                             .then((value) {
                           if (value.status == true) {
                             showToast(value.message.toString());
-                            Get.offNamed(LoginScreen.route);
+                            Get.offNamed(BottomNavbar.route);
+                            Get.toNamed(LoginScreen.route);
                           } else {
                             showToast(value.message.toString());
                           }

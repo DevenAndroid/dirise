@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../controller/cart_controller.dart';
+import '../controller/profile_controller.dart';
 import '../routers/my_routers.dart';
 import '../vendorflow/add_money_screen.dart';
 import '../vendorflow/all_product_screen.dart';
@@ -26,11 +27,9 @@ class MyAccountScreen extends StatefulWidget {
 enum SingingCharacter { lafayette, jefferson }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
-  final SingingCharacter? _character = SingingCharacter.lafayette;
   RxString language = "".obs;
   final RxBool _isValue = false.obs;
-  final RxBool _isValue1 = false.obs;
-  var vendor = ['Dashboard', 'Order', 'Products', 'Store open time', 'Store setting', 'Bank Details', 'Earning'];
+  var vendor = ['Dashboard', 'Order', 'Products', 'Store open time', 'Vendor Information', 'Bank Details', 'Withdraw'];
   var vendorRoutes = [
     DashboardScreen.dashboardScreen,
     VendorOrderList.vendorOrderList,
@@ -41,9 +40,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     WithdrawMoney.withdrawMoney,
   ];
 
+  final profileController = Get.put(ProfileController());
+  final cartController = Get.put(CartController());
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    profileController.checkUserLoggedIn();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -55,26 +58,38 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 194,
               width: MediaQuery.sizeOf(context).width,
               color: const Color(0xffEBF1F4),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Account",
-                    style:
-                        GoogleFonts.poppins(color: const Color(0xFF014E70), fontSize: 24, fontWeight: FontWeight.w600),
-                  ),
-                  Image.asset(
-                    'assets/images/myaccount.png',
-                    height: 60,
-                  ),
-                  Text(
-                    "Hi Bader",
-                    style:
-                        GoogleFonts.poppins(color: const Color(0xff000000), fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
+              child: Obx(() {
+                if (profileController.refreshInt.value > 0) {}
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Account",
+                      style: GoogleFonts.poppins(
+                          color: const Color(0xFF014E70), fontSize: 24, fontWeight: FontWeight.w600),
+                    ),
+                    profileController.userLoggedIn
+                        ? Image.network(
+                      profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
+                            errorBuilder: (_, __, ___) => const SizedBox(
+                              height: 60,
+                              width: 60,
+                            ),
+                          )
+                        : Image.asset(
+                            'assets/images/myaccount.png',
+                            height: 60,
+                            width: 60,
+                          ),
+                    Text(
+                      profileController.userLoggedIn ? profileController.apiLoaded ? profileController.model.user!.name : "" : "Guest User",
+                      style: GoogleFonts.poppins(
+                          color: const Color(0xff000000), fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                );
+              }),
             ),
           ),
         ),
@@ -88,7 +103,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed(MyRouters.profileScreen);
+                if (profileController.userLoggedIn) {
+                  Get.toNamed(MyRouters.profileScreen);
+                } else {
+                  Get.toNamed(LoginScreen.route);
+                }
               },
               child: Row(
                 children: [
@@ -154,7 +173,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(MyOrdersScreen.myOrdersScreen);
+                if (profileController.userLoggedIn) {
+                  Get.toNamed(MyOrdersScreen.myOrdersScreen);
+                } else {
+                  Get.toNamed(LoginScreen.route);
+                }
               },
               child: Row(
                 children: [
@@ -252,9 +275,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
-              onTap: () {
-
-              },
+              onTap: () {},
               child: Row(
                 children: [
                   Image.asset(height: 25, 'assets/images/digitalreader.png'),
@@ -281,17 +302,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            Column(crossAxisAlignment: CrossAxisAlignment.start,
+            Column(
               children: [
                 GestureDetector(
                   onTap: () {
                     // _isValue.value = !_isValue.value;
                   },
                   child: ListTile(
-                    dense: true,
-               horizontalTitleGap:AddSize.font24,
-                    visualDensity: VisualDensity.compact,
-                    // visualDensity:  VisualDensity(horizontal: -0, vertical: 0),
                     contentPadding: EdgeInsets.zero,
                     leading: const Image(
                       height: 25,
@@ -339,14 +356,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                       vendor[index],
                                       style: TextStyle(
                                           fontSize: 16, fontWeight: FontWeight.w400, color: Colors.grey.shade500),
-                                    ),
-
+                                    )
                                   ],
                                 ),
                               ),
-                            )
-                    ),
-
+                            )),
                   )
                 : const SizedBox(),
             const Divider(
@@ -430,7 +444,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                             },
                                           ))),
                                   SizedBox(
-                                    height: size.height * .05,
+                                    height: size.height * .08,
                                   ),
                                   Center(
                                     child: Padding(
@@ -485,7 +499,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 Get.toNamed(MyRouters.aboutUs);
               },
               child: Row(
@@ -496,7 +510,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   ),
                   Text(
                     "About Us",
-                    style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const Spacer(),
                   const Icon(
@@ -551,7 +566,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             ),
             GestureDetector(
               onTap: () {
-
                 Get.toNamed(MyRouters.returnPolicy);
               },
               child: Row(
@@ -583,45 +597,20 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             const SizedBox(
               height: 5,
             ),
-            const SizedBox(
-              height: 5,
-            ),
-            GestureDetector(
-              onTap: () {
-
-                Get.toNamed(MyRouters.privacyPolicy);
-              },
-              child: Row(
-                children: [
-                  Image.asset(height: 22, 'assets/images/privacypolicy.png'),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Privacy Policy",
-                    style:
-                    GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                  ),
-                  const Spacer(),
-                  const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 15,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            const Divider(
-              thickness: 1,
-              color: Color(0x1A000000),
-            ),
             GestureDetector(
               onTap: () async {
-                SharedPreferences shared = await SharedPreferences.getInstance();
-                await shared.clear();
-                Get.toNamed(LoginScreen.route);
+                if (profileController.userLoggedIn) {
+                  SharedPreferences shared = await SharedPreferences.getInstance();
+                  await shared.clear();
+                  setState(() {});
+                  Get.toNamed(LoginScreen.route);
+                } else {
+                  Get.toNamed(LoginScreen.route);
+                }
+                profileController.userLoggedIn = false;
+                profileController.updateUI();
+                profileController.getDataProfile();
+                cartController.getCart();
               },
               child: Row(
                 children: [
@@ -630,7 +619,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     width: 20,
                   ),
                   Text(
-                    "Sign Out",
+                    profileController.userLoggedIn ? "Sign Out" : "Login",
                     style:
                         GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
@@ -642,7 +631,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 ],
               ),
             ),
-
             const SizedBox(
               height: 80,
             ),

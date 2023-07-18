@@ -2,10 +2,12 @@ import 'package:dirise/screens/home_pages/homepage_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controller/homepage_controller.dart';
-import '../widgets/common_colour.dart';
-import 'categores/categories_screen.dart';
-import 'myaccount_scrren.dart';
+import 'controller/cart_controller.dart';
+import 'controller/homepage_controller.dart';
+import 'controller/profile_controller.dart';
+import 'widgets/common_colour.dart';
+import 'screens/categores/categories_screen.dart';
+import 'screens/myaccount_scrren.dart';
 
 class BottomNavbar extends StatefulWidget {
   static String route = "/BottomNavbar";
@@ -16,7 +18,10 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
+
   final bottomController = Get.put(BottomNavBarController());
+  final profileController = Get.put(ProfileController());
+  final cartController = Get.put(CartController());
 
   final pages = [
     const HomePage(),

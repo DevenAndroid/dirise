@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dirise/widgets/common_colour.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
@@ -29,8 +28,6 @@ class _CreateAccState extends State<CreateAcc> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final Repositories repositories = Repositories();
-  bool showValidation = false;
-  bool? _isValue = false;
 
   registerApi() {
     Map<String, dynamic> map = {};
@@ -45,18 +42,14 @@ class _CreateAccState extends State<CreateAcc> {
         Get.toNamed(OtpScreen.route, arguments: [_emailController.text, true]);
       }
     });
-
-
   }
-
-
 
   @override
   void dispose() {
     super.dispose();
     _nameController.dispose();
     _mobileNumberController.dispose();
-    _emailController.dispose();
+    // _emailController.dispose();
     _passwordController.dispose();
   }
 
@@ -101,7 +94,7 @@ class _CreateAccState extends State<CreateAcc> {
                 CommonTextfield(
                     controller: _nameController,
                     obSecure: false,
-                    hintText: 'Email',
+                    hintText: 'Name',
                     validator: MultiValidator([
                       RequiredValidator(errorText: 'name is required'),
                     ])),
@@ -109,54 +102,12 @@ class _CreateAccState extends State<CreateAcc> {
                   height: size.height * .01,
                 ),
                 CommonTextfield(
-                  controller: _emailController,
+                  controller:_mobileNumberController,
                   obSecure: false,
-                  hintText: 'Password',
+                  hintText: 'Phone Number',
                   validator: MultiValidator([
                     RequiredValidator(errorText: 'email is required'),
                   ]),
-                ),
-                SizedBox(
-                  height: size.height * .01,
-                ),
-                CommonTextfield(
-                  controller: _passwordController,
-                  obSecure: false,
-                  hintText: 'Confirm Password',
-                  validator: MultiValidator([
-                    RequiredValidator(errorText: 'password is required'),
-                    MinLengthValidator(8, errorText: 'Password must be at least 8 digits long')
-                  ]),
-                ),
-
-                Row(
-                  children: [
-                    Transform.translate(
-                      offset: const Offset(-8, 0),
-                      child: Checkbox(
-                          visualDensity: const VisualDensity(horizontal: -1, vertical: -3),
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          side: BorderSide(
-                              color: showValidation == false
-                                  ? AppTheme.buttonColor
-                                  : Colors.red,
-                          ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5)),
-                          value: _isValue,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isValue = value;
-                            });
-                          }),
-                    ),
-                    Text(
-                      "privacy  policy",
-                      style:GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,color: const Color(0xff808384)),
-                    )
-                  ],
                 ),
                 SizedBox(
                   height: size.height * .03,
@@ -166,33 +117,9 @@ class _CreateAccState extends State<CreateAcc> {
                   onPressed: () {
                     if (formKey1.currentState!.validate()) {
                       registerApi();
-                    }else {
-                      showValidation = true;
-                      setState(() {});
                     }
                   },
                 ),
-                SizedBox(height: size.height*.02,),
-                RichText(
-                  text: TextSpan(
-
-                    children: [
-                      TextSpan(
-                        text: 'Already have an Account?',
-                        style: GoogleFonts.poppins(color: Colors.black),
-                      ),
-                      TextSpan(text: 'Sign In',style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: AppTheme.buttonColor,decoration: TextDecoration.underline),
-
-                        recognizer: TapGestureRecognizer()..onTap = () {
-                          Get.toNamed(MyRouters.loginScreen);
-
-                        },
-
-                      ),
-                    ],
-
-                  ),
-                )
               ],
             ),
           ),

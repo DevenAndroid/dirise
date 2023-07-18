@@ -3,7 +3,7 @@ import 'package:dirise/screens/login_screen.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'screens/bottomavbar.dart';
+import '../bottomavbar.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

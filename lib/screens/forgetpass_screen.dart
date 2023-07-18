@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
@@ -23,6 +24,7 @@ class ForgetPassword extends StatefulWidget {
 
 class _ForgetPasswordState extends State<ForgetPassword> {
   final emailController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   Future<ModelCommonResponse> forgotPasswordRepo({email, context}) async {
     OverlayEntry loader = Helpers.overlayLoader(context);
@@ -68,37 +70,52 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             ],
           ),
         ),
-        body: Padding(
-            padding: const EdgeInsets.only(left: 13, right: 13),
-            child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
-                child: Text(
-                  'Enter the email address associated with your account',
-                  style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 18),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(
-                height: size.height * .05,
-              ),
-              CommonTextfield(controller: emailController, obSecure: false, hintText: 'Email'),
-              SizedBox(
-                height: size.height * .03,
-              ),
-              CustomOutlineButton(
-                title: "Send Otp",
-                onPressed: () {
-                  forgotPasswordRepo(email: emailController.text, context: context).then((value) {
-                    if (value.status == true) {
-                      showToast(value.message.toString());
-                      Get.toNamed(OtpScreen.route, arguments: [emailController.text, false]);
-                    } else {
-                      showToast(value.message.toString());
-                    }
-                  });
-                },
-              ),
-            ])));
+        body: SingleChildScrollView(
+          child: Form(
+            key: formKey,
+            child: Padding(
+                padding: const EdgeInsets.only(left: 13, right: 13),
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
+                    child: Text(
+                      'Enter the email address associated with your account',
+                      style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 18),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * .05,
+                  ),
+                  CommonTextfield(
+                      controller: emailController,
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: 'Email is required'),
+                        EmailValidator(errorText: 'Enter valid email address'),
+                      ]),
+                      obSecure: false, hintText: 'Email'),
+                  SizedBox(
+                    height: size.height * .03,
+                  ),
+                  CustomOutlineButton(
+                    title: "Send Otp",
+                    onPressed: () {
+                      if(!formKey.currentState!.validate())return;
+                      forgotPasswordRepo(email: emailController.text, context: context).then((value) {
+                        if (value.status == true) {
+                          showToast(value.message.toString());
+
+                          var map = <String, dynamic>{};
+                          map['email'] = emailController.text.trim();
+                          Get.toNamed(OtpScreen.route, arguments: [emailController.text, false,map]);
+                        } else {
+                          showToast(value.message.toString());
+                        }
+                      });
+                    },
+                  ),
+                ])),
+          ),
+        ));
   }
 }
