@@ -68,15 +68,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               Row(
                 children: [
-                  const Text(
-                    "Store Time :",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18, color: Color(0xff737A8A)),
+                  const Flexible(
+                    child: Text(
+                      "Store Time :",
+                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xff737A8A)),
+                    ),
                   ),
-                  const Text(
-                    " 10am to 9pm",
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.buttonColor),
+                  const Expanded(
+                    child: Text(
+                      " 10am to 9pm",
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.buttonColor),
+                    ),
                   ),
-                  addWidth(5),
                   InkWell(
                     onTap: () {
                       // Get.toNamed(SetTimeScreen.setTimeScreen);
@@ -184,28 +187,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
+                                SizedBox(
                                   height: 40,
                                   width: 40,
                                   child: Image.asset(imgList[index].toString()),
-                                  // decoration:
-                                  // ShapeDecoration(
-                                  //     color: index == 0
-                                  //         ? Colors.red
-                                  //         : index == 1
-                                  //             ? Colors.orange
-                                  //             : index == 2
-                                  //                 ? AppTheme.primaryColor
-                                  //                 : Colors.cyan,
-                                  //     shape: const CircleBorder()),
-                                  // child: Image.asset(imgList[index].toString()),
-                                  // child: Center(
-                                  //     child: Image(
-                                  //         height: AddSize.size25,
-                                  //         width: AddSize.size25,
-                                  //         image: const AssetImage(
-                                  //             AppAssets
-                                  //                 .vendorICON))),
                                 ),
                                 Expanded(
                                   child: Row(
@@ -247,24 +232,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             SizedBox(
                               height: AddSize.size10,
                             ),
-                            const Text(
-                              '€234.00',
-                              style: TextStyle(
-                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 22, color: Color(0xFF454B5C)),
+                            const Flexible(
+                              child: Text(
+                                '€234.00',
+                                style: TextStyle(
+                                    height: 1.5, fontWeight: FontWeight.w600, fontSize: 20, color: Color(0xFF454B5C)),
+                              ),
                             ),
-                            Text(
-                              index == 0
-                                  ? "Gross Sales"
-                                  : index == 1
-                                      ? "Earning"
-                                      : index == 2
-                                          ? "Sold items"
-                                          : "Order Received",
-                              style: Theme.of(context).textTheme.headline5!.copyWith(
-                                  height: 1.5,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 12,
-                                  color: const Color(0xFF8C9BB2)),
+                            Flexible(
+                              child: Text(
+                                index == 0
+                                    ? "Gross Sales"
+                                    : index == 1
+                                        ? "Earning"
+                                        : index == 2
+                                            ? "Sold items"
+                                            : "Order Received",
+                                style: Theme.of(context).textTheme.headline5!.copyWith(
+                                    height: 1.5,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12,
+                                    color: const Color(0xFF8C9BB2)),
+                              ),
                             ),
                           ],
                         ),

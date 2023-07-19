@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
-import '../model/common_modal.dart';
-import '../utils/ApiConstant.dart';
-import '../utils/helper.dart';
-import '../widgets/common_colour.dart';
-import '../bottomavbar.dart';
-import 'login_screen.dart';
+import '../../model/common_modal.dart';
+import '../../utils/ApiConstant.dart';
+import '../../utils/helper.dart';
+import '../../widgets/common_colour.dart';
+import '../../bottomavbar.dart';
+import '../auth_screens/login_screen.dart';
 import 'package:http/http.dart' as http;
 
 class OtpScreen extends StatefulWidget {

@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../model/model_address_list.dart';
 import '../model/model_cart_response.dart';
-import '../screens/categores/order_completed_screen.dart';
+import '../model/order_models/place_order_response.dart';
+import '../screens/check_out/order_completed_screen.dart';
 import '../utils/ApiConstant.dart';
 
 class CartController extends GetxController {
@@ -42,10 +43,11 @@ class CartController extends GetxController {
       if (address != null) "billing_address": address
     };
     repositories.postApi(url: ApiUrls.placeOrderUrl, context: context, mapData: gg).then((value) {
-      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      // ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      ModelPlaceOrderResponse response = ModelPlaceOrderResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
-        Get.toNamed(OrderCompleteScreen.route);
+        Get.offNamed(OrderCompleteScreen.route, arguments: response.data!.orderId.toString());
         getCart();
       }
     });

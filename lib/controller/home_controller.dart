@@ -29,12 +29,6 @@ class TrendingProductsController extends GetxController {
     });
   }
 
-  Future categoriesData() async {
-    await repositories.postApi(url: ApiUrls.categoryUrl, mapData: {}).then((value) {
-      categoryModal.value = CategoriesModal.fromJson(jsonDecode(value));
-    });
-  }
-
   Future popularProductsData() async {
     repositories.postApi(url: ApiUrls.popularProductUrl, mapData: {}).then((value) {
       popularProdModal.value = PopularProductsModal.fromJson(jsonDecode(value));
@@ -46,6 +40,21 @@ class TrendingProductsController extends GetxController {
       authorModal.value = AuthorModal.fromJson(jsonDecode(value));
     });
   }
+
+  Future categoriesData() async {
+    await repositories.postApi(url: ApiUrls.categoryUrl, mapData: {}).then((value) {
+      categoryModal.value = CategoriesModal.fromJson(jsonDecode(value));
+    });
+  }
+
+  getAll(){
+    trendingData();
+    popularProductsData();
+    homeData();
+    authorData();
+  }
+
+
 
   @override
   void onInit() {

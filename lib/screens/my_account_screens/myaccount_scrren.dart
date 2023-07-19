@@ -1,21 +1,22 @@
-import 'package:dirise/screens/login_screen.dart';
+import 'package:dirise/screens/auth_screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../controller/cart_controller.dart';
-import '../controller/profile_controller.dart';
-import '../routers/my_routers.dart';
-import '../vendorflow/add_money_screen.dart';
-import '../vendorflow/all_product_screen.dart';
-import '../vendorflow/bank_account_screen.dart';
-import '../vendorflow/dashboard_screen.dart';
-import '../vendorflow/store_open_time_screen.dart';
-import '../vendorflow/vendor_order_list_screen.dart';
-import '../vendorflow/vendor_registration_screen.dart';
-import '../widgets/common_colour.dart';
-import '../widgets/dimension_screen.dart';
-import 'my_orders_screen.dart';
+import '../../controller/cart_controller.dart';
+import '../../controller/home_controller.dart';
+import '../../controller/profile_controller.dart';
+import '../../routers/my_routers.dart';
+import '../../vendorflow/add_money_screen.dart';
+import '../../vendorflow/all_product_screen.dart';
+import '../../vendorflow/bank_account_screen.dart';
+import '../../vendorflow/dashboard_screen.dart';
+import '../../vendorflow/store_open_time_screen.dart';
+import '../../vendorflow/vendor_order_list_screen.dart';
+import '../../vendorflow/vendor_registration_screen.dart';
+import '../../widgets/common_colour.dart';
+import '../../widgets/dimension_screen.dart';
+import '../order_screens/my_orders_screen.dart';
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({Key? key}) : super(key: key);
@@ -42,6 +43,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
   final profileController = Get.put(ProfileController());
   final cartController = Get.put(CartController());
+  final homeController = Get.put(TrendingProductsController());
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +73,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     ),
                     profileController.userLoggedIn
                         ? Image.network(
-                      profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
+                            profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
                             errorBuilder: (_, __, ___) => const SizedBox(
                               height: 60,
                               width: 60,
@@ -83,7 +85,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             width: 60,
                           ),
                     Text(
-                      profileController.userLoggedIn ? profileController.apiLoaded ? profileController.model.user!.name : "" : "Guest User",
+                      profileController.userLoggedIn
+                          ? profileController.apiLoaded
+                              ? profileController.model.user!.name
+                              : ""
+                          : "Guest User",
                       style: GoogleFonts.poppins(
                           color: const Color(0xff000000), fontSize: 16, fontWeight: FontWeight.w400),
                     ),
@@ -101,7 +107,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             const SizedBox(
               height: 20,
             ),
-            GestureDetector(
+            ListTile(
               onTap: () {
                 if (profileController.userLoggedIn) {
                   Get.toNamed(MyRouters.profileScreen);
@@ -109,27 +115,30 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Get.toNamed(LoginScreen.route);
                 }
               },
-              child: Row(
+              dense: true,
+              minLeadingWidth: 0,
+              contentPadding: EdgeInsets.zero,
+              minVerticalPadding: 0,
+              visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
+              title: Row(
                 children: [
                   Image.asset(height: 25, 'assets/icons/drawerprofile.png'),
                   const SizedBox(
                     width: 20,
                   ),
-                  Text(
-                    "Profile",
-                    style:
-                        GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                  Expanded(
+                    child: Text(
+                      "Profile",
+                      style: GoogleFonts.poppins(
+                          color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
                   ),
-                  const Spacer(),
                   const Icon(
                     Icons.arrow_forward_ios,
                     size: 15,
                   ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 5,
             ),
             const Divider(
               thickness: 1,
@@ -139,6 +148,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 Get.toNamed(MyRouters.eBookScreen);
               },
@@ -209,6 +219,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 Get.toNamed(MyRouters.calendarScreen);
               },
@@ -242,6 +253,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 Get.toNamed(MyRouters.faqsScreen);
               },
@@ -275,6 +287,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {},
               child: Row(
                 children: [
@@ -302,65 +315,80 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               thickness: 1,
               color: Color(0x1A000000),
             ),
-            Column(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    // _isValue.value = !_isValue.value;
-                  },
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: const Image(
-                      height: 25,
-                      image: AssetImage(
-                        'assets/icons/vendoricon.png',
-                      ),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              dense: true,
+              visualDensity: const VisualDensity(horizontal: -4,vertical: -4),
+              textColor: AppTheme.primaryColor,
+              iconColor: AppTheme.primaryColor,
+              minLeadingWidth: 0,
+              onTap: (){
+                _isValue.value = !_isValue.value;
+                setState(() {});
+              },
+              title: Row(
+                children: [
+                  const Image(
+                    height: 25,
+                    image: AssetImage(
+                      'assets/icons/vendoricon.png',
                     ),
-                    textColor: AppTheme.primaryColor,
-                    iconColor: AppTheme.primaryColor,
-                    title: Text(
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: Text(
                       'Vendor partner',
                       style: GoogleFonts.poppins(
                           color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    trailing: GestureDetector(
-                        onTap: () {
-                          _isValue.value = !_isValue.value;
-                          setState(() {});
-                          // print(_isValue.value);
-                        },
-                        child: Icon(_isValue.value == true
-                            ? Icons.keyboard_arrow_up_rounded
-                            : Icons.keyboard_arrow_down_outlined)),
                   ),
-                )
-              ],
+                  Icon(
+                    !_isValue.value == true
+                        ? Icons.arrow_forward_ios
+                        : Icons.keyboard_arrow_down,
+                    color: Colors.black,
+                    size: 15,
+                  ),
+                ],
+              ),
             ),
             _isValue.value == true
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: List.generate(
                         vendor.length,
-                        (index) => GestureDetector(
-                              onTap: () {
-                                Get.toNamed(vendorRoutes[index]);
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: AddSize.size5),
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 40,
-                                    ),
-                                    Text(
-                                      vendor[index],
-                                      style: TextStyle(
-                                          fontSize: 16, fontWeight: FontWeight.w400, color: Colors.grey.shade500),
-                                    )
-                                  ],
+                        (index) => Row(
+                          children: [
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            Expanded(
+                              child: TextButton(
+                                    onPressed: () {
+                                      Get.toNamed(vendorRoutes[index]);
+                                    },
+                                style: TextButton.styleFrom(
+                                  visualDensity: const VisualDensity(vertical: -3,horizontal: -3),
+                                  padding: EdgeInsets.zero.copyWith(left: 16)
                                 ),
-                              ),
-                            )),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            vendor[index],
+                                            style: TextStyle(
+                                                fontSize: 16, fontWeight: FontWeight.w400, color: Colors.grey.shade500),
+                                          ),
+                                        ),
+                                        const Icon(Icons.arrow_forward_ios_rounded,size: 14,)
+                                      ],
+                                    ),
+                                  ),
+                            ),
+                          ],
+                        )),
                   )
                 : const SizedBox(),
             const Divider(
@@ -368,6 +396,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               color: Color(0x1A000000),
             ),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 showModalBottomSheet<void>(
                     context: context,
@@ -499,6 +528,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 Get.toNamed(MyRouters.aboutUs);
               },
@@ -532,6 +562,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 Get.toNamed(MyRouters.termsConditionScreen);
               },
@@ -565,6 +596,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 Get.toNamed(MyRouters.returnPolicy);
               },
@@ -598,6 +630,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               height: 5,
             ),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () async {
                 if (profileController.userLoggedIn) {
                   SharedPreferences shared = await SharedPreferences.getInstance();
@@ -611,6 +644,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                 profileController.updateUI();
                 profileController.getDataProfile();
                 cartController.getCart();
+                homeController.getAll();
               },
               child: Row(
                 children: [

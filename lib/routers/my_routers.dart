@@ -1,51 +1,41 @@
 import 'package:dirise/e-book/ebookcategory_screen.dart';
-import 'package:dirise/screens/about_us_screen.dart';
+import 'package:dirise/screens/my_account_screens/about_us_screen.dart';
 import 'package:dirise/bottomavbar.dart';
-
-import 'package:dirise/screens/createacc_screen.dart';
-import 'package:dirise/screens/editprofile_screen.dart';
-
-import 'package:dirise/screens/forgetpass_screen.dart';
-
-import 'package:dirise/screens/newpasswordscreen.dart';
+import 'package:dirise/screens/my_account_screens/editprofile_screen.dart';
+import 'package:dirise/screens/auth_screens/forgetpass_screen.dart';
+import 'package:dirise/screens/auth_screens/newpasswordscreen.dart';
 import 'package:dirise/screens/officefurniture_sceen/singlechair_screen.dart';
-import 'package:dirise/screens/otp_screen.dart';
-import 'package:dirise/screens/profile_screen.dart';
-import 'package:dirise/screens/return_policy_screen.dart';
+import 'package:dirise/screens/my_account_screens/profile_screen.dart';
+import 'package:dirise/screens/my_account_screens/return_policy_screen.dart';
 import 'package:dirise/screens/schoolnursery_screen.dart';
-import 'package:dirise/screens/termsconditions_screen.dart';
+import 'package:dirise/screens/my_account_screens/termsconditions_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
-// import 'package:dirise/vendorflow/order_details_screen.dart';
 import 'package:dirise/vendorflow/vendor_order_list_screen.dart';
 import 'package:get/get.dart';
-
 import '../e-book/singlecategory_screen.dart';
 import '../screens/Authors/authors_screen.dart';
-
 import '../e-book/e-book_screen.dart';
 import '../screens/Authors/singel_teacher_screen.dart';
 import '../screens/Authors/single_author_screen.dart';
 import '../screens/Authors/teacher_screen.dart';
+import '../screens/auth_screens/createacc_screen.dart';
+import '../screens/auth_screens/otp_screen.dart';
 import '../screens/calender.dart';
-
 import '../screens/check_out/add_bag_screen.dart';
 import '../screens/categores/categories_screen.dart';
 import '../screens/check_out/check_out_screen.dart';
 import '../screens/categores/general_library.dart';
-import '../screens/categores/order_completed_screen.dart';
+import '../screens/check_out/order_completed_screen.dart';
 import '../screens/categores/single_categorie.dart';
-
-import '../e-book/ebooklogin_screen.dart';
-import '../screens/faqs_screen.dart';
-import '../screens/login_screen.dart';
-import '../screens/my_orders_screen.dart';
+import '../screens/my_account_screens/faqs_screen.dart';
+import '../screens/auth_screens/login_screen.dart';
+import '../screens/order_screens/my_orders_screen.dart';
 import '../screens/officefurniture_sceen/officefurniture_screen.dart';
-import '../screens/privacy_policy_screen.dart';
+import '../screens/my_account_screens/privacy_policy_screen.dart';
 import '../screens/public_speaker_screen/publicspeaker_screen.dart';
 import '../screens/public_speaker_screen/single_public_speaker_screen.dart';
 import '../screens/school_nursery_category.dart';
-import '../screens/selectd_order_screen.dart';
-import '../screens/splash.dart';
+import '../screens/order_screens/selectd_order_screen.dart';
 import '../vendorflow/add_money_screen.dart';
 import '../vendorflow/add_product_screen.dart';
 import '../vendorflow/all_product_screen.dart';
@@ -96,7 +86,6 @@ class MyRouters {
 
   static var route = [
     GetPage(name: '/', page: () => const BottomNavbar()),
-    // GetPage(name: '/', page: () => const Splash()),
     GetPage(name: LoginScreen.route, page: () => const LoginScreen()),
     GetPage(name: '/createAccScreen', page: () => const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () => const ForgetPassword()),
@@ -126,7 +115,7 @@ class MyRouters {
     GetPage(name: '/singleChair', page: () => const SingleChair()),
     GetPage(name: DashboardScreen.dashboardScreen, page: () => const DashboardScreen()),
     GetPage(name: VendorRegistrationScreen.registrationScreen, page: () => const VendorRegistrationScreen()),
-     GetPage(name: '/eBooKCategoryScreen', page: () => const EBookCategory()),
+    GetPage(name: '/eBooKCategoryScreen', page: () => const EBookCategory()),
     GetPage(name: '/singleCategory', page: () => const SingleCategory()),
     GetPage(name: '/scoopsNursery', page: () => const SchoolNurseryCategory()),
     GetPage(name: SetTimeScreen.setTimeScreen, page: () => const SetTimeScreen()),
@@ -143,6 +132,6 @@ class MyRouters {
     GetPage(name: TeacherScreen.teacherScreen, page: () => const TeacherScreen()),
     GetPage(name: SelectedTeacher.selectedTeacher, page: () => const SelectedTeacher()),
     GetPage(name: MyOrdersScreen.myOrdersScreen, page: () => const MyOrdersScreen()),
-    GetPage(name: SelectedOrderScreen.selectedOrderScreen, page: () => const SelectedOrderScreen()),
+    GetPage(name: SelectedOrderScreen.route, page: () => const SelectedOrderScreen()),
   ];
 }

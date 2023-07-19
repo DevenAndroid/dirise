@@ -3,16 +3,15 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart' as http;
-import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../model/common_modal.dart';
-import '../utils/ApiConstant.dart';
-import '../utils/helper.dart';
-import '../widgets/common_button.dart';
-import '../widgets/common_textfield.dart';
+import '../../model/common_modal.dart';
+import '../../utils/ApiConstant.dart';
+import '../../utils/helper.dart';
+import '../../widgets/common_button.dart';
+import '../../widgets/common_textfield.dart';
 import 'otp_screen.dart';
 
 class ForgetPassword extends StatefulWidget {

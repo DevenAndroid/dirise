@@ -4,7 +4,7 @@ import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../controller/profile_controller.dart';
+import '../../controller/profile_controller.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);

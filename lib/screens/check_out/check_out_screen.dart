@@ -10,7 +10,7 @@ import '../../controller/cart_controller.dart';
 import '../../model/model_address_list.dart';
 import '../../utils/ApiConstant.dart';
 import '../../widgets/common_textfield.dart';
-import '../categores/order_completed_screen.dart';
+import 'order_completed_screen.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
@@ -295,7 +295,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           child: Align(
               alignment: Alignment.center,
               child: Text("Complete Payment",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white))),
         ),
       ),
     );

@@ -8,11 +8,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import '../controller/profile_controller.dart';
-import '../repoistery/repository.dart';
-import '../utils/ApiConstant.dart';
-import '../widgets/common_colour.dart';
-import '../widgets/common_textfield.dart';
+import '../../controller/profile_controller.dart';
+import '../../repoistery/repository.dart';
+import '../../utils/ApiConstant.dart';
+import '../../widgets/common_colour.dart';
+import '../../widgets/common_textfield.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -151,7 +151,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               CommonTextfield(
                 obSecure: false,
-                hintText: 'First name',
+                hintText: 'Enter Name',
                 controller: nameController,
                 validator: (v){
                   if(v!.trim().isEmpty){
@@ -173,6 +173,7 @@ class _EditProfileState extends State<EditProfile> {
               CommonTextfield(
                 obSecure: false,
                 hintText: 'example@gmail.com',
+                readOnly: true,
                 controller: emailController,
                 validator: (v){
                   if(v!.trim().isEmpty){
@@ -196,7 +197,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               CommonTextfield(
                 obSecure: false,
-                hintText: '+91 1234567890',
+                hintText: 'Enter Phone Number',
                 controller: phoneController,
               ),
             ]),

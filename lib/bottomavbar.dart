@@ -7,7 +7,7 @@ import 'controller/homepage_controller.dart';
 import 'controller/profile_controller.dart';
 import 'widgets/common_colour.dart';
 import 'screens/categores/categories_screen.dart';
-import 'screens/myaccount_scrren.dart';
+import 'screens/my_account_screens/myaccount_scrren.dart';
 
 class BottomNavbar extends StatefulWidget {
   static String route = "/BottomNavbar";

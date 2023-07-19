@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../e-book/ebookcategory_screen.dart';
 import '../widgets/common_app_bar.dart';
 import '../widgets/common_colour.dart';
-import 'myaccount_scrren.dart';
+import 'my_account_screens/myaccount_scrren.dart';
 
 class SchoolNursery extends StatefulWidget {
   const SchoolNursery({Key? key}) : super(key: key);

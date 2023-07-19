@@ -1,20 +1,20 @@
-class ModelAddOrder {
+class ModelPlaceOrderResponse {
   bool? status;
   String? message;
   Data? data;
 
-  ModelAddOrder({this.status, this.message, this.data});
+  ModelPlaceOrderResponse({this.status, this.message, this.data});
 
-  ModelAddOrder.fromJson(Map<String, dynamic> json) {
+  ModelPlaceOrderResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -69,20 +69,20 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['order_id'] = this.orderId;
-    data['product_id'] = this.productId;
-    data['product_name'] = this.productName;
-    data['category'] = this.category;
-    data['product_type'] = this.productType;
-    data['quantity'] = this.quantity;
-    data['product_price'] = this.productPrice;
-    data['total_price'] = this.totalPrice;
-    data['tax'] = this.tax;
-    data['vendor_id'] = this.vendorId;
-    data['updated_at'] = this.updatedAt;
-    data['created_at'] = this.createdAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['order_id'] = orderId;
+    data['product_id'] = productId;
+    data['product_name'] = productName;
+    data['category'] = category;
+    data['product_type'] = productType;
+    data['quantity'] = quantity;
+    data['product_price'] = productPrice;
+    data['total_price'] = totalPrice;
+    data['tax'] = tax;
+    data['vendor_id'] = vendorId;
+    data['updated_at'] = updatedAt;
+    data['created_at'] = createdAt;
     return data;
   }
 }

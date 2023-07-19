@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../screens/myaccount_scrren.dart';
+import '../screens/my_account_screens/myaccount_scrren.dart';
 import '../widgets/common_app_bar.dart';
 
 class EBookCategory extends StatefulWidget {

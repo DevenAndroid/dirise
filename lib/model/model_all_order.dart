@@ -11,17 +11,17 @@ class ModelDataOrder {
     if (json['order'] != null) {
       order = <Order>[];
       json['order'].forEach((v) {
-        order!.add(new Order.fromJson(v));
+        order!.add(Order.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.order != null) {
-      data['order'] = this.order!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (order != null) {
+      data['order'] = order!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -35,17 +35,18 @@ class Order {
   String? status;
   String? statusNote;
   String? shippingType;
-  Null? shippingPrice;
+  dynamic shippingPrice;
   String? shippingMethod;
   String? paymentMode;
   String? paymentStatus;
   String? currencyCode;
-  Null? couponId;
-  Null? couponCode;
+  dynamic couponId;
+  dynamic couponCode;
   String? discountAmount;
   String? createdAt;
+  DateTime? createdAtDateTime;
   String? updatedAt;
-  Null? childId;
+  dynamic childId;
   int? productId;
   int? vendorId;
   String? productName;
@@ -53,13 +54,13 @@ class Order {
   String? productType;
   String? quantity;
   String? productPrice;
-  Null? discount;
+  dynamic discount;
   int? totalPrice;
   int? tax;
-  Null? startDate;
-  Null? sloatTime;
-  Null? endDate;
-  List<Null>? products;
+  dynamic startDate;
+  dynamic sloatTime;
+  dynamic endDate;
+  List<dynamic>? products;
 
   Order(
       {this.id,
@@ -78,6 +79,7 @@ class Order {
         this.couponCode,
         this.discountAmount,
         this.createdAt,
+        this.createdAtDateTime,
         this.updatedAt,
         this.childId,
         this.productId,
@@ -100,7 +102,7 @@ class Order {
     parentId = json['parent_id'];
     orderId = json['order_id'];
     userId = json['user_id'];
-    status = json['status'];
+    status = json['status'] ?? "";
     statusNote = json['status_note'];
     shippingType = json['shipping_type'];
     shippingPrice = json['shipping_price'];
@@ -112,6 +114,7 @@ class Order {
     couponCode = json['coupon_code'];
     discountAmount = json['discount_amount'];
     createdAt = json['created_at'];
+    createdAtDateTime = DateTime.tryParse(json['created_at'].toString());
     updatedAt = json['updated_at'];
     childId = json['child_id'];
     productId = json['product_id'];
@@ -128,7 +131,7 @@ class Order {
     sloatTime = json['sloat_time'];
     endDate = json['end_date'];
     if (json['products'] != null) {
-      products = <Null>[];
+      products = <dynamic>[];
       // json['products'].forEach((v) {
       //   products!.add(new Null.fromJson(v));
       // });
@@ -136,38 +139,38 @@ class Order {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['parent_id'] = this.parentId;
-    data['order_id'] = this.orderId;
-    data['user_id'] = this.userId;
-    data['status'] = this.status;
-    data['status_note'] = this.statusNote;
-    data['shipping_type'] = this.shippingType;
-    data['shipping_price'] = this.shippingPrice;
-    data['shipping_method'] = this.shippingMethod;
-    data['payment_mode'] = this.paymentMode;
-    data['payment_status'] = this.paymentStatus;
-    data['currency_code'] = this.currencyCode;
-    data['coupon_id'] = this.couponId;
-    data['coupon_code'] = this.couponCode;
-    data['discount_amount'] = this.discountAmount;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['child_id'] = this.childId;
-    data['product_id'] = this.productId;
-    data['vendor_id'] = this.vendorId;
-    data['product_name'] = this.productName;
-    data['category'] = this.category;
-    data['product_type'] = this.productType;
-    data['quantity'] = this.quantity;
-    data['product_price'] = this.productPrice;
-    data['discount'] = this.discount;
-    data['total_price'] = this.totalPrice;
-    data['tax'] = this.tax;
-    data['start_date'] = this.startDate;
-    data['sloat_time'] = this.sloatTime;
-    data['end_date'] = this.endDate;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['parent_id'] = parentId;
+    data['order_id'] = orderId;
+    data['user_id'] = userId;
+    data['status'] = status;
+    data['status_note'] = statusNote;
+    data['shipping_type'] = shippingType;
+    data['shipping_price'] = shippingPrice;
+    data['shipping_method'] = shippingMethod;
+    data['payment_mode'] = paymentMode;
+    data['payment_status'] = paymentStatus;
+    data['currency_code'] = currencyCode;
+    data['coupon_id'] = couponId;
+    data['coupon_code'] = couponCode;
+    data['discount_amount'] = discountAmount;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['child_id'] = childId;
+    data['product_id'] = productId;
+    data['vendor_id'] = vendorId;
+    data['product_name'] = productName;
+    data['category'] = category;
+    data['product_type'] = productType;
+    data['quantity'] = quantity;
+    data['product_price'] = productPrice;
+    data['discount'] = discount;
+    data['total_price'] = totalPrice;
+    data['tax'] = tax;
+    data['start_date'] = startDate;
+    data['sloat_time'] = sloatTime;
+    data['end_date'] = endDate;
     // if (this.products != null) {
     //   data['products'] = this.products!.map((v) => v!.toJson()).toList();
     // }
