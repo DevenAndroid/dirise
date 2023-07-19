@@ -447,7 +447,7 @@ class _EBookCategoryState extends State<EBookCategory> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 20,
-                        mainAxisExtent: size.height * .34),
+                        mainAxisExtent: size.height * .35),
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {

@@ -26,7 +26,7 @@ class ApiUrls {
   static const String addressListUrl = "${apiBaseUrlNew}address";
   static const String editAddressUrl = "${apiBaseUrlNew}edit-address";
   static const String placeOrderUrl = "${apiBaseUrlNew}add-order";
-  static const String myOrdersListUrl = "${apiBaseUrlNew}my-orders";
+  static const String myOrdersListUrl = "${apiBaseUrlNew}orders";
 }
 
 showToast(message) {

@@ -46,7 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   },
                   child: Image.asset(
                     'assets/icons/backicon.png',
-                    height: 24,
+                    height: 25,
                   ),
                 ),
               ],

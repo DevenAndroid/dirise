@@ -4,22 +4,33 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../bottomavbar.dart';
+import '../../controller/cart_controller.dart';
+import '../../model/model_add_cart.dart';
 
 class OrderCompleteScreen extends StatefulWidget {
+
   const OrderCompleteScreen({super.key});
   static var route = "/orderCompleteScreen";
+  // final cartController = Get.put(CartController());
 
   @override
   State<OrderCompleteScreen> createState() => _OrderCompleteScreenState();
 }
 
 class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
+  ModelAddOrder addCart = ModelAddOrder();
+
+
+  final cartController = Get.put(CartController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
+      body:
+      addCart.data ==  true?
+
+      Padding(
         padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,8 +52,8 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                 style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
               ),
             ),
-            Text(
-              "#0002548",
+            Text('',
+           // {cartController.cartModel}
               style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
             ),
             const SizedBox(
@@ -57,7 +68,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                       style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
                     ),
                     Text(
-                      " (23 items)",
+                      addCart.data!.id.toString(),
                       style: GoogleFonts.poppins(color: const Color(0xff858484)),
                     ),
                   ],
@@ -75,10 +86,10 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                         padding: const EdgeInsets.only(bottom: 20, top: 20),
                         child: Row(
                           children: [
-                            const CircleAvatar(
+                             CircleAvatar(
                               radius: 20,
                               backgroundColor: Color(0xffEEEEEE),
-                              child: Text("2x"),
+                              child: Text(addCart.data!.quantity.toString()),
                             ),
                             const SizedBox(
                               width: 7,
@@ -124,7 +135,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
             ),
           ],
         ),
-      ),
+      ): Center(child: CircularProgressIndicator()),
       bottomNavigationBar: InkWell(
         onTap: () {
           Get.offAllNamed(BottomNavbar.route);

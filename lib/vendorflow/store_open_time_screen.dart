@@ -113,24 +113,26 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        title: const Text('Set Store Time',
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+              color: Color(0xff423E5E),
+            )),
         leading: GestureDetector(
           onTap: () {
             Get.back();
+            // _scaffoldKey.currentState!.openDrawer();
           },
           child: Padding(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.all(15),
             child: Image.asset(
               'assets/icons/backicon.png',
               height: 20,
             ),
           ),
-        ),
-        title: Text(
-          "Set Store Time",
-          style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
         ),
       ),
       body: SingleChildScrollView(

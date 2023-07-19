@@ -51,6 +51,28 @@ class CartController extends GetxController {
     });
   }
 
+  addCart({
+    required BuildContext context,
+    required String id,
+    required String orderId,
+    required String productId,
+    required String productName,
+  }) {
+    Map<String, dynamic> map = {};
+    map["id"] = id;
+    map["orderId"] = orderId;
+    map["productId"] = productId;
+    map["productName"] = productName;
+    repositories.postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(response.message.toString());
+      if (response.status == true) {
+        getAddress();
+        Get.back();
+      }
+    });
+  }
+
   updateAddressApi(
       {required String firstName,
       required String lastName,

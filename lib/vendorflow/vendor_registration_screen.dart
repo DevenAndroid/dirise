@@ -67,26 +67,27 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
       appBar: AppBar(
-        backgroundColor: const Color(0xffF4F4F4),
-        surfaceTintColor: Colors.white,
+        title: const Text('Vendor Registration',
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+              color: Color(0xff423E5E),
+            )),
         leading: GestureDetector(
           onTap: () {
             Get.back();
             // _scaffoldKey.currentState!.openDrawer();
           },
           child: Padding(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.all(15),
             child: Image.asset(
               'assets/icons/backicon.png',
               height: 20,
             ),
           ),
         ),
-        title: Text(
-          "Vendor Registration",
-          style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
-        ),
       ),
+
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),

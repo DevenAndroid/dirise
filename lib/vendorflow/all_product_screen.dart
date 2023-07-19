@@ -26,25 +26,26 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xffF4F4F4),
+
         appBar: AppBar(
-          backgroundColor: const Color(0xffF4F4F4),
-          surfaceTintColor: Colors.white,
+          title: const Text('All Product',
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: Color(0xff423E5E),
+              )),
           leading: GestureDetector(
             onTap: () {
               Get.back();
               // _scaffoldKey.currentState!.openDrawer();
             },
             child: Padding(
-              padding: const EdgeInsets.all(18),
+              padding: const EdgeInsets.all(15),
               child: Image.asset(
                 'assets/icons/backicon.png',
                 height: 20,
               ),
             ),
-          ),
-          title: Text(
-            "All Product",
-            style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
           ),
         ),
         body: SingleChildScrollView(
@@ -57,7 +58,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: AddSize.size80 * 4.2,
+                        width: AddSize.size80 * 3.5,
                         decoration:
                             BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(10), boxShadow: [
                           BoxShadow(
