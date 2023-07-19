@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AboutUS extends StatefulWidget {
-  const AboutUS({Key? key}) : super(key: key);
-  static var aboutUs = "/aboutUs";
+class PrivacyPolicy extends StatefulWidget {
+  static String route = "/PrivacyPolicy";
+  const PrivacyPolicy({Key? key}) : super(key: key);
 
   @override
-  State<AboutUS> createState() => _AboutUSState();
+  State<PrivacyPolicy> createState() => _PrivacyPolicyState();
 }
 
-class _AboutUSState extends State<AboutUS> {
+class _PrivacyPolicyState extends State<PrivacyPolicy> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -25,7 +25,7 @@ class _AboutUSState extends State<AboutUS> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     Text(
-                      'About Us',
+                      'Privacy Policy',
                       style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                     )
                   ],
@@ -37,27 +37,36 @@ class _AboutUSState extends State<AboutUS> {
           child: Column(
             children: [
               Text(
-                "Welcome to DIRISE application, your one-stop solution for the entrepreneurial path!",
+                "For users with a separate Doc Send or Drop Lorem  Sign account, the DocSend Terms of Service can found here, and the Lorem Sign Terms of Service can found here.",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),const SizedBox(height: 15,),
               Text(
-                "DIRISE application combines all the resources you need in one centralized platform. No more time-consuming searches or scattered information. saving you precious time, effort, and money as you navigate entrepreneurship.",
+                "Thanks for using Dropbox! Our mission is to create a more enlightened way of working, and help you and those you work with stay coordinated. We do so by providing an intuitive, unified platform and suite of apps and services that keep your content safe, accessible and in sync. These terms of service (“Terms”) cover your use and access to our services",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),
               const SizedBox(height: 15,),
               Text(
-                "With DIRISE application, you can access a collection of best selling books, specialized courses, interactive workshops, and enlightening webinars. With our app, you have digital access to a wealth of resources that will equip you with the essential tools and insights to kickstart your entrepreneurial path. You will find all the resources you need to learn or to start a business in one place.",
+                "When you use our Services, you provide us with things like your files, content, messages, contacts, and so on (“Your Stuff”). Your Stuff is yours.",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),
               const SizedBox(height: 15,),
               Text(
-                "Download the DIRISE application today and let us be the catalyst for your entrepreneurial success.",
+                "unified platform and suite of apps and services that keep your content safe, accessible and in sync. These terms of service (“Terms”) cover your use and access to our ",
+                style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
+              ),
+              const SizedBox(height: 15,),
+              Text(
+                "unified platform and suite of apps and services that keep your content safe, accessible and in sync. These terms of service (“Terms”) cover your use and access to our ",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               )
             ],
           ),
         ),
       ),
+
+
+
+
     );
   }
 }

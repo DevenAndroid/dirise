@@ -185,6 +185,7 @@ class _BagsScreenState extends State<BagsScreen> {
           return cartController.apiLoaded ?
           cartController.cartModel.cart!.isNotEmpty ?
           Container(
+            height: 63,
             decoration: const BoxDecoration(color: Color(0xff014E70)),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),

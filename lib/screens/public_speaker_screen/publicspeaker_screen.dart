@@ -1,25 +1,24 @@
+import 'package:dirise/routers/my_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../routers/my_routers.dart';
-import '../widgets/common_colour.dart';
+import '../../widgets/common_colour.dart';
 
-class EBookScreen extends StatefulWidget {
-  const EBookScreen({Key? key}) : super(key: key);
+class PublicSpeaker extends StatefulWidget {
+  const PublicSpeaker({Key? key}) : super(key: key);
+  static var publicSpeaker = "/publicSpeaker";
 
   @override
-  State<EBookScreen> createState() => _EBookScreenState();
+  State<PublicSpeaker> createState() => _PublicSpeakerState();
 }
 
-class _EBookScreenState extends State<EBookScreen> {
+class _PublicSpeakerState extends State<PublicSpeaker> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    int tt = 0;
-    bool status = false;
-    return Scaffold(
+    return  Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(140),
         child: Container(
@@ -35,7 +34,7 @@ class _EBookScreenState extends State<EBookScreen> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     Text(
-                      'E books',
+                      'Public Speaker',
                       style: GoogleFonts.poppins(color: Colors.white,
                           fontSize: 18, fontWeight: FontWeight.w600),
                     )
@@ -78,7 +77,7 @@ class _EBookScreenState extends State<EBookScreen> {
                         fillColor: Colors.white,
                         contentPadding:
                         const EdgeInsets.symmetric(horizontal: 60),
-                        hintText: 'Search E Book',
+                        hintText: 'Search Public Speaker',
                         hintStyle:
                         GoogleFonts.poppins(color: AppTheme.buttonColor)),
                   ),
@@ -88,97 +87,66 @@ class _EBookScreenState extends State<EBookScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
-        child: DefaultTabController(
-          length: 2,
-          child: Column(
-            children: [
-              Text(
-                'My Book Library',
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600, fontSize: 20),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TabBar(
-                indicatorPadding:
-                EdgeInsets.symmetric(horizontal: 35, vertical: 6),
-                indicator: const BoxDecoration(
-                    color: AppTheme.buttonColor,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                indicatorColor: Colors.transparent,
-                unselectedLabelColor: AppTheme.buttonColor,
-                labelColor: Colors.white,
-                dividerColor: Colors.white,
-                onTap: (int) {
-                  tt = int;
-                  status = true;
-                },
-                tabs: const [
-                  Tab(
-                    text: 'E Book',
-                  ),
-                  Tab(
-                    text: 'Voice',
-                  ),
-
-                ],
-                indicatorSize: TabBarIndicatorSize.tab,
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          const SizedBox(
+            height: 25,
+          ),
+          SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 5,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    // mainAxisSpacing: 10,
+                    childAspectRatio:
+                    MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.7)),
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {
+                      Get.toNamed(MyRouters.singlePublicCategory);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      margin: const EdgeInsets.only(left: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Image.asset(
                             height: size.height * .2,
-                            'assets/images/notebook.png',
+                            'assets/images/teacher1.png',
+                          ),
+                          const SizedBox(
+                            height: 5,
                           ),
                           Text(
-                            'Roco NoteBook',
+                            'Jarir Library ',
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            '1457 Items',
                             style: GoogleFonts.poppins(
-                                fontSize: 16, fontWeight: FontWeight.w500),
+                                fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                           )
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed(MyRouters.singleCategory);
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              height: size.height * .2,
-                              'assets/images/voicebook.png',
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Eustasy 165 days',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-
-                  ],
-                ),
+                  );
+                },
               ),
-            ],
+            ),
           ),
-        ),
+
+        ],),
       ),
     );
   }

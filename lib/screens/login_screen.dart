@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: (){
                         hide.value = !hide.value;
                       },
-                      icon: hide.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                      icon: hide.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
                     ),
                     hintText: 'Password',
                     validator: MultiValidator([

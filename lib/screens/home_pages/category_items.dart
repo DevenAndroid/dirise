@@ -51,15 +51,15 @@ class _CategoryItemsState extends State<CategoryItems> {
                   Get.toNamed(CategoriesScreen.categoriesScreen);
                 },
                 child: Container(
-                    height: 60,
-                    width: 90,
+                    height: 70,
+
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10), color: const Color(0xffF0F0F0)),
                     child: Padding(
-                      padding: const EdgeInsets.all(14),
+                      padding: const EdgeInsets.all(18),
                       child: Container(
-                        height: 30,
-                        width: 30,
+                        height: 40,
+                        width: 40,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: AppTheme.buttonColor, width: 1.2)),

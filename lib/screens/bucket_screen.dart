@@ -21,23 +21,23 @@ class _BucketScreenState extends State<BucketScreen> {
         children: [
           Image(
               height: height.height * .3,
-              image: AssetImage(
+              image: const AssetImage(
                 'assets/images/bucket.png',
               )),
-          Center(
+          const Center(
             child: Text(
               'Your bag is empty',
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
             ),
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           ElevatedButton(
 
 
               onPressed: () {},
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(AppTheme.buttonColor),
-              padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 35,vertical: 13)),
+              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 35,vertical: 13)),
             ),
 
               child: Text('Shop now!',style: GoogleFonts.poppins

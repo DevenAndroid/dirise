@@ -113,24 +113,24 @@ class Helpers {
                 Card(
                   elevation: 5,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        CupertinoActivityIndicator(
+                        const CupertinoActivityIndicator(
                           radius: 20,
                           color: AppTheme.primaryColor,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Obx(() {
                           return Center(
                               child: Text(
                             "${progress.value}",
-                            style: TextStyle(),
+                            style: const TextStyle(),
                           )
                               // AddText(
                               //   text: "${progress.value}",
@@ -140,7 +140,7 @@ class Helpers {
                               // ),
                               );
                         }),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Text(text),

@@ -29,7 +29,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     "Electronics",
     "Schools & Nurseries",
     "Club & Camps",
-    "E-Book"
+    "E-Book",
+    "Public Speaker"
+
   ];
 
   @override
@@ -41,6 +43,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         preferredSize: Size.fromHeight(60),
         child: CommonAppBar(
           titleText: 'Categories',
+
         ),
       ),
       body: Obx(() {
@@ -48,15 +51,18 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ? SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 1, 15, 15),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 10,
+                          height: 5,
                         ),
-                        const Image(image: AssetImage('assets/images/storybooks.png')),
+                        const ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            
+                            child: Image(image: AssetImage('assets/images/storybooks.png'))),
                         const SizedBox(
                           height: 20,
                         ),
@@ -74,7 +80,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: categories.length,
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, mainAxisExtent: 80),
+                                crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 10, mainAxisExtent: 80),
                             itemBuilder: (BuildContext context, int index) {
                               return InkWell(
                                 onTap: () {
@@ -87,9 +93,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                   } else if (index == 3) {
                                     Get.toNamed(MyRouters.officeFurnitureScreen);
                                   } else if (index == 5) {
-                                    Get.toNamed(MyRouters.scoopsNursery);
+                                    Get.toNamed(MyRouters.schoolNursery);
                                   } else if (index == 7) {
                                     Get.toNamed(MyRouters.eBooKCategoryScreen);
+                                  }
+                                  else if (index == 8) {
+                                    Get.toNamed(MyRouters.publicSpeaker);
                                   }
                                 },
                                 child: Container(
@@ -179,6 +188,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       },
                     ),
                   ),*/
+                        const SizedBox(height: 50,),
                       ],
                     )),
               )

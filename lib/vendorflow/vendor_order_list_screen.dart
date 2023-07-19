@@ -193,22 +193,22 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                           iconDisabledColor: Colors.white,
 
                                           value: _statusController,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             border: InputBorder.none,
-                                            focusedErrorBorder: const OutlineInputBorder(
+                                            focusedErrorBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.all(Radius.circular(8)),
                                                 borderSide: BorderSide(color: Colors.white24)),
-                                            errorBorder: const OutlineInputBorder(
+                                            errorBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.all(Radius.circular(8)),
                                                 borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                                            focusedBorder: const OutlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.all(Radius.circular(8)),
                                                 borderSide: BorderSide(color: Colors.white24)),
-                                            disabledBorder: const OutlineInputBorder(
+                                            disabledBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(Radius.circular(8)),
                                               borderSide: BorderSide(color: Colors.white24),
                                             ),
-                                            enabledBorder: const OutlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(Radius.circular(8)),
                                               borderSide: BorderSide(color: Colors.white24),
                                             ),
@@ -284,22 +284,22 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                                 iconEnabledColor: Colors.white,
                                                 iconDisabledColor: Colors.white,
                                                 value: _filterController,
-                                                decoration: InputDecoration(
+                                                decoration: const InputDecoration(
                                                   border: InputBorder.none,
-                                                  focusedErrorBorder: const OutlineInputBorder(
+                                                  focusedErrorBorder: OutlineInputBorder(
                                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                                       borderSide: BorderSide(color: Colors.white24)),
-                                                  errorBorder: const OutlineInputBorder(
+                                                  errorBorder: OutlineInputBorder(
                                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                                       borderSide: BorderSide(color: Colors.white24)),
-                                                  focusedBorder: const OutlineInputBorder(
+                                                  focusedBorder: OutlineInputBorder(
                                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                                       borderSide: BorderSide(color: Colors.white24)),
-                                                  disabledBorder: const OutlineInputBorder(
+                                                  disabledBorder: OutlineInputBorder(
                                                     borderRadius: BorderRadius.all(Radius.circular(8)),
                                                     borderSide: BorderSide(color: Colors.white24),
                                                   ),
-                                                  enabledBorder: const OutlineInputBorder(
+                                                  enabledBorder: OutlineInputBorder(
                                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                                       borderSide: BorderSide(color: Colors.white24)),
                                                 ),
@@ -314,7 +314,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                                           value: label,
                                                         ))
                                                     .toList(),
-                                                hint: Text('Rating'),
+                                                hint: const Text('Rating'),
                                                 onChanged: (value) {
                                                   setState(() {
                                                     _filterController = value!;
@@ -501,7 +501,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                 SizedBox(
                                   height: AddSize.size5,
                                 ),
-                                index != 3 ? Divider() : SizedBox()
+                                index != 3 ? const Divider() : const SizedBox()
                               ],
                             ),
                           );

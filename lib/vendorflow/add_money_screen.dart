@@ -27,7 +27,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Withdrawal money',
             style: TextStyle(
               fontSize: 17,
@@ -38,7 +38,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
           leading: GestureDetector(
             onTap: () {
               Get.back();
-              // _scaffoldKey.currentState!.openDrawer();
+
             },
             child: Padding(
               padding: const EdgeInsets.all(15),
@@ -51,7 +51,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
         ),
         // appBar: backAppBar(title: "Withdrawal money".tr, context: context),
         body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
               child: Form(
@@ -145,7 +145,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                       controller: addMoneyController,
                                       cursorColor: const Color(0xFF7ED957),
                                       // validator: validateMoney,
-                                      decoration: InputDecoration()),
+                                      decoration: const InputDecoration()),
                                   SizedBox(
                                     height: AddSize.size15,
                                   ),
@@ -229,9 +229,9 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                 )
                               ],
                             ),
-                            Divider(),
+                            const Divider(),
                             ListView.builder(
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: 5,
                               itemBuilder: (BuildContext context, int index) {
@@ -240,9 +240,9 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                     SizedBox(
                                       height: AddSize.size5,
                                     ),
-                                    Row(
+                                    const Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: const [
+                                      children: [
                                         Text(
                                           "€450.00",
                                           style: TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 12),

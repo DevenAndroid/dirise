@@ -5,83 +5,47 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../screens/myaccount_scrren.dart';
+import '../widgets/common_app_bar.dart';
 
-class EBook extends StatefulWidget {
-  const EBook({Key? key}) : super(key: key);
+class EBookCategory extends StatefulWidget {
+  const EBookCategory({Key? key}) : super(key: key);
 
   @override
-  State<EBook> createState() => _EBookState();
+  State<EBookCategory> createState() => _EBookCategoryState();
 }
 
-class _EBookState extends State<EBook> {
+class _EBookCategoryState extends State<EBookCategory> {
   List data = ["E Book", "Voice", "Both"];
+  List gender = ["E Book", "Voice", "Both"];
   RxBool? status = false.obs;
   List<CheckBoxListTileModel> data1 = CheckBoxListTileModel.getList();
+  List<CheckBoxListTileModel> gender1 = CheckBoxListTileModel.getList();
   SingingCharacter? _character = SingingCharacter.lafayette;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(140),
-          child: Container(
-              child: SafeArea(
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                Text(
-                  'E book',
-                  style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 42,
-                    width: 70,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: AppTheme.buttonColor),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image(
-                          height: 25,
-                          image: AssetImage(
-                            'assets/icons/whishlist.png',
-                          ),
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          '0',
-                          style: TextStyle(color: Colors.white, fontSize: 23),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ))),
+      appBar:  const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: CommonAppBar(
+          titleText: 'E Book',
+        ),
+      ),
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.symmetric(horizontal: 13.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                const Image(image: AssetImage('assets/images/storybooks.png')),
+              const SizedBox(height: 10,),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+
+
+                    child: const Image(image: AssetImage('assets/images/storybooks.png'))),
                 const SizedBox(
                   height: 20,
                 ),
@@ -95,7 +59,7 @@ class _EBookState extends State<EBook> {
                             context: context,
                             builder: (context) {
                               return Container(
-                                height: size.height * .6,
+                                height: size.height * .65,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -114,9 +78,11 @@ class _EBookState extends State<EBook> {
                                                   mainAxisSize: MainAxisSize.min,
                                                   children: [
                                                     ListTileTheme(
-                                                      horizontalTitleGap: 0.0,
+                                                      horizontalTitleGap: 5,
                                                       child: CheckboxListTile(
                                                         controlAffinity: ListTileControlAffinity.leading,
+                                                        dense: true,
+                                                        visualDensity: VisualDensity.compact,
                                                         activeColor: const Color(0xff014E70),
                                                         value: data1[index].isCheck!.value,
                                                         onChanged: (value) {
@@ -138,8 +104,8 @@ class _EBookState extends State<EBook> {
                                                 )),
                                       );
                                     }),
-                                    const SizedBox(
-                                      height: 50,
+                                     SizedBox(
+                                      height: size.height*.2,
                                     ),
                                     Align(
                                       alignment: Alignment.bottomCenter,
@@ -147,7 +113,7 @@ class _EBookState extends State<EBook> {
                                         children: [
                                           Container(
                                             alignment: Alignment.center,
-                                            height: 60,
+                                            height: 48,
                                             width: MediaQuery.of(context).size.width * .9,
                                             decoration: const BoxDecoration(color: Color(0xff014E70)),
                                             child: Text(
@@ -161,7 +127,7 @@ class _EBookState extends State<EBook> {
                                           ),
                                           Container(
                                             alignment: Alignment.center,
-                                            height: 60,
+                                            height: 48,
                                             width: MediaQuery.of(context).size.width * .9,
                                             decoration: BoxDecoration(border: Border.all(color: AppTheme.buttonColor)),
                                             child: Text(
@@ -215,7 +181,7 @@ class _EBookState extends State<EBook> {
                             context: context,
                             builder: (BuildContext context) {
                               return Container(
-                                height: size.height * .6,
+                                height: size.height * .5,
                                 decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius:
@@ -268,6 +234,29 @@ class _EBookState extends State<EBook> {
                                               ),
                                             )),
                                       ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 20, right: 20),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all(color: const Color(0xffDCDCDC)),
+                                                borderRadius: BorderRadius.circular(15)),
+                                            child: ListTile(
+                                              title: const Text('Several languages'),
+                                              leading: Radio<SingingCharacter>(
+                                                value: SingingCharacter.lafayette,
+                                                groupValue: _character,
+                                                activeColor: const Color(0xff014E70),
+                                                onChanged: (SingingCharacter? value) {
+                                                  setState(() {
+                                                    _character = value;
+                                                  });
+                                                },
+                                              ),
+                                            )),
+                                      ),
                                       SizedBox(
                                         height: size.height * .08,
                                       ),
@@ -275,7 +264,7 @@ class _EBookState extends State<EBook> {
                                         child: Padding(
                                           padding: const EdgeInsets.only(left: 20, right: 20),
                                           child: Container(
-                                            height: 56,
+                                            height: 48,
                                             width: MediaQuery.sizeOf(context).width,
                                             color: const Color(0xff014E70),
                                             child: const Center(
@@ -320,29 +309,128 @@ class _EBookState extends State<EBook> {
                         ),
                       ),
                     ),
-                    Container(
-                      height: 36,
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xff014E70)),
-                          color: const Color(0xffEBF1F4),
-                          borderRadius: BorderRadius.circular(22)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 10),
-                            child: Text(
-                              "Gender",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                    InkWell(
+
+                      onTap: () {
+                        showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) {
+                              return Container(
+                                height: size.height * .65,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 15),
+                                      child: Text(
+                                        "Gender",
+                                        style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                    Obx(() {
+                                      return Column(
+                                        children: List.generate(
+                                            gender.length,
+                                                (index) => Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTileTheme(
+                                                  horizontalTitleGap: 5,
+                                                  child: CheckboxListTile(
+                                                    controlAffinity: ListTileControlAffinity.leading,
+                                                    dense: true,
+                                                    visualDensity: VisualDensity.compact,
+                                                    activeColor: const Color(0xff014E70),
+                                                    value: gender1[index].isCheck!.value,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        gender1[index].isCheck!.value = value!;
+                                                      });
+                                                    },
+                                                    title: Text(
+                                                      data1[index].title.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Colors.black,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
+                                      );
+                                    }),
+                                    SizedBox(
+                                      height: size.height*.2,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.center,
+                                            height: 48,
+                                            width: MediaQuery.of(context).size.width * .9,
+                                            decoration: const BoxDecoration(color: Color(0xff014E70)),
+                                            child: Text(
+                                              "Apply",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          Container(
+                                            alignment: Alignment.center,
+                                            height: 48,
+                                            width: MediaQuery.of(context).size.width * .9,
+                                            decoration: BoxDecoration(border: Border.all(color: AppTheme.buttonColor)),
+                                            child: Text(
+                                              "Clear All",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color(0xff014E70)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    )
+                                  ],
+                                ),
+                              );
+                            });
+                      },
+                      child: Container(
+                        height: 36,
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff014E70)),
+                            color: const Color(0xffEBF1F4),
+                            borderRadius: BorderRadius.circular(22)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 10),
+                              child: Text(
+                                "Gender",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                              ),
                             ),
-                          ),
-                          Image.asset(
-                            'assets/icons/arrowdown.png',
-                            height: 10,
-                          ),
-                        ],
+                            Image.asset(
+                              'assets/icons/arrowdown.png',
+                              height: 10,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -359,7 +447,7 @@ class _EBookState extends State<EBook> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 20,
-                        mainAxisExtent: size.height * .34),
+                        mainAxisExtent: size.height * .35),
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {

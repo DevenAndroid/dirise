@@ -61,6 +61,7 @@ class _ReturnPolicyState extends State<ReturnPolicy> {
                 "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard ",
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),
+              // ignore: prefer_const_constructors
               SizedBox(height: 10,),
               Text(
                 'Lorem Ipsum is simply',
