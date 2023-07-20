@@ -9,6 +9,7 @@ import '../check_out/add_bag_screen.dart';
 
 class SingleAuthorScreen extends StatefulWidget {
   const SingleAuthorScreen({super.key});
+
   static var singleAuthorScreen = "/singleAuthorScreen";
 
   @override
@@ -18,6 +19,7 @@ class SingleAuthorScreen extends StatefulWidget {
 class _SingleAuthorScreenState extends State<SingleAuthorScreen> {
   List data = ["General Bookstore", "Commercial Bookstore", "Speciality Bookstore", "Dasman Complex"];
   RxBool status = false.obs;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -37,7 +39,9 @@ class _SingleAuthorScreenState extends State<SingleAuthorScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-const SizedBox(height: 3,),
+              const SizedBox(
+                height: 3,
+              ),
               ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: const Image(image: AssetImage('assets/images/storybooks.png'))),
@@ -193,7 +197,10 @@ const SizedBox(height: 3,),
                               fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                         ),
                       ),
-                      const Icon(Icons.keyboard_arrow_down_outlined,color: AppTheme.buttonColor,)
+                      const Icon(
+                        Icons.keyboard_arrow_down_outlined,
+                        color: AppTheme.buttonColor,
+                      )
                     ],
                   ),
                 ),
@@ -210,74 +217,76 @@ const SizedBox(height: 3,),
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 20,
-                      childAspectRatio:
-                          MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.3)),
+                      childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.3)),
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
                         bottemSheet();
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        margin: const EdgeInsets.only(left: 5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              height: size.height * .2,
-                              'assets/images/bag.png',
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              '50% off',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Ecstasy 165 days ',
-                              style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              '1 piece',
-                              style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
+                            margin: const EdgeInsets.only(left: 5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'KD 6.350',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                                Image.asset(
+                                  height: size.height * .2,
+                                  'assets/images/bag.png',
                                 ),
                                 const SizedBox(
-                                  width: 10,
+                                  height: 5,
                                 ),
                                 Text(
-                                  'KD 12.700',
+                                  '50% off',
                                   style: GoogleFonts.poppins(
-                                      decoration: TextDecoration.lineThrough,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: const Color(0xff858484)),
+                                      fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Ecstasy 165 days ',
+                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  '1 piece',
+                                  style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'KD 6.350',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'KD 12.700',
+                                      style: GoogleFonts.poppins(
+                                          decoration: TextDecoration.lineThrough,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff858484)),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-
-
-                          ],
-                        ),
+                          ),
+                          const Positioned(top: 7, right: 10, child: Icon(Icons.favorite_border))
+                        ],
                       ),
                     );
                   },
@@ -353,7 +362,7 @@ const SizedBox(height: 3,),
                       height: 2,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15,right: 10),
+                      padding: const EdgeInsets.only(left: 15, right: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -428,7 +437,7 @@ const SizedBox(height: 3,),
                     width: size.width,
                     height: 60,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0,right: 8),
+                      padding: const EdgeInsets.only(left: 8.0, right: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -439,9 +448,9 @@ const SizedBox(height: 3,),
                                 backgroundColor: Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
-                                      "━",
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                                    )),
+                                  "━",
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                                )),
                               ),
                               SizedBox(
                                 width: 10,
@@ -458,9 +467,9 @@ const SizedBox(height: 3,),
                                 backgroundColor: Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
-                                      "+",
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
-                                    )),
+                                  "+",
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+                                )),
                               ),
                             ],
                           ),
@@ -469,12 +478,13 @@ const SizedBox(height: 3,),
                               Get.offNamed(BagsScreen.addBagScreen);
                             },
                             child: Container(
-                              decoration:
-                              BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                              decoration: BoxDecoration(
+                                  color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
                                 "Add to Bag",
-                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                                style:
+                                    GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
                             ),
                           )

@@ -226,51 +226,59 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                         onTap: () {
                           bottemSheet();
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          margin: const EdgeInsets.only(left: 5),
-                          child: Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  height: size.height * .2,
-                                  'assets/images/bag.png',
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              margin: const EdgeInsets.only(left: 5),
+                              child: Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.asset(
+                                      height: size.height * .2,
+                                      'assets/images/bag.png',
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      '50% off',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      'Ecstasy 165 days ',
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      '1 piece',
+                                      style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      'KD 12.700',
+                                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                                    )
+                                  ],
                                 ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  '50% off',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                Text(
-                                  'Ecstasy 165 days ',
-                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                Text(
-                                  '1 piece',
-                                  style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                Text(
-                                  'KD 12.700',
-                                  style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                                )
-                              ],
+                              ),
                             ),
-                          ),
+                            Positioned(
+
+                                top: 5, right: 10,
+                                child: Icon(Icons.favorite_border))
+                          ],
                         ),
                       );
                     },

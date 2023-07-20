@@ -301,7 +301,7 @@ class _HomePageState extends State<HomePage> {
                           final item = homeController.trendingModel.value.product!.product![index];
                           return ProductUI(
                             productElement: item,
-                            onLiked: (value){
+                            onLiked: (value) {
                               homeController.trendingModel.value.product!.product![index].inWishlist = value;
                             },
                           );
@@ -354,7 +354,7 @@ class _HomePageState extends State<HomePage> {
                             final item = homeController.popularProdModal.value.product!.product![index];
                             return ProductUI(
                               productElement: item,
-                              onLiked: (value){
+                              onLiked: (value) {
                                 homeController.popularProdModal.value.product!.product![index].inWishlist = value;
                               },
                             );
