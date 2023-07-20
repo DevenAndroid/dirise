@@ -1,12 +1,8 @@
 import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../widgets/customsize.dart';
 import '../widgets/dimension_screen.dart';
 
@@ -114,19 +110,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             // color: Colors.brown
                           ),
                           child: Image.asset('assets/images/vendorprofile.png')
-                          // Obx(() {
-                          //   return CachedNetworkImage(
-                          //     fit: BoxFit.cover,
-                          //     imageUrl: profileController.isDataLoading.value
-                          //         ? profileController
-                          //         .model.value.data!.profileImage!
-                          //         : '',
-                          //     height: AddSize.size30,
-                          //     width: AddSize.size30,
-                          //     errorWidget: (_, __, ___) => const SizedBox(),
-                          //     placeholder: (_, __) => const SizedBox(),
-                          //   );
-                          // })
                           ),
                     ),
                   ),
@@ -199,15 +182,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 15),
                                         child: Text(
-                                          // index == 0
-                                          // ? "${vendorDashboardController.model.value.data!.grossSalesPercent.toString()} %"
-                                          //     : index == 1
-                                          // ? "${vendorDashboardController.model.value.data!.earningPercent.toString()} %"
-                                          //     : index == 2
-                                          // ? "${vendorDashboardController.model.value.data!.soldItemsPercent.toString()} %"
-                                          //     : "${vendorDashboardController.model.value.data!.orderReceivedPercent.toString()} %",
                                           "10%",
-                                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                               height: 1.5,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 15,
@@ -219,11 +195,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         color: const Color(0xFF65CD90),
                                         size: AddSize.size15,
                                       )
-                                      // : Icon(
-                                      //     Icons.arrow_downward,
-                                      //     color: Colors.red,
-                                      //     size: AddSize.size15,
-                                      //   )
                                     ],
                                   ),
                                 )
@@ -248,7 +219,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         : index == 2
                                             ? "Sold items"
                                             : "Order Received",
-                                style: Theme.of(context).textTheme.headline5!.copyWith(
+                                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                     height: 1.5,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 12,
@@ -401,7 +372,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           children: [
                             Text(
                               "Latest Sales",
-                              style: Theme.of(context).textTheme.headline5!.copyWith(
+                              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   height: 1.5,
                                   color: const Color(0xff454B5C),
                                   fontWeight: FontWeight.w500,
