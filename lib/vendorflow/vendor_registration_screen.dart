@@ -1,34 +1,36 @@
 import 'dart:io';
-
 import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../utils/helper.dart';
-import '../widgets/common_textfield.dart';
 import '../widgets/dimension_screen.dart';
 import '../widgets/vendor_common_textfield.dart';
 
 class VendorRegistrationScreen extends StatefulWidget {
   const VendorRegistrationScreen({Key? key}) : super(key: key);
 
-   static var registrationScreen = "/registrationScreen";
+  static var registrationScreen = "/registrationScreen";
 
   @override
   State<VendorRegistrationScreen> createState() => _VendorRegistrationScreenState();
 }
 
 class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
-  String chooseOptionType = "";
-  String _ratingController = "vendor";
-  final List<String> optionMenu = ["vendor", "ffgsfgs"];
+  final _formKey = GlobalKey<FormState>();
+  // Define this in TextEditingController Class
+  // GlobalKey getKey = GlobalKey();
+  //
 
+  final TextEditingController storeNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController ppsController = TextEditingController();
+
+  Rx<File> storeImage = File("").obs;
+  Rx<File> businessImage = File("").obs;
   RxBool showValidation = false.obs;
 
   bool checkValidation(bool bool1, bool2) {
@@ -44,26 +46,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     super.initState();
   }
 
-  final _formKey = GlobalKey<FormState>();
-  double _value = 20;
-  final TextEditingController cookNameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController ppsController = TextEditingController();
-
-  Rx<File> image1 = File("").obs;
-  Rx<File> image2 = File("").obs;
-
-  ScrollController _scrollController = ScrollController();
-
-  scrollNavigation(double offset) {
-    _scrollController.animateTo(offset, duration: const Duration(seconds: 1), curve: Curves.easeOutSine);
-  }
-
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
       appBar: AppBar(
@@ -73,6 +57,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
               fontWeight: FontWeight.w600,
               color: Color(0xff423E5E),
             )),
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         leading: GestureDetector(
           onTap: () {
             Get.back();
@@ -87,262 +73,244 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
           ),
         ),
       ),
-
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: Form(
+          key: _formKey,
           child: Card(
             color: Colors.white,
+            margin: const EdgeInsets.all(8),
             surfaceTintColor: Colors.white,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: AddSize.padding20),
               child: Column(
                 children: [
                   Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     VendorCommonTextfield(
-                        obSecure: true,
-                        controller: cookNameController,
+                        controller: storeNameController,
+                        key: storeNameController.getKey,
                         hintText: "Store Name",
-                        validator: MultiValidator([RequiredValidator(errorText: 'Store name is required')])),
-                    SizedBox(
-                      height: height * .007,
-                    ),
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return "Please enter store name";
+                          }
+                          return null;
+                        }),
+                    5.spaceY,
                     VendorCommonTextfield(
                         obSecure: true,
                         controller: phoneController,
+                        key: phoneController.getKey,
                         hintText: "Phone Number",
-                        validator: MultiValidator([RequiredValidator(errorText: 'Store name is required')])),
-                    SizedBox(
-                      height: height * .007,
-                    ),
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return "Please enter store phone number";
+                          }
+                          if (value.trim().length < 10) {
+                            return "Please enter valid store phone number";
+                          }
+                          return null;
+                        }),
+                    5.spaceY,
                     VendorCommonTextfield(
                         obSecure: true,
                         controller: addressController,
+                        key: addressController.getKey,
                         hintText: "Address",
-                        validator: MultiValidator([RequiredValidator(errorText: 'Store name is required')])),
-                    SizedBox(
-                      height: height * .007,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 58,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0), color: const Color(0xffE2E2E2).withOpacity(.4)),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: DropdownButtonFormField<String>(
-                                    icon: const Icon(Icons.keyboard_arrow_down),
-                                    iconSize: 30,
-                                    iconDisabledColor: const Color(0xff97949A),
-                                    iconEnabledColor: const Color(0xff97949A),
-                                    value: _ratingController,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                      errorBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                                          borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        borderSide: BorderSide(color: AppTheme.secondaryColor),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        borderSide: BorderSide(color: AppTheme.secondaryColor),
-                                      ),
-                                    ),
-                                    items: ["vendor", "customer"]
-                                        .map((label) => DropdownMenuItem(
-                                              child: Text(
-                                                label.toString(),
-                                                style: GoogleFonts.poppins(
-                                                  color: const Color(0xff463B57),
-                                                ),
-                                              ),
-                                              value: label,
-                                            ))
-                                        .toList(),
-                                    hint: const Text('Rating'),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _ratingController = value!;
-                                      });
-                                    },
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return "Please enter store address";
+                          }
+                          return null;
+                        }),
+                    5.spaceY,
+                    DropdownButtonFormField<String>(
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      iconSize: 30,
+                      iconDisabledColor: const Color(0xff97949A),
+                      iconEnabledColor: const Color(0xff97949A),
+                      value: null,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        filled: true,
+                        fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        focusedErrorBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                        errorBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                        focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                        disabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
+                      ),
+                      items: ["vendor", "customer"]
+                          .map((label) => DropdownMenuItem(
+                                value: label,
+                                child: Text(
+                                  label.toString(),
+                                  style: GoogleFonts.poppins(
+                                    color: const Color(0xff463B57),
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                              ))
+                          .toList(),
+                      hint: const Text('Category'),
+                      onChanged: (value) {},
+                      validator: (value) {
+                        if (value == null) {
+                          return "Please select Category";
+                        }
+                        return null;
+                      },
                     ),
-                    SizedBox(
-                      height: height * .02,
-                    ),
+                    10.spaceY,
                     VendorCommonTextfield(
                         obSecure: true,
                         controller: ppsController,
                         hintText: "Business ID (number)",
-                        validator: MultiValidator([RequiredValidator(errorText: 'Store name is required')])),
-                    SizedBox(
-                      height: height * .007,
-                    ),
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return "Please enter Business ID (number)";
+                          }
+                          return null;
+                        }),
+                    5.spaceY,
                     Text(
                       "Store Logo",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: AddSize.font18),
                     ),
-                    SizedBox(
-                      height: height * .02,
-                    ),
+                    5.spaceY,
                     Obx(() {
                       return GestureDetector(
                         onTap: () {
                           NewHelper().addFilePicker().then((value) {
-                            image1.value = value;
+                            storeImage.value = value;
                           });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                           width: AddSize.screenWidth,
-                          height: height * .15,
+                          height: context.getSize.width * .38,
                           decoration: BoxDecoration(
                               color: const Color(0xffE2E2E2).withOpacity(.4),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: !checkValidation(showValidation.value, image1.value.path == "")
+                                color: !checkValidation(showValidation.value, storeImage.value.path == "")
                                     ? Colors.grey.shade300
                                     : Colors.red,
                               )),
-                          child: image1.value.path == ""
+                          child: storeImage.value.path == ""
                               ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Upload",
+                                      "Select Store Logo",
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300,
-                                          color: const Color(0xff463B57),
+                                          fontWeight: FontWeight.w500,
+                                          color: showValidation.value && storeImage.value.path.isEmpty
+                                              ? Theme.of(context).colorScheme.error
+                                              : const Color(0xff463B57),
                                           fontSize: AddSize.font16),
                                     ),
                                     SizedBox(
                                       height: AddSize.size10,
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        NewHelper().addFilePicker().then((value) {
-                                          image1.value = value;
-                                        });
-                                      },
-                                      child: Center(
-                                          child: Image(
-                                              height: AddSize.size50,
-                                              width: AddSize.size50,
-                                              image: const AssetImage('assets/icons/camera_icon.png'))),
-                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: showValidation.value && storeImage.value.path.isEmpty
+                                                ? Theme.of(context).colorScheme.error
+                                                : Colors.grey,
+                                            width: 1.8,
+                                          )),
+                                      padding: const EdgeInsets.all(6),
+                                      child: Icon(
+                                        CupertinoIcons.photo_camera,
+                                        size: 20,
+                                        color: showValidation.value && storeImage.value.path.isEmpty
+                                            ? Theme.of(context).colorScheme.error
+                                            : Colors.grey,
+                                      ),
+                                    )
                                   ],
                                 )
-                              : Stack(
-                                  children: [
-                                    SizedBox(
-                                        width: double.maxFinite,
-                                        height: AddSize.size100,
-                                        child: Image.file(image1.value)),
-                                    Positioned(
-                                      right: 0,
-                                      top: 0,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          NewHelper().addFilePicker().then((value) {
-                                            image1.value = value;
-                                          });
-                                        },
-                                        child: Container(
-                                          height: AddSize.size30,
-                                          width: AddSize.size30,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(width: 1, color: Colors.black12),
-                                              color: Colors.green,
-                                              borderRadius: BorderRadius.circular(50)),
-                                          child: const Center(
-                                              child: Icon(
-                                            Icons.edit,
-                                            color: Colors.black45,
-                                            size: 20,
-                                          )),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              : SizedBox(
+                                  width: double.maxFinite,
+                                  height: AddSize.size100,
+                                  child: Image.file(storeImage.value)),
                         ),
                       );
                     }),
-                    SizedBox(
-                      height: height * .02,
-                    ),
+                    12.spaceY,
                     Text(
                       "Business ID One Image ",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: AddSize.font18),
                     ),
-                    SizedBox(
-                      height: height * .02,
-                    ),
+                    5.spaceY,
                     Obx(() {
                       return GestureDetector(
                         onTap: () {
                           NewHelper().addFilePicker().then((value) {
-                            image2.value = value;
+                            businessImage.value = value;
                           });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                           width: AddSize.screenWidth,
-                          height: height * .15,
+                          height: context.width * .38,
                           decoration: BoxDecoration(
                               color: const Color(0xffE2E2E2).withOpacity(.4),
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                color: !checkValidation(showValidation.value, image1.value.path == "")
+                                color: !checkValidation(showValidation.value, businessImage.value.path == "")
                                     ? Colors.grey.shade300
                                     : Colors.red,
                               )),
-                          child: image2.value.path == ""
+                          child: businessImage.value.path == ""
                               ? Column(
                                   children: [
                                     Text(
-                                      "Image",
+                                      "Select Business ID Image",
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300,
-                                          color: const Color(0xff463B57),
+                                          fontWeight: FontWeight.w500,
+                                          color: showValidation.value && businessImage.value.path.isEmpty
+                                              ? Theme.of(context).colorScheme.error
+                                              : const Color(0xff463B57),
                                           fontSize: AddSize.font16),
                                     ),
                                     SizedBox(
                                       height: AddSize.size10,
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        NewHelper().addFilePicker().then((value) {
-                                          image2.value = value;
-                                        });
-                                      },
-                                      child: Center(
-                                          child: Image(
-                                              height: AddSize.size50,
-                                              width: AddSize.size50,
-                                              image: const AssetImage('assets/icons/camera_icon.png'))),
-                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: showValidation.value && businessImage.value.path.isEmpty
+                                                ? Theme.of(context).colorScheme.error
+                                                : Colors.grey,
+                                            width: 1.8,
+                                          )),
+                                      padding: const EdgeInsets.all(6),
+                                      child: Icon(
+                                        CupertinoIcons.photo_camera,
+                                        size: 20,
+                                        color: showValidation.value && businessImage.value.path.isEmpty
+                                            ? Theme.of(context).colorScheme.error
+                                            : Colors.grey,
+                                      ),
+                                    )
                                   ],
                                 )
                               : Stack(
@@ -350,14 +318,14 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                                     SizedBox(
                                         width: double.maxFinite,
                                         height: AddSize.size100,
-                                        child: Image.file(image2.value)),
+                                        child: Image.file(businessImage.value)),
                                     Positioned(
                                       right: 0,
                                       top: 0,
                                       child: GestureDetector(
                                         onTap: () {
                                           NewHelper().addFilePicker().then((value) {
-                                            image2.value = value;
+                                            businessImage.value = value;
                                           });
                                         },
                                         child: Container(
@@ -381,11 +349,31 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         ),
                       );
                     }),
-                    SizedBox(
-                      height: height * .02,
-                    ),
+                    12.spaceY,
                     ElevatedButton(
                         onPressed: () {
+                          showValidation.value = true;
+                          if (!_formKey.currentState!.validate()) {
+                            if (storeNameController.text.trim().isEmpty) {
+                              Scrollable.ensureVisible(storeNameController.getKey.currentContext!,
+                                  alignment: .5,
+                                  duration: const Duration(milliseconds: 600));
+                              return;
+                            }
+                            if (phoneController.text.trim().isEmpty) {
+                              Scrollable.ensureVisible(phoneController.getKey.currentContext!,
+                                  alignment: .5,
+                                  duration: const Duration(milliseconds: 600));
+                              return;
+                            }
+                            if (addressController.text.trim().isEmpty) {
+                              Scrollable.ensureVisible(addressController.getKey.currentContext!,
+                                  alignment: .5,
+                                  duration: const Duration(milliseconds: 600));
+                              return;
+                            }
+                            return;
+                          }
                           Get.toNamed(MyRouters.thankUScreen);
                         },
                         style: ElevatedButton.styleFrom(
@@ -398,7 +386,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           "Submit",
                           style: Theme.of(context)
                               .textTheme
-                              .headline5!
+                              .headlineSmall!
                               .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
                         )),
                   ]),

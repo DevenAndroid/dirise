@@ -241,12 +241,27 @@ extension ConvertToNum on String{
     RegExp regex = RegExp(pattern.toString());
     return (regex.hasMatch(this)) ? false : true;
   }
+
+  String? validateEmpty(String gg){
+    return trim().isEmpty ? "$gg is required" :  null;
+  }
+
 }
 
 extension GetTotal on List<num>{
   num get getTotal{
     return sum;
   }
+}
+
+extension Spacing on num{
+  SizedBox get spaceX=> SizedBox(width: toDouble(),);
+  SizedBox get spaceY=> SizedBox(height: toDouble(),);
+
+}
+
+extension GetContext on BuildContext{
+  Size get getSize=> MediaQuery.of(this).size;
 }
 
 extension ToShimmer on Widget{

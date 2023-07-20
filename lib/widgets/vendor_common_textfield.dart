@@ -7,36 +7,35 @@ import 'common_colour.dart';
 class VendorCommonTextfield extends StatefulWidget {
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
-  final bool obSecure;
-  final bool readOnly;
+  final bool? obSecure;
+  final bool? readOnly;
   final VoidCallback? onTap;
   final VoidCallback? onEditingCompleted;
   final TextInputType keyboardType;
   final ValueChanged<String>? onChanged;
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onFieldSubmitted;
-  final bool isMulti;
-  final bool autofocus;
-  final bool enabled;
+  final bool? isMulti;
+  final bool? autofocus;
+  final bool? enabled;
   final String? errorText;
   final String? labelText;
   final String? hintText;
   final Widget? suffixIcon;
   final Widget? prefix;
+  final List<TextInputFormatter>? inputFormatters;
 
-  List<TextInputFormatter>? inputFormatters = [];
-
-  VendorCommonTextfield({
+  const VendorCommonTextfield({super.key,
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
-    required this.obSecure,
+    this.obSecure,
     this.onTap,
     this.isMulti = false,
     this.readOnly = false,
     this.autofocus = false,
     this.errorText,
-    required this.hintText,
+    this.hintText,
     this.suffixIcon,
     this.prefix,
     this.enabled = true,
@@ -55,69 +54,65 @@ class VendorCommonTextfield extends StatefulWidget {
 class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: 63,
-      child: TextFormField(
-          style: const TextStyle(),
-          autofocus: false,
-          textInputAction: TextInputAction.next,
-          onFieldSubmitted: widget.onFieldSubmitted,
-          inputFormatters: widget.inputFormatters,
-          onChanged: widget.onChanged,
-          onEditingComplete: widget.onEditingCompleted,
-          obscureText: widget.obSecure,
-          minLines: widget.isMulti ? 4 : 1,
-          maxLines: widget.isMulti ? null : 1,
-          onTap: widget.onTap,
-          enabled: widget.enabled,
-          readOnly: widget.readOnly,
-          keyboardType: widget.keyboardType,
-          controller: widget.controller,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: const Color(0xffE2E2E2).withOpacity(.4),
-            counterStyle: const TextStyle(
-              color: Color(0xff463B57),
-              fontSize: 25,
-            ),
-            counter: const Offstage(),
-            errorMaxLines: 2,
-            enabled: widget.enabled,
-            //   fillColor: Colors.transparent,
-            hintText: widget.hintText,
-            errorText: widget.errorText,
-            labelText: widget.labelText,
-            prefixIcon: widget.prefix,
-            suffixIcon: widget.suffixIcon,
-            hintStyle: GoogleFonts.poppins(
-              color: const Color(0xff463B57),
-              fontSize: 15,
-            ),
-            /*errorStyle: const TextStyle(
-                overflow: TextOverflow.clip,
-              // ),*/
-
-            border: InputBorder.none,
-            focusedErrorBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: AppTheme.secondaryColor)),
-            errorBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)), borderSide: BorderSide(color: Color(0xffE2E2E2))),
-            focusedBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: AppTheme.secondaryColor)),
-            disabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor),
-            ),
-
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor),
-            ),
+    return TextFormField(
+        style: const TextStyle(),
+        autofocus: false,
+        textInputAction: TextInputAction.next,
+        onFieldSubmitted: widget.onFieldSubmitted,
+        inputFormatters: widget.inputFormatters,
+        onChanged: widget.onChanged,
+        onEditingComplete: widget.onEditingCompleted,
+        obscureText: widget.obSecure ?? false,
+        minLines: (widget.isMulti ?? false) ? 4 : 1,
+        maxLines: (widget.isMulti ?? false) ? null : 1,
+        onTap: widget.onTap,
+        enabled: widget.enabled,
+        readOnly: widget.readOnly ?? false,
+        keyboardType: widget.keyboardType,
+        controller: widget.controller,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+          counterStyle: const TextStyle(
+            color: Color(0xff463B57),
+            fontSize: 25,
           ),
-          validator: widget.validator),
-    );
+          contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+          counter: const Offstage(),
+          errorMaxLines: 2,
+          enabled: widget.enabled ?? true,
+          hintText: widget.hintText,
+          errorText: widget.errorText,
+          labelText: widget.labelText,
+          prefixIcon: widget.prefix,
+          suffixIcon: widget.suffixIcon,
+          hintStyle: GoogleFonts.poppins(
+            color: const Color(0xff463B57),
+            fontSize: 15,
+          ),
+          /*errorStyle: const TextStyle(
+              overflow: TextOverflow.clip,
+            // ),*/
+
+          border: InputBorder.none,
+          focusedErrorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(color: AppTheme.secondaryColor)),
+          errorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)), borderSide: BorderSide(color: Color(0xffE2E2E2))),
+          focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(color: AppTheme.secondaryColor)),
+          disabledBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderSide: BorderSide(color: AppTheme.secondaryColor),
+          ),
+
+          enabledBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderSide: BorderSide(color: AppTheme.secondaryColor),
+          ),
+        ),
+        validator: widget.validator);
   }
 }
