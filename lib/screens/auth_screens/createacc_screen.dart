@@ -119,7 +119,7 @@ class _CreateAccState extends State<CreateAcc> {
                       onPressed: () {
                         hide.value = !hide.value;
                       },
-                      icon: hide.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                      icon: hide.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
                     ),
                     validator: MultiValidator([
                       RequiredValidator(errorText: 'Password is required'),
@@ -139,7 +139,7 @@ class _CreateAccState extends State<CreateAcc> {
                       onPressed: () {
                         hide1.value = !hide1.value;
                       },
-                      icon: hide1.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                      icon: hide1.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
                     ),
                     hintText: 'Confirm Password',
                     validator: (value) {

@@ -114,8 +114,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             CachedNetworkImage(
-                                              imageUrl: homeController.categoryModal.value.data![index].categoryImage
-                                                  .toString(),
+                                              imageUrl: homeController.categoryModal.value.data![index].categoryImage.toString(),
+
                                               height: 50,
                                             ),
                                             const SizedBox(
@@ -123,7 +123,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                             ),
                                             Expanded(
                                               child: Text(
-                                                categories[index],
+                                                homeController.categoryModal.value.data![index].title.toString(),
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w500,

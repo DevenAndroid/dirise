@@ -55,14 +55,12 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(130),
         child: Container(
-          color: const Color(0xffEBF1F4),
+          color: AppTheme.buttonColor,
           child: SafeArea(
             child: Container(
               height: 194,
-              width: MediaQuery
-                  .sizeOf(context)
-                  .width,
-              color: const Color(0xffEBF1F4),
+              width: MediaQuery.sizeOf(context).width,
+              color: AppTheme.buttonColor,
               child: Obx(() {
                 if (profileController.refreshInt.value > 0) {}
                 return Column(
@@ -72,7 +70,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     Text(
                       "Account",
                       style: GoogleFonts.poppins(
-                          color: const Color(0xFF014E70), fontSize: 24, fontWeight: FontWeight.w600),
+                          color:  Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
                     ),
                     profileController.userLoggedIn
                         ? Image.network(
@@ -95,7 +93,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           : ""
                           : "Guest User",
                       style: GoogleFonts.poppins(
-                          color: const Color(0xff000000), fontSize: 16, fontWeight: FontWeight.w400),
+                          color:  Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                   ],
                 );

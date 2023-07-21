@@ -56,43 +56,48 @@ class _SingleChairState extends State<SingleChair> {
                         onTap: () {
                           singleChairBottomSheet();
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          margin: const EdgeInsets.only(left: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                height: size.height * .2,
-                                'assets/images/chairgaming.png',
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              margin: const EdgeInsets.only(left: 5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    height: size.height * .2,
+                                    'assets/images/chairgaming.png',
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Atrium Classic Backpack Accessory',
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    '1 piece',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff858484)),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'KD 12.700',
+                                    style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                                  )
+                                ],
                               ),
-                              Text(
-                                'Atrium Classic Backpack Accessory',
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                '1 piece',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff858484)),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'KD 12.700',
-                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                              )
-                            ],
-                          ),
+                            ),
+                            const Positioned(top: 7, right: 10, child: Icon(Icons.favorite_border))
+                          ],
                         ),
                       );
                     },

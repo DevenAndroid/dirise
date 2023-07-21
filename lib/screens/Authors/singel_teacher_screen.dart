@@ -8,6 +8,7 @@ import '../check_out/add_bag_screen.dart';
 
 class SelectedTeacher extends StatefulWidget {
   const SelectedTeacher({super.key});
+
   static var selectedTeacher = "/selectedTeacher";
 
   @override
@@ -17,6 +18,7 @@ class SelectedTeacher extends StatefulWidget {
 class _SelectedTeacherState extends State<SelectedTeacher> {
   List data = ["General Bookstore", "Commercial Bookstore", "Speciality Bookstore", "Dasman Complex"];
   RxBool status = false.obs;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -36,10 +38,9 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 const ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-            child: Image(image: AssetImage('assets/images/storybooks.png'))),
+                    child: Image(image: AssetImage('assets/images/storybooks.png'))),
                 const SizedBox(
                   height: 20,
                 ),
@@ -162,49 +163,54 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                         onTap: () {
                           bottemSheet();
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          margin: const EdgeInsets.only(left: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                height: size.height * .2,
-                                'assets/images/bag.png',
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              margin: const EdgeInsets.only(left: 5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    height: size.height * .2,
+                                    'assets/images/bag.png',
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    '50% off',
+                                    style:
+                                        GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.red),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Ecstasy 165 days ',
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    '1 piece',
+                                    style: GoogleFonts.poppins(color: const Color(0xff858484)),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'KD 12.700',
+                                    style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
+                                  )
+                                ],
                               ),
-                              Text(
-                                '50% off',
-                                style:
-                                    GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.red),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'Ecstasy 165 days ',
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                '1 piece',
-                                style: GoogleFonts.poppins(color: const Color(0xff858484)),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                'KD 12.700',
-                                style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
-                              )
-                            ],
-                          ),
+                            ),
+                            const Positioned(top: 7, right: 10, child: Icon(Icons.favorite_border))
+                          ],
                         ),
                       );
                     },
@@ -217,9 +223,7 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
   }
 
   Future bottemSheet() {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -367,9 +371,9 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                                 backgroundColor: Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
-                                      "━",
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                                    )),
+                                  "━",
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                                )),
                               ),
                               SizedBox(
                                 width: 10,
@@ -386,9 +390,9 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                                 backgroundColor: Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
-                                      "+",
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
-                                    )),
+                                  "+",
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+                                )),
                               ),
                             ],
                           ),
@@ -397,13 +401,13 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
                               Get.offNamed(BagsScreen.addBagScreen);
                             },
                             child: Container(
-                              decoration:
-                              BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                              decoration: BoxDecoration(
+                                  color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
                                 "Add to Bag",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                                style:
+                                    GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
                             ),
                           )
@@ -417,5 +421,4 @@ class _SelectedTeacherState extends State<SelectedTeacher> {
           );
         });
   }
-
 }

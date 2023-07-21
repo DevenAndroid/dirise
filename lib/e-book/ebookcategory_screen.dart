@@ -453,35 +453,41 @@ class _EBookCategoryState extends State<EBookCategory> {
                         onTap: () {
                           Get.toNamed(MyRouters.singleCategory);
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          margin: const EdgeInsets.only(left: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                height: size.height * .2,
-                                'assets/images/notebook.png',
+                        child: Stack(
+
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              const SizedBox(
-                                height: 5,
+                              margin: const EdgeInsets.only(left: 5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    height: size.height * .2,
+                                    'assets/images/notebook.png',
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Atrium Classic Backpack Accessory',
+                                    style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    '1 piece',
+                                    style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
+                                  ),
+                                  Text(
+                                    'KD 12.700',
+                                    style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                                  )
+                                ],
                               ),
-                              Text(
-                                'Atrium Classic Backpack Accessory',
-                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                '1 piece',
-                                style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
-                              ),
-                              Text(
-                                'KD 12.700',
-                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                              )
-                            ],
-                          ),
+                            ),
+                            const Positioned(top: 7, right: 10, child: Icon(Icons.favorite_border))
+                          ],
                         ),
                       );
                     },
