@@ -63,6 +63,9 @@ dependencies:
 #  scrollable_positioned_list: ^0.3.8
   cached_network_image: ^3.2.3
   flutter_math_fork: ^0.7.1
+  text_scroll: ^0.2.0
+  scrolling_text: ^0.0.4
+  scroll_loop_auto_scroll: ^0.0.5
 
 
 

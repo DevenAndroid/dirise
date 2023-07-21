@@ -1,10 +1,21 @@
+import 'dart:convert';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../controller/cart_controller.dart';
 import '../controller/wish_list_controller.dart';
+import '../model/common_modal.dart';
+import '../model/trending_products_modal.dart';
+import '../model/trending_products_modal.dart';
+import '../model/trending_products_modal.dart';
+import '../repoistery/repository.dart';
+import '../utils/ApiConstant.dart';
 
 class Whishlist extends StatefulWidget {
   const Whishlist({Key? key}) : super(key: key);
@@ -15,15 +26,31 @@ class Whishlist extends StatefulWidget {
 
 class _WhishlistState extends State<Whishlist> {
   final _wishListController = Get.put(WishListController());
-@override
-  void initState() {
+  final cartController = Get.put(CartController());
+  final Repositories repositories = Repositories();
 
-    // TODO: implement initState
-    super.initState();
-    _wishListController.getYourWishList();
+  removeFromWishList(id) {
+    repositories
+        .postApi(
+            url: ApiUrls.removeFromWishListUrl,
+            mapData: {
+              "product_id": id,
+            },
+            context: context)
+        .then((value) {
+      // widget.onLiked(true);
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(response.message);
+      inWishList = true;
+      setState(() {});
+    });
   }
+
+  bool inWishList = false;
+
   @override
   Widget build(BuildContext context) {
+    _wishListController.getYourWishList();
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -48,102 +75,153 @@ class _WhishlistState extends State<Whishlist> {
               ? SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: _wishListController.model.value.wishlist!.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 20,
-                          childAspectRatio:
-                              MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.3)),
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          onTap: () {
-                            // bottemSheet();
-                          },
-                          child: Stack(
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    child: _wishListController.model.value.wishlist!.isEmpty
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                margin: const EdgeInsets.only(left: 5),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Image.asset(
-                                      height: size.height * .2,
-                                      'assets/images/bag.png',
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      '50% off',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'Ecstasy 165 days ',
-                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      '1 piece',
-                                      style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'KD 6.350',
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xff014E70)),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          'KD 12.700',
-                                          style: GoogleFonts.poppins(
-                                              decoration: TextDecoration.lineThrough,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xff858484)),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                              Image(
+                                  height: size.height * .24,
+                                  image: const AssetImage(
+                                    'assets/images/bucket.png',
+                                  )),
+                              const Center(
+                                child: Text(
+                                  'Your bag is empty',
+                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                                 ),
                               ),
-                              const Positioned(
-                                  top: 7,
-                                  right: 10,
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: AppTheme.buttonColor,
-                                    size: 23,
-                                  )),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    Get.toNamed(MyRouters.editprofileScreen);
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(AppTheme.buttonColor),
+                                    padding: MaterialStateProperty.all(
+                                        const EdgeInsets.symmetric(horizontal: 35, vertical: 13)),
+                                  ),
+                                  child: Text(
+                                    'Shop now!',
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                                  ))
                             ],
+                          )
+                        : GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: _wishListController.model.value.wishlist!.length,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 20,
+                                childAspectRatio:
+                                    MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.3)),
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  // bottemSheet();
+                                },
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      margin: const EdgeInsets.only(left: 5),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Flexible(
+                                            child: CachedNetworkImage(
+                                              imageUrl: _wishListController.model.value.wishlist![index].featuredImage
+                                                  .toString(),
+                                              height: 100,
+                                              fit: BoxFit.cover,
+                                              errorWidget: (context, url, error) =>
+                                                  Image.asset("assets/images/bag.png"),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            _wishListController.model.value.wishlist![index].pname.toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                                color: const Color(0xffC22E2E)),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            _wishListController.model.value.wishlist![index].pname.toString(),
+                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            _wishListController.model.value.wishlist![index].inStock.toString(),
+                                            style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'KD ${_wishListController.model.value.wishlist![index].sPrice.toString()}',
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: const Color(0xff014E70)),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Text(
+                                                'KD ${_wishListController.model.value.wishlist![index].pPrice.toString()}',
+                                                style: GoogleFonts.poppins(
+                                                    decoration: TextDecoration.lineThrough,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: const Color(0xff858484)),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Positioned(
+                                        top: 0,
+                                        right: 10,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            if (inWishList) {
+                                              removeFromWishList(
+                                                  _wishListController.model.value.wishlist![index].id.toString());
+                                            } else {
+                                              removeFromWishList(
+                                                  _wishListController.model.value.wishlist![index].id.toString());
+                                            }
+                                          },
+                                          icon:
+                                              Icon(inWishList ? Icons.favorite_border_rounded : Icons.favorite_rounded),
+                                        ))
+                                  ],
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   ),
                 )
-              : CircularProgressIndicator();
+              : const Center(child: CircularProgressIndicator());
         }),
       ),
     );

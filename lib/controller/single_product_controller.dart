@@ -6,22 +6,23 @@ import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../model/model_whishlist.dart';
+import '../model/single_category_model.dart';
 import '../utils/ApiConstant.dart';
 
-class WishListController extends GetxController {
+class SingleCategoryController extends GetxController {
   final Repositories repositories = Repositories();
-  Rx<WhishlistModel> model = WhishlistModel().obs;
+  Rx<SingleCategoryModel> model = SingleCategoryModel().obs;
   RxBool isDataLoading = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    getYourWishList();
+    getYourSingleOrder();
   }
 
-  getYourWishList() async {
-    await repositories.postApi(url: ApiUrls.wishListUrl).then((value){
-      model.value = WhishlistModel.fromJson(jsonDecode(value));
+  getYourSingleOrder() async {
+    await repositories.postApi(url: ApiUrls.storesUrl).then((value){
+      model.value = SingleCategoryModel.fromJson(jsonDecode(value));
       isDataLoading.value = true;
     });
   }

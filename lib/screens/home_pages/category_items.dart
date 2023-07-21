@@ -41,7 +41,7 @@ class _CategoryItemsState extends State<CategoryItems> {
       itemCount: homeController.categoryModal.value.data!.length + 1,
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4, mainAxisExtent: size.height * .17, crossAxisSpacing: 15),
+          crossAxisCount: 4, mainAxisExtent: size.height * .18, crossAxisSpacing: 15),
       itemBuilder: (BuildContext context, int index) {
         if (index == homeController.categoryModal.value.data!.length) {
           return Column(

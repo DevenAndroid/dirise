@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
+import 'package:text_scroll/text_scroll.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../check_out/add_bag_screen.dart';
@@ -247,9 +249,19 @@ class _HomePageState extends State<HomePage> {
                                         );
                                       });
                                 },
-                                child: Text(
-                                  "Artificial Intelligence Gains  a Foot Hold In Writing",
-                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
+                                child: ScrollLoopAutoScroll(
+                                  scrollDirection: Axis.vertical,
+                                  delay: const Duration(seconds: 0),
+                                  duration: const Duration(minutes: 1),
+                                  gap: 0,
+                                  reverseScroll: false,
+                                  duplicateChild: 25,
+                                  enableScrollInput: true,
+                                  delayAfterScrollInput: const Duration(seconds: 1),
+                                  child: Text(
+                                    'Artificial Intelligence Gains  a Foot Hold In Writing',
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
+                                  ),
                                 ),
                               ),
                             ),

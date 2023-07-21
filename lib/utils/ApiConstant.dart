@@ -31,6 +31,7 @@ class ApiUrls {
   static const String addToWishListUrl = "${apiBaseUrlNew}add-to-wishlist";
   static const String removeFromWishListUrl = "${apiBaseUrlNew}remove-from-wishlist";
   static const String wishListUrl = "${apiBaseUrlNew}wishlist";
+  static const String storesUrl = "${apiBaseUrlNew}stores";
 }
 
 showToast(message) {
