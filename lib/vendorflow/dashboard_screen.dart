@@ -20,12 +20,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   bool state1 = true;
   bool state2 = true;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   List imgList = [
     'assets/images/Group 1000004268.png',
     'assets/images/Group 1000004267.png',
     'assets/images/Group 1000004270.png',
     'assets/images/Group 1000004269.png',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,7 +165,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             blurRadius: 19.0,
                             spreadRadius: 1.0,
                           ),
-                        ], borderRadius: BorderRadius.circular(10), color: Colors.white),
+                        ],
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

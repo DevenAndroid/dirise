@@ -6,7 +6,7 @@ import '../widgets/dimension_screen.dart';
 
 class ThankYouVendorScreen extends StatefulWidget {
   const ThankYouVendorScreen({Key? key}) : super(key: key);
-  static var thankYouVendorScreen = "/thankYouVendorScreen";
+  static var route = "/thankYouVendorScreen";
   @override
   State<ThankYouVendorScreen> createState() => _ThankYouVendorScreenState();
 }
@@ -18,7 +18,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        return true;
       },
       child: Scaffold(
         body: SingleChildScrollView(

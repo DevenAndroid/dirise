@@ -242,6 +242,7 @@ class Repositories {
     required Map<String, File> images,
     BuildContext? context,
     required String url,
+    required Function(int bytes, int totalBytes) onProgress
   }) async {
     OverlayEntry loader = Helpers.overlayLoader(context);
     if (context != null) {
@@ -259,7 +260,9 @@ class Repositories {
         HttpHeaders.acceptHeader: 'application/json',
         if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
-      var request = http.MultipartRequest('POST', Uri.parse(url));
+      var request = CloseableMultipartRequest('POST', Uri.parse(url), onProgress: (int bytes, int totalBytes) {
+        onProgress(bytes, totalBytes);
+      });
 
       request.headers.addAll(headers);
 
@@ -279,6 +282,7 @@ class Repositories {
       final response = await request.send();
       String value = await response.stream.bytesToString();
       log(value);
+      log(response.statusCode.toString());
       Helpers.hideLoader(loader);
       if (response.statusCode == 200) {
         return value;
@@ -316,6 +320,7 @@ class Repositories {
     Get.offAllNamed(LoginScreen.route);
   }
 }
+
 
 class CloseableMultipartRequest extends http.MultipartRequest {
   http.Client client = http.Client();

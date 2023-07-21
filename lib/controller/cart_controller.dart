@@ -119,6 +119,25 @@ class CartController extends GetxController {
     });
   }
 
+  Future<bool> deleteAddress(
+      {required BuildContext context,
+      required String id
+      }) async {
+    Map<String, dynamic> map = {};
+    map["id"] = id;
+
+    await repositories.postApi(url: ApiUrls.deleteAddressUrl, context: context, mapData: map).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(response.message.toString());
+      if (response.status == true) {
+        getAddress();
+        return true;
+        // Get.back();
+      }
+    }).catchError((e){return false;});
+    return false;
+  }
+
   getAddress() {
     repositories.postApi(url: ApiUrls.addressListUrl).then((value) {
       addressListModel = ModelUserAddressList.fromJson(jsonDecode(value));

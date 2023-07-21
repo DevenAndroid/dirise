@@ -53,7 +53,7 @@ class _EditProfileState extends State<EditProfile> {
       map['password'] = passwordController.text.trim();
 
       repositories
-          .multiPartApi(mapData: map, images: {"profile": image}, url: ApiUrls.updateProfile, context: context)
+          .multiPartApi(mapData: map, images: {"profile": image}, url: ApiUrls.updateProfile, context: context,onProgress: (gg,kk){})
           .then((value) {
         ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
         showToast(response.message.toString());

@@ -29,6 +29,8 @@ class ProfileController extends GetxController {
     refreshInt.value = DateTime.now().millisecondsSinceEpoch;
   }
 
+  bool isVendorRegistered = false;
+
   @override
   void onInit() {
     super.onInit();
@@ -44,6 +46,7 @@ class ProfileController extends GetxController {
     if(userLoggedIn) {
       await repositories.postApi(url: ApiUrls.userProfile).then((value) {
         model = ProfileModel.fromJson(jsonDecode(value));
+        // isVendorRegistered = model.user.
         apiLoaded = true;
         updateUI();
       });
