@@ -42,7 +42,9 @@ class _WhishlistState extends State<Whishlist> {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message);
       inWishList = true;
-      setState(() {});
+      setState(() {
+
+      });
     });
   }
 
