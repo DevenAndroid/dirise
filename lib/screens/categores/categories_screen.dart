@@ -30,8 +30,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     "Schools & Nurseries",
     "Club & Camps",
     "E-Book",
-    "Public Speaker"
-
+    "Public Speaker",
   ];
 
   @override

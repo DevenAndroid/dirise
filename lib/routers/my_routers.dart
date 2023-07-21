@@ -45,6 +45,7 @@ import '../vendorflow/orderdetailsscreen.dart';
 import '../vendorflow/store_open_time_screen.dart';
 import '../vendorflow/thanku_screen.dart';
 import '../vendorflow/vendor_registration_screen.dart';
+import '../vendorflow/verify_vendor_otp.dart';
 
 class MyRouters {
   static var splash = "/splash";
@@ -70,7 +71,7 @@ class MyRouters {
   static var dashBoardScreen = "/dashBoardScreen";
   static var storeOpenScreen = "/storeOpenScreen";
   static var vendorRegistration = "/vendorRegistration";
-  static var thankUScreen = "/thankUScreen";
+  // static var thankUScreen = "/thankUScreen";
   static var allProductScreen = "/allProductScreen";
   static var addProductScreen = "/addProductScreen";
   static var orderListScreen = "/orderListScreen";
@@ -87,6 +88,7 @@ class MyRouters {
   static var route = [
     GetPage(name: '/', page: () => const BottomNavbar()),
     GetPage(name: LoginScreen.route, page: () => const LoginScreen()),
+    GetPage(name: VendorOTPVerification.route, page: () => const VendorOTPVerification()),
     GetPage(name: '/createAccScreen', page: () => const CreateAcc()),
     GetPage(name: '/forgetPassword', page: () => const ForgetPassword()),
     GetPage(name: BottomNavbar.route, page: () => const BottomNavbar()),
@@ -104,7 +106,7 @@ class MyRouters {
     GetPage(name: OrderDetails.orderDetails, page: () => const OrderDetails()),
     GetPage(name: ReturnPolicy.returnPolicy, page: () => const ReturnPolicy()),
     GetPage(name: PublicSpeaker.publicSpeaker, page: () => const PublicSpeaker()),
-    GetPage(name: '/thankUScreen', page: () => const ThankYouVendorScreen()),
+    GetPage(name: ThankYouVendorScreen.route, page: () => const ThankYouVendorScreen()),
     GetPage(name: '/editprofileScreen', page: () => const EditProfile()),
     GetPage(name: '/addProductScreen', page: () => const AddProduct()),
     GetPage(name: '/newPasswordScreen', page: () => const NewPassword()),

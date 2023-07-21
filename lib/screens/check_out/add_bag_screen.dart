@@ -32,24 +32,8 @@ class _BagsScreenState extends State<BagsScreen> {
         .size;
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          titleSpacing: 0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Bag",
-                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
-              ),
-            ],
-          ),
+        appBar: customAppBar(
+          title: "Bag"
         ),
         body: Obx(() {
           if (cartController.refreshInt.value > 0) {}
@@ -235,5 +219,29 @@ class _BagsScreenState extends State<BagsScreen> {
           ) : const SizedBox.shrink() :
           const SizedBox.shrink();
         }));
+  }
+
+  AppBar customAppBar({
+    required String title
+}) {
+    return AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+          onPressed: () => Get.back(),
+        ),
+        titleSpacing: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
+            ),
+          ],
+        ),
+      );
   }
 }

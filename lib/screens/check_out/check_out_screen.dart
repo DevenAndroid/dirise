@@ -199,7 +199,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ),
             Container(
               color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -280,13 +280,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             return;
           }
           cartController.placeOrder(
-            context: context,
-            currencyCode: "usd",
-            subTotalPrice: cartController.cartModel.subtotal.toString(),
-            totalPrice: cartController.cartModel.total.toString(),
-            couponCode: couponApplied.isNotEmpty ? appliedCode : null,
-            address: selectedAddress.toJson()
-          );
+              context: context,
+              currencyCode: "usd",
+              subTotalPrice: cartController.cartModel.subtotal.toString(),
+              totalPrice: cartController.cartModel.total.toString(),
+              couponCode: couponApplied.isNotEmpty ? appliedCode : null,
+              address: selectedAddress.toJson());
         },
         child: Container(
           decoration: const BoxDecoration(color: Color(0xff014E70)),
@@ -797,61 +796,80 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   childCount: shippingAddress.length,
                                   (context, index) {
                                     final address = shippingAddress[index];
-                                    return Container(
-                                      width: size.width,
-                                      margin: const EdgeInsets.only(bottom: 15),
-                                      padding: const EdgeInsets.all(15),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          border: Border.all(color: const Color(0xffDCDCDC))),
-                                      child: IntrinsicHeight(
-                                        child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            const Icon(Icons.location_on_rounded),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                address.getCompleteAddressInFormat,
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 15,
-                                                    color: const Color(0xff585858)),
+                                    return GestureDetector(
+                                      behavior: HitTestBehavior.translucent,
+                                      onTap: () {
+                                        selectedAddress = address;
+                                        Get.back();
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        width: size.width,
+                                        margin: const EdgeInsets.only(bottom: 15),
+                                        padding: const EdgeInsets.all(15),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                            border: Border.all(color: const Color(0xffDCDCDC))),
+                                        child: IntrinsicHeight(
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Icon(Icons.location_on_rounded),
+                                              const SizedBox(
+                                                width: 10,
                                               ),
-                                            ),
-                                            Column(
-                                              children: [
-                                                Expanded(
-                                                  child: IconButton(
-                                                      onPressed: () {
-                                                        selectedAddress = address;
-                                                        Get.back();
-                                                        setState(() {});
-                                                      },
-                                                      icon: const Icon(Icons.arrow_forward_ios_rounded)),
+                                              Expanded(
+                                                child: Text(
+                                                  address.getCompleteAddressInFormat,
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 15,
+                                                      color: const Color(0xff585858)),
                                                 ),
-                                                InkWell(
-                                                  onTap: () {
-                                                    bottomSheet(addressData: address);
-                                                  },
-                                                  child: Text(
-                                                    'Edit',
-                                                    style: GoogleFonts.poppins(
-                                                        shadows: [
-                                                          const Shadow(color: Color(0xff014E70), offset: Offset(0, -4))
-                                                        ],
-                                                        color: Colors.transparent,
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.w500,
-                                                        decoration: TextDecoration.underline,
-                                                        decorationColor: const Color(0xff014E70)),
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Flexible(
+                                                    child: IconButton(
+                                                        onPressed: () {
+                                                          cartController
+                                                              .deleteAddress(
+                                                            context: context,
+                                                            id: address.id.toString(),
+                                                          )
+                                                              .then((value) {
+                                                            if (value == true) {
+                                                              cartController.addressListModel.address!.shipping!
+                                                                  .removeWhere((element) =>
+                                                                      element.id.toString() == address.id.toString());
+                                                              cartController.updateUI();
+                                                            }
+                                                          });
+                                                        },
+                                                        icon: const Icon(Icons.delete)),
                                                   ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
+                                                  InkWell(
+                                                    onTap: () {
+                                                      bottomSheet(addressData: address);
+                                                    },
+                                                    child: Text(
+                                                      'Edit',
+                                                      style: GoogleFonts.poppins(
+                                                          shadows: [
+                                                            const Shadow(
+                                                                color: Color(0xff014E70), offset: Offset(0, -4))
+                                                          ],
+                                                          color: Colors.transparent,
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.w500,
+                                                          decoration: TextDecoration.underline,
+                                                          decorationColor: const Color(0xff014E70)),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );

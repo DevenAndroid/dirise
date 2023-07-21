@@ -30,6 +30,11 @@ class ApiUrls {
   static const String orderDetailsUrl = "${apiBaseUrlNew}order-details";
   static const String addToWishListUrl = "${apiBaseUrlNew}add-to-wishlist";
   static const String removeFromWishListUrl = "${apiBaseUrlNew}remove-from-wishlist";
+  static const String vendorCategoryListUrl = "${apiBaseUrlNew}vendor-category-list";
+  static const String vendorRegistrationUrl = "${apiBaseUrlNew}vendor-signup";
+  static const String verifyVendorOTPEmailUrl = "${apiBaseUrlNew}verify-otp-email";
+  static const String vendorResendOTPUrl = "${apiBaseUrlNew}vendor-resend-otp";
+  static const String deleteAddressUrl = "${apiBaseUrlNew}delete-address";
 }
 
 showToast(message) {
