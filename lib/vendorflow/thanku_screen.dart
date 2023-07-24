@@ -3,6 +3,7 @@ import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/dimension_screen.dart';
+import 'dashboard_screen.dart';
 
 class ThankYouVendorScreen extends StatefulWidget {
   const ThankYouVendorScreen({Key? key}) : super(key: key);
@@ -12,8 +13,6 @@ class ThankYouVendorScreen extends StatefulWidget {
 }
 
 class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
-  // final controller = Get.put(MainHomeController());
-  // final profileController = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -73,11 +72,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
           padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.size40),
           child: ElevatedButton(
               onPressed: () {
-                // profileController.getData();
-                // Get.back();
-                // Get.back();
-                // Get.back();
-                Get.toNamed(MyRouters.dashBoardScreen);
+                Get.off(()=> const DashboardScreen());
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.maxFinite, 60),

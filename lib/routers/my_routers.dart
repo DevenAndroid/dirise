@@ -55,7 +55,7 @@ class MyRouters {
   // static var bottomNavBar = "/bottomNavBar";
   static var categoryScreen = "/categoryScreen";
   static var whishlistScreen = "/whishlistScreen";
-  static var profileScreen = "/profileScreen";
+  // static var profileScreen = "/profileScreen";
    static var loginScreen = "/loginScreen";
   static var newPasswordScreen = "/newPasswordScreen";
   static var editprofileScreen = "/editprofileScreen";
@@ -94,7 +94,7 @@ class MyRouters {
     GetPage(name: BottomNavbar.route, page: () => const BottomNavbar()),
     GetPage(name: PrivacyPolicy.route, page: () => const PrivacyPolicy()),
     GetPage(name: '/whishlistScreen', page: () => const Whishlist()),
-    GetPage(name: '/profileScreen', page: () => const Profile()),
+    GetPage(name: ProfileScreen.route, page: () => const ProfileScreen()),
     GetPage(name: OtpScreen.route, page: () => const OtpScreen()),
     GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
     GetPage(name: '/orderListScreen', page: () => const VendorOrderList()),

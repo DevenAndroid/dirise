@@ -1,11 +1,6 @@
 import 'dart:convert';
-
 import 'package:dirise/repoistery/repository.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-
-import '../model/model_whishlist.dart';
 import '../model/single_category_model.dart';
 import '../utils/ApiConstant.dart';
 

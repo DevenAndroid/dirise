@@ -6,14 +6,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/profile_controller.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  static String route = "/ProfileScreen";
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileScreenState extends State<ProfileScreen> {
   final profileController = Get.put(ProfileController());
 
   @override
@@ -58,7 +59,7 @@ class _ProfileState extends State<Profile> {
                         child: Container(
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(100)),
-                            color: AppTheme.primaryColor,
+                            color: AppTheme.buttonColor,
                           ),
                           child: ClipOval(
                             child: CachedNetworkImage(

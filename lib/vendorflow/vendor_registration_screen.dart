@@ -46,7 +46,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   final Repositories repositories = Repositories();
   Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
   ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
-  Usphone? selectedCategory;
+  // Usphone? selectedCategory;
+  Map<String, Usphone> allSelectedCategory = {};
 
   void vendorRegistration() {
     showValidation.value = true;
@@ -60,14 +61,23 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
           break;
         }
       }
+
       if (!inTextFound) {
         Scrollable.ensureVisible(categoryKey.currentContext!,
             alignment: .25, duration: const Duration(milliseconds: 600));
       }
       return;
     }
+    if(storeImage.value.path.isEmpty){
+      showToast("Please select store logo");
+      return;
+    }
+    if(businessImage.value.path.isEmpty){
+      showToast("Please select business id image");
+      return;
+    }
     Map<String, String> map = textControllers.map((key, value) => MapEntry(key, value.text.trim()));
-    map["VenderCategory"] = selectedCategory!.id.toString();
+    map["VenderCategory"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
 
     Map<String, File> images = {};
     images["store_logo"] = storeImage.value;
@@ -171,7 +181,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           }
                           return null;
                         }),
-                    12.spaceY,
+                    14.spaceY,
                     VendorCommonTextfield(
                         //obSecure: true,
                         controller: textControllers["phone"],
@@ -187,7 +197,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           }
                           return null;
                         }),
-                    12.spaceY,
+                    14.spaceY,
                     VendorCommonTextfield(
                         //obSecure: true,
                         controller: textControllers["email"],
@@ -203,7 +213,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           }
                           return null;
                         }),
-                    12.spaceY,
+                    14.spaceY,
                     Obx(() {
                       return VendorCommonTextfield(
                           //obSecure: true,
@@ -227,7 +237,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             return null;
                           });
                     }),
-                    12.spaceY,
+                    14.spaceY,
                     VendorCommonTextfield(
                         controller: textControllers["store_address"],
                         keyboardType: TextInputType.streetAddress,
@@ -239,7 +249,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           }
                           return null;
                         }),
-                    12.spaceY,
+                    14.spaceY,
                     VendorCommonTextfield(
                         //obSecure: true,
                         controller: textControllers["store_business_id"],
@@ -252,7 +262,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           }
                           return null;
                         }),
-                    12.spaceY,
+                    14.spaceY,
                     Obx(() {
                       return DropdownButtonFormField<Usphone>(
                         key: categoryKey,
@@ -272,7 +282,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         iconSize: 30,
                         iconDisabledColor: const Color(0xff97949A),
                         iconEnabledColor: const Color(0xff97949A),
-                        value: selectedCategory,
+                        value: null,
                         style: const TextStyle(color: Colors.black, fontSize: 16),
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -302,17 +312,32 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             .toList(),
                         hint: const Text('Category'),
                         onChanged: (value) {
-                          selectedCategory = value;
+                          // selectedCategory = value;
+                          if(value ==null)return;
+                          allSelectedCategory[value.id.toString()] = value;
+                          setState(() {});
                         },
                         validator: (value) {
-                          if (value == null) {
+                          if (allSelectedCategory.isEmpty) {
                             return "Please select Category";
                           }
                           return null;
                         },
                       );
                     }),
-                    18.spaceY,
+                    5.spaceY,
+                    Wrap(
+                      runSpacing: 0,
+                      spacing: 8,
+                      children: allSelectedCategory.entries.map((e) => Chip(
+                          label: Text(e.value.name.toString().capitalize!),
+                          labelPadding: const EdgeInsets.only(right: 4,left: 2),
+                          onDeleted: (){
+                            allSelectedCategory.remove(e.key);
+                            setState(() {});
+                          })).toList(),
+                    ),
+                    14.spaceY,
                     VendorCommonTextfield(
                         //obSecure: true,
                         controller: textControllers["store_about_us"],
@@ -325,12 +350,12 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           }
                           return null;
                         }),
-                    12.spaceY,
+                    14.spaceY,
                     VendorCommonTextfield(
                         //obSecure: true,
                         controller: textControllers["store_about_me"],
                         key: textControllers["store_about_me"]!.getKey,
-                        hintText: "Tell us about you(Optional)",
+                        hintText: "Tell us about you.",
                         isMulti: true,
                         validator: (value) {
                           if (value!.trim().isEmpty) {
@@ -338,13 +363,13 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           }
                           return null;
                         }),
-                    12.spaceY,
+                    14.spaceY,
                     Text(
                       "Store Logo",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: AddSize.font18),
                     ),
-                    12.spaceY,
+                    14.spaceY,
                     Obx(() {
                       return GestureDetector(
                         onTap: () {
@@ -404,13 +429,13 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         ),
                       );
                     }),
-                    12.spaceY,
+                    14.spaceY,
                     Text(
                       "Business ID One Image ",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: AddSize.font18),
                     ),
-                    12.spaceY,
+                    14.spaceY,
                     Obx(() {
                       return GestureDetector(
                         onTap: () {
@@ -469,7 +494,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         ),
                       );
                     }),
-                    12.spaceY,
+                    14.spaceY,
                     ElevatedButton(
                         onPressed: () {
                           vendorRegistration();

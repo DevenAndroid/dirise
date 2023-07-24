@@ -10,6 +10,7 @@ import '../../utils/ApiConstant.dart';
 import '../../widgets/common_colour.dart';
 import '../controller/profile_controller.dart';
 import 'dashboard_screen.dart';
+import 'thanku_screen.dart';
 
 class VendorOTPVerification extends StatefulWidget {
   static String route = "/VendorOTPVerification";
@@ -43,7 +44,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
       showToast(response.message);
       if (response.status == true) {
         Get.back();
-        Get.off(()=> const DashboardScreen());
+        Get.off(()=> const ThankYouVendorScreen());
         profileController.getDataProfile();
       }
     });
