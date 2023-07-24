@@ -41,7 +41,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
                 ),
               ),
               SizedBox(
-                height: AddSize.size40,
+                height: 60,
               ),
               Text(
                 "Your Account Has Been Successfully Created".tr,
@@ -54,14 +54,14 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
               SizedBox(
                 height: AddSize.size15,
               ),
-              Text(
-                "Admin will verify and update you by\ncall or email".tr,
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .copyWith(fontWeight: FontWeight.w300, fontSize: AddSize.font18, color: const Color(0xff596774)),
-              ),
+              // Text(
+              //   "Admin will verify and update you by\ncall or email".tr,
+              //   textAlign: TextAlign.center,
+              //   style: Theme.of(context)
+              //       .textTheme
+              //       .headline5!
+              //       .copyWith(fontWeight: FontWeight.w300, fontSize: AddSize.font18, color: const Color(0xff596774)),
+              // ),
               SizedBox(
                 height: AddSize.size10,
               ),

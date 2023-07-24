@@ -37,7 +37,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   var vendorRoutes = [
     VendorDashBoardScreen.route,
     VendorOrderList.vendorOrderList,
-    ProductScreen.allProductScreen,
+    VendorProductScreen.route,
     SetTimeScreen.setTimeScreen,
     BankDetailsScreen.bankDetailsScreen,
     WithdrawMoney.withdrawMoney,

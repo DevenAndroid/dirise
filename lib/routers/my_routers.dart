@@ -73,7 +73,7 @@ class MyRouters {
   static var vendorRegistration = "/vendorRegistration";
   // static var thankUScreen = "/thankUScreen";
   static var allProductScreen = "/allProductScreen";
-  static var addProductScreen = "/addProductScreen";
+  // static var addProductScreen = "/addProductScreen";
   static var orderListScreen = "/orderListScreen";
   static var addMoneyScreen = "/addMoneyScreen";
   static var bankAccount = "/bankAccount";
@@ -86,11 +86,11 @@ class MyRouters {
   static var singlePublicCategory = "/singlePublicCategory";
 
   static var route = [
-    // GetPage(name: '/', page: () => const BottomNavbar()),
-    GetPage(name: '/', page: () => const VendorDashBoardScreen()),
+    GetPage(name: '/', page: () => const BottomNavbar()),
+    // GetPage(name: '/', page: () => const VendorProductScreen()),
     GetPage(name: LoginScreen.route, page: () => const LoginScreen()),
     GetPage(name: VendorOTPVerification.route, page: () => const VendorOTPVerification()),
-    GetPage(name: '/createAccScreen', page: () => const CreateAccountScreen()),
+    GetPage(name: CreateAccountScreen.route, page: () => const CreateAccountScreen()),
     GetPage(name: '/forgetPassword', page: () => const ForgetPassword()),
     GetPage(name: BottomNavbar.route, page: () => const BottomNavbar()),
     GetPage(name: PrivacyPolicy.route, page: () => const PrivacyPolicy()),
@@ -99,7 +99,7 @@ class MyRouters {
     GetPage(name: OtpScreen.route, page: () => const OtpScreen()),
     GetPage(name: '/faqsScreen', page: () => const FaqsScreen()),
     GetPage(name: '/orderListScreen', page: () => const VendorOrderList()),
-    GetPage(name: ProductScreen.allProductScreen, page: () => const ProductScreen()),
+    GetPage(name: VendorProductScreen.route, page: () => const VendorProductScreen()),
     GetPage(name: AboutUS.aboutUs, page: () => const AboutUS()),
     GetPage(name: PublicSpeakerCategory.singlePublicCategory, page: () => const PublicSpeakerCategory()),
     GetPage(name: SchoolNursery.schoolNursery, page: () => const SchoolNursery()),
@@ -109,7 +109,7 @@ class MyRouters {
     GetPage(name: PublicSpeaker.publicSpeaker, page: () => const PublicSpeaker()),
     GetPage(name: ThankYouVendorScreen.route, page: () => const ThankYouVendorScreen()),
     GetPage(name: '/editprofileScreen', page: () => const EditProfile()),
-    GetPage(name: '/addProductScreen', page: () => const AddProduct()),
+    GetPage(name: AddProductScreen.route, page: () => const AddProductScreen()),
     GetPage(name: '/newPasswordScreen', page: () => const NewPassword()),
     GetPage(name: '/termsConditionScreen', page: () => const TermCondition()),
     GetPage(name: '/calendarScreen', page: () => const EventCalendarScreen()),

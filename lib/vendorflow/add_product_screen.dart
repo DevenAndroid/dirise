@@ -1,71 +1,112 @@
 import 'dart:io';
-
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import '../routers/my_routers.dart';
 import '../utils/helper.dart';
 import '../widgets/dimension_screen.dart';
 import '../widgets/vendor_common_textfield.dart';
 
-class AddProduct extends StatefulWidget {
-  const AddProduct({Key? key}) : super(key: key);
+class AddProductScreen extends StatefulWidget {
+  static String route = "/AddProductScreen";
+  const AddProductScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddProduct> createState() => _AddProductState();
+  State<AddProductScreen> createState() => _AddProductScreenState();
 }
 
-class _AddProductState extends State<AddProduct> {
-  String? chooseOptionType;
-  // final List<String> optionMenu = ["vendor", "vendor"];
-  RxList<File> imageList = <File>[].obs;
-  String? selectProduct;
-  // final List<String> product = ["vendor", "vendor"];
-  bool state1 = true;
-  String _ratingController = "vendor";
-  final List<String> optionMenu = ["vendor", "ffgsfgs"];
+class _AddProductScreenState extends State<AddProductScreen> {
+  File productImage = File("");
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController skuController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController minQuantityController = TextEditingController();
+  final TextEditingController maxQuantityController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  File pdfFile = File("");
+  File voiceFile = File("");
+  List<File> galleryImages = [];
 
+  showImagePickerSheet({
+    required Function(File image) gotImage,
+  }) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text(
+          'Select Image',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: AppTheme.primaryColor),
+        ),
+        // message: const Text('Message'),
+        cancelButton: CupertinoActionSheetAction(
+          child: const Text('Cancel'),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop("Cancel");
+          },
+        ),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            child: const Text('Gallery'),
+            onPressed: () {
+              // pickImage(
+              //     ImageSource.gallery);
+              NewHelper().addImagePicker(imageSource: ImageSource.gallery).then((value) {
+                if (value == null) return;
+                gotImage(value);
+                Get.back();
+              });
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: const Text('Camera'),
+            onPressed: () {
+              NewHelper().addImagePicker(imageSource: ImageSource.camera).then((value) {
+                if (value == null) return;
+                gotImage(value);
+                Get.back();
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
 
-  // Rx<File> image = File("").obs;
-  // Rx<File> image1 = File("").obs;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    return Obx(() {
-      return Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color(0xffF4F4F4),
-            surfaceTintColor: Colors.white,
-            leading: GestureDetector(
-              onTap: () {
-                Get.back();
-                // _scaffoldKey.currentState!.openDrawer();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Image.asset(
-                  'assets/icons/backicon.png',
-                  // height: 21,
-                ),
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xffF4F4F4),
+          surfaceTintColor: Colors.white,
+          leading: GestureDetector(
+            onTap: () {
+              Get.back();
+              // _scaffoldKey.currentState!.openDrawer();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Image.asset(
+                'assets/icons/backicon.png',
+                // height: 21,
               ),
             ),
-            title: Text(
-              "Add Product",
-              style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
-            ),
           ),
-          body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              physics: const BouncingScrollPhysics(),
+          title: Text(
+            "Add Product",
+            style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
+          ),
+        ),
+        body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(),
+            child: Form(
+              key: formKey,
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(children: [
@@ -76,55 +117,21 @@ class _AddProductState extends State<AddProduct> {
                             padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
                             child: Column(children: [
                               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                DottedBorder(
-                                  radius: const Radius.circular(10),
-                                  borderType: BorderType.RRect,
-                                  dashPattern: const [3, 5],
-                                  color: Colors.grey.shade500,
-                                  strokeWidth: 1,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: AddSize.padding16, vertical: AddSize.padding16),
-                                    width: AddSize.screenWidth,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade50,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        const Image(
-                                          height: 30,
-                                          image: AssetImage(
-                                            'assets/icons/pdfdownload.png',
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          "Upload Product image",
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w300,
-                                              color: const Color(0xff463B57),
-                                              fontSize: AddSize.font14),
-                                        ),
-                                        SizedBox(
-                                          height: height * .01,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                productImageWidget(context, height),
                                 SizedBox(
                                   height: height * .02,
                                 ),
                                 VendorCommonTextfield(
                                     obSecure: true,
-
-                                    // controller: cookNameController,
+                                    controller: productNameController,
                                     hintText: "Enter Product Name",
-                                    validator:
-                                        MultiValidator([RequiredValidator(errorText: 'Product name is required')])),
+                                    validator: (value) {
+                                      if (value!.trim().isEmpty) {
+                                        return "Product name is required";
+                                      }
+                                      return null;
+                                    }
+                                    ),
                                 SizedBox(
                                   height: height * .007,
                                 ),
@@ -134,7 +141,7 @@ class _AddProductState extends State<AddProduct> {
                                     Expanded(
                                       child: VendorCommonTextfield(
                                           obSecure: true,
-                                          // controller: phoneController,
+                                          controller: skuController,
                                           hintText: "SKU",
                                           validator: MultiValidator([RequiredValidator(errorText: 'SKU is required')])),
                                     ),
@@ -144,7 +151,7 @@ class _AddProductState extends State<AddProduct> {
                                     Expanded(
                                       child: VendorCommonTextfield(
                                           obSecure: true,
-                                          // controller: phoneController,
+                                          controller: priceController,
                                           hintText: "Price",
                                           validator:
                                               MultiValidator([RequiredValidator(errorText: 'Price is required')])),
@@ -154,68 +161,52 @@ class _AddProductState extends State<AddProduct> {
                                 SizedBox(
                                   height: height * .007,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: 58,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            color: const Color(0xffE2E2E2).withOpacity(.4)),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: DropdownButtonFormField<String>(
-                                                icon: const Icon(Icons.keyboard_arrow_down),
-                                                iconSize: 30,
-                                                iconDisabledColor: const Color(0xff97949A),
-                                                iconEnabledColor: const Color(0xff97949A),
-                                                value: _ratingController,
-                                                decoration: const InputDecoration(
-                                                  border: InputBorder.none,
-                                                  focusedErrorBorder: OutlineInputBorder(
-                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                      borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                                  errorBorder: OutlineInputBorder(
-                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                      borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                                                  focusedBorder: OutlineInputBorder(
-                                                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                      borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                                  disabledBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                    borderSide: BorderSide(color: AppTheme.secondaryColor),
-                                                  ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                    borderSide: BorderSide(color: AppTheme.secondaryColor),
-                                                  ),
-                                                ),
-                                                items: ["vendor", "customer"]
-                                                    .map((label) => DropdownMenuItem(
-                                                          child: Text(
-                                                            label.toString(),
-                                                            style: GoogleFonts.poppins(
-                                                              color: const Color(0xff463B57),
-                                                            ),
-                                                          ),
-                                                          value: label,
-                                                        ))
-                                                    .toList(),
-                                                hint: const Text('Rating'),
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    _ratingController = value!;
-                                                  });
-                                                },
+                                DropdownButtonFormField<String>(
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  // iconSize: 30,
+                                  iconDisabledColor: const Color(0xff97949A),
+                                  iconEnabledColor: const Color(0xff97949A),
+                                  // value: _ratingController,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    filled: true,
+                                    fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                                    contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 14),
+                                    focusedErrorBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                    errorBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                        borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                                    focusedBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                    disabledBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                    ),
+                                  ),
+                                  items: ["vendor", "customer"]
+                                      .map((label) => DropdownMenuItem(
+                                            value: label,
+                                            child: Text(
+                                              label.toString(),
+                                              style: GoogleFonts.poppins(
+                                                color: const Color(0xff463B57),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                          ))
+                                      .toList(),
+                                  hint: const Text('Rating'),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      // _ratingController = value!;
+                                    });
+                                  },
                                 ),
                                 SizedBox(
                                   height: height * .02,
@@ -225,7 +216,7 @@ class _AddProductState extends State<AddProduct> {
                                     Expanded(
                                       child: VendorCommonTextfield(
                                           obSecure: true,
-                                          // controller: addressController,
+                                          controller: minQuantityController,
                                           hintText: "Min Qty",
                                           validator:
                                               MultiValidator([RequiredValidator(errorText: 'Min Qty is required')])),
@@ -236,7 +227,7 @@ class _AddProductState extends State<AddProduct> {
                                     Expanded(
                                       child: VendorCommonTextfield(
                                           obSecure: true,
-                                          // controller: addressController,
+                                          controller: maxQuantityController,
                                           hintText: "Max Qty",
                                           validator:
                                               MultiValidator([RequiredValidator(errorText: 'Max Qty is required')])),
@@ -248,7 +239,7 @@ class _AddProductState extends State<AddProduct> {
                                 ),
                                 VendorCommonTextfield(
                                     obSecure: true,
-                                    // controller: ppsController,
+                                    controller: descriptionController,
                                     hintText: "Description",
                                     validator:
                                         MultiValidator([RequiredValidator(errorText: 'Description is required')])),
@@ -426,15 +417,14 @@ class _AddProductState extends State<AddProduct> {
                                                             NewHelper()
                                                                 .addImagePicker(imageSource: ImageSource.camera)
                                                                 .then((value) {
-                                                              for (var i = 0; i < imageList.length; i++) {
-                                                                if (imageList[i].path == "") {
-                                                                  imageList[i] = value!;
-                                                                  Get.back();
-                                                                  break;
-                                                                }
-                                                              }
-                                                            }
-                                                            );
+                                                              // for (var i = 0; i < imageList.length; i++) {
+                                                              //   if (imageList[i].path == "") {
+                                                              //     imageList[i] = value!;
+                                                              //     Get.back();
+                                                              //     break;
+                                                              //   }
+                                                              // }
+                                                            });
                                                           },
                                                           child: Text(
                                                             "Take picture",
@@ -455,11 +445,11 @@ class _AddProductState extends State<AddProduct> {
                                                           onTap: () {
                                                             NewHelper().addFilePickerList().then((value) {
                                                               if (value != null) {
-                                                                for (var item in value) {
-                                                                  if (imageList.length < 6) {
-                                                                    imageList.add(item);
-                                                                  }
-                                                                }
+                                                                // for (var item in value) {
+                                                                //   if (imageList.length < 6) {
+                                                                //     imageList.add(item);
+                                                                //   }
+                                                                // }
                                                               }
                                                             });
                                                           },
@@ -490,10 +480,13 @@ class _AddProductState extends State<AddProduct> {
                                                                     fontWeight: FontWeight.w600)),
                                                             child: Text(
                                                               "Submit",
-                                                              style: Theme.of(context).textTheme.headline5!.copyWith(
-                                                                  color: Colors.white,
-                                                                  fontWeight: FontWeight.w500,
-                                                                  fontSize: AddSize.font18),
+                                                              style: Theme.of(context)
+                                                                  .textTheme
+                                                                  .headlineSmall!
+                                                                  .copyWith(
+                                                                      color: Colors.white,
+                                                                      fontWeight: FontWeight.w500,
+                                                                      fontSize: AddSize.font18),
                                                             )),
                                                       ],
                                                     ),
@@ -521,7 +514,7 @@ class _AddProductState extends State<AddProduct> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
                                 physics: const BouncingScrollPhysics(),
-                                itemCount: imageList.length,
+                                itemCount: 0,
                                 itemBuilder: (context, index) {
                                   return Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -538,10 +531,10 @@ class _AddProductState extends State<AddProduct> {
                                                 color: Colors.grey.shade50,
                                                 borderRadius: BorderRadius.circular(15),
                                               ),
-                                              child: Image.file(
-                                                imageList[index],
-                                                width: 40,
-                                              ),
+                                              // child: Image.file(
+                                              //   imageList[index],
+                                              //   width: 40,
+                                              // ),
                                             ),
                                             const Positioned(
                                                 right: 5,
@@ -565,7 +558,8 @@ class _AddProductState extends State<AddProduct> {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          Get.toNamed(MyRouters.orderListScreen);
+                          if (formKey.currentState!.validate()) {}
+                          // Get.toNamed(MyRouters.orderListScreen);
                         },
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.maxFinite, 60),
@@ -577,10 +571,62 @@ class _AddProductState extends State<AddProduct> {
                           "Upload",
                           style: Theme.of(context)
                               .textTheme
-                              .headline5!
+                              .headlineSmall!
                               .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
                         )),
-                  ]))));
-    });
+                  ])),
+            )));
+  }
+
+  GestureDetector productImageWidget(BuildContext context, double height) {
+    return GestureDetector(
+      onTap: () {
+        showImagePickerSheet(gotImage: (File gg) {
+          productImage = gg;
+          setState(() {});
+        });
+      },
+      child: DottedBorder(
+        radius: const Radius.circular(10),
+        borderType: BorderType.RRect,
+        dashPattern: const [3, 5],
+        color: Colors.grey.shade500,
+        strokeWidth: 1,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+          width: AddSize.screenWidth,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade50,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: productImage.path.isNotEmpty
+              ? Container(
+                  constraints: BoxConstraints(minHeight: 0, maxHeight: context.getSize.width * .36),
+                  child: Image.file(productImage),
+                )
+              : Column(
+                  children: [
+                    const Image(
+                      height: 30,
+                      image: AssetImage(
+                        'assets/icons/pdfdownload.png',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "Upload Product image",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300, color: const Color(0xff463B57), fontSize: AddSize.font14),
+                    ),
+                    SizedBox(
+                      height: height * .01,
+                    ),
+                  ],
+                ),
+        ),
+      ),
+    );
   }
 }
