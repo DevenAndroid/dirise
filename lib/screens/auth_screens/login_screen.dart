@@ -13,6 +13,7 @@ import '../../model/login_model.dart';
 import '../../repoistery/repository.dart';
 import '../../widgets/common_button.dart';
 import '../../bottomavbar.dart';
+import 'createacc_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static String route = "/LoginScreen";
@@ -278,7 +279,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(text: 'Sign Up',style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: AppTheme.buttonColor,decoration: TextDecoration.underline),
 
                           recognizer: TapGestureRecognizer()..onTap = () {
-                        Get.toNamed(MyRouters.createAccScreen);
+                        Get.toNamed(CreateAccountScreen.route);
 
                       },
 

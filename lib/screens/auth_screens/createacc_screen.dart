@@ -13,14 +13,15 @@ import '../../widgets/common_button.dart';
 import '../../widgets/common_textfield.dart';
 import 'otp_screen.dart';
 
-class CreateAcc extends StatefulWidget {
-  const CreateAcc({Key? key}) : super(key: key);
+class CreateAccountScreen extends StatefulWidget {
+  static String route = "/CreateAccountScreen";
+  const CreateAccountScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreateAcc> createState() => _CreateAccState();
+  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
 }
 
-class _CreateAccState extends State<CreateAcc> {
+class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final formKey1 = GlobalKey<FormState>();
 
   // final TextEditingController _nameController = TextEditingController();

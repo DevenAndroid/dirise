@@ -49,7 +49,7 @@ import '../vendorflow/verify_vendor_otp.dart';
 
 class MyRouters {
   static var splash = "/splash";
-  static var createAccScreen = "/createAccScreen";
+  // static var createAccScreen = "/createAccScreen";
   static var forgetPassword = "/forgetPassword";
 
   // static var bottomNavBar = "/bottomNavBar";
@@ -86,10 +86,11 @@ class MyRouters {
   static var singlePublicCategory = "/singlePublicCategory";
 
   static var route = [
-    GetPage(name: '/', page: () => const BottomNavbar()),
+    // GetPage(name: '/', page: () => const BottomNavbar()),
+    GetPage(name: '/', page: () => const VendorDashBoardScreen()),
     GetPage(name: LoginScreen.route, page: () => const LoginScreen()),
     GetPage(name: VendorOTPVerification.route, page: () => const VendorOTPVerification()),
-    GetPage(name: '/createAccScreen', page: () => const CreateAcc()),
+    GetPage(name: '/createAccScreen', page: () => const CreateAccountScreen()),
     GetPage(name: '/forgetPassword', page: () => const ForgetPassword()),
     GetPage(name: BottomNavbar.route, page: () => const BottomNavbar()),
     GetPage(name: PrivacyPolicy.route, page: () => const PrivacyPolicy()),
@@ -115,7 +116,7 @@ class MyRouters {
     GetPage(name: '/eBookScreen', page: () => const EBookScreen()),
     GetPage(name: WithdrawMoney.withdrawMoney, page: () => const WithdrawMoney()),
     GetPage(name: '/singleChair', page: () => const SingleChair()),
-    GetPage(name: DashboardScreen.dashboardScreen, page: () => const DashboardScreen()),
+    GetPage(name: VendorDashBoardScreen.route, page: () => const VendorDashBoardScreen()),
     GetPage(name: VendorRegistrationScreen.registrationScreen, page: () => const VendorRegistrationScreen()),
     GetPage(name: '/eBooKCategoryScreen', page: () => const EBookCategory()),
     GetPage(name: '/singleCategory', page: () => const SingleCategory()),

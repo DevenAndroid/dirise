@@ -35,7 +35,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   final RxBool _isValue = false.obs;
   var vendor = ['Dashboard', 'Order', 'Products', 'Store open time', 'Bank Details', 'Withdraw'];
   var vendorRoutes = [
-    DashboardScreen.dashboardScreen,
+    VendorDashBoardScreen.route,
     VendorOrderList.vendorOrderList,
     ProductScreen.allProductScreen,
     SetTimeScreen.setTimeScreen,

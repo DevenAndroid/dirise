@@ -246,6 +246,18 @@ extension ConvertToNum on String{
     return trim().isEmpty ? "$gg is required" :  null;
   }
 
+  String get checkNullable{
+    if(this == "null") return"";
+    return this;
+  }
+}
+
+extension GG on dynamic{
+
+  String get checkNullable{
+    if(this == null) return"";
+    return toString();
+  }
 }
 
 extension GetTotal on List<num>{

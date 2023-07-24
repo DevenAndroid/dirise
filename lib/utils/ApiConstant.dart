@@ -37,6 +37,7 @@ class ApiUrls {
   static const String verifyVendorOTPEmailUrl = "${apiBaseUrlNew}verify-otp-email";
   static const String vendorResendOTPUrl = "${apiBaseUrlNew}vendor-resend-otp";
   static const String deleteAddressUrl = "${apiBaseUrlNew}delete-address";
+  static const String getVendorDetailUrl = "${apiBaseUrlNew}get-vendor-details";
 
 }
 
