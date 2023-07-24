@@ -7,12 +7,14 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:open_filex/open_filex.dart';
 import '../utils/helper.dart';
 import '../widgets/dimension_screen.dart';
 import '../widgets/vendor_common_textfield.dart';
 
 class AddProductScreen extends StatefulWidget {
   static String route = "/AddProductScreen";
+
   const AddProductScreen({Key? key}) : super(key: key);
 
   @override
@@ -77,6 +79,48 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
+  RxString productType = "".obs;
+
+  pickPDFFile() {
+    NewHelper().addFilePicker(
+      allowedExtensions: ["pdf"],
+    ).then((value) {
+      if (value == null) return;
+      pdfFile = value;
+      setState(() {});
+    });
+  }
+
+  pickAudioFile() {
+    const audioType = [
+      "mpeg",
+      "ogg",
+      "wav",
+      "webm",
+      "x-aac",
+      "x-midi",
+      "x-wav",
+      "midi",
+      "mp4",
+      "aac",
+      "vnd.wave",
+      "vnd.rn-realaudio",
+      "3gpp",
+      "3gpp2",
+      "x-flac",
+      "x-m4a",
+    ];
+    NewHelper()
+        .addFilePicker(
+      allowedExtensions: audioType,
+    )
+        .then((value) {
+      if (value == null) return;
+      voiceFile = value;
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -130,8 +174,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                         return "Product name is required";
                                       }
                                       return null;
-                                    }
-                                    ),
+                                    }),
                                 SizedBox(
                                   height: height * .007,
                                 ),
@@ -171,7 +214,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     border: InputBorder.none,
                                     filled: true,
                                     fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                                    contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 14),
+                                    contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                                     focusedErrorBorder: const OutlineInputBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(8)),
                                         borderSide: BorderSide(color: AppTheme.secondaryColor)),
@@ -248,107 +291,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Card(
-                        color: Colors.white,
-                        surfaceTintColor: Colors.white,
-                        child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Upload PDF And Voice",
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w500,
-                                      color: const Color(0xff2F2F2F),
-                                      fontSize: AddSize.font18),
-                                ),
-                                SizedBox(
-                                  height: height * .02,
-                                ),
-                                DottedBorder(
-                                  radius: const Radius.circular(10),
-                                  borderType: BorderType.RRect,
-                                  dashPattern: const [3, 5],
-                                  color: Colors.grey.shade500,
-                                  strokeWidth: 1,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: AddSize.padding16, vertical: AddSize.padding16),
-                                    width: AddSize.screenWidth,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade50,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        const Image(
-                                          height: 30,
-                                          image: AssetImage(
-                                            'assets/icons/pdfdownload.png',
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          "Upload PDF File",
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w300,
-                                              color: const Color(0xff463B57),
-                                              fontSize: AddSize.font16),
-                                        ),
-                                        SizedBox(
-                                          height: height * .01,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: height * .02,
-                                ),
-                                DottedBorder(
-                                  radius: const Radius.circular(10),
-                                  borderType: BorderType.RRect,
-                                  dashPattern: const [3, 5],
-                                  color: Colors.grey.shade500,
-                                  strokeWidth: 1,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: AddSize.padding16, vertical: AddSize.padding16),
-                                    width: AddSize.screenWidth,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade50,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        const Image(
-                                          height: 30,
-                                          image: AssetImage(
-                                            'assets/icons/pdfdownload.png',
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          "Upload Voice",
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w300,
-                                              color: const Color(0xff463B57),
-                                              fontSize: AddSize.font16),
-                                        ),
-                                        SizedBox(
-                                          height: height * .01,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ))),
+                    productTypeFile(height),
                     SizedBox(
                       height: height * .02,
                     ),
@@ -576,6 +519,186 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         )),
                   ])),
             )));
+  }
+
+  Card productTypeFile(double height) {
+    return Card(
+        color: Colors.white,
+        surfaceTintColor: Colors.white,
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
+            child: Obx(() {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Upload PDF",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: AddSize.font18),
+                        ),
+                      ),
+                      Checkbox(
+                          value: productType.value == "pdf",
+                          onChanged: (value) {
+                            if (value == true) {
+                              productType.value = "pdf";
+                            } else {
+                              productType.value = "";
+                            }
+                          })
+                    ],
+                  ),
+                  4.spaceY,
+                  if (productType.value == "pdf") ...[
+                    GestureDetector(
+                      onTap: () {
+                        pickPDFFile();
+                      },
+                      child: DottedBorder(
+                        radius: const Radius.circular(10),
+                        borderType: BorderType.RRect,
+                        dashPattern: const [3, 5],
+                        color: Colors.grey.shade500,
+                        strokeWidth: 1,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                          width: AddSize.screenWidth,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade50,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: pdfFile.path.isNotEmpty
+                              ? Column(
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        pdfFile.path.split("/").last,
+                                        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                                      ),
+                                    ),
+                                    TextButton(
+                                        onPressed: () {
+                                          OpenFilex.open(pdfFile.path);
+                                        },
+                                        child: const Text("Open"))
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    const Image(
+                                      height: 30,
+                                      image: AssetImage(
+                                        'assets/icons/pdfdownload.png',
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Upload PDF File",
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w300,
+                                          color: const Color(0xff463B57),
+                                          fontSize: AddSize.font16),
+                                    ),
+                                    SizedBox(
+                                      height: height * .01,
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ),
+                    ),
+                    4.spaceY,
+                  ],
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Upload Voice",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: AddSize.font18),
+                        ),
+                      ),
+                      Checkbox(
+                          value: productType.value == "voice",
+                          onChanged: (value) {
+                            if (value == true) {
+                              productType.value = "voice";
+                            } else {
+                              productType.value = "";
+                            }
+                          })
+                    ],
+                  ),
+                  if (productType.value == "voice") ...[
+                    4.spaceY,
+                    GestureDetector(
+                      onTap: () {
+                        pickAudioFile();
+                      },
+                      child: DottedBorder(
+                        radius: const Radius.circular(10),
+                        borderType: BorderType.RRect,
+                        dashPattern: const [3, 5],
+                        color: Colors.grey.shade500,
+                        strokeWidth: 1,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                          width: AddSize.screenWidth,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade50,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: voiceFile.path.isNotEmpty
+                              ? Column(
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        pdfFile.path.split("/").last,
+                                        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                                      ),
+                                    ),
+                                    TextButton(
+                                        onPressed: () {
+                                          OpenFilex.open(voiceFile.path);
+                                        },
+                                        child: const Text("Open"))
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    const Image(
+                                      height: 30,
+                                      image: AssetImage(
+                                        'assets/icons/pdfdownload.png',
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "Upload Voice",
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w300,
+                                          color: const Color(0xff463B57),
+                                          fontSize: AddSize.font16),
+                                    ),
+                                    SizedBox(
+                                      height: height * .01,
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ),
+                    )
+                  ],
+                ],
+              );
+            })));
   }
 
   GestureDetector productImageWidget(BuildContext context, double height) {

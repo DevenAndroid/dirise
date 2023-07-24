@@ -374,6 +374,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       return GestureDetector(
                         onTap: () {
                           NewHelper().addFilePicker().then((value) {
+                            if(value == null)return;
                             storeImage.value = value;
                           });
                         },
@@ -440,6 +441,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       return GestureDetector(
                         onTap: () {
                           NewHelper().addFilePicker().then((value) {
+                            if(value == null)return;
                             businessImage.value = value;
                           });
                         },
