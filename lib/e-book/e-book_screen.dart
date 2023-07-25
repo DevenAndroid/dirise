@@ -5,8 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../routers/my_routers.dart';
 import '../widgets/common_colour.dart';
+import 'singlecategory_screen.dart';
 
 class EBookScreen extends StatefulWidget {
+  static String route = "/EBookScreen";
   const EBookScreen({Key? key}) : super(key: key);
 
   @override
@@ -151,7 +153,7 @@ class _EBookScreenState extends State<EBookScreen> {
                       padding: const EdgeInsets.all(15),
                       child: InkWell(
                         onTap: () {
-                          Get.toNamed(MyRouters.singleCategory);
+                          Get.toNamed(SingleCategoryScreen.route);
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

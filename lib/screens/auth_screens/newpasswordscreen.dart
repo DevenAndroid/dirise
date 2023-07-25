@@ -14,14 +14,15 @@ import '../../widgets/common_textfield.dart';
 import '../../bottomavbar.dart';
 import 'login_screen.dart';
 
-class NewPassword extends StatefulWidget {
-  const NewPassword({Key? key}) : super(key: key);
+class NewPasswordScreen extends StatefulWidget {
+  static String route = "/NewPasswordScreen";
+  const NewPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<NewPassword> createState() => _NewPasswordState();
+  State<NewPasswordScreen> createState() => _NewPasswordScreenState();
 }
 
-class _NewPasswordState extends State<NewPassword> {
+class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();

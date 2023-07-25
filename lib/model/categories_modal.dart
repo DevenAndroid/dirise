@@ -11,15 +11,15 @@ class CategoriesModal {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -64,24 +64,24 @@ class Data {
     if (json['child_category'] != null) {
       childCategory = <ChildCategory>[];
       json['child_category'].forEach((v) {
-        childCategory!.add(new ChildCategory.fromJson(v));
+        childCategory!.add(ChildCategory.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['slug'] = this.slug;
-    data['category_image'] = this.categoryImage;
-    data['category_image_banner'] = this.categoryImageBanner;
-    data['parent_id'] = this.parentId;
-    data['arab_description'] = this.arabDescription;
-    data['arab_title'] = this.arabTitle;
-    data['count'] = this.count;
-    if (this.childCategory != null) {
-      data['child_category'] = this.childCategory!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['slug'] = slug;
+    data['category_image'] = categoryImage;
+    data['category_image_banner'] = categoryImageBanner;
+    data['parent_id'] = parentId;
+    data['arab_description'] = arabDescription;
+    data['arab_title'] = arabTitle;
+    data['count'] = count;
+    if (childCategory != null) {
+      data['child_category'] = childCategory!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -124,14 +124,14 @@ class ChildCategory {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['slug'] = this.slug;
-    data['category_image'] = this.categoryImage;
-    data['parent_id'] = this.parentId;
-    data['arab_description'] = this.arabDescription;
-    data['arab_title'] = this.arabTitle;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['slug'] = slug;
+    data['category_image'] = categoryImage;
+    data['parent_id'] = parentId;
+    data['arab_description'] = arabDescription;
+    data['arab_title'] = arabTitle;
     /* if (this.subChildCategory != null) {
       data['sub_child_category'] =
           this.subChildCategory!.map((v) => v!.toJson()).toList();

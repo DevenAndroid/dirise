@@ -2,14 +2,15 @@ import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SingleCategory extends StatefulWidget {
-  const SingleCategory({Key? key}) : super(key: key);
+class SingleCategoryScreen extends StatefulWidget {
+  static String route = "/SingleCategoryScreen";
+  const SingleCategoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<SingleCategory> createState() => _SingleCategoryState();
+  State<SingleCategoryScreen> createState() => _SingleCategoryScreenState();
 }
 
-class _SingleCategoryState extends State<SingleCategory> {
+class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -52,7 +52,7 @@ class NewHelper {
     }
   }
 
-  Future<File?> addImagePicker({ImageSource imageSource = ImageSource.gallery, int imageQuality = 50}) async {
+  Future<File?> addImagePicker({ImageSource imageSource = ImageSource.gallery, int imageQuality = 80}) async {
     try {
       final item = await ImagePicker().pickImage(source: imageSource, imageQuality: imageQuality);
       if (item == null) {
@@ -64,6 +64,75 @@ class NewHelper {
       throw Exception(e);
     }
   }
+  
+  Future<List<File>?> multiImagePicker({int imageQuality = 80}) async {
+    try {
+      final item = await ImagePicker().pickMultiImage(imageQuality: imageQuality);
+      if(item == null)return null;
+      return List.generate(min(5, item.length), (index) => File(item[index].path));
+    } on PlatformException catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static showImagePickerSheet({
+    required Function(File image) gotImage,
+    Function(bool image)? removeImage,
+    required BuildContext context,
+    bool? removeOption,
+  }) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text(
+          'Select Image',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: AppTheme.primaryColor),
+        ),
+        // message: const Text('Message'),
+        cancelButton: CupertinoActionSheetAction(
+          child: const Text('Cancel'),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop("Cancel");
+          },
+        ),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            child: const Text('Gallery'),
+            onPressed: () {
+              // pickImage(
+              //     ImageSource.gallery);
+              NewHelper().addImagePicker(imageSource: ImageSource.gallery).then((value) {
+                if (value == null) return;
+                gotImage(value);
+                Get.back();
+              });
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: const Text('Camera'),
+            onPressed: () {
+              NewHelper().addImagePicker(imageSource: ImageSource.camera).then((value) {
+                if (value == null) return;
+                gotImage(value);
+                Get.back();
+              });
+            },
+          ),
+          if(removeOption == true)
+          CupertinoActionSheetAction(
+            child: const Text('Remove'),
+            onPressed: () {
+              Get.back();
+              if(removeImage != null) {
+                removeImage(true);
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
 }
 
 class Helpers {

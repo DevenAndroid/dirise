@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/profile_controller.dart';
+import '../../e-book/e-book_screen.dart';
 import '../../routers/my_routers.dart';
 import '../../vendorflow/add_money_screen.dart';
 import '../../vendorflow/all_product_screen.dart';
@@ -18,8 +19,13 @@ import '../../vendorflow/store_open_time_screen.dart';
 import '../../vendorflow/vendor_order_list_screen.dart';
 import '../../vendorflow/vendor_registration_screen.dart';
 import '../../widgets/common_colour.dart';
+import '../calender.dart';
 import '../order_screens/my_orders_screen.dart';
+import 'about_us_screen.dart';
+import 'faqs_screen.dart';
 import 'profile_screen.dart';
+import 'return_policy_screen.dart';
+import 'termsconditions_screen.dart';
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({Key? key}) : super(key: key);
@@ -36,11 +42,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   var vendor = ['Dashboard', 'Order', 'Products', 'Store open time', 'Bank Details', 'Withdraw'];
   var vendorRoutes = [
     VendorDashBoardScreen.route,
-    VendorOrderList.vendorOrderList,
+    VendorOrderList.route,
     VendorProductScreen.route,
     SetTimeScreen.setTimeScreen,
-    BankDetailsScreen.bankDetailsScreen,
-    WithdrawMoney.withdrawMoney,
+    BankDetailsScreen.route,
+    WithdrawMoney.route,
   ];
 
   final profileController = Get.put(ProfileController());
@@ -216,7 +222,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
-                        Get.toNamed(MyRouters.eBookScreen);
+                        Get.toNamed(EBookScreen.route);
                       },
                       child: Row(
                         children: [
@@ -287,7 +293,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
-                        Get.toNamed(MyRouters.calendarScreen);
+                        Get.toNamed(EventCalendarScreen.route);
                       },
                       child: Row(
                         children: [
@@ -321,7 +327,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
-                        Get.toNamed(MyRouters.faqsScreen);
+                        Get.toNamed(FrequentlyAskedQuestionsScreen.route);
                       },
                       child: Row(
                         children: [
@@ -521,7 +527,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
-                        Get.toNamed(MyRouters.aboutUs);
+                        Get.toNamed(AboutUsScreen.route);
                       },
                       child: Row(
                         children: [
@@ -555,7 +561,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
-                        Get.toNamed(MyRouters.termsConditionScreen);
+                        Get.toNamed(TermConditionScreen.route);
                       },
                       child: Row(
                         children: [
@@ -589,7 +595,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
-                        Get.toNamed(MyRouters.returnPolicy);
+                        Get.toNamed(ReturnPolicyScreen.route);
                       },
                       child: Row(
                         children: [

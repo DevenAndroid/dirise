@@ -217,7 +217,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             decoration: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.toNamed(MyRouters.loginScreen);
+                          Get.back();
                           },
                       ),
                     ],

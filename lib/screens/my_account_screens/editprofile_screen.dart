@@ -14,14 +14,15 @@ import '../../utils/ApiConstant.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key}) : super(key: key);
+class EditProfileScreen extends StatefulWidget {
+  static String route = "/EditProfileScreen";
+  const EditProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   final profileController = Get.put(ProfileController());
   final Repositories repositories = Repositories();
@@ -59,6 +60,7 @@ class _EditProfileState extends State<EditProfile> {
         showToast(response.message.toString());
         if (response.status == true) {
           profileController.getDataProfile();
+          Get.back();
         }
       });
     }
@@ -199,6 +201,15 @@ class _EditProfileState extends State<EditProfile> {
                 obSecure: false,
                 hintText: 'Enter Phone Number',
                 controller: phoneController,
+                validator: (v){
+                  if(v!.trim().isEmpty){
+                    return "Please enter phone number";
+                  }
+                  if(v.trim().length < 10){
+                    return "Please enter valid phone number";
+                  }
+                  return null;
+                },
               ),
             ]),
           ),

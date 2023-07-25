@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ReturnPolicy extends StatefulWidget {
-  const ReturnPolicy({Key? key}) : super(key: key);
-  static var returnPolicy = "/returnPolicy";
+class ReturnPolicyScreen extends StatefulWidget {
+  const ReturnPolicyScreen({Key? key}) : super(key: key);
+  static String route = "/ReturnPolicyScreen";
 
   @override
-  State<ReturnPolicy> createState() => _ReturnPolicyState();
+  State<ReturnPolicyScreen> createState() => _ReturnPolicyScreenState();
 }
 
-class _ReturnPolicyState extends State<ReturnPolicy> {
+class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(

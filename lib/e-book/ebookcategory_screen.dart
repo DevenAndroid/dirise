@@ -6,15 +6,17 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../screens/my_account_screens/myaccount_scrren.dart';
 import '../widgets/common_app_bar.dart';
+import 'singlecategory_screen.dart';
 
-class EBookCategory extends StatefulWidget {
-  const EBookCategory({Key? key}) : super(key: key);
+class EBookCategoryScreen extends StatefulWidget {
+  static String route = "/EBookCategoryScreen";
+  const EBookCategoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<EBookCategory> createState() => _EBookCategoryState();
+  State<EBookCategoryScreen> createState() => _EBookCategoryScreenState();
 }
 
-class _EBookCategoryState extends State<EBookCategory> {
+class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
   List data = ["E Book", "Voice", "Both"];
   List gender = ["E Book", "Voice", "Both"];
   RxBool? status = false.obs;
@@ -451,7 +453,7 @@ class _EBookCategoryState extends State<EBookCategory> {
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
-                          Get.toNamed(MyRouters.singleCategory);
+                          Get.toNamed(SingleCategoryScreen.route);
                         },
                         child: Stack(
 

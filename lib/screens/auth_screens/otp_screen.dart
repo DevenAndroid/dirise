@@ -16,6 +16,8 @@ import '../../bottomavbar.dart';
 import '../auth_screens/login_screen.dart';
 import 'package:http/http.dart' as http;
 
+import 'newpasswordscreen.dart';
+
 class OtpScreen extends StatefulWidget {
   static String route = "/OtpScreen";
 
@@ -52,7 +54,7 @@ class _OtpScreenState extends State<OtpScreen> {
           Get.offAllNamed(BottomNavbar.route);
           Get.toNamed(LoginScreen.route);
         } else {
-          Get.offNamed(MyRouters.newPasswordScreen, arguments: [email]);
+          Get.offNamed(NewPasswordScreen.route, arguments: [email]);
         }
       }
     });

@@ -8,10 +8,11 @@ import 'package:url_launcher/url_launcher.dart';
 import '../routers/my_routers.dart';
 import '../widgets/customsize.dart';
 import '../widgets/dimension_screen.dart';
+import 'bank_account_screen.dart';
 
 class OrderDetails extends StatefulWidget {
   const OrderDetails({Key? key}) : super(key: key);
-  static var orderDetails = "/orderDetails";
+  static var route = "/orderDetails";
 
   @override
   State<OrderDetails> createState() => _OrderDetailsState();
@@ -374,7 +375,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      Get.toNamed(MyRouters.bankAccount);
+                      Get.toNamed(BankDetailsScreen.route);
                     },
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.maxFinite, 60),

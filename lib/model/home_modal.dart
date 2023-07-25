@@ -8,15 +8,15 @@ class HomeModal {
   HomeModal.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    home = json['home'] != null ? new Home.fromJson(json['home']) : null;
+    home = json['home'] != null ? Home.fromJson(json['home']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.home != null) {
-      data['home'] = this.home!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (home != null) {
+      data['home'] = home!.toJson();
     }
     return data;
   }
@@ -36,7 +36,7 @@ class Home {
     if (json['slider'] != null) {
       slider = <Slider>[];
       json['slider'].forEach((v) {
-        slider!.add(new Slider.fromJson(v));
+        slider!.add(Slider.fromJson(v));
       });
     }
     bannerImg = json['banner_img'];
@@ -45,14 +45,14 @@ class Home {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['content'] = this.content;
-    if (this.slider != null) {
-      data['slider'] = this.slider!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['content'] = content;
+    if (slider != null) {
+      data['slider'] = slider!.map((v) => v.toJson()).toList();
     }
-    data['banner_img'] = this.bannerImg;
-    data['sale_banner_alt_tag'] = this.saleBannerAltTag;
-    data['sale_banner_url'] = this.saleBannerUrl;
+    data['banner_img'] = bannerImg;
+    data['sale_banner_alt_tag'] = saleBannerAltTag;
+    data['sale_banner_url'] = saleBannerUrl;
     return data;
   }
 }
@@ -73,11 +73,11 @@ class Slider {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['image'] = this.image;
-    data['banner_mobile'] = this.bannerMobile;
-    data['url'] = this.url;
-    data['slider_alt'] = this.sliderAlt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['image'] = image;
+    data['banner_mobile'] = bannerMobile;
+    data['url'] = url;
+    data['slider_alt'] = sliderAlt;
     return data;
   }
 }

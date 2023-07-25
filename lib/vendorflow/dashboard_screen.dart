@@ -296,7 +296,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Get.toNamed(MyRouters.storeOpenScreen);
+                                    // Get.toNamed(storeOpenScreen);
                                   },
                                   child: const Text(
                                     "Store",

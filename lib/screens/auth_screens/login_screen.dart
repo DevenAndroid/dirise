@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/utils/ApiConstant.dart';
 import 'package:dirise/widgets/common_colour.dart';
@@ -14,6 +13,7 @@ import '../../repoistery/repository.dart';
 import '../../widgets/common_button.dart';
 import '../../bottomavbar.dart';
 import 'createacc_screen.dart';
+import 'forgetpass_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static String route = "/LoginScreen";
@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
   //       pref.setString('user', jsonEncode(user));
   //       log("User Token :: ${pref.getString("user")}");
   //       controller.getUser();
-  //       Get.offAllNamed(MyRouters.bottomNavBar);
+  //       Get.offAllNamed(bottomNavBar);
   //     } else {
   //       showToast(value['message']);
   //     }
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
         LoginModal response = LoginModal.fromJson(jsonDecode(value));
         repositories.saveLoginDetails(jsonEncode(response));
         showToast(response.message.toString());
-        if(response.status == true) {
+        if (response.status == true) {
           Get.offAllNamed(BottomNavbar.route);
         }
       });
@@ -115,12 +115,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   obSecure: false,
                   hintText: 'Email or Phone number',
                   validator: (value) {
-                    if (emailController.text.isEmpty) {
+                    if (value!.trim().isEmpty) {
                       return "Please enter your email";
-                    } else if (emailController.text.contains('+') || emailController.text.contains(' ')) {
+                    } else if (value.trim().contains('+') || value.trim().contains(' ')) {
                       return "Email is invalid";
                     } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(emailController.text)) {
+                        .hasMatch(value.trim())) {
                       return null;
                     } else {
                       return 'Please type a valid email address';
@@ -135,15 +135,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: passwordController,
                     obSecure: hide.value,
                     suffixIcon: IconButton(
-                      onPressed: (){
+                      onPressed: () {
                         hide.value = !hide.value;
                       },
                       icon: hide.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
                     ),
                     hintText: 'Password',
-                    validator: MultiValidator([
-                      RequiredValidator(errorText: 'Password is required'),
-                    ]),
+                    validator: (value) {
+                      if (value!.trim().isEmpty) return 'Password is required';
+                      return null;
+                    },
                   );
                 }),
                 const SizedBox(
@@ -163,11 +164,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.toNamed(MyRouters.forgetPassword);
+                        Get.toNamed(ForgetPasswordScreen.route);
                       },
                       child: Text(
                         'Forgot Password',
-                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500,color: AppTheme.buttonColor),
+                        style:
+                            GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                       ),
                     ),
                   ],
@@ -248,44 +250,47 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    InkWell(
-                      child: Container(
-                        height: 62,
-                        width: 62,
-                        decoration:
-                            BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/icons/facebook.png',
-                            height: 27,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // const SizedBox(
+                    //   width: 20,
+                    // ),
+                    // InkWell(
+                    //   child: Container(
+                    //     height: 62,
+                    //     width: 62,
+                    //     decoration:
+                    //         BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
+                    //     child: Center(
+                    //       child: Image.asset(
+                    //         'assets/icons/facebook.png',
+                    //         height: 27,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
-                SizedBox(height: size.height*.07,),
+                SizedBox(
+                  height: size.height * .07,
+                ),
                 RichText(
                   text: TextSpan(
-
                     children: [
                       TextSpan(
                         text: 'Already have an Account? ',
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
-                      TextSpan(text: 'Sign Up',style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: AppTheme.buttonColor,decoration: TextDecoration.underline),
-
-                          recognizer: TapGestureRecognizer()..onTap = () {
-                        Get.toNamed(CreateAccountScreen.route);
-
-                      },
-
+                      TextSpan(
+                        text: 'Sign Up',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                            color: AppTheme.buttonColor,
+                            decoration: TextDecoration.underline),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Get.toNamed(CreateAccountScreen.route);
+                          },
                       ),
                     ],
-
                   ),
                 )
               ],

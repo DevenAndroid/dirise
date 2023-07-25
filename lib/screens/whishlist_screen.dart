@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/routers/my_routers.dart';
+import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,19 +18,19 @@ import '../model/trending_products_modal.dart';
 import '../repoistery/repository.dart';
 import '../utils/ApiConstant.dart';
 
-class Whishlist extends StatefulWidget {
-  const Whishlist({Key? key}) : super(key: key);
+class WishListScreen extends StatefulWidget {
+  const WishListScreen({Key? key}) : super(key: key);
 
   @override
-  State<Whishlist> createState() => _WhishlistState();
+  State<WishListScreen> createState() => _WishListScreenState();
 }
 
-class _WhishlistState extends State<Whishlist> {
+class _WishListScreenState extends State<WishListScreen> {
   final _wishListController = Get.put(WishListController());
   final cartController = Get.put(CartController());
   final Repositories repositories = Repositories();
 
-  removeFromWishList(id) {
+  removeFromWishList(id, int index) {
     repositories
         .postApi(
             url: ApiUrls.removeFromWishListUrl,
@@ -38,23 +39,17 @@ class _WhishlistState extends State<Whishlist> {
             },
             context: context)
         .then((value) {
-      // widget.onLiked(true);
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message);
-      inWishList = true;
-      setState(() {
-
-      });
+      if(response.status == true){
+        _wishListController.model.value.wishlist!.removeAt(index);
+      }
+      setState(() {});
     });
   }
 
-  bool inWishList = false;
-
   @override
   Widget build(BuildContext context) {
-    _wishListController.getYourWishList();
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -73,7 +68,8 @@ class _WhishlistState extends State<Whishlist> {
           _wishListController.getYourWishList();
         },
         child: Obx(() {
-          return _wishListController.isDataLoading.value
+          if(_wishListController.refreshInt.value > 0){}
+          return _wishListController.apiLoaded
               ? SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Padding(
@@ -84,7 +80,7 @@ class _WhishlistState extends State<Whishlist> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image(
-                                  height: size.height * .24,
+                                  height: context.getSize.height * .24,
                                   image: const AssetImage(
                                     'assets/images/bucket.png',
                                   )),
@@ -99,7 +95,7 @@ class _WhishlistState extends State<Whishlist> {
                               ),
                               ElevatedButton(
                                   onPressed: () {
-                                    Get.toNamed(MyRouters.editprofileScreen);
+                                    // Get.toNamed(editprofileScreen);
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(AppTheme.buttonColor),
@@ -205,16 +201,11 @@ class _WhishlistState extends State<Whishlist> {
                                         right: 10,
                                         child: IconButton(
                                           onPressed: () {
-                                            if (inWishList) {
-                                              removeFromWishList(
-                                                  _wishListController.model.value.wishlist![index].id.toString());
-                                            } else {
-                                              removeFromWishList(
-                                                  _wishListController.model.value.wishlist![index].id.toString());
-                                            }
+                                            removeFromWishList(
+                                                _wishListController.model.value.wishlist![index].id.toString(),index);
                                           },
                                           icon:
-                                              Icon(inWishList ? Icons.favorite_border_rounded : Icons.favorite_rounded),
+                                              const Icon(Icons.favorite_rounded),
                                         ))
                                   ],
                                 ),

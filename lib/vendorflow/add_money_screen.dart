@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/common_colour.dart';
 import '../widgets/dimension_screen.dart';
+import 'orderdetailsscreen.dart';
 
 class WithdrawMoney extends StatefulWidget {
   const WithdrawMoney({Key? key}) : super(key: key);
-  static var withdrawMoney = "/withdrawMoney";
+  static var route = "/withdrawMoney";
   @override
   State<WithdrawMoney> createState() => _WithdrawMoneyState();
 }
@@ -161,7 +162,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                   ),
                                   ElevatedButton(
                                       onPressed: () {
-                                        Get.toNamed(MyRouters.orderDetails);
+                                        Get.toNamed(OrderDetails.route);
                                       },
                                       style: ElevatedButton.styleFrom(
                                           minimumSize: Size(double.maxFinite, AddSize.size50),

@@ -35,135 +35,140 @@ class _BagsScreenState extends State<BagsScreen> {
         appBar: customAppBar(
           title: "Bag"
         ),
-        body: Obx(() {
-          if (cartController.refreshInt.value > 0) {}
-          return cartController.apiLoaded ?
-          cartController.cartModel.cart!.isNotEmpty ?
-          ListView.builder(
-              itemCount: cartController.cartModel.cart!.length,
-              padding: const EdgeInsets.only(left: 15, right: 10),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                final cart = cartController.cartModel.cart![index];
-                return Slidable(
-                  key: ValueKey(cart.id!),
-                  endActionPane: ActionPane(
-                    motion: const ScrollMotion(),
-                    children: [
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          // Get.back();
-                          cartController.removeItemFromCart(productId: cart.id.toString(),context: context);
-                        },
-                        child: Container(
-                            decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
-                            padding: const EdgeInsets.fromLTRB(23, 8, 23, 8),
-                            child: const Icon(
-                              Icons.delete_rounded,
-                              color: Colors.red,
-                            )),
-                      )
-                    ],
-                  ),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
-                    ),
-                    padding: const EdgeInsets.only(bottom: 20, top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: RefreshIndicator(
+          onRefresh: ()async{
+            await cartController.getCart();
+          },
+          child: Obx(() {
+            if (cartController.refreshInt.value > 0) {}
+            return cartController.apiLoaded ?
+            cartController.cartModel.cart!.isNotEmpty ?
+            ListView.builder(
+                itemCount: cartController.cartModel.cart!.length,
+                padding: const EdgeInsets.only(left: 15, right: 10),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  final cart = cartController.cartModel.cart![index];
+                  return Slidable(
+                    key: ValueKey(cart.id!),
+                    endActionPane: ActionPane(
+                      motion: const ScrollMotion(),
                       children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 20,
-                                backgroundColor: const Color(0xffEEEEEE),
-                                child: Text(
-                                  "${cart.qty}x",
-                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Image.network(
-                                cart.featuredImage.toString(),
-                                height: size.height * .12,
-                                width: size.height * .12,
-                                errorBuilder: (_,__,___)=> const SizedBox.shrink(),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '50% off -Static',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 12, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
-                                    ),
-                                    const SizedBox(
-                                      height: 4,
-                                    ),
-                                    Text(
-                                      cart.pname.toString(),
-                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(
-                                      height: 4,
-                                    ),
-                                    Text(
-                                      '${cart.qty.toString()} piece',
-                                      style: GoogleFonts.poppins(color: const Color(0xff858484)),
-                                    ),
-                                    const SizedBox(
-                                      height: 4,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                        const SizedBox(
+                          width: 20,
                         ),
-                        Text(
-                          'KD ${cart.sPrice}',
-                          style: GoogleFonts.poppins(
-                              fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-                        ),
+                        GestureDetector(
+                          onTap: (){
+                            // Get.back();
+                            cartController.removeItemFromCart(productId: cart.id.toString(),context: context);
+                          },
+                          child: Container(
+                              decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
+                              padding: const EdgeInsets.fromLTRB(23, 8, 23, 8),
+                              child: const Icon(
+                                Icons.delete_rounded,
+                                color: Colors.red,
+                              )),
+                        )
                       ],
                     ),
-                  ),
-                );
-              }) : Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Center(
-            child: Text("Bag is empty\n"
-                    "Checkout products to added them in bag",
-                  textAlign: TextAlign.center,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
+                      ),
+                      padding: const EdgeInsets.only(bottom: 20, top: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 20,
+                                  backgroundColor: const Color(0xffEEEEEE),
+                                  child: Text(
+                                    "${cart.qty}x",
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                Image.network(
+                                  cart.featuredImage.toString(),
+                                  height: size.height * .12,
+                                  width: size.height * .12,
+                                  errorBuilder: (_,__,___)=> const SizedBox.shrink(),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '50% off -Static',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 12, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        cart.pname.toString(),
+                                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        '${cart.qty.toString()} piece',
+                                        style: GoogleFonts.poppins(color: const Color(0xff858484)),
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            'KD ${cart.sPrice}',
+                            style: GoogleFonts.poppins(
+                                fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }) : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Center(
+              child: Text("Bag is empty\n"
+                      "Checkout products to added them in bag",
+                    textAlign: TextAlign.center,
+              ),
             ),
-          ),
-                  Center(
-            child: TextButton(
-                onPressed: (){
-                  Get.back();
-                }, child: const Text("Browse")),
-          ),
-                ],
-              ) :
-          const Center(
-            child: CircularProgressIndicator.adaptive(),
-          );
-        }),
+                    Center(
+              child: TextButton(
+                  onPressed: (){
+                    Get.back();
+                  }, child: const Text("Browse")),
+            ),
+                  ],
+                ) :
+            const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }),
+        ),
         bottomNavigationBar: Obx(() {
           if (cartController.refreshInt.value > 0) {}
           return cartController.apiLoaded ?

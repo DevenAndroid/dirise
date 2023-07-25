@@ -36,7 +36,7 @@ class Wishlist {
   int? catId;
   int? catId2;
   int? catId3;
-  BrandSlug? brandSlug;
+  // BrandSlug? brandSlug;
   String? slug;
   String? pname;
   dynamic prodectImage;
@@ -51,7 +51,7 @@ class Wishlist {
   dynamic prodectVoice;
   String? image;
   dynamic arabPname;
-  ProductType? productType;
+  // ProductType? productType;
   String? skuId;
   int? pPrice;
   int? sPrice;
@@ -59,7 +59,7 @@ class Wishlist {
   int? wishlistNew;
   int? bestSaller;
   int? featured;
-  TaxApply? taxApply;
+  // TaxApply? taxApply;
   dynamic taxType;
   String? shortDescription;
   dynamic arabShortDescription;
@@ -83,16 +83,16 @@ class Wishlist {
   DateTime? createdAt;
   DateTime? updatedAt;
   int? topHunderd;
-  ReturnDays? returnDays;
+  // ReturnDays? returnDays;
   int? isPublish;
   int? inOffer;
-  ForAuction? forAuction;
+  // ForAuction? forAuction;
   String? returnPolicyDesc;
   dynamic bidingPrice;
   bool? inCart;
   bool? inWishlist;
-  CurrencySign? currencySign;
-  CurrencyCode? currencyCode;
+  // CurrencySign? currencySign;
+  // CurrencyCode? currencyCode;
   List<dynamic>? attributes;
   List<dynamic>? variants;
   String? startDate;
@@ -110,7 +110,7 @@ class Wishlist {
     this.catId,
     this.catId2,
     this.catId3,
-    this.brandSlug,
+    // this.brandSlug,
     this.slug,
     this.pname,
     this.prodectImage,
@@ -125,7 +125,7 @@ class Wishlist {
     this.prodectVoice,
     this.image,
     this.arabPname,
-    this.productType,
+    // this.productType,
     this.skuId,
     this.pPrice,
     this.sPrice,
@@ -133,7 +133,7 @@ class Wishlist {
     this.wishlistNew,
     this.bestSaller,
     this.featured,
-    this.taxApply,
+    // this.taxApply,
     this.taxType,
     this.shortDescription,
     this.arabShortDescription,
@@ -157,16 +157,14 @@ class Wishlist {
     this.createdAt,
     this.updatedAt,
     this.topHunderd,
-    this.returnDays,
+    // this.returnDays,
     this.isPublish,
     this.inOffer,
-    this.forAuction,
+    // this.forAuction,
     this.returnPolicyDesc,
     this.bidingPrice,
     this.inCart,
     this.inWishlist,
-    this.currencySign,
-    this.currencyCode,
     this.attributes,
     this.variants,
     this.startDate,
@@ -189,7 +187,6 @@ class Wishlist {
     catId: json["cat_id"],
     catId2: json["cat_id_2"],
     catId3: json["cat_id_3"],
-    brandSlug: brandSlugValues.map[json["brand_slug"]]!,
     slug: json["slug"],
     pname: json["pname"],
     prodectImage: json["prodect_image"],
@@ -204,7 +201,6 @@ class Wishlist {
     prodectVoice: json["prodect_voice"],
     image: json["image"],
     arabPname: json["arab_pname"],
-    productType: productTypeValues.map[json["product_type"]]!,
     skuId: json["sku_id"],
     pPrice: json["p_price"],
     sPrice: json["s_price"],
@@ -212,7 +208,6 @@ class Wishlist {
     wishlistNew: json["new"],
     bestSaller: json["best_saller"],
     featured: json["featured"],
-    taxApply: taxApplyValues.map[json["tax_apply"]]!,
     taxType: json["tax_type"],
     shortDescription: json["short_description"],
     arabShortDescription: json["arab_short_description"],
@@ -236,16 +231,12 @@ class Wishlist {
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     topHunderd: json["top_hunderd"],
-    returnDays: returnDaysValues.map[json["return_days"]]!,
     isPublish: json["is_publish"],
     inOffer: json["in_offer"],
-    forAuction: forAuctionValues.map[json["for_auction"]]!,
     returnPolicyDesc: json["return_policy_desc"],
     bidingPrice: json["biding_price"],
     inCart: json["in_cart"],
     inWishlist: json["in_wishlist"],
-    currencySign: currencySignValues.map[json["currency_sign"]]!,
-    currencyCode: currencyCodeValues.map[json["currency_code"]]!,
     attributes: json["attributes"] == null ? [] : List<dynamic>.from(json["attributes"]!.map((x) => x)),
     variants: json["variants"] == null ? [] : List<dynamic>.from(json["variants"]!.map((x) => x)),
     startDate: json["start_date"],
@@ -264,7 +255,6 @@ class Wishlist {
     "cat_id": catId,
     "cat_id_2": catId2,
     "cat_id_3": catId3,
-    "brand_slug": brandSlugValues.reverse[brandSlug],
     "slug": slug,
     "pname": pname,
     "prodect_image": prodectImage,
@@ -279,7 +269,6 @@ class Wishlist {
     "prodect_voice": prodectVoice,
     "image": image,
     "arab_pname": arabPname,
-    "product_type": productTypeValues.reverse[productType],
     "sku_id": skuId,
     "p_price": pPrice,
     "s_price": sPrice,
@@ -287,7 +276,6 @@ class Wishlist {
     "new": wishlistNew,
     "best_saller": bestSaller,
     "featured": featured,
-    "tax_apply": taxApplyValues.reverse[taxApply],
     "tax_type": taxType,
     "short_description": shortDescription,
     "arab_short_description": arabShortDescription,
@@ -311,16 +299,12 @@ class Wishlist {
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "top_hunderd": topHunderd,
-    "return_days": returnDaysValues.reverse[returnDays],
     "is_publish": isPublish,
     "in_offer": inOffer,
-    "for_auction": forAuctionValues.reverse[forAuction],
     "return_policy_desc": returnPolicyDesc,
     "biding_price": bidingPrice,
     "in_cart": inCart,
     "in_wishlist": inWishlist,
-    "currency_sign": currencySignValues.reverse[currencySign],
-    "currency_code": currencyCodeValues.reverse[currencyCode],
     "attributes": attributes == null ? [] : List<dynamic>.from(attributes!.map((x) => x)),
     "variants": variants == null ? [] : List<dynamic>.from(variants!.map((x) => x)),
     "start_date": startDate,
@@ -332,64 +316,4 @@ class Wishlist {
     "current_bid": currentBid,
     "bid_status": bidStatus,
   };
-}
-
-enum BrandSlug { TEST, APPLE, SAMSUNG }
-
-final brandSlugValues = EnumValues({
-  "apple": BrandSlug.APPLE,
-  "samsung": BrandSlug.SAMSUNG,
-  "test": BrandSlug.TEST
-});
-
-enum CurrencyCode { USD }
-
-final currencyCodeValues = EnumValues({
-  "USD": CurrencyCode.USD
-});
-
-enum CurrencySign { EMPTY }
-
-final currencySignValues = EnumValues({
-  "\u0024": CurrencySign.EMPTY
-});
-
-enum ForAuction { OFF, ON }
-
-final forAuctionValues = EnumValues({
-  "off": ForAuction.OFF,
-  "on": ForAuction.ON
-});
-
-enum ProductType { SINGLE, BID, BOOKING }
-
-final productTypeValues = EnumValues({
-  "bid": ProductType.BID,
-  "booking": ProductType.BOOKING,
-  "single": ProductType.SINGLE
-});
-
-enum ReturnDays { NONE }
-
-final returnDaysValues = EnumValues({
-  "none": ReturnDays.NONE
-});
-
-enum TaxApply { EXCLUDE, INCLUDE }
-
-final taxApplyValues = EnumValues({
-  "exclude": TaxApply.EXCLUDE,
-  "include": TaxApply.INCLUDE
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

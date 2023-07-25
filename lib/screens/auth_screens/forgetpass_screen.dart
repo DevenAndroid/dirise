@@ -14,14 +14,15 @@ import '../../widgets/common_button.dart';
 import '../../widgets/common_textfield.dart';
 import 'otp_screen.dart';
 
-class ForgetPassword extends StatefulWidget {
-  const ForgetPassword({Key? key}) : super(key: key);
+class ForgetPasswordScreen extends StatefulWidget {
+  static String route = "/ForgetPasswordScreen";
+  const ForgetPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<ForgetPassword> createState() => _ForgetPasswordState();
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
 }
 
-class _ForgetPasswordState extends State<ForgetPassword> {
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 

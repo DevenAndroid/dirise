@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/profile_controller.dart';
+import 'editprofile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   static String route = "/ProfileScreen";
@@ -54,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(MyRouters.editprofileScreen);
+                          Get.toNamed(EditProfileScreen.route);
                         },
                         child: Container(
                           decoration: const BoxDecoration(
@@ -90,25 +91,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(
                             width: 15,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Name',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: const Color(0xff454545),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Name',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    color: const Color(0xff454545),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                               profileController.model.user!.name.toString(),
-                                style: GoogleFonts.poppins(
-                                    color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                            ],
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                 profileController.model.user!.name.toString(),
+                                  style: GoogleFonts.poppins(
+                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -138,25 +141,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(
                             width: 15,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'E-Mail',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: const Color(0xff454545),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'E-Mail',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    color: const Color(0xff454545),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                profileController.model.user!.email.toString(),
-                                style: GoogleFonts.poppins(
-                                    color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                            ],
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  profileController.model.user!.email.toString(),
+                                  style: GoogleFonts.poppins(
+                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -186,25 +191,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(
                             width: 15,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Mobile Number',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: const Color(0xff454545),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Mobile Number',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    color: const Color(0xff454545),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                profileController.model.user!.phone.toString(),
-                                style: GoogleFonts.poppins(
-                                    color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                            ],
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  profileController.model.user!.phone.toString(),
+                                  style: GoogleFonts.poppins(
+                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -272,7 +279,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 fontWeight: FontWeight.bold,
                               )),
                           onPressed: () {
-                            Get.toNamed(MyRouters.editprofileScreen);
+                            Get.toNamed(EditProfileScreen.route);
                           },
                           child: Text(
                             'Edit profile',

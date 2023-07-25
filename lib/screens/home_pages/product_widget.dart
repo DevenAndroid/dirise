@@ -11,8 +11,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../controller/cart_controller.dart';
+import '../../controller/wish_list_controller.dart';
 import '../../model/trending_products_modal.dart';
 import '../../utils/ApiConstant.dart';
+import '../whishlist_screen.dart';
 
 class ProductUI extends StatefulWidget {
   final ProductElement productElement;
@@ -25,6 +27,7 @@ class ProductUI extends StatefulWidget {
 
 class _ProductUIState extends State<ProductUI> {
   final cartController = Get.put(CartController());
+  final wishListController = Get.put(WishListController());
 
   Size size = Size.zero;
   final Repositories repositories = Repositories();
@@ -42,8 +45,11 @@ class _ProductUIState extends State<ProductUI> {
       widget.onLiked(true);
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message);
-      inWishList = true;
-      setState(() {});
+      if(response.status == true) {
+        wishListController.getYourWishList();
+        inWishList = true;
+        setState(() {});
+      }
     });
   }
 
@@ -54,8 +60,11 @@ class _ProductUIState extends State<ProductUI> {
       widget.onLiked(false);
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message);
-      inWishList = false;
-      setState(() {});
+      if(response.status == true) {
+        wishListController.getYourWishList();
+        inWishList = false;
+        setState(() {});
+      }
     });
   }
 

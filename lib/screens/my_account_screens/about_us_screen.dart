@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AboutUS extends StatefulWidget {
-  const AboutUS({Key? key}) : super(key: key);
-  static var aboutUs = "/aboutUs";
+class AboutUsScreen extends StatefulWidget {
+  const AboutUsScreen({Key? key}) : super(key: key);
+  static String route = "/AboutUsScreen";
 
   @override
-  State<AboutUS> createState() => _AboutUSState();
+  State<AboutUsScreen> createState() => _AboutUsScreenState();
 }
 
-class _AboutUSState extends State<AboutUS> {
+class _AboutUsScreenState extends State<AboutUsScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(

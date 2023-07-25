@@ -184,6 +184,7 @@ import '../widgets/common_colour.dart';
 import '../widgets/event.dart';
 
 class EventCalendarScreen extends StatefulWidget {
+  static String route = "/EventCalendarScreen";
   const EventCalendarScreen({Key? key}) : super(key: key);
 
   @override

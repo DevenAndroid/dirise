@@ -10,6 +10,8 @@ import '../Authors/authors_screen.dart';
 import '../Authors/teacher_screen.dart';
 import '../categores/categories_screen.dart';
 import '../categores/single_categorie.dart';
+import '../officefurniture_sceen/officefurniture_screen.dart';
+import '../school_nursery_category.dart';
 
 class CategoryItems extends StatefulWidget {
   const CategoryItems({super.key});
@@ -86,7 +88,7 @@ class _CategoryItemsState extends State<CategoryItems> {
           return InkWell(
             onTap: () {
               if (index == 3) {
-                Get.toNamed(MyRouters.officeFurnitureScreen);
+                Get.toNamed(OfficeFurnitureScreen.route);
               } else if (index == 0) {
                 // Get.toNamed(SingleCategories.singleCategoriesScreen);
               } else if (index == 1) {
@@ -94,7 +96,7 @@ class _CategoryItemsState extends State<CategoryItems> {
               } else if (index == 2) {
                 Get.toNamed(TeacherScreen.teacherScreen);
               } else if (index == 4) {
-                Get.toNamed(MyRouters.scoopsNursery);
+                Get.toNamed(SchoolNurseryCategory.route);
               }
             },
             child: Column(

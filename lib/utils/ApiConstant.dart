@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/login_model.dart';
 import '../widgets/common_colour.dart';
@@ -29,7 +30,7 @@ class ApiUrls {
   static const String myOrdersListUrl = "${apiBaseUrlNew}orders";
   static const String orderDetailsUrl = "${apiBaseUrlNew}order-details";
   static const String addToWishListUrl = "${apiBaseUrlNew}add-to-wishlist";
-  static const String removeFromWishListUrl = "${apiBaseUrlNew}remove-from-wishlist";
+  static const String removeFromWishListUrl = "${apiBaseUrlNew}delete-from-wishlist";
   static const String wishListUrl = "${apiBaseUrlNew}wishlist";
   static const String storesUrl = "${apiBaseUrlNew}stores";
   static const String vendorCategoryListUrl = "${apiBaseUrlNew}vendor-category-list";
@@ -44,7 +45,7 @@ class ApiUrls {
 showToast(message) {
   Fluttertoast.cancel();
   Fluttertoast.showToast(
-      msg: message,
+      msg: message.toString().capitalize!,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,

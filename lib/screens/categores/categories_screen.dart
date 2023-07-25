@@ -6,10 +6,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../controller/home_controller.dart';
+import '../../e-book/ebookcategory_screen.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/common_app_bar.dart';
 import '../Authors/authors_screen.dart';
 import '../Authors/teacher_screen.dart';
+import '../officefurniture_sceen/officefurniture_screen.dart';
+import '../public_speaker_screen/single_public_speaker_screen.dart';
+import '../schoolnursery_screen.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -90,14 +94,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                   } else if (index == 2) {
                                     Get.toNamed(TeacherScreen.teacherScreen);
                                   } else if (index == 3) {
-                                    Get.toNamed(MyRouters.officeFurnitureScreen);
+                                    Get.toNamed(OfficeFurnitureScreen.route);
                                   } else if (index == 5) {
-                                    Get.toNamed(MyRouters.schoolNursery);
+                                    Get.toNamed(SchoolNurseryScreen.route);
                                   } else if (index == 7) {
-                                    Get.toNamed(MyRouters.eBooKCategoryScreen);
+                                    Get.toNamed(EBookCategoryScreen.route);
                                   }
                                   else if (index == 8) {
-                                    Get.toNamed(MyRouters.publicSpeaker);
+                                    Get.toNamed(PublicSpeakerCategoryScreen.route);
                                   }
                                 },
                                 child: Container(

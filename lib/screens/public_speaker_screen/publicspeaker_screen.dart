@@ -6,15 +6,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../widgets/common_colour.dart';
 
-class PublicSpeaker extends StatefulWidget {
-  const PublicSpeaker({Key? key}) : super(key: key);
-  static var publicSpeaker = "/publicSpeaker";
+class PublicSpeakerScreen extends StatefulWidget {
+  const PublicSpeakerScreen({Key? key}) : super(key: key);
+  static var route = "/publicSpeaker";
 
   @override
-  State<PublicSpeaker> createState() => _PublicSpeakerState();
+  State<PublicSpeakerScreen> createState() => _PublicSpeakerScreenState();
 }
 
-class _PublicSpeakerState extends State<PublicSpeaker> {
+class _PublicSpeakerScreenState extends State<PublicSpeakerScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -108,7 +108,7 @@ class _PublicSpeakerState extends State<PublicSpeaker> {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
-                      Get.toNamed(MyRouters.singlePublicCategory);
+                      Get.toNamed(PublicSpeakerScreen.route);
                     },
                     child: Container(
                       decoration: BoxDecoration(

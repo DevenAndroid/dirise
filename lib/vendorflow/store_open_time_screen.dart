@@ -346,7 +346,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
               CustomOutlineButton(
                 title: 'Save',
                 onPressed: () {
-                  Get.toNamed(MyRouters.allProductScreen);
+                  // Get.toNamed(allProductScreen);
                 },
               ),
               // ElevatedButton(

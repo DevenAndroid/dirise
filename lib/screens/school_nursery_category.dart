@@ -7,7 +7,7 @@ import 'check_out/add_bag_screen.dart';
 
 class SchoolNurseryCategory extends StatefulWidget {
   const SchoolNurseryCategory({Key? key}) : super(key: key);
-  static var scoopsNursery = "/scoopsNursery";
+  static String route = "/SchoolNurseryCategory";
 
   @override
   State<SchoolNurseryCategory> createState() => _SchoolNurseryCategoryState();

@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-class TermCondition extends StatefulWidget {
-  const TermCondition({Key? key}) : super(key: key);
+class TermConditionScreen extends StatefulWidget {
+  static String route = "/TermConditionScreen";
+  const TermConditionScreen({Key? key}) : super(key: key);
 
   @override
-  State<TermCondition> createState() => _TermConditionState();
+  State<TermConditionScreen> createState() => _TermConditionScreenState();
 }
 
-class _TermConditionState extends State<TermCondition> {
+class _TermConditionScreenState extends State<TermConditionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

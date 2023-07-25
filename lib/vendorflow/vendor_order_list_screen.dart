@@ -6,10 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart' as intl;
 import '../widgets/common_colour.dart';
 import '../widgets/dimension_screen.dart';
+import 'add_money_screen.dart';
 
 class VendorOrderList extends StatefulWidget {
   const VendorOrderList({Key? key}) : super(key: key);
-  static var vendorOrderList = "/vendorOrderList";
+  static var route = "/vendorOrderList";
 
   @override
   State<VendorOrderList> createState() => _VendorOrderListState();
@@ -154,7 +155,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                     GestureDetector(
                                       onTap: () {
                                         // controller.id.value=vendorOrderListController.model.value.data
-                                        Get.toNamed(MyRouters.addMoneyScreen);
+                                        Get.toNamed(WithdrawMoney.route);
                                       },
                                       child: Container(
                                           padding: EdgeInsets.symmetric(

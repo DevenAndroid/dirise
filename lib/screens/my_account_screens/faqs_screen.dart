@@ -3,14 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../widgets/common_colour.dart';
 
-class FaqsScreen extends StatefulWidget {
-  const FaqsScreen({Key? key}) : super(key: key);
+class FrequentlyAskedQuestionsScreen extends StatefulWidget {
+  static String route = "/FrequentlyAskedQuestionsScreen";
+  const FrequentlyAskedQuestionsScreen({Key? key}) : super(key: key);
 
   @override
-  State<FaqsScreen> createState() => _FaqsScreenState();
+  State<FrequentlyAskedQuestionsScreen> createState() => _FrequentlyAskedQuestionsScreenState();
 }
 
-class _FaqsScreenState extends State<FaqsScreen> {
+class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestionsScreen> {
   bool senderExpansion = true;
 
   @override

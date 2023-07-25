@@ -8,7 +8,7 @@ import '../widgets/common_textfield.dart';
 
 class BankDetailsScreen extends StatefulWidget {
   const BankDetailsScreen({Key? key}) : super(key: key);
-  static var bankDetailsScreen = "/bankDetailsScreen";
+  static var route = "/bankDetailsScreen";
 
   @override
   State<BankDetailsScreen> createState() => _BankDetailsScreenState();

@@ -7,14 +7,15 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_colour.dart';
 import '../check_out/add_bag_screen.dart';
 
-class SingleChair extends StatefulWidget {
-  const SingleChair({Key? key}) : super(key: key);
+class SingleChairScreen extends StatefulWidget {
+  static String route = "/SingleChairScreen";
+  const SingleChairScreen({Key? key}) : super(key: key);
 
   @override
-  State<SingleChair> createState() => _SingleChairState();
+  State<SingleChairScreen> createState() => _SingleChairScreenState();
 }
 
-class _SingleChairState extends State<SingleChair> {
+class _SingleChairScreenState extends State<SingleChairScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

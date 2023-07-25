@@ -6,15 +6,17 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_colour.dart';
+import 'singlechair_screen.dart';
 
-class OfficeFurniture extends StatefulWidget {
-  const OfficeFurniture({Key? key}) : super(key: key);
+class OfficeFurnitureScreen extends StatefulWidget {
+  static String route = "/OfficeFurnitureScreen";
+  const OfficeFurnitureScreen({Key? key}) : super(key: key);
 
   @override
-  State<OfficeFurniture> createState() => _OfficeFurnitureState();
+  State<OfficeFurnitureScreen> createState() => _OfficeFurnitureScreenState();
 }
 
-class _OfficeFurnitureState extends State<OfficeFurniture> {
+class _OfficeFurnitureScreenState extends State<OfficeFurnitureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +122,7 @@ class _OfficeFurnitureState extends State<OfficeFurniture> {
                     const Spacer(),
                     InkWell(
                       onTap: () {
-                        Get.toNamed(MyRouters.singleChair);
+                        Get.toNamed(SingleChairScreen.route);
                       },
                       child: const Icon(
                         Icons.arrow_forward_ios,

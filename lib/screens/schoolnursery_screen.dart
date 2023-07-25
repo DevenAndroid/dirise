@@ -10,16 +10,17 @@ import '../e-book/ebookcategory_screen.dart';
 import '../widgets/common_app_bar.dart';
 import '../widgets/common_colour.dart';
 import 'my_account_screens/myaccount_scrren.dart';
+import 'school_nursery_category.dart';
 
-class SchoolNursery extends StatefulWidget {
-  const SchoolNursery({Key? key}) : super(key: key);
-  static var schoolNursery = "/schoolNursery";
+class SchoolNurseryScreen extends StatefulWidget {
+  const SchoolNurseryScreen({Key? key}) : super(key: key);
+  static String route = "/SchoolNurseryScreen";
 
   @override
-  State<SchoolNursery> createState() => _SchoolNurseryState();
+  State<SchoolNurseryScreen> createState() => _SchoolNurseryScreenState();
 }
 
-class _SchoolNurseryState extends State<SchoolNursery> {
+class _SchoolNurseryScreenState extends State<SchoolNurseryScreen> {
   List type = ["E Book", "Voice", "Both"];
   List gender = ["Male", "Female", "Both"];
   RxBool? status = false.obs;
@@ -448,7 +449,7 @@ class _SchoolNurseryState extends State<SchoolNursery> {
                           return Padding(
                             padding: const EdgeInsets.only(top: 17),
                             child: InkWell(onTap: (){
-                              Get.toNamed(MyRouters.scoopsNursery);
+                              Get.toNamed(SchoolNurseryCategory.route);
                             },
                               child: Container(
                                 decoration: BoxDecoration(

@@ -26,7 +26,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   final pages = [
     const HomePage(),
     const CategoriesScreen(),
-    const Whishlist(),
+    const WishListScreen(),
     const MyAccountScreen(),
   ];
 

@@ -435,11 +435,13 @@ class _HomePageState extends State<HomePage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  CachedNetworkImage(
-                                      imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
-                                      fit: BoxFit.cover,
-                                      errorWidget: (context, url, error) =>
-                                          Image.asset("assets/images/Soud Alsanousi.png")),
+                                  Flexible(
+                                    child: CachedNetworkImage(
+                                        imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
+                                        fit: BoxFit.cover,
+                                        errorWidget: (context, url, error) =>
+                                            Image.asset("assets/images/Soud Alsanousi.png")),
+                                  ),
                                   const SizedBox(
                                     height: 10,
                                   ),

@@ -159,8 +159,8 @@ class CartController extends GetxController {
     });
   }
 
-  getCart() {
-    repositories.postApi(url: ApiUrls.cartListUrl).then((value) {
+  Future getCart() async {
+    await repositories.postApi(url: ApiUrls.cartListUrl).then((value) {
       cartModel = ModelCartResponse.fromJson(jsonDecode(value));
       apiLoaded = true;
       updateUI();
