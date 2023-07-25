@@ -18,6 +18,7 @@ class VendorCommonTextfield extends StatefulWidget {
   final bool? isMulti;
   final bool? autofocus;
   final bool? enabled;
+  final int? maxLength;
   final String? errorText;
   final String? labelText;
   final String? hintText;
@@ -28,6 +29,7 @@ class VendorCommonTextfield extends StatefulWidget {
   const VendorCommonTextfield({super.key,
     this.controller,
     this.validator,
+    this.maxLength,
     this.keyboardType = TextInputType.text,
     this.obSecure,
     this.onTap,
@@ -64,8 +66,9 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
         onChanged: widget.onChanged,
         onEditingComplete: widget.onEditingCompleted,
         obscureText: widget.obSecure ?? false,
-        minLines: (widget.isMulti ?? false) ? 4 : 1,
-        maxLines: (widget.isMulti ?? false) ? null : 1,
+        maxLength: widget.maxLength,
+        minLines: (widget.isMulti ?? false) ? 3 : 1,
+        maxLines: (widget.isMulti ?? false) ? 12 : 1,
         onTap: widget.onTap,
         enabled: widget.enabled,
         readOnly: widget.readOnly ?? false,
@@ -74,12 +77,14 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
         decoration: InputDecoration(
           filled: true,
           fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-          counterStyle: const TextStyle(
-            color: Color(0xff463B57),
-            fontSize: 25,
-          ),
+          // counterStyle: const TextStyle(
+          //   color: Color(0xff463B57),
+          //   fontSize: 25,
+          // ),
+          labelStyle: const TextStyle(color: Colors.black),
           contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 14),
-          counter: const Offstage(),
+          // counter: const Offstage(),
+
           errorMaxLines: 2,
           enabled: widget.enabled ?? true,
           hintText: widget.hintText,

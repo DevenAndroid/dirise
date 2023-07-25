@@ -1,15 +1,20 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:open_filex/open_filex.dart';
-import '../utils/helper.dart';
-import '../widgets/dimension_screen.dart';
-import '../widgets/vendor_common_textfield.dart';
-import 'add_product_screens/product_gallery_images.dart';
+import '../../model/vendor_models/model_add_product_category.dart';
+import '../../repoistery/repository.dart';
+import '../../utils/ApiConstant.dart';
+import '../../utils/helper.dart';
+import '../../widgets/dimension_screen.dart';
+import '../../widgets/vendor_common_textfield.dart';
+import 'product_gallery_images.dart';
 
 class AddProductScreen extends StatefulWidget {
   static String route = "/AddProductScreen";
@@ -21,26 +26,106 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  File productImage = File("");
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey categoryKey = GlobalKey();
+  final Repositories repositories = Repositories();
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController skuController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
-  final TextEditingController minQuantityController = TextEditingController();
-  final TextEditingController maxQuantityController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  String productType = "Simple Product";
+  final TextEditingController purchasePriceController = TextEditingController();
+  final TextEditingController sellingPriceController = TextEditingController();
+  final TextEditingController stockController = TextEditingController();
+  final TextEditingController shortDescriptionController = TextEditingController();
+  final TextEditingController longDescriptionController = TextEditingController();
+  final TextEditingController returnDaysController = TextEditingController();
+
+  File productImage = File("");
   File pdfFile = File("");
   File voiceFile = File("");
   List<File> galleryImages = [];
+  String selectedCategory = "";
+  String productType = "Simple Product";
+
+  ModelAddProductCategory productCategory = ModelAddProductCategory(prodect: []);
+  RxInt refreshInt = 0.obs;
+
 
   List<String> productTypes = [
     "Simple Product",
     "Virtual Product",
-    "Bookable Product",
+    "Booking Product",
   ];
 
   RxString productFileType = "".obs;
+
+  scrollToError(BuildContext? context1){
+    if(context1 == null)return;
+    Scrollable.ensureVisible(context1,
+        alignment: .25, duration: const Duration(milliseconds: 600));
+  }
+
+  addProduct() {
+    if (!formKey.currentState!.validate()) {
+      if(productNameController.checkEmpty) return;
+      if(priceController.checkBoth) return;
+      if(purchasePriceController.checkBoth) return;
+      if(sellingPriceController.checkBoth) return;
+      if(stockController.checkBoth) return;
+      if(returnDaysController.checkBoth) return;
+      if(selectedCategory.isEmpty){
+        if(categoryKey.currentContext != null){
+          Scrollable.ensureVisible(categoryKey.currentContext!,
+              alignment: .25, duration: const Duration(milliseconds: 600));
+          return;
+        }
+      }
+      if(shortDescriptionController.checkEmpty) return;
+      if(longDescriptionController.checkEmpty) return;
+
+      return;
+    }
+    return;
+    Map<String, String> map = {};
+    // single,variants,booking,virtual_product
+    map["product_type"] = productType.replaceAll("Product", "").trim().toLowerCase();
+    map["product_name"] = productNameController.text.trim();
+    map["prodect_price"] = priceController.text.trim();
+    // map["sku"] = skuController.text.trim();
+    map["purchase_price"] = purchasePriceController.text.trim();
+    map["selling_price"] = sellingPriceController.text.trim();
+    map["stock"] = stockController.text.trim();
+    map["return_days"] = returnDaysController.text.trim();
+    map["category_id"] = selectedCategory;
+    map["short_description"] = shortDescriptionController.text.trim();
+    map["long_description"] = longDescriptionController.text.trim();
+
+    Map<String, File> imageMap = {};
+    if(productType == "Virtual Product") {
+      imageMap["virtual_product_file"] = productFileType.value == "pdf" ? pdfFile : voiceFile;
+    }
+      imageMap["featured_image"] = productImage;
+    galleryImages.asMap().forEach((key, value) {
+      imageMap["[$key]"] = value;
+    });
+
+    log(map.toString());
+    log(imageMap.toString());
+
+    repositories.multiPartApi(
+        mapData: {},
+        images: {},
+        url: ApiUrls.addVendorProductUrl,
+        onProgress: (int bytes, int totalBytes) {}
+    );
+  }
+
+  Future getProductCategoryLit() async {
+    refreshInt.value = -2;
+    await repositories.postApi(url: ApiUrls.productCategoryListUrl).then((value) {
+      productCategory = ModelAddProductCategory.fromJson(jsonDecode(value));
+      refreshInt.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }
 
   pickPDFFile() {
     NewHelper().addFilePicker(
@@ -83,6 +168,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    getProductCategoryLit();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var height = MediaQuery
         .of(context)
@@ -110,52 +201,55 @@ class _AddProductScreenState extends State<AddProductScreen> {
             style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
           ),
         ),
-        body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            physics: const BouncingScrollPhysics(),
-            child: Form(
-              key: formKey,
-              child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(children: [
-                    productDescriptionUI(height),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    productTypeFile(height),
-                    SizedBox(
-                      height: height * .02,
-                    ),
-                    ProductGalleryImages(
-                      images: galleryImages,
-                      galleryImages: (List<File> gg) {
-                        galleryImages = gg;
-                      },
-                    ),
-                    SizedBox(
-                      height: height * .02,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {}
-                          // Get.toNamed(orderListScreen);
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await getProductCategoryLit();
+          },
+          child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(children: [
+                      productDescriptionUI(height),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      productTypeFile(height),
+                      SizedBox(
+                        height: height * .02,
+                      ),
+                      ProductGalleryImages(
+                        images: galleryImages,
+                        galleryImages: (List<File> gg) {
+                          galleryImages = gg;
                         },
-                        style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.maxFinite, 60),
-                            backgroundColor: AppTheme.buttonColor,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                            textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
-                        child: Text(
-                          "Upload",
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .headlineSmall!
-                              .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
-                        )),
-                  ])),
-            )));
+                      ),
+                      SizedBox(
+                        height: height * .02,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            addProduct();
+                            // Get.toNamed(orderListScreen);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(double.maxFinite, 60),
+                              backgroundColor: AppTheme.buttonColor,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
+                              textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                          child: Text(
+                            "Upload",
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
+                          )),
+                    ])),
+              )),
+        ));
   }
 
   Card productDescriptionUI(double height) {
@@ -214,12 +308,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     setState(() {});
                   },
                 ),
-                SizedBox(
-                  height: height * .02,
-                ),
+                18.spaceY,
                 VendorCommonTextfield(
-                    obSecure: true,
+                    //obSecure: true,
                     controller: productNameController,
+                    key: productNameController.getKey,
                     hintText: "Enter Product Name",
                     validator: (value) {
                       if (value!.trim().isEmpty) {
@@ -227,114 +320,178 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       }
                       return null;
                     }),
-                SizedBox(
-                  height: height * .007,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: VendorCommonTextfield(
-                          obSecure: true,
-                          controller: skuController,
-                          hintText: "SKU",
-                          validator: MultiValidator([RequiredValidator(errorText: 'SKU is required')])),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: VendorCommonTextfield(
-                          obSecure: true,
-                          controller: priceController,
-                          hintText: "Price",
-                          validator: MultiValidator([RequiredValidator(errorText: 'Price is required')])),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: height * .007,
-                ),
-                DropdownButtonFormField<String>(
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  // iconSize: 30,
-                  iconDisabledColor: const Color(0xff97949A),
-                  iconEnabledColor: const Color(0xff97949A),
-                  // value: _ratingController,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    filled: true,
-                    fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                    focusedErrorBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                    errorBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                    focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                    disabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: AppTheme.secondaryColor),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: AppTheme.secondaryColor),
-                    ),
-                  ),
-                  items: ["vendor", "customer"]
-                      .map((label) =>
-                      DropdownMenuItem(
-                        value: label,
-                        child: Text(
-                          label.toString(),
-                          style: GoogleFonts.poppins(
-                            color: const Color(0xff463B57),
-                          ),
-                        ),
-                      ))
-                      .toList(),
-                  hint: const Text('Rating'),
-                  onChanged: (value) {
-                    setState(() {
-                      // _ratingController = value!;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: height * .02,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: VendorCommonTextfield(
-                          obSecure: true,
-                          controller: minQuantityController,
-                          hintText: "Min Qty",
-                          validator: MultiValidator([RequiredValidator(errorText: 'Min Qty is required')])),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Expanded(
-                      child: VendorCommonTextfield(
-                          obSecure: true,
-                          controller: maxQuantityController,
-                          hintText: "Max Qty",
-                          validator: MultiValidator([RequiredValidator(errorText: 'Max Qty is required')])),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: height * .02,
-                ),
+                18.spaceY,
                 VendorCommonTextfield(
-                    obSecure: true,
-                    controller: descriptionController,
-                    hintText: "Description",
-                    validator: MultiValidator([RequiredValidator(errorText: 'Description is required')])),
+                    //obSecure: true,
+                    controller: priceController,
+                    key: priceController.getKey,
+                    keyboardType: TextInputType.number,
+                    hintText: "Price",
+                    validator: (value){
+                      if(value!.trim().isEmpty){
+                        return "Price is required";
+                      }
+                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                        return "Enter valid price";
+                      }
+                      return null;
+                    }
+                    ),
+                18.spaceY,
+                VendorCommonTextfield(
+                    //obSecure: true,
+                    controller: purchasePriceController,
+                    key: purchasePriceController.getKey,
+                    keyboardType: TextInputType.number,
+                    hintText: "Purchase Price",
+                    validator: (value){
+                      if(value!.trim().isEmpty){
+                        return "Purchase price is required";
+                      }
+                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                        return "Enter valid purchased price";
+                      }
+                      return null;
+                    }
+                    ),
+                18.spaceY,
+                VendorCommonTextfield(
+                    //obSecure: true,
+                    controller: sellingPriceController,
+                    key: sellingPriceController.getKey,
+                    keyboardType: TextInputType.number,
+                    hintText: "Selling Price",
+                    validator: (value){
+                      if(value!.trim().isEmpty){
+                        return "Selling price is required";
+                      }
+                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                        return "Enter valid selling price";
+                      }
+                      return null;
+                    }
+                    ),
+                18.spaceY,
+                VendorCommonTextfield(
+                    //obSecure: true,
+                    controller: stockController,
+                    key: stockController.getKey,
+                    keyboardType: TextInputType.number,
+                    hintText: "Stock Quantity",
+                    validator: (value){
+                      if(value!.trim().isEmpty){
+                        return "Stock quantity is required";
+                      }
+                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                        return "Enter valid stock quantity";
+                      }
+                      return null;
+                    }
+                ),
+                18.spaceY,
+                VendorCommonTextfield(
+                    //obSecure: true,
+                    controller: returnDaysController,
+                    key: returnDaysController.getKey,
+                    keyboardType: TextInputType.number,
+                    hintText: "Return Days",
+                    validator: (value){
+                      if(value!.trim().isEmpty){
+                        return "Return days is required";
+                      }
+                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                        return "Enter valid return days";
+                      }
+                      return null;
+                    }
+                ),
+                18.spaceY,
+                Obx(() {
+                  if(refreshInt.value > 0){}
+                  return DropdownButtonFormField<String>(
+                    key: categoryKey,
+                    icon: refreshInt.value == -2 ?
+                    const CupertinoActivityIndicator() :
+                    const Icon(Icons.keyboard_arrow_down),
+                    isExpanded: true,
+                    iconDisabledColor: const Color(0xff97949A),
+                    iconEnabledColor: const Color(0xff97949A),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      filled: true,
+                      hintText: "Category",
+                      labelStyle: const TextStyle(color: Colors.black),
+                      labelText: "Category",
+                      fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                      focusedErrorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      errorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                      focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      disabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                    ),
+                    validator: (gg){
+                      if(selectedCategory.isEmpty){
+                        return "Please select product category";
+                      }
+                      return null;
+                    },
+                    items: productCategory.prodect!
+                        .map((label) =>
+                        DropdownMenuItem(
+                          value: label.id.toString(),
+                          child: Text(
+                            label.title.toString(),
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xff463B57),
+                            ),
+                          ),
+                        ))
+                        .toList(),
+                    onChanged: (value) {
+                      if(value == null)return;
+                      selectedCategory = value;
+                    },
+                  );
+                }),
+                18.spaceY,
+                VendorCommonTextfield(
+                    //obSecure: true,
+                    controller: shortDescriptionController,
+                    key: shortDescriptionController.getKey,
+                    hintText: "Short Description",
+                    validator: (value){
+                      if(value!.trim().isEmpty){
+                        return "Short description is required";
+                      }
+                      return null;
+                    }),
+                18.spaceY,
+                VendorCommonTextfield(
+                    //obSecure: true,
+                    controller: longDescriptionController,
+                    key: longDescriptionController.getKey,
+                    maxLength: 5000,
+                    isMulti: true,
+                    hintText: "Long Description",
+                    validator: (value){
+                      if(value!.trim().isEmpty){
+                        return "Long description is required";
+                      }
+                      return null;
+                    }),
               ])
             ])));
   }

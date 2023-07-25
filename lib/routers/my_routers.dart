@@ -37,7 +37,7 @@ import '../screens/public_speaker_screen/single_public_speaker_screen.dart';
 import '../screens/school_nursery_category.dart';
 import '../screens/order_screens/selectd_order_screen.dart';
 import '../vendorflow/add_money_screen.dart';
-import '../vendorflow/add_product_screen.dart';
+import '../vendorflow/add_product_screens/add_product_screen.dart';
 import '../vendorflow/all_product_screen.dart';
 import '../vendorflow/dashboard_screen.dart';
 import '../vendorflow/bank_account_screen.dart';

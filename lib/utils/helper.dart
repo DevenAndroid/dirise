@@ -347,6 +347,37 @@ extension GetContext on BuildContext{
   Size get getSize=> MediaQuery.of(this).size;
 }
 
+extension ValidateErrors on TextEditingController{
+  bool get checkEmpty{
+    if(text.trim().isNotEmpty)return false;
+    BuildContext? context1 = getKey.currentContext;
+    if(context1 != null) {
+      Scrollable.ensureVisible(context1,
+          alignment: .25, duration: const Duration(milliseconds: 600));
+      return true;
+    } else {
+      return false;
+    }
+  }
+  bool get checkNum{
+    if((num.tryParse(text.trim()) ?? 0) > 0)return false;
+    BuildContext? context1 = getKey.currentContext;
+    if(context1 != null) {
+      Scrollable.ensureVisible(context1,
+          alignment: .25, duration: const Duration(milliseconds: 600));
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool get checkBoth{
+    // print("checkEmpty.....   $checkEmpty");
+    // print("checkNum.....   $checkNum");
+    return checkEmpty || checkNum;
+  }
+}
+
 extension ToShimmer on Widget{
   Widget get toShimmer{
     return Shimmer.fromColors(

@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/common_colour.dart';
 import '../widgets/dimension_screen.dart';
-import 'add_product_screen.dart';
+import 'add_product_screens/add_product_screen.dart';
 
 class VendorProductScreen extends StatefulWidget {
   static String route = "/VendorProductScreen";
