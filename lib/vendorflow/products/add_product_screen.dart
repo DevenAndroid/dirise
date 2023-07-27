@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,13 +46,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
   List<File> galleryImages = [];
   String selectedCategory = "";
   String productType = "Simple Product";
+  bool showValidations = false;
 
-  ModelAddProductCategory productCategory = ModelAddProductCategory(prodect: []);
+  ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
   RxInt refreshInt = 0.obs;
 
 
   List<String> productTypes = [
-    "Simple Product",
+    "Single Product",
     "Virtual Product",
     "Booking Product",
   ];
@@ -65,8 +67,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   addProduct() {
+    if(showValidations == false){
+      showValidations = true;
+      setState(() {});
+    }
     if (!formKey.currentState!.validate()) {
       if(productNameController.checkEmpty) return;
+      if(skuController.checkEmpty) return;
       if(priceController.checkBoth) return;
       if(purchasePriceController.checkBoth) return;
       if(sellingPriceController.checkBoth) return;
@@ -84,13 +91,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
       return;
     }
-    return;
+
+    if(galleryImages.isEmpty)return showToast("Please select product gallery images");
+    if(productImage.path.isEmpty)return showToast("Please select product images");
+
+    // return;
     Map<String, String> map = {};
     // single,variants,booking,virtual_product
     map["product_type"] = productType.replaceAll("Product", "").trim().toLowerCase();
+    map["product_type"] = "single";
     map["product_name"] = productNameController.text.trim();
     map["prodect_price"] = priceController.text.trim();
-    // map["sku"] = skuController.text.trim();
+    map["sku"] = skuController.text.trim();
     map["purchase_price"] = purchasePriceController.text.trim();
     map["selling_price"] = sellingPriceController.text.trim();
     map["stock"] = stockController.text.trim();
@@ -105,18 +117,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
     }
       imageMap["featured_image"] = productImage;
     galleryImages.asMap().forEach((key, value) {
-      imageMap["[$key]"] = value;
+      imageMap["gallery_image[$key]"] = value;
     });
 
     log(map.toString());
     log(imageMap.toString());
 
     repositories.multiPartApi(
-        mapData: {},
-        images: {},
+        mapData: map,
+        images: imageMap,
         url: ApiUrls.addVendorProductUrl,
+        context: context,
         onProgress: (int bytes, int totalBytes) {}
-    );
+    ).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(response.message.toString());
+      if(response.status == true){
+        Get.back();
+      }
+    });
   }
 
   Future getProductCategoryLit() async {
@@ -224,6 +243,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         galleryImages: (List<File> gg) {
                           galleryImages = gg;
                         },
+                        showValidation: showValidations,
                       ),
                       SizedBox(
                         height: height * .02,
@@ -323,6 +343,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 18.spaceY,
                 VendorCommonTextfield(
                     //obSecure: true,
+                    controller: skuController,
+                    key: skuController.getKey,
+                    hintText: "Enter SKU",
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
+                        return "SKU is required";
+                      }
+                      return null;
+                    }),
+                18.spaceY,
+                VendorCommonTextfield(
+                    //obSecure: true,
                     controller: priceController,
                     key: priceController.getKey,
                     keyboardType: TextInputType.number,
@@ -413,6 +445,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     icon: refreshInt.value == -2 ?
                     const CupertinoActivityIndicator() :
                     const Icon(Icons.keyboard_arrow_down),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     isExpanded: true,
                     iconDisabledColor: const Color(0xff97949A),
                     iconEnabledColor: const Color(0xff97949A),
@@ -448,7 +481,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       }
                       return null;
                     },
-                    items: productCategory.prodect!
+                    items: productCategory.data!
                         .map((label) =>
                         DropdownMenuItem(
                           value: label.id.toString(),
@@ -505,12 +538,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Upload Image",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xff2F2F2F),
-                      fontSize: 18),
+                Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        "Upload Image",
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xff2F2F2F),
+                            fontSize: 18),
+                      ),
+                    ),
+                    if(showValidations && productImage.path.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5,top: 2),
+                      child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 21,),
+                    ),
+                  ],
                 ),
                 6.spaceY,
                 productImageWidget(context, height),
@@ -522,12 +566,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         Row(
                           children: [
                             Expanded(
-                              child: Text(
-                                "Upload PDF",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xff2F2F2F),
-                                    fontSize: 18),
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      "Upload PDF",
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff2F2F2F),
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                  if(showValidations && pdfFile.path.isEmpty)
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5,top: 1),
+                                    child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 22,),
+                                  ),
+                                ],
                               ),
                             ),
                             Checkbox(
@@ -610,12 +665,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         Row(
                           children: [
                             Expanded(
-                              child: Text(
-                                "Upload Voice",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    color: const Color(0xff2F2F2F),
-                                    fontSize: 18),
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      "Upload Voice",
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff2F2F2F),
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                  if(showValidations && pdfFile.path.isEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5,top: 1),
+                                      child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 22,),
+                                    ),
+                                ],
                               ),
                             ),
                             Checkbox(

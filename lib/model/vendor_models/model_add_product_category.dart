@@ -1,20 +1,20 @@
-import 'package:get/get.dart';
-
 class ModelAddProductCategory {
   bool? status;
   dynamic message;
-  List<ProdectCategoryData>? prodect = [];
+  List<ProductCategoryData>? data = [];
 
-  ModelAddProductCategory({this.status, this.message, this.prodect});
+  ModelAddProductCategory({this.status, this.message, this.data});
 
   ModelAddProductCategory.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['prodect'] != null) {
-      prodect = <ProdectCategoryData>[];
-      json['prodect'].forEach((v) {
-        prodect!.add(ProdectCategoryData.fromJson(v));
+    if (json['data'] != null) {
+      data = <ProductCategoryData>[];
+      json['data'].forEach((v) {
+        data!.add(ProductCategoryData.fromJson(v));
       });
+    } else {
+      data = [];
     }
   }
 
@@ -22,16 +22,14 @@ class ModelAddProductCategory {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
-    if (prodect != null) {
-      data['prodect'] = prodect!.map((v) => v.toJson()).toList();
-    } else {
-      prodect = [];
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class ProdectCategoryData {
+class ProductCategoryData {
   dynamic id;
   dynamic vendorId;
   dynamic parentId;
@@ -48,7 +46,7 @@ class ProdectCategoryData {
   dynamic createdAt;
   dynamic updatedAt;
 
-  ProdectCategoryData(
+  ProductCategoryData(
       {this.id,
         this.vendorId,
         this.parentId,
@@ -65,7 +63,7 @@ class ProdectCategoryData {
         this.createdAt,
         this.updatedAt});
 
-  ProdectCategoryData.fromJson(Map<String, dynamic> json) {
+  ProductCategoryData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     vendorId = json['vendor_id'];
     parentId = json['parent_id'];

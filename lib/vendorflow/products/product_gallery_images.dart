@@ -10,7 +10,8 @@ import '../../widgets/common_colour.dart';
 class ProductGalleryImages extends StatefulWidget {
   final Function(List<File> images) galleryImages;
   final List<File> images;
-  const ProductGalleryImages({super.key, required this.galleryImages, required this.images});
+  final bool showValidation;
+  const ProductGalleryImages({super.key, required this.galleryImages, required this.images, required this.showValidation});
 
   @override
   State<ProductGalleryImages> createState() => _ProductGalleryImagesState();
@@ -182,12 +183,25 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Image Gallery',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF000000),
+                  Flexible(
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Image Gallery',
+                            style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFF000000),
+                            ),
+                          ),
+                        ),
+                        if(widget.showValidation && images.isEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5,top: 2),
+                            child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 21,),
+                          ),
+                      ],
                     ),
                   ),
                   TextButton(
@@ -210,13 +224,13 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
             if(images.isNotEmpty)
             ...[
               SizedBox(
-                height: 110,
+                height: 125,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(left: 15),
+                  padding: const EdgeInsets.only(left: 20),
                   child: Row(
                     children: images.mapIndexed((i,e)=> Padding(
-                      padding: const EdgeInsets.only(right: 15),
+                      padding: const EdgeInsets.only(right: 20),
                       child: GestureDetector(
                           onTap: (){
                             NewHelper.showImagePickerSheet(
@@ -237,7 +251,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                   ),
                 ),
               ),
-              SizedBox(height: 12,),
+              const SizedBox(height: 12,),
             ],
           ],
         ));
