@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 class ModelAddProductCategory {
   bool? status;
-  String? message;
+  dynamic message;
   List<ProdectCategoryData>? prodect = [];
 
   ModelAddProductCategory({this.status, this.message, this.prodect});
@@ -32,21 +32,21 @@ class ModelAddProductCategory {
 }
 
 class ProdectCategoryData {
-  int? id;
-  int? vendorId;
-  int? parentId;
-  int? level;
-  Null? commision;
-  String? categoryImage;
-  String? categoryImageBanner;
-  String? discription;
-  String? arabDescription;
-  String? status;
-  String? title;
-  String? arabTitle;
-  String? slug;
-  String? createdAt;
-  String? updatedAt;
+  dynamic id;
+  dynamic vendorId;
+  dynamic parentId;
+  dynamic level;
+  dynamic commision;
+  dynamic categoryImage;
+  dynamic categoryImageBanner;
+  dynamic discription;
+  dynamic arabDescription;
+  dynamic status;
+  dynamic title;
+  dynamic arabTitle;
+  dynamic slug;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   ProdectCategoryData(
       {this.id,

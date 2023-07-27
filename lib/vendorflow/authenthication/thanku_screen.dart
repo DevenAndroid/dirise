@@ -2,8 +2,8 @@ import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../widgets/dimension_screen.dart';
-import 'dashboard_screen.dart';
+import '../../widgets/dimension_screen.dart';
+import '../dashboard/dashboard_screen.dart';
 
 class ThankYouVendorScreen extends StatefulWidget {
   const ThankYouVendorScreen({Key? key}) : super(key: key);

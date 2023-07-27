@@ -7,12 +7,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../model/vendor_models/model_vendor_registration.dart';
-import '../model/vendor_models/vendor_category_model.dart';
-import '../utils/ApiConstant.dart';
-import '../utils/helper.dart';
-import '../widgets/dimension_screen.dart';
-import '../widgets/vendor_common_textfield.dart';
+import '../../model/vendor_models/model_vendor_registration.dart';
+import '../../model/vendor_models/vendor_category_model.dart';
+import '../../utils/ApiConstant.dart';
+import '../../utils/helper.dart';
+import '../../widgets/dimension_screen.dart';
+import '../../widgets/vendor_common_textfield.dart';
 import 'verify_vendor_otp.dart';
 
 class VendorRegistrationScreen extends StatefulWidget {

@@ -20,21 +20,20 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
       backgroundColor: Colors.white,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(140),
-          child: Container(
-              child: SafeArea(
+          child: SafeArea(
             child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                Text(
-                  'Faqs',
-                  style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-                )
-              ],
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-          ))),
+            Text(
+              'Faqs',
+              style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+            )
+          ],
+            ),
+          )),
       body: ListView.builder(
         itemCount: 6,
         itemBuilder: (context, index) {
@@ -50,7 +49,7 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
                   child: Theme(
                     data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                     child: ListTileTheme(
-                      contentPadding: EdgeInsets.all(0),
+                      contentPadding: const EdgeInsets.all(0),
                       dense: true,
                       horizontalTitleGap: 0.0,
                       minLeadingWidth: 0,

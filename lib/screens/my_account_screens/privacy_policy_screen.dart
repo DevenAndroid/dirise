@@ -16,21 +16,20 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
       backgroundColor: Colors.white,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: Container(
-              child: SafeArea(
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    Text(
-                      'Privacy Policy',
-                      style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-                    )
-                  ],
+          child: SafeArea(
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-              ))),
+                Text(
+                  'Privacy Policy',
+                  style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+          )),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),

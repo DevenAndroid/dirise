@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../routers/my_routers.dart';
-import '../widgets/common_button.dart';
-import '../widgets/customsize.dart';
-import '../widgets/dimension_screen.dart';
+import '../../routers/my_routers.dart';
+import '../../widgets/common_button.dart';
+import '../../widgets/customsize.dart';
+import '../../widgets/dimension_screen.dart';
 
 class SetTimeScreen extends StatefulWidget {
   const SetTimeScreen({Key? key}) : super(key: key);

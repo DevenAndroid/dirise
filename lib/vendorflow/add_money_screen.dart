@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/common_colour.dart';
 import '../widgets/dimension_screen.dart';
-import 'orderdetailsscreen.dart';
+import 'orders/orderdetailsscreen.dart';
 
 class WithdrawMoney extends StatefulWidget {
   const WithdrawMoney({Key? key}) : super(key: key);

@@ -8,9 +8,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import '../controller/vendor_controllers/vendor_profile_controller.dart';
-import '../widgets/customsize.dart';
-import '../widgets/dimension_screen.dart';
+import '../../controller/vendor_controllers/vendor_profile_controller.dart';
+import '../../widgets/customsize.dart';
+import '../../widgets/dimension_screen.dart';
 
 class VendorDashBoardScreen extends StatefulWidget {
   const VendorDashBoardScreen({Key? key}) : super(key: key);

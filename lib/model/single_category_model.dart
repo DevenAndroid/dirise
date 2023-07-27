@@ -13,8 +13,8 @@ class SingleCategoryModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -40,9 +40,9 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['sliders'] = this.sliders;
-    if (this.stores != null) {
-      data['stores'] = this.stores!.map((v) => v.toJson()).toList();
+    data['sliders'] = sliders;
+    if (stores != null) {
+      data['stores'] = stores!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -206,55 +206,55 @@ class Stores {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['business_name'] = this.businessName;
-    data['country'] = this.country;
-    data['state'] = this.state;
-    data['city'] = this.city;
-    data['postcode'] = this.postcode;
-    data['helpline_number_'] = this.helplineNumber;
-    data['email'] = this.email;
-    data['pan_number'] = this.panNumber;
-    data['gstin_number'] = this.gstinNumber;
-    data['address'] = this.address;
-    data['business_logo'] = this.businessLogo;
-    data['cin_number'] = this.cinNumber;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['store_name'] = this.storeName;
-    data['store_rating'] = this.storeRating;
-    data['store_url'] = this.storeUrl;
-    data['phone_number'] = this.phoneNumber;
-    data['user_name_'] = this.userName;
-    data['street_1'] = this.street1;
-    data['street_2'] = this.street2;
-    data['zip'] = this.zip;
-    data['profile_img'] = this.profileImg;
-    data['banner_img'] = this.bannerImg;
-    data['vendor_id'] = this.vendorId;
-    data['commision'] = this.commision;
-    data['instagram'] = this.instagram;
-    data['youtube'] = this.youtube;
-    data['twitter'] = this.twitter;
-    data['linkedin'] = this.linkedin;
-    data['facebook'] = this.facebook;
-    data['pinterest'] = this.pinterest;
-    data['account_name'] = this.accountName;
-    data['account_number'] = this.accountNumber;
-    data['bank_name'] = this.bankName;
-    data['bank_number'] = this.bankNumber;
-    data['swift_code'] = this.swiftCode;
-    data['routing_number'] = this.routingNumber;
-    data['selling'] = this.selling;
-    data['product_publish'] = this.productPublish;
-    data['feature_vendor'] = this.featureVendor;
-    data['notify'] = this.notify;
-    data['paypal_id'] = this.paypalId;
-    data['free_shipping_is_applied'] = this.freeShippingIsApplied;
-    data['normal_shipping_is_applied'] = this.normalShippingIsApplied;
-    data['normal_price'] = this.normalPrice;
-    data['free_shipping_over'] = this.freeShippingOver;
-    data['shipping_by_city_is_applied'] = this.shippingByCityIsApplied;
-    data['selling_area'] = this.sellingArea;
+    data['business_name'] = businessName;
+    data['country'] = country;
+    data['state'] = state;
+    data['city'] = city;
+    data['postcode'] = postcode;
+    data['helpline_number_'] = helplineNumber;
+    data['email'] = email;
+    data['pan_number'] = panNumber;
+    data['gstin_number'] = gstinNumber;
+    data['address'] = address;
+    data['business_logo'] = businessLogo;
+    data['cin_number'] = cinNumber;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['store_name'] = storeName;
+    data['store_rating'] = storeRating;
+    data['store_url'] = storeUrl;
+    data['phone_number'] = phoneNumber;
+    data['user_name_'] = userName;
+    data['street_1'] = street1;
+    data['street_2'] = street2;
+    data['zip'] = zip;
+    data['profile_img'] = profileImg;
+    data['banner_img'] = bannerImg;
+    data['vendor_id'] = vendorId;
+    data['commision'] = commision;
+    data['instagram'] = instagram;
+    data['youtube'] = youtube;
+    data['twitter'] = twitter;
+    data['linkedin'] = linkedin;
+    data['facebook'] = facebook;
+    data['pinterest'] = pinterest;
+    data['account_name'] = accountName;
+    data['account_number'] = accountNumber;
+    data['bank_name'] = bankName;
+    data['bank_number'] = bankNumber;
+    data['swift_code'] = swiftCode;
+    data['routing_number'] = routingNumber;
+    data['selling'] = selling;
+    data['product_publish'] = productPublish;
+    data['feature_vendor'] = featureVendor;
+    data['notify'] = notify;
+    data['paypal_id'] = paypalId;
+    data['free_shipping_is_applied'] = freeShippingIsApplied;
+    data['normal_shipping_is_applied'] = normalShippingIsApplied;
+    data['normal_price'] = normalPrice;
+    data['free_shipping_over'] = freeShippingOver;
+    data['shipping_by_city_is_applied'] = shippingByCityIsApplied;
+    data['selling_area'] = sellingArea;
     return data;
   }
 }

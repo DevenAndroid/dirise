@@ -9,8 +9,7 @@ import 'package:dirise/screens/my_account_screens/profile_screen.dart';
 import 'package:dirise/screens/my_account_screens/return_policy_screen.dart';
 import 'package:dirise/screens/schoolnursery_screen.dart';
 import 'package:dirise/screens/my_account_screens/termsconditions_screen.dart';
-import 'package:dirise/screens/whishlist_screen.dart';
-import 'package:dirise/vendorflow/vendor_order_list_screen.dart';
+import 'package:dirise/vendorflow/orders/vendor_order_list_screen.dart';
 import 'package:get/get.dart';
 import '../e-book/singlecategory_screen.dart';
 import '../screens/Authors/authors_screen.dart';
@@ -37,39 +36,20 @@ import '../screens/public_speaker_screen/single_public_speaker_screen.dart';
 import '../screens/school_nursery_category.dart';
 import '../screens/order_screens/selectd_order_screen.dart';
 import '../vendorflow/add_money_screen.dart';
-import '../vendorflow/add_product_screens/add_product_screen.dart';
-import '../vendorflow/all_product_screen.dart';
-import '../vendorflow/dashboard_screen.dart';
+import '../vendorflow/dashboard/dashboard_screen.dart';
 import '../vendorflow/bank_account_screen.dart';
-import '../vendorflow/orderdetailsscreen.dart';
-import '../vendorflow/store_open_time_screen.dart';
-import '../vendorflow/thanku_screen.dart';
-import '../vendorflow/vendor_registration_screen.dart';
-import '../vendorflow/verify_vendor_otp.dart';
+import '../vendorflow/orders/orderdetailsscreen.dart';
+import '../vendorflow/products/add_product_screen.dart';
+import '../vendorflow/products/all_product_screen.dart';
+import '../vendorflow/dashboard/store_open_time_screen.dart';
+import '../vendorflow/authenthication/thanku_screen.dart';
+import '../vendorflow/authenthication/vendor_registration_screen.dart';
+import '../vendorflow/authenthication/verify_vendor_otp.dart';
 
 class MyRouters {
-  static var categoryScreen = "/categoryScreen";
-   static var loginScreen = "/loginScreen";
-  static var newPasswordScreen = "/newPasswordScreen";
-  // static var officeFurnitureScreen = "/officeFurnitureScreen";
-  static var singleChair = "/singleChair";
-  static var eBooKCategoryScreen = "/eBooKCategoryScreen";
-  // static var scoopsNursery = "/scoopsNursery";
-  // static var singleCategory = "/singleCategory";
-  static var dashBoardScreen = "/dashBoardScreen";
-  // static var storeOpenScreen = "/storeOpenScreen";
-  static var vendorRegistration = "/vendorRegistration";
-  // static var allProductScreen = "/allProductScreen";
-  // static var addMoneyScreen = "/addMoneyScreen";
-  // static var bankAccount = "/bankAccount";
-  // static var orderDetails = "/orderDetails";
-  static var privacyPolicy = "/privacyPolicy";
-  static var schoolNursery = "/schoolNursery";
-  static var singlePublicCategory = "/singlePublicCategory";
 
   static var route = [
     GetPage(name: '/', page: () => const BottomNavbar()),
-    // GetPage(name: '/', page: () => const WishListScreen()),
     GetPage(name: LoginScreen.route, page: () => const LoginScreen()),
     GetPage(name: VendorOTPVerification.route, page: () => const VendorOTPVerification()),
     GetPage(name: CreateAccountScreen.route, page: () => const CreateAccountScreen()),

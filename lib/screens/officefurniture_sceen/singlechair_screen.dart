@@ -36,9 +36,9 @@ class _SingleChairScreenState extends State<SingleChairScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                ClipRRect(
+                const ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    child: const Image(image: AssetImage('assets/images/storybooks.png'))),
+                    child: Image(image: AssetImage('assets/images/storybooks.png'))),
                 const SizedBox(
                   height: 20,
                 ),

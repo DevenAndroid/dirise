@@ -17,21 +17,20 @@ class _TermConditionScreenState extends State<TermConditionScreen> {
       backgroundColor: Colors.white,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(60),
-          child: Container(
-              child: SafeArea(
+          child: SafeArea(
             child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                Text(
-                  'Terms And Conditions',
-                  style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-                )
-              ],
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-          ))),
+            Text(
+              'Terms And Conditions',
+              style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+            )
+          ],
+            ),
+          )),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 30),

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart' as intl;
-import '../widgets/common_colour.dart';
-import '../widgets/dimension_screen.dart';
-import 'add_money_screen.dart';
+import '../../widgets/common_colour.dart';
+import '../../widgets/dimension_screen.dart';
+import '../add_money_screen.dart';
 
 class VendorOrderList extends StatefulWidget {
   const VendorOrderList({Key? key}) : super(key: key);
