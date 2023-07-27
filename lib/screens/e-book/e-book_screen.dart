@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../routers/my_routers.dart';
-import '../widgets/common_colour.dart';
+import '../../widgets/common_colour.dart';
 import 'singlecategory_screen.dart';
 
 class EBookScreen extends StatefulWidget {
@@ -19,13 +16,11 @@ class _EBookScreenState extends State<EBookScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    int tt = 0;
-    bool status = false;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(140),
         child: Container(
-          color:AppTheme.buttonColor,
+          color: AppTheme.buttonColor,
           child: SafeArea(
             child: Column(
               children: [
@@ -104,21 +99,17 @@ class _EBookScreenState extends State<EBookScreen> {
               const SizedBox(
                 height: 20,
               ),
-              TabBar(
+              const TabBar(
                 indicatorPadding:
                 EdgeInsets.symmetric(horizontal: 35, vertical: 6),
-                indicator: const BoxDecoration(
+                indicator: BoxDecoration(
                     color: AppTheme.buttonColor,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 indicatorColor: Colors.transparent,
                 unselectedLabelColor: AppTheme.buttonColor,
                 labelColor: Colors.white,
                 dividerColor: Colors.white,
-                onTap: (int) {
-                  tt = int;
-                  status = true;
-                },
-                tabs: const [
+                tabs: [
                   Tab(
                     text: 'E Book',
                   ),
@@ -142,7 +133,7 @@ class _EBookScreenState extends State<EBookScreen> {
                             'assets/images/notebook.png',
                           ),
                           Text(
-                            'Roco NoteBook',
+                            'Rock NoteBook',
                             style: GoogleFonts.poppins(
                                 fontSize: 16, fontWeight: FontWeight.w500),
                           )

@@ -1,11 +1,9 @@
-import 'package:dirise/routers/my_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../e-book/ebookcategory_screen.dart';
 import '../widgets/common_app_bar.dart';
 import '../widgets/common_colour.dart';
+import 'categores/single_categorie.dart';
 import 'my_account_screens/myaccount_scrren.dart';
 import 'school_nursery_category.dart';
 
@@ -58,7 +56,7 @@ class _SchoolNurseryScreenState extends State<SchoolNurseryScreen> {
                                   isScrollControlled: true,
                                   context: context,
                                   builder: (context) {
-                                    return Container(
+                                    return SizedBox(
                                       height: size.height * .65,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -318,7 +316,7 @@ class _SchoolNurseryScreenState extends State<SchoolNurseryScreen> {
                                   isScrollControlled: true,
                                   context: context,
                                   builder: (context) {
-                                    return Container(
+                                    return SizedBox(
                                       height: size.height * .6,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,

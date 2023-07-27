@@ -1,11 +1,9 @@
-import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../screens/my_account_screens/myaccount_scrren.dart';
-import '../widgets/common_app_bar.dart';
+import '../../widgets/common_app_bar.dart';
+import '../my_account_screens/myaccount_scrren.dart';
 import 'singlecategory_screen.dart';
 
 class EBookCategoryScreen extends StatefulWidget {
@@ -28,7 +26,7 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar:  const PreferredSize(
+      appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: CommonAppBar(
           titleText: 'E Book',
@@ -60,7 +58,7 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
                             isScrollControlled: true,
                             context: context,
                             builder: (context) {
-                              return Container(
+                              return SizedBox(
                                 height: size.height * .65,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -318,7 +316,7 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
                             isScrollControlled: true,
                             context: context,
                             builder: (context) {
-                              return Container(
+                              return SizedBox(
                                 height: size.height * .65,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
