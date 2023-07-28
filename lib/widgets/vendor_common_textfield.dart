@@ -16,6 +16,7 @@ class VendorCommonTextfield extends StatefulWidget {
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onFieldSubmitted;
   final bool? isMulti;
+  final TextStyle? hintStyle;
   final bool? autofocus;
   final bool? enabled;
   final int? maxLength;
@@ -46,7 +47,7 @@ class VendorCommonTextfield extends StatefulWidget {
     this.onSaved,
     this.labelText,
     this.inputFormatters,
-    this.onFieldSubmitted,
+    this.onFieldSubmitted, this.hintStyle,
   });
 
   @override
@@ -81,7 +82,6 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
           //   color: Color(0xff463B57),
           //   fontSize: 25,
           // ),
-          labelStyle: const TextStyle(color: Colors.black),
           contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 14),
           // counter: const Offstage(),
 
@@ -92,9 +92,11 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
           labelText: widget.hintText,
           prefixIcon: widget.prefix,
           suffixIcon: widget.suffixIcon,
-          hintStyle: GoogleFonts.poppins(
+          labelStyle: const TextStyle(color: Colors.black,
+            fontSize: 13,),
+          hintStyle: widget.hintStyle ??  GoogleFonts.poppins(
             color: const Color(0xff463B57),
-            fontSize: 15,
+            fontSize: 13,
           ),
           /*errorStyle: const TextStyle(
               overflow: TextOverflow.clip,

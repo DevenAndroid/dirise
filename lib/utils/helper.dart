@@ -387,3 +387,11 @@ extension ToShimmer on Widget{
     );
   }
 }
+
+extension ConvertToDateon on Duration{
+  DateTime get fromTodayStart{
+    DateTime now =DateTime.now();
+    DateTime gg = DateTime(now.year, now.month, now.day);
+    return gg.add(this);
+  }
+}

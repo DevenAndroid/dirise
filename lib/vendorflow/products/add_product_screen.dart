@@ -15,6 +15,7 @@ import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
+import 'bookable_ui.dart';
 import 'product_gallery_images.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   File voiceFile = File("");
   List<File> galleryImages = [];
   String selectedCategory = "";
-  String productType = "Simple Product";
+  String productType = "Single Product";
   bool showValidations = false;
 
   ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
@@ -231,13 +232,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(children: [
                       productDescriptionUI(height),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      15.spaceY,
+                      if(productType == "Booking Product")
+                        const BookableUI(),
                       productTypeFile(height),
-                      SizedBox(
-                        height: height * .02,
-                      ),
+                      15.spaceY,
                       ProductGalleryImages(
                         images: galleryImages,
                         galleryImages: (List<File> gg) {

@@ -16,7 +16,6 @@ class BagsScreen extends StatefulWidget {
 }
 
 class _BagsScreenState extends State<BagsScreen> {
-
   final cartController = Get.put(CartController());
 
   @override
@@ -27,226 +26,232 @@ class _BagsScreenState extends State<BagsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: customAppBar(
-          title: "Bag"
-        ),
+        appBar: customAppBar(title: "Bag"),
         body: RefreshIndicator(
-          onRefresh: ()async{
+          onRefresh: () async {
             await cartController.getCart();
           },
           child: Obx(() {
             if (cartController.refreshInt.value > 0) {}
-            return cartController.apiLoaded ?
-            cartController.cartModel.cart!.isNotEmpty ?
-            ListView.builder(
-                itemCount: cartController.cartModel.cart!.length,
-                padding: const EdgeInsets.only(left: 15, right: 10),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  final cart = cartController.cartModel.cart![index];
-                  return Slidable(
-                    key: ValueKey(cart.id!),
-                    endActionPane: ActionPane(
-                      motion: const ScrollMotion(),
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            // Get.back();
-                            cartController.removeItemFromCart(productId: cart.id.toString(),context: context);
-                          },
-                          child: Container(
-                              decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
-                              padding: const EdgeInsets.fromLTRB(23, 8, 23, 8),
-                              child: const Icon(
-                                Icons.delete_rounded,
-                                color: Colors.red,
-                              )),
-                        )
-                      ],
-                    ),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
-                      ),
-                      padding: const EdgeInsets.only(bottom: 20, top: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Row(
+            return cartController.apiLoaded
+                ? cartController.cartModel.cart!.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: cartController.cartModel.cart!.length,
+                        padding: const EdgeInsets.only(left: 15, right: 10),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          final cart = cartController.cartModel.cart![index];
+                          return Slidable(
+                            key: ValueKey(cart.id!),
+                            endActionPane: ActionPane(
+                              motion: const ScrollMotion(),
                               children: [
-                                CircleAvatar(
-                                  radius: 20,
-                                  backgroundColor: const Color(0xffEEEEEE),
-                                  child: Text(
-                                    "${cart.qty}x",
-                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
-                                  ),
-                                ),
                                 const SizedBox(
-                                  width: 15,
+                                  width: 20,
                                 ),
-                                Image.network(
-                                  cart.featuredImage.toString(),
-                                  height: size.height * .12,
-                                  width: size.height * .12,
-                                  errorBuilder: (_,__,___)=> const SizedBox.shrink(),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '50% off -Static',
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 12, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                        cart.pname.toString(),
-                                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15),
-                                        textAlign: TextAlign.start,
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                        '${cart.qty.toString()} piece',
-                                        style: GoogleFonts.poppins(color: const Color(0xff858484)),
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    // Get.back();
+                                    cartController.removeItemFromCart(productId: cart.id.toString(), context: context);
+                                  },
+                                  child: Container(
+                                      decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
+                                      padding: const EdgeInsets.fromLTRB(23, 8, 23, 8),
+                                      child: const Icon(
+                                        Icons.delete_rounded,
+                                        color: Colors.red,
+                                      )),
+                                )
                               ],
                             ),
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
+                              ),
+                              padding: const EdgeInsets.only(bottom: 20, top: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 20,
+                                          backgroundColor: const Color(0xffEEEEEE),
+                                          child: Text(
+                                            "${cart.qty}x",
+                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 15,
+                                        ),
+                                        Image.network(
+                                          cart.featuredImage.toString(),
+                                          height: size.height * .12,
+                                          width: size.height * .12,
+                                          errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '50% off -Static',
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: const Color(0xffC22E2E)),
+                                              ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              Text(
+                                                cart.pname.toString(),
+                                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              Text(
+                                                '${cart.qty.toString()} piece',
+                                                style: GoogleFonts.poppins(color: const Color(0xff858484)),
+                                              ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    'KD ${cart.sPrice}',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        })
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Center(
+                            child: Text(
+                              "Bag is empty\n"
+                              "Checkout products to added them in bag",
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                          Text(
-                            'KD ${cart.sPrice}',
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                          Center(
+                            child: TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: const Text("Browse")),
                           ),
                         ],
-                      ),
-                    ),
+                      )
+                : const Center(
+                    child: CircularProgressIndicator.adaptive(),
                   );
-                }) : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Center(
-              child: Text("Bag is empty\n"
-                      "Checkout products to added them in bag",
-                    textAlign: TextAlign.center,
-              ),
-            ),
-                    Center(
-              child: TextButton(
-                  onPressed: (){
-                    Get.back();
-                  }, child: const Text("Browse")),
-            ),
-                  ],
-                ) :
-            const Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
           }),
         ),
         bottomNavigationBar: Obx(() {
           if (cartController.refreshInt.value > 0) {}
-          return cartController.apiLoaded ?
-          cartController.cartModel.cart!.isNotEmpty ?
-          Container(
-            height: 63,
-            decoration: const BoxDecoration(color: Color(0xff014E70)),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
-                          padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
-                          child: Text(
-                            cartController.cartModel.cart!.map((e) => e.qty.toString().convertToNum ?? 0).toList().getTotal.toString(),
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18),
-                          )),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text("KD ${cartController.cartModel.subtotal}",
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            Get.toNamed(CheckOutScreen.checkOutScreen);
-                          },
-                          child: Text("Checkout",
-                              style:
-                              GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white))),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Image(
-                        height: 25,
-                        image: AssetImage(
-                          'assets/icons/whishlist.png',
+          return cartController.apiLoaded
+              ? cartController.cartModel.cart!.isNotEmpty
+                  ? Container(
+                      height: 63,
+                      decoration: const BoxDecoration(color: Color(0xff014E70)),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                    decoration:
+                                        BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+                                    padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
+                                    child: Text(
+                                      cartController.cartModel.cart!
+                                          .map((e) => e.qty.toString().convertToNum ?? 0)
+                                          .toList()
+                                          .getTotal
+                                          .toString(),
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18),
+                                    )),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text("KD ${cartController.cartModel.subtotal}",
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      Get.toNamed(CheckOutScreen.checkOutScreen);
+                                    },
+                                    child: Text("Checkout",
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white))),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Image(
+                                  height: 25,
+                                  image: AssetImage(
+                                    'assets/icons/whishlist.png',
+                                  ),
+                                  color: Colors.white,
+                                ),
+                              ],
+                            )
+                          ],
                         ),
-                        color: Colors.white,
                       ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ) : const SizedBox.shrink() :
-          const SizedBox.shrink();
+                    )
+                  : const SizedBox.shrink()
+              : const SizedBox.shrink();
         }));
   }
 
-  AppBar customAppBar({
-    required String title
-}) {
+  AppBar customAppBar({required String title}) {
     return AppBar(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-          onPressed: () => Get.back(),
-        ),
-        titleSpacing: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
-            ),
-          ],
-        ),
-      );
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
+      elevation: 0,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+        onPressed: () => Get.back(),
+      ),
+      titleSpacing: 0,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
+          ),
+        ],
+      ),
+    );
   }
 }
