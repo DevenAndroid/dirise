@@ -15,7 +15,7 @@ import '../model/common_modal.dart';
 import '../model/trending_products_modal.dart';
 import '../model/trending_products_modal.dart';
 import '../model/trending_products_modal.dart';
-import '../repoistery/repository.dart';
+import '../repository/repository.dart';
 import '../utils/ApiConstant.dart';
 
 class WishListScreen extends StatefulWidget {

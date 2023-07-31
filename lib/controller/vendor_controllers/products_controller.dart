@@ -1,4 +1,4 @@
-import 'package:dirise/repoistery/repository.dart';
+import 'package:dirise/repository/repository.dart';
 import 'package:dirise/utils/ApiConstant.dart';
 import 'package:get/get.dart';
 

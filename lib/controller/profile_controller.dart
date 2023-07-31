@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/profile_model.dart';
-import '../repoistery/repository.dart';
+import '../repository/repository.dart';
 import '../utils/ApiConstant.dart';
 
 

@@ -9,7 +9,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/login_model.dart';
-import '../../repoistery/repository.dart';
+import '../../repository/repository.dart';
 import '../../widgets/common_button.dart';
 import '../../bottomavbar.dart';
 import 'createacc_screen.dart';

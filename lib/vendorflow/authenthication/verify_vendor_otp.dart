@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:dirise/repoistery/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +8,7 @@ import '../../../model/common_modal.dart';
 import '../../../utils/ApiConstant.dart';
 import '../../../widgets/common_colour.dart';
 import '../../controller/profile_controller.dart';
-import '../dashboard/dashboard_screen.dart';
+import '../../repository/repository.dart';
 import 'thanku_screen.dart';
 
 class VendorOTPVerification extends StatefulWidget {

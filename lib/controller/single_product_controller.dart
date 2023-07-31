@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:dirise/repoistery/repository.dart';
+import 'package:dirise/repository/repository.dart';
 import 'package:get/get.dart';
 import '../model/single_category_model.dart';
 import '../utils/ApiConstant.dart';

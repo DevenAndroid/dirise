@@ -157,103 +157,91 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade300,
-              offset: const Offset(
-                .1,
-                .1,
-              ),
-              blurRadius: 20.0,
-              spreadRadius: 1.0,
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 4, 0, 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            'Image Gallery',
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xFF000000),
+    return Card(
+      elevation: 3,
+      child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 4, 0, 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              'Image Gallery',
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xFF000000),
+                              ),
                             ),
                           ),
-                        ),
-                        if(widget.showValidation && images.isEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5,top: 2),
-                            child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 21,),
-                          ),
-                      ],
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      showImagesBottomSheet();
-                    },
-
-                    child: Text(
-                      'Choose From Gallery ${images.isNotEmpty ? "${images.length}/5" : ""}',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        color: AppTheme.buttonColor,
-                        fontWeight: FontWeight.w600,
+                          if(widget.showValidation && images.isEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5,top: 2),
+                              child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 21,),
+                            ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            if(images.isNotEmpty)
-            ...[
-              SizedBox(
-                height: 125,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Row(
-                    children: images.mapIndexed((i,e)=> Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: GestureDetector(
-                          onTap: (){
-                            NewHelper.showImagePickerSheet(
-                                gotImage: (value){
-                                  images[i] = value;
-                                  updateImages();
-                                },
-                                context: context,
-                                removeOption: true,
-                                removeImage: (fg){
-                                  images.removeAt(i);
-                                  updateImages();
-                                }
-                            );
-                          },
-                          child: Image.file(e)),
-                    )).toList(),
-                  ),
+                    TextButton(
+                      onPressed: () {
+                        showImagesBottomSheet();
+                      },
+
+                      child: Text(
+                        'Choose From Gallery ${images.isNotEmpty ? "${images.length}/5" : ""}',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          color: AppTheme.buttonColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 12,),
+              if(images.isNotEmpty)
+              ...[
+                SizedBox(
+                  height: 125,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: images.mapIndexed((i,e)=> Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: GestureDetector(
+                            onTap: (){
+                              NewHelper.showImagePickerSheet(
+                                  gotImage: (value){
+                                    images[i] = value;
+                                    updateImages();
+                                  },
+                                  context: context,
+                                  removeOption: true,
+                                  removeImage: (fg){
+                                    images.removeAt(i);
+                                    updateImages();
+                                  }
+                              );
+                            },
+                            child: Image.file(e)),
+                      )).toList(),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12,),
+              ],
             ],
-          ],
-        ));
+          )),
+    );
   }
 }

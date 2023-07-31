@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../controller/profile_controller.dart';
-import '../../repoistery/repository.dart';
+import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';

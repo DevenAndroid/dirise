@@ -12,15 +12,24 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
-        primarySwatch: Colors.blue,
-        colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.buttonColor),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: AppTheme.buttonColor,
+          surfaceTint: Colors.white,
+          background: Colors.white,
+          ),
+        cardTheme: const CardTheme(
+          color: Colors.white,
+          surfaceTintColor: Colors.white
+        )
       ),
+      themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       initialRoute: "/",
       getPages: MyRouters.route,

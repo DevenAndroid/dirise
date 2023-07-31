@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dirise/repoistery/repository.dart';
+import 'package:dirise/repository/repository.dart';
 import 'package:get/get.dart';
 
 import '../model/model_whishlist.dart';

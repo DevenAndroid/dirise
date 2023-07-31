@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../model/order_models/model_single_order_response.dart';
-import '../../repoistery/repository.dart';
+import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 
 class SelectedOrderScreen extends StatefulWidget {

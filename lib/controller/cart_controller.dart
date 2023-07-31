@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:dirise/model/common_modal.dart';
-import 'package:dirise/repoistery/repository.dart';
+import 'package:dirise/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../model/model_address_list.dart';

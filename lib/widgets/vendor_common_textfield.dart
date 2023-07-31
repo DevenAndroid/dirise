@@ -93,10 +93,10 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
           prefixIcon: widget.prefix,
           suffixIcon: widget.suffixIcon,
           labelStyle: const TextStyle(color: Colors.black,
-            fontSize: 13,),
+            fontSize: 14,),
           hintStyle: widget.hintStyle ??  GoogleFonts.poppins(
             color: const Color(0xff463B57),
-            fontSize: 13,
+            fontSize: 14,
           ),
           /*errorStyle: const TextStyle(
               overflow: TextOverflow.clip,

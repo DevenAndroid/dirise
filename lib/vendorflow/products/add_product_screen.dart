@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:open_filex/open_filex.dart';
 import '../../model/vendor_models/model_add_product_category.dart';
-import '../../repoistery/repository.dart';
+import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
 import '../../widgets/dimension_screen.dart';
@@ -40,6 +40,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController shortDescriptionController = TextEditingController();
   final TextEditingController longDescriptionController = TextEditingController();
   final TextEditingController returnDaysController = TextEditingController();
+  String productAvailability = "";
+  String startDate = "";
+  String endDate = "";
+  List<String> slots = [];
 
   File productImage = File("");
   File pdfFile = File("");
@@ -52,7 +56,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
   RxInt refreshInt = 0.obs;
 
-
   List<String> productTypes = [
     "Single Product",
     "Virtual Product",
@@ -61,40 +64,39 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   RxString productFileType = "".obs;
 
-  scrollToError(BuildContext? context1){
-    if(context1 == null)return;
-    Scrollable.ensureVisible(context1,
-        alignment: .25, duration: const Duration(milliseconds: 600));
+  scrollToError(BuildContext? context1) {
+    if (context1 == null) return;
+    Scrollable.ensureVisible(context1, alignment: .25, duration: const Duration(milliseconds: 600));
   }
 
   addProduct() {
-    if(showValidations == false){
+    if (showValidations == false) {
       showValidations = true;
       setState(() {});
     }
     if (!formKey.currentState!.validate()) {
-      if(productNameController.checkEmpty) return;
-      if(skuController.checkEmpty) return;
-      if(priceController.checkBoth) return;
-      if(purchasePriceController.checkBoth) return;
-      if(sellingPriceController.checkBoth) return;
-      if(stockController.checkBoth) return;
-      if(returnDaysController.checkBoth) return;
-      if(selectedCategory.isEmpty){
-        if(categoryKey.currentContext != null){
+      if (productNameController.checkEmpty) return;
+      if (skuController.checkEmpty) return;
+      if (priceController.checkBoth) return;
+      if (purchasePriceController.checkBoth) return;
+      if (sellingPriceController.checkBoth) return;
+      if (stockController.checkBoth) return;
+      if (returnDaysController.checkBoth) return;
+      if (selectedCategory.isEmpty) {
+        if (categoryKey.currentContext != null) {
           Scrollable.ensureVisible(categoryKey.currentContext!,
               alignment: .25, duration: const Duration(milliseconds: 600));
           return;
         }
       }
-      if(shortDescriptionController.checkEmpty) return;
-      if(longDescriptionController.checkEmpty) return;
+      if (shortDescriptionController.checkEmpty) return;
+      if (longDescriptionController.checkEmpty) return;
 
       return;
     }
 
-    if(galleryImages.isEmpty)return showToast("Please select product gallery images");
-    if(productImage.path.isEmpty)return showToast("Please select product images");
+    if (galleryImages.isEmpty) return showToast("Please select product gallery images");
+    if (productImage.path.isEmpty) return showToast("Please select product images");
 
     // return;
     Map<String, String> map = {};
@@ -113,10 +115,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
     map["long_description"] = longDescriptionController.text.trim();
 
     Map<String, File> imageMap = {};
-    if(productType == "Virtual Product") {
+    if (productType == "Virtual Product") {
       imageMap["virtual_product_file"] = productFileType.value == "pdf" ? pdfFile : voiceFile;
     }
-      imageMap["featured_image"] = productImage;
+    imageMap["featured_image"] = productImage;
     galleryImages.asMap().forEach((key, value) {
       imageMap["gallery_image[$key]"] = value;
     });
@@ -124,16 +126,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
     log(map.toString());
     log(imageMap.toString());
 
-    repositories.multiPartApi(
-        mapData: map,
-        images: imageMap,
-        url: ApiUrls.addVendorProductUrl,
-        context: context,
-        onProgress: (int bytes, int totalBytes) {}
-    ).then((value) {
+    repositories
+        .multiPartApi(
+            mapData: map,
+            images: imageMap,
+            url: ApiUrls.addVendorProductUrl,
+            context: context,
+            onProgress: (int bytes, int totalBytes) {})
+        .then((value) {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
-      if(response.status == true){
+      if (response.status == true) {
         Get.back();
       }
     });
@@ -195,10 +198,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xffF4F4F4),
@@ -227,47 +227,55 @@ class _AddProductScreenState extends State<AddProductScreen> {
           },
           child: SingleChildScrollView(
               child: Form(
-                key: formKey,
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(children: [
-                      productDescriptionUI(height),
-                      15.spaceY,
-                      if(productType == "Booking Product")
-                        const BookableUI(),
-                      productTypeFile(height),
-                      15.spaceY,
-                      ProductGalleryImages(
-                        images: galleryImages,
-                        galleryImages: (List<File> gg) {
-                          galleryImages = gg;
-                        },
-                        showValidation: showValidations,
-                      ),
-                      SizedBox(
-                        height: height * .02,
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            addProduct();
-                            // Get.toNamed(orderListScreen);
-                          },
-                          style: ElevatedButton.styleFrom(
-                              minimumSize: const Size(double.maxFinite, 60),
-                              backgroundColor: AppTheme.buttonColor,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                              textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
-                          child: Text(
-                            "Upload",
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .headlineSmall!
-                                .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
-                          )),
-                    ])),
-              )),
+            key: formKey,
+            child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(children: [
+                  productDescriptionUI(height),
+                  15.spaceY,
+                  if (productType == "Booking Product")
+                    BookableUI(
+                      onChange: (String bookingType, String dateType, DateTime? selectedStartDateTime,
+                          DateTime? selectedEndDateTIme,List<String> slots) {
+                        log(bookingType);
+                        log(dateType);
+                        log(selectedStartDateTime.toString());
+                        log(selectedEndDateTIme.toString());
+                        log(slots.toString());
+                      },
+                    ),
+                  productTypeFile(height),
+                  15.spaceY,
+                  ProductGalleryImages(
+                    images: galleryImages,
+                    galleryImages: (List<File> gg) {
+                      galleryImages = gg;
+                    },
+                    showValidation: showValidations,
+                  ),
+                  SizedBox(
+                    height: height * .02,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        addProduct();
+                        // Get.toNamed(orderListScreen);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.maxFinite, 60),
+                          backgroundColor: AppTheme.buttonColor,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
+                          textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                      child: Text(
+                        "Upload",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
+                      )),
+                ])),
+          )),
         ));
   }
 
@@ -275,6 +283,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     return Card(
         color: Colors.white,
         surfaceTintColor: Colors.white,
+        elevation: 3,
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
             child: Column(children: [
@@ -309,16 +318,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ),
                   ),
                   items: productTypes
-                      .map((label) =>
-                      DropdownMenuItem(
-                        value: label,
-                        child: Text(
-                          label.toString(),
-                          style: GoogleFonts.poppins(
-                            color: const Color(0xff463B57),
-                          ),
-                        ),
-                      ))
+                      .map((label) => DropdownMenuItem(
+                            value: label,
+                            child: Text(
+                              label.toString(),
+                              style: GoogleFonts.poppins(
+                                color: const Color(0xff463B57),
+                              ),
+                            ),
+                          ))
                       .toList(),
                   hint: const Text('Rating'),
                   onChanged: (value) {
@@ -358,16 +366,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     key: priceController.getKey,
                     keyboardType: TextInputType.number,
                     hintText: "Price",
-                    validator: (value){
-                      if(value!.trim().isEmpty){
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
                         return "Price is required";
                       }
-                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
                         return "Enter valid price";
                       }
                       return null;
-                    }
-                    ),
+                    }),
                 18.spaceY,
                 VendorCommonTextfield(
                     //obSecure: true,
@@ -375,16 +382,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     key: purchasePriceController.getKey,
                     keyboardType: TextInputType.number,
                     hintText: "Purchase Price",
-                    validator: (value){
-                      if(value!.trim().isEmpty){
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
                         return "Purchase price is required";
                       }
-                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
                         return "Enter valid purchased price";
                       }
                       return null;
-                    }
-                    ),
+                    }),
                 18.spaceY,
                 VendorCommonTextfield(
                     //obSecure: true,
@@ -392,16 +398,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     key: sellingPriceController.getKey,
                     keyboardType: TextInputType.number,
                     hintText: "Selling Price",
-                    validator: (value){
-                      if(value!.trim().isEmpty){
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
                         return "Selling price is required";
                       }
-                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
                         return "Enter valid selling price";
                       }
                       return null;
-                    }
-                    ),
+                    }),
                 18.spaceY,
                 VendorCommonTextfield(
                     //obSecure: true,
@@ -409,16 +414,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     key: stockController.getKey,
                     keyboardType: TextInputType.number,
                     hintText: "Stock Quantity",
-                    validator: (value){
-                      if(value!.trim().isEmpty){
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
                         return "Stock quantity is required";
                       }
-                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
                         return "Enter valid stock quantity";
                       }
                       return null;
-                    }
-                ),
+                    }),
                 18.spaceY,
                 VendorCommonTextfield(
                     //obSecure: true,
@@ -426,24 +430,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     key: returnDaysController.getKey,
                     keyboardType: TextInputType.number,
                     hintText: "Return Days",
-                    validator: (value){
-                      if(value!.trim().isEmpty){
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
                         return "Return days is required";
                       }
-                      if((num.tryParse(value.trim()) ?? 0) < 1){
+                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
                         return "Enter valid return days";
                       }
                       return null;
-                    }
-                ),
+                    }),
                 18.spaceY,
                 Obx(() {
-                  if(refreshInt.value > 0){}
+                  if (refreshInt.value > 0) {}
                   return DropdownButtonFormField<String>(
                     key: categoryKey,
-                    icon: refreshInt.value == -2 ?
-                    const CupertinoActivityIndicator() :
-                    const Icon(Icons.keyboard_arrow_down),
+                    icon: refreshInt.value == -2
+                        ? const CupertinoActivityIndicator()
+                        : const Icon(Icons.keyboard_arrow_down),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     isExpanded: true,
                     iconDisabledColor: const Color(0xff97949A),
@@ -474,26 +477,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         borderSide: BorderSide(color: AppTheme.secondaryColor),
                       ),
                     ),
-                    validator: (gg){
-                      if(selectedCategory.isEmpty){
+                    validator: (gg) {
+                      if (selectedCategory.isEmpty) {
                         return "Please select product category";
                       }
                       return null;
                     },
                     items: productCategory.data!
-                        .map((label) =>
-                        DropdownMenuItem(
-                          value: label.id.toString(),
-                          child: Text(
-                            label.title.toString(),
-                            style: GoogleFonts.poppins(
-                              color: const Color(0xff463B57),
-                            ),
-                          ),
-                        ))
+                        .map((label) => DropdownMenuItem(
+                              value: label.id.toString(),
+                              child: Text(
+                                label.title.toString(),
+                                style: GoogleFonts.poppins(
+                                  color: const Color(0xff463B57),
+                                ),
+                              ),
+                            ))
                         .toList(),
                     onChanged: (value) {
-                      if(value == null)return;
+                      if (value == null) return;
                       selectedCategory = value;
                     },
                   );
@@ -504,8 +506,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     controller: shortDescriptionController,
                     key: shortDescriptionController.getKey,
                     hintText: "Short Description",
-                    validator: (value){
-                      if(value!.trim().isEmpty){
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
                         return "Short description is required";
                       }
                       return null;
@@ -518,8 +520,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     maxLength: 5000,
                     isMulti: true,
                     hintText: "Long Description",
-                    validator: (value){
-                      if(value!.trim().isEmpty){
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
                         return "Long description is required";
                       }
                       return null;
@@ -532,6 +534,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     return Card(
         color: Colors.white,
         surfaceTintColor: Colors.white,
+        elevation: 3,
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
             child: Column(
@@ -543,16 +546,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       child: Text(
                         "Upload Image",
                         style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xff2F2F2F),
-                            fontSize: 18),
+                            fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
                       ),
                     ),
-                    if(showValidations && productImage.path.isEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5,top: 2),
-                      child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 21,),
-                    ),
+                    if (showValidations && productImage.path.isEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5, top: 2),
+                        child: Icon(
+                          Icons.error_outline_rounded,
+                          color: Theme.of(context).colorScheme.error,
+                          size: 21,
+                        ),
+                      ),
                   ],
                 ),
                 6.spaceY,
@@ -571,16 +576,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     child: Text(
                                       "Upload PDF",
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff2F2F2F),
-                                          fontSize: 18),
+                                          fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
                                     ),
                                   ),
-                                  if(showValidations && pdfFile.path.isEmpty)
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 5,top: 1),
-                                    child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 22,),
-                                  ),
+                                  if (showValidations && pdfFile.path.isEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5, top: 1),
+                                      child: Icon(
+                                        Icons.error_outline_rounded,
+                                        color: Theme.of(context).colorScheme.error,
+                                        size: 22,
+                                      ),
+                                    ),
                                 ],
                               ),
                             ),
@@ -608,8 +615,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               color: Colors.grey.shade500,
                               strokeWidth: 1,
                               child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                 width: AddSize.screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade50,
@@ -617,45 +624,43 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 ),
                                 child: pdfFile.path.isNotEmpty
                                     ? Column(
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        pdfFile.path
-                                            .split("/")
-                                            .last,
-                                        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                                      ),
-                                    ),
-                                    TextButton(
-                                        onPressed: () {
-                                          OpenFilex.open(pdfFile.path);
-                                        },
-                                        child: const Text("Open"))
-                                  ],
-                                )
+                                        children: [
+                                          Center(
+                                            child: Text(
+                                              pdfFile.path.split("/").last,
+                                              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                                            ),
+                                          ),
+                                          TextButton(
+                                              onPressed: () {
+                                                OpenFilex.open(pdfFile.path);
+                                              },
+                                              child: const Text("Open"))
+                                        ],
+                                      )
                                     : Column(
-                                  children: [
-                                    const Image(
-                                      height: 30,
-                                      image: AssetImage(
-                                        'assets/icons/pdfdownload.png',
+                                        children: [
+                                          const Image(
+                                            height: 30,
+                                            image: AssetImage(
+                                              'assets/icons/pdfdownload.png',
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text(
+                                            "Upload PDF File",
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w300,
+                                                color: const Color(0xff463B57),
+                                                fontSize: AddSize.font16),
+                                          ),
+                                          SizedBox(
+                                            height: height * .01,
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      "Upload PDF File",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300,
-                                          color: const Color(0xff463B57),
-                                          fontSize: AddSize.font16),
-                                    ),
-                                    SizedBox(
-                                      height: height * .01,
-                                    ),
-                                  ],
-                                ),
                               ),
                             ),
                           ),
@@ -670,15 +675,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     child: Text(
                                       "Upload Voice",
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
-                                          color: const Color(0xff2F2F2F),
-                                          fontSize: 18),
+                                          fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
                                     ),
                                   ),
-                                  if(showValidations && pdfFile.path.isEmpty)
+                                  if (showValidations && pdfFile.path.isEmpty)
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 5,top: 1),
-                                      child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 22,),
+                                      padding: const EdgeInsets.only(left: 5, top: 1),
+                                      child: Icon(
+                                        Icons.error_outline_rounded,
+                                        color: Theme.of(context).colorScheme.error,
+                                        size: 22,
+                                      ),
                                     ),
                                 ],
                               ),
@@ -707,8 +714,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               color: Colors.grey.shade500,
                               strokeWidth: 1,
                               child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                 width: AddSize.screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade50,
@@ -716,45 +723,43 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                 ),
                                 child: voiceFile.path.isNotEmpty
                                     ? Column(
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        pdfFile.path
-                                            .split("/")
-                                            .last,
-                                        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                                      ),
-                                    ),
-                                    TextButton(
-                                        onPressed: () {
-                                          OpenFilex.open(voiceFile.path);
-                                        },
-                                        child: const Text("Open"))
-                                  ],
-                                )
+                                        children: [
+                                          Center(
+                                            child: Text(
+                                              pdfFile.path.split("/").last,
+                                              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                                            ),
+                                          ),
+                                          TextButton(
+                                              onPressed: () {
+                                                OpenFilex.open(voiceFile.path);
+                                              },
+                                              child: const Text("Open"))
+                                        ],
+                                      )
                                     : Column(
-                                  children: [
-                                    const Image(
-                                      height: 30,
-                                      image: AssetImage(
-                                        'assets/icons/pdfdownload.png',
+                                        children: [
+                                          const Image(
+                                            height: 30,
+                                            image: AssetImage(
+                                              'assets/icons/pdfdownload.png',
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text(
+                                            "Upload Voice",
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w300,
+                                                color: const Color(0xff463B57),
+                                                fontSize: AddSize.font16),
+                                          ),
+                                          SizedBox(
+                                            height: height * .01,
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      "Upload Voice",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w300,
-                                          color: const Color(0xff463B57),
-                                          fontSize: AddSize.font16),
-                                    ),
-                                    SizedBox(
-                                      height: height * .01,
-                                    ),
-                                  ],
-                                ),
                               ),
                             ),
                           )
@@ -763,9 +768,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     );
                   }),
               ],
-            )
-        )
-    );
+            )));
   }
 
   GestureDetector productImageWidget(BuildContext context, double height) {
@@ -793,30 +796,30 @@ class _AddProductScreenState extends State<AddProductScreen> {
           ),
           child: productImage.path.isNotEmpty
               ? Container(
-            constraints: BoxConstraints(minHeight: 0, maxHeight: context.getSize.width * .36),
-            child: Image.file(productImage),
-          )
+                  constraints: BoxConstraints(minHeight: 0, maxHeight: context.getSize.width * .36),
+                  child: Image.file(productImage),
+                )
               : Column(
-            children: [
-              const Image(
-                height: 30,
-                image: AssetImage(
-                  'assets/icons/pdfdownload.png',
+                  children: [
+                    const Image(
+                      height: 30,
+                      image: AssetImage(
+                        'assets/icons/pdfdownload.png',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "Upload Product image",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w300, color: const Color(0xff463B57), fontSize: AddSize.font14),
+                    ),
+                    SizedBox(
+                      height: height * .01,
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Text(
-                "Upload Product image",
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w300, color: const Color(0xff463B57), fontSize: AddSize.font14),
-              ),
-              SizedBox(
-                height: height * .01,
-              ),
-            ],
-          ),
         ),
       ),
     );

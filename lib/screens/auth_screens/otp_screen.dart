@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:dirise/repoistery/repository.dart';
+import 'package:dirise/repository/repository.dart';
 import 'package:dirise/routers/my_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

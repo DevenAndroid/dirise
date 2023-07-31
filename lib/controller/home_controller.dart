@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:dirise/repoistery/repository.dart';
+import 'package:dirise/repository/repository.dart';
 import 'package:get/get.dart';
 import '../model/author_modal.dart';
 import '../model/categories_modal.dart';

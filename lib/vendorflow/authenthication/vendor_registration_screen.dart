@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:dirise/model/common_modal.dart';
-import 'package:dirise/repoistery/repository.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/vendor_models/model_vendor_registration.dart';
 import '../../model/vendor_models/vendor_category_model.dart';
+import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
 import '../../widgets/dimension_screen.dart';

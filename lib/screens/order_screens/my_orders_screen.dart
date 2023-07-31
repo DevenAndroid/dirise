@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dirise/repoistery/repository.dart';
+import 'package:dirise/repository/repository.dart';
 import 'package:dirise/screens/order_screens/selectd_order_screen.dart';
 import 'package:dirise/utils/ApiConstant.dart';
 import 'package:flutter/material.dart';
