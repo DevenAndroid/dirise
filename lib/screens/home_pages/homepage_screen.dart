@@ -259,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                                   enableScrollInput: true,
                                   delayAfterScrollInput: const Duration(seconds: 1),
                                   child: Text(
-                                    'Artificial Intelligence Gains  a Foot Hold In Writing',
+                                    'Artificial Intelligence Gains a Foot Hold In Writing',
                                     style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
                                   ),
                                 ),

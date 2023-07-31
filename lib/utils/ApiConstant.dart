@@ -11,7 +11,7 @@ class ApiUrls {
   static const String signInUrl = "${apiBaseUrlNew}register";
   static const String loginUrl = "${apiBaseUrlNew}login";
   static const String verifyOtpEmail = "${apiBaseUrlNew}verify-otp-email";
-  static const String forgotPasswordUrl = "${apiBaseUrlNew}userforgototp";
+  static const String forgotPasswordUrl = "${apiBaseUrlNew}forget-password";
   static const String changePasswordUrl = "${apiBaseUrlNew}change-password";
   static const String trendingProductsUrl = "${apiBaseUrlNew}trending-product";
   static const String homeUrl = "${apiBaseUrlNew}home";

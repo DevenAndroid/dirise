@@ -9,16 +9,18 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import '../../controller/vendor_controllers/products_controller.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
 
 class BookableUI extends StatefulWidget {
-  final Function(String bookingType, String dateType,
-      DateTime? selectedStartDateTime,
-      DateTime? selectedEndDateTIme,
-      List<String> slots,
-      )
-      onChange;
+  final Function(
+    String bookingType,
+    String dateType,
+    DateTime? selectedStartDateTime,
+    DateTime? selectedEndDateTIme,
+    List<String> slots,
+  ) onChange;
   const BookableUI({super.key, required this.onChange});
 
   @override
@@ -26,18 +28,14 @@ class BookableUI extends StatefulWidget {
 }
 
 class _BookableUIState extends State<BookableUI> {
+  final controller = Get.put(ProductsController());
+
   RxString bookingType = "Virtual".obs;
   RxString dateType = "date".obs;
 
   final DateFormat timeFormat = DateFormat("hh:mm a");
   final DateFormat timeFormatWithoutAMPM = DateFormat("hh:mm");
   final DateFormat selectedDateFormat = DateFormat("dd-MMM-yyyy");
-
-  final TextEditingController startTime = TextEditingController();
-  final TextEditingController endTime = TextEditingController();
-  final TextEditingController serviceDuration = TextEditingController();
-  final TextEditingController startDate = TextEditingController();
-  final TextEditingController endDate = TextEditingController();
   DateTime? selectedStartDateTime;
   DateTime? selectedEndDateTIme;
 
@@ -69,16 +67,12 @@ class _BookableUIState extends State<BookableUI> {
     }
   }
 
-
-  updateValues(){
-    List<String> slot = slots.entries.where((element) => element.value == true).map((e) => "${timeFormatWithoutAMPM.format(e.key.keys.first)}:${timeFormatWithoutAMPM.format(e.key.values.first)}").toList();
-    widget.onChange(
-        bookingType.value,
-        dateType.value,
-      selectedStartDateTime,
-      selectedEndDateTIme,
-        slot
-    );
+  updateValues() {
+    List<String> slot = slots.entries
+        .where((element) => element.value == true)
+        .map((e) => "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
+        .toList();
+    widget.onChange(bookingType.value, dateType.value, selectedStartDateTime, selectedEndDateTIme, slot);
   }
 
   void _showDialog(Widget child) {
@@ -103,8 +97,7 @@ class _BookableUIState extends State<BookableUI> {
     );
   }
 
-  pickDate(
-      {required Function(DateTime gg) onPick, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate}) async {
+  pickDate({required Function(DateTime gg) onPick, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate}) async {
     DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: initialDate ?? DateTime.now(),
@@ -123,6 +116,7 @@ class _BookableUIState extends State<BookableUI> {
       debounce!.cancel();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -238,94 +232,98 @@ class _BookableUIState extends State<BookableUI> {
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 15),
                 ),
                 12.spaceY,
-                Row(
-                  children: [
-                    Flexible(
-                      child: VendorCommonTextfield(
-                          readOnly: true,
-                          onTap: () => _showDialog(
-                                CupertinoTimerPicker(
-                                  mode: CupertinoTimerPickerMode.hm,
-                                  initialTimerDuration: startDuration,
-                                  onTimerDurationChanged: (Duration newDuration) {
-                                    makeDelay(nowPerform: (bool v) {
-                                      startDuration = newDuration;
-                                      if (kDebugMode) {
-                                        print("performed....    $startDuration");
-                                      }
-                                      String hour =
-                                          "${startDuration.inHours < 10 ? "0${startDuration.inHours}" : startDuration.inHours}";
-                                      int minute = startDuration.inMinutes % 60;
-                                      String inMinute = "${minute < 10 ? "0$minute" : minute}";
-                                      startTime.text = "$hour : $inMinute";
-                                      clearSlots();
-                                      setState(() {});
-                                    });
-                                  },
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: VendorCommonTextfield(
+                            readOnly: true,
+                            onTap: () => _showDialog(
+                                  CupertinoTimerPicker(
+                                    mode: CupertinoTimerPickerMode.hm,
+                                    initialTimerDuration: startDuration,
+                                    onTimerDurationChanged: (Duration newDuration) {
+                                      makeDelay(nowPerform: (bool v) {
+                                        startDuration = newDuration;
+                                        if (kDebugMode) {
+                                          print("performed....    $startDuration");
+                                        }
+                                        String hour =
+                                            "${startDuration.inHours < 10 ? "0${startDuration.inHours}" : startDuration.inHours}";
+                                        int minute = startDuration.inMinutes % 60;
+                                        String inMinute = "${minute < 10 ? "0$minute" : minute}";
+                                        controller.startTime.text = "$hour : $inMinute";
+                                        clearSlots();
+                                        setState(() {});
+                                      });
+                                    },
+                                  ),
                                 ),
-                              ),
-                          controller: startTime,
-                          key: startTime.getKey,
-                          hintText: "Start Time",
-                          suffixIcon: const Icon(
-                            CupertinoIcons.clock,
-                            size: 20,
-                          ),
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Start time is required";
-                            }
-                            return null;
-                          }),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Flexible(
-                      child: VendorCommonTextfield(
-                          readOnly: true,
-                          onTap: () => _showDialog(
-                                CupertinoTimerPicker(
-                                  mode: CupertinoTimerPickerMode.hm,
-                                  initialTimerDuration: endDuration,
-                                  // This is called when the user changes the timer's
-                                  // duration.
-                                  onTimerDurationChanged: (Duration newDuration) {
-                                    makeDelay(nowPerform: (bool v) {
-                                      endDuration = newDuration;
-                                      if (kDebugMode) {
-                                        print("performed....    $endDuration");
-                                      }
-                                      String hour =
-                                          "${endDuration.inHours < 10 ? "0${endDuration.inHours}" : endDuration.inHours}";
-                                      int minute = endDuration.inMinutes % 60;
-                                      String inMinute = "${minute < 10 ? "0$minute" : minute}";
-                                      endTime.text = "$hour : $inMinute";
-                                      clearSlots();
-                                      setState(() {});
-                                    });
-                                  },
+                            controller: controller.startTime,
+                            key: controller.startTime.getKey,
+                            hintText: "Start Time",
+                            suffixIcon: const Icon(
+                              CupertinoIcons.clock,
+                              size: 20,
+                            ),
+                            validator: (value) {
+                              if (value!.trim().isEmpty) {
+                                return "Start time is required";
+                              }
+                              return null;
+                            }),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Flexible(
+                        child: VendorCommonTextfield(
+                            readOnly: true,
+                            onTap: () => _showDialog(
+                                  CupertinoTimerPicker(
+                                    mode: CupertinoTimerPickerMode.hm,
+                                    initialTimerDuration: endDuration,
+                                    // This is called when the user changes the timer's
+                                    // duration.
+                                    onTimerDurationChanged: (Duration newDuration) {
+                                      makeDelay(nowPerform: (bool v) {
+                                        endDuration = newDuration;
+                                        if (kDebugMode) {
+                                          print("performed....    $endDuration");
+                                        }
+                                        String hour =
+                                            "${endDuration.inHours < 10 ? "0${endDuration.inHours}" : endDuration.inHours}";
+                                        int minute = endDuration.inMinutes % 60;
+                                        String inMinute = "${minute < 10 ? "0$minute" : minute}";
+                                        controller.endTime.text = "$hour : $inMinute";
+                                        clearSlots();
+                                        setState(() {});
+                                      });
+                                    },
+                                  ),
                                 ),
-                              ),
-                          controller: endTime,
-                          key: endTime.getKey,
-                          hintText: "End Time",
-                          suffixIcon: const Icon(
-                            CupertinoIcons.clock,
-                            size: 20,
-                          ),
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "End time is required";
-                            }
-                            return null;
-                          }),
-                    ),
-                  ],
+                            controller: controller.endTime,
+                            key: controller.endTime.getKey,
+                            hintText: "End Time",
+                            suffixIcon: const Icon(
+                              CupertinoIcons.clock,
+                              size: 20,
+                            ),
+                            validator: (value) {
+                              if (value!.trim().isEmpty) {
+                                return "End time is required";
+                              }
+                              return null;
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
                 12.spaceY,
                 VendorCommonTextfield(
-                    controller: serviceDuration,
+                    controller: controller.serviceDuration,
+                    key: controller.serviceDuration.getKey,
                     onChanged: (f) {
                       clearSlots();
                     },
@@ -347,6 +345,7 @@ class _BookableUIState extends State<BookableUI> {
                     }),
                 10.spaceY,
                 Row(
+                  key: controller.slotKey,
                   children: [
                     Expanded(
                       child: ElevatedButton(
@@ -357,15 +356,15 @@ class _BookableUIState extends State<BookableUI> {
                             print(startDateTime
                                 .difference(endDateTime)
                                 .abs()
-                                .compareTo(Duration(minutes: int.tryParse(serviceDuration.text) ?? 0)));
+                                .compareTo(Duration(minutes: int.tryParse(controller.serviceDuration.text) ?? 0)));
                             print(startDateTime
                                     .difference(endDateTime)
                                     .abs()
-                                    .compareTo(Duration(minutes: int.tryParse(serviceDuration.text) ?? 0)) ==
+                                    .compareTo(Duration(minutes: int.tryParse(controller.serviceDuration.text) ?? 0)) ==
                                 -1);
                           }
 
-                          Duration minutes = Duration(minutes: int.tryParse(serviceDuration.text) ?? 0);
+                          Duration minutes = Duration(minutes: int.tryParse(controller.serviceDuration.text) ?? 0);
 
                           DateTime temp = startDateTime;
                           while (temp.millisecondsSinceEpoch < endDateTime.millisecondsSinceEpoch) {
@@ -456,12 +455,12 @@ class _BookableUIState extends State<BookableUI> {
 
   Card productAvailability() {
     return Card(
+        key: controller.productAvailabilityKey,
         color: Colors.white,
         surfaceTintColor: Colors.white,
         elevation: 3,
         child: Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20).copyWith(bottom: 10),
+            padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20).copyWith(bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -549,14 +548,14 @@ class _BookableUIState extends State<BookableUI> {
                                 onTap: () {
                                   pickDate(
                                       onPick: (DateTime gg) {
-                                        startDate.text = selectedDateFormat.format(gg);
+                                        controller.startDate.text = selectedDateFormat.format(gg);
                                         selectedStartDateTime = gg;
                                       },
                                       initialDate: selectedStartDateTime,
                                       lastDate: selectedEndDateTIme);
                                 },
-                                controller: startDate,
-                                // key: startTime.getKey,
+                                controller: controller.startDate,
+                                key: controller.startDate.getKey,
                                 hintText: "Start Time",
                                 suffixIcon: const Icon(
                                   CupertinoIcons.clock,
@@ -564,7 +563,7 @@ class _BookableUIState extends State<BookableUI> {
                                 ),
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
-                                    return "Start time is required";
+                                    return "Start date is required";
                                   }
                                   return null;
                                 }),
@@ -574,13 +573,14 @@ class _BookableUIState extends State<BookableUI> {
                                 onTap: () {
                                   pickDate(
                                       onPick: (DateTime gg) {
-                                        endDate.text = selectedDateFormat.format(gg);
+                                        controller.endDate.text = selectedDateFormat.format(gg);
                                         selectedEndDateTIme = gg;
                                       },
                                       initialDate: selectedEndDateTIme ?? selectedStartDateTime,
                                       firstDate: selectedStartDateTime);
                                 },
-                                controller: endDate,
+                                controller: controller.endDate,
+                                key: controller.endDate.getKey,
                                 // key: endTime.getKey,
                                 hintText: "End Time",
                                 suffixIcon: const Icon(
@@ -589,7 +589,7 @@ class _BookableUIState extends State<BookableUI> {
                                 ),
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
-                                    return "End time is required";
+                                    return "End date is required";
                                   }
                                   return null;
                                 }),
@@ -603,22 +603,23 @@ class _BookableUIState extends State<BookableUI> {
                                 onTap: () {
                                   pickDate(
                                     onPick: (DateTime gg) {
-                                      startDate.text = selectedDateFormat.format(gg);
+                                      controller.startDate.text = selectedDateFormat.format(gg);
                                       selectedStartDateTime = gg;
                                     },
                                     initialDate: selectedStartDateTime,
                                   );
                                 },
-                                controller: startDate,
+                                controller: controller.startDate,
+                                key: controller.startDate.getKey,
                                 // key: startTime.getKey,
-                                hintText: "Start Time",
+                                hintText: "Single Date",
                                 suffixIcon: const Icon(
                                   CupertinoIcons.clock,
                                   size: 20,
                                 ),
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
-                                    return "Start time is required";
+                                    return "Single date is required";
                                   }
                                   return null;
                                 }),

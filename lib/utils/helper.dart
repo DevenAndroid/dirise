@@ -345,6 +345,12 @@ extension Spacing on num{
 
 extension GetContext on BuildContext{
   Size get getSize=> MediaQuery.of(this).size;
+
+  void get navigate{
+    Scrollable.ensureVisible(this,
+        alignment: .25, duration: const Duration(milliseconds: 600));
+  }
+
 }
 
 extension ValidateErrors on TextEditingController{
@@ -352,8 +358,7 @@ extension ValidateErrors on TextEditingController{
     if(text.trim().isNotEmpty)return false;
     BuildContext? context1 = getKey.currentContext;
     if(context1 != null) {
-      Scrollable.ensureVisible(context1,
-          alignment: .25, duration: const Duration(milliseconds: 600));
+      context1.navigate;
       return true;
     } else {
       return false;
@@ -363,8 +368,7 @@ extension ValidateErrors on TextEditingController{
     if((num.tryParse(text.trim()) ?? 0) > 0)return false;
     BuildContext? context1 = getKey.currentContext;
     if(context1 != null) {
-      Scrollable.ensureVisible(context1,
-          alignment: .25, duration: const Duration(milliseconds: 600));
+      context1.navigate;
       return true;
     } else {
       return false;

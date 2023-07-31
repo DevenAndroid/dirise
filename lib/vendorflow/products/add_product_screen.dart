@@ -8,7 +8,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:open_filex/open_filex.dart';
+import '../../controller/vendor_controllers/products_controller.dart';
 import '../../model/vendor_models/model_add_product_category.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
@@ -28,6 +30,7 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
+  final controller = Get.put(ProductsController());
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey categoryKey = GlobalKey();
   final Repositories repositories = Repositories();
@@ -40,10 +43,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController shortDescriptionController = TextEditingController();
   final TextEditingController longDescriptionController = TextEditingController();
   final TextEditingController returnDaysController = TextEditingController();
-  String productAvailability = "";
-  String startDate = "";
-  String endDate = "";
-  List<String> slots = [];
 
   File productImage = File("");
   File pdfFile = File("");
@@ -55,6 +54,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
   RxInt refreshInt = 0.obs;
+
+  String bookingType = "";
+  String dateType = "";
+  DateTime? selectedStartDateTime;
+  DateTime? selectedEndDateTIme;
+  List<String> slots = [];
 
   List<String> productTypes = [
     "Single Product",
@@ -84,15 +89,41 @@ class _AddProductScreenState extends State<AddProductScreen> {
       if (returnDaysController.checkBoth) return;
       if (selectedCategory.isEmpty) {
         if (categoryKey.currentContext != null) {
-          Scrollable.ensureVisible(categoryKey.currentContext!,
-              alignment: .25, duration: const Duration(milliseconds: 600));
+          Scrollable.ensureVisible(categoryKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
           return;
         }
       }
       if (shortDescriptionController.checkEmpty) return;
       if (longDescriptionController.checkEmpty) return;
 
+      if(productType == "Booking Product"){
+        if(controller.startTime.checkEmpty) return;
+        if(controller.endTime.checkEmpty) return;
+        if(controller.serviceDuration.checkEmpty) return;
+        if(controller.startDate.checkEmpty) return;
+
+        if(selectedEndDateTIme == null && dateType == "range"){
+          if(controller.serviceDuration.checkEmpty) return;
+        }
+      }
+
       return;
+    }
+
+    if(productType == "Booking Product"){
+      if(slots.isEmpty){
+        showToast("Please select slot");
+        controller.slotKey.currentContext!.navigate;
+        return;
+      }
+      if(selectedStartDateTime == null){
+        showToast("Please select product availability");
+        controller.productAvailabilityKey.currentContext!.navigate;
+      }
+      if(selectedEndDateTIme == null && dateType == "range"){
+        showToast("Please select product availability");
+        controller.productAvailabilityKey.currentContext!.navigate;
+      }
     }
 
     if (galleryImages.isEmpty) return showToast("Please select product gallery images");
@@ -102,7 +133,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
     Map<String, String> map = {};
     // single,variants,booking,virtual_product
     map["product_type"] = productType.replaceAll("Product", "").trim().toLowerCase();
-    map["product_type"] = "single";
+    if (productType == "Booking Product") {
+      final DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+
+      map["group[0]"] = dateType;
+      map["booking_product_type"] = bookingType;
+      if (dateType == "date") {
+        map["single_date[0]"] = dateFormat.format(selectedStartDateTime!);
+      } else {
+        map["from_date[0]"] = dateFormat.format(selectedStartDateTime!);
+        map["to_date[0]"] = dateFormat.format(selectedEndDateTIme!);
+      }
+      slots.asMap().entries.forEach((element) {
+        map["sloat[${element.key}]"] = element.value;
+      });
+    }
+
     map["product_name"] = productNameController.text.trim();
     map["prodect_price"] = priceController.text.trim();
     map["sku"] = skuController.text.trim();
@@ -235,13 +281,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   15.spaceY,
                   if (productType == "Booking Product")
                     BookableUI(
-                      onChange: (String bookingType, String dateType, DateTime? selectedStartDateTime,
-                          DateTime? selectedEndDateTIme,List<String> slots) {
-                        log(bookingType);
-                        log(dateType);
-                        log(selectedStartDateTime.toString());
-                        log(selectedEndDateTIme.toString());
-                        log(slots.toString());
+                      onChange: (String bookingType1, String dateType1, DateTime? selectedStartDateTime1,
+                          DateTime? selectedEndDateTIme1, List<String> slots1) {
+                         bookingType = bookingType1;
+                         dateType = dateType1;
+                        selectedStartDateTime = selectedStartDateTime1;
+                        selectedEndDateTIme = selectedEndDateTIme1;
+                        slots = slots1;
                       },
                     ),
                   productTypeFile(height),
@@ -444,9 +490,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   if (refreshInt.value > 0) {}
                   return DropdownButtonFormField<String>(
                     key: categoryKey,
-                    icon: refreshInt.value == -2
-                        ? const CupertinoActivityIndicator()
-                        : const Icon(Icons.keyboard_arrow_down),
+                    icon:
+                        refreshInt.value == -2 ? const CupertinoActivityIndicator() : const Icon(Icons.keyboard_arrow_down),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     isExpanded: true,
                     iconDisabledColor: const Color(0xff97949A),
@@ -545,8 +590,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     Flexible(
                       child: Text(
                         "Upload Image",
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
+                        style:
+                            GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
                       ),
                     ),
                     if (showValidations && productImage.path.isEmpty)
@@ -615,8 +660,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               color: Colors.grey.shade500,
                               strokeWidth: 1,
                               child: Container(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                                padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                 width: AddSize.screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade50,
@@ -714,8 +758,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                               color: Colors.grey.shade500,
                               strokeWidth: 1,
                               child: Container(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                                padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                 width: AddSize.screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade50,

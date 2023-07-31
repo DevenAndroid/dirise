@@ -133,7 +133,8 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                             showToast(value.message.toString());
                             Get.offNamed(BottomNavbar.route);
                             Get.toNamed(LoginScreen.route);
-                          } else {
+                          }
+                          else {
                             showToast(value.message.toString());
                           }
                         });
