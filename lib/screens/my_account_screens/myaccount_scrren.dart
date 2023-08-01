@@ -633,14 +633,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           await shared.clear();
                           setState(() {});
                           Get.toNamed(LoginScreen.route);
+                          profileController.userLoggedIn = false;
+                          profileController.updateUI();
+                          profileController.getDataProfile();
+                          cartController.getCart();
+                          homeController.getAll();
                         } else {
                           Get.toNamed(LoginScreen.route);
                         }
-                        profileController.userLoggedIn = false;
-                        profileController.updateUI();
-                        profileController.getDataProfile();
-                        cartController.getCart();
-                        homeController.getAll();
                       },
                       child: Row(
                         children: [

@@ -28,7 +28,7 @@ class _CategoryItemsState extends State<CategoryItems> {
     super.initState();
     if(homeController.categoryModal.value.data ==null){
       homeController.categoriesData().then((value) {
-        setState(() {});
+        if(mounted) setState(() {});
       });
     }
   }

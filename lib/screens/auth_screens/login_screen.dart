@@ -31,46 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final Repositories repositories = Repositories();
   RxBool hide = true.obs;
 
-  //final controller = Get.put(CustomNavigationBarController());
-
-  // signInWithGoogle(context) async {
-  //   await GoogleSignIn().signOut();
-  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  //
-  //   final GoogleSignInAuthentication googleAuth =
-  //   await googleUser!.authentication;
-  //
-  //   final credential = GoogleAuthProvider.credential(
-  //     idToken: googleAuth.idToken,
-  //     accessToken: googleAuth.accessToken,
-  //   );
-  //
-  //   socialLoginApi(
-  //       context: context, token: googleAuth.accessToken, type: "google");
-  //
-  //   await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
-  //     log(value.toString());
-  //   });
-  // }
-  // socialLoginApi({token, type, context}) {
-  //   socialLogin(token, type, context).then((value) async {
-  //     LoginModel user = LoginModel();
-  //
-  //     user.message = value['data']['token'];
-  //
-  //     if (user.message != null) {
-  //       showToast("Logged in successfully");
-  //       SharedPreferences pref = await SharedPreferences.getInstance();
-  //       pref.setString('user', jsonEncode(user));
-  //       log("User Token :: ${pref.getString("user")}");
-  //       controller.getUser();
-  //       Get.offAllNamed(bottomNavBar);
-  //     } else {
-  //       showToast(value['message']);
-  //     }
-  //   });
-  // }
-
   loginUserApi() {
     if (loginFormKey.currentState!.validate()) {
       Map<String, dynamic> map = {};

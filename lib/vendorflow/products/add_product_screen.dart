@@ -172,20 +172,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
     log(map.toString());
     log(imageMap.toString());
 
-    repositories
-        .multiPartApi(
-            mapData: map,
-            images: imageMap,
-            url: ApiUrls.addVendorProductUrl,
-            context: context,
-            onProgress: (int bytes, int totalBytes) {})
-        .then((value) {
-      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
-      showToast(response.message.toString());
-      if (response.status == true) {
-        Get.back();
-      }
-    });
+    // repositories
+    //     .multiPartApi(
+    //         mapData: map,
+    //         images: imageMap,
+    //         url: ApiUrls.addVendorProductUrl,
+    //         context: context,
+    //         onProgress: (int bytes, int totalBytes) {})
+    //     .then((value) {
+    //   ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+    //   showToast(response.message.toString());
+    //   if (response.status == true) {
+    //     Get.back();
+    //   }
+    // });
   }
 
   Future getProductCategoryLit() async {
