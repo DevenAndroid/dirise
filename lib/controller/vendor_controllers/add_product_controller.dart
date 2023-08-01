@@ -90,16 +90,16 @@ class AddProductController extends GetxController{
 
 
   addProduct({required BuildContext context}) {
+    if (showValidations == false) {
+      showValidations = true;
+      updateUI;
+    }
     List<String> timeslots = [];
     if(slots.isNotEmpty){
       timeslots = slots.entries
           .where((element) => element.value == true)
           .map((e) => "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
           .toList();
-    }
-    if (showValidations == false) {
-      showValidations = true;
-      updateUI;
     }
     if (!formKey.currentState!.validate()) {
       if (productNameController.checkEmpty) return;
@@ -220,8 +220,9 @@ class AddProductController extends GetxController{
   }
 
   Future getProductDetails() async {
-    if(Get.arguments == null)return;
-    productId = Get.arguments;
+    if(Get.arguments != null) {
+      productId = Get.arguments;
+    }
     if(productId.isEmpty){
       apiLoaded = true;
     }

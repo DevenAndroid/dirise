@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../controller/vendor_controllers/add_product_controller.dart';
 import '../../../utils/helper.dart';
 import '../../../widgets/dimension_screen.dart';
+import '../../../widgets/loading_animation.dart';
 import 'add_product_description.dart';
 import 'bookable_screens/bookable_ui.dart';
 import 'product_gallery_images.dart';
@@ -61,42 +62,52 @@ class _AddProductScreenState extends State<AddProductScreen> {
         ),
         body: Obx(() {
           if(controller.refreshInt.value > 0){}
-          return RefreshIndicator(
-            onRefresh: () async => await controller.getProductDetails(),
-            child: SingleChildScrollView(
-                child: Form(
-                  key: controller.formKey,
-                  child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(children: [
-                        const AddProductDescriptionScreen(),
-                        16.spaceY,
-                        if (controller.productType == "Booking Product") const BookableUI(),
-                        const AddProductImageAndVirtualFile(),
-                        16.spaceY,
-                        const ProductGalleryImages(),
-                        16.spaceY,
-                        ElevatedButton(
-                            onPressed: () {
-                              controller.addProduct(context: context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(double.maxFinite, 60),
-                                backgroundColor: AppTheme.buttonColor,
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                                textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
-                            child: Text(
-                              controller.productId.isEmpty ? "Create" : "Update",
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .headlineSmall!
-                                  .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
-                            )),
-                        10.spaceY,
-                      ])),
-                )),
+          return AnimatedCrossFade(
+            duration: const Duration(seconds: 1),
+            alignment: Alignment.center,
+            crossFadeState: controller.apiLoaded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            firstChild: const Column(
+              children: [
+                Expanded(child: LoadingAnimation()),
+              ],
+            ),
+            secondChild: RefreshIndicator(
+              onRefresh: () async => await controller.getProductDetails(),
+              child: SingleChildScrollView(
+                  child: Form(
+                    key: controller.formKey,
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(children: [
+                          const AddProductDescriptionScreen(),
+                          16.spaceY,
+                          if (controller.productType == "Booking Product") const BookableUI(),
+                          const AddProductImageAndVirtualFile(),
+                          16.spaceY,
+                          const ProductGalleryImages(),
+                          16.spaceY,
+                          ElevatedButton(
+                              onPressed: () {
+                                controller.addProduct(context: context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(double.maxFinite, 60),
+                                  backgroundColor: AppTheme.buttonColor,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
+                                  textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                              child: Text(
+                                controller.productId.isEmpty ? "Create" : "Update",
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
+                              )),
+                          10.spaceY,
+                        ])),
+                  )),
+            ),
           );
         }));
   }

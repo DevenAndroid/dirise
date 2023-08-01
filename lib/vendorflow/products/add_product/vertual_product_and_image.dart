@@ -36,33 +36,36 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Flexible(
-                      child: Text(
-                        "Upload Image",
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
-                      ),
-                    ),
-                    if (controller.showValidations && controller.productImage.path.isEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 5, top: 2),
-                        child: Icon(
-                          Icons.error_outline_rounded,
-                          color: Theme
-                              .of(context)
-                              .colorScheme
-                              .error,
-                          size: 21,
+                Obx(() {
+                  if(controller.refreshInt.value > 0){}
+                  return Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          "Upload Image",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
                         ),
                       ),
-                  ],
-                ),
+                      if (controller.showValidations && controller.productImage.path.isEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5, top: 2),
+                          child: Icon(
+                            Icons.error_outline_rounded,
+                            color: Theme
+                                .of(context)
+                                .colorScheme
+                                .error,
+                            size: 21,
+                          ),
+                        ),
+                    ],
+                  );
+                }),
                 6.spaceY,
                 productImageWidget(context, height),
                 Obx(() {
-                  if(controller.refreshInt.value > 0){}
+                  if (controller.refreshInt.value > 0) {}
                   return controller.productType == "Virtual Product" ?
                   Column(
                     children: [

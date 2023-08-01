@@ -196,26 +196,17 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                     iconDisabledColor: const Color(0xff97949A),
                     iconEnabledColor: const Color(0xff97949A),
                     decoration: InputDecoration(
-                      border: InputBorder.none,
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                      enabled: true,
                       filled: true,
                       hintText: "Category",
                       labelStyle: const TextStyle(color: Colors.black),
                       labelText: "Category",
                       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                      focusedErrorBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                      errorBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                      focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                      disabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: AppTheme.secondaryColor),
-                      ),
                       enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: AppTheme.secondaryColor),

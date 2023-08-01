@@ -78,15 +78,9 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
         decoration: InputDecoration(
           filled: true,
           fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-          // counterStyle: const TextStyle(
-          //   color: Color(0xff463B57),
-          //   fontSize: 25,
-          // ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 14),
-          // counter: const Offstage(),
-
           errorMaxLines: 2,
-          enabled: widget.enabled ?? true,
+          enabled: true,
           hintText: widget.hintText,
           errorText: widget.errorText,
           labelText: widget.hintText,
@@ -98,24 +92,10 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
             color: const Color(0xff463B57),
             fontSize: 14,
           ),
-          /*errorStyle: const TextStyle(
-              overflow: TextOverflow.clip,
-            // ),*/
-
-          border: InputBorder.none,
-          focusedErrorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor)),
-          errorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)), borderSide: BorderSide(color: Color(0xffE2E2E2))),
-          focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor)),
-          disabledBorder: const OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             borderSide: BorderSide(color: AppTheme.secondaryColor),
           ),
-
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             borderSide: BorderSide(color: AppTheme.secondaryColor),
