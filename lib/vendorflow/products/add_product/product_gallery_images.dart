@@ -1,38 +1,23 @@
-import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../widgets/common_colour.dart';
+import '../../../controller/vendor_controllers/add_product_controller.dart';
+import '../../../widgets/common_colour.dart';
 
 class ProductGalleryImages extends StatefulWidget {
-  final Function(List<File> images) galleryImages;
-  final List<File> images;
-  final bool showValidation;
-  const ProductGalleryImages({super.key, required this.galleryImages, required this.images, required this.showValidation});
+  const ProductGalleryImages({super.key});
 
   @override
   State<ProductGalleryImages> createState() => _ProductGalleryImagesState();
 }
 
 class _ProductGalleryImagesState extends State<ProductGalleryImages> {
+  final controller = Get.put(AddProductController());
 
-  List<File> images = [];
-
-  @override
-  void initState() {
-    super.initState();
-    images = widget.images;
-  }
-
-  updateImages(){
-    widget.galleryImages(images);
-    setState(() {});
-  }
-
-  showImagesBottomSheet(){
+  showImagesBottomSheet() {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -50,8 +35,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                   color: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Column(
                     children: [
                       Row(
@@ -60,11 +44,15 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                             child: MaterialButton(
                               onPressed: () {
                                 Get.back();
-                                NewHelper().addImagePicker(imageSource: ImageSource.camera,).then((value) {
-                                  if(value == null)return;
-                                  if(images.length < 5){
-                                    images.add(value);
-                                    updateImages();
+                                NewHelper()
+                                    .addImagePicker(
+                                  imageSource: ImageSource.camera,
+                                )
+                                    .then((value) {
+                                  if (value == null) return;
+                                  if (controller.galleryImages.length < 5) {
+                                    controller.galleryImages.add(value);
+                                    setState(() {});
                                   }
                                 });
                               },
@@ -73,10 +61,10 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               color: Colors.white,
                               child: Text(
                                 "Take picture",
-                                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                    color: AppTheme.buttonColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(color: AppTheme.buttonColor, fontWeight: FontWeight.w500, fontSize: 16),
                               ),
                             ),
                           ),
@@ -91,18 +79,16 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                             child: MaterialButton(
                               onPressed: () {
                                 Get.back();
-                                NewHelper()
-                                    .multiImagePicker()
-                                    .then((value) {
-                                  if(value == null)return;
+                                NewHelper().multiImagePicker().then((value) {
+                                  if (value == null) return;
                                   for (var element in value) {
-                                    if(images.length < 5){
-                                      images.add(element);
+                                    if (controller.galleryImages.length < 5) {
+                                      controller.galleryImages.add(element);
                                     } else {
                                       break;
                                     }
                                   }
-                                  updateImages();
+                                  setState(() {});
                                 });
                               },
                               height: 58,
@@ -110,10 +96,10 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               color: Colors.white,
                               child: Text(
                                 "Choose From Gallery",
-                                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                    color: AppTheme.buttonColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall!
+                                    .copyWith(color: AppTheme.buttonColor, fontWeight: FontWeight.w500, fontSize: 16),
                               ),
                             ),
                           ),
@@ -130,21 +116,14 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               minimumSize: const Size(double.maxFinite, 60),
                               backgroundColor: AppTheme.buttonColor,
                               elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(10)),
-                              textStyle: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                           child: Text(
                             "Submit",
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
-                                .copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18),
+                                .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),
                           )),
                     ],
                   ),
@@ -183,10 +162,14 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               ),
                             ),
                           ),
-                          if(widget.showValidation && images.isEmpty)
+                          if (controller.showValidations && controller.galleryImages.isEmpty)
                             Padding(
-                              padding: const EdgeInsets.only(left: 5,top: 2),
-                              child: Icon(Icons.error_outline_rounded,color: Theme.of(context).colorScheme.error,size: 21,),
+                              padding: const EdgeInsets.only(left: 5, top: 2),
+                              child: Icon(
+                                Icons.error_outline_rounded,
+                                color: Theme.of(context).colorScheme.error,
+                                size: 21,
+                              ),
                             ),
                         ],
                       ),
@@ -195,9 +178,8 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                       onPressed: () {
                         showImagesBottomSheet();
                       },
-
                       child: Text(
-                        'Choose From Gallery ${images.isNotEmpty ? "${images.length}/5" : ""}',
+                        'Choose From Gallery ${controller.galleryImages.isNotEmpty ? "${controller.galleryImages.length}/5" : ""}',
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           color: AppTheme.buttonColor,
@@ -208,37 +190,39 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                   ],
                 ),
               ),
-              if(images.isNotEmpty)
-              ...[
+              if (controller.galleryImages.isNotEmpty) ...[
                 SizedBox(
                   height: 125,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.only(left: 20),
                     child: Row(
-                      children: images.mapIndexed((i,e)=> Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: GestureDetector(
-                            onTap: (){
-                              NewHelper.showImagePickerSheet(
-                                  gotImage: (value){
-                                    images[i] = value;
-                                    updateImages();
-                                  },
-                                  context: context,
-                                  removeOption: true,
-                                  removeImage: (fg){
-                                    images.removeAt(i);
-                                    updateImages();
-                                  }
-                              );
-                            },
-                            child: Image.file(e)),
-                      )).toList(),
+                      children: controller.galleryImages
+                          .mapIndexed((i, e) => Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      NewHelper.showImagePickerSheet(
+                                          gotImage: (value) {
+                                            controller.galleryImages[i] = value;
+                                            setState(() {});
+                                          },
+                                          context: context,
+                                          removeOption: true,
+                                          removeImage: (fg) {
+                                            controller.galleryImages.removeAt(i);
+                                            setState(() {});
+                                          });
+                                    },
+                                    child: Image.file(e)),
+                              ))
+                          .toList(),
                     ),
                   ),
                 ),
-                const SizedBox(height: 12,),
+                const SizedBox(
+                  height: 12,
+                ),
               ],
             ],
           )),

@@ -276,6 +276,7 @@ class Repositories {
         log(url);
         log(request.headers.toString());
         log(request.fields.toString());
+        log(images.toString());
         log(request.files.map((e) => e.filename).toList().toString());
       }
 

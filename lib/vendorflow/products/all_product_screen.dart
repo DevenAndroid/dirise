@@ -1,4 +1,3 @@
-import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/utils/shimmer_extension.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controller/vendor_controllers/products_controller.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
-import 'add_product_screen.dart';
+import 'add_product/add_product_screen.dart';
 
 class VendorProductScreen extends StatefulWidget {
   static String route = "/VendorProductScreen";
@@ -131,173 +130,132 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                 height: 20,
               ),
               Expanded(
-                child: Obx(() {
-                  if (productController.refreshInt.value > 0) {}
-                  return ListView.builder(
-                    itemCount: productController.apiLoaded ? 70 : 5,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (!productController.apiLoaded) {
-                        return shimmerLoader(index);
-                      }
-                      return Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
-                                child: Row(children: [
-                                  SizedBox(
-                                      height: AddSize.size80,
-                                      width: AddSize.size80,
-                                      child: const Image(
-                                        image: AssetImage('assets/images/voicebook.png'),
-                                      )),
-                                  SizedBox(
-                                    width: AddSize.size10,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                'Testasy Book',
-                                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await productController.getProductList();
+                  },
+                  child: Obx(() {
+                    if (productController.refreshInt.value > 0) {}
+                    return ListView.builder(
+                      itemCount: productController.apiLoaded ? productController.model.data!.length : 5,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (!productController.apiLoaded) {
+                          return shimmerLoader(index);
+                        }
+                        final item = productController.model.data![index];
+                        return Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
+                                  child: Row(children: [
+                                    SizedBox(
+                                        height: AddSize.size80,
+                                        width: AddSize.size80,
+                                        child: Image.network(item.featuredImage)),
+                                    SizedBox(
+                                      width: AddSize.size10,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  item.pname ?? "Product ${item.id}",
+                                                  style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                                                ),
                                               ),
-                                            ),
-                                            Container(
-                                                height: AddSize.size25,
-                                                width: AddSize.size25,
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(40),
-                                                    border: Border.all(color: AppTheme.buttonColor)),
-                                                child: Center(
-                                                  child: Icon(
-                                                    Icons.edit,
-                                                    color: AppTheme.buttonColor,
-                                                    size: AddSize.size15,
-                                                  ),
-                                                ))
-                                          ],
-                                        ),
-                                        Text(
-                                          'History Logic',
-                                          style: GoogleFonts.poppins(
-                                            color: const Color(0xff676E73),
-                                            fontSize: 15,
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Get.toNamed(AddProductScreen.route,
+                                                      arguments: (item.id ?? "").toString());
+                                                },
+                                                child: Container(
+                                                    height: AddSize.size25,
+                                                    width: AddSize.size25,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(40),
+                                                        border: Border.all(color: AppTheme.buttonColor)),
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.edit,
+                                                        color: AppTheme.buttonColor,
+                                                        size: AddSize.size15,
+                                                      ),
+                                                    )),
+                                              )
+                                            ],
                                           ),
-                                          // vendorProductListController
-                                          //     .model
-                                          //     .value
-                                          //     .data![index]
-                                          //     .variants![0]
-                                          //     .variantQty
-                                          //     .toString(),
-                                          // style: Theme.of(context)
-                                          //     .textTheme
-                                          //     .headline6!
-                                          //     .copyWith(
-                                          //     fontWeight:
-                                          //     FontWeight.w500,
-                                          //     fontSize:
-                                          //     AddSize.font14,
-                                          //     color:
-                                          //     AppTheme.subText),
-                                        ),
-                                        Text(
-                                          // vendorProductListController
-                                          //     .model
-                                          //     .value
-                                          //     .data![index]
-                                          //     .variants![0]
-                                          //     .variantQtyType
-                                          //     .toString(),
-                                          // style: Theme.of(context)
-                                          //     .textTheme
-                                          //     .headline6!
-                                          //     .copyWith(
-                                          //     fontWeight:
-                                          //     FontWeight.w500,
-                                          //     fontSize:
-                                          //     AddSize.font14,
-                                          //     color:
-                                          //     AppTheme.subText),
-                                          '5 piece',
-                                          style: GoogleFonts.poppins(
-                                            color: const Color(0xff676E73),
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                                           Text(
-                                            'KD 6.350',
+                                            (item.catId ?? "Product ${item.id}").toString(),
                                             style: GoogleFonts.poppins(
-                                              color: AppTheme.buttonColor,
-                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff676E73),
                                               fontSize: 15,
                                             ),
-                                            // "₹${vendorProductListController
-                                            //     .model
-                                            //     .value
-                                            //     .data![index]
-                                            //     .variants![0]
-                                            //     .price.toString()}",
-                                            // //"100",
-                                            // style: Theme.of(context)
-                                            //     .textTheme
-                                            //     .headline6!
-                                            //     .copyWith(
-                                            //     fontWeight:
-                                            //     FontWeight.w500,
-                                            //     fontSize:
-                                            //     AddSize.font16,
-                                            //     color: AppTheme
-                                            //         .primaryColor),
                                           ),
-                                          FlutterSwitch(
-                                            showOnOff: true,
-                                            width: AddSize.size30 * 2.2,
-                                            height: AddSize.size20 * 1.4,
-                                            padding: 2,
-                                            valueFontSize: AddSize.font12,
-                                            activeTextFontWeight: FontWeight.w600,
-                                            inactiveText: " Out",
-                                            activeText: "  In",
-                                            inactiveTextColor: const Color(0xFFEBEBEB),
-                                            activeTextColor: const Color(0xFFFFFFFF),
-                                            inactiveTextFontWeight: FontWeight.w600,
-                                            inactiveColor: Colors.grey.shade400,
-                                            activeColor: AppTheme.buttonColor,
-                                            onToggle: (val) {
-                                              setState(() {
-                                                // state1 = val;
-                                              });
-                                            },
-                                            value: index.isEven,
-                                          )
-                                        ])
-                                      ],
+                                          Text(
+                                            '${item.inStock} piece',
+                                            style: GoogleFonts.poppins(
+                                              color: const Color(0xff676E73),
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                            Text(
+                                              "\$${item.pPrice ?? "0"}",
+                                              style: GoogleFonts.poppins(
+                                                color: AppTheme.buttonColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                            FlutterSwitch(
+                                              showOnOff: true,
+                                              width: AddSize.size30 * 2.2,
+                                              height: AddSize.size20 * 1.4,
+                                              padding: 2,
+                                              valueFontSize: AddSize.font12,
+                                              activeTextFontWeight: FontWeight.w600,
+                                              inactiveText: " Out",
+                                              activeText: "  In",
+                                              inactiveTextColor: const Color(0xFFEBEBEB),
+                                              activeTextColor: const Color(0xFFFFFFFF),
+                                              inactiveTextFontWeight: FontWeight.w600,
+                                              inactiveColor: Colors.grey.shade400,
+                                              activeColor: AppTheme.buttonColor,
+                                              onToggle: (val) {
+                                                setState(() {
+                                                  // state1 = val;
+                                                });
+                                              },
+                                              value: index.isEven,
+                                            )
+                                          ])
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ])),
-                          ),
-                          const SizedBox(
-                            height: 13,
-                          )
-                        ],
-                      );
-                    },
-                  );
-                }),
+                                  ])),
+                            ),
+                            const SizedBox(
+                              height: 13,
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  }),
+                ),
               ),
             ])));
   }
@@ -317,8 +275,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                 width: AddSize.size80,
                 child: const Image(
                   image: AssetImage('assets/images/voicebook.png'),
-                )
-            ).convertToShimmer,
+                )).convertToShimmer,
             SizedBox(
               width: AddSize.size10,
             ),

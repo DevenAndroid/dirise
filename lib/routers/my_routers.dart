@@ -39,7 +39,7 @@ import '../vendorflow/add_money_screen.dart';
 import '../vendorflow/dashboard/dashboard_screen.dart';
 import '../vendorflow/bank_account_screen.dart';
 import '../vendorflow/orders/orderdetailsscreen.dart';
-import '../vendorflow/products/add_product_screen.dart';
+import '../vendorflow/products/add_product/add_product_screen.dart';
 import '../vendorflow/products/all_product_screen.dart';
 import '../vendorflow/dashboard/store_open_time_screen.dart';
 import '../vendorflow/authenthication/thanku_screen.dart';

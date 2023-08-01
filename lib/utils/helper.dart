@@ -399,3 +399,22 @@ extension ConvertToDateon on Duration{
     return gg.add(this);
   }
 }
+
+const audioType = [
+  "mpeg",
+  "ogg",
+  "wav",
+  "webm",
+  "x-aac",
+  "x-midi",
+  "x-wav",
+  "midi",
+  "mp4",
+  "aac",
+  "vnd.wave",
+  "vnd.rn-realaudio",
+  "3gpp",
+  "3gpp2",
+  "x-flac",
+  "x-m4a",
+];
