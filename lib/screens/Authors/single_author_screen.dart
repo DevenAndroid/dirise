@@ -1,6 +1,5 @@
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -441,34 +440,34 @@ class _SingleAuthorScreenState extends State<SingleAuthorScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               CircleAvatar(
                                 radius: 18,
-                                backgroundColor: Color(0xffEAEAEA),
+                                backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
                                   "━",
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                                  style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
                                 )),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
                                 "1",
-                                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 20),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               CircleAvatar(
                                 radius: 18,
-                                backgroundColor: Color(0xffEAEAEA),
+                                backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
                                   "+",
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+                                  style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
                                 )),
                               ),
                             ],

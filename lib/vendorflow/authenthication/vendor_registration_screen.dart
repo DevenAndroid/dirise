@@ -136,11 +136,11 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
       appBar: AppBar(
-        title: const Text('Vendor Registration',
-            style: TextStyle(
+        title: Text('Vendor Registration',
+            style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
-              color: Color(0xff423E5E),
+              color: const Color(0xff423E5E),
             )),
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
@@ -282,7 +282,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         iconDisabledColor: const Color(0xff97949A),
                         iconEnabledColor: const Color(0xff97949A),
                         value: null,
-                        style: const TextStyle(color: Colors.black, fontSize: 16),
+                        style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           filled: true,
@@ -505,7 +505,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             backgroundColor: AppTheme.buttonColor,
                             elevation: 0,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                            textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                            textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                         child: Text(
                           "Submit",
                           style: Theme.of(context)

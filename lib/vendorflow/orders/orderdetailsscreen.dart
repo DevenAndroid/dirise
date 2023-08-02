@@ -33,12 +33,12 @@ class _OrderDetailsState extends State<OrderDetails> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: const Text(
+          title: Text(
             'Delivery Details',
-            style: TextStyle(
+            style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
-              color: Color(0xff423E5E),
+              color: const Color(0xff423E5E),
             ),
           ),
           leading: GestureDetector(
@@ -137,25 +137,25 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            const Text(
+                                            Text(
                                               'Testasy Book',
-                                              style: TextStyle(
-                                                  color: Color(0xFF303C5E), fontWeight: FontWeight.w600, fontSize: 16),
+                                              style: GoogleFonts.poppins(
+                                                  color: const Color(0xFF303C5E), fontWeight: FontWeight.w600, fontSize: 16),
                                             ),
                                             addHeight(5),
-                                            const Text(
+                                            Text(
                                               '2 piece',
-                                              style: TextStyle(
-                                                  color: Color(0xFF6A8289), fontWeight: FontWeight.w500, fontSize: 14),
+                                              style: GoogleFonts.poppins(
+                                                  color: const Color(0xFF6A8289), fontWeight: FontWeight.w500, fontSize: 14),
                                             ),
                                             const Divider(
                                               color: Colors.red,
                                             ),
                                           ],
                                         ),
-                                        const Text(
+                                        Text(
                                           '€10.00',
-                                          style: TextStyle(
+                                          style: GoogleFonts.poppins(
                                               color: AppTheme.primaryColor, fontWeight: FontWeight.w600, fontSize: 17),
                                         ),
                                       ]),
@@ -204,18 +204,18 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Row(children: [
+                                      Row(children: [
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               "Driver Name",
-                                              style: TextStyle(
-                                                  color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
+                                              style: GoogleFonts.poppins(
+                                                  color: const Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
                                             ),
                                             Text(
                                               'Rajesh Sharma',
-                                              style: TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                              style: GoogleFonts.poppins(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                             ),
                                           ],
                                         ),
@@ -238,18 +238,18 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Row(children: [
+                                      Row(children: [
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               "Driver Number",
-                                              style: TextStyle(
-                                                  color: Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
+                                              style: GoogleFonts.poppins(
+                                                  color: const Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
                                             ),
                                             Text(
                                               "86859654",
-                                              style: TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                              style: GoogleFonts.poppins(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                             ),
                                           ],
                                         ),
@@ -276,7 +276,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Expanded(
+                                      Expanded(
                                         child: Row(children: [
                                           Expanded(
                                             child: Column(
@@ -284,17 +284,17 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               children: [
                                                 Text(
                                                   "Delivery Address",
-                                                  style: TextStyle(
-                                                      color: Color(0xff486769),
+                                                  style: GoogleFonts.poppins(
+                                                      color: const Color(0xff486769),
                                                       fontWeight: FontWeight.w300,
                                                       fontSize: 14),
                                                 ),
                                                 Text(
                                                   "Punjab",
                                                   style:
-                                                      TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                                      GoogleFonts.poppins(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 5,
                                                 ),
                                               ],
@@ -344,23 +344,23 @@ class _OrderDetailsState extends State<OrderDetails> {
                         ),
                       ],
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Subtotal:',
-                            style: TextStyle(
-                              color: Color(0xFF293044),
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xFF293044),
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           Text(
                             '€35.00',
-                            style: TextStyle(
-                              color: Color(0xFF797F90),
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xFF797F90),
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
                             ),
@@ -382,12 +382,12 @@ class _OrderDetailsState extends State<OrderDetails> {
                         backgroundColor: AppTheme.buttonColor,
                         elevation: 0,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                        textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                        textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                     child: Text(
                       "Mark Delivered",
                       style: Theme.of(context)
                           .textTheme
-                          .headline5!
+                          .headlineSmall!
                           .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
                     )),
               ]),

@@ -131,9 +131,9 @@ class _OtpScreenState extends State<OtpScreen> {
   final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
-      textStyle: const TextStyle(
+      textStyle: GoogleFonts.poppins(
         fontSize: 22,
-        color: Color.fromRGBO(30, 60, 87, 1),
+        color: const Color.fromRGBO(30, 60, 87, 1),
       ),
       decoration: BoxDecoration(
           border: Border(
@@ -252,7 +252,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 backgroundColor: AppTheme.buttonColor,
                 shape:
                 const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                textStyle: const TextStyle(
+                textStyle: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                 )),
             onPressed: () {

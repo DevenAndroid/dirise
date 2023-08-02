@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../widgets/customsize.dart';
 import '../../widgets/dimension_screen.dart';
@@ -70,7 +71,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
               children: [
                 Text(
                   "Hi, ${vendorController.model.data!.name.toString().checkNullable}",
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w600, fontSize: AddSize.font22, color: const Color(0xff292F45)),
                 ),
                 const SizedBox(
@@ -78,16 +79,16 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                 ),
                 Row(
                   children: [
-                    const Flexible(
+                   Flexible(
                       child: Text(
                         "Store Time :",
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xff737A8A)),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16, color: const Color(0xff737A8A)),
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         " 10am to 9pm",
-                        style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.buttonColor),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.buttonColor),
                       ),
                     ),
                     InkWell(
@@ -160,9 +161,9 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                   SizedBox(
                     height: AddSize.size20,
                   ),
-                  const Text(
+                  Text(
                     "This Month Report",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF292F45)),
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16, color: const Color(0xFF292F45)),
                   ),
                   const SizedBox(
                     height: 10,
@@ -235,14 +236,14 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                   SizedBox(
                                     height: AddSize.size10,
                                   ),
-                                  const Flexible(
+                                  Flexible(
                                     child: Text(
                                       '€234.00',
-                                      style: TextStyle(
+                                      style: GoogleFonts.poppins(
                                           height: 1.5,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
-                                          color: Color(0xFF454B5C)),
+                                          color: const Color(0xFF454B5C)),
                                     ),
                                   ),
                                   Flexible(
@@ -298,9 +299,9 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                   onTap: () {
                                     // Get.toNamed(storeOpenScreen);
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     "Store",
-                                    style: TextStyle(color: Color(0xFF454B5C), fontWeight: FontWeight.w500, fontSize: 15),
+                                    style: GoogleFonts.poppins(color: const Color(0xFF454B5C), fontWeight: FontWeight.w500, fontSize: 15),
                                   ),
                                 ),
                                 FlutterSwitch(
@@ -352,9 +353,9 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   "Self\nDelivery",
-                                  style: TextStyle(color: Color(0xFF454B5C), fontWeight: FontWeight.w500, fontSize: 15),
+                                  style: GoogleFonts.poppins(color: const Color(0xFF454B5C), fontWeight: FontWeight.w500, fontSize: 15),
                                 ),
                                 FlutterSwitch(
                                   showOnOff: true,
@@ -426,9 +427,9 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                     // Get.toNamed(VendorOrderList
                                     //     .vendorOrderList);
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     "See All",
-                                    style: TextStyle(
+                                    style: GoogleFonts.poppins(
                                         decoration: TextDecoration.underline,
                                         decorationColor: AppTheme.buttonColor,
                                         height: 1.5,
@@ -438,25 +439,25 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                   ))
                             ],
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 "Order No.",
-                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Color(0xFF52AC1A)),
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFF52AC1A)),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(left: 10),
+                                padding: const EdgeInsets.only(left: 10),
                                 child: Text(
                                   "Status",
-                                  style: TextStyle(
-                                      height: 1.5, fontWeight: FontWeight.w600, fontSize: 14, color: Color(0xFF52AC1A)),
+                                  style: GoogleFonts.poppins(
+                                      height: 1.5, fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFF52AC1A)),
                                 ),
                               ),
                               Text(
                                 "Earning",
-                                style: TextStyle(
-                                    height: 1.5, fontWeight: FontWeight.w600, fontSize: 14, color: Color(0xFF52AC1A)),
+                                style: GoogleFonts.poppins(
+                                    height: 1.5, fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFF52AC1A)),
                               )
                             ],
                           ),
@@ -476,44 +477,44 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Column(
+                                      Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             "#1234",
-                                            style: TextStyle(
-                                                color: Color(0xFF454B5C),
+                                            style: GoogleFonts.poppins(
+                                                color: const Color(0xFF454B5C),
                                                 height: 1.5,
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 15),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
                                           Text(
                                             '2 June, 2021 - 11:57PM',
-                                            style: TextStyle(
+                                            style: GoogleFonts.poppins(
                                                 height: 1.5,
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 13,
-                                                color: Color(0xFF8C9BB2)),
+                                                color: const Color(0xFF8C9BB2)),
                                           ),
                                         ],
                                       ),
                                       addWidth(15),
-                                      const Text(
+                                      Text(
                                         'Processing',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600, fontSize: 14, color: Color(0xFFFFB26B)),
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFFFFB26B)),
                                       ),
                                       const Spacer(),
-                                      const Text(
+                                      Text(
                                         "€45.00",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                             height: 1.5,
                                             fontWeight: FontWeight.w500,
                                             fontSize: 15,
-                                            color: Color(0xFF454B5C)),
+                                            color: const Color(0xFF454B5C)),
                                       ),
                                     ],
                                   ),

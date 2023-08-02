@@ -37,9 +37,9 @@ class CommonAppBar extends StatelessWidget {
                 const SizedBox(
                   width: 7,
                 ),
-                const Text(
+                Text(
                   ("0"),
-                  style: TextStyle(color: Colors.white, fontSize: 22),
+                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 22),
                 )
               ],
             ),

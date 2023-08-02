@@ -125,7 +125,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   CustomOutlineButton(
                     title: "Continue",
                     onPressed: () {
-                      print(email);
                       if (formKey.currentState!.validate()) {
                         changePasswordRepo(password: passwordController.text, email: email, context: context)
                             .then((value) {

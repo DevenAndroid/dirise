@@ -61,20 +61,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
           ),
         ),
         body: Obx(() {
-          if(controller.refreshInt.value > 0){}
-          return AnimatedCrossFade(
-            duration: const Duration(seconds: 1),
-            alignment: Alignment.center,
-            crossFadeState: controller.apiLoaded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-            firstChild: const Column(
-              children: [
-                Expanded(child: LoadingAnimation()),
-              ],
-            ),
-            secondChild: RefreshIndicator(
-              onRefresh: () async => await controller.getProductDetails(),
-              child: SingleChildScrollView(
-                  child: Form(
+          if (controller.refreshInt.value > 0) {}
+          return controller.apiLoaded
+              ? RefreshIndicator(
+                  onRefresh: () async => await controller.getProductDetails(),
+                  child: SingleChildScrollView(
+                      child: Form(
                     key: controller.formKey,
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -95,20 +87,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   backgroundColor: AppTheme.buttonColor,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                                  textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                                  textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                               child: Text(
                                 controller.productId.isEmpty ? "Create" : "Update",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
+                                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                    color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
                               )),
                           10.spaceY,
                         ])),
                   )),
-            ),
-          );
+                )
+              : const LoadingAnimation();
         }));
   }
 }

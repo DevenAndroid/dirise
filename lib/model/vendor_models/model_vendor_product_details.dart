@@ -1,14 +1,14 @@
 class ModelVendorProductDetails {
   bool? status;
   dynamic message;
-  Data? data;
+  ModelVendorProductDetailsData? data;
 
   ModelVendorProductDetails({this.status, this.message, this.data});
 
   ModelVendorProductDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? ModelVendorProductDetailsData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +22,7 @@ class ModelVendorProductDetails {
   }
 }
 
-class Data {
+class ModelVendorProductDetailsData {
   dynamic id;
   dynamic vendorId;
   dynamic catId;
@@ -69,7 +69,7 @@ class Data {
   dynamic virtualProductFile;
   dynamic serviceDuration;
 
-  Data(
+  ModelVendorProductDetailsData(
       {this.id,
         this.vendorId,
         this.catId,
@@ -116,7 +116,7 @@ class Data {
         this.virtualProductFile,
         this.serviceDuration});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  ModelVendorProductDetailsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     vendorId = json['vendor_id'];
     catId = json['cat_id'];

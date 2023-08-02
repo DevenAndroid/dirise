@@ -767,10 +767,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           SliverToBoxAdapter(
                             child: Row(
                               children: [
-                                const Expanded(
+                                Expanded(
                                   child: Text(
                                     "Shipping Address",
-                                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                   ),
                                 ),
                                 TextButton.icon(
@@ -782,9 +782,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       Icons.add,
                                       size: 20,
                                     ),
-                                    label: const Text(
+                                    label: Text(
                                       "Add New",
-                                      style: TextStyle(fontSize: 15),
+                                      style: GoogleFonts.poppins(fontSize: 15),
                                     ))
                               ],
                             ),
@@ -875,11 +875,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     );
                                   },
                                 ))
-                              : const SliverToBoxAdapter(
+                              : SliverToBoxAdapter(
                                   child: Text(
                                     "No Shipping Address Added!",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                   ),
                                 ),
                           SliverToBoxAdapter(

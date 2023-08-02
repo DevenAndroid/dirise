@@ -24,10 +24,10 @@ class _BucketScreenState extends State<BucketScreen> {
               image: const AssetImage(
                 'assets/images/bucket.png',
               )),
-          const Center(
+          Center(
             child: Text(
               'Your bag is empty',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+              style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 20),
             ),
           ),
           const SizedBox(height: 20,),

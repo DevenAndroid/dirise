@@ -38,10 +38,10 @@
 //                       borderRadius: BorderRadius.circular(50),
 //                       color: const Color(0xFF014E70),
 //                     ),
-//                     child: const Center(
+//                     child: Center(
 //                       child: Text(
 //                         'Login Or Sign up',
-//                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+//                         style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
 //                       ),
 //                     ),
 //                   ),

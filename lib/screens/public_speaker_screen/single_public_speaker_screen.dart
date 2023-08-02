@@ -114,7 +114,7 @@ class _PublicSpeakerCategoryScreenState extends State<PublicSpeakerCategoryScree
                           pickDateFromDialog(context);
                         },
                         readOnly: true,
-                        style: const TextStyle(color: AppTheme.buttonColor, fontSize: 16),
+                        style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 16),
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -131,7 +131,7 @@ class _PublicSpeakerCategoryScreenState extends State<PublicSpeakerCategoryScree
                                 borderSide: const BorderSide(color: Color(0xffE4E0E0)),
                                 borderRadius: BorderRadius.circular(8.0)),
                             hintText: "Select Date and time",
-                            hintStyle: const TextStyle(color: Color(0xff4B4B4B), fontSize: 16)),
+                            hintStyle: GoogleFonts.poppins(color: const Color(0xff4B4B4B), fontSize: 16)),
                       ),
                       const SizedBox(
                         height: 30,
@@ -140,10 +140,10 @@ class _PublicSpeakerCategoryScreenState extends State<PublicSpeakerCategoryScree
                         height: 56,
                         width: MediaQuery.sizeOf(context).width,
                         color: const Color(0xff014E70),
-                        child: const Center(
+                        child: Center(
                           child: Text(
                             'Apply',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                            style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
                           ),
                         ),
                       ),

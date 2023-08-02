@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: TextField(
                       maxLines: 1,
-                      style: const TextStyle(fontSize: 17),
+                      style: GoogleFonts.poppins(fontSize: 17),
                       textAlign: TextAlign.center,
                       textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
@@ -276,9 +276,9 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Trending Products',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         InkWell(
                           onTap: () {
@@ -324,9 +324,9 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Popular Products',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         InkWell(
                           onTap: () {
@@ -390,9 +390,9 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Shop By Author',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
                           padding: const EdgeInsets.all(2),
@@ -497,7 +497,7 @@ class _HomePageState extends State<HomePage> {
                 cartController.apiLoaded
                     ? Text(
                         cartController.cartModel.totalQuantity.toString(),
-                        style: const TextStyle(color: AppTheme.buttonColor, fontSize: 20),
+                        style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 20),
                       )
                     : const CupertinoActivityIndicator(),
                 const SizedBox(

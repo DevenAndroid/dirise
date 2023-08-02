@@ -46,7 +46,7 @@ class _PublicSpeakerScreenState extends State<PublicSpeakerScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 13),
                   child: TextField(
                     maxLines: 1,
-                    style: const TextStyle(fontSize: 17),
+                    style: GoogleFonts.poppins(fontSize: 17),
                     textInputAction: TextInputAction.search,
                     decoration: InputDecoration(
 

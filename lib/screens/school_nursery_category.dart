@@ -176,10 +176,10 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                 height: 3,
                               ),
                               RichText(
-                                text: const TextSpan(
+                                text: TextSpan(
                                   children: <TextSpan>[
-                                    TextSpan(text: 'Duration :', style: TextStyle(color: Colors.black)),
-                                    TextSpan(text: ' 6 month', style: TextStyle(color: AppTheme.buttonColor)),
+                                    TextSpan(text: 'Duration :', style: GoogleFonts.poppins(color: Colors.black)),
+                                    TextSpan(text: ' 6 month', style: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                                   ],
                                 ),
                               ),
@@ -187,10 +187,10 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                 height: 3,
                               ),
                               RichText(
-                                text: const TextSpan(
+                                text: TextSpan(
                                   children: <TextSpan>[
-                                    TextSpan(text: 'Cost : ', style: TextStyle(color: Colors.black)),
-                                    TextSpan(text: ' 1200 KD', style: TextStyle(color: AppTheme.buttonColor)),
+                                    TextSpan(text: 'Cost : ', style: GoogleFonts.poppins(color: Colors.black)),
+                                    TextSpan(text: ' 1200 KD', style: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                                   ],
                                 ),
                               ),
@@ -422,34 +422,34 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               CircleAvatar(
                                 radius: 18,
-                                backgroundColor: Color(0xffEAEAEA),
+                                backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
                                       "━",
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
                                     )),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
                                 "1",
-                                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 20),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               CircleAvatar(
                                 radius: 18,
-                                backgroundColor: Color(0xffEAEAEA),
+                                backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
                                       "+",
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+                                      style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
                                     )),
                               ),
                             ],
@@ -625,34 +625,34 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               CircleAvatar(
                                 radius: 18,
-                                backgroundColor: Color(0xffEAEAEA),
+                                backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
                                       "━",
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
                                     )),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Text(
                                 "1",
-                                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 20),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               CircleAvatar(
                                 radius: 18,
-                                backgroundColor: Color(0xffEAEAEA),
+                                backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
                                       "+",
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+                                      style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
                                     )),
                               ),
                             ],

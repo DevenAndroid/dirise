@@ -72,15 +72,17 @@ class AddProductController extends GetxController{
   ModelVendorProductDetails productDetails = ModelVendorProductDetails();
 
   updateControllers(){
+    if(productDetails.data == null)return;
+    ModelVendorProductDetailsData item = productDetails.data!;
     startTime.text = "";
     endTime.text = "";
     serviceDuration.text = "";
     startDate.text = "";
     endDate.text = "";
-    productNameController.text = "";
-    skuController.text = "";
-    priceController.text = "";
-    purchasePriceController.text = "";
+    productNameController.text = item.pname;
+    skuController.text = item.skuId;
+    priceController.text = item.pPrice;
+    // purchasePriceController.text = item.;
     sellingPriceController.text = "";
     stockController.text = "";
     shortDescriptionController.text = "";
@@ -274,7 +276,6 @@ class AddProductController extends GetxController{
     shortDescriptionController.dispose();
     longDescriptionController.dispose();
     returnDaysController.dispose();
-    print("all disposed.....");
   }
 
 }

@@ -78,7 +78,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                         width: 40,
                         child: Image.network(
                           order.quantity.toString(),
-                          errorBuilder: (_,__,___)=> SizedBox.shrink(),
+                          errorBuilder: (_,__,___)=> const SizedBox.shrink(),
                         ),
                       ),
                       const SizedBox(

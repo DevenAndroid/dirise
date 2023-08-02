@@ -115,11 +115,11 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
       backgroundColor: Colors.white,
 
       appBar: AppBar(
-        title: const Text('Set Store Time',
-            style: TextStyle(
+        title: Text('Set Store Time',
+            style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
-              color: Color(0xff423E5E),
+              color: const Color(0xff423E5E),
             )),
         leading: GestureDetector(
           onTap: () {
@@ -171,9 +171,9 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                                 },
                               ),
                             ),
-                            const Text(
+                            Text(
                               "Sun",
-                              style: TextStyle(color: Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
+                              style: GoogleFonts.poppins(color: const Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
                             ),
                             /* Spacer(),
                                  GestureDetector(
@@ -238,7 +238,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                                        Image.asset('assets/images/calendar.png',height: 12,),
                                        addWidth(5),
                                         Text(selectedDate,
-                                          style: TextStyle(
+                                          style: GoogleFonts.poppins(
                                            color: Color(0xFF9C9CB4),
                                            fontSize: 14,
                                            fontWeight: FontWeight.w300
@@ -251,8 +251,8 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                             DropdownButtonHideUnderline(
                               child: DropdownButton(
                                 isExpanded: false,
-                                style: const TextStyle(
-                                  color: Color(0xFF9C9CB4),
+                                style: GoogleFonts.poppins(
+                                  color: const Color(0xFF9C9CB4),
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -275,16 +275,16 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                               ),
                             ),
                             addWidth(15),
-                            const Text(
+                            Text(
                               "To",
-                              style: TextStyle(color: Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
+                              style: GoogleFonts.poppins(color: const Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
                             ),
                             addWidth(15),
                             DropdownButtonHideUnderline(
                               child: DropdownButton(
                                 isExpanded: false,
-                                style: const TextStyle(
-                                  color: Color(0xFF9C9CB4),
+                                style: GoogleFonts.poppins(
+                                  color: const Color(0xFF9C9CB4),
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -371,14 +371,14 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
               //         elevation: 0,
               //         shape: RoundedRectangleBorder(
               //             borderRadius: BorderRadius.circular(10)),
-              //         textStyle: TextStyle(
+              //         textStyle: GoogleFonts.poppins(
               //             fontSize: AddSize.font18,
               //             fontWeight: FontWeight.w600)),
               //     child: Text(
               //       "Save".tr.toUpperCase(),
               //       style: Theme.of(context)
               //           .textTheme
-              //           .headline5!
+              //           .headlineSmall!
               //           .copyWith(
               //           color: Colors.white,
               //           fontWeight: FontWeight.w500,
@@ -404,7 +404,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
         // .capitalizeFirst!,
         style: Theme.of(context)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontWeight: FontWeight.w400, color: Colors.black, fontSize: AddSize.font14),
       ),
       // value: setStoreTimeController.model.value.data![index].status!,
@@ -446,7 +446,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                       //       intl.DateFormat("hh:mm a").format(time),
                       //       style: Theme.of(context)
                       //           .textTheme
-                      //           .headline6!
+                      //           .titleLarge!
                       //           .copyWith(
                       //           fontWeight: FontWeight.w400,
                       //           color:Colors.black,
@@ -458,7 +458,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                         "To",
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .titleLarge!
                             .copyWith(fontWeight: FontWeight.w400, color: Colors.black, fontSize: AddSize.font14),
                       ),
                       const Icon(
@@ -476,7 +476,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
               "To",
               style: Theme.of(context)
                   .textTheme
-                  .headline6!
+                  .titleLarge!
                   .copyWith(fontWeight: FontWeight.w400, color: Colors.black, fontSize: AddSize.font14),
             ),
             const SizedBox(
@@ -509,7 +509,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                       //       intl.DateFormat("hh:mm a").format(time),
                       //       style: Theme.of(context)
                       //           .textTheme
-                      //           .headline6!
+                      //           .titleLarge!
                       //           .copyWith(
                       //           fontWeight: FontWeight.w400,
                       //           color: Colors.black,

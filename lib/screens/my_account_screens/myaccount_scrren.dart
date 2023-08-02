@@ -64,10 +64,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text("To register as vendor partner need to "
+                Text("To register as vendor partner need to "
                     "create an account first.",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w600,
                   fontSize: 16
                 ),),
@@ -88,10 +88,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     if(Platform.isIOS) {
       showDialog(context: context, builder: (context) {
         return CupertinoAlertDialog(
-          title: const Text("To register as vendor partner need to "
+          title: Text("To register as vendor partner need to "
               "create an account first.",
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w600,
                 fontSize: 16
             ),),
@@ -478,10 +478,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                 height: 56,
                                                 width: MediaQuery.sizeOf(context).width,
                                                 color: const Color(0xff014E70),
-                                                child: const Center(
+                                                child: Center(
                                                   child: Text(
                                                     'Apply',
-                                                    style: TextStyle(
+                                                    style: GoogleFonts.poppins(
                                                         fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
                                                   ),
                                                 ),
@@ -751,7 +751,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                               Expanded(
                                                 child: Text(
                                                   vendor[index],
-                                                  style: TextStyle(
+                                                  style: GoogleFonts.poppins(
                                                       fontSize: 16,
                                                       fontWeight: FontWeight.w400,
                                                       color: Colors.grey.shade500),

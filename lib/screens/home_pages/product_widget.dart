@@ -307,13 +307,13 @@ class _ProductUIState extends State<ProductUI> {
                                 productQuantity.value--;
                               }
                             },
-                            child: const CircleAvatar(
+                            child: CircleAvatar(
                               radius: 18,
-                              backgroundColor: Color(0xffEAEAEA),
+                              backgroundColor: const Color(0xffEAEAEA),
                               child: Center(
                                   child: Text(
                                     "━",
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                                    style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
                                   )),
                             ),
                           ),
@@ -323,7 +323,7 @@ class _ProductUIState extends State<ProductUI> {
                           Obx(() {
                             return Text(
                               productQuantity.value.toString(),
-                              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                              style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 20),
                             );
                           }),
                           const SizedBox(
@@ -337,13 +337,13 @@ class _ProductUIState extends State<ProductUI> {
                                 showToast("Cannot add more");
                               }
                             },
-                            child: const CircleAvatar(
+                            child: CircleAvatar(
                               radius: 18,
-                              backgroundColor: Color(0xffEAEAEA),
+                              backgroundColor: const Color(0xffEAEAEA),
                               child: Center(
                                   child: Text(
                                     "+",
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+                                    style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
                                   )),
                             ),
                           ),

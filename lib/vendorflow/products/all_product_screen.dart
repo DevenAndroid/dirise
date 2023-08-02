@@ -36,11 +36,11 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
     return Scaffold(
         backgroundColor: const Color(0xffF4F4F4),
         appBar: AppBar(
-          title: const Text('All Product',
-              style: TextStyle(
+          title: Text('All Product',
+              style: GoogleFonts.poppins(
                 fontSize: 17,
                 fontWeight: FontWeight.w600,
-                color: Color(0xff423E5E),
+                color: const Color(0xff423E5E),
               )),
           leading: GestureDetector(
             onTap: () {
@@ -75,7 +75,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                       maxLines: 1,
                       // controller: vendorProductListController
                       //     .searchController,
-                      style: const TextStyle(fontSize: 17),
+                      style: GoogleFonts.poppins(fontSize: 17),
                       textAlignVertical: TextAlignVertical.center,
                       textInputAction: TextInputAction.search,
                       onChanged: (value) => {
@@ -102,7 +102,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                               EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
                           hintText: 'Search Products',
                           hintStyle:
-                              TextStyle(fontSize: AddSize.font16, color: Colors.black, fontWeight: FontWeight.w400)),
+                              GoogleFonts.poppins(fontSize: AddSize.font16, color: Colors.black, fontWeight: FontWeight.w400)),
                     ),
                   ),
                   GestureDetector(

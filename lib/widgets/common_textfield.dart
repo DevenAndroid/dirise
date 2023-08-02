@@ -56,7 +56,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        style: const TextStyle(),
+        style: GoogleFonts.poppins(),
         autofocus: false,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         textInputAction: TextInputAction.next,
@@ -73,7 +73,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
         keyboardType: widget.keyboardType,
         controller: widget.controller,
         decoration: InputDecoration(
-          counterStyle: const TextStyle(
+          counterStyle: GoogleFonts.poppins(
             color: AppTheme.primaryColor,
             fontSize: 25,
           ),
@@ -91,7 +91,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
             color: AppTheme.primaryColor,
             fontSize: 15,
           ),
-          /*errorStyle: const TextStyle(
+          /*errorStyle: GoogleFonts.poppins(
               overflow: TextOverflow.clip,
             // ),*/
 

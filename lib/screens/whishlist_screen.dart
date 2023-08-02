@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../controller/cart_controller.dart';
 import '../controller/wish_list_controller.dart';
@@ -79,34 +80,35 @@ class _WishListScreenState extends State<WishListScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image(
-                                  height: context.getSize.height * .24,
-                                  image: const AssetImage(
-                                    'assets/images/bucket.png',
-                                  )),
-                              const Center(
+                              // Image(
+                              //     height: context.getSize.height * .24,
+                              //     image: const AssetImage(
+                              //       'assets/images/bucket.png',
+                              //     )),
+                              Lottie.asset("assets/loti/wishlist.json"),
+                              Center(
                                 child: Text(
-                                  'Your bag is empty',
-                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                                  'Your wishlist is empty',
+                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 22),
                                 ),
                               ),
                               const SizedBox(
                                 height: 20,
                               ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    // Get.toNamed(editprofileScreen);
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(AppTheme.buttonColor),
-                                    padding: MaterialStateProperty.all(
-                                        const EdgeInsets.symmetric(horizontal: 35, vertical: 13)),
-                                  ),
-                                  child: Text(
-                                    'Shop now!',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
-                                  ))
+                              // ElevatedButton(
+                              //     onPressed: () {
+                              //       // Get.toNamed(editprofileScreen);
+                              //     },
+                              //     style: ButtonStyle(
+                              //       backgroundColor: MaterialStateProperty.all(AppTheme.buttonColor),
+                              //       padding: MaterialStateProperty.all(
+                              //           const EdgeInsets.symmetric(horizontal: 35, vertical: 13)),
+                              //     ),
+                              //     child: Text(
+                              //       'Shop now!',
+                              //       style: GoogleFonts.poppins(
+                              //           color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                              //     ))
                             ],
                           )
                         : GridView.builder(

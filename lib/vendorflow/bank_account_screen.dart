@@ -36,11 +36,11 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bank Details',
-            style: TextStyle(
+        title: Text('Bank Details',
+            style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
-              color: Color(0xff423E5E),
+              color: const Color(0xff423E5E),
             )),
         leading: GestureDetector(
           onTap: () {

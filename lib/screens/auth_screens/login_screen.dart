@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/utils/ApiConstant.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/login_model.dart';

@@ -8,11 +8,11 @@ class SingleCategoryModel {
   SingleCategoryModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
     if (this.data != null) {
@@ -33,13 +33,13 @@ class Data {
     if (json['stores'] != null) {
       stores = <Stores>[];
       json['stores'].forEach((v) {
-        stores!.add(new Stores.fromJson(v));
+        stores!.add(Stores.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['sliders'] = sliders;
     if (stores != null) {
       data['stores'] = stores!.map((v) => v.toJson()).toList();
@@ -205,7 +205,7 @@ class Stores {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['business_name'] = businessName;
     data['country'] = country;
     data['state'] = state;

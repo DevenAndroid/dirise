@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../../../../controller/vendor_controllers/add_product_controller.dart';
 import '../../../../widgets/common_colour.dart';
@@ -41,9 +42,9 @@ class _SingleSlotUIState extends State<SingleSlotUI> {
             ),
             if (controller.slots.keys.toList()[widget.index].values.first.millisecondsSinceEpoch >
                 widget.endDateTime.millisecondsSinceEpoch)
-              const Text(
+              Text(
                 " Exceeded",
-                style: TextStyle(color: AppTheme.buttonColor, fontWeight: FontWeight.w500, height: 1.8, fontSize: 12),
+                style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontWeight: FontWeight.w500, height: 1.8, fontSize: 12),
               )
           ],
         ));

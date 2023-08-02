@@ -136,7 +136,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                       controller.pdfFile.path
                                           .split("/")
                                           .last,
-                                      style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                     ),
                                   ),
                                   TextButton(
@@ -244,7 +244,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                       controller.pdfFile.path
                                           .split("/")
                                           .last,
-                                      style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                     ),
                                   ),
                                   TextButton(

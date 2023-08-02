@@ -201,7 +201,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                             ),
                             Container(
@@ -229,7 +229,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                             ),
                             Container(
@@ -320,7 +320,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                   ],
                 ),
               )
-            : Center(child: CircularProgressIndicator());
+            : const Center(child: CircularProgressIndicator());
       }),
     );
   }

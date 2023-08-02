@@ -119,7 +119,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               backgroundColor: AppTheme.buttonColor,
                               elevation: 0,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                              textStyle: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600)),
                           child: Text(
                             "Submit",
                             style: Theme

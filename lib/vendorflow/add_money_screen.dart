@@ -1,6 +1,7 @@
 import 'package:dirise/routers/my_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../widgets/common_colour.dart';
 import '../widgets/dimension_screen.dart';
 import 'orders/orderdetailsscreen.dart';
@@ -28,12 +29,12 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             'Withdrawal money',
-            style: TextStyle(
+            style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
-              color: Color(0xff423E5E),
+              color: const Color(0xff423E5E),
             ),
           ),
           leading: GestureDetector(
@@ -87,13 +88,13 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                   children: [
                                     Text(
                                       "My Balance".tr,
-                                      style: const TextStyle(
+                                      style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w400, fontSize: 16, color: Colors.black),
                                     ),
-                                    const Text(
+                                    Text(
                                       "€240.00",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600, fontSize: 31, color: Color(0xFF262F33)),
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w600, fontSize: 31, color: const Color(0xFF262F33)),
                                     ),
                                   ],
                                 ),
@@ -141,7 +142,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                   TextFormField(
                                       keyboardType: TextInputType.number,
                                       textAlign: TextAlign.center,
-                                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                           color: Colors.black, fontWeight: FontWeight.w600, fontSize: AddSize.font24),
                                       controller: addMoneyController,
                                       cursorColor: const Color(0xFF7ED957),
@@ -165,14 +166,13 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                         Get.toNamed(OrderDetails.route);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                          minimumSize: Size(double.maxFinite, AddSize.size50),
-                                          primary: AppTheme.buttonColor,
+                                          minimumSize: Size(double.maxFinite, AddSize.size50), backgroundColor: AppTheme.buttonColor,
                                           elevation: 0,
                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                          textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w500)),
+                                          textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w500)),
                                       child: Text(
                                         "Withdrawal".tr.toUpperCase(),
-                                        style: const TextStyle(
+                                        style: GoogleFonts.poppins(
                                             color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
                                       )),
                                 ],
@@ -206,7 +206,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                               children: [
                                 Text(
                                   "Amount".tr,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.poppins(
                                       height: 1.5,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 12,
@@ -214,7 +214,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                 ),
                                 Text(
                                   "Date".tr,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.poppins(
                                       height: 1.5,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 12,
@@ -222,7 +222,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                 ),
                                 Text(
                                   "Status".tr,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.poppins(
                                       height: 1.5,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 12,
@@ -241,28 +241,28 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                     SizedBox(
                                       height: AddSize.size5,
                                     ),
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           "€450.00",
-                                          style: TextStyle(height: 1.5, fontWeight: FontWeight.w600, fontSize: 12),
+                                          style: GoogleFonts.poppins(height: 1.5, fontWeight: FontWeight.w600, fontSize: 12),
                                         ),
                                         Text(
                                           "Monday, 2 June, 2021",
-                                          style: TextStyle(
+                                          style: GoogleFonts.poppins(
                                               height: 1.5,
-                                              color: Color(0xFF8C9BB2),
+                                              color: const Color(0xFF8C9BB2),
                                               fontWeight: FontWeight.w300,
                                               fontSize: 11),
                                         ),
                                         Text(
                                           'Pending',
-                                          style: TextStyle(
+                                          style: GoogleFonts.poppins(
                                               height: 1.5,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 12,
-                                              color: Color(0xFFFFB26B)),
+                                              color: const Color(0xFFFFB26B)),
                                         )
                                       ],
                                     ),
@@ -292,8 +292,8 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30), side: BorderSide(color: Colors.grey.shade300)),
-      label: Text("+€${title}",
-          style: const TextStyle(color: Color(0xFF262F33), fontSize: 14, fontWeight: FontWeight.w500)),
+      label: Text("+€$title",
+          style: GoogleFonts.poppins(color: const Color(0xFF262F33), fontSize: 14, fontWeight: FontWeight.w500)),
       selected: false,
       onSelected: (value) {
         setState(() {

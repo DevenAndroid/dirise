@@ -286,7 +286,7 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
                         child: Text(
                           controller.slots.isEmpty ? "Create Slot" : "Slots Created - ${controller.slots.length}",
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 15),
+                          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 15),
                         ),
                       ),
                     ),

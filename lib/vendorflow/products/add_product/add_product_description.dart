@@ -203,7 +203,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       enabled: true,
                       filled: true,
                       hintText: "Category",
-                      labelStyle: const TextStyle(color: Colors.black),
+                      labelStyle: GoogleFonts.poppins(color: Colors.black),
                       labelText: "Category",
                       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),

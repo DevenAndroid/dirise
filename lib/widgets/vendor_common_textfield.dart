@@ -58,7 +58,7 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        style: const TextStyle(),
+        style: GoogleFonts.poppins(),
         autofocus: false,
         textInputAction: TextInputAction.next,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -86,7 +86,7 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
           labelText: widget.hintText,
           prefixIcon: widget.prefix,
           suffixIcon: widget.suffixIcon,
-          labelStyle: const TextStyle(color: Colors.black,
+          labelStyle: GoogleFonts.poppins(color: Colors.black,
             fontSize: 14,),
           hintStyle: widget.hintStyle ??  GoogleFonts.poppins(
             color: const Color(0xff463B57),

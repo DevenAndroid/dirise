@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -84,11 +85,11 @@ class NewHelper {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text(
+        title: Text(
           'Select Image',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: AppTheme.primaryColor),
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18, color: AppTheme.primaryColor),
         ),
-        // message: const Text('Message'),
+        // message: Text('Message'),
         cancelButton: CupertinoActionSheetAction(
           child: const Text('Cancel'),
           onPressed: () {
@@ -200,8 +201,8 @@ class Helpers {
                         Obx(() {
                           return Center(
                               child: Text(
-                            "${progress.value}",
-                            style: const TextStyle(),
+                            progress.value,
+                            style: GoogleFonts.poppins(),
                           )
                               // AddText(
                               //   text: "${progress.value}",
@@ -291,7 +292,7 @@ class Helpers {
       backgroundColor: Colors.black,
       content: Text(
         message,
-        style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.white),
+        style: GoogleFonts.poppins(fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.white),
       ),
     ));
   }

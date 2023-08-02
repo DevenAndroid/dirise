@@ -223,7 +223,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.buttonColor,
                 shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                textStyle: const TextStyle(
+                textStyle: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                 )),
             onPressed: () {

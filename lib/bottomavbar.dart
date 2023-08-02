@@ -2,6 +2,7 @@ import 'package:dirise/screens/home_pages/homepage_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'controller/cart_controller.dart';
 import 'controller/homepage_controller.dart';
 import 'controller/profile_controller.dart';
@@ -92,14 +93,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                     ),
                                   ),
                             bottomController.pageIndex.value == 0
-                                ? const Text(
+                                ? Text(
                                     " Home ",
-                                    style: TextStyle(
+                                    style: GoogleFonts.poppins(
                                         color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
-                                : const Text(
+                                : Text(
                                     " Home ",
-                                    style: TextStyle(
+                                    style: GoogleFonts.poppins(
                                         color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
                           ],
@@ -135,14 +136,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                     ),
                                   ),
                             bottomController.pageIndex.value == 1
-                                ? const Text(
+                                ? Text(
                                     " Categories ",
-                                    style: TextStyle(
+                                    style: GoogleFonts.poppins(
                                         color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
-                                : const Text(
+                                : Text(
                                     " Categories ",
-                                    style: TextStyle(
+                                    style: GoogleFonts.poppins(
                                         color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
                           ],
@@ -178,14 +179,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                     ),
                                   ),
                             bottomController.pageIndex.value == 2
-                                ? const Text(
+                                ? Text(
                                     " Favorite ",
-                                    style: TextStyle(
+                                    style: GoogleFonts.poppins(
                                         color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
-                                : const Text(
+                                : Text(
                                     " Favorite ",
-                                    style: TextStyle(
+                                    style: GoogleFonts.poppins(
                                         color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
                                   )
                           ],
@@ -218,16 +219,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                     height: 20,
                                   ),
                                 ),
-                          bottomController.pageIndex.value == 3
-                              ? const Text(
+                          Text(
                                   "My Account",
                                   style:
-                                      TextStyle(color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
-                                )
-                              : const Text(
-                                  "My Account",
-                                  style: TextStyle(
-                                      color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
+                                      GoogleFonts.poppins(color:
+                                      bottomController.pageIndex.value == 3 ?AppTheme.buttonColor: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
                                 )
                         ],
                       ),

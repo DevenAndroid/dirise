@@ -173,6 +173,7 @@
 import 'dart:convert';
 
 import 'dart:developer';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -298,7 +299,9 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                   }
                 });
 
-                print("New Event for backend developer ${json.encode(mySelectedEvents)}");
+                if (kDebugMode) {
+                  print("New Event for backend developer ${json.encode(mySelectedEvents)}");
+                }
                 titleController.clear();
                 descpController.clear();
                 Navigator.pop(context);

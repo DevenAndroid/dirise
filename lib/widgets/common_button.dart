@@ -24,7 +24,7 @@ class CustomOutlineButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               backgroundColor: AppTheme.buttonColor,
               shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-              textStyle: const TextStyle(
+              textStyle: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold,
               )),
           onPressed: onPressed,

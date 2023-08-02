@@ -1,7 +1,7 @@
-import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/dimension_screen.dart';
 import '../dashboard/dashboard_screen.dart';
 
@@ -40,7 +40,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
                   opacity: const AlwaysStoppedAnimation(.80),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               Text(
@@ -48,7 +48,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(fontWeight: FontWeight.w500, fontSize: 30, color: const Color(0xff262F33)),
               ),
               SizedBox(
@@ -59,7 +59,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
               //   textAlign: TextAlign.center,
               //   style: Theme.of(context)
               //       .textTheme
-              //       .headline5!
+              //       .headlineSmall!
               //       .copyWith(fontWeight: FontWeight.w300, fontSize: AddSize.font18, color: const Color(0xff596774)),
               // ),
               SizedBox(
@@ -79,12 +79,12 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
                   backgroundColor: AppTheme.buttonColor,
                   elevation: 0,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                  textStyle: TextStyle(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                  textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
               child: Text(
                 "Continue".tr,
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
+                    .headlineSmall!
                     .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font22),
               )),
         ),

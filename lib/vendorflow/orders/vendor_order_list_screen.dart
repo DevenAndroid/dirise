@@ -105,9 +105,9 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                 ),
                               ),
                               // addWidth(20),
-                              const Text(
+                              Text(
                                 'Orders List',
-                                style: TextStyle(
+                                style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
@@ -137,7 +137,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                           '€450.00',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5!
+                                              .headlineSmall!
                                               .copyWith(fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),
                                         ),
                                         SizedBox(
@@ -145,7 +145,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                         ),
                                         Text(
                                           "Your earning this month".tr,
-                                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                               fontWeight: FontWeight.w400,
                                               fontSize: AddSize.font14,
                                               color: Colors.white),
@@ -164,7 +164,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                               color: Colors.white, borderRadius: BorderRadius.circular(10)),
                                           child: Text(
                                             "Withdrawal".tr,
-                                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: AddSize.font16,
                                                 color: AppTheme.buttonColor),
@@ -216,13 +216,13 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                           ),
                                           items: ["vendor", "customer"]
                                               .map((label) => DropdownMenuItem(
+                                                    value: label,
                                                     child: Text(
                                                       label.toString(),
                                                       style: GoogleFonts.poppins(
                                                         color: Colors.white,
                                                       ),
                                                     ),
-                                                    value: label,
                                                   ))
                                               .toList(),
                                           // hint: Text('Rating',style: GoogleFonts.poppins(color: Colors.grey),),
@@ -243,7 +243,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                 //       borderRadius: BorderRadius.circular(6),
                                 //       border: Border.all(color: Colors.white24)),
                                 //   child: TextFormField(
-                                //     style: const TextStyle(
+                                //     style: GoogleFonts.poppins(
                                 //       fontSize: 17,
                                 //       color: AppTheme.buttonColor,
                                 //     ),
@@ -254,7 +254,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                 //             horizontal: AddSize.padding20,
                                 //             vertical: AddSize.padding10),
                                 //         hintText: 'FiIter',
-                                //         hintStyle: TextStyle(
+                                //         hintStyle: GoogleFonts.poppins(
                                 //             fontSize: AddSize.font14,
                                 //             color: const Color(0xFF676363),
                                 //             fontWeight: FontWeight.w400)),
@@ -306,13 +306,13 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                                 ),
                                                 items: ["vendor", "customer"]
                                                     .map((label) => DropdownMenuItem(
+                                                          value: label,
                                                           child: Text(
                                                             label.toString(),
                                                             style: GoogleFonts.poppins(
                                                               color: Colors.white,
                                                             ),
                                                           ),
-                                                          value: label,
                                                         ))
                                                     .toList(),
                                                 hint: const Text('Rating'),
@@ -348,9 +348,9 @@ class _VendorOrderListState extends State<VendorOrderList> {
                               maxLines: 1,
                               // controller:
                               // vendorOrderListController.searchController,
-                              style: const TextStyle(
+                              style: GoogleFonts.poppins(
                                 fontSize: 17,
-                                color: Color(0xFF676363),
+                                color: const Color(0xFF676363),
                               ),
                               textAlignVertical: TextAlignVertical.center,
                               textInputAction: TextInputAction.search,
@@ -363,7 +363,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                   contentPadding:
                                       EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
                                   hintText: 'Search'.tr,
-                                  hintStyle: TextStyle(
+                                  hintStyle: GoogleFonts.poppins(
                                       fontSize: AddSize.font16, color: Colors.white, fontWeight: FontWeight.w400)),
                             ),
                           ),
@@ -387,7 +387,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                         children: [
                           Text(
                             "Latest Sales".tr,
-                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                 fontWeight: FontWeight.w600, color: const Color(0xFF454B5C), fontSize: AddSize.font16),
                           ),
                         ],
@@ -400,7 +400,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                         children: [
                           Text(
                             "Order No.".tr,
-                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                 height: 1.5,
                                 fontWeight: FontWeight.w600,
                                 fontSize: AddSize.font12,
@@ -408,7 +408,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                           ),
                           Text(
                             "                Status".tr,
-                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                 height: 1.5,
                                 fontWeight: FontWeight.w600,
                                 fontSize: AddSize.font12,
@@ -416,7 +416,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                           ),
                           Text(
                             "Earning".tr,
-                            style: Theme.of(context).textTheme.headline5!.copyWith(
+                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                 height: 1.5,
                                 fontWeight: FontWeight.w600,
                                 fontSize: AddSize.font12,
@@ -450,7 +450,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                         Text(
                                           '#1234',
                                           // '# ${vendorOrderListController.model.value.data!.orderList![index].id.toString()}',
-                                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                               height: 1.5,
                                               fontWeight: FontWeight.w600,
                                               fontSize: AddSize.font14,
@@ -465,7 +465,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                           //     .orderList![index]
                                           //     .date
                                           //     .toString(),
-                                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                               height: 1.5,
                                               fontWeight: FontWeight.w500,
                                               fontSize: 11,
@@ -482,7 +482,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       //     .orderList![index]
                                       //     .status
                                       //     .toString(),
-                                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                           height: 1.5,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 12,
@@ -491,7 +491,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                     Text(
                                       // "₹ ${vendorOrderListController.model.value.data!.orderList![index].amount.toString()}",
                                       '€45.00',
-                                      style: Theme.of(context).textTheme.headline5!.copyWith(
+                                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                           height: 1.5,
                                           fontWeight: FontWeight.w500,
                                           fontSize: AddSize.font14,

@@ -266,10 +266,10 @@ class _SchoolNurseryScreenState extends State<SchoolNurseryScreen> {
                                                   height: 48,
                                                   width: MediaQuery.sizeOf(context).width,
                                                   color: const Color(0xff014E70),
-                                                  child: const Center(
+                                                  child: Center(
                                                     child: Text(
                                                       'Apply',
-                                                      style: TextStyle(
+                                                      style: GoogleFonts.poppins(
                                                           fontSize: 18,
                                                           fontWeight: FontWeight.w500,
                                                           color: Colors.white),
