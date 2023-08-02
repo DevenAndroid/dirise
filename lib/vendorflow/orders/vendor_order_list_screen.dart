@@ -193,7 +193,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                           iconEnabledColor: Colors.white,
                                           iconDisabledColor: Colors.white,
 
-                                          value: _statusController,
+                                          // value: _statusController,
                                           decoration: const InputDecoration(
                                             border: InputBorder.none,
                                             focusedErrorBorder: OutlineInputBorder(
@@ -284,7 +284,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                               child: DropdownButtonFormField<String>(
                                                 iconEnabledColor: Colors.white,
                                                 iconDisabledColor: Colors.white,
-                                                value: _filterController,
+                                                // value: _filterController,
                                                 decoration: const InputDecoration(
                                                   border: InputBorder.none,
                                                   focusedErrorBorder: OutlineInputBorder(

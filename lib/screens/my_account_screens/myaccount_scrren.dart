@@ -662,7 +662,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 80,
+                      height: 40,
                     ),
                   ]),
                 ),

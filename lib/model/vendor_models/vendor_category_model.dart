@@ -8,9 +8,9 @@ class ModelVendorCategory {
   ModelVendorCategory.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['usphone'] != null) {
+    if (json['data'] != null) {
       usphone = <Usphone>[];
-      json['usphone'].forEach((v) {
+      json['data'].forEach((v) {
         usphone!.add(Usphone.fromJson(v));
       });
     } else {
@@ -23,7 +23,7 @@ class ModelVendorCategory {
     data['status'] = status;
     data['message'] = message;
     if (usphone != null) {
-      data['usphone'] = usphone!.map((v) => v.toJson()).toList();
+      data['data'] = usphone!.map((v) => v.toJson()).toList();
     }
     return data;
   }

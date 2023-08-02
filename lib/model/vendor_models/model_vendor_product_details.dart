@@ -1,216 +1,169 @@
 class ModelVendorProductDetails {
   bool? status;
-  dynamic message;
-  ModelVendorProductDetailsData? data;
+  String? message;
+  ModelVendorProductDetailsData? product;
 
-  ModelVendorProductDetails({this.status, this.message, this.data});
+  ModelVendorProductDetails({this.status, this.message, this.product});
 
   ModelVendorProductDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? ModelVendorProductDetailsData.fromJson(json['data']) : null;
+    product =
+    json['product'] != null ? ModelVendorProductDetailsData.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    if (product != null) {
+      data['product'] = product!.toJson();
     }
     return data;
   }
 }
 
 class ModelVendorProductDetailsData {
-  dynamic id;
-  dynamic vendorId;
-  dynamic catId;
-  dynamic catId2;
-  dynamic catId3;
-  dynamic slug;
-  dynamic brandSlug;
-  dynamic pname;
-  dynamic productType;
-  dynamic skuId;
-  dynamic pPrice;
-  dynamic sPrice;
-  dynamic taxApply;
-  dynamic taxType;
-  dynamic shortDescription;
-  dynamic longDescription;
-  dynamic discountType;
-  dynamic discount;
-  dynamic featuredImage;
-  dynamic galleryImage;
-  dynamic inStock;
-  dynamic returnPolicyDesc;
-  dynamic featured;
-  dynamic bestSaller;
-  dynamic shippingType;
-  dynamic shippingCharge;
-  dynamic metaTitle;
-  dynamic metaKeyword;
-  dynamic parentId;
-  dynamic commission;
-  dynamic metaDescription;
-  dynamic serviceStartTime;
-  dynamic serviceEndTime;
-  dynamic topHunderd;
-  dynamic returnDays;
-  dynamic arabPname;
-  dynamic arabShortDescription;
-  dynamic arabLongDescription;
-  dynamic isPublish;
-  dynamic inOffer;
-  dynamic forAuction;
-  dynamic stockAlert;
-  dynamic titleName;
-  dynamic virtualProductFile;
-  dynamic serviceDuration;
+  int? catId;
+  String? brandSlug;
+  String? slug;
+  String? pname;
+  dynamic prodectSku;
+  dynamic bookingProductType;
+  int? regularPrice;
+  int? sPrice;
+  String? productType;
+  String? shortDescription;
+  String? longDescription;
+  String? featuredImage;
+  List<String>? galleryImage;
+  String? virtualProductFile;
+  dynamic virtualProductFileType;
+  String? inStock;
+  List<ServiceTimeSloat>? serviceTimeSloat;
+  ProductAvailability? productAvailability;
+  String? returnDays;
 
   ModelVendorProductDetailsData(
-      {this.id,
-        this.vendorId,
-        this.catId,
-        this.catId2,
-        this.catId3,
-        this.slug,
+      {this.catId,
         this.brandSlug,
+        this.slug,
         this.pname,
-        this.productType,
-        this.skuId,
-        this.pPrice,
+        this.prodectSku,
+        this.bookingProductType,
+        this.regularPrice,
         this.sPrice,
-        this.taxApply,
-        this.taxType,
+        this.productType,
         this.shortDescription,
         this.longDescription,
-        this.discountType,
-        this.discount,
         this.featuredImage,
         this.galleryImage,
-        this.inStock,
-        this.returnPolicyDesc,
-        this.featured,
-        this.bestSaller,
-        this.shippingType,
-        this.shippingCharge,
-        this.metaTitle,
-        this.metaKeyword,
-        this.parentId,
-        this.commission,
-        this.metaDescription,
-        this.serviceStartTime,
-        this.serviceEndTime,
-        this.topHunderd,
-        this.returnDays,
-        this.arabPname,
-        this.arabShortDescription,
-        this.arabLongDescription,
-        this.isPublish,
-        this.inOffer,
-        this.forAuction,
-        this.stockAlert,
-        this.titleName,
         this.virtualProductFile,
-        this.serviceDuration});
+        this.virtualProductFileType,
+        this.inStock,
+        this.serviceTimeSloat,
+        this.productAvailability,
+        this.returnDays});
 
   ModelVendorProductDetailsData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    vendorId = json['vendor_id'];
     catId = json['cat_id'];
-    catId2 = json['cat_id_2'];
-    catId3 = json['cat_id_3'];
-    slug = json['slug'];
     brandSlug = json['brand_slug'];
+    slug = json['slug'];
     pname = json['pname'];
-    productType = json['product_type'];
-    skuId = json['sku_id'];
-    pPrice = json['p_price'];
+    prodectSku = json['prodect_sku'];
+    bookingProductType = json['booking_product_type'];
+    regularPrice = json['regular_price'];
     sPrice = json['s_price'];
-    taxApply = json['tax_apply'];
-    taxType = json['tax_type'];
+    productType = json['product_type'];
     shortDescription = json['short_description'];
     longDescription = json['long_description'];
-    discountType = json['discount_type'];
-    discount = json['discount'];
     featuredImage = json['featured_image'];
-    galleryImage = json['gallery_image'];
-    inStock = json['in_stock'];
-    returnPolicyDesc = json['return_policy_desc'];
-    featured = json['featured'];
-    bestSaller = json['best_saller'];
-    shippingType = json['shipping_type'];
-    shippingCharge = json['shipping_charge'];
-    metaTitle = json['meta_title'];
-    metaKeyword = json['meta_keyword'];
-    parentId = json['parent_id'];
-    commission = json['commission'];
-    metaDescription = json['meta_description'];
-    serviceStartTime = json['service_start_time'];
-    serviceEndTime = json['service_end_time'];
-    topHunderd = json['top_hunderd'];
-    returnDays = json['return_days'];
-    arabPname = json['arab_pname'];
-    arabShortDescription = json['arab_short_description'];
-    arabLongDescription = json['arab_long_description'];
-    isPublish = json['is_publish'];
-    inOffer = json['in_offer'];
-    forAuction = json['for_auction'];
-    stockAlert = json['stock_alert'];
-    titleName = json['title_name'];
+    galleryImage = json['gallery_image'].cast<String>();
     virtualProductFile = json['virtual_product_file'];
-    serviceDuration = json['service_duration'];
+    virtualProductFileType = json['virtual_product_file_type'];
+    inStock = json['in_stock'];
+    if (json['serviceTimeSloat'] != null) {
+      serviceTimeSloat = <ServiceTimeSloat>[];
+      json['serviceTimeSloat'].forEach((v) {
+        serviceTimeSloat!.add(ServiceTimeSloat.fromJson(v));
+      });
+    }
+    productAvailability = json['productAvailability'] != null && json['productAvailability'].toString().isNotEmpty
+        ? ProductAvailability.fromJson(json['productAvailability'])
+        : null;
+    returnDays = json['return_days'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['vendor_id'] = vendorId;
     data['cat_id'] = catId;
-    data['cat_id_2'] = catId2;
-    data['cat_id_3'] = catId3;
-    data['slug'] = slug;
     data['brand_slug'] = brandSlug;
+    data['slug'] = slug;
     data['pname'] = pname;
-    data['product_type'] = productType;
-    data['sku_id'] = skuId;
-    data['p_price'] = pPrice;
+    data['prodect_sku'] = prodectSku;
+    data['booking_product_type'] = bookingProductType;
+    data['regular_price'] = regularPrice;
     data['s_price'] = sPrice;
-    data['tax_apply'] = taxApply;
-    data['tax_type'] = taxType;
+    data['product_type'] = productType;
     data['short_description'] = shortDescription;
     data['long_description'] = longDescription;
-    data['discount_type'] = discountType;
-    data['discount'] = discount;
     data['featured_image'] = featuredImage;
     data['gallery_image'] = galleryImage;
-    data['in_stock'] = inStock;
-    data['return_policy_desc'] = returnPolicyDesc;
-    data['featured'] = featured;
-    data['best_saller'] = bestSaller;
-    data['shipping_type'] = shippingType;
-    data['shipping_charge'] = shippingCharge;
-    data['meta_title'] = metaTitle;
-    data['meta_keyword'] = metaKeyword;
-    data['parent_id'] = parentId;
-    data['commission'] = commission;
-    data['meta_description'] = metaDescription;
-    data['service_start_time'] = serviceStartTime;
-    data['service_end_time'] = serviceEndTime;
-    data['top_hunderd'] = topHunderd;
-    data['return_days'] = returnDays;
-    data['arab_pname'] = arabPname;
-    data['arab_short_description'] = arabShortDescription;
-    data['arab_long_description'] = arabLongDescription;
-    data['is_publish'] = isPublish;
-    data['in_offer'] = inOffer;
-    data['for_auction'] = forAuction;
-    data['stock_alert'] = stockAlert;
-    data['title_name'] = titleName;
     data['virtual_product_file'] = virtualProductFile;
-    data['service_duration'] = serviceDuration;
+    data['virtual_product_file_type'] = virtualProductFileType;
+    data['in_stock'] = inStock;
+    if (serviceTimeSloat != null) {
+      data['serviceTimeSloat'] =
+          serviceTimeSloat!.map((v) => v.toJson()).toList();
+    }
+    if (productAvailability != null) {
+      data['productAvailability'] = productAvailability!.toJson();
+    }
+    data['return_days'] = returnDays;
+    return data;
+  }
+}
+
+class ServiceTimeSloat {
+  String? timeSloat;
+  String? timeSloatEnd;
+
+  ServiceTimeSloat({this.timeSloat, this.timeSloatEnd});
+
+  ServiceTimeSloat.fromJson(Map<String, dynamic> json) {
+    timeSloat = json['time_sloat'];
+    timeSloatEnd = json['time_sloat_end'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['time_sloat'] = timeSloat;
+    data['time_sloat_end'] = timeSloatEnd;
+    return data;
+  }
+}
+
+class ProductAvailability {
+  int? qty;
+  String? type;
+  String? fromDate;
+  String? toDate;
+
+  ProductAvailability({this.qty, this.type, this.fromDate, this.toDate});
+
+  ProductAvailability.fromJson(Map<String, dynamic> json) {
+    qty = json['qty'];
+    type = json['type'];
+    fromDate = json['from_date'];
+    toDate = json['to_date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['qty'] = qty;
+    data['type'] = type;
+    data['from_date'] = fromDate;
+    data['to_date'] = toDate;
     return data;
   }
 }

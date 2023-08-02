@@ -324,13 +324,19 @@ extension ConvertToNum on String{
   }
 }
 
-extension GG on dynamic{
+// extension CheckNull on String?{
+//   String get checkNull{
+//     return this ?? "";
+//   }
+// }
 
-  String get checkNullable{
-    if(this == null) return"";
-    return toString();
-  }
-}
+// extension GG on dynamic{
+//
+//   String get checkNullable{
+//     if(this == null) return"";
+//     return toString();
+//   }
+// }
 
 extension GetTotal on List<num>{
   num get getTotal{
@@ -402,20 +408,5 @@ extension ConvertToDateon on Duration{
 }
 
 const audioType = [
-  "mpeg",
-  "ogg",
-  "wav",
-  "webm",
-  "x-aac",
-  "x-midi",
-  "x-wav",
-  "midi",
-  "mp4",
-  "aac",
-  "vnd.wave",
-  "vnd.rn-realaudio",
-  "3gpp",
-  "3gpp2",
-  "x-flac",
-  "x-m4a",
+  "mp3",
 ];

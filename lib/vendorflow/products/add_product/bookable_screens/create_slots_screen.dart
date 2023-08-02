@@ -102,10 +102,23 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Create Slot",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 15),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        !controller.resetSlots ? "Edit Slots" :"Create Slot",
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 15),
+                      ),
+                    ),
+                    if(controller.serviceTimeSloat.isNotEmpty && controller.productId.isNotEmpty)
+                      TextButton(onPressed: (){
+                        controller.resetSlots = !controller.resetSlots;
+                        setState(() {});
+                      }, child: Text(!controller.resetSlots ?"Create Slots" : "Previous Slots"))
+                  ],
                 ),
+                if(controller.resetSlots == true)
+                  ...[
                 12.spaceY,
                 IntrinsicHeight(
                   child: Row(
@@ -315,19 +328,59 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                         }),
                   ),
                 ),
-                // ...slots.entries.map((e) => CheckboxListTile(
-                //   value: e.value,
-                //     onChanged: (ff){
-                //     if(ff==null)return;
-                //       slots[e.key] = ff;
-                //       setState(() {});
-                //     },
-                //     visualDensity: const VisualDensity(vertical: -4,horizontal: -3),
-                //     // dense: true,
-                //     title: Text(
-                //         "${timeFormat.format(e.key.keys.first)} -- ${timeFormat.format(e.key.values.first)}"
-                //     )
-                // )).toList()
+                ]
+                else
+                  Container(
+                    constraints: BoxConstraints(maxHeight: context.getSize.width * .55, minHeight: 0),
+                    child: Scrollbar(
+                      thumbVisibility: false, //always show scrollbar
+                      thickness: 5, //width of scrollbar
+                      interactive: true,
+                      radius: const Radius.circular(20), //corner radius of scrollbar
+                      scrollbarOrientation: ScrollbarOrientation.right, //which side to show scrollbar
+                      child: ListView.builder(
+                          itemCount: controller.serviceTimeSloat.length,
+                          padding: const EdgeInsets.only(top: 10),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            final item = controller.serviceTimeSloat[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                        "Start Time: ${item.timeSloat}",
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                        "End Time: ${item.timeSloatEnd.toString()}",
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: (){
+                                        controller.serviceTimeSloat.removeAt(index);
+                                        if(controller.serviceTimeSloat.isEmpty){
+                                          controller.resetSlots = true;
+                                        }
+                                        setState(() {});
+                                      },
+                                      icon: const Icon(Icons.clear))
+                                ],
+                              ),
+                            );
+                          }),
+                    ),
+                  ),
               ],
             )));
   }

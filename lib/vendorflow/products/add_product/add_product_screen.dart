@@ -80,7 +80,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           16.spaceY,
                           ElevatedButton(
                               onPressed: () {
-                                controller.addProduct(context: context);
+                                if(controller.productId.isEmpty) {
+                                  controller.addProduct(context: context);
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(double.maxFinite, 60),

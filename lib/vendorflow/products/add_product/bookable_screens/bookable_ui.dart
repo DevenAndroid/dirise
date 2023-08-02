@@ -19,8 +19,8 @@ class BookableUI extends StatefulWidget {
 class _BookableUIState extends State<BookableUI> {
   final controller = Get.put(AddProductController());
   final DateFormat selectedDateFormat = DateFormat("dd-MMM-yyyy");
-  DateTime? selectedStartDateTime;
-  DateTime? selectedEndDateTIme;
+  // DateTime? selectedStartDateTime;
+  // DateTime? selectedEndDateTIme;
 
   pickDate(
       {required Function(DateTime gg) onPick, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate}) async {
@@ -231,10 +231,10 @@ class _BookableUIState extends State<BookableUI> {
                                   pickDate(
                                       onPick: (DateTime gg) {
                                         controller.startDate.text = selectedDateFormat.format(gg);
-                                        selectedStartDateTime = gg;
+                                        controller.selectedStartDateTime = gg;
                                       },
-                                      initialDate: selectedStartDateTime,
-                                      lastDate: selectedEndDateTIme);
+                                      initialDate: controller.selectedStartDateTime,
+                                      lastDate: controller.selectedEndDateTIme);
                                 },
                                 controller: controller.startDate,
                                 key: controller.startDate.getKey,
@@ -256,10 +256,10 @@ class _BookableUIState extends State<BookableUI> {
                                   pickDate(
                                       onPick: (DateTime gg) {
                                         controller.endDate.text = selectedDateFormat.format(gg);
-                                        selectedEndDateTIme = gg;
+                                        controller.selectedEndDateTIme = gg;
                                       },
-                                      initialDate: selectedEndDateTIme ?? selectedStartDateTime,
-                                      firstDate: selectedStartDateTime);
+                                      initialDate: controller.selectedEndDateTIme ?? controller.selectedStartDateTime,
+                                      firstDate: controller.selectedStartDateTime);
                                 },
                                 controller: controller.endDate,
                                 key: controller.endDate.getKey,
@@ -286,9 +286,9 @@ class _BookableUIState extends State<BookableUI> {
                                   pickDate(
                                     onPick: (DateTime gg) {
                                       controller.startDate.text = selectedDateFormat.format(gg);
-                                      selectedStartDateTime = gg;
+                                      controller.selectedStartDateTime = gg;
                                     },
-                                    initialDate: selectedStartDateTime,
+                                    initialDate: controller.selectedStartDateTime,
                                   );
                                 },
                                 controller: controller.startDate,

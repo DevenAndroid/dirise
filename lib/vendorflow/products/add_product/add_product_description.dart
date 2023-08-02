@@ -108,25 +108,25 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       }
                       return null;
                     }),
+                // 18.spaceY,
+                // VendorCommonTextfield(
+                //     controller: controller.priceController,
+                //     key: controller.priceController.getKey,
+                //     keyboardType: TextInputType.number,
+                //     hintText: "Price",
+                //     validator: (value) {
+                //       if (value!.trim().isEmpty) {
+                //         return "Price is required";
+                //       }
+                //       if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                //         return "Enter valid price";
+                //       }
+                //       return null;
+                //     }),
                 18.spaceY,
                 VendorCommonTextfield(
-                    controller: controller.priceController,
-                    key: controller.priceController.getKey,
-                    keyboardType: TextInputType.number,
-                    hintText: "Price",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Price is required";
-                      }
-                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                        return "Enter valid price";
-                      }
-                      return null;
-                    }),
-                18.spaceY,
-                VendorCommonTextfield(
-                    controller: controller.purchasePriceController,
-                    key: controller.purchasePriceController.getKey,
+                    controller: controller.regularPriceController,
+                    key: controller.regularPriceController.getKey,
                     keyboardType: TextInputType.number,
                     hintText: "Purchase Price",
                     validator: (value) {
@@ -212,6 +212,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                         borderSide: BorderSide(color: AppTheme.secondaryColor),
                       ),
                     ),
+                    value: controller.selectedCategory.isEmpty ? null : controller.selectedCategory,
                     validator: (gg) {
                       if (controller.selectedCategory.isEmpty) {
                         return "Please select product category";

@@ -31,7 +31,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   // final TextEditingController addressController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  // final TextEditingController passwordController = TextEditingController();
 
   Future pickImage() async {
     try {
@@ -51,10 +51,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       map['name'] = nameController.text.trim();
       map['email'] = emailController.text.trim();
       map['phone'] = phoneController.text.trim();
-      map['password'] = passwordController.text.trim();
+      // map['password'] = passwordController.text.trim();
 
+      Map<String, File> gg = {};
+      if(image.path.isNotEmpty){
+        gg["profile_image"] = image;
+      }
       repositories
-          .multiPartApi(mapData: map, images: {"profile": image}, url: ApiUrls.updateProfile, context: context,onProgress: (gg,kk){})
+          .multiPartApi(mapData: map, images: gg, url: ApiUrls.updateProfile, context: context,onProgress: (gg,kk){})
           .then((value) {
         ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
         showToast(response.message.toString());

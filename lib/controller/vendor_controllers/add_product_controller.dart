@@ -19,8 +19,9 @@ class AddProductController extends GetxController{
 
   Future getProductCategoryLit() async {
     refreshCategory.value = -2;
-    await repositories.postApi(url: ApiUrls.productCategoryListUrl).then((value) {
+    await repositories.postApi(url: ApiUrls.productCategoryListUrl,showResponse: false,showMap: false).then((value) {
       productCategory = ModelAddProductCategory.fromJson(jsonDecode(value));
+      updateCategory();
       refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
@@ -45,8 +46,8 @@ class AddProductController extends GetxController{
   final TextEditingController endDate = TextEditingController();
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController skuController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
-  final TextEditingController purchasePriceController = TextEditingController();
+  // final TextEditingController priceController = TextEditingController();
+  final TextEditingController regularPriceController = TextEditingController();
   final TextEditingController sellingPriceController = TextEditingController();
   final TextEditingController stockController = TextEditingController();
   final TextEditingController shortDescriptionController = TextEditingController();
@@ -55,6 +56,7 @@ class AddProductController extends GetxController{
 
   RxString productFileType = "".obs;
   File productImage = File("");
+  RxInt virtualRefreshInt = 0.obs;
   File pdfFile = File("");
   File voiceFile = File("");
   List<File> galleryImages = [];
@@ -70,24 +72,90 @@ class AddProductController extends GetxController{
   final DateFormat timeFormatWithoutAMPM = DateFormat("hh:mm");
 
   ModelVendorProductDetails productDetails = ModelVendorProductDetails();
+  List<ServiceTimeSloat> serviceTimeSloat = [];
+  bool resetSlots = false;
 
   updateControllers(){
-    if(productDetails.data == null)return;
-    ModelVendorProductDetailsData item = productDetails.data!;
-    startTime.text = "";
-    endTime.text = "";
-    serviceDuration.text = "";
-    startDate.text = "";
-    endDate.text = "";
-    productNameController.text = item.pname;
-    skuController.text = item.skuId;
-    priceController.text = item.pPrice;
-    // purchasePriceController.text = item.;
-    sellingPriceController.text = "";
-    stockController.text = "";
-    shortDescriptionController.text = "";
-    longDescriptionController.text = "";
-    returnDaysController.text = "";
+    if(productDetails.product == null)return;
+    ModelVendorProductDetailsData item = productDetails.product!;
+    /// Description Part
+    if(item.productType == "virtual_product"){
+      productType = "Virtual Product";
+    }
+    if(item.productType == "booking"){
+      productType = "Booking Product";
+      serviceTimeSloat = item.serviceTimeSloat ?? [];
+    }
+    productNameController.text = item.pname.toString();
+    skuController.text = item.prodectSku.toString();
+    regularPriceController.text = (item.regularPrice ?? "").toString();
+    sellingPriceController.text = item.sPrice.toString();
+    stockController.text = item.inStock.toString();
+    shortDescriptionController.text = item.shortDescription.toString();
+    longDescriptionController.text = item.longDescription.toString();
+    returnDaysController.text = item.returnDays.toString();
+    updateCategory();
+    galleryImages.clear();
+    for (var element in item.galleryImage!) {
+      galleryImages.add(File(element));
+    }
+    productImage = File((item.featuredImage ?? "").toString());
+
+    /// Virtual Part
+    if(productType == "Virtual Product"){
+      if(item.virtualProductFileType == "pdf"){
+        productFileType.value = "pdf";
+        pdfFile = File(item.virtualProductFile.toString());
+      } else {
+        productFileType.value = "voice";
+        voiceFile = File(item.virtualProductFile.toString());
+      }
+      // productFileType
+    }
+
+    /// Booking Part
+    if(productType == "Booking Product") {
+      // 1. First Booking Type
+      if (item.bookingProductType.toString() == "") {
+        bookingType.value = "";
+      }
+
+      // 2. Product Availability
+      if (item.productAvailability != null) {
+        dateType.value = (item.productAvailability!.type ?? "date").toString();
+        updateStartDateTime();
+        updateEndDateTime();
+      }
+    }
+    updateUI;
+  }
+
+
+  updateStartDateTime(){
+    try {
+      selectedStartDateTime = DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.fromDate.toString());
+      startDate.text = DateFormat("dd-MMM-yyyy").format(selectedStartDateTime!);
+    } catch(e){
+      throw Exception(e);
+    }
+  }
+
+  updateEndDateTime(){
+    try {
+      selectedEndDateTIme = DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.toDate.toString());
+      endDate.text = DateFormat("dd-MMM-yyyy").format(selectedEndDateTIme!);
+    } catch(e){
+      throw Exception(e);
+    }
+  }
+
+  updateCategory(){
+    if(productDetails.product != null && productCategory.data != null && productCategory.data!.isNotEmpty){
+      if(productCategory.data!.map((e) => e.id.toString()).contains(productDetails.product!.catId.toString())){
+        selectedCategory = productDetails.product!.catId.toString();
+        refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
+      }
+    }
   }
 
 
@@ -106,8 +174,8 @@ class AddProductController extends GetxController{
     if (!formKey.currentState!.validate()) {
       if (productNameController.checkEmpty) return;
       if (skuController.checkEmpty) return;
-      if (priceController.checkBoth) return;
-      if (purchasePriceController.checkBoth) return;
+      // if (priceController.checkBoth) return;
+      if (regularPriceController.checkBoth) return;
       if (sellingPriceController.checkBoth) return;
       if (stockController.checkBoth) return;
       if (returnDaysController.checkBoth) return;
@@ -180,9 +248,9 @@ class AddProductController extends GetxController{
     }
 
     map["product_name"] = productNameController.text.trim();
-    map["prodect_price"] = priceController.text.trim();
+    // map["prodect_price"] = priceController.text.trim();
     map["sku"] = skuController.text.trim();
-    map["purchase_price"] = purchasePriceController.text.trim();
+    map["regular_price"] = regularPriceController.text.trim();
     map["selling_price"] = sellingPriceController.text.trim();
     map["stock"] = stockController.text.trim();
     map["return_days"] = returnDaysController.text.trim();
@@ -231,9 +299,11 @@ class AddProductController extends GetxController{
     else {
       await repositories.getApi(url: ApiUrls.getProductDetailsUrl + productId).then((value) {
         productDetails = ModelVendorProductDetails.fromJson(jsonDecode(value));
-        updateControllers();
         apiLoaded = true;
+        updateControllers();
         updateUI;
+      }).catchError((e){
+        throw Exception(e);
       });
     }
   }
@@ -252,12 +322,13 @@ class AddProductController extends GetxController{
   }
 
 
-  pickPDFFile() {
-    NewHelper().addFilePicker(
+  Future pickPDFFile() async {
+    await NewHelper().addFilePicker(
       allowedExtensions: ["pdf"],
     ).then((value) {
       if (value == null) return;
       pdfFile = value;
+      virtualRefreshInt.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
 
@@ -269,8 +340,8 @@ class AddProductController extends GetxController{
     endDate.dispose();
     productNameController.dispose();
     skuController.dispose();
-    priceController.dispose();
-    purchasePriceController.dispose();
+    // priceController.dispose();
+    regularPriceController.dispose();
     sellingPriceController.dispose();
     stockController.dispose();
     shortDescriptionController.dispose();

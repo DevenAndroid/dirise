@@ -19,7 +19,6 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-
   final bottomController = Get.put(BottomNavBarController());
   final profileController = Get.put(ProfileController());
   final cartController = Get.put(CartController());
@@ -35,15 +34,18 @@ class _BottomNavbarState extends State<BottomNavbar> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
-        body: pages.elementAt(bottomController.pageIndex.value),
+        body: IndexedStack(
+          index: bottomController.pageIndex.value,
+          children: pages,
+        ),
         extendBody: true,
         backgroundColor: Colors.white,
-        bottomNavigationBar: buildMyNavBar(context),
+        bottomNavigationBar: buildMyNavBar(),
       );
     });
   }
 
-  buildMyNavBar(BuildContext context) {
+  buildMyNavBar() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -83,7 +85,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                       height: 20,
                                     ),
                                   )
-
                                 : Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Image.asset(
@@ -220,11 +221,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                   ),
                                 ),
                           Text(
-                                  "My Account",
-                                  style:
-                                      GoogleFonts.poppins(color:
-                                      bottomController.pageIndex.value == 3 ?AppTheme.buttonColor: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
-                                )
+                            "My Account",
+                            style: GoogleFonts.poppins(
+                                color: bottomController.pageIndex.value == 3
+                                    ? AppTheme.buttonColor
+                                    : AppTheme.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400),
+                          )
                         ],
                       ),
                     ),

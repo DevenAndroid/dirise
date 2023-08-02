@@ -153,7 +153,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 4, 0, 8),
                 child: Obx(() {
-                  if(controller.refreshInt.value > 0){}
+                  if (controller.refreshInt.value > 0) {}
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -206,33 +206,46 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
               if (controller.galleryImages.isNotEmpty) ...[
                 SizedBox(
                   height: 125,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Row(
-                      children: controller.galleryImages
-                          .mapIndexed((i, e) =>
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: GestureDetector(
-                                onTap: () {
-                                  NewHelper.showImagePickerSheet(
-                                      gotImage: (value) {
-                                        controller.galleryImages[i] = value;
-                                        setState(() {});
-                                      },
-                                      context: context,
-                                      removeOption: true,
-                                      removeImage: (fg) {
-                                        controller.galleryImages.removeAt(i);
-                                        setState(() {});
-                                      });
-                                },
-                                child: Image.file(e)),
-                          ))
-                          .toList(),
-                    ),
-                  ),
+                  child: Obx(() {
+                    if(controller.refreshInt.value > 0){}
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Row(
+                        children: controller.galleryImages
+                            .mapIndexed((i, e) =>
+                            Padding(
+                              padding: const EdgeInsets.only(right: 18),
+                              child: GestureDetector(
+                                  onTap: () {
+                                    NewHelper.showImagePickerSheet(
+                                        gotImage: (value) {
+                                          controller.galleryImages[i] = value;
+                                          setState(() {});
+                                        },
+                                        context: context,
+                                        removeOption: true,
+                                        removeImage: (fg) {
+                                          controller.galleryImages.removeAt(i);
+                                          setState(() {});
+                                        });
+                                  },
+                                  child: Container(
+                                    constraints: const BoxConstraints(
+                                      minWidth: 50,
+                                      minHeight: 125
+                                    ),
+                                    child: Image.file(e,
+                                    errorBuilder: (_,__,___)=> Image.network(
+                                      e.path,
+                                    errorBuilder: (_,__,___)=> const Icon(Icons.error_outline,color: Colors.red,),),),
+                                  )
+                              ),
+                            ))
+                            .toList(),
+                      ),
+                    );
+                  }),
                 ),
                 const SizedBox(
                   height: 12,

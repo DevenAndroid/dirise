@@ -66,6 +66,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                 productImageWidget(context, height),
                 Obx(() {
                   if (controller.refreshInt.value > 0) {}
+                  if(controller.virtualRefreshInt.value > 0){}
                   return controller.productType == "Virtual Product" ?
                   Column(
                     children: [
@@ -112,7 +113,9 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                       if (controller.productFileType.value == "pdf") ...[
                         GestureDetector(
                           onTap: () {
-                            controller.pickPDFFile();
+                            controller.pickPDFFile().then((value) {
+                              setState(() {});
+                            });
                           },
                           child: DottedBorder(
                             radius: const Radius.circular(10),
@@ -139,11 +142,11 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                       style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                     ),
                                   ),
-                                  TextButton(
-                                      onPressed: () {
-                                        OpenFilex.open(controller.pdfFile.path);
-                                      },
-                                      child: const Text("Open"))
+                                  // TextButton(
+                                  //     onPressed: () {
+                                  //       OpenFilex.open(controller.pdfFile.path);
+                                  //     },
+                                  //     child: const Text("View"))
                                 ],
                               )
                                   : Column(
@@ -247,11 +250,11 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                       style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                     ),
                                   ),
-                                  TextButton(
-                                      onPressed: () {
-                                        OpenFilex.open(controller.voiceFile.path);
-                                      },
-                                      child: const Text("Open"))
+                                  // TextButton(
+                                  //     onPressed: () {
+                                  //       OpenFilex.open(controller.voiceFile.path);
+                                  //     },
+                                  //     child: const Text("View"))
                                 ],
                               )
                                   : Column(
@@ -315,7 +318,9 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
           child: controller.productImage.path.isNotEmpty
               ? Container(
             constraints: BoxConstraints(minHeight: 0, maxHeight: context.getSize.width * .36),
-            child: Image.file(controller.productImage),
+            child: Image.file(controller.productImage,
+            errorBuilder: (_,__,___)=> Image.network(controller.productImage.path,
+            errorBuilder: (_,__,___)=> const SizedBox.shrink(),),),
           )
               : Column(
             children: [

@@ -106,6 +106,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       vendorCategoryStatus.value = RxStatus.success();
     }).catchError((e) {
       vendorCategoryStatus.value = RxStatus.error();
+      throw Exception(e);
     });
   }
 
@@ -263,6 +264,9 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         }),
                     14.spaceY,
                     Obx(() {
+                      print(modelVendorCategory.usphone!
+                          .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
+                          .toList());
                       return DropdownButtonFormField<Usphone>(
                         key: categoryKey,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
