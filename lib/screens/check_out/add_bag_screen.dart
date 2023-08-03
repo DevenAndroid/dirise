@@ -49,22 +49,29 @@ class _BagsScreenState extends State<BagsScreen> {
                             key: ValueKey(cart.id!),
                             endActionPane: ActionPane(
                               motion: const ScrollMotion(),
+                              extentRatio: .25,
                               children: [
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // Get.back();
-                                    cartController.removeItemFromCart(productId: cart.id.toString(), context: context);
-                                  },
-                                  child: Container(
-                                      decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
-                                      padding: const EdgeInsets.fromLTRB(23, 8, 23, 8),
-                                      child: const Icon(
-                                        Icons.delete_rounded,
-                                        color: Colors.red,
-                                      )),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            // Get.back();
+                                            cartController.removeItemFromCart(productId: cart.id.toString(), context: context);
+                                          },
+                                          child: Container(
+                                              decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
+                                              padding: const EdgeInsets.fromLTRB(23, 8, 23, 8),
+                                              child: const Icon(
+                                                Icons.delete_rounded,
+                                                color: Colors.red,
+                                              )),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 )
                               ],
                             ),

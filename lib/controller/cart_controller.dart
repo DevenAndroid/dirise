@@ -47,8 +47,8 @@ class CartController extends GetxController {
       ModelPlaceOrderResponse response = ModelPlaceOrderResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
-        Get.offNamed(OrderCompleteScreen.route, arguments: response.data!.orderId.toString());
         getCart();
+        Get.offNamed(OrderCompleteScreen.route, arguments: response.order_id.toString());
       }
     });
   }

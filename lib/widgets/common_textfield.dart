@@ -81,6 +81,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
 
           errorMaxLines: 2,
           enabled: widget.enabled,
+          contentPadding: const EdgeInsets.all(15),
           //   fillColor: Colors.transparent,
           hintText: widget.hintText,
           errorText: widget.errorText,

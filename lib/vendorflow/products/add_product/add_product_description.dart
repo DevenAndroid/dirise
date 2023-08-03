@@ -125,8 +125,8 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                 //     }),
                 18.spaceY,
                 VendorCommonTextfield(
-                    controller: controller.regularPriceController,
-                    key: controller.regularPriceController.getKey,
+                    controller: controller.purchasePriceController,
+                    key: controller.purchasePriceController.getKey,
                     keyboardType: TextInputType.number,
                     hintText: "Purchase Price",
                     validator: (value) {

@@ -47,7 +47,7 @@ class AddProductController extends GetxController{
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController skuController = TextEditingController();
   // final TextEditingController priceController = TextEditingController();
-  final TextEditingController regularPriceController = TextEditingController();
+  final TextEditingController purchasePriceController = TextEditingController();
   final TextEditingController sellingPriceController = TextEditingController();
   final TextEditingController stockController = TextEditingController();
   final TextEditingController shortDescriptionController = TextEditingController();
@@ -88,7 +88,7 @@ class AddProductController extends GetxController{
     }
     productNameController.text = item.pname.toString();
     skuController.text = item.prodectSku.toString();
-    regularPriceController.text = (item.regularPrice ?? "").toString();
+    purchasePriceController.text = (item.p_price ?? "").toString();
     sellingPriceController.text = item.sPrice.toString();
     stockController.text = item.inStock.toString();
     shortDescriptionController.text = item.shortDescription.toString();
@@ -158,6 +158,9 @@ class AddProductController extends GetxController{
     }
   }
 
+  String convertToTime(String gg){
+    return "${gg.split(":")[0]}:${gg.split(":")[1]}";
+  }
 
   addProduct({required BuildContext context}) {
     if (showValidations == false) {
@@ -165,17 +168,23 @@ class AddProductController extends GetxController{
       updateUI;
     }
     List<String> timeslots = [];
-    if(slots.isNotEmpty){
+    if(productId.isNotEmpty && serviceTimeSloat.isNotEmpty && resetSlots == false){
+      timeslots = serviceTimeSloat.map((e) =>
+          "${convertToTime(e.timeSloat.toString())},${convertToTime(e.timeSloatEnd.toString())}"
+      ).toList();
+    } else if(slots.isNotEmpty){
       timeslots = slots.entries
           .where((element) => element.value == true)
           .map((e) => "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
           .toList();
     }
+
+
     if (!formKey.currentState!.validate()) {
       if (productNameController.checkEmpty) return;
       if (skuController.checkEmpty) return;
       // if (priceController.checkBoth) return;
-      if (regularPriceController.checkBoth) return;
+      if (purchasePriceController.checkBoth) return;
       if (sellingPriceController.checkBoth) return;
       if (stockController.checkBoth) return;
       if (returnDaysController.checkBoth) return;
@@ -248,15 +257,17 @@ class AddProductController extends GetxController{
     }
 
     map["product_name"] = productNameController.text.trim();
-    // map["prodect_price"] = priceController.text.trim();
     map["sku"] = skuController.text.trim();
-    map["regular_price"] = regularPriceController.text.trim();
+    map["purchase_price"] = purchasePriceController.text.trim();
     map["selling_price"] = sellingPriceController.text.trim();
     map["stock"] = stockController.text.trim();
     map["return_days"] = returnDaysController.text.trim();
     map["category_id"] = selectedCategory;
     map["short_description"] = shortDescriptionController.text.trim();
     map["long_description"] = longDescriptionController.text.trim();
+    if(productId.isNotEmpty){
+      map["id"] = productId;
+    }
 
     Map<String, File> imageMap = {};
     if (productType == "Virtual Product") {
@@ -266,9 +277,10 @@ class AddProductController extends GetxController{
     galleryImages.asMap().forEach((key, value) {
       imageMap["gallery_image[$key]"] = value;
     });
-
+    imageMap.removeWhere((key, value) => value.path.contains("https://") || value.path.contains("http://"));
     log(map.toString());
     log(imageMap.toString());
+    // if(productId.isNotEmpty)return;
 
     repositories
         .multiPartApi(
@@ -341,7 +353,7 @@ class AddProductController extends GetxController{
     productNameController.dispose();
     skuController.dispose();
     // priceController.dispose();
-    regularPriceController.dispose();
+    purchasePriceController.dispose();
     sellingPriceController.dispose();
     stockController.dispose();
     shortDescriptionController.dispose();

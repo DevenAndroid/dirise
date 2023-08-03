@@ -1,6 +1,7 @@
 import 'package:dirise/screens/home_pages/homepage_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'controller/cart_controller.dart';
@@ -46,6 +47,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   }
 
   buildMyNavBar() {
+    const padding = EdgeInsets.only(bottom: 7,top: 3);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -70,40 +72,35 @@ class _BottomNavbarState extends State<BottomNavbar> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5.0),
                       child: MaterialButton(
-                        padding: const EdgeInsets.only(bottom: 10),
+                        padding: padding,
                         onPressed: () {
                           bottomController.updateIndexValue(0);
                         },
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            bottomController.pageIndex.value == 0
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset(
-                                      'assets/icons/home.png',
-                                      color: AppTheme.buttonColor,
-                                      height: 20,
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset(
-                                      'assets/icons/home.png',
-                                      color: AppTheme.primaryColor,
-                                      height: 20,
-                                    ),
-                                  ),
-                            bottomController.pageIndex.value == 0
-                                ? Text(
-                                    " Home ",
-                                    style: GoogleFonts.poppins(
-                                        color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
-                                  )
-                                : Text(
-                                    " Home ",
-                                    style: GoogleFonts.poppins(
-                                        color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
-                                  )
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SvgPicture.asset(
+                                'assets/svgs/home.svg',
+                                colorFilter: ColorFilter.mode(
+                                    bottomController.pageIndex.value == 0
+                                    ? AppTheme.buttonColor
+                                    : AppTheme.primaryColor, BlendMode.srcIn),
+                                height: 20,
+                              ),
+                            ),
+                            FittedBox(
+                              child: Text(
+                                "Home",
+                                style: GoogleFonts.poppins(
+                                    color: bottomController.pageIndex.value == 0
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -113,40 +110,33 @@ class _BottomNavbarState extends State<BottomNavbar> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5.0),
                       child: MaterialButton(
-                        padding: const EdgeInsets.only(bottom: 10),
+                        padding: padding,
                         onPressed: () {
                           bottomController.updateIndexValue(1);
                         },
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            bottomController.pageIndex.value == 1
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset(
-                                      'assets/icons/category.png',
-                                      color: AppTheme.buttonColor,
-                                      height: 20,
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset(
-                                      'assets/icons/category.png',
-                                      color: AppTheme.primaryColor,
-                                      height: 20,
-                                    ),
-                                  ),
-                            bottomController.pageIndex.value == 1
-                                ? Text(
-                                    " Categories ",
-                                    style: GoogleFonts.poppins(
-                                        color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
-                                  )
-                                : Text(
-                                    " Categories ",
-                                    style: GoogleFonts.poppins(
-                                        color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
-                                  )
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SvgPicture.asset(
+                                'assets/svgs/category.svg',
+                                colorFilter: ColorFilter.mode(
+                                    bottomController.pageIndex.value == 1
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor, BlendMode.srcIn),
+                                height: 20,
+                              ),
+                            ),
+                            Text(
+                              "Categories",
+                              style: GoogleFonts.poppins(
+                                  color: bottomController.pageIndex.value == 1
+                                      ? AppTheme.buttonColor
+                                      : AppTheme.primaryColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            )
                           ],
                         ),
                       ),
@@ -156,80 +146,71 @@ class _BottomNavbarState extends State<BottomNavbar> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5.0),
                       child: MaterialButton(
-                        padding: const EdgeInsets.only(bottom: 10),
+                        padding: padding,
                         onPressed: () {
                           bottomController.updateIndexValue(2);
                         },
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            bottomController.pageIndex.value == 2
-                                ? Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset(
-                                      'assets/icons/heart.png',
-                                      color: AppTheme.buttonColor,
-                                      height: 20,
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset(
-                                      'assets/icons/heart.png',
-                                      color: AppTheme.primaryColor,
-                                      height: 20,
-                                    ),
-                                  ),
-                            bottomController.pageIndex.value == 2
-                                ? Text(
-                                    " Favorite ",
-                                    style: GoogleFonts.poppins(
-                                        color: AppTheme.buttonColor, fontSize: 15, fontWeight: FontWeight.w400),
-                                  )
-                                : Text(
-                                    " Favorite ",
-                                    style: GoogleFonts.poppins(
-                                        color: AppTheme.primaryColor, fontSize: 15, fontWeight: FontWeight.w400),
-                                  )
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SvgPicture.asset(
+                                'assets/svgs/fav.svg',
+                                colorFilter: ColorFilter.mode(
+                                    bottomController.pageIndex.value == 2
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor, BlendMode.srcIn),
+                                height: 20,
+                              ),
+                            ),
+                            Text(
+                              "Favorite",
+                              style: GoogleFonts.poppins(
+                                  color: bottomController.pageIndex.value == 2
+                                      ? AppTheme.buttonColor
+                                      : AppTheme.primaryColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            )
                           ],
                         ),
                       ),
                     ),
                   ),
                   Flexible(
-                    child: MaterialButton(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      onPressed: () {
-                        bottomController.updateIndexValue(3);
-                      },
-                      child: Column(
-                        children: [
-                          bottomController.pageIndex.value == 3
-                              ? Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    'assets/icons/profile.png',
-                                    height: 20,
-                                    color: AppTheme.buttonColor,
-                                  ),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    'assets/icons/profile.png',
-                                    color: AppTheme.primaryColor,
-                                    height: 20,
-                                  ),
-                                ),
-                          Text(
-                            "My Account",
-                            style: GoogleFonts.poppins(
-                                color: bottomController.pageIndex.value == 3
-                                    ? AppTheme.buttonColor
-                                    : AppTheme.primaryColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400),
-                          )
-                        ],
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                      child: MaterialButton(
+                        padding: padding,
+                        onPressed: () {
+                          bottomController.updateIndexValue(3);
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SvgPicture.asset(
+                                'assets/svgs/person.svg',
+                                height: 20,
+                                colorFilter: ColorFilter.mode(
+                                    bottomController.pageIndex.value == 3
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor, BlendMode.srcIn),
+                              ),
+                            ),
+                            Text(
+                              "My Account",
+                              style: GoogleFonts.poppins(
+                                  color: bottomController.pageIndex.value == 3
+                                      ? AppTheme.buttonColor
+                                      : AppTheme.primaryColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -147,7 +147,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         child: profileController.userLoggedIn
                             ? Image.network(
                           profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
-                          errorBuilder: (_, __, ___) => Image.asset(
+                          errorBuilder: (_, __, ___) =>
+                              Image.asset(
                             'assets/images/myaccount.png',
                             height: 60,
                             width: 60,

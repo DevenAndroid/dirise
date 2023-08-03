@@ -85,6 +85,7 @@ class Repositories {
         return response.body;
       } else if (response.statusCode == 401) {
         logOutUser();
+        throw Exception(response.body);
       } else {
         showToast(response.body);
         throw Exception(response.body);
@@ -315,10 +316,10 @@ class Repositories {
   }
 
   Future<void> logOutUser() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.clear();
-    showToast("Access denied");
-    Get.offAllNamed(LoginScreen.route);
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // await sharedPreferences.clear();
+    // showToast("Access denied");
+    // Get.offAllNamed(LoginScreen.route);
   }
 }
 

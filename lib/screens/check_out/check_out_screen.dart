@@ -1,16 +1,17 @@
 import 'dart:convert';
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/utils/helper.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
+import '../../controller/profile_controller.dart';
 import '../../model/model_address_list.dart';
 import '../../utils/ApiConstant.dart';
 import '../../widgets/common_textfield.dart';
-import 'order_completed_screen.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
@@ -23,6 +24,7 @@ class CheckOutScreen extends StatefulWidget {
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   final cartController = Get.put(CartController());
+  final profileController = Get.put(ProfileController());
   String couponApplied = "";
   String appliedCode = "";
   final TextEditingController couponController = TextEditingController();
@@ -58,10 +60,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   RxString deliveryOption = "".obs;
   RxString paymentOption = "".obs;
 
+  bool get userLoggedIn => profileController.userLoggedIn;
+
   @override
   void initState() {
     super.initState();
-    cartController.getAddress();
+    profileController.checkUserLoggedIn().then((value) {
+      if(value == false)return;
+      cartController.getAddress();
+    });
   }
 
   @override
@@ -381,7 +388,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Obx(() {
           if (cartController.refreshInt.value > 0) {}
-          return cartController.addressLoaded
+          return cartController.addressLoaded || profileController.userLoggedIn == false
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -406,24 +413,30 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       height: 5,
                     ),
                     if (deliveryOption.value == "delivery") ...[
-                      InkWell(
-                        onTap: () {
-                          bottomSheetChangeAddress();
-                        },
-                        child: DottedBorder(
-                          color: const Color(0xff014E70),
-                          strokeWidth: 1.2,
-                          dashPattern: const [6, 3, 0, 3],
-                          child: Container(
-                            // height: 50,
-                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                            width: size.width,
-                            alignment: Alignment.center,
-                            child: selectedAddress.id != null
-                                ? Text(selectedAddress.getShortAddress,
-                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))
-                                : Text("Select Address ",
-                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                      Material(
+                        child: InkWell(
+                          onTap: () {
+                            if(userLoggedIn){
+                            bottomSheetChangeAddress();
+                            } else {
+                              addAddressWithoutLogin(addressData: selectedAddress);
+                            }
+                          },
+                          child: DottedBorder(
+                            color: const Color(0xff014E70),
+                            strokeWidth: 1.2,
+                            dashPattern: const [6, 3, 0, 3],
+                            child: Container(
+                              // height: 50,
+                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                              width: size.width,
+                              alignment: Alignment.center,
+                              child: selectedAddress.id != null
+                                  ? Text(selectedAddress.getShortAddress,
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
+                                  : Text("Select Address ",
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
+                            ),
                           ),
                         ),
                       ),
@@ -433,11 +446,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       if (selectedAddress.id != null)
                         InkWell(
                             onTap: () {
-                              bottomSheetChangeAddress();
+                              if(userLoggedIn){
+                                bottomSheetChangeAddress();
+                              } else {
+                                addAddressWithoutLogin(addressData: selectedAddress);
+                              }
                             },
                             child: Align(
                                 alignment: Alignment.topRight,
-                                child: Text("Change Address", style: GoogleFonts.poppins(fontSize: 14)))),
+                                child: Text("Change Address", style: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500)))),
                     ],
                     Row(
                       children: [
@@ -461,9 +478,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     ),
                   ],
                 )
-              : const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
+              : const LoadingAnimation();
         }),
       ),
     );
@@ -722,7 +737,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   Future bottomSheetChangeAddress() {
     Size size = MediaQuery.of(context).size;
-
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -892,6 +906,262 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     }),
                   ),
                 ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Future addAddressWithoutLogin({required AddressData addressData}) {
+    Size size = MediaQuery.of(context).size;
+    final TextEditingController firstNameController = TextEditingController(text: addressData.firstName ?? "");
+    final TextEditingController emailController = TextEditingController(text: addressData.email ?? "");
+    final TextEditingController lastNameController = TextEditingController(text: addressData.lastName ?? "");
+    final TextEditingController phoneController = TextEditingController(text: addressData.phone ?? "");
+    final TextEditingController alternatePhoneController =
+    TextEditingController(text: addressData.alternatePhone ?? "");
+    final TextEditingController addressController = TextEditingController(text: addressData.address ?? "");
+    final TextEditingController address2Controller = TextEditingController(text: addressData.address2 ?? "");
+    final TextEditingController cityController = TextEditingController(text: addressData.city ?? "");
+    final TextEditingController countryController = TextEditingController(text: addressData.country ?? "");
+    final TextEditingController stateController = TextEditingController(text: addressData.state ?? "");
+    final TextEditingController zipCodeController = TextEditingController(text: addressData.zipCode ?? "");
+    final TextEditingController landmarkController = TextEditingController(text: addressData.landmark ?? "");
+    final TextEditingController titleController = TextEditingController(text: addressData.type ?? "");
+
+    final formKey = GlobalKey<FormState>();
+
+    return showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.white,
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+              width: size.width,
+              height: size.height * .8,
+              child: SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ...commonField(
+                          textController: titleController,
+                          title: "Title*",
+                          hintText: "Title",
+                          keyboardType: TextInputType.name,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter address title";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: emailController,
+                          title: "Email Address*",
+                          hintText: "Email Address",
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter email address";
+                            }
+                            if(value.trim().isValidEmail){
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: firstNameController,
+                          title: "First Name*",
+                          hintText: "First Name",
+                          keyboardType: TextInputType.name,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter first name";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: lastNameController,
+                          title: "Last Name*",
+                          hintText: "Last Name",
+                          keyboardType: TextInputType.name,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter Last name";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: phoneController,
+                          title: "Phone*",
+                          hintText: "Enter your phone number",
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter phone number";
+                            }
+                            if (value.trim().length > 15) {
+                              return "Please enter valid phone number";
+                            }
+                            if (value.trim().length < 8) {
+                              return "Please enter valid phone number";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: alternatePhoneController,
+                          title: "Alternate Phone*",
+                          hintText: "Enter your alternate phone number",
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            // if(value!.trim().isEmpty){
+                            //   return "Please enter phone number";
+                            // }
+                            // if(value.trim().length > 15){
+                            //   return "Please enter valid phone number";
+                            // }
+                            // if(value.trim().length < 8){
+                            //   return "Please enter valid phone number";
+                            // }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: addressController,
+                          title: "Address*",
+                          hintText: "Enter your delivery address",
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter delivery address";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: address2Controller,
+                          title: "Address 2",
+                          hintText: "Enter your delivery address",
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            // if(value!.trim().isEmpty){
+                            //   return "Please enter delivery address";
+                            // }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: landmarkController,
+                          title: "Landmark",
+                          hintText: "Enter your nearby landmark",
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            // if(value!.trim().isEmpty){
+                            //   return "Please enter delivery address";
+                            // }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: cityController,
+                          title: "City*",
+                          hintText: "Enter your city",
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter City*";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: zipCodeController,
+                          title: "Zip-Code*",
+                          hintText: "Enter location Zip-Code",
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter Zip-Code*";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: stateController,
+                          title: "State*",
+                          hintText: "Enter your state",
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter state*";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: countryController,
+                          title: "Country*",
+                          hintText: "Enter your country",
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter country*";
+                            }
+                            return null;
+                          }),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            selectedAddress = AddressData(
+                              id: "",
+                              type: titleController.text.trim(),
+                              firstName: firstNameController.text.trim(),
+                              lastName: lastNameController.text.trim(),
+                              state: stateController.text.trim(),
+                              country: countryController.text.trim(),
+                              city: cityController.text.trim(),
+                              address2: address2Controller.text.trim(),
+                              address: addressController.text.trim(),
+                              alternatePhone: alternatePhoneController.text.trim(),
+                              landmark: landmarkController.text.trim(),
+                              phone: phoneController.text.trim(),
+                              zipCode: zipCodeController.text.trim(),
+                              email: emailController.text.trim(),
+                            );
+                            setState(() {});
+                            Get.back();
+                            // cartController.updateAddressApi(
+                            //     context: context,
+                            //     firstName: firstNameController.text.trim(),
+                            //     title: titleController.text.trim(),
+                            //     lastName: lastNameController.text.trim(),
+                            //     state: stateController.text.trim(),
+                            //     country: countryController.text.trim(),
+                            //     city: cityController.text.trim(),
+                            //     address2: address2Controller.text.trim(),
+                            //     address: addressController.text.trim(),
+                            //     alternatePhone: alternatePhoneController.text.trim(),
+                            //     landmark: landmarkController.text.trim(),
+                            //     phone: phoneController.text.trim(),
+                            //     zipCode: zipCodeController.text.trim(),
+                            //     id: addressData.id);
+                          }
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(color: Color(0xff014E70)),
+                          height: 56,
+                          alignment: Alignment.bottomCenter,
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: Text("Save",
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
+                    ],
+                  ),
+                ),
               ),
             ),
           );

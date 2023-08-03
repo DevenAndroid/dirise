@@ -30,13 +30,14 @@ class ModelVendorProductDetailsData {
   String? pname;
   dynamic prodectSku;
   dynamic bookingProductType;
-  int? regularPrice;
+  int? p_price;
   int? sPrice;
   String? productType;
   String? shortDescription;
   String? longDescription;
   String? featuredImage;
-  List<String>? galleryImage;
+  List<String>? galleryImage = [];
+  List<String>? galleryTempData = [];
   String? virtualProductFile;
   dynamic virtualProductFileType;
   String? inStock;
@@ -51,13 +52,14 @@ class ModelVendorProductDetailsData {
         this.pname,
         this.prodectSku,
         this.bookingProductType,
-        this.regularPrice,
+        this.p_price,
         this.sPrice,
         this.productType,
         this.shortDescription,
         this.longDescription,
         this.featuredImage,
         this.galleryImage,
+        this.galleryTempData,
         this.virtualProductFile,
         this.virtualProductFileType,
         this.inStock,
@@ -72,13 +74,14 @@ class ModelVendorProductDetailsData {
     pname = json['pname'];
     prodectSku = json['prodect_sku'];
     bookingProductType = json['booking_product_type'];
-    regularPrice = json['regular_price'];
+    p_price = json['p_price'];
     sPrice = json['s_price'];
     productType = json['product_type'];
     shortDescription = json['short_description'];
     longDescription = json['long_description'];
     featuredImage = json['featured_image'];
-    galleryImage = json['gallery_image'].cast<String>();
+    galleryImage = json['gallery_image'] != null ? json['gallery_image'].cast<String>() : [];
+    galleryTempData = json['galleryTempData'] != null ? json['galleryTempData'].cast<String>() : [];
     virtualProductFile = json['virtual_product_file'];
     virtualProductFileType = json['virtual_product_file_type'];
     inStock = json['in_stock'];
@@ -102,7 +105,7 @@ class ModelVendorProductDetailsData {
     data['pname'] = pname;
     data['prodect_sku'] = prodectSku;
     data['booking_product_type'] = bookingProductType;
-    data['regular_price'] = regularPrice;
+    data['p_price'] = p_price;
     data['s_price'] = sPrice;
     data['product_type'] = productType;
     data['short_description'] = shortDescription;

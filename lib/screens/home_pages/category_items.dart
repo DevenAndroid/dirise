@@ -121,13 +121,13 @@ class _CategoryItemsState extends State<CategoryItems> {
                 const SizedBox(
                   height: 10,
                 ),
-                Expanded(
+                Flexible(
                   child: Text(
                     homeController.categoryModal.value.data![index].title.toString(),
                     maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                    // overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500, fontSize: 15, color: AppTheme.buttonColor),
+                        fontWeight: FontWeight.w500, fontSize: 14, color: AppTheme.buttonColor),
                     textAlign: TextAlign.center,
                   ),
                 )
