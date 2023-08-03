@@ -39,7 +39,9 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
             child: Column(children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                 DropdownButtonFormField<String>(
                   icon: const Icon(Icons.keyboard_arrow_down),
                   iconDisabledColor: const Color(0xff97949A),
@@ -260,7 +262,8 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       }
                       return null;
                     }),
-              ])
+              ]
+              )
             ])));
   }
 }
