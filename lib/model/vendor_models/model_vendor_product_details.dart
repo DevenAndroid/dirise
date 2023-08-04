@@ -28,7 +28,7 @@ class ModelVendorProductDetailsData {
   String? brandSlug;
   String? slug;
   String? pname;
-  dynamic prodectSku;
+  dynamic sku_id;
   dynamic bookingProductType;
   int? p_price;
   int? sPrice;
@@ -50,7 +50,7 @@ class ModelVendorProductDetailsData {
         this.brandSlug,
         this.slug,
         this.pname,
-        this.prodectSku,
+        this.sku_id,
         this.bookingProductType,
         this.p_price,
         this.sPrice,
@@ -72,7 +72,7 @@ class ModelVendorProductDetailsData {
     brandSlug = json['brand_slug'];
     slug = json['slug'];
     pname = json['pname'];
-    prodectSku = json['prodect_sku'];
+    sku_id = json['sku_id'];
     bookingProductType = json['booking_product_type'];
     p_price = json['p_price'];
     sPrice = json['s_price'];
@@ -103,7 +103,7 @@ class ModelVendorProductDetailsData {
     data['brand_slug'] = brandSlug;
     data['slug'] = slug;
     data['pname'] = pname;
-    data['prodect_sku'] = prodectSku;
+    data['sku_id'] = sku_id;
     data['booking_product_type'] = bookingProductType;
     data['p_price'] = p_price;
     data['s_price'] = sPrice;

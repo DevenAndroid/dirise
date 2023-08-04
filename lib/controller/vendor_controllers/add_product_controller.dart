@@ -33,12 +33,10 @@ class AddProductController extends GetxController{
   bool apiLoaded = false;
   String productId = "";
 
-
   final GlobalKey slotKey = GlobalKey();
   final GlobalKey categoryKey = GlobalKey();
   final GlobalKey productAvailabilityKey = GlobalKey();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   final TextEditingController startTime = TextEditingController();
   final TextEditingController endTime = TextEditingController();
   final TextEditingController serviceDuration = TextEditingController();
@@ -46,7 +44,6 @@ class AddProductController extends GetxController{
   final TextEditingController endDate = TextEditingController();
   final TextEditingController productNameController = TextEditingController();
   final TextEditingController skuController = TextEditingController();
-  // final TextEditingController priceController = TextEditingController();
   final TextEditingController purchasePriceController = TextEditingController();
   final TextEditingController sellingPriceController = TextEditingController();
   final TextEditingController stockController = TextEditingController();
@@ -87,7 +84,7 @@ class AddProductController extends GetxController{
       serviceTimeSloat = item.serviceTimeSloat ?? [];
     }
     productNameController.text = item.pname.toString();
-    skuController.text = item.prodectSku.toString();
+    skuController.text = item.sku_id.toString();
     purchasePriceController.text = (item.p_price ?? "").toString();
     sellingPriceController.text = item.sPrice.toString();
     stockController.text = item.inStock.toString();
@@ -257,7 +254,7 @@ class AddProductController extends GetxController{
     }
 
     map["product_name"] = productNameController.text.trim();
-    map["sku"] = skuController.text.trim();
+    map["sku_id"] = skuController.text.trim();
     map["purchase_price"] = purchasePriceController.text.trim();
     map["selling_price"] = sellingPriceController.text.trim();
     map["stock"] = stockController.text.trim();
@@ -352,7 +349,6 @@ class AddProductController extends GetxController{
     endDate.dispose();
     productNameController.dispose();
     skuController.dispose();
-    // priceController.dispose();
     purchasePriceController.dispose();
     sellingPriceController.dispose();
     stockController.dispose();
