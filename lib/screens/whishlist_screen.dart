@@ -1,21 +1,14 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dirise/routers/my_routers.dart';
-import 'package:dirise/utils/helper.dart';
-import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import '../controller/cart_controller.dart';
 import '../controller/wish_list_controller.dart';
 import '../model/common_modal.dart';
-import '../model/trending_products_modal.dart';
-import '../model/trending_products_modal.dart';
-import '../model/trending_products_modal.dart';
 import '../repository/repository.dart';
 import '../utils/ApiConstant.dart';
 

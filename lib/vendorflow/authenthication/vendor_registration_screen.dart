@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +32,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     "store_name": TextEditingController(),
     "phone": TextEditingController(),
     "email": TextEditingController(),
-    "password": TextEditingController(),
+    // "password": TextEditingController(),
     "store_address": TextEditingController(),
     "store_business_id": TextEditingController(),
     "store_about_us": TextEditingController(),
@@ -213,30 +214,30 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           }
                           return null;
                         }),
-                    14.spaceY,
-                    Obx(() {
-                      return VendorCommonTextfield(
-                          //obSecure: true,
-                          obSecure: hideText.value,
-                          controller: textControllers["password"],
-                          key: textControllers["password"]!.getKey,
-                          hintText: "Set Store Password",
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              hideText.value = !hideText.value;
-                            },
-                            icon: Icon(hideText.value ? Icons.visibility_off_rounded : Icons.visibility),
-                          ),
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Password is required";
-                            }
-                            if (value.trim().length < 8) {
-                              return "Password required minimum 8 characters";
-                            }
-                            return null;
-                          });
-                    }),
+                    // 14.spaceY,
+                    // Obx(() {
+                    //   return VendorCommonTextfield(
+                    //       //obSecure: true,
+                    //       obSecure: hideText.value,
+                    //       controller: textControllers["password"],
+                    //       key: textControllers["password"]!.getKey,
+                    //       hintText: "Set Store Password",
+                    //       suffixIcon: IconButton(
+                    //         onPressed: () {
+                    //           hideText.value = !hideText.value;
+                    //         },
+                    //         icon: Icon(hideText.value ? Icons.visibility_off_rounded : Icons.visibility),
+                    //       ),
+                    //       validator: (value) {
+                    //         if (value!.trim().isEmpty) {
+                    //           return "Password is required";
+                    //         }
+                    //         if (value.trim().length < 8) {
+                    //           return "Password required minimum 8 characters";
+                    //         }
+                    //         return null;
+                    //       });
+                    // }),
                     14.spaceY,
                     VendorCommonTextfield(
                         controller: textControllers["store_address"],
@@ -264,9 +265,11 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         }),
                     14.spaceY,
                     Obx(() {
-                      print(modelVendorCategory.usphone!
+                      if (kDebugMode) {
+                        print(modelVendorCategory.usphone!
                           .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
                           .toList());
+                      }
                       return DropdownButtonFormField<Usphone>(
                         key: categoryKey,
                         autovalidateMode: AutovalidateMode.onUserInteraction,

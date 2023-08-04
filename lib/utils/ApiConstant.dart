@@ -19,6 +19,7 @@ class ApiUrls {
   static const String popularProductUrl = "${apiBaseUrlNew}popular-product";
   static const String authorUrl = "${apiBaseUrlNew}authers-list";
   static const String addToCartUrl = "${apiBaseUrlNew}add-cart";
+  static const String buyNowDetailsUrl = "${apiBaseUrlNew}buy-now-checkout-details";
   static const String cartListUrl = "${apiBaseUrlNew}cart-list";
   static const String deleteCartUrl = "${apiBaseUrlNew}delete-cart";
   static const String applyCouponUrl = "${apiBaseUrlNew}apply-coupon";

@@ -21,6 +21,7 @@ import '../screens/check_out/add_bag_screen.dart';
 import '../screens/categores/categories_screen.dart';
 import '../screens/check_out/check_out_screen.dart';
 import '../screens/categores/general_library.dart';
+import '../screens/check_out/direct_check_out.dart';
 import '../screens/check_out/order_completed_screen.dart';
 import '../screens/categores/single_categorie.dart';
 import '../screens/e-book/e-book_screen.dart';
@@ -97,5 +98,6 @@ class MyRouters {
     GetPage(name: SelectedTeacher.selectedTeacher, page: () => const SelectedTeacher()),
     GetPage(name: MyOrdersScreen.myOrdersScreen, page: () => const MyOrdersScreen()),
     GetPage(name: SelectedOrderScreen.route, page: () => const SelectedOrderScreen()),
+    GetPage(name: DirectCheckOutScreen.route, page: () => const DirectCheckOutScreen()),
   ];
 }
