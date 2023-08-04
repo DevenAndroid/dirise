@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1034755606968",
+    "project_id": "dirise-app",
+    "storage_bucket": "dirise-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034755606968:android:de3e9506c88a532717e74d",
+        "android_client_info": {
+          "package_name": "com.dirise.diris"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1034755606968-grj611791v78kh733vnga1i4d22sbua4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dirise.diris",
+            "certificate_hash": "816e508e771bf4ea597323645a662d7dc4ac5f1f"
+          }
+        },
+        {
+          "client_id": "1034755606968-puirh8m9tbrm4m3uj6lfpltfppj6t98h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0GSZovR8h_tjvpWr-NRn3AacRWVgnsqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1034755606968-puirh8m9tbrm4m3uj6lfpltfppj6t98h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

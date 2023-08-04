@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/repository/repository.dart';
+import 'package:dirise/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 import '../model/model_address_list.dart';
 import '../model/model_cart_response.dart';
 import '../model/order_models/place_order_response.dart';
@@ -48,10 +51,87 @@ class CartController extends GetxController {
       showToast(response.message.toString());
       if (response.status == true) {
         getCart();
+        // if(re)
         Get.offNamed(OrderCompleteScreen.route, arguments: response.order_id.toString());
+      } else {
+        if(response.message.toString().toLowerCase().contains("otp")){
+          if(dialogOpened == false) {
+            showOTPDialog(context);
+          }
+        }
       }
     });
   }
+  bool dialogOpened = false;
+
+  showOTPDialog(BuildContext context){
+    dialogOpened = true;
+    final TextEditingController otpController = TextEditingController();
+    showDialog(context: context, builder: (context){
+      return Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Text("OPT has been sent to your given email address\n"
+                  "Verify email to place order",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+              12.spaceY,
+              Pinput(
+                controller: otpController,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                keyboardType: TextInputType.number,
+                length: 4,
+                defaultPinTheme: defaultPinTheme,
+              ),
+              15.spaceY,
+              Text(
+                "Didn't you receive the OTP?",
+                style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 17),
+              ),15.spaceY,
+              GestureDetector(
+                onTap: () async {
+                  // if (timerInt.value == 0) {
+                  //   resendOTP();
+                  // }
+                },
+                child: Text(
+                  // ' Resend OTP\n'
+                  //     '${timerInt.value > 0 ? "In ${timerInt.value > 9 ? timerInt.value : "0${timerInt
+                  //     .value}"}" : ""}',
+                  "",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
+                ),
+              ),
+              15.spaceY,
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+
+  final defaultPinTheme = PinTheme(
+      width: 45,
+      height: 45,
+      textStyle: GoogleFonts.poppins(
+        fontSize: 18,
+        color: const Color.fromRGBO(30, 60, 87, 1),
+      ),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                color: Colors.grey.shade300,
+                width: 4.0,
+              ))));
 
   addCart({
     required BuildContext context,

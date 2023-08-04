@@ -286,6 +286,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             showToast("Select delivery address to complete order");
             return;
           }
+          cartController.dialogOpened = false;
           cartController.placeOrder(
               context: context,
               currencyCode: "usd",
