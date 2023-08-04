@@ -19,6 +19,8 @@ class CartController extends GetxController {
   bool apiLoaded = false;
   ModelUserAddressList addressListModel = ModelUserAddressList();
   bool addressLoaded = false;
+  AddressData selectedAddress = AddressData();
+  String? couponCode1;
 
   placeOrder({
     required BuildContext context,
@@ -26,10 +28,17 @@ class CartController extends GetxController {
     required String totalPrice,
     required String currencyCode,
     String? couponCode,
+    String? otp,
     Map<String, dynamic>? address,
   }) {
+    couponCode1 = couponCode;
+    if(address != null) {
+      selectedAddress = AddressData.fromJson(address);
+    }
     Map<String, dynamic> gg = {
       "shipping_price": "2",
+      if(otp != null)
+      "otp": otp,
       "subtotPrice": subTotalPrice,
       "gift_card_amount": "0",
       "totPrice": totalPrice,
@@ -52,6 +61,9 @@ class CartController extends GetxController {
       if (response.status == true) {
         getCart();
         // if(re)
+        if(dialogOpened){
+          Get.back();
+        }
         Get.offNamed(OrderCompleteScreen.route, arguments: response.order_id.toString());
       } else {
         if(response.message.toString().toLowerCase().contains("otp")){
@@ -72,6 +84,7 @@ class CartController extends GetxController {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text("OPT has been sent to your given email address\n"
                   "Verify email to place order",
@@ -96,15 +109,44 @@ class CartController extends GetxController {
               ),15.spaceY,
               GestureDetector(
                 onTap: () async {
-                  // if (timerInt.value == 0) {
-                  //   resendOTP();
-                  // }
+                  placeOrder(
+                      context: context,
+                      currencyCode: "usd",
+                      subTotalPrice: cartModel.subtotal.toString(),
+                      totalPrice: cartModel.total.toString(),
+                      couponCode: couponCode1,
+                      address: selectedAddress.toJson());
                 },
                 child: Text(
-                  // ' Resend OTP\n'
-                  //     '${timerInt.value > 0 ? "In ${timerInt.value > 9 ? timerInt.value : "0${timerInt
-                  //     .value}"}" : ""}',
-                  "",
+                  "Resend OTP",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
+                ),
+              ),
+              15.spaceY,
+              GestureDetector(
+                onTap: () async {
+                  if(otpController.text.trim().isEmpty)
+                    {
+                      showToast("Please enter otp");
+                      return;
+                    }
+                  if(otpController.text.trim().length != 4)
+                  {
+                    showToast("Please enter valid otp");
+                    return;
+                  }
+                  placeOrder(
+                      context: context,
+                      currencyCode: "usd",
+                      subTotalPrice: cartModel.subtotal.toString(),
+                      totalPrice: cartModel.total.toString(),
+                      couponCode: couponCode1,
+                      address: selectedAddress.toJson(),otp: otpController.text.trim());
+                },
+                child: Text(
+                  "Submit",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
