@@ -202,7 +202,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                             ),
                             Text(
-                              "My Account",
+                              "Profile",
                               style: GoogleFonts.poppins(
                                   color: bottomController.pageIndex.value == 3
                                       ? AppTheme.buttonColor

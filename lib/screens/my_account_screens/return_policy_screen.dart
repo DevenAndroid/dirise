@@ -1,5 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../model/aboutus_model.dart';
+import '../../repository/repository.dart';
+import '../../utils/ApiConstant.dart';
 
 class ReturnPolicyScreen extends StatefulWidget {
   const ReturnPolicyScreen({Key? key}) : super(key: key);
@@ -10,6 +18,23 @@ class ReturnPolicyScreen extends StatefulWidget {
 }
 
 class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
+  bool senderExpansion = true;
+  Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
+  Future aboutUsData() async {
+    Map<String,dynamic> map = {};
+    map["id"] = 14;
+    repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
+      aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
+    });
+  }
+  final Repositories repositories = Repositories();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    aboutUsData();
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -30,67 +55,15 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
               ],
             ),
           )),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Lorem Ipsum is simply dummy text of the printing',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 18),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-                style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Lorem Ipsum is simply dummy',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 18),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard ",
-                style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              ),
-              // ignore: prefer_const_constructors
-              SizedBox(height: 10,),
-              Text(
-                'Lorem Ipsum is simply',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 18),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley ",
-                style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Lorem Ipsum is simply dummy',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 18),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard ",
-                style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+      body: Obx(() {
+        return aboutusModal.value.status == true
+            ?  SingleChildScrollView(
+          child: Html(data: aboutusModal.value.data!.content!),
+        )
+            : const Center(
+            child: CircularProgressIndicator(
+              color: Colors.grey,
+            ));
+      }));
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dirise/repository/repository.dart';
 import 'package:get/get.dart';
+import '../model/aboutus_model.dart';
 import '../model/author_modal.dart';
 import '../model/categories_modal.dart';
 import '../model/home_modal.dart';
@@ -16,6 +17,8 @@ class TrendingProductsController extends GetxController {
   Rx<AuthorModal> authorModal = AuthorModal().obs;
 
   final Repositories repositories = Repositories();
+
+
 
   Future trendingData() async {
     repositories.postApi(url: ApiUrls.trendingProductsUrl, mapData: {}).then((value) {

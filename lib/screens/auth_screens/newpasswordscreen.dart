@@ -26,6 +26,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
+
   String email = "";
   RxBool hide1 = true.obs;
   RxBool hide2 = true.obs;
@@ -89,8 +90,14 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       ),
                       hintText: 'New Password',
                       validator: MultiValidator([
-                        RequiredValidator(errorText: "Password in required"),
-                        MinLengthValidator(8, errorText: "Password must be 8 digits long")
+                        RequiredValidator(errorText: 'Please enter your password'),
+                        MinLengthValidator(8,
+                            errorText:
+                            'Password must be at least 8 characters, with 1 special character & 1 numerical'),
+                        MaxLengthValidator(16, errorText: "Password maximum length is 16"),
+                        PatternValidator(r"(?=.*\W)(?=.*?[#?!@()$%^&*-_])(?=.*[0-9])",
+                            errorText:
+                            "Password must be at least 8 characters, with 1 special character & 1 numerical"),
                       ]),
                     );
                   }),

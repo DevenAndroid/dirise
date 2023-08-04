@@ -1,5 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import '../../controller/home_controller.dart';
+import '../../model/aboutus_model.dart';
+import '../../repository/repository.dart';
+import '../../utils/ApiConstant.dart';
 
 class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({Key? key}) : super(key: key);
@@ -10,6 +18,22 @@ class AboutUsScreen extends StatefulWidget {
 }
 
 class _AboutUsScreenState extends State<AboutUsScreen> {
+  Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
+  Future aboutUsData() async {
+    Map<String,dynamic> map = {};
+    map["id"] = 12;
+    repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
+      aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
+    });
+  }
+  final Repositories repositories = Repositories();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    aboutUsData();
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -30,33 +54,15 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               ],
             ),
           )),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-          child: Column(
-            children: [
-              Text(
-                "Welcome to DIRISE application, your one-stop solution for the entrepreneurial path!",
-                style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              ),const SizedBox(height: 15,),
-              Text(
-                "DIRISE application combines all the resources you need in one centralized platform. No more time-consuming searches or scattered information. saving you precious time, effort, and money as you navigate entrepreneurship.",
-                style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              ),
-              const SizedBox(height: 15,),
-              Text(
-                "With DIRISE application, you can access a collection of best selling books, specialized courses, interactive workshops, and enlightening webinars. With our app, you have digital access to a wealth of resources that will equip you with the essential tools and insights to kickstart your entrepreneurial path. You will find all the resources you need to learn or to start a business in one place.",
-                style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              ),
-              const SizedBox(height: 15,),
-              Text(
-                "Download the DIRISE application today and let us be the catalyst for your entrepreneurial success.",
-                style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+      body: Obx(() {
+        return aboutusModal.value.status == true
+            ?  SingleChildScrollView(
+          child: Html(data: aboutusModal.value.data!.content!),
+        )
+            : const Center(
+            child: CircularProgressIndicator(
+              color: Colors.grey,
+            ));
+      }));
   }
 }

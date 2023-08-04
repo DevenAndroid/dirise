@@ -1,6 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../model/aboutus_model.dart';
+import '../../repository/repository.dart';
+import '../../utils/ApiConstant.dart';
 
 class TermConditionScreen extends StatefulWidget {
   static String route = "/TermConditionScreen";
@@ -11,6 +19,22 @@ class TermConditionScreen extends StatefulWidget {
 }
 
 class _TermConditionScreenState extends State<TermConditionScreen> {
+  Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
+  Future aboutUsData() async {
+    Map<String,dynamic> map = {};
+    map["id"] = 9;
+    repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
+      aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
+    });
+  }
+  final Repositories repositories = Repositories();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    aboutUsData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,57 +55,15 @@ class _TermConditionScreenState extends State<TermConditionScreen> {
           ],
             ),
           )),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 30),
-          child: Column(
-            children: [
-              Text(
-                'This is essentially Legal statement or policy',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 18),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text:
-                          "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining",
-                      style: GoogleFonts.poppins(height: 1.7, fontSize: 13, color: const Color(0xff3B484A)),
-                    ),
-                    TextSpan(
-                      text: '(',
-                      style: GoogleFonts.poppins(fontSize: 12.5, color: const Color(0xff3B484A)),
-                    ),
-                    TextSpan(
-                        text: 'essentially',
-                        style: GoogleFonts.poppins(color: const Color(0xff51A8E8), fontSize: 12.5)),
-                    TextSpan(
-                      text: ')',
-                      style: GoogleFonts.poppins(fontSize: 12.5, color: const Color(0xff3B484A)),
-                    ),
-                    TextSpan(
-                        text: '...',
-                        style: GoogleFonts.poppins(
-                          fontSize: 12.5,
-                          color: const Color(0xff3B484A),
-                        ))
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book...",
-                style: GoogleFonts.poppins(fontSize: 16, height: 1.7, color: const Color(0xff3B484A)),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+      body: Obx(() {
+        return aboutusModal.value.status == true
+            ?  SingleChildScrollView(
+          child: Html(data: aboutusModal.value.data!.content!),
+        )
+            : const Center(
+            child: CircularProgressIndicator(
+              color: Colors.grey,
+            ));
+      }));
   }
 }

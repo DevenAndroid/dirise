@@ -1,6 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../model/aboutus_model.dart';
+import '../../repository/repository.dart';
+import '../../utils/ApiConstant.dart';
 import '../../widgets/common_colour.dart';
 
 class FrequentlyAskedQuestionsScreen extends StatefulWidget {
@@ -13,6 +20,22 @@ class FrequentlyAskedQuestionsScreen extends StatefulWidget {
 
 class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestionsScreen> {
   bool senderExpansion = true;
+  Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
+  Future aboutUsData() async {
+    Map<String,dynamic> map = {};
+    map["id"] = 11;
+    repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
+      aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
+    });
+  }
+  final Repositories repositories = Repositories();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    aboutUsData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,75 +57,15 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
           ],
             ),
           )),
-      body: ListView.builder(
-        itemCount: 6,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: const Color(0xffDCDCDC), width: 1),
-                  ),
-                  child: Theme(
-                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                    child: ListTileTheme(
-                      contentPadding: const EdgeInsets.all(0),
-                      dense: true,
-                      horizontalTitleGap: 0.0,
-                      minLeadingWidth: 0,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0,right: 8),
-                        child: ExpansionTile(
-                          trailing: (senderExpansion == false)
-                              ? const Icon(
-                                  Icons.add,
-                                  color: AppTheme.buttonColor,
-                                )
-                              : const Icon(
-                                  Icons.remove,
-                                  color: AppTheme.buttonColor,
-                                ),
-                          onExpansionChanged: (value) {
-                            setState(() {
-                              senderExpansion = value;
-                            });
-                          },
-                          title: Text(
-                            "What is agarwood? ",
-                            style: GoogleFonts.poppins(
-                              color: const Color(0xFF1D1D1D),
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),
-                          ),
-                          children: <Widget>[
-                            ListTile(
-                              visualDensity: VisualDensity.compact,
-                              dense: true,
-                              iconColor: const Color(0xFF07B6CA),
-                              subtitle: Text(
-                                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley..",
-                                style: GoogleFonts.poppins(
-                                  color: const Color(0xFFBBBBBB),
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
+      body: Obx(() {
+        return aboutusModal.value.status == true
+            ?  SingleChildScrollView(
+          child: Html(data: aboutusModal.value.data!.content!),
+        )
+            : const Center(
+            child: CircularProgressIndicator(
+              color: Colors.grey,
+            ));
+      }));
   }
 }
