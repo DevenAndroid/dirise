@@ -42,7 +42,7 @@ class ApiUrls {
   static const String getVendorDetailUrl = "${apiBaseUrlNew}get-vendor-details";
   static const String addVendorProductUrl = "${apiBaseUrlNew}add-vendor-prodect";
   static const String productCategoryListUrl = "${apiBaseUrlNew}prodect-category-list";
-  static const String vendorProductsListUrl = "${apiBaseUrlNew}vendor-product-list";
+  static const String myProductsListUrl = "${apiBaseUrlNew}my-product-list";
   static const String getProductDetailsUrl = "${apiBaseUrlNew}edit-product/";
   static const String aboutUsUrl = "${apiBaseUrlNew}page-data";
 

@@ -416,6 +416,8 @@ Future bottomSheet(
                                     jsonDecode(value));
                             showToast(response.message.toString());
                             if (response.status == true) {
+                              response.quantity = productQuantity.value;
+                              print(response.quantity);
                               Get.toNamed(DirectCheckOutScreen.route,
                                   arguments: response);
                             }

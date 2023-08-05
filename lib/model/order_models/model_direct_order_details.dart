@@ -5,6 +5,7 @@ class ModelDirectOrderResponse {
   dynamic shipping;
   dynamic total;
   dynamic discount;
+  int quantity = 1;
   ReturnData? returnData;
   ProdcutData? prodcutData;
 

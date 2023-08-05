@@ -10,12 +10,12 @@ class ProductsController extends GetxController{
   bool apiLoaded = false;
 
 
-  ModelProductsList model = ModelProductsList(data: []);
+  ModelProductsList model = ModelProductsList(product: []);
 
   void get updateUI => refreshInt.value = DateTime.now().millisecondsSinceEpoch;
   
   Future getProductList() async {
-    await repositories.getApi(url: ApiUrls.vendorProductsListUrl).then((value) {
+    await repositories.getApi(url: ApiUrls.myProductsListUrl).then((value) {
       apiLoaded = true;
       model = ModelProductsList.fromJson(jsonDecode(value));
       updateUI;

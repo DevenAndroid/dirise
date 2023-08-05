@@ -271,10 +271,15 @@ class AddProductController extends GetxController{
       imageMap["virtual_product_file"] = productFileType.value == "pdf" ? pdfFile : voiceFile;
     }
     imageMap["featured_image"] = productImage;
+
     galleryImages.asMap().forEach((key, value) {
       imageMap["gallery_image[$key]"] = value;
     });
-    imageMap.removeWhere((key, value) => value.path.contains("https://") || value.path.contains("http://"));
+
+    map["galleryTempData"] = galleryImages.where((element) => element.path.checkHTTP.isNotEmpty).map((e) => e.path.checkHTTP).toList().join(",");
+
+    imageMap.removeWhere((key, value) => value.path.checkHTTP.isNotEmpty);
+    map.removeWhere((key, value) => value.isEmpty);
     log(map.toString());
     log(imageMap.toString());
     // if(productId.isNotEmpty)return;

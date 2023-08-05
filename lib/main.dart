@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
+      locale: const Locale('en', 'US'),
       theme: ThemeData(
         useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(

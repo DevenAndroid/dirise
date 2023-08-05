@@ -137,13 +137,13 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                   child: Obx(() {
                     if (productController.refreshInt.value > 0) {}
                     return ListView.builder(
-                      itemCount: productController.apiLoaded ? productController.model.data!.length : 5,
+                      itemCount: productController.apiLoaded ? productController.model.product!.length : 5,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         if (!productController.apiLoaded) {
                           return shimmerLoader(index);
                         }
-                        final item = productController.model.data![index];
+                        final item = productController.model.product![index];
                         return Column(
                           children: [
                             Container(
@@ -158,7 +158,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                     SizedBox(
                                         height: AddSize.size80,
                                         width: AddSize.size80,
-                                        child: Image.network(item.featuredImage)),
+                                        child: Image.network(item.featuredImage ?? "")),
                                     SizedBox(
                                       width: AddSize.size10,
                                     ),

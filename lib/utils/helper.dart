@@ -322,6 +322,9 @@ extension ConvertToNum on String{
     if(this == "null") return"";
     return this;
   }
+  String get checkHTTP{
+    return contains("https://") || contains("http://") ? split("/").last : "";
+  }
 }
 
 // extension CheckNull on String?{

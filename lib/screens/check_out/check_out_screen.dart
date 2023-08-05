@@ -297,6 +297,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               subTotalPrice: cartController.cartModel.subtotal.toString(),
               totalPrice: cartController.cartModel.total.toString(),
               couponCode: couponApplied.isNotEmpty ? appliedCode : null,
+              purchaseType: PurchaseType.cart,
               address: selectedAddress.toJson());
         },
         child: Container(

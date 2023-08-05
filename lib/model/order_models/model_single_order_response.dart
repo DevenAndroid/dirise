@@ -146,7 +146,7 @@ class OrderMeta {
   dynamic giftCardData;
   dynamic currencySign;
   dynamic shippingPrice;
-  List<Shipping>? shipping;
+  // List<Shipping>? shipping;
   dynamic shippingFirstName;
   dynamic shippingLastName;
   dynamic shippingPhone;
@@ -178,7 +178,7 @@ class OrderMeta {
         this.giftCardData,
         this.currencySign,
         this.shippingPrice,
-        this.shipping,
+        // this.shipping,
         this.shippingFirstName,
         this.shippingLastName,
         this.shippingPhone,
@@ -210,12 +210,12 @@ class OrderMeta {
     giftCardData = json['gift_card_data'];
     currencySign = json['currency_sign'];
     shippingPrice = json['shipping_price'];
-    if (json['shipping'] != null) {
-      shipping = <Shipping>[];
-      json['shipping'].forEach((v) {
-        shipping!.add(Shipping.fromJson(v));
-      });
-    }
+    // if (json['shipping'] != null) {
+    //   shipping = <Shipping>[];
+    //   json['shipping'].forEach((v) {
+    //     shipping!.add(Shipping.fromJson(v));
+    //   });
+    // }
     shippingFirstName = json['shipping_first_name'];
     shippingLastName = json['shipping_last_name'];
     shippingPhone = json['shipping_phone'];
@@ -249,9 +249,9 @@ class OrderMeta {
     data['gift_card_data'] = giftCardData;
     data['currency_sign'] = currencySign;
     data['shipping_price'] = shippingPrice;
-    if (shipping != null) {
-      data['shipping'] = shipping!.map((v) => v.toJson()).toList();
-    }
+    // if (shipping != null) {
+    //   data['shipping'] = shipping!.map((v) => v.toJson()).toList();
+    // }
     data['shipping_first_name'] = shippingFirstName;
     data['shipping_last_name'] = shippingLastName;
     data['shipping_phone'] = shippingPhone;

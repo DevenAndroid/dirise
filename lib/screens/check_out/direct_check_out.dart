@@ -42,6 +42,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
     profileController.checkUserLoggedIn().then((value) {
       if(value == false)return;
     });
+    cartController.getAddress();
   }
 
   @override
@@ -126,7 +127,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Subtotal (${directOrderResponse.subtotal.toString()} items)",
+                      Text("Subtotal (${directOrderResponse.quantity} items)",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
                       Text("KWD ${directOrderResponse.subtotal.toString()}",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
@@ -181,14 +182,16 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
             showToast("Select delivery address to complete order");
             return;
           }
-          // cartController.dialogOpened = false;
-          // cartController.placeOrder(
-          //     context: context,
-          //     currencyCode: "usd",
-          //     subTotalPrice: cartController.cartModel.subtotal.toString(),
-          //     totalPrice: cartController.cartModel.total.toString(),
-          //     couponCode: couponApplied.isNotEmpty ? appliedCode : null,
-          //     address: selectedAddress.toJson());
+          cartController.dialogOpened = false;
+          cartController.placeOrder(
+              context: context,
+              currencyCode: "usd",
+              productID: directOrderResponse.prodcutData!.id.toString(),
+              subTotalPrice: directOrderResponse.subtotal.toString(),
+              totalPrice: directOrderResponse.total.toString(),
+              quantity: directOrderResponse.quantity.toString(),
+              purchaseType: PurchaseType.buy,
+              address: selectedAddress.toJson());
         },
         child: Container(
           decoration: const BoxDecoration(color: Color(0xff014E70)),

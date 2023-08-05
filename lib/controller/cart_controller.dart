@@ -12,6 +12,8 @@ import '../model/order_models/place_order_response.dart';
 import '../screens/check_out/order_completed_screen.dart';
 import '../utils/ApiConstant.dart';
 
+enum PurchaseType { buy, cart }
+
 class CartController extends GetxController {
   RxInt refreshInt = 0.obs;
   final Repositories repositories = Repositories();
@@ -19,8 +21,8 @@ class CartController extends GetxController {
   bool apiLoaded = false;
   ModelUserAddressList addressListModel = ModelUserAddressList();
   bool addressLoaded = false;
-  AddressData selectedAddress = AddressData();
-  String? couponCode1;
+  // AddressData selectedAddress = AddressData();
+  // String? cou ponCode1;
 
   placeOrder({
     required BuildContext context,
@@ -28,138 +30,184 @@ class CartController extends GetxController {
     required String totalPrice,
     required String currencyCode,
     String? couponCode,
+    String? shippingPrice,
+    String? productID,
+    String? quantity,
     String? otp,
+    required PurchaseType purchaseType,
     Map<String, dynamic>? address,
   }) {
-    couponCode1 = couponCode;
-    if(address != null) {
-      selectedAddress = AddressData.fromJson(address);
-    }
     Map<String, dynamic> gg = {
-      "shipping_price": "2",
-      if(otp != null)
-      "otp": otp,
+      if (shippingPrice != null) "shipping_price": shippingPrice,
+      if (otp != null) "otp": otp,
+      if (productID != null) "product_id": productID,
+      if (quantity != null) "quantity": quantity,
+      "type": purchaseType.name,
       "subtotPrice": subTotalPrice,
-      "gift_card_amount": "0",
+      "total": totalPrice,
       "totPrice": totalPrice,
-      "cart_id": ["2"],
       if (couponCode != null) "coupon_code": couponCode,
       "currency_code": currencyCode,
       "refund_amount_in": "bank",
       "shipping_method": "test",
-      "shipping": [
-        {"store_id": 13, "store_name": "vendor", "title": "Normal Shipping", "ship_price": "2"}
-      ],
       "currency_sign": "\$",
+      "shipping": [
+        {
+          "store_id": 13,
+          "store_name": "vendor",
+          "title": "Normal Shipping",
+          "ship_price": "2"
+        }
+      ],
+      "cart_id": [
+        "2"
+      ],
       if (address != null) "shipping_address": address,
       if (address != null) "billing_address": address
     };
-    repositories.postApi(url: ApiUrls.placeOrderUrl, context: context, mapData: gg).then((value) {
+    repositories
+        .postApi(url: ApiUrls.placeOrderUrl, context: context, mapData: gg)
+        .then((value) {
       // ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
-      ModelPlaceOrderResponse response = ModelPlaceOrderResponse.fromJson(jsonDecode(value));
+      ModelPlaceOrderResponse response =
+          ModelPlaceOrderResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         getCart();
         // if(re)
-        if(dialogOpened){
+        if (dialogOpened) {
           Get.back();
         }
-        Get.offNamed(OrderCompleteScreen.route, arguments: response.order_id.toString());
+        Get.offNamed(OrderCompleteScreen.route,
+            arguments: response.order_id.toString());
       } else {
-        if(response.message.toString().toLowerCase().contains("otp")){
-          if(dialogOpened == false) {
-            showOTPDialog(context);
+        if (response.message.toString().toLowerCase().contains("otp")) {
+          if (dialogOpened == false) {
+            showOTPDialog(
+                context: context,
+                purchaseType: purchaseType,
+                subTotalPrice: subTotalPrice,
+                currencyCode: currencyCode,
+                totalPrice: totalPrice,
+                address: address,
+                productID: productID,
+                quantity: quantity,
+                couponCode: couponCode);
           }
         }
       }
     });
   }
+
   bool dialogOpened = false;
 
-  showOTPDialog(BuildContext context){
+  showOTPDialog({
+    required BuildContext context,
+    required PurchaseType purchaseType,
+    required String subTotalPrice,
+    required String totalPrice,
+    required String currencyCode,
+    String? couponCode,
+    String? quantity,
+    String? productID,
+    Map<String, dynamic>? address,
+  }) {
     dialogOpened = true;
     final TextEditingController otpController = TextEditingController();
-    showDialog(context: context, builder: (context){
-      return Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text("OPT has been sent to your given email address\n"
-                  "Verify email to place order",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "OPT has been sent to your given email address\n"
+                    "Verify email to place order",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  12.spaceY,
+                  Pinput(
+                    controller: otpController,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    keyboardType: TextInputType.number,
+                    length: 4,
+                    defaultPinTheme: defaultPinTheme,
+                  ),
+                  15.spaceY,
+                  Text(
+                    "Didn't you receive the OTP?",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xff3D4260), fontSize: 17),
+                  ),
+                  15.spaceY,
+                  GestureDetector(
+                    onTap: () async {
+                      placeOrder(
+                          context: context,
+                          currencyCode: currencyCode,
+                          subTotalPrice: subTotalPrice,
+                          totalPrice: totalPrice,
+                          couponCode: couponCode,
+                          quantity: quantity,
+                          productID: productID,
+                          purchaseType: purchaseType,
+                          address: address);
+                    },
+                    child: Text(
+                      "Resend OTP",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xff578AE8),
+                          fontSize: 16),
+                    ),
+                  ),
+                  15.spaceY,
+                  GestureDetector(
+                    onTap: () async {
+                      if (otpController.text.trim().isEmpty) {
+                        showToast("Please enter otp");
+                        return;
+                      }
+                      if (otpController.text.trim().length != 4) {
+                        showToast("Please enter valid otp");
+                        return;
+                      }
+                      placeOrder(
+                          context: context,
+                          currencyCode: currencyCode,
+                          subTotalPrice: subTotalPrice,
+                          totalPrice: totalPrice,
+                          couponCode: couponCode,
+                          quantity: quantity,
+                          productID: productID,
+                          address: address,
+                          purchaseType: purchaseType,
+                          otp: otpController.text.trim());
+                    },
+                    child: Text(
+                      "Submit",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xff578AE8),
+                          fontSize: 16),
+                    ),
+                  ),
+                  15.spaceY,
+                ],
               ),
-              12.spaceY,
-              Pinput(
-                controller: otpController,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                keyboardType: TextInputType.number,
-                length: 4,
-                defaultPinTheme: defaultPinTheme,
-              ),
-              15.spaceY,
-              Text(
-                "Didn't you receive the OTP?",
-                style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 17),
-              ),15.spaceY,
-              GestureDetector(
-                onTap: () async {
-                  placeOrder(
-                      context: context,
-                      currencyCode: "usd",
-                      subTotalPrice: cartModel.subtotal.toString(),
-                      totalPrice: cartModel.total.toString(),
-                      couponCode: couponCode1,
-                      address: selectedAddress.toJson());
-                },
-                child: Text(
-                  "Resend OTP",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
-                ),
-              ),
-              15.spaceY,
-              GestureDetector(
-                onTap: () async {
-                  if(otpController.text.trim().isEmpty)
-                    {
-                      showToast("Please enter otp");
-                      return;
-                    }
-                  if(otpController.text.trim().length != 4)
-                  {
-                    showToast("Please enter valid otp");
-                    return;
-                  }
-                  placeOrder(
-                      context: context,
-                      currencyCode: "usd",
-                      subTotalPrice: cartModel.subtotal.toString(),
-                      totalPrice: cartModel.total.toString(),
-                      couponCode: couponCode1,
-                      address: selectedAddress.toJson(),otp: otpController.text.trim());
-                },
-                child: Text(
-                  "Submit",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
-                ),
-              ),
-              15.spaceY,
-            ],
-          ),
-        ),
-      );
-    });
+            ),
+          );
+        });
   }
-
 
   final defaultPinTheme = PinTheme(
       width: 45,
@@ -171,9 +219,9 @@ class CartController extends GetxController {
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(
-                color: Colors.grey.shade300,
-                width: 4.0,
-              ))));
+        color: Colors.grey.shade300,
+        width: 4.0,
+      ))));
 
   addCart({
     required BuildContext context,
@@ -187,8 +235,11 @@ class CartController extends GetxController {
     map["orderId"] = orderId;
     map["productId"] = productId;
     map["productName"] = productName;
-    repositories.postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map).then((value) {
-      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+    repositories
+        .postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map)
+        .then((value) {
+      ModelCommonResponse response =
+          ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         getAddress();
@@ -231,8 +282,11 @@ class CartController extends GetxController {
     map["landmark"] = landmark;
     map["title"] = title;
 
-    repositories.postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map).then((value) {
-      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+    repositories
+        .postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map)
+        .then((value) {
+      ModelCommonResponse response =
+          ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         getAddress();
@@ -242,21 +296,24 @@ class CartController extends GetxController {
   }
 
   Future<bool> deleteAddress(
-      {required BuildContext context,
-      required String id
-      }) async {
+      {required BuildContext context, required String id}) async {
     Map<String, dynamic> map = {};
     map["id"] = id;
 
-    await repositories.postApi(url: ApiUrls.deleteAddressUrl, context: context, mapData: map).then((value) {
-      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+    await repositories
+        .postApi(url: ApiUrls.deleteAddressUrl, context: context, mapData: map)
+        .then((value) {
+      ModelCommonResponse response =
+          ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         getAddress();
         return true;
         // Get.back();
       }
-    }).catchError((e){return false;});
+    }).catchError((e) {
+      return false;
+    });
     return false;
   }
 
@@ -274,8 +331,11 @@ class CartController extends GetxController {
   }) {
     Map<String, dynamic> map = {};
     map["product_id"] = productId;
-    repositories.postApi(url: ApiUrls.deleteCartUrl, context: context, mapData: map).then((value) {
-      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+    repositories
+        .postApi(url: ApiUrls.deleteCartUrl, context: context, mapData: map)
+        .then((value) {
+      ModelCommonResponse response =
+          ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       getCart();
     });
