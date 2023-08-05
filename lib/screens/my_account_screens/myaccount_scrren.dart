@@ -26,6 +26,8 @@ import 'profile_screen.dart';
 import 'return_policy_screen.dart';
 import 'termsconditions_screen.dart';
 
+Locale locale = Locale('en', 'US');
+
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({Key? key}) : super(key: key);
 
@@ -36,6 +38,31 @@ class MyAccountScreen extends StatefulWidget {
 enum SingingCharacter { lafayette, jefferson }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
+  RxString selectedLAnguage = "English".obs;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLanguage();
+  }
+
+  updateLanguage(String gg) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("app_language", gg);
+  }
+
+  checkLanguage() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString("app_language") == null ||
+        sharedPreferences.getString("app_language") == "english") {
+      Get.updateLocale(const Locale('en', 'US'));
+      selectedLAnguage.value = "English";
+    } else {
+      Get.updateLocale(const Locale('ro', 'Ro'));
+      selectedLAnguage.value = "Engleză";
+    }
+  }
+
   RxString language = "".obs;
   final RxBool _isValue = false.obs;
   var vendor = ['Dashboard', 'Order', 'Products', 'Store open time', 'Bank Details', 'Withdraw'];
@@ -52,60 +79,65 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   final cartController = Get.put(CartController());
   final homeController = Get.put(TrendingProductsController());
 
-  showVendorDialog(){
-    if(Platform.isAndroid) {
-      showDialog(context: context, builder: (context) {
-        return Dialog(
-          backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
-          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text("To register as vendor partner need to "
-                    "create an account first.",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16
-                ),),
-                10.spaceY,
-                TextButton(onPressed: (){
-                  Get.back();
-                  Get.toNamed(
-                    LoginScreen.route,
-                  );
-                }, child: const Text("Create Account"))
-              ],
-            ),
-          ),
-        );
-      });
+  showVendorDialog() {
+    if (Platform.isAndroid) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Dialog(
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
+              insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "To register as vendor partner need to "
+                      "create an account first.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16),
+                    ),
+                    10.spaceY,
+                    TextButton(
+                        onPressed: () {
+                          Get.back();
+                          Get.toNamed(
+                            LoginScreen.route,
+                          );
+                        },
+                        child: const Text("Create Account"))
+                  ],
+                ),
+              ),
+            );
+          });
       return;
     }
-    if(Platform.isIOS) {
-      showDialog(context: context, builder: (context) {
-        return CupertinoAlertDialog(
-          title: Text("To register as vendor partner need to "
-              "create an account first.",
-            textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w600,
-                fontSize: 16
-            ),),
-          actions: [
-            CupertinoDialogAction(
-              onPressed: (){
-                Get.back();
-                Get.toNamed(
-                  LoginScreen.route,
-                );},
-                child: const Text("Create Account"))
-          ],
-        );
-      });
+    if (Platform.isIOS) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return CupertinoAlertDialog(
+              title: Text(
+                "To register as vendor partner need to "
+                "create an account first.",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16),
+              ),
+              actions: [
+                CupertinoDialogAction(
+                    onPressed: () {
+                      Get.back();
+                      Get.toNamed(
+                        LoginScreen.route,
+                      );
+                    },
+                    child: const Text("Create Account"))
+              ],
+            );
+          });
       return;
     }
   }
@@ -135,8 +167,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       Text(
                         profileController.userLoggedIn
                             ? profileController.apiLoaded
-                            ? profileController.model.user!.name ?? ""
-                            : ""
+                                ? profileController.model.user!.name ?? ""
+                                : ""
                             : "Guest User",
                         style: GoogleFonts.poppins(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
                       ),
@@ -146,26 +178,27 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         width: 60,
                         child: profileController.userLoggedIn
                             ? Image.network(
-                          profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
-                          errorBuilder: (_, __, ___) =>
-                              Image.asset(
-                            'assets/images/myaccount.png',
-                            height: 60,
-                            width: 60,
-                          ),
-                        )
+                                profileController.apiLoaded
+                                    ? profileController.model.user!.profileImage.toString()
+                                    : "",
+                                errorBuilder: (_, __, ___) => Image.asset(
+                                  'assets/images/myaccount.png',
+                                  height: 60,
+                                  width: 60,
+                                ),
+                              )
                             : Image.asset(
-                          'assets/images/myaccount.png',
-                          height: 60,
-                          width: 60,
-                        ),
+                                'assets/images/myaccount.png',
+                                height: 60,
+                                width: 60,
+                              ),
                       ),
                       5.spaceY,
                       Text(
                         profileController.userLoggedIn
                             ? profileController.apiLoaded
-                            ? profileController.model.user!.email ?? ""
-                            : ""
+                                ? profileController.model.user!.email ?? ""
+                                : ""
                             : "",
                         style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
                       ),
@@ -402,8 +435,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                   height: 330,
                                   decoration: const BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                                   child: Obx(() {
                                     return Center(
                                       child: Column(
@@ -419,12 +452,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                 child: RadioListTile(
                                                   title: const Text('Arabic'),
                                                   activeColor: const Color(0xff014E70),
-                                                  value: "arabic",
-                                                  groupValue: language.value,
+                                                  value: "Engleză",
+                                                  groupValue: selectedLAnguage.value,
                                                   onChanged: (value) {
-                                                    setState(() {
-                                                      language.value = value!;
-                                                    });
+                                                    locale = const Locale('ro', 'Ro');
+                                                    Get.updateLocale(locale);
+                                                    selectedLAnguage.value = value!;
+                                                    updateLanguage("Engleză");
+                                                    setState(() {});
                                                   },
                                                 )),
                                           ),
@@ -440,12 +475,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                 child: RadioListTile(
                                                   title: const Text('English'),
                                                   activeColor: const Color(0xff014E70),
-                                                  value: "english",
-                                                  groupValue: language.value,
+                                                  value: "English",
+                                                  groupValue: selectedLAnguage.value,
                                                   onChanged: (value) {
-                                                    setState(() {
-                                                      language.value = value!;
-                                                    });
+                                                    locale = Locale('en', 'US');
+                                                    Get.updateLocale(locale);
+                                                    selectedLAnguage.value = value!;
+                                                    updateLanguage("english");
+                                                    setState(() {});
                                                   },
                                                 )),
                                           ),
@@ -685,7 +722,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
         iconColor: AppTheme.primaryColor,
         minLeadingWidth: 0,
         onTap: () {
-          if(profileController.model.user == null){
+          if (profileController.model.user == null) {
             showVendorDialog();
             return;
           }
