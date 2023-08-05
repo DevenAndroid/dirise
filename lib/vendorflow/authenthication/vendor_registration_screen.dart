@@ -32,7 +32,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     "store_name": TextEditingController(),
     "phone": TextEditingController(),
     "email": TextEditingController(),
-    // "password": TextEditingController(),
     "store_address": TextEditingController(),
     "store_business_id": TextEditingController(),
     "store_about_us": TextEditingController(),
@@ -102,7 +101,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
 
   void getVendorCategories() {
     vendorCategoryStatus.value = RxStatus.loading();
-    repositories.postApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
+    repositories.getApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
       modelVendorCategory = ModelVendorCategory.fromJson(jsonDecode(value));
       vendorCategoryStatus.value = RxStatus.success();
     }).catchError((e) {
