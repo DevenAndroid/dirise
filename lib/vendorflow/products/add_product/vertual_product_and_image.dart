@@ -219,11 +219,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                         4.spaceY,
                         GestureDetector(
                           onTap: () {
-                            controller.pickAudioFile().then((value) {
-                              if (value == null) return;
-                              controller.voiceFile = value;
-                              setState(() {});
-                            });
+                            controller.pickAudioFile();
                           },
                           child: DottedBorder(
                             radius: const Radius.circular(10),
@@ -244,7 +240,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                 children: [
                                   Center(
                                     child: Text(
-                                      controller.pdfFile.path
+                                      controller.voiceFile.path
                                           .split("/")
                                           .last,
                                       style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),

@@ -64,7 +64,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           if (controller.refreshInt.value > 0) {}
           return controller.apiLoaded
               ? RefreshIndicator(
-                  onRefresh: () async => await controller.getProductDetails(),
+                  onRefresh: () async => await controller.getProductCategoryLit(),
                   child: SingleChildScrollView(
                       child: Form(
                     key: controller.formKey,

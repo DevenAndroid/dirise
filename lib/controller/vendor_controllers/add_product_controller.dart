@@ -169,7 +169,8 @@ class AddProductController extends GetxController{
       timeslots = serviceTimeSloat.map((e) =>
           "${convertToTime(e.timeSloat.toString())},${convertToTime(e.timeSloatEnd.toString())}"
       ).toList();
-    } else if(slots.isNotEmpty){
+    }
+    else if(slots.isNotEmpty){
       timeslots = slots.entries
           .where((element) => element.value == true)
           .map((e) => "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
@@ -324,13 +325,15 @@ class AddProductController extends GetxController{
 
   void get updateUI => refreshInt.value = DateTime.now().millisecondsSinceEpoch;
 
-  Future<File?> pickAudioFile() async {
+  pickAudioFile() async {
     await NewHelper()
         .addFilePicker(
       allowedExtensions: audioType,
     )
         .then((value) {
-      return value;
+          if(value == null)return;
+      voiceFile = value;
+      virtualRefreshInt.value = DateTime.now().millisecondsSinceEpoch;
     });
     return null;
   }

@@ -412,4 +412,5 @@ extension ConvertToDateon on Duration{
 
 const audioType = [
   "mp3",
+  ".mp3",
 ];
