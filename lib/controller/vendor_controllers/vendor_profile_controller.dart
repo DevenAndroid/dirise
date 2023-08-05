@@ -17,7 +17,7 @@ class VendorProfileController extends GetxController{
   Future getVendorDetails() async {
     await repositories.getApi(url: ApiUrls.getVendorDetailUrl).then((value) {
       model = ModelVendorDetails.fromJson(jsonDecode(value));
-      if(model.data != null){
+      if(model.user != null){
       apiLoaded = true;
       } else {
         apiLoaded = false;

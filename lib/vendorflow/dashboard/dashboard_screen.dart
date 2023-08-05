@@ -70,7 +70,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hi, ${vendorController.model.data!.name.toString().checkNullable}",
+                  "Hi, ${vendorController.model.user!.name.toString().checkNullable}",
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w600, fontSize: AddSize.font22, color: const Color(0xff292F45)),
                 ),
@@ -126,7 +126,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                             borderRadius: BorderRadius.circular(50),
                             // color: Colors.brown
                           ),
-                          child: Image.network(vendorController.model.data!.storeImage.toString(),
+                          child: Image.network(vendorController.model.user!.storeImage.toString(),
                           errorBuilder: (_,__,___)=> const SizedBox(),)
                       ),
                     ),
