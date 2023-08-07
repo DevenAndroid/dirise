@@ -37,6 +37,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeController.vendorCategoriesData();
+  }
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -49,7 +55,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         ),
       ),
       body: Obx(() {
-        return homeController.categoryModal.value.status == true
+        return homeController.vendorcategoryModel.value.data != null
             ? SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Padding(
@@ -117,7 +123,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             CachedNetworkImage(
-                                              imageUrl: homeController.categoryModal.value.data![index].categoryImage.toString(),
+                                              imageUrl: homeController.vendorcategoryModel.value.data![index].profileImage.toString(),
 
                                               height: 50,
                                             ),
@@ -126,7 +132,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                             ),
                                             Expanded(
                                               child: Text(
-                                                homeController.categoryModal.value.data![index].title.toString(),
+                                                homeController.vendorcategoryModel.value.data![index].name.toString(),
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w500,
