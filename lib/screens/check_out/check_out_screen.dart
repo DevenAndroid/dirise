@@ -294,6 +294,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           cartController.placeOrder(
               context: context,
               currencyCode: "usd",
+              deliveryOption: deliveryOption.value,
               subTotalPrice: cartController.cartModel.subtotal.toString(),
               totalPrice: cartController.cartModel.total.toString(),
               couponCode: couponApplied.isNotEmpty ? appliedCode : null,

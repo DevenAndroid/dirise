@@ -1,33 +1,33 @@
 class ModelVendorDetails {
   bool? status;
-  String? message;
-  User? user;
+  dynamic message;
+  VendorUser? user;
 
   ModelVendorDetails({this.status, this.message, this.user});
 
   ModelVendorDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? VendorUser.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }
 }
 
-class User {
+class VendorUser {
   dynamic id;
   dynamic name;
   dynamic firstName;
   dynamic lastName;
-  String? email;
+  dynamic email;
   dynamic dob;
   dynamic countryCode;
   dynamic phone;
@@ -36,8 +36,8 @@ class User {
   dynamic storeAboutUs;
   dynamic storeAboutMe;
   dynamic storeAddress;
-  String? storeLogo;
-  String? storeImage;
+  dynamic storeLogo;
+  dynamic storeImage;
   dynamic storePhone;
   dynamic description;
   dynamic categoryId;
@@ -47,15 +47,15 @@ class User {
   dynamic deviceId;
   dynamic deviceToken;
   dynamic emailVerifiedAt;
-  String? newSocialUser;
-  String? customerId;
+  dynamic newSocialUser;
+  dynamic customerId;
   dynamic defaultCard;
-  String? userWallet;
+  dynamic userWallet;
   dynamic isMobileVerified;
   dynamic otpVerified;
   dynamic isApproved;
   dynamic vendorWallet;
-  String? profileImage;
+  dynamic profileImage;
   dynamic bannerProfile;
   dynamic categoryImage;
   dynamic address;
@@ -65,17 +65,16 @@ class User {
   dynamic streetName;
   dynamic block;
   dynamic stripeId;
-  String? currency;
+  dynamic currency;
   dynamic storeOn;
   dynamic readyForOrder;
-  bool? isVendor;
-  String? createdAt;
-  String? updatedAt;
+  dynamic isVendor;
+  dynamic createdAt;
+  dynamic updatedAt;
   dynamic deletedAt;
-  List<Null>? venderCategory;
-  List<Roles>? roles;
+  List<VenderCategory>? venderCategory = [];
 
-  User(
+  VendorUser(
       {this.id,
         this.name,
         this.firstName,
@@ -125,10 +124,9 @@ class User {
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
-        this.venderCategory,
-        this.roles});
+        this.venderCategory});
 
-  User.fromJson(Map<String, dynamic> json) {
+  VendorUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     firstName = json['first_name'];
@@ -178,107 +176,122 @@ class User {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
-    // if (json['vender_category'] != null) {
-    //   venderCategory = <Null>[];
-    //   json['vender_category'].forEach((v) {
-    //     venderCategory!.add(new Null.fromJson(v));
-    //   });
-    // }
-    if (json['roles'] != null) {
-      roles = <Roles>[];
-      json['roles'].forEach((v) {
-        roles!.add(new Roles.fromJson(v));
+    if (json['vender_category'] != null) {
+      venderCategory = <VenderCategory>[];
+      json['vender_category'].forEach((v) {
+        venderCategory!.add(VenderCategory.fromJson(v));
       });
+    }
+    else {
+      venderCategory = [];
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['email'] = this.email;
-    data['dob'] = this.dob;
-    data['country_code'] = this.countryCode;
-    data['phone'] = this.phone;
-    data['store_name'] = this.storeName;
-    data['store_business_id'] = this.storeBusinessId;
-    data['store_about_us'] = this.storeAboutUs;
-    data['store_about_me'] = this.storeAboutMe;
-    data['store_address'] = this.storeAddress;
-    data['store_logo'] = this.storeLogo;
-    data['store_image'] = this.storeImage;
-    data['store_phone'] = this.storePhone;
-    data['description'] = this.description;
-    data['category_id'] = this.categoryId;
-    data['bio'] = this.bio;
-    data['social_id'] = this.socialId;
-    data['api_token'] = this.apiToken;
-    data['device_id'] = this.deviceId;
-    data['device_token'] = this.deviceToken;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['new_social_user'] = this.newSocialUser;
-    data['customer_id'] = this.customerId;
-    data['default_card'] = this.defaultCard;
-    data['user_wallet'] = this.userWallet;
-    data['is_mobile_verified'] = this.isMobileVerified;
-    data['otp_verified'] = this.otpVerified;
-    data['is_approved'] = this.isApproved;
-    data['vendor_wallet'] = this.vendorWallet;
-    data['profile_image'] = this.profileImage;
-    data['banner_profile'] = this.bannerProfile;
-    data['category_image'] = this.categoryImage;
-    data['address'] = this.address;
-    data['country_id'] = this.countryId;
-    data['state_id'] = this.stateId;
-    data['city'] = this.city;
-    data['street_name'] = this.streetName;
-    data['block'] = this.block;
-    data['stripe_id'] = this.stripeId;
-    data['currency'] = this.currency;
-    data['store_on'] = this.storeOn;
-    data['ready_for_order'] = this.readyForOrder;
-    data['is_vendor'] = this.isVendor;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['deleted_at'] = this.deletedAt;
-    // if (this.venderCategory != null) {
-    //   data['vender_category'] =
-    //       this.venderCategory!.map((v) => v.toJson()).toList();
-    // }
-    if (this.roles != null) {
-      data['roles'] = this.roles!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['email'] = email;
+    data['dob'] = dob;
+    data['country_code'] = countryCode;
+    data['phone'] = phone;
+    data['store_name'] = storeName;
+    data['store_business_id'] = storeBusinessId;
+    data['store_about_us'] = storeAboutUs;
+    data['store_about_me'] = storeAboutMe;
+    data['store_address'] = storeAddress;
+    data['store_logo'] = storeLogo;
+    data['store_image'] = storeImage;
+    data['store_phone'] = storePhone;
+    data['description'] = description;
+    data['category_id'] = categoryId;
+    data['bio'] = bio;
+    data['social_id'] = socialId;
+    data['api_token'] = apiToken;
+    data['device_id'] = deviceId;
+    data['device_token'] = deviceToken;
+    data['email_verified_at'] = emailVerifiedAt;
+    data['new_social_user'] = newSocialUser;
+    data['customer_id'] = customerId;
+    data['default_card'] = defaultCard;
+    data['user_wallet'] = userWallet;
+    data['is_mobile_verified'] = isMobileVerified;
+    data['otp_verified'] = otpVerified;
+    data['is_approved'] = isApproved;
+    data['vendor_wallet'] = vendorWallet;
+    data['profile_image'] = profileImage;
+    data['banner_profile'] = bannerProfile;
+    data['category_image'] = categoryImage;
+    data['address'] = address;
+    data['country_id'] = countryId;
+    data['state_id'] = stateId;
+    data['city'] = city;
+    data['street_name'] = streetName;
+    data['block'] = block;
+    data['stripe_id'] = stripeId;
+    data['currency'] = currency;
+    data['store_on'] = storeOn;
+    data['ready_for_order'] = readyForOrder;
+    data['is_vendor'] = isVendor;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['deleted_at'] = deletedAt;
+    if (venderCategory != null) {
+      data['vender_category'] =
+          venderCategory!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Roles {
+class VenderCategory {
   dynamic id;
-  String? title;
-  String? createdAt;
-  String? updatedAt;
+  dynamic name;
+  dynamic status;
+  dynamic description;
+  dynamic profileImage;
+  dynamic bannerProfile;
+  dynamic createdAt;
+  dynamic updatedAt;
   Pivot? pivot;
 
-  Roles({this.id, this.title, this.createdAt, this.updatedAt, this.pivot});
+  VenderCategory(
+      {this.id,
+        this.name,
+        this.status,
+        this.description,
+        this.profileImage,
+        this.bannerProfile,
+        this.createdAt,
+        this.updatedAt,
+        this.pivot});
 
-  Roles.fromJson(Map<String, dynamic> json) {
+  VenderCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'];
+    name = json['name'];
+    status = json['status'];
+    description = json['description'];
+    profileImage = json['profile_image'];
+    bannerProfile = json['banner_profile'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    pivot = json['pivot'] != null ? new Pivot.fromJson(json['pivot']) : null;
+    pivot = json['pivot'] != null ? Pivot.fromJson(json['pivot']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.pivot != null) {
-      data['pivot'] = this.pivot!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['status'] = status;
+    data['description'] = description;
+    data['profile_image'] = profileImage;
+    data['banner_profile'] = bannerProfile;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (pivot != null) {
+      data['pivot'] = pivot!.toJson();
     }
     return data;
   }
@@ -286,19 +299,19 @@ class Roles {
 
 class Pivot {
   dynamic userId;
-  dynamic roleId;
+  dynamic userVendorCategoryId;
 
-  Pivot({this.userId, this.roleId});
+  Pivot({this.userId, this.userVendorCategoryId});
 
   Pivot.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
-    roleId = json['role_id'];
+    userVendorCategoryId = json['user_vendor_category_id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = this.userId;
-    data['role_id'] = this.roleId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['user_id'] = userId;
+    data['user_vendor_category_id'] = userVendorCategoryId;
     return data;
   }
 }

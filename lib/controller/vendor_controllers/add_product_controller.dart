@@ -12,14 +12,18 @@ import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
 import 'products_controller.dart';
 
-class AddProductController extends GetxController{
-
+class AddProductController extends GetxController {
   ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
   RxInt refreshCategory = 0.obs;
 
   Future getProductCategoryLit() async {
     refreshCategory.value = -2;
-    await repositories.postApi(url: ApiUrls.productCategoryListUrl,showResponse: false,showMap: false).then((value) {
+    await repositories
+        .postApi(
+            url: ApiUrls.productCategoryListUrl,
+            showResponse: false,
+            showMap: false)
+        .then((value) {
       productCategory = ModelAddProductCategory.fromJson(jsonDecode(value));
       updateCategory();
       refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
@@ -28,7 +32,7 @@ class AddProductController extends GetxController{
 
   final Repositories repositories = Repositories();
   final productListController = Get.put(ProductsController());
-  
+
   RxInt refreshInt = 0.obs;
   bool apiLoaded = false;
   String productId = "";
@@ -47,8 +51,10 @@ class AddProductController extends GetxController{
   final TextEditingController purchasePriceController = TextEditingController();
   final TextEditingController sellingPriceController = TextEditingController();
   final TextEditingController stockController = TextEditingController();
-  final TextEditingController shortDescriptionController = TextEditingController();
-  final TextEditingController longDescriptionController = TextEditingController();
+  final TextEditingController shortDescriptionController =
+      TextEditingController();
+  final TextEditingController longDescriptionController =
+      TextEditingController();
   final TextEditingController returnDaysController = TextEditingController();
 
   RxString productFileType = "".obs;
@@ -72,14 +78,15 @@ class AddProductController extends GetxController{
   List<ServiceTimeSloat> serviceTimeSloat = [];
   bool resetSlots = false;
 
-  updateControllers(){
-    if(productDetails.product == null)return;
+  updateControllers() {
+    if (productDetails.product == null) return;
     ModelVendorProductDetailsData item = productDetails.product!;
+
     /// Description Part
-    if(item.productType == "virtual_product"){
+    if (item.productType == "virtual_product") {
       productType = "Virtual Product";
     }
-    if(item.productType == "booking"){
+    if (item.productType == "booking") {
       productType = "Booking Product";
       serviceTimeSloat = item.serviceTimeSloat ?? [];
     }
@@ -99,8 +106,8 @@ class AddProductController extends GetxController{
     productImage = File((item.featuredImage ?? "").toString());
 
     /// Virtual Part
-    if(productType == "Virtual Product"){
-      if(item.virtualProductFileType == "pdf"){
+    if (productType == "Virtual Product") {
+      if (item.virtualProductFileType == "pdf") {
         productFileType.value = "pdf";
         pdfFile = File(item.virtualProductFile.toString());
       } else {
@@ -111,10 +118,12 @@ class AddProductController extends GetxController{
     }
 
     /// Booking Part
-    if(productType == "Booking Product") {
+    if (productType == "Booking Product") {
       // 1. First Booking Type
-      if (item.bookingProductType.toString() == "") {
-        bookingType.value = "";
+      if (item.bookingProductType.toString() == "Personal") {
+        bookingType.value = "Personal";
+      } else {
+        bookingType = "Virtual".obs;
       }
 
       // 2. Product Availability
@@ -127,35 +136,40 @@ class AddProductController extends GetxController{
     updateUI;
   }
 
-
-  updateStartDateTime(){
+  updateStartDateTime() {
     try {
-      selectedStartDateTime = DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.fromDate.toString());
+      selectedStartDateTime = DateFormat("yyyy-MM-dd").parse(
+          productDetails.product!.productAvailability!.fromDate.toString());
       startDate.text = DateFormat("dd-MMM-yyyy").format(selectedStartDateTime!);
-    } catch(e){
+    } catch (e) {
       throw Exception(e);
     }
   }
 
-  updateEndDateTime(){
+  updateEndDateTime() {
     try {
-      selectedEndDateTIme = DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.toDate.toString());
+      selectedEndDateTIme = DateFormat("yyyy-MM-dd").parse(
+          productDetails.product!.productAvailability!.toDate.toString());
       endDate.text = DateFormat("dd-MMM-yyyy").format(selectedEndDateTIme!);
-    } catch(e){
+    } catch (e) {
       throw Exception(e);
     }
   }
 
-  updateCategory(){
-    if(productDetails.product != null && productCategory.data != null && productCategory.data!.isNotEmpty){
-      if(productCategory.data!.map((e) => e.id.toString()).contains(productDetails.product!.catId.toString())){
+  updateCategory() {
+    if (productDetails.product != null &&
+        productCategory.data != null &&
+        productCategory.data!.isNotEmpty) {
+      if (productCategory.data!
+          .map((e) => e.id.toString())
+          .contains(productDetails.product!.catId.toString())) {
         selectedCategory = productDetails.product!.catId.toString();
         refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
       }
     }
   }
 
-  String convertToTime(String gg){
+  String convertToTime(String gg) {
     return "${gg.split(":")[0]}:${gg.split(":")[1]}";
   }
 
@@ -165,18 +179,20 @@ class AddProductController extends GetxController{
       updateUI;
     }
     List<String> timeslots = [];
-    if(productId.isNotEmpty && serviceTimeSloat.isNotEmpty && resetSlots == false){
-      timeslots = serviceTimeSloat.map((e) =>
-          "${convertToTime(e.timeSloat.toString())},${convertToTime(e.timeSloatEnd.toString())}"
-      ).toList();
-    }
-    else if(slots.isNotEmpty){
+    if (productId.isNotEmpty &&
+        serviceTimeSloat.isNotEmpty &&
+        resetSlots == false) {
+      timeslots = serviceTimeSloat
+          .map((e) =>
+              "${convertToTime(e.timeSloat.toString())},${convertToTime(e.timeSloatEnd.toString())}")
+          .toList();
+    } else if (slots.isNotEmpty) {
       timeslots = slots.entries
           .where((element) => element.value == true)
-          .map((e) => "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
+          .map((e) =>
+              "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
           .toList();
     }
-
 
     if (!formKey.currentState!.validate()) {
       if (productNameController.checkEmpty) return;
@@ -188,52 +204,57 @@ class AddProductController extends GetxController{
       if (returnDaysController.checkBoth) return;
       if (selectedCategory.isEmpty) {
         if (categoryKey.currentContext != null) {
-          Scrollable.ensureVisible(categoryKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
+          Scrollable.ensureVisible(categoryKey.currentContext!,
+              alignment: .25, duration: const Duration(milliseconds: 600));
           return;
         }
       }
       if (shortDescriptionController.checkEmpty) return;
       if (longDescriptionController.checkEmpty) return;
 
-      if(productType == "Booking Product"){
-        if(startTime.checkEmpty) return;
-        if(endTime.checkEmpty) return;
-        if(serviceDuration.checkEmpty) return;
-        if(startDate.checkEmpty) return;
+      if (productType == "Booking Product") {
+        if (startTime.checkEmpty) return;
+        if (endTime.checkEmpty) return;
+        if (serviceDuration.checkEmpty) return;
+        if (startDate.checkEmpty) return;
 
-        if(selectedEndDateTIme == null && dateType.value == "range"){
-          if(serviceDuration.checkEmpty) return;
+        if (selectedEndDateTIme == null && dateType.value == "range") {
+          if (serviceDuration.checkEmpty) return;
         }
       }
 
       return;
     }
 
-    if(productType == "Booking Product"){
-      if(timeslots.isEmpty){
+    if (productType == "Booking Product") {
+      if (timeslots.isEmpty) {
         showToast("Please select slot");
         slotKey.currentContext!.navigate;
         return;
       }
-      if(selectedStartDateTime == null){
+      if (selectedStartDateTime == null) {
         showToast("Please select product availability");
         productAvailabilityKey.currentContext!.navigate;
       }
-      if(selectedEndDateTIme == null && dateType.value == "range"){
+      if (selectedEndDateTIme == null && dateType.value == "range") {
         showToast("Please select product availability");
         productAvailabilityKey.currentContext!.navigate;
       }
     }
 
-    if (galleryImages.isEmpty) return showToast("Please select product gallery images");
-    if (productImage.path.isEmpty) return showToast("Please select product images");
+    if (galleryImages.isEmpty)
+      return showToast("Please select product gallery images");
+    if (productImage.path.isEmpty)
+      return showToast("Please select product images");
 
     // return;
     Map<String, String> map = {};
     // single,variants,booking,virtual_product
-    map["product_type"] = productType.replaceAll("Product", "").trim().toLowerCase();
+    map["product_type"] =
+        productType.replaceAll("Product", "").trim().toLowerCase();
 
-    if(productType.replaceAll("Product", "").trim().toLowerCase() == "virtual"){
+    if (productType.replaceAll("Product", "").trim().toLowerCase() ==
+        "virtual") {
       // "virtual_product"
       map["product_type"] = "virtual_product";
     }
@@ -263,13 +284,14 @@ class AddProductController extends GetxController{
     map["category_id"] = selectedCategory;
     map["short_description"] = shortDescriptionController.text.trim();
     map["long_description"] = longDescriptionController.text.trim();
-    if(productId.isNotEmpty){
+    if (productId.isNotEmpty) {
       map["id"] = productId;
     }
 
     Map<String, File> imageMap = {};
     if (productType == "Virtual Product") {
-      imageMap["virtual_product_file"] = productFileType.value == "pdf" ? pdfFile : voiceFile;
+      imageMap["virtual_product_file"] =
+          productFileType.value == "pdf" ? pdfFile : voiceFile;
     }
     imageMap["featured_image"] = productImage;
 
@@ -277,7 +299,11 @@ class AddProductController extends GetxController{
       imageMap["gallery_image[$key]"] = value;
     });
 
-    map["galleryTempData"] = galleryImages.where((element) => element.path.checkHTTP.isNotEmpty).map((e) => e.path.checkHTTP).toList().join(",");
+    map["galleryTempData"] = galleryImages
+        .where((element) => element.path.checkHTTP.isNotEmpty)
+        .map((e) => e.path.checkHTTP)
+        .toList()
+        .join(",");
 
     imageMap.removeWhere((key, value) => value.path.checkHTTP.isNotEmpty);
     map.removeWhere((key, value) => value.isEmpty);
@@ -287,15 +313,14 @@ class AddProductController extends GetxController{
 
     repositories
         .multiPartApi(
-        mapData: map,
-        images: imageMap,
-        url: ApiUrls.addVendorProductUrl,
-        context: context,
-        onProgress: (int bytes, int totalBytes) {
-
-        })
+            mapData: map,
+            images: imageMap,
+            url: ApiUrls.addVendorProductUrl,
+            context: context,
+            onProgress: (int bytes, int totalBytes) {})
         .then((value) {
-      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      ModelCommonResponse response =
+          ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         Get.back();
@@ -305,19 +330,20 @@ class AddProductController extends GetxController{
   }
 
   Future getProductDetails() async {
-    if(Get.arguments != null) {
+    if (Get.arguments != null) {
       productId = Get.arguments;
     }
-    if(productId.isEmpty){
+    if (productId.isEmpty) {
       apiLoaded = true;
-    }
-    else {
-      await repositories.getApi(url: ApiUrls.getProductDetailsUrl + productId).then((value) {
+    } else {
+      await repositories
+          .getApi(url: ApiUrls.getProductDetailsUrl + productId)
+          .then((value) {
         productDetails = ModelVendorProductDetails.fromJson(jsonDecode(value));
         apiLoaded = true;
         updateControllers();
         updateUI;
-      }).catchError((e){
+      }).catchError((e) {
         throw Exception(e);
       });
     }
@@ -331,13 +357,12 @@ class AddProductController extends GetxController{
       allowedExtensions: audioType,
     )
         .then((value) {
-          if(value == null)return;
+      if (value == null) return;
       voiceFile = value;
       virtualRefreshInt.value = DateTime.now().millisecondsSinceEpoch;
     });
     return null;
   }
-
 
   Future pickPDFFile() async {
     await NewHelper().addFilePicker(
@@ -349,7 +374,7 @@ class AddProductController extends GetxController{
     });
   }
 
-  disposeControllers(){
+  disposeControllers() {
     startTime.dispose();
     endTime.dispose();
     serviceDuration.dispose();
@@ -364,5 +389,4 @@ class AddProductController extends GetxController{
     longDescriptionController.dispose();
     returnDaysController.dispose();
   }
-
 }

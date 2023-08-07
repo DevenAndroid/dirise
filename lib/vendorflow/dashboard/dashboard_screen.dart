@@ -1,8 +1,4 @@
-import 'dart:developer';
-
-import 'package:dirise/routers/my_routers.dart';
 import 'package:dirise/utils/helper.dart';
-import 'package:dirise/vendorflow/drawer_screens/vendor_drawer_screen.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../widgets/customsize.dart';
 import '../../widgets/dimension_screen.dart';
+import '../profile/vendor_profile_screen.dart';
 
 class VendorDashBoardScreen extends StatefulWidget {
   const VendorDashBoardScreen({Key? key}) : super(key: key);
@@ -22,10 +19,12 @@ class VendorDashBoardScreen extends StatefulWidget {
 }
 
 class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
+
   int currentDrawer = 0;
   bool state = false;
   bool state1 = true;
   bool state2 = true;
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List imgList = [
@@ -34,26 +33,30 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
     'assets/images/Group 1000004270.png',
     'assets/images/Group 1000004269.png',
   ];
+
   final vendorController = Get.put(VendorProfileController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        // drawer: const VendorDrawerScreen(),
         appBar: AppBar(
           leading: Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.back();
-                    // _scaffoldKey.currentState!.openDrawer();
-                  },
-                  child: Image.asset(
-                    'assets/icons/backicon.png',
-                    height: 25,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.back();
+                      // _scaffoldKey.currentState!.openDrawer();
+                    },
+                    child: Image.asset(
+                      'assets/icons/backicon.png',
+                      height: 25,
+                    ),
                   ),
                 ),
               ],
@@ -107,44 +110,56 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
             ) : const SizedBox();
           }),
           actions: [
-            Obx(() {
-              // log(vendorController.model.data!.storeBusinessId.toString());
-              if (vendorController.refreshInt.value > 0) {}
-              return vendorController.apiLoaded ?
-              Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16.0, top: 8),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(1000),
-                      child: Container(
-                          height: 45,
-                          width: 45,
-                          clipBehavior: Clip.antiAlias,
-                          // margin: EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            // color: Colors.brown
-                          ),
-                          child: Image.network(vendorController.model.user!.storeImage.toString(),
-                          errorBuilder: (_,__,___)=> const SizedBox(),)
+            GestureDetector(
+              onTap: (){
+                Get.toNamed(VendorProfileScreen.route);
+              },
+              child: Obx(() {
+                // log(vendorController.model.data!.storeBusinessId.toString());
+                if (vendorController.refreshInt.value > 0) {}
+                return vendorController.apiLoaded ?
+                Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16.0, top: 8),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(1000),
+                        child: Container(
+                            height: 45,
+                            width: 45,
+                            clipBehavior: Clip.antiAlias,
+                            // margin: EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              // color: Colors.brown
+                            ),
+                            child: Image.network(vendorController.model.user!.storeImage.toString(),
+                            errorBuilder: (_,__,___)=> Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(1000),
+                                border: Border.all(
+                                  color: Colors.grey
+                                )
+                              ),
+                                child: Icon(Icons.person_2_rounded,color: Colors.grey.shade700,)),)
+                        ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                      top: 9,
-                      child: Column(children: [
-                        Image.asset(
-                          'assets/icons/active.png',
-                          height: 12,
-                        ),
-                      ]))
-                ],
-              ) : const Padding(
-                padding: EdgeInsets.only(right: 14),
-                child: Center(child: CupertinoActivityIndicator(),),
-              );
-            })
+                    Positioned(
+                        top: 9,
+                        child: Column(children: [
+                          Image.asset(
+                            'assets/icons/active.png',
+                            height: 12,
+                          ),
+                        ]))
+                  ],
+                ) : const Padding(
+                  padding: EdgeInsets.only(right: 14),
+                  child: Center(child: CupertinoActivityIndicator(),),
+                );
+              }),
+            )
           ],
         ),
         body: RefreshIndicator(

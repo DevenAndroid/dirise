@@ -59,72 +59,76 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
         body: Padding(
             padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
             child: Column(children: [
-              Row(
-                // mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: AddSize.size80 * 3.5,
-                    decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(10), boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.shade300,
-                          // offset: Offset(2, 2),
-                          blurRadius: 05)
-                    ]),
-                    child: TextField(
-                      maxLines: 1,
-                      // controller: vendorProductListController
-                      //     .searchController,
-                      style: GoogleFonts.poppins(fontSize: 17),
-                      textAlignVertical: TextAlignVertical.center,
-                      textInputAction: TextInputAction.search,
-                      onChanged: (value) => {
-                        // vendorProductListController
-                        //     .getVendorProductList()
-                      },
-                      decoration: InputDecoration(
-                          filled: true,
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              // vendorProductListController
-                              //     .getVendorProductList();
-                            },
-                            icon: Icon(
-                              Icons.search,
-                              color: AppTheme.lightblack,
-                              size: AddSize.size25,
-                            ),
-                          ),
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide.none, borderRadius: BorderRadius.all(Radius.circular(10))),
-                          fillColor: Colors.white,
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
-                          hintText: 'Search Products',
-                          hintStyle:
-                              GoogleFonts.poppins(fontSize: AddSize.font16, color: Colors.black, fontWeight: FontWeight.w400)),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AddProductScreen.route);
-                    },
-                    child: Container(
-                      height: AddSize.size20 * 2.5,
-                      width: AddSize.size20 * 2.5,
-                      decoration: BoxDecoration(
-                        color: AppTheme.buttonColor,
-                        borderRadius: BorderRadius.circular(10),
+              IntrinsicHeight(
+                child: Row(
+                  // mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(10), boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.shade300,
+                              // offset: Offset(2, 2),
+                              blurRadius: 05)
+                        ]),
+                        child: TextField(
+                          maxLines: 1,
+                          // controller: vendorProductListController
+                          //     .searchController,
+                          style: GoogleFonts.poppins(fontSize: 17),
+                          textAlignVertical: TextAlignVertical.center,
+                          textInputAction: TextInputAction.search,
+                          onChanged: (value) => {
+                            // vendorProductListController
+                            //     .getVendorProductList()
+                          },
+                          decoration: InputDecoration(
+                              filled: true,
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  // vendorProductListController
+                                  //     .getVendorProductList();
+                                },
+                                icon: Icon(
+                                  Icons.search,
+                                  color: AppTheme.lightblack,
+                                  size: AddSize.size25,
+                                ),
+                              ),
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide.none, borderRadius: BorderRadius.all(Radius.circular(10))),
+                              fillColor: Colors.white,
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
+                              hintText: 'Search Products',
+                              hintStyle:
+                                  GoogleFonts.poppins(fontSize: AddSize.font16, color: Colors.black, fontWeight: FontWeight.w400)),
+                        ),
                       ),
-                      child: Center(
-                          child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: AddSize.size25,
-                      )),
                     ),
-                  )
-                ],
+                    SizedBox(width: 16,),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AddProductScreen.route);
+                      },
+                      child: Container(
+                        height: AddSize.size20 * 2.5,
+                        width: AddSize.size20 * 2.5,
+                        decoration: BoxDecoration(
+                          color: AppTheme.buttonColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                            child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: AddSize.size25,
+                        )),
+                      ),
+                    )
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -235,11 +239,17 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                               inactiveColor: Colors.grey.shade400,
                                               activeColor: AppTheme.buttonColor,
                                               onToggle: (val) {
-                                                setState(() {
-                                                  // state1 = val;
-                                                });
+                                                productController.updateProductStatus(
+                                                  changed: (bool value1){
+                                                    if(value1 == true){
+                                                      productController.model.product![index].isPublish = !productController.model.product![index].isPublish!;
+                                                      print("dffsdff");
+                                                      setState(() {});
+                                                    }
+                                                  },
+                                                    context: context, productID: item.id.toString());
                                               },
-                                              value: index.isEven,
+                                              value: item.isPublish!,
                                             )
                                           ])
                                         ],

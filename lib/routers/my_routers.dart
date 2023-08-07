@@ -46,6 +46,7 @@ import '../vendorflow/dashboard/store_open_time_screen.dart';
 import '../vendorflow/authenthication/thanku_screen.dart';
 import '../vendorflow/authenthication/vendor_registration_screen.dart';
 import '../vendorflow/authenthication/verify_vendor_otp.dart';
+import '../vendorflow/profile/vendor_profile_screen.dart';
 
 class MyRouters {
 
@@ -99,5 +100,6 @@ class MyRouters {
     GetPage(name: MyOrdersScreen.myOrdersScreen, page: () => const MyOrdersScreen()),
     GetPage(name: SelectedOrderScreen.route, page: () => const SelectedOrderScreen()),
     GetPage(name: DirectCheckOutScreen.route, page: () => const DirectCheckOutScreen()),
+    GetPage(name: VendorProfileScreen.route, page: () => const VendorProfileScreen()),
   ];
 }

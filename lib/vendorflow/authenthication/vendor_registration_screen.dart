@@ -76,7 +76,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       return;
     }
     Map<String, String> map = textControllers.map((key, value) => MapEntry(key, value.text.trim()));
-    map["VenderCategory"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
+    map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
 
     Map<String, File> images = {};
     images["store_logo"] = storeImage.value;

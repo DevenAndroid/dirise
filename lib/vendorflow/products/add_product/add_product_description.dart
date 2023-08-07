@@ -145,13 +145,13 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                     controller: controller.sellingPriceController,
                     key: controller.sellingPriceController.getKey,
                     keyboardType: TextInputType.number,
-                    hintText: "Selling Price",
+                    hintText: "Discounted Price",
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return "Selling price is required";
+                        return "Discounted price is required";
                       }
                       if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                        return "Enter valid selling price";
+                        return "Enter valid discounted price";
                       }
                       return null;
                     }),

@@ -186,6 +186,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
           cartController.placeOrder(
               context: context,
               currencyCode: "usd",
+              deliveryOption: deliveryOption.value,
               productID: directOrderResponse.prodcutData!.id.toString(),
               subTotalPrice: directOrderResponse.subtotal.toString(),
               totalPrice: directOrderResponse.total.toString(),

@@ -29,6 +29,7 @@ class CartController extends GetxController {
     required String subTotalPrice,
     required String totalPrice,
     required String currencyCode,
+    required String deliveryOption,
     String? couponCode,
     String? shippingPrice,
     String? productID,
@@ -45,6 +46,7 @@ class CartController extends GetxController {
       "type": purchaseType.name,
       "subtotPrice": subTotalPrice,
       "total": totalPrice,
+      "delivery_type": deliveryOption, // delivery or pickup
       "totPrice": totalPrice,
       if (couponCode != null) "coupon_code": couponCode,
       "currency_code": currencyCode,
@@ -92,6 +94,7 @@ class CartController extends GetxController {
                 address: address,
                 productID: productID,
                 quantity: quantity,
+                deliveryOption: deliveryOption,
                 couponCode: couponCode);
           }
         }
@@ -107,6 +110,7 @@ class CartController extends GetxController {
     required String subTotalPrice,
     required String totalPrice,
     required String currencyCode,
+    required String deliveryOption,
     String? couponCode,
     String? quantity,
     String? productID,
@@ -156,6 +160,7 @@ class CartController extends GetxController {
                           totalPrice: totalPrice,
                           couponCode: couponCode,
                           quantity: quantity,
+                          deliveryOption: deliveryOption,
                           productID: productID,
                           purchaseType: purchaseType,
                           address: address);
@@ -188,6 +193,7 @@ class CartController extends GetxController {
                           couponCode: couponCode,
                           quantity: quantity,
                           productID: productID,
+                          deliveryOption: deliveryOption,
                           address: address,
                           purchaseType: purchaseType,
                           otp: otpController.text.trim());

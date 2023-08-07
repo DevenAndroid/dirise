@@ -63,7 +63,7 @@ class ProductListData {
   dynamic updatedAt;
   dynamic topHunderd;
   dynamic returnDays;
-  dynamic isPublish;
+  bool? isPublish;
   dynamic inOffer;
   dynamic forAuction;
   dynamic returnPolicyDesc;
@@ -159,7 +159,7 @@ class ProductListData {
     updatedAt = json['updated_at'];
     topHunderd = json['top_hunderd'];
     returnDays = json['return_days'];
-    isPublish = json['is_publish'];
+    isPublish = json['is_publish'].toString() == "1" ? true: false;
     inOffer = json['in_offer'];
     forAuction = json['for_auction'];
     returnPolicyDesc = json['return_policy_desc'];
