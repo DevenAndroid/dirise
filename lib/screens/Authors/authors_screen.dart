@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../controller/home_controller.dart';
 import '../../controller/single_product_controller.dart';
 import '../../widgets/common_app_bar.dart';
 
@@ -21,7 +22,14 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
   List data = ["Kuwait", "Gulf", "Arab  World", "World Wide"];
   RxBool status = false.obs;
   final _singleCategory = Get.put(SingleCategoryController());
+  final homeController = Get.put(TrendingProductsController());
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeController.categoryAuthorData();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,14 +42,14 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
         ),
       ),
       body: Obx(() {
-        return _singleCategory.isDataLoading.value
+        return homeController.categoryAuthorsModel.value.user != null
             ? SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (_singleCategory.model.value.data != null)
+                    if (homeController.categoryAuthorsModel.value.user != null)
                     SizedBox(
                     height: size.height * 0.22,
                     child: Swiper(
@@ -54,14 +62,14 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: CachedNetworkImage(
-                                imageUrl: _singleCategory.model.value.data!.sliders![index].toString(),
+                                imageUrl: "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593360_1280.jpg",
                                 fit: BoxFit.cover,
                                 placeholder: (context, url) => const SizedBox(),
                                 errorWidget: (context, url, error) => const SizedBox()),
                           ),
                         );
                       },
-                      itemCount: _singleCategory.model.value.data!.sliders!.length,
+                      itemCount: 1,
                       pagination: const SwiperPagination(),
                       control: const SwiperControl(size: 0), // remove arrows
                     ),
@@ -268,7 +276,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                       child: GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: _singleCategory.model.value.data!.stores!.length,
+                        itemCount: homeController.categoryAuthorsModel.value.user!.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 10,
@@ -291,7 +299,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                 children: [
                                   CachedNetworkImage(
                                     imageUrl:
-                                        _singleCategory.model.value.data!.stores![index].profileImg.toString(),
+                                        homeController.categoryAuthorsModel.value.user![index].storeImage.toString(),
                                     placeholder: (context, url) => const SizedBox(),
                                     errorWidget: (context, url, error) => const SizedBox(),
                                   ),
@@ -299,14 +307,14 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
                                     height: 5,
                                   ),
                                   Text(
-                                    _singleCategory.model.value.data!.stores![index].businessName.toString(),
+                                    homeController.categoryAuthorsModel.value.user![index].storeName.toString(),
                                     style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
                                   ),
                                   const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
-                                    '1457 Items',
+                                    homeController.categoryAuthorsModel.value.user![index].storePhone.toString(),
                                     style: GoogleFonts.poppins(
                                         fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                   )

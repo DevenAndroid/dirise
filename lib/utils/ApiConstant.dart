@@ -45,6 +45,10 @@ class ApiUrls {
   static const String myProductsListUrl = "${apiBaseUrlNew}my-product-list";
   static const String getProductDetailsUrl = "${apiBaseUrlNew}edit-product/";
   static const String aboutUsUrl = "${apiBaseUrlNew}page-data";
+  static const String categoryLibraryUrl = "${apiBaseUrlNew}get-vendor-details?category_id=1";
+  static const String categoryAuthorsUrl = "${apiBaseUrlNew}get-vendor-details?category_id=2";
+  static const String categoryTeacherUrl = "${apiBaseUrlNew}get-vendor-details?category_id=3";
+  static const String categoryFurnitureUrl = "${apiBaseUrlNew}get-vendor-details?category_id=4";
   static const String editVendorDetailsUrl = "${apiBaseUrlNew}edit-vendor-details";
   static const String updateProductStatusUrl = "${apiBaseUrlNew}update-product-status";
   static const String vendorDashBoardUrl = "${apiBaseUrlNew}vendor-dashboard";
