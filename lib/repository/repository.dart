@@ -14,6 +14,7 @@ import '../model/login_model.dart';
 import '../screens/auth_screens/login_screen.dart';
 import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
+
 String deviceId = "";
 
 class Repositories {
@@ -57,7 +58,8 @@ class Repositories {
       final Map<String, String> headers = {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-        if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
+        if (model.token != null)
+          HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
       mapData ??= {};
 
@@ -69,9 +71,10 @@ class Repositories {
         }
       }
 
-      http.Response response = await http.post(Uri.parse(url), body: jsonEncode(mapData), headers: headers);
+      http.Response response = await http.post(Uri.parse(url),
+          body: jsonEncode(mapData), headers: headers);
 
-      if (kDebugMode) {
+      if(kDebugMode) {
         if (showResponse == true) {
           log("API Response........  ${response.body}");
           log("API Response Url........  $url");
@@ -80,10 +83,18 @@ class Repositories {
         }
       }
 
+      /// Today's tasks:
+      /// Dirise App:
+      /// 1. Dashboard Screen Done.
+      /// 2. Checkout bugs done.
+      /// 3. Dashboard UI done.
+
       Helpers.hideLoader(loader);
 
-      if (response.statusCode == 200 || response.statusCode == 404 || response.statusCode == 400) {
-        if(withStatus != null){
+      if (response.statusCode == 200 ||
+          response.statusCode == 404 ||
+          response.statusCode == 400) {
+        if (withStatus != null) {
           withStatus(response.statusCode, response.body);
         }
         return response.body;
@@ -109,9 +120,6 @@ class Repositories {
     pref.setString(Repositories.userInfo, loginResponse);
   }
 
-
-
-
   Future<dynamic> getApi({
     BuildContext? context,
     required String url,
@@ -134,7 +142,8 @@ class Repositories {
       final Map<String, String> headers = {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-        if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
+        if (model.token != null)
+          HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
 
       if (kDebugMode) {
@@ -199,7 +208,8 @@ class Repositories {
       final Map<String, String> headers = {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-        if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
+        if (model.token != null)
+          HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
 
       if (kDebugMode) {
@@ -207,7 +217,8 @@ class Repositories {
         log("API mapData.....  $headers");
       }
 
-      http.Response response = await http.delete(Uri.parse(url), headers: headers);
+      http.Response response =
+          await http.delete(Uri.parse(url), headers: headers);
 
       if (kDebugMode) {
         if (showResponse == true) {
@@ -242,13 +253,12 @@ class Repositories {
     }
   }
 
-  Future<dynamic> multiPartApi({
-    required mapData,
-    required Map<String, File> images,
-    BuildContext? context,
-    required String url,
-    required Function(int bytes, int totalBytes) onProgress
-  }) async {
+  Future<dynamic> multiPartApi(
+      {required mapData,
+      required Map<String, File> images,
+      BuildContext? context,
+      required String url,
+      required Function(int bytes, int totalBytes) onProgress}) async {
     OverlayEntry loader = Helpers.overlayLoader(context);
     if (context != null) {
       Overlay.of(context).insert(loader);
@@ -263,9 +273,11 @@ class Repositories {
       final Map<String, String> headers = {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.acceptHeader: 'application/json',
-        if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
+        if (model.token != null)
+          HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
-      var request = CloseableMultipartRequest('POST', Uri.parse(url), onProgress: (int bytes, int totalBytes) {
+      var request = CloseableMultipartRequest('POST', Uri.parse(url),
+          onProgress: (int bytes, int totalBytes) {
         onProgress(bytes, totalBytes);
       });
 
@@ -274,7 +286,8 @@ class Repositories {
       request.fields.addAll(mapData);
       for (var item in images.entries) {
         if (item.value.path != "") {
-          request.files.add(await _multipartFile(item.key.toString(), item.value));
+          request.files
+              .add(await _multipartFile(item.key.toString(), item.value));
         }
       }
       if (kDebugMode) {
@@ -305,12 +318,14 @@ class Repositories {
       throw Exception(e);
     } catch (e) {
       Helpers.hideLoader(loader);
-      showToast("Something went wrong.....${e.toString().substring(0, math.min(e.toString().length, 50))}");
+      showToast(
+          "Something went wrong.....${e.toString().substring(0, math.min(e.toString().length, 50))}");
       throw Exception(e);
     }
   }
 
-  Future<http.MultipartFile> _multipartFile(String? fieldName, File file1) async {
+  Future<http.MultipartFile> _multipartFile(
+      String? fieldName, File file1) async {
     return http.MultipartFile(
       fieldName ?? 'file',
       http.ByteStream(Stream.castFrom(file1.openRead())),
@@ -326,7 +341,6 @@ class Repositories {
     // Get.offAllNamed(LoginScreen.route);
   }
 }
-
 
 class CloseableMultipartRequest extends http.MultipartRequest {
   http.Client client = http.Client();
