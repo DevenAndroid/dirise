@@ -126,343 +126,351 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        body: Obx(() {
-          return homeController.trendingModel.value.status == true
-              ? SingleChildScrollView(
-                  child: Column(children: [
-                  if (homeController.homeModal.value.home != null)
+        body: RefreshIndicator(
+          onRefresh: ()async{
+            await homeController.trendingData();
+            await homeController.popularProductsData();
+            await homeController.homeData();
+            setState(() {});
+          },
+          child: Obx(() {
+            return homeController.trendingModel.value.status == true
+                ? SingleChildScrollView(
+                    child: Column(children: [
+                    if (homeController.homeModal.value.home != null)
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                          child: SizedBox(
+                            height: size.height * 0.22,
+                            child: Swiper(
+                              autoplay: true,
+                              outer: false,
+                              autoplayDelay: 5000,
+                              autoplayDisableOnInteraction: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return GestureDetector(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: CachedNetworkImage(
+                                          imageUrl: homeController.homeModal.value.home!.slider![index].image.toString(),
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) => const SizedBox(),
+                                          errorWidget: (context, url, error) => const SizedBox()),
+                                    ),
+                                  ),
+                                );
+                              },
+                              itemCount: homeController.homeModal.value.home!.slider!.length,
+                              pagination: const SwiperPagination(),
+                              control: const SwiperControl(size: 0), // remove arrows
+                            ),
+                          )),
                     Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                        child: SizedBox(
-                          height: size.height * 0.22,
-                          child: Swiper(
-                            autoplay: true,
-                            outer: false,
-                            autoplayDelay: 5000,
-                            autoplayDisableOnInteraction: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: CachedNetworkImage(
-                                        imageUrl: homeController.homeModal.value.home!.slider![index].image.toString(),
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) => const SizedBox(),
-                                        errorWidget: (context, url, error) => const SizedBox()),
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 60,
+                            width: size.width * .40,
+                            decoration: const BoxDecoration(
+                                color: Color(0xffF0F0F0),
+                                borderRadius:
+                                    BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0, right: 8),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'News & Trends',
+                                    style: GoogleFonts.poppins(
+                                      color: AppTheme.buttonColor,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                            itemCount: homeController.homeModal.value.home!.slider!.length,
-                            pagination: const SwiperPagination(),
-                            control: const SwiperControl(size: 0), // remove arrows
-                          ),
-                        )),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 60,
-                          width: size.width * .40,
-                          decoration: const BoxDecoration(
-                              color: Color(0xffF0F0F0),
-                              borderRadius:
-                                  BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0, right: 8),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'News & Trends',
-                                  style: GoogleFonts.poppins(
-                                    color: AppTheme.buttonColor,
-                                    fontWeight: FontWeight.w500,
+                                  const SizedBox(
+                                    width: 8,
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                const Expanded(child: Image(height: 20, image: AssetImage('assets/icons/trends.png')))
-                              ],
+                                  const Expanded(child: Image(height: 20, image: AssetImage('assets/icons/trends.png')))
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 60,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: const Color(0xffF0F0F0),
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                    bottomRight: Radius.circular(10), topRight: Radius.circular(10))),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 15, left: 7),
-                              child: InkWell(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return SizedBox(
-                                          height: size.height * .7,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(top: 30, right: 18, left: 18),
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Image.asset('assets/images/aritificial.png'),
-                                                const SizedBox(
-                                                  height: 20,
-                                                ),
-                                                Text(
-                                                  "Artificial Intelligence Gains a Foot Hold In Writing",
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.w600,
-                                                      color: AppTheme.buttonColor),
-                                                ),
-                                                const SizedBox(
-                                                  height: 20,
-                                                ),
-                                                Text(
-                                                  "Artificial Intelligence (Al) is gaining a strong foothold in various niches, and blogging is no exception. By making use of the best Al writing tools, you can create a long-form affiliate blog post in 10 to 15 minutes (instead of spending hours writing it yourself) and generate traffic.",
-                                                  style:
-                                                      GoogleFonts.poppins(fontSize: 14, color: const Color(0xff484848)),
-                                                ),
-                                                const SizedBox(
-                                                  height: 40,
-                                                ),
-                                                Text(
-                                                  'Published: 06/06/2023',
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500),
-                                                )
-                                              ],
+                          Expanded(
+                            child: Container(
+                              height: 60,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: const Color(0xffF0F0F0),
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                      bottomRight: Radius.circular(10), topRight: Radius.circular(10))),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 15, left: 7),
+                                child: InkWell(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return SizedBox(
+                                            height: size.height * .7,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(top: 30, right: 18, left: 18),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Image.asset('assets/images/aritificial.png'),
+                                                  const SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  Text(
+                                                    "Artificial Intelligence Gains a Foot Hold In Writing",
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: AppTheme.buttonColor),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  Text(
+                                                    "Artificial Intelligence (Al) is gaining a strong foothold in various niches, and blogging is no exception. By making use of the best Al writing tools, you can create a long-form affiliate blog post in 10 to 15 minutes (instead of spending hours writing it yourself) and generate traffic.",
+                                                    style:
+                                                        GoogleFonts.poppins(fontSize: 14, color: const Color(0xff484848)),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 40,
+                                                  ),
+                                                  Text(
+                                                    'Published: 06/06/2023',
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      });
-                                },
-                                child: ScrollLoopAutoScroll(
-                                  scrollDirection: Axis.vertical,
-                                  delay: const Duration(seconds: 0),
-                                  duration: const Duration(minutes: 1),
-                                  gap: 0,
-                                  reverseScroll: false,
-                                  duplicateChild: 25,
-                                  enableScrollInput: true,
-                                  delayAfterScrollInput: const Duration(seconds: 1),
-                                  child: Text(
-                                    'Artificial Intelligence Gains a Foot Hold In Writing',
-                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
+                                          );
+                                        });
+                                  },
+                                  child: ScrollLoopAutoScroll(
+                                    scrollDirection: Axis.vertical,
+                                    delay: const Duration(seconds: 0),
+                                    duration: const Duration(minutes: 1),
+                                    gap: 0,
+                                    reverseScroll: false,
+                                    duplicateChild: 25,
+                                    enableScrollInput: true,
+                                    delayAfterScrollInput: const Duration(seconds: 1),
+                                    child: Text(
+                                      'Artificial Intelligence Gains a Foot Hold In Writing',
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const CategoryItems(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Trending Products',
-                          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            // index1 = index1 + 1;
-                            // setState(() {
-                            //   if (index1 == homeController.trendingModel.value.product!.product!.length - 1) {
-                            //     index1 = 0;
-                            //   }
-                            // });
-                            // scrollToItem(index1);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                            child: const Icon(
-                              Icons.arrow_forward,
-                              color: AppTheme.buttonColor,
-                            ),
+                    const CategoryItems(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Trending Products',
+                            style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 220,
-                    margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                    child: ListView.builder(
-                        itemCount: homeController.trendingModel.value.product!.product!.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          final item = homeController.trendingModel.value.product!.product![index];
-                          return ProductUI(
-                            productElement: item,
-                            onLiked: (value) {
-                              homeController.trendingModel.value.product!.product![index].inWishlist = value;
+                          InkWell(
+                            onTap: () {
+                              // index1 = index1 + 1;
+                              // setState(() {
+                              //   if (index1 == homeController.trendingModel.value.product!.product!.length - 1) {
+                              //     index1 = 0;
+                              //   }
+                              // });
+                              // scrollToItem(index1);
                             },
-                          );
-                        }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Popular Products',
-                          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            // index1 = index1 + 1;
-                            // setState(() {
-                            //   if (index1 == homeController.popularProdModal.value.product!.product!.length - 1) {
-                            //     index1 = 0;
-                            //   }
-                            // });
-                            // scrollToItem1(index1);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                            child: const Icon(
-                              Icons.arrow_forward,
-                              color: AppTheme.buttonColor,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                              child: const Icon(
+                                Icons.arrow_forward,
+                                color: AppTheme.buttonColor,
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  if (homeController.popularProdModal.value.product != null)
                     Container(
-                      height: 230,
+                      height: 220,
                       margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                       child: ListView.builder(
-                          itemCount: homeController.popularProdModal.value.product!.product!.length,
-                          // itemScrollController: itemController1,
+                          itemCount: homeController.trendingModel.value.product!.product!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
-                            final item = homeController.popularProdModal.value.product!.product![index];
+                            final item = homeController.trendingModel.value.product!.product![index];
                             return ProductUI(
                               productElement: item,
                               onLiked: (value) {
-                                homeController.popularProdModal.value.product!.product![index].inWishlist = value;
+                                homeController.trendingModel.value.product!.product![index].inWishlist = value;
                               },
                             );
                           }),
                     ),
-                  if (homeController.homeModal.value.home != null)
                     Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: SizedBox(
-                          child: CachedNetworkImage(
-                            imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
-                            fit: BoxFit.cover,
-                            width: size.width,
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Popular Products',
+                            style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                           ),
-                        )),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Shop By Author',
-                          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                          child: InkWell(
+                          InkWell(
                             onTap: () {
                               // index1 = index1 + 1;
                               // setState(() {
-                              //   if (index1 == homeController.authorModal.value.data!.length - 1) {
+                              //   if (index1 == homeController.popularProdModal.value.product!.product!.length - 1) {
                               //     index1 = 0;
                               //   }
                               // });
-                              // scrollToItem2(index1);
+                              // scrollToItem1(index1);
                             },
-                            child: const Icon(
-                              Icons.arrow_forward,
-                              color: AppTheme.buttonColor,
+                            child: Container(
+                              padding: const EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                              child: const Icon(
+                                Icons.arrow_forward,
+                                color: AppTheme.buttonColor,
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  if (homeController.authorModal.value.data != null)
-                    Container(
-                      height: 230,
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: ListView.builder(
-                        itemCount: homeController.authorModal.value.data!.length,
-                        // itemScrollController: itemController2,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                              width: size.width * .5,
-                              margin: const EdgeInsets.only(right: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Flexible(
-                                    child: CachedNetworkImage(
-                                        imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
-                                        fit: BoxFit.cover,
-                                        errorWidget: (context, url, error) =>
-                                            Image.asset("assets/images/Soud Alsanousi.png")),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    homeController.authorModal.value.data![index].name.toString(),
-                                    style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-                                  ),
-                                ],
-                              ));
-                        },
+                          )
+                        ],
                       ),
                     ),
-                  const SizedBox(
-                    height: 60,
-                  ),
-                ]))
-              : const Center(
-                  child: CircularProgressIndicator(
-                  color: Colors.grey,
-                ));
-        }));
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    if (homeController.popularProdModal.value.product != null)
+                      Container(
+                        height: 230,
+                        margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                        child: ListView.builder(
+                            itemCount: homeController.popularProdModal.value.product!.product!.length,
+                            // itemScrollController: itemController1,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (BuildContext context, int index) {
+                              final item = homeController.popularProdModal.value.product!.product![index];
+                              return ProductUI(
+                                productElement: item,
+                                onLiked: (value) {
+                                  homeController.popularProdModal.value.product!.product![index].inWishlist = value;
+                                },
+                              );
+                            }),
+                      ),
+                    if (homeController.homeModal.value.home != null)
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: SizedBox(
+                            child: CachedNetworkImage(
+                              imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
+                              fit: BoxFit.cover,
+                              width: size.width,
+                            ),
+                          )),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Shop By Author',
+                            style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                            child: InkWell(
+                              onTap: () {
+                                // index1 = index1 + 1;
+                                // setState(() {
+                                //   if (index1 == homeController.authorModal.value.data!.length - 1) {
+                                //     index1 = 0;
+                                //   }
+                                // });
+                                // scrollToItem2(index1);
+                              },
+                              child: const Icon(
+                                Icons.arrow_forward,
+                                color: AppTheme.buttonColor,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    if (homeController.authorModal.value.data != null)
+                      Container(
+                        height: 230,
+                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                        child: ListView.builder(
+                          itemCount: homeController.authorModal.value.data!.length,
+                          // itemScrollController: itemController2,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                                width: size.width * .5,
+                                margin: const EdgeInsets.only(right: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                      child: CachedNetworkImage(
+                                          imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
+                                          fit: BoxFit.cover,
+                                          errorWidget: (context, url, error) =>
+                                              Image.asset("assets/images/Soud Alsanousi.png")),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      homeController.authorModal.value.data![index].name.toString(),
+                                      style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ));
+                          },
+                        ),
+                      ),
+                    const SizedBox(
+                      height: 60,
+                    ),
+                  ]))
+                : const Center(
+                    child: CircularProgressIndicator(
+                    color: Colors.grey,
+                  ));
+          }),
+        ));
   }
 
   cartWidget() {

@@ -83,7 +83,7 @@ class Dashboard {
     data['gross_sales'] = grossSales ?? "0";
     data['earning'] = earning ?? "0";
     data['sold_items'] = soldItems ?? "0";
-    data['order_received'] = orderReceived ?? "";
+    data['order_received'] = orderReceived ?? "0";
     return data;
   }
 }

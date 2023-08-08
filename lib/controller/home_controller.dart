@@ -31,25 +31,25 @@ class TrendingProductsController extends GetxController {
 
 
   Future trendingData() async {
-    repositories.postApi(url: ApiUrls.trendingProductsUrl, mapData: {}).then((value) {
+    await repositories.postApi(url: ApiUrls.trendingProductsUrl, mapData: {}).then((value) {
       trendingModel.value = TendingModel.fromJson(jsonDecode(value));
     });
   }
 
   Future homeData() async {
-    repositories.postApi(url: ApiUrls.homeUrl, mapData: {}).then((value) {
+    await repositories.postApi(url: ApiUrls.homeUrl, mapData: {}).then((value) {
       homeModal.value = HomeModal.fromJson(jsonDecode(value));
     });
   }
 
   Future popularProductsData() async {
-    repositories.postApi(url: ApiUrls.popularProductUrl, mapData: {}).then((value) {
+    await repositories.postApi(url: ApiUrls.popularProductUrl, mapData: {}).then((value) {
       popularProdModal.value = PopularProductsModal.fromJson(jsonDecode(value));
     });
   }
 
   Future authorData() async {
-    repositories.getApi(url: ApiUrls.authorUrl).then((value) {
+    await repositories.getApi(url: ApiUrls.authorUrl).then((value) {
       authorModal.value = AuthorModal.fromJson(jsonDecode(value));
     });
   }
