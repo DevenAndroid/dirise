@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:dirise/screens/home_pages/homepage_screen.dart';
 import 'package:dirise/screens/whishlist_screen.dart';
+import 'package:dirise/utils/ApiConstant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'controller/cart_controller.dart';
@@ -32,19 +36,65 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const MyAccountScreen(),
   ];
 
+  bool allowExitApp = false;
+
+  Timer? _timer;
+
+  bool exitApp(){
+    if(allowExitApp == true){
+      stopTimer();
+      hideToast();
+      return true;
+    }
+
+    allowExitApp = true;
+    stopTimer();
+    showToast("Press again to exit app",gravity: ToastGravity.CENTER);
+    _timer = Timer(const Duration(seconds: 2), () {
+      allowExitApp = false;
+    });
+    return false;
+  }
+
+  stopTimer(){
+    try{
+      if(_timer == null)return;
+      _timer!.cancel();
+      _timer = null;
+    } catch(e){
+      return;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    stopTimer();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Scaffold(
-        body: IndexedStack(
-          index: bottomController.pageIndex.value,
-          children: pages,
-        ),
-        extendBody: true,
-        backgroundColor: Colors.white,
-        bottomNavigationBar: buildMyNavBar(),
-      );
-    });
+    return WillPopScope(
+      onWillPop: ()async{
+        if(bottomController.pageIndex.value != 0){
+          bottomController.pageIndex.value = 0;
+          return false;
+        } else {
+          return exitApp();
+        }
+      },
+      child: Obx(() {
+        return Scaffold(
+          body: IndexedStack(
+            index: bottomController.pageIndex.value,
+            children: pages,
+          ),
+          extendBody: true,
+          backgroundColor: Colors.white,
+          bottomNavigationBar: buildMyNavBar(),
+        );
+      }),
+    );
   }
 
   buildMyNavBar() {

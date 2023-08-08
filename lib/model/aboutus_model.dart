@@ -1,6 +1,6 @@
 class AboutUsmodel {
   bool? status;
-  String? message;
+  dynamic message;
   Data? data;
 
   AboutUsmodel({this.status, this.message, this.data});
@@ -8,13 +8,13 @@ class AboutUsmodel {
   AboutUsmodel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -23,14 +23,14 @@ class AboutUsmodel {
 }
 
 class Data {
-  int? id;
-  String? title;
-  Null? arabTitle;
-  String? content;
-  Null? arabContent;
-  String? metatitle;
-  String? metaDetails;
-  String? metaKeyword;
+  dynamic id;
+  dynamic title;
+  dynamic arabTitle;
+  dynamic content;
+  dynamic arabContent;
+  dynamic metatitle;
+  dynamic metaDetails;
+  dynamic metaKeyword;
 
   Data(
       {this.id,
@@ -54,15 +54,15 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['arab_title'] = this.arabTitle;
-    data['content'] = this.content;
-    data['arab_content'] = this.arabContent;
-    data['metatitle'] = this.metatitle;
-    data['meta_details'] = this.metaDetails;
-    data['meta_keyword'] = this.metaKeyword;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['arab_title'] = arabTitle;
+    data['content'] = content;
+    data['arab_content'] = arabContent;
+    data['metatitle'] = metatitle;
+    data['meta_details'] = metaDetails;
+    data['meta_keyword'] = metaKeyword;
     return data;
   }
 }

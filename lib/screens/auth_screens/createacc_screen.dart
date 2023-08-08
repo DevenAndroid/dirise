@@ -126,7 +126,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       MinLengthValidator(8,
                           errorText:
                           'Password must be at least 8 characters, with 1 special character & 1 numerical'),
-                      MaxLengthValidator(16, errorText: "Password maximum length is 16"),
+                      // MaxLengthValidator(16, errorText: "Password maximum length is 16"),
                       PatternValidator(r"(?=.*\W)(?=.*?[#?!@()$%^&*-_])(?=.*[0-9])",
                           errorText:
                           "Password must be at least 8 characters, with 1 special character & 1 numerical"),

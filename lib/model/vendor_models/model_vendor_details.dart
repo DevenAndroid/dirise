@@ -1,28 +1,28 @@
 class ModelVendorDetails {
   bool? status;
   dynamic message;
-  Data? data;
+  VendorUser? user;
 
-  ModelVendorDetails({this.status, this.message, this.data});
+  ModelVendorDetails({this.status, this.message, this.user});
 
   ModelVendorDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    user = json['user'] != null ? VendorUser.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     return data;
   }
 }
 
-class Data {
+class VendorUser {
   dynamic id;
   dynamic name;
   dynamic firstName;
@@ -38,6 +38,7 @@ class Data {
   dynamic storeAddress;
   dynamic storeLogo;
   dynamic storeImage;
+  dynamic storePhone;
   dynamic description;
   dynamic categoryId;
   dynamic bio;
@@ -58,15 +59,22 @@ class Data {
   dynamic bannerProfile;
   dynamic categoryImage;
   dynamic address;
+  dynamic countryId;
+  dynamic stateId;
+  dynamic city;
+  dynamic streetName;
   dynamic block;
   dynamic stripeId;
   dynamic currency;
+  dynamic storeOn;
+  dynamic readyForOrder;
+  dynamic isVendor;
   dynamic createdAt;
   dynamic updatedAt;
   dynamic deletedAt;
-  List<Roles>? roles;
+  List<VenderCategory>? venderCategory = [];
 
-  Data(
+  VendorUser(
       {this.id,
         this.name,
         this.firstName,
@@ -82,6 +90,7 @@ class Data {
         this.storeAddress,
         this.storeLogo,
         this.storeImage,
+        this.storePhone,
         this.description,
         this.categoryId,
         this.bio,
@@ -102,15 +111,22 @@ class Data {
         this.bannerProfile,
         this.categoryImage,
         this.address,
+        this.countryId,
+        this.stateId,
+        this.city,
+        this.streetName,
         this.block,
         this.stripeId,
         this.currency,
+        this.storeOn,
+        this.readyForOrder,
+        this.isVendor,
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
-        this.roles});
+        this.venderCategory});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  VendorUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     firstName = json['first_name'];
@@ -126,6 +142,7 @@ class Data {
     storeAddress = json['store_address'];
     storeLogo = json['store_logo'];
     storeImage = json['store_image'];
+    storePhone = json['store_phone'];
     description = json['description'];
     categoryId = json['category_id'];
     bio = json['bio'];
@@ -146,17 +163,27 @@ class Data {
     bannerProfile = json['banner_profile'];
     categoryImage = json['category_image'];
     address = json['address'];
+    countryId = json['country_id'];
+    stateId = json['state_id'];
+    city = json['city'];
+    streetName = json['street_name'];
     block = json['block'];
     stripeId = json['stripe_id'];
     currency = json['currency'];
+    storeOn = json['store_on'];
+    readyForOrder = json['ready_for_order'];
+    isVendor = json['is_vendor'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
-    if (json['roles'] != null) {
-      roles = <Roles>[];
-      json['roles'].forEach((v) {
-        roles!.add(Roles.fromJson(v));
+    if (json['vender_category'] != null) {
+      venderCategory = <VenderCategory>[];
+      json['vender_category'].forEach((v) {
+        venderCategory!.add(VenderCategory.fromJson(v));
       });
+    }
+    else {
+      venderCategory = [];
     }
   }
 
@@ -177,6 +204,7 @@ class Data {
     data['store_address'] = storeAddress;
     data['store_logo'] = storeLogo;
     data['store_image'] = storeImage;
+    data['store_phone'] = storePhone;
     data['description'] = description;
     data['category_id'] = categoryId;
     data['bio'] = bio;
@@ -197,31 +225,56 @@ class Data {
     data['banner_profile'] = bannerProfile;
     data['category_image'] = categoryImage;
     data['address'] = address;
+    data['country_id'] = countryId;
+    data['state_id'] = stateId;
+    data['city'] = city;
+    data['street_name'] = streetName;
     data['block'] = block;
     data['stripe_id'] = stripeId;
     data['currency'] = currency;
+    data['store_on'] = storeOn;
+    data['ready_for_order'] = readyForOrder;
+    data['is_vendor'] = isVendor;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['deleted_at'] = deletedAt;
-    if (roles != null) {
-      data['roles'] = roles!.map((v) => v.toJson()).toList();
+    if (venderCategory != null) {
+      data['vender_category'] =
+          venderCategory!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Roles {
+class VenderCategory {
   dynamic id;
-  dynamic title;
+  dynamic name;
+  dynamic status;
+  dynamic description;
+  dynamic profileImage;
+  dynamic bannerProfile;
   dynamic createdAt;
   dynamic updatedAt;
   Pivot? pivot;
 
-  Roles({this.id, this.title, this.createdAt, this.updatedAt, this.pivot});
+  VenderCategory(
+      {this.id,
+        this.name,
+        this.status,
+        this.description,
+        this.profileImage,
+        this.bannerProfile,
+        this.createdAt,
+        this.updatedAt,
+        this.pivot});
 
-  Roles.fromJson(Map<String, dynamic> json) {
+  VenderCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    title = json['title'];
+    name = json['name'];
+    status = json['status'];
+    description = json['description'];
+    profileImage = json['profile_image'];
+    bannerProfile = json['banner_profile'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     pivot = json['pivot'] != null ? Pivot.fromJson(json['pivot']) : null;
@@ -230,7 +283,11 @@ class Roles {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['title'] = title;
+    data['name'] = name;
+    data['status'] = status;
+    data['description'] = description;
+    data['profile_image'] = profileImage;
+    data['banner_profile'] = bannerProfile;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     if (pivot != null) {
@@ -242,19 +299,19 @@ class Roles {
 
 class Pivot {
   dynamic userId;
-  dynamic roleId;
+  dynamic userVendorCategoryId;
 
-  Pivot({this.userId, this.roleId});
+  Pivot({this.userId, this.userVendorCategoryId});
 
   Pivot.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
-    roleId = json['role_id'];
+    userVendorCategoryId = json['user_vendor_category_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['user_id'] = userId;
-    data['role_id'] = roleId;
+    data['user_vendor_category_id'] = userVendorCategoryId;
     return data;
   }
 }

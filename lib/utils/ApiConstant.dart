@@ -39,7 +39,7 @@ class ApiUrls {
   static const String verifyVendorOTPEmailUrl = "${apiBaseUrlNew}verify-otp-email";
   static const String vendorResendOTPUrl = "${apiBaseUrlNew}vendor-resend-otp";
   static const String deleteAddressUrl = "${apiBaseUrlNew}delete-address";
-  static const String getVendorDetailUrl = "${apiBaseUrlNew}get-vendor-details";
+  static const String getVendorDetailUrl = "${apiBaseUrlNew}my-vendor-details";
   static const String addVendorProductUrl = "${apiBaseUrlNew}add-vendor-prodect";
   static const String productCategoryListUrl = "${apiBaseUrlNew}prodect-category-list";
   static const String myProductsListUrl = "${apiBaseUrlNew}my-product-list";
@@ -49,19 +49,25 @@ class ApiUrls {
   static const String categoryAuthorsUrl = "${apiBaseUrlNew}get-vendor-details?category_id=2";
   static const String categoryTeacherUrl = "${apiBaseUrlNew}get-vendor-details?category_id=3";
   static const String categoryFurnitureUrl = "${apiBaseUrlNew}get-vendor-details?category_id=4";
+  static const String editVendorDetailsUrl = "${apiBaseUrlNew}edit-vendor-details";
+  static const String updateProductStatusUrl = "${apiBaseUrlNew}update-product-status";
+  static const String vendorDashBoardUrl = "${apiBaseUrlNew}vendor-dashboard";
 
 }
 
-showToast(message) {
+showToast(message,{ToastGravity? gravity}) {
   Fluttertoast.cancel();
   Fluttertoast.showToast(
       msg: message.toString().capitalize!,
       toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
+      gravity: gravity ?? ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,
       backgroundColor: AppTheme.buttonColor,
       textColor: const Color(0xffffffff),
       fontSize: 15);
+}
+hideToast(){
+  Fluttertoast.cancel();
 }
 
 Future getUserToken() async {

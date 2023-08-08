@@ -33,6 +33,7 @@ class Repositories {
     required String url,
     // bool? showLoader = false,
     bool? showMap = false,
+    Function(int status, String response)? withStatus,
     bool? showResponse = true,
     Map<String, dynamic>? mapData,
   }) async {
@@ -82,6 +83,9 @@ class Repositories {
       Helpers.hideLoader(loader);
 
       if (response.statusCode == 200 || response.statusCode == 404 || response.statusCode == 400) {
+        if(withStatus != null){
+          withStatus(response.statusCode, response.body);
+        }
         return response.body;
       } else if (response.statusCode == 401) {
         logOutUser();

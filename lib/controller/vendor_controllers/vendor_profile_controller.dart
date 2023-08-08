@@ -17,7 +17,7 @@ class VendorProfileController extends GetxController{
   Future getVendorDetails() async {
     await repositories.getApi(url: ApiUrls.getVendorDetailUrl).then((value) {
       model = ModelVendorDetails.fromJson(jsonDecode(value));
-      if(model.data != null){
+      if(model.user != null){
       apiLoaded = true;
       } else {
         apiLoaded = false;
@@ -33,3 +33,11 @@ class VendorProfileController extends GetxController{
   }
 
 }
+
+
+const List<String> imgList = [
+  'assets/svgs/green_logo.svg',
+  'assets/svgs/orange.svg',
+  'assets/svgs/blue.svg',
+  'assets/svgs/light_blue.svg',
+];

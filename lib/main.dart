@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -42,6 +43,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       locale: const Locale('en', 'US'),
       theme: ThemeData(
+        fontFamily: GoogleFonts.poppins().fontFamily,
         useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
               seedColor: AppTheme.buttonColor,
