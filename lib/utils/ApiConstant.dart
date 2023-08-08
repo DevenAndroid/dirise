@@ -47,19 +47,23 @@ class ApiUrls {
   static const String aboutUsUrl = "${apiBaseUrlNew}page-data";
   static const String editVendorDetailsUrl = "${apiBaseUrlNew}edit-vendor-details";
   static const String updateProductStatusUrl = "${apiBaseUrlNew}update-product-status";
+  static const String vendorDashBoardUrl = "${apiBaseUrlNew}vendor-dashboard";
 
 }
 
-showToast(message) {
+showToast(message,{ToastGravity? gravity}) {
   Fluttertoast.cancel();
   Fluttertoast.showToast(
       msg: message.toString().capitalize!,
       toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
+      gravity: gravity ?? ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,
       backgroundColor: AppTheme.buttonColor,
       textColor: const Color(0xffffffff),
       fontSize: 15);
+}
+hideToast(){
+  Fluttertoast.cancel();
 }
 
 Future getUserToken() async {

@@ -33,3 +33,11 @@ class VendorProfileController extends GetxController{
   }
 
 }
+
+
+const List<String> imgList = [
+  'assets/svgs/green_logo.svg',
+  'assets/svgs/orange.svg',
+  'assets/svgs/blue.svg',
+  'assets/svgs/light_blue.svg',
+];

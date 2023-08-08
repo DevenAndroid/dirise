@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/repository/repository.dart';
@@ -23,6 +24,32 @@ class CartController extends GetxController {
   bool addressLoaded = false;
   // AddressData selectedAddress = AddressData();
   // String? cou ponCode1;
+
+  RxInt countDown = 30.obs;
+  Timer? _timer;
+
+  startTimer(){
+    stopTimer();
+    countDown.value = 30;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if(countDown.value != 0){
+        countDown.value--;
+      } else {
+        stopTimer();
+      }
+    });
+  }
+
+  stopTimer(){
+    try {
+      if (_timer == null) return;
+      _timer!.cancel();
+      _timer = null;
+      print("timer Canceled");
+    } catch(e){
+      return;
+    }
+  }
 
   placeOrder({
     required BuildContext context,
@@ -61,9 +88,7 @@ class CartController extends GetxController {
           "ship_price": "2"
         }
       ],
-      "cart_id": [
-        "2"
-      ],
+      "cart_id": ["2"],
       if (address != null) "shipping_address": address,
       if (address != null) "billing_address": address
     };
@@ -84,6 +109,7 @@ class CartController extends GetxController {
             arguments: response.order_id.toString());
       } else {
         if (response.message.toString().toLowerCase().contains("otp")) {
+          startTimer();
           if (dialogOpened == false) {
             showOTPDialog(
                 context: context,
@@ -120,6 +146,7 @@ class CartController extends GetxController {
     final TextEditingController otpController = TextEditingController();
     showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (context) {
           return Dialog(
             child: Padding(
@@ -127,9 +154,10 @@ class CartController extends GetxController {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  6.spaceY,
                   Text(
-                    "OPT has been sent to your given email address\n"
-                    "Verify email to place order",
+                    "OPT has been sent to your given email address.\n"
+                    "Verify email to place order.",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w500,
@@ -148,11 +176,11 @@ class CartController extends GetxController {
                   Text(
                     "Didn't you receive the OTP?",
                     style: GoogleFonts.poppins(
-                        color: const Color(0xff3D4260), fontSize: 17),
+                        color: const Color(0xff3D4260), fontSize: 16,fontWeight: FontWeight.w500),
                   ),
-                  15.spaceY,
-                  GestureDetector(
-                    onTap: () async {
+                  TextButton(
+                    onPressed: () async {
+                      if(countDown.value != 0)return;
                       placeOrder(
                           context: context,
                           currencyCode: currencyCode,
@@ -165,49 +193,71 @@ class CartController extends GetxController {
                           purchaseType: purchaseType,
                           address: address);
                     },
-                    child: Text(
-                      "Resend OTP",
+                    child: Obx(() => Text(
+                      countDown.value != 0 ? "Resend OTP in ${countDown.value}s" : "Resend OTP",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w600,
                           color: const Color(0xff578AE8),
                           fontSize: 16),
-                    ),
+                    )) ,
                   ),
-                  15.spaceY,
-                  GestureDetector(
-                    onTap: () async {
-                      if (otpController.text.trim().isEmpty) {
-                        showToast("Please enter otp");
-                        return;
-                      }
-                      if (otpController.text.trim().length != 4) {
-                        showToast("Please enter valid otp");
-                        return;
-                      }
-                      placeOrder(
-                          context: context,
-                          currencyCode: currencyCode,
-                          subTotalPrice: subTotalPrice,
-                          totalPrice: totalPrice,
-                          couponCode: couponCode,
-                          quantity: quantity,
-                          productID: productID,
-                          deliveryOption: deliveryOption,
-                          address: address,
-                          purchaseType: purchaseType,
-                          otp: otpController.text.trim());
-                    },
-                    child: Text(
-                      "Submit",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xff578AE8),
-                          fontSize: 16),
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () async {
+                            Get.back();
+                            stopTimer();
+                          },
+                          child: Text(
+                            "Cancel",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.error,
+                                fontSize: 16),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10,),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () async {
+                            if (otpController.text.trim().isEmpty) {
+                              showToast("Please enter otp");
+                              return;
+                            }
+                            if (otpController.text.trim().length != 4) {
+                              showToast("Please enter valid otp");
+                              return;
+                            }
+                            placeOrder(
+                                context: context,
+                                currencyCode: currencyCode,
+                                subTotalPrice: subTotalPrice,
+                                totalPrice: totalPrice,
+                                couponCode: couponCode,
+                                quantity: quantity,
+                                productID: productID,
+                                deliveryOption: deliveryOption,
+                                address: address,
+                                purchaseType: purchaseType,
+                                otp: otpController.text.trim());
+                          },
+                          child: Text(
+                            "Submit",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xff578AE8),
+                                fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  15.spaceY,
+                  5.spaceY,
                 ],
               ),
             ),
@@ -364,4 +414,11 @@ class CartController extends GetxController {
     super.onInit();
     getCart();
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    stopTimer();
+  }
+
 }
