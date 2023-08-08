@@ -10,7 +10,7 @@ String tendingModelToJson(TendingModel data) => json.encode(data.toJson());
 
 class TendingModel {
   bool? status;
-  String? message;
+  dynamic message;
   TendingModelProduct? product;
 
   TendingModel({
@@ -33,7 +33,7 @@ class TendingModel {
 }
 
 class TendingModelProduct {
-  String? url;
+  dynamic url;
   List<ProductElement>? product;
 
   TendingModelProduct({
@@ -55,64 +55,64 @@ class TendingModelProduct {
 }
 
 class ProductElement {
-  int? id;
-  int? vendorId;
-  int? catId;
-  int? catId2;
-  int? catId3;
-  String? brandSlug;
-  String? slug;
-  String? pname;
+  dynamic id;
+  dynamic vendorId;
+  dynamic catId;
+  dynamic catId2;
+  dynamic catId3;
+  dynamic brandSlug;
+  dynamic slug;
+  dynamic pname;
   dynamic arabPname;
-  String? productType;
-  String? skuId;
-  String? pPrice;
-  String? sPrice;
+  dynamic productType;
+  dynamic skuId;
+  dynamic pPrice;
+  dynamic sPrice;
   dynamic commission;
-  int? productNew;
-  int? bestSaller;
-  int? featured;
-  String? taxApply;
+  dynamic productNew;
+  dynamic bestSaller;
+  dynamic featured;
+  dynamic taxApply;
   dynamic taxType;
-  String? shortDescription;
+  dynamic shortDescription;
   dynamic arabShortDescription;
-  String? longDescription;
+  dynamic longDescription;
   dynamic arabLongDescription;
-  String? featuredImage;
+  dynamic featuredImage;
   List<String>? galleryImage;
-  String? inStock;
-  String? stockAlert;
+  dynamic inStock;
+  dynamic stockAlert;
   dynamic shippingType;
   dynamic shippingCharge;
-  int? avgRating;
-  String? metaTitle;
-  String? metaKeyword;
-  String? metaDescription;
-  int? parentId;
-  String? serviceStartTime;
-  String? serviceEndTime;
+  dynamic avgRating;
+  dynamic metaTitle;
+  dynamic metaKeyword;
+  dynamic metaDescription;
+  dynamic parentId;
+  dynamic serviceStartTime;
+  dynamic serviceEndTime;
   dynamic serviceDuration;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int? topHunderd;
-  String? returnDays;
-  int? isPublish;
-  int? inOffer;
-  String? forAuction;
-  String? returnPolicyDesc;
-  String? discountPercentage;
+  dynamic topHunderd;
+  dynamic returnDays;
+  dynamic isPublish;
+  dynamic inOffer;
+  dynamic forAuction;
+  dynamic returnPolicyDesc;
+  dynamic discountPercentage;
   bool? inCart;
   bool? inWishlist;
-  String? startDate;
-  String? endDate;
-  String? startTime;
-  String? endTime;
+  dynamic startDate;
+  dynamic endDate;
+  dynamic startTime;
+  dynamic endTime;
   dynamic minBidPrice;
   dynamic stepPrice;
   dynamic currentBid;
   List<dynamic>? attributes;
   List<dynamic>? variants;
-  String? bidStatus;
+  dynamic bidStatus;
 
   ProductElement({
     this.id,

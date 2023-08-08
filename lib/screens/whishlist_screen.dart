@@ -9,8 +9,10 @@ import 'package:lottie/lottie.dart';
 import '../controller/cart_controller.dart';
 import '../controller/wish_list_controller.dart';
 import '../model/common_modal.dart';
+import '../model/trending_products_modal.dart';
 import '../repository/repository.dart';
 import '../utils/ApiConstant.dart';
+import 'home_pages/product_widget.dart';
 
 class WishListScreen extends StatefulWidget {
   const WishListScreen({Key? key}) : super(key: key);
@@ -118,6 +120,7 @@ class _WishListScreenState extends State<WishListScreen> {
                               return GestureDetector(
                                 onTap: () {
                                   // bottemSheet();
+                                  bottomSheet(productDetails: ProductElement.fromJson(_wishListController.model.value.wishlist![index].toJson()), context: context);
                                 },
                                 child: Stack(
                                   children: [
