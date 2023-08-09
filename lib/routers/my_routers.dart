@@ -88,7 +88,7 @@ class MyRouters {
     GetPage(name: OfficeFurnitureScreen.route, page: () => const OfficeFurnitureScreen()),
     GetPage(name: CategoriesScreen.categoriesScreen, page: () => const CategoriesScreen()),
     GetPage(name: BagsScreen.addBagScreen, page: () => const BagsScreen()),
-    GetPage(name: SingleCategories.singleCategoriesScreen, page: () => const SingleCategories()),
+    GetPage(name: SingleCategories.route, page: () => const SingleCategories()),
     GetPage(name: GeneralLibrary.generalLibrary, page: () => const GeneralLibrary()),
     GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),
     GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),

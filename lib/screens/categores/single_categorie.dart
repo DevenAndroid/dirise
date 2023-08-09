@@ -10,7 +10,7 @@ import 'general_library.dart';
 
 class SingleCategories extends StatefulWidget {
   const SingleCategories({super.key});
-  static var singleCategoriesScreen = "/SingleCategoriesScreen";
+  static var route = "/SingleCategoriesScreen";
 
   @override
   State<SingleCategories> createState() => _SingleCategoriesState();

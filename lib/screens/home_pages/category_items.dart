@@ -131,8 +131,7 @@ class _CategoryItemsState extends State<CategoryItems> {
               ),
             ).animate(
                 delay: Duration(milliseconds: index*200))
-              .scale(duration: 500.ms)
-            ;
+              .scale(duration: 500.ms);
           }
         },
       ) : const SizedBox.shrink();

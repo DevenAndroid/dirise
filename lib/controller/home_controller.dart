@@ -17,7 +17,7 @@ import '../utils/ApiConstant.dart';
 
 class TrendingProductsController extends GetxController {
   Rx<HomeModal> homeModal = HomeModal().obs;
-  Rx<VendorCategoryModel> vendorcategoryModel = VendorCategoryModel().obs;
+  // Rx<VendorCategoryModel> vendorcategoryModel = VendorCategoryModel().obs;
   Rx<CategoryLibraryModel> categoryLibraryModel = CategoryLibraryModel().obs;
   Rx<CategoryAuthorsModel> categoryAuthorsModel = CategoryAuthorsModel().obs;
   Rx<CategoryTeacherModel> categoryTeacherModel = CategoryTeacherModel().obs;
@@ -65,11 +65,12 @@ class TrendingProductsController extends GetxController {
   }
 
 
-  Future vendorCategoriesData() async {
-    await repositories.getApi(url: ApiUrls.vendorCategoryListUrl, mapData: {}).then((value) {
-      vendorcategoryModel.value = VendorCategoryModel.fromJson(jsonDecode(value));
-    });
-  }
+  // Future vendorCategoriesData() async {
+  //   await repositories.getApi(url: ApiUrls.vendorCategoryListUrl, mapData: {}).then((value) {
+  //     vendorcategoryModel.value = VendorCategoryModel.fromJson(jsonDecode(value));
+  //   });
+  // }
+
   Future librariesData() async {
     await repositories.getApi(url: ApiUrls.categoryLibraryUrl, mapData: {}).then((value) {
       categoryLibraryModel.value = CategoryLibraryModel.fromJson(jsonDecode(value));
