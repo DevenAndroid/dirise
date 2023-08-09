@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
-import 'package:text_scroll/text_scroll.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../check_out/add_bag_screen.dart';
@@ -28,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   final cartController = Get.put(CartController());
 
   int index1 = 0;
+
   bool gg = true;
 
   @override
@@ -54,7 +54,8 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.only(left: 18, top: 5),
                             child: Text(
                               'Deliver order to',
-                              style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
+                              style: GoogleFonts.poppins(
+                                  fontSize: 18, color: Colors.white),
                             ),
                           ),
                           const Padding(
@@ -107,18 +108,25 @@ class _HomePageState extends State<HomePage> {
                           ),
                           border: InputBorder.none,
                           enabledBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: AppTheme.buttonColor)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                              borderSide:
+                                  BorderSide(color: AppTheme.buttonColor)),
                           disabledBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: AppTheme.buttonColor)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                              borderSide:
+                                  BorderSide(color: AppTheme.buttonColor)),
                           focusedBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: AppTheme.buttonColor)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                              borderSide:
+                                  BorderSide(color: AppTheme.buttonColor)),
                           fillColor: Colors.white,
                           contentPadding: const EdgeInsets.all(15),
                           hintText: 'what are you looking for?',
-                          hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor)),
+                          hintStyle:
+                              GoogleFonts.poppins(color: AppTheme.buttonColor)),
                     ),
                   ),
                 ],
@@ -127,10 +135,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         body: RefreshIndicator(
-          onRefresh: ()async{
-            await homeController.trendingData();
-            await homeController.popularProductsData();
-            await homeController.homeData();
+          onRefresh: () async {
+            await homeController.authorData();
             setState(() {});
           },
           child: Obx(() {
@@ -150,25 +156,33 @@ class _HomePageState extends State<HomePage> {
                               itemBuilder: (BuildContext context, int index) {
                                 return GestureDetector(
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(15),
                                       child: CachedNetworkImage(
-                                          imageUrl: homeController.homeModal.value.home!.slider![index].image.toString(),
+                                          imageUrl: homeController.homeModal
+                                              .value.home!.slider![index].image
+                                              .toString(),
                                           fit: BoxFit.cover,
-                                          placeholder: (context, url) => const SizedBox(),
-                                          errorWidget: (context, url, error) => const SizedBox()),
+                                          placeholder: (context, url) =>
+                                              const SizedBox(),
+                                          errorWidget: (context, url, error) =>
+                                              const SizedBox()),
                                     ),
                                   ),
                                 );
                               },
-                              itemCount: homeController.homeModal.value.home!.slider!.length,
+                              itemCount: homeController
+                                  .homeModal.value.home!.slider!.length,
                               pagination: const SwiperPagination(),
-                              control: const SwiperControl(size: 0), // remove arrows
+                              control:
+                                  const SwiperControl(size: 0), // remove arrows
                             ),
                           )),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 8),
                       child: Row(
                         children: [
                           Container(
@@ -176,10 +190,12 @@ class _HomePageState extends State<HomePage> {
                             width: size.width * .40,
                             decoration: const BoxDecoration(
                                 color: Color(0xffF0F0F0),
-                                borderRadius:
-                                    BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10))),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0, right: 8),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8),
                               child: Row(
                                 children: [
                                   Text(
@@ -192,7 +208,11 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(
                                     width: 8,
                                   ),
-                                  const Expanded(child: Image(height: 20, image: AssetImage('assets/icons/trends.png')))
+                                  const Expanded(
+                                      child: Image(
+                                          height: 20,
+                                          image: AssetImage(
+                                              'assets/icons/trends.png')))
                                 ],
                               ),
                             ),
@@ -206,9 +226,11 @@ class _HomePageState extends State<HomePage> {
                                     color: const Color(0xffF0F0F0),
                                   ),
                                   borderRadius: const BorderRadius.only(
-                                      bottomRight: Radius.circular(10), topRight: Radius.circular(10))),
+                                      bottomRight: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 15, left: 7),
+                                padding:
+                                    const EdgeInsets.only(top: 15, left: 7),
                                 child: InkWell(
                                   onTap: () {
                                     showModalBottomSheet(
@@ -218,12 +240,16 @@ class _HomePageState extends State<HomePage> {
                                           return SizedBox(
                                             height: size.height * .7,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(top: 30, right: 18, left: 18),
+                                              padding: const EdgeInsets.only(
+                                                  top: 30, right: 18, left: 18),
                                               child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Image.asset('assets/images/aritificial.png'),
+                                                  Image.asset(
+                                                      'assets/images/aritificial.png'),
                                                   const SizedBox(
                                                     height: 20,
                                                   ),
@@ -231,16 +257,20 @@ class _HomePageState extends State<HomePage> {
                                                     "Artificial Intelligence Gains a Foot Hold In Writing",
                                                     style: GoogleFonts.poppins(
                                                         fontSize: 16,
-                                                        fontWeight: FontWeight.w600,
-                                                        color: AppTheme.buttonColor),
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: AppTheme
+                                                            .buttonColor),
                                                   ),
                                                   const SizedBox(
                                                     height: 20,
                                                   ),
                                                   Text(
                                                     "Artificial Intelligence (Al) is gaining a strong foothold in various niches, and blogging is no exception. By making use of the best Al writing tools, you can create a long-form affiliate blog post in 10 to 15 minutes (instead of spending hours writing it yourself) and generate traffic.",
-                                                    style:
-                                                        GoogleFonts.poppins(fontSize: 14, color: const Color(0xff484848)),
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 14,
+                                                        color: const Color(
+                                                            0xff484848)),
                                                   ),
                                                   const SizedBox(
                                                     height: 40,
@@ -248,7 +278,10 @@ class _HomePageState extends State<HomePage> {
                                                   Text(
                                                     'Published: 06/06/2023',
                                                     style: GoogleFonts.poppins(
-                                                        fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500),
+                                                        fontSize: 15,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                                   )
                                                 ],
                                               ),
@@ -264,10 +297,13 @@ class _HomePageState extends State<HomePage> {
                                     reverseScroll: false,
                                     duplicateChild: 25,
                                     enableScrollInput: true,
-                                    delayAfterScrollInput: const Duration(seconds: 1),
+                                    delayAfterScrollInput:
+                                        const Duration(seconds: 1),
                                     child: Text(
                                       'Artificial Intelligence Gains a Foot Hold In Writing',
-                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 13),
                                     ),
                                   ),
                                 ),
@@ -285,7 +321,8 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             'Trending Products',
-                            style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
+                            style: GoogleFonts.poppins(
+                                fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                           InkWell(
                             onTap: () {
@@ -300,7 +337,9 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
-                                  shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: AppTheme.buttonColor, width: 1.2)),
                               child: const Icon(
                                 Icons.arrow_forward,
                                 color: AppTheme.buttonColor,
@@ -314,26 +353,31 @@ class _HomePageState extends State<HomePage> {
                       height: 220,
                       margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                       child: ListView.builder(
-                          itemCount: homeController.trendingModel.value.product!.product!.length,
+                          itemCount: homeController
+                              .trendingModel.value.product!.product!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
-                            final item = homeController.trendingModel.value.product!.product![index];
+                            final item = homeController
+                                .trendingModel.value.product!.product![index];
                             return ProductUI(
                               productElement: item,
                               onLiked: (value) {
-                                homeController.trendingModel.value.product!.product![index].inWishlist = value;
+                                homeController.trendingModel.value.product!
+                                    .product![index].inWishlist = value;
                               },
                             );
                           }),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Popular Products',
-                            style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
+                            style: GoogleFonts.poppins(
+                                fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                           InkWell(
                             onTap: () {
@@ -348,7 +392,9 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               padding: const EdgeInsets.all(2),
                               decoration: BoxDecoration(
-                                  shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: AppTheme.buttonColor, width: 1.2)),
                               child: const Icon(
                                 Icons.arrow_forward,
                                 color: AppTheme.buttonColor,
@@ -366,15 +412,18 @@ class _HomePageState extends State<HomePage> {
                         height: 230,
                         margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                         child: ListView.builder(
-                            itemCount: homeController.popularProdModal.value.product!.product!.length,
+                            itemCount: homeController.popularProdModal.value
+                                .product!.product!.length,
                             // itemScrollController: itemController1,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) {
-                              final item = homeController.popularProdModal.value.product!.product![index];
+                              final item = homeController.popularProdModal.value
+                                  .product!.product![index];
                               return ProductUI(
                                 productElement: item,
                                 onLiked: (value) {
-                                  homeController.popularProdModal.value.product!.product![index].inWishlist = value;
+                                  homeController.popularProdModal.value.product!
+                                      .product![index].inWishlist = value;
                                 },
                               );
                             }),
@@ -384,7 +433,9 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: SizedBox(
                             child: CachedNetworkImage(
-                              imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
+                              imageUrl: homeController
+                                  .homeModal.value.home!.bannerImg
+                                  .toString(),
                               fit: BoxFit.cover,
                               width: size.width,
                             ),
@@ -399,12 +450,15 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           Text(
                             'Shop By Author',
-                            style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
+                            style: GoogleFonts.poppins(
+                                fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                           Container(
                             padding: const EdgeInsets.all(2),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    color: AppTheme.buttonColor, width: 1.2)),
                             child: InkWell(
                               onTap: () {
                                 // index1 = index1 + 1;
@@ -432,7 +486,8 @@ class _HomePageState extends State<HomePage> {
                         height: 230,
                         margin: const EdgeInsets.symmetric(horizontal: 15),
                         child: ListView.builder(
-                          itemCount: homeController.authorModal.value.data!.length,
+                          itemCount:
+                              homeController.authorModal.value.data!.length,
                           // itemScrollController: itemController2,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
@@ -444,17 +499,24 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Flexible(
                                       child: CachedNetworkImage(
-                                          imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
+                                          imageUrl: homeController.authorModal
+                                              .value.data![index].profileImage
+                                              .toString(),
                                           fit: BoxFit.cover,
                                           errorWidget: (context, url, error) =>
-                                              Image.asset("assets/images/Soud Alsanousi.png")),
+                                              Image.asset(
+                                                  "assets/images/Soud Alsanousi.png")),
                                     ),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                     Text(
-                                      homeController.authorModal.value.data![index].name.toString(),
-                                      style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                                      homeController
+                                          .authorModal.value.data![index].name
+                                          .toString(),
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ));
@@ -486,7 +548,8 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             alignment: Alignment.center,
             height: 40,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8), color: Colors.white),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -505,7 +568,8 @@ class _HomePageState extends State<HomePage> {
                 cartController.apiLoaded
                     ? Text(
                         cartController.cartModel.totalQuantity.toString(),
-                        style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 20),
+                        style: GoogleFonts.poppins(
+                            color: AppTheme.buttonColor, fontSize: 20),
                       )
                     : const CupertinoActivityIndicator(),
                 const SizedBox(
