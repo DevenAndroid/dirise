@@ -25,12 +25,6 @@ class _CategoryItemsState extends State<CategoryItems> {
   final homeController = Get.put(TrendingProductsController());
 
   @override
-  void initState() {
-    super.initState();
-    homeController.getVendorCategories();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Obx(() {
       if (homeController.updateCate.value > 0) {}
@@ -85,7 +79,7 @@ class _CategoryItemsState extends State<CategoryItems> {
                 )
               ],
             ).animate(
-                delay: Duration(milliseconds: index*150))
+                delay: Duration(milliseconds: index*200))
                 .scale(duration: 500.ms);
           }
           else {
@@ -105,41 +99,38 @@ class _CategoryItemsState extends State<CategoryItems> {
                 //   Get.toNamed(SchoolNurseryCategory.route);
                 // }
               },
-              child: Container(
-                // color: Colors.red,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 10,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CachedNetworkImage(
+                          imageUrl:
+                          item.bannerProfile.toString(),
+                          height: 65,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => const SizedBox(),
+                          errorWidget: (context, url, error) => const SizedBox()),
                     ),
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: CachedNetworkImage(
-                            imageUrl:
-                            item.bannerProfile.toString(),
-                            height: 65,
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => const SizedBox(),
-                            errorWidget: (context, url, error) => const SizedBox()),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      item.name.toString(),
-                      maxLines: 1,
-                      // overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500, fontSize: 14, color: AppTheme.buttonColor),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    item.name.toString(),
+                    maxLines: 1,
+                    // overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500, fontSize: 14, color: AppTheme.buttonColor),
+                    textAlign: TextAlign.center,
+                  )
+                ],
               ),
             ).animate(
-                delay: Duration(milliseconds: index*150))
+                delay: Duration(milliseconds: index*200))
               .scale(duration: 500.ms)
             ;
           }

@@ -16,7 +16,6 @@ import '../model/vendor_models/vendor_category_model.dart';
 import '../utils/ApiConstant.dart';
 
 class TrendingProductsController extends GetxController {
-  Rx<TendingModel> trendingModel = TendingModel().obs;
   Rx<HomeModal> homeModal = HomeModal().obs;
   Rx<VendorCategoryModel> vendorcategoryModel = VendorCategoryModel().obs;
   Rx<CategoryLibraryModel> categoryLibraryModel = CategoryLibraryModel().obs;
@@ -29,6 +28,8 @@ class TrendingProductsController extends GetxController {
   final Repositories repositories = Repositories();
 
 
+
+  Rx<TendingModel> trendingModel = TendingModel().obs;
 
   Future trendingData() async {
     await repositories.postApi(url: ApiUrls.trendingProductsUrl, mapData: {}).then((value) {
@@ -89,21 +90,20 @@ class TrendingProductsController extends GetxController {
       categoryFurnitureModel.value = CategoryFurnitureModel.fromJson(jsonDecode(value));
     });
   }
-  getAll(){
+
+  Future getAll() async {
+    homeData();
+    getVendorCategories();
     trendingData();
     popularProductsData();
-    homeData();
     authorData();
   }
 
-
-
-  @override
-  void onInit() {
-    super.onInit();
-    trendingData();
-    popularProductsData();
-    homeData();
-    authorData();
+  Future getAllAsync() async {
+    await homeData();
+    await getVendorCategories();
+    await trendingData();
+    await popularProductsData();
+    await authorData();
   }
 }
