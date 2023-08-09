@@ -12,12 +12,12 @@ import '../model/category_teacher_model.dart';
 import '../model/home_modal.dart';
 import '../model/popular_product_modal.dart';
 import '../model/trending_products_modal.dart';
+import '../model/vendor_models/vendor_category_model.dart';
 import '../utils/ApiConstant.dart';
 
 class TrendingProductsController extends GetxController {
   Rx<TendingModel> trendingModel = TendingModel().obs;
   Rx<HomeModal> homeModal = HomeModal().obs;
-  Rx<CategoriesModal> categoryModal = CategoriesModal().obs;
   Rx<VendorCategoryModel> vendorcategoryModel = VendorCategoryModel().obs;
   Rx<CategoryLibraryModel> categoryLibraryModel = CategoryLibraryModel().obs;
   Rx<CategoryAuthorsModel> categoryAuthorsModel = CategoryAuthorsModel().obs;
@@ -54,11 +54,16 @@ class TrendingProductsController extends GetxController {
     });
   }
 
-  Future categoriesData() async {
-    await repositories.postApi(url: ApiUrls.categoryUrl, mapData: {}).then((value) {
-      categoryModal.value = CategoriesModal.fromJson(jsonDecode(value));
+  ModelVendorCategory vendorCategory = ModelVendorCategory();
+  RxInt updateCate = 0.obs;
+  getVendorCategories(){
+    repositories.getApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
+      vendorCategory = ModelVendorCategory.fromJson(jsonDecode(value));
+      updateCate.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
+
+
   Future vendorCategoriesData() async {
     await repositories.getApi(url: ApiUrls.vendorCategoryListUrl, mapData: {}).then((value) {
       vendorcategoryModel.value = VendorCategoryModel.fromJson(jsonDecode(value));

@@ -22,8 +22,6 @@ class CartController extends GetxController {
   bool apiLoaded = false;
   ModelUserAddressList addressListModel = ModelUserAddressList();
   bool addressLoaded = false;
-  // AddressData selectedAddress = AddressData();
-  // String? cou ponCode1;
 
   RxInt countDown = 30.obs;
   Timer? _timer;

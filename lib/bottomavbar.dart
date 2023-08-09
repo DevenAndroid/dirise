@@ -58,9 +58,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   stopTimer(){
     try{
+
       if(_timer == null)return;
       _timer!.cancel();
       _timer = null;
+
     } catch(e){
       return;
     }
@@ -117,7 +119,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
                     child: Padding(
