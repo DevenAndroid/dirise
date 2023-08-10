@@ -194,6 +194,13 @@ class _SingleCategoriesState extends State<SingleCategories> {
               const SliverToBoxAdapter(
                 child: LoadingAnimation(),
               ),
+
+            if (modelCategoryStores != null && modelCategoryStores!.isEmpty)
+            const SliverToBoxAdapter(
+              child: Center(
+                child: Text("Category don't have any store."),
+              ),
+            ),
             SliverToBoxAdapter(
               child: Obx(() {
                 if (refreshInt.value > 0) {}
@@ -216,7 +223,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: InkWell(
                   onTap: () {
-                    Get.to(() => GeneralLibrary(
+                    Get.to(() => SingleStoreScreen(
                           storeDetails: store,
                         ));
                   },
@@ -235,12 +242,19 @@ class _SingleCategoriesState extends State<SingleCategories> {
                             SizedBox(
                               height: 85,
                               width: 100,
-                              child: Image(
-                                image: NetworkImage(store.storeLogo.toString()),
-                                fit: BoxFit.cover,
-                                errorBuilder: (_, __, ___) => const Icon(
-                                  Icons.error_outline_outlined,
-                                  color: Colors.red,
+                              child: Hero(
+                                tag: store.storeLogo.toString(),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  surfaceTintColor: Colors.transparent,
+                                  child: CachedNetworkImage(
+                                    imageUrl: store.storeLogo.toString(),
+                                    fit: BoxFit.cover,
+                                    errorWidget: (_, __, ___) => const Icon(
+                                      Icons.error_outline_outlined,
+                                      color: Colors.red,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

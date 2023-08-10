@@ -1,8 +1,8 @@
 class CategoryFurnitureModel {
   bool? status;
-  String? message;
+  dynamic message;
   List<User>? user;
-  String? categoryName;
+  dynamic categoryName;
   List<Product>? product;
 
   CategoryFurnitureModel(
@@ -14,41 +14,41 @@ class CategoryFurnitureModel {
     if (json['user'] != null) {
       user = <User>[];
       json['user'].forEach((v) {
-        user!.add(new User.fromJson(v));
+        user!.add(User.fromJson(v));
       });
     }
     categoryName = json['category_name'];
     if (json['product'] != null) {
       product = <Product>[];
       json['product'].forEach((v) {
-        product!.add(new Product.fromJson(v));
+        product!.add(Product.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.user != null) {
-      data['user'] = this.user!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (user != null) {
+      data['user'] = user!.map((v) => v.toJson()).toList();
     }
-    data['category_name'] = this.categoryName;
-    if (this.product != null) {
-      data['product'] = this.product!.map((v) => v.toJson()).toList();
+    data['category_name'] = categoryName;
+    if (product != null) {
+      data['product'] = product!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class User {
-  int? id;
-  String? storeLogo;
-  String? storeImage;
-  String? storeName;
-  String? email;
-  int? storePhone;
-  String? description;
+  dynamic id;
+  dynamic storeLogo;
+  dynamic storeImage;
+  dynamic storeName;
+  dynamic email;
+  dynamic storePhone;
+  dynamic description;
 
   User(
       {this.id,
@@ -70,85 +70,85 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['store_logo'] = this.storeLogo;
-    data['store_image'] = this.storeImage;
-    data['store_name'] = this.storeName;
-    data['email'] = this.email;
-    data['store_phone'] = this.storePhone;
-    data['description'] = this.description;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['store_logo'] = storeLogo;
+    data['store_image'] = storeImage;
+    data['store_name'] = storeName;
+    data['email'] = email;
+    data['store_phone'] = storePhone;
+    data['description'] = description;
     return data;
   }
 }
 
 class Product {
-  int? id;
-  int? vendorId;
-  int? catId;
-  int? catId2;
-  int? catId3;
-  String? brandSlug;
-  String? slug;
-  String? pname;
-  Null? prodectImage;
-  Null? prodectName;
-  Null? prodectSku;
-  Null? code;
-  Null? bookingProductType;
-  Null? prodectPrice;
-  Null? prodectMinQty;
-  Null? prodectMixQty;
-  Null? prodectDescription;
-  String? image;
-  Null? arabPname;
-  String? productType;
-  String? skuId;
-  int? pPrice;
-  int? sPrice;
-  Null? commission;
-  int? bestSaller;
-  int? featured;
-  String? taxApply;
-  Null? taxType;
-  String? shortDescription;
-  Null? arabShortDescription;
-  String? longDescription;
-  Null? arabLongDescription;
-  String? featuredImage;
+  dynamic id;
+  dynamic vendorId;
+  dynamic catId;
+  dynamic catId2;
+  dynamic catId3;
+  dynamic brandSlug;
+  dynamic slug;
+  dynamic pname;
+  dynamic prodectImage;
+  dynamic prodectName;
+  dynamic prodectSku;
+  dynamic code;
+  dynamic bookingProductType;
+  dynamic prodectPrice;
+  dynamic prodectMinQty;
+  dynamic prodectMixQty;
+  dynamic prodectDescription;
+  dynamic image;
+  dynamic arabPname;
+  dynamic productType;
+  dynamic skuId;
+  dynamic pPrice;
+  dynamic sPrice;
+  dynamic commission;
+  dynamic bestSaller;
+  dynamic featured;
+  dynamic taxApply;
+  dynamic taxType;
+  dynamic shortDescription;
+  dynamic arabShortDescription;
+  dynamic longDescription;
+  dynamic arabLongDescription;
+  dynamic featuredImage;
   List<String>? galleryImage;
-  String? virtualProductFile;
-  String? virtualProductFileType;
-  String? inStock;
-  String? stockAlert;
-  Null? shippingType;
-  Null? shippingCharge;
-  int? avgRating;
-  String? metaTitle;
-  String? metaKeyword;
-  String? metaDescription;
-  int? parentId;
-  String? serviceStartTime;
-  String? serviceEndTime;
-  int? serviceDuration;
-  String? createdAt;
-  String? updatedAt;
-  int? topHunderd;
-  String? returnDays;
-  int? isPublish;
-  int? inOffer;
-  String? forAuction;
-  String? returnPolicyDesc;
+  dynamic virtualProductFile;
+  dynamic virtualProductFileType;
+  dynamic inStock;
+  dynamic stockAlert;
+  dynamic shippingType;
+  dynamic shippingCharge;
+  dynamic avgRating;
+  dynamic metaTitle;
+  dynamic metaKeyword;
+  dynamic metaDescription;
+  dynamic parentId;
+  dynamic serviceStartTime;
+  dynamic serviceEndTime;
+  dynamic serviceDuration;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic topHunderd;
+  dynamic returnDays;
+  dynamic isPublish;
+  dynamic inOffer;
+  dynamic forAuction;
+  dynamic returnPolicyDesc;
   bool? inCart;
-  Null? quantity;
+  dynamic quantity;
   bool? inWishlist;
-  String? currencySign;
-  String? currencyCode;
+  dynamic currencySign;
+  dynamic currencyCode;
   Storemeta? storemeta;
   bool? allowBid;
-  int? nextBidPrice;
-  List<Null>? attributes;
-  List<Null>? variants;
+  dynamic nextBidPrice;
+  List<dynamic>? attributes;
+  List<dynamic>? variants;
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
 
@@ -285,7 +285,7 @@ class Product {
     currencySign = json['currency_sign'];
     currencyCode = json['currency_code'];
     storemeta = json['storemeta'] != null
-        ? new Storemeta.fromJson(json['storemeta'])
+        ? Storemeta.fromJson(json['storemeta'])
         : null;
     allowBid = json['allow_bid'];
     nextBidPrice = json['next_bid_price'];
@@ -300,100 +300,100 @@ class Product {
     if (json['serviceTimeSloat'] != null) {
       serviceTimeSloat = <ServiceTimeSloat>[];
       json['serviceTimeSloat'].forEach((v) {
-        serviceTimeSloat!.add(new ServiceTimeSloat.fromJson(v));
+        serviceTimeSloat!.add(ServiceTimeSloat.fromJson(v));
       });
     }
     productAvailability = json['productAvailability'] != null
-        ? new ProductAvailability.fromJson(json['productAvailability'])
+        ? ProductAvailability.fromJson(json['productAvailability'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['vendor_id'] = this.vendorId;
-    data['cat_id'] = this.catId;
-    data['cat_id_2'] = this.catId2;
-    data['cat_id_3'] = this.catId3;
-    data['brand_slug'] = this.brandSlug;
-    data['slug'] = this.slug;
-    data['pname'] = this.pname;
-    data['prodect_image'] = this.prodectImage;
-    data['prodect_name'] = this.prodectName;
-    data['prodect_sku'] = this.prodectSku;
-    data['code'] = this.code;
-    data['booking_product_type'] = this.bookingProductType;
-    data['prodect_price'] = this.prodectPrice;
-    data['prodect_min_qty'] = this.prodectMinQty;
-    data['prodect_mix_qty'] = this.prodectMixQty;
-    data['prodect_description'] = this.prodectDescription;
-    data['image'] = this.image;
-    data['arab_pname'] = this.arabPname;
-    data['product_type'] = this.productType;
-    data['sku_id'] = this.skuId;
-    data['p_price'] = this.pPrice;
-    data['s_price'] = this.sPrice;
-    data['commission'] = this.commission;
-    data['best_saller'] = this.bestSaller;
-    data['featured'] = this.featured;
-    data['tax_apply'] = this.taxApply;
-    data['tax_type'] = this.taxType;
-    data['short_description'] = this.shortDescription;
-    data['arab_short_description'] = this.arabShortDescription;
-    data['long_description'] = this.longDescription;
-    data['arab_long_description'] = this.arabLongDescription;
-    data['featured_image'] = this.featuredImage;
-    data['gallery_image'] = this.galleryImage;
-    data['virtual_product_file'] = this.virtualProductFile;
-    data['virtual_product_file_type'] = this.virtualProductFileType;
-    data['in_stock'] = this.inStock;
-    data['stock_alert'] = this.stockAlert;
-    data['shipping_type'] = this.shippingType;
-    data['shipping_charge'] = this.shippingCharge;
-    data['avg_rating'] = this.avgRating;
-    data['meta_title'] = this.metaTitle;
-    data['meta_keyword'] = this.metaKeyword;
-    data['meta_description'] = this.metaDescription;
-    data['parent_id'] = this.parentId;
-    data['service_start_time'] = this.serviceStartTime;
-    data['service_end_time'] = this.serviceEndTime;
-    data['service_duration'] = this.serviceDuration;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['top_hunderd'] = this.topHunderd;
-    data['return_days'] = this.returnDays;
-    data['is_publish'] = this.isPublish;
-    data['in_offer'] = this.inOffer;
-    data['for_auction'] = this.forAuction;
-    data['return_policy_desc'] = this.returnPolicyDesc;
-    data['in_cart'] = this.inCart;
-    data['quantity'] = this.quantity;
-    data['in_wishlist'] = this.inWishlist;
-    data['currency_sign'] = this.currencySign;
-    data['currency_code'] = this.currencyCode;
-    if (this.storemeta != null) {
-      data['storemeta'] = this.storemeta!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['vendor_id'] = vendorId;
+    data['cat_id'] = catId;
+    data['cat_id_2'] = catId2;
+    data['cat_id_3'] = catId3;
+    data['brand_slug'] = brandSlug;
+    data['slug'] = slug;
+    data['pname'] = pname;
+    data['prodect_image'] = prodectImage;
+    data['prodect_name'] = prodectName;
+    data['prodect_sku'] = prodectSku;
+    data['code'] = code;
+    data['booking_product_type'] = bookingProductType;
+    data['prodect_price'] = prodectPrice;
+    data['prodect_min_qty'] = prodectMinQty;
+    data['prodect_mix_qty'] = prodectMixQty;
+    data['prodect_description'] = prodectDescription;
+    data['image'] = image;
+    data['arab_pname'] = arabPname;
+    data['product_type'] = productType;
+    data['sku_id'] = skuId;
+    data['p_price'] = pPrice;
+    data['s_price'] = sPrice;
+    data['commission'] = commission;
+    data['best_saller'] = bestSaller;
+    data['featured'] = featured;
+    data['tax_apply'] = taxApply;
+    data['tax_type'] = taxType;
+    data['short_description'] = shortDescription;
+    data['arab_short_description'] = arabShortDescription;
+    data['long_description'] = longDescription;
+    data['arab_long_description'] = arabLongDescription;
+    data['featured_image'] = featuredImage;
+    data['gallery_image'] = galleryImage;
+    data['virtual_product_file'] = virtualProductFile;
+    data['virtual_product_file_type'] = virtualProductFileType;
+    data['in_stock'] = inStock;
+    data['stock_alert'] = stockAlert;
+    data['shipping_type'] = shippingType;
+    data['shipping_charge'] = shippingCharge;
+    data['avg_rating'] = avgRating;
+    data['meta_title'] = metaTitle;
+    data['meta_keyword'] = metaKeyword;
+    data['meta_description'] = metaDescription;
+    data['parent_id'] = parentId;
+    data['service_start_time'] = serviceStartTime;
+    data['service_end_time'] = serviceEndTime;
+    data['service_duration'] = serviceDuration;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['top_hunderd'] = topHunderd;
+    data['return_days'] = returnDays;
+    data['is_publish'] = isPublish;
+    data['in_offer'] = inOffer;
+    data['for_auction'] = forAuction;
+    data['return_policy_desc'] = returnPolicyDesc;
+    data['in_cart'] = inCart;
+    data['quantity'] = quantity;
+    data['in_wishlist'] = inWishlist;
+    data['currency_sign'] = currencySign;
+    data['currency_code'] = currencyCode;
+    if (storemeta != null) {
+      data['storemeta'] = storemeta!.toJson();
     }
-    data['allow_bid'] = this.allowBid;
-    data['next_bid_price'] = this.nextBidPrice;
+    data['allow_bid'] = allowBid;
+    data['next_bid_price'] = nextBidPrice;
 
-    if (this.serviceTimeSloat != null) {
+    if (serviceTimeSloat != null) {
       data['serviceTimeSloat'] =
-          this.serviceTimeSloat!.map((v) => v.toJson()).toList();
+          serviceTimeSloat!.map((v) => v.toJson()).toList();
     }
-    if (this.productAvailability != null) {
-      data['productAvailability'] = this.productAvailability!.toJson();
+    if (productAvailability != null) {
+      data['productAvailability'] = productAvailability!.toJson();
     }
     return data;
   }
 }
 
 class Storemeta {
-  String? firstName;
-  String? lastName;
-  int? storeId;
-  String? profileImg;
-  String? bannerImg;
+  dynamic firstName;
+  dynamic lastName;
+  dynamic storeId;
+  dynamic profileImg;
+  dynamic bannerImg;
 
   Storemeta(
       {this.firstName,
@@ -411,19 +411,19 @@ class Storemeta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['store_id'] = this.storeId;
-    data['profile_img'] = this.profileImg;
-    data['banner_img'] = this.bannerImg;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['store_id'] = storeId;
+    data['profile_img'] = profileImg;
+    data['banner_img'] = bannerImg;
     return data;
   }
 }
 
 class ServiceTimeSloat {
-  String? timeSloat;
-  String? timeSloatEnd;
+  dynamic timeSloat;
+  dynamic timeSloatEnd;
 
   ServiceTimeSloat({this.timeSloat, this.timeSloatEnd});
 
@@ -433,18 +433,18 @@ class ServiceTimeSloat {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['time_sloat'] = this.timeSloat;
-    data['time_sloat_end'] = this.timeSloatEnd;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['time_sloat'] = timeSloat;
+    data['time_sloat_end'] = timeSloatEnd;
     return data;
   }
 }
 
 class ProductAvailability {
-  int? qty;
-  String? type;
-  String? fromDate;
-  String? toDate;
+  dynamic qty;
+  dynamic type;
+  dynamic fromDate;
+  dynamic toDate;
 
   ProductAvailability({this.qty, this.type, this.fromDate, this.toDate});
 
@@ -456,11 +456,11 @@ class ProductAvailability {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['qty'] = this.qty;
-    data['type'] = this.type;
-    data['from_date'] = this.fromDate;
-    data['to_date'] = this.toDate;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['qty'] = qty;
+    data['type'] = type;
+    data['from_date'] = fromDate;
+    data['to_date'] = toDate;
     return data;
   }
 }

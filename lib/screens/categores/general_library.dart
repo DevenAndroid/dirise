@@ -1,26 +1,30 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/utils/helper.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/model_category_stores.dart';
+import '../../model/model_store_products.dart';
+import '../../model/trending_products_modal.dart';
 import '../../model/vendor_models/model_vendor_product_list.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../widgets/common_app_bar.dart';
 import '../check_out/add_bag_screen.dart';
+import '../home_pages/product_widget.dart';
 
-class GeneralLibrary extends StatefulWidget {
-  const GeneralLibrary({super.key, required this.storeDetails});
+class SingleStoreScreen extends StatefulWidget {
+  const SingleStoreScreen({super.key, required this.storeDetails});
   final VendorStoreData storeDetails;
 
   @override
-  State<GeneralLibrary> createState() => _GeneralLibraryState();
+  State<SingleStoreScreen> createState() => _SingleStoreScreenState();
 }
 
-class _GeneralLibraryState extends State<GeneralLibrary> {
+class _SingleStoreScreenState extends State<SingleStoreScreen> {
   final Repositories repositories = Repositories();
   int paginationPage = 1;
 
@@ -30,14 +34,14 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
   bool allLoaded = false;
   bool paginationLoading = false;
 
-  ModelProductsList modelProductsList = ModelProductsList(product: null);
+  ModelStoreProducts modelProductsList = ModelStoreProducts(data: null);
 
   getCategoryStores({required int page, String? search, bool? resetAll}) {
     if (resetAll == true) {
       allLoaded = false;
       paginationLoading = false;
       paginationPage = 1;
-      modelProductsList.product = null;
+      modelProductsList.data = null;
       page = 1;
     }
     if (allLoaded) return;
@@ -49,10 +53,11 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
     repositories.getApi(url: "${ApiUrls.vendorProductListUrl}$url").then((value) {
       paginationLoading = false;
 
-      modelProductsList.product ??= [];
-      final response = ModelProductsList.fromJson(jsonDecode(value));
-      if(response.product != null && response.product!.isNotEmpty){
-        modelProductsList.product!.addAll(response.product!);
+      modelProductsList.data ??= [];
+      final response = ModelStoreProducts.fromJson(jsonDecode(value));
+      print(jsonEncode(response));
+      if (response.data != null && response.data!.isNotEmpty) {
+        modelProductsList.data!.addAll(response.data!);
       } else {
         allLoaded = true;
       }
@@ -117,12 +122,13 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Image(
-                    image: AssetImage('assets/images/singleCategories.png'),
-                    height: 85,
+                  Image(
+                    image: NetworkImage(storeInfo.storeImage.toString()),
+                    height: 84,
+                    width: 104,
                   ),
                   const SizedBox(
-                    width: 6,
+                    width: 10,
                   ),
                   Expanded(
                     child: Column(
@@ -130,21 +136,22 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          ("General Library"),
+                          storeInfo.storeName.toString().capitalize!,
                           style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 5, bottom: 5),
                           child: Text(
-                            ("Books, Stationary and Electronics"),
+                            storeInfo.description.toString(),
+                            maxLines: 1,
                             style: GoogleFonts.poppins(
                                 color: const Color(0xff8F8F8F), fontSize: 13, fontWeight: FontWeight.w500),
                           ),
                         ),
                         Text(
-                          ("1457 items"),
-                          style: GoogleFonts.poppins(
-                              color: const Color(0xff014E70), fontSize: 17, fontWeight: FontWeight.w500),
+                          ("1457 items -- Static"),
+                          style:
+                              GoogleFonts.poppins(color: const Color(0xff014E70), fontSize: 17, fontWeight: FontWeight.w500),
                         )
                       ],
                     ),
@@ -178,7 +185,7 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
                       child: Text(
                         "${storeInfo.storeName.toString()} Type",
                         style:
-                        GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                            GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                       ),
                     ),
                     const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
@@ -187,219 +194,42 @@ class _GeneralLibraryState extends State<GeneralLibrary> {
               ),
             ),
           ),
-          // Column(
-          //   mainAxisAlignment: MainAxisAlignment.start,
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     const Image(image: AssetImage('assets/images/storybooks.png')),
-          //     const SizedBox(
-          //       height: 25,
-          //     ),
-          //     const SizedBox(
-          //       height: 25,
-          //     ),
-          //     InkWell(
-          //       onTap: () {
-          //         // showModalBottomSheet(
-          //         //     context: context,
-          //         //     builder: (context) {
-          //         // return Column(
-          //         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //         //   crossAxisAlignment: CrossAxisAlignment.start,
-          //         //   children: [
-          //         //     Column(
-          //         //       crossAxisAlignment: CrossAxisAlignment.start,
-          //         //       children: [
-          //         //         Padding(
-          //         //           padding: const EdgeInsets.only(left: 27, top: 15),
-          //         //           child: Text(
-          //         //             "Library Type",
-          //         //             style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600),
-          //         //           ),
-          //         //         ),
-          //         //         const SizedBox(
-          //         //           height: 10,
-          //         //         ),
-          //         //         Obx(() {
-          //         //           return Column(
-          //         //             children: List.generate(
-          //         //                 data.length,
-          //         //                 (index) => Column(
-          //         //                       mainAxisSize: MainAxisSize.min,
-          //         //                       children: [
-          //         //                         Theme(
-          //         //                           data: ThemeData(unselectedWidgetColor: const Color(0xff014E70)),
-          //         //                           child: ListTileTheme(
-          //         //                             horizontalTitleGap: 5,
-          //         //                             child: CheckboxListTile(
-          //         //
-          //         //                               controlAffinity: ListTileControlAffinity.leading,
-          //         //                               dense: true,
-          //         //                               visualDensity: VisualDensity.compact,
-          //         //                               activeColor: const Color(0xff014E70),
-          //         //                               value: status.value,
-          //         //                               onChanged: (value) {
-          //         //                                 setState(() {
-          //         //                                   status.value = value!;
-          //         //                                 });
-          //         //                               },
-          //         //                               title: Text(
-          //         //                                 data[index],
-          //         //                                 style: GoogleFonts.poppins(
-          //         //                                   fontWeight: FontWeight.w500,
-          //         //                                   color: Colors.black,
-          //         //                                   fontSize: 16,
-          //         //                                 ),
-          //         //                               ),
-          //         //                             ),
-          //         //                           ),
-          //         //                         ),
-          //         //                       ],
-          //         //                     )),
-          //         //           );
-          //         //         }),
-          //         //       ],
-          //         //     ),
-          //         //     Align(
-          //         //       alignment: Alignment.bottomCenter,
-          //         //       child: Column(
-          //         //         children: [
-          //         //           Container(
-          //         //             alignment: Alignment.center,
-          //         //             height: 47,
-          //         //             width: MediaQuery.of(context).size.width * .87,
-          //         //             decoration: const BoxDecoration(color: Color(0xff014E70)),
-          //         //             child: Text(
-          //         //               "Apply",
-          //         //               style: GoogleFonts.poppins(
-          //         //                   fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
-          //         //             ),
-          //         //           ),
-          //         //           const SizedBox(
-          //         //             height: 20,
-          //         //           ),
-          //         //           Container(
-          //         //             alignment: Alignment.center,
-          //         //             height: 47,
-          //         //             margin: const EdgeInsets.only(bottom: 10),
-          //         //             width: MediaQuery.of(context).size.width * .87,
-          //         //             decoration: BoxDecoration(border: Border.all(color: const Color(0xff014E70))),
-          //         //             child: Text(
-          //         //               "Clear All",
-          //         //               style: GoogleFonts.poppins(
-          //         //                   fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-          //         //             ),
-          //         //           ),
-          //         //         ],
-          //         //       ),
-          //         //     ),
-          //         //   ],
-          //         // );
-          //         // });
-          //       },
-          //       child: Container(
-          //         height: 36,
-          //         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-          //         decoration: BoxDecoration(
-          //             border: Border.all(color: const Color(0xff014E70)),
-          //             color: const Color(0xffEBF1F4),
-          //             borderRadius: BorderRadius.circular(22)),
-          //         child: Row(
-          //           mainAxisSize: MainAxisSize.min,
-          //           children: [
-          //             Padding(
-          //               padding: const EdgeInsets.only(left: 8, right: 10),
-          //               child: Text(
-          //                 "product Type",
-          //                 style: GoogleFonts.poppins(
-          //                     fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-          //               ),
-          //             ),
-          //             const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //     const SizedBox(
-          //       height: 20,
-          //     ),
-          //     GridView.builder(
-          //       physics: const NeverScrollableScrollPhysics(),
-          //       itemCount: 5,
-          //       shrinkWrap: true,
-          //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //           crossAxisCount: 2,
-          //           crossAxisSpacing: 10,
-          //           mainAxisSpacing: 20,
-          //           childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.3)),
-          //       itemBuilder: (BuildContext context, int index) {
-          //         return InkWell(
-          //           onTap: () {
-          //             bottemSheet();
-          //           },
-          //           child: Stack(
-          //             children: [
-          //               Container(
-          //                 decoration: BoxDecoration(
-          //                   borderRadius: BorderRadius.circular(10),
-          //                 ),
-          //                 margin: const EdgeInsets.only(left: 5),
-          //                 child: Column(
-          //                   crossAxisAlignment: CrossAxisAlignment.start,
-          //                   children: [
-          //                     Image.asset(
-          //                       height: size.height * .2,
-          //                       'assets/images/bag.png',
-          //                     ),
-          //                     const SizedBox(
-          //                       height: 5,
-          //                     ),
-          //                     Text(
-          //                       '50% off',
-          //                       style: GoogleFonts.poppins(
-          //                           fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
-          //                     ),
-          //                     const SizedBox(
-          //                       height: 4,
-          //                     ),
-          //                     Text(
-          //                       'Ecstasy 165 days ',
-          //                       style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
-          //                     ),
-          //                     const SizedBox(
-          //                       height: 4,
-          //                     ),
-          //                     Text(
-          //                       '1 piece',
-          //                       style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
-          //                     ),
-          //                     const SizedBox(
-          //                       height: 4,
-          //                     ),
-          //                     Text(
-          //                       'KD 12.700',
-          //                       style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-          //                     )
-          //                   ],
-          //                 ),
-          //               ),
-          //               const Positioned(top: 5, right: 10, child: Icon(Icons.favorite_border))
-          //             ],
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     const Image(
-          //       image: AssetImage('assets/images/collectionbooks.png'),
-          //     ),
-          //   ],
-          // )
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 20,
+            ),
+          ),
+          if (modelProductsList.data != null)
+            modelProductsList.data!.isNotEmpty
+                ? SliverGrid.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: .74),
+                    itemCount: modelProductsList.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = modelProductsList.data![index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: ProductUI(
+                          productElement: ProductElement.fromJson(item.toJson()),
+                          onLiked: (value) {
+                            // modelProductsList.data![index].inWishlist = value;
+                          },
+                        ),
+                      );
+                    },
+                  )
+                : const SliverToBoxAdapter(
+                    child: Center(
+                    child: Text("Store don't have any product"),
+                  ))
+          else
+            const SliverToBoxAdapter(child: LoadingAnimation()),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // const Image(
+          //   image: AssetImage('assets/images/collectionbooks.png'),
+          // ),
         ],
       ),
     );
