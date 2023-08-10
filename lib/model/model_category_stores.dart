@@ -64,7 +64,7 @@ class ModelCategoryStores {
 
 class User {
   dynamic currentPage;
-  List<Data>? data = [];
+  List<VendorStoreData>? data = [];
   List<Links>? links;
 
   User(
@@ -75,9 +75,9 @@ class User {
   User.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <VendorStoreData>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(VendorStoreData.fromJson(v));
       });
     } else {
       data = [];
@@ -103,7 +103,7 @@ class User {
   }
 }
 
-class Data {
+class VendorStoreData {
   dynamic id;
   dynamic storeLogo;
   dynamic storeImage;
@@ -112,7 +112,7 @@ class Data {
   dynamic storePhone;
   dynamic description;
 
-  Data(
+  VendorStoreData(
       {this.id,
         this.storeLogo,
         this.storeImage,
@@ -121,7 +121,7 @@ class Data {
         this.storePhone,
         this.description});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  VendorStoreData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     storeLogo = json['store_logo'];
     storeImage = json['store_image'];

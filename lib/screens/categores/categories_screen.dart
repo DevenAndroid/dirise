@@ -1,24 +1,14 @@
-import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dirise/repository/repository.dart';
 import 'package:dirise/screens/categores/single_category_with_stores/single_categorie.dart';
+import 'package:dirise/utils/helper.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../controller/home_controller.dart';
-import '../../model/vendor_models/vendor_category_model.dart';
-import '../../utils/ApiConstant.dart';
 import '../../widgets/common_app_bar.dart';
-import '../Authors/authors_screen.dart';
-import '../Authors/teacher_screen.dart';
-import '../e-book/ebookcategory_screen.dart';
-import '../officefurniture_sceen/officefurniture_screen.dart';
-import '../public_speaker_screen/single_public_speaker_screen.dart';
-import '../schoolnursery_screen.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -82,60 +72,43 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               final item = homeController.vendorCategory.usphone![index];
                               return InkWell(
                                 onTap: () {
-
                                   Get.to(()=> SingleCategories(vendorCategories: item,));
-
-
-                                  // if (index == 0) {
-                                  //    Get.toNamed(SingleCategories.singleCategoriesScreen);
-                                  // } else if (index == 1) {
-                                  //   Get.toNamed(AuthorsScreen.authorsScreen);
-                                  // } else if (index == 2) {
-                                  //   Get.toNamed(TeacherScreen.teacherScreen);
-                                  // } else if (index == 3) {
-                                  //   Get.toNamed(OfficeFurnitureScreen.route);
-                                  // } else if (index == 5) {
-                                  //   Get.toNamed(SchoolNurseryScreen.route);
-                                  // } else if (index == 7) {
-                                  //   Get.toNamed(EBookCategoryScreen.route);
-                                  // }
-                                  // else if (index == 8) {
-                                  //   Get.toNamed(PublicSpeakerCategoryScreen.route);
-                                  // }
                                 },
+                                borderRadius: BorderRadius.circular(10),
                                 child: Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: const Color(0xffEBF1F4).withOpacity(.5)),
                                   padding: const EdgeInsets.only(left: 10),
-                                  child: Column(
+                                  child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      Expanded(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            CachedNetworkImage(
-                                              imageUrl: item.profileImage.toString(),
-
+                                      SizedBox(
+                                        width: context.getSize.width*.5*.3,
+                                        child: Hero(
+                                          tag: item.bannerProfile.toString(),
+                                          child: Material(
+                                            color: Colors.transparent,
+                                            surfaceTintColor: Colors.transparent,
+                                            child: CachedNetworkImage(
+                                              imageUrl: item.bannerProfile.toString(),
                                               height: 50,
                                             ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                item.name.toString(),
-                                                style: GoogleFonts.poppins(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color(0xff014E70)),
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      )
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          item.name.toString(),
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff014E70)),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),

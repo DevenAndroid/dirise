@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../controller/home_controller.dart';
+import '../../controller/homepage_controller.dart';
 import '../../routers/my_routers.dart';
 import '../../widgets/common_colour.dart';
 import '../Authors/authors_screen.dart';
@@ -23,6 +24,8 @@ class CategoryItems extends StatefulWidget {
 
 class _CategoryItemsState extends State<CategoryItems> {
   final homeController = Get.put(TrendingProductsController());
+
+  final bottomController = Get.put(BottomNavBarController());
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class _CategoryItemsState extends State<CategoryItems> {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.toNamed(CategoriesScreen.categoriesScreen);
+                    bottomController.pageIndex.value = 1;
                   },
                   child: Container(
                       height: 70,
@@ -87,17 +90,7 @@ class _CategoryItemsState extends State<CategoryItems> {
             return InkWell(
               key: ValueKey(index*DateTime.now().millisecondsSinceEpoch),
               onTap: () {
-                // if (index == 3) {
-                //   Get.toNamed(OfficeFurnitureScreen.route);
-                // } else if (index == 0) {
-                //   // Get.toNamed(SingleCategories.singleCategoriesScreen);
-                // } else if (index == 1) {
-                //   Get.toNamed(AuthorsScreen.authorsScreen);
-                // } else if (index == 2) {
-                //   Get.toNamed(TeacherScreen.teacherScreen);
-                // } else if (index == 4) {
-                //   Get.toNamed(SchoolNurseryCategory.route);
-                // }
+                Get.to(()=> SingleCategories(vendorCategories: item,));
               },
               child: Column(
                 children: [
@@ -107,13 +100,20 @@ class _CategoryItemsState extends State<CategoryItems> {
                   Expanded(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child: CachedNetworkImage(
-                          imageUrl:
-                          item.bannerProfile.toString(),
-                          height: 65,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => const SizedBox(),
-                          errorWidget: (context, url, error) => const SizedBox()),
+                      child: Hero(
+                        tag: item.bannerProfile.toString(),
+                        child: Material(
+                          color: Colors.transparent,
+                          surfaceTintColor: Colors.transparent,
+                          child: CachedNetworkImage(
+                              imageUrl:
+                              item.bannerProfile.toString(),
+                              height: 65,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => const SizedBox(),
+                              errorWidget: (context, url, error) => const SizedBox()),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(

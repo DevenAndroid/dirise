@@ -7,6 +7,7 @@ import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +23,6 @@ import '../general_library.dart';
 
 class SingleCategories extends StatefulWidget {
   const SingleCategories({super.key, required this.vendorCategories});
-
   final VendorCategoriesData vendorCategories;
 
   @override
@@ -55,32 +55,33 @@ class _SingleCategoriesState extends State<SingleCategories> {
 
   paginateApi() {
     if (_scrollController.offset > _scrollController.position.maxScrollExtent - 40) {
-      print("Pagination....  called");
       getCategoryStores(page: paginationPage);
     }
   }
 
   RxInt refreshInt = 0.obs;
 
-  getCategoryStores({required int page, String? search, bool? resetAll}) {
+  Future getCategoryStores({required int page, String? search, bool? resetAll}) async {
     if (resetAll == true) {
       allLoaded = false;
       paginationLoading = false;
       paginationPage = 1;
+      modelCategoryStores = null;
+      page = 1;
+      setState(() {});
     }
     if (allLoaded) return;
     if (paginationLoading) return;
 
     String url = "";
     if (search != null) {
-      url = "category_id=$categoryID&pagination=2&page=$page&search=$search";
+      url = "category_id=$categoryID&pagination=4&page=$page&search=$search";
     } else {
-      url = "category_id=$categoryID&pagination=2&page=$page";
+      url = "category_id=$categoryID&pagination=4&page=$page";
     }
     paginationLoading = true;
     refreshInt.value = DateTime.now().millisecondsSinceEpoch;
-    print("Pagination....  working");
-    repositories.getApi(url: "${ApiUrls.getCategoryStoresUrl}$url").then((value) {
+    await repositories.getApi(url: "${ApiUrls.getCategoryStoresUrl}$url").then((value) {
       modelCategoryStores ??= [];
       paginationLoading = false;
       refreshInt.value = DateTime.now().millisecondsSinceEpoch;
@@ -111,93 +112,113 @@ class _SingleCategoriesState extends State<SingleCategories> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: 'Libraries',
+          titleText: mainCategory.name.toString(),
         ),
       ),
-      body: CustomScrollView(
-        shrinkWrap: true,
-        controller: _scrollController,
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16).copyWith(top: 10),
-              child: Column(
-                children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: const Image(image: AssetImage('assets/images/storybooks.png'))),
-                ],
-              ),
-            ),
-          ),
-          SliverAppBar(
-            primary: false,
-            pinned: true,
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
-            leading: const SizedBox.shrink(),
-            titleSpacing: 0,
-            leadingWidth: 16,
-            title: InkWell(
-              onTap: () {},
-              child: Container(
-                height: 36,
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xff014E70)),
-                    color: const Color(0xffEBF1F4),
-                    borderRadius: BorderRadius.circular(22)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await getCategoryStores(
+            page: paginationPage,
+            resetAll: true
+          );
+        },
+        child: CustomScrollView(
+          shrinkWrap: true,
+          controller: _scrollController,
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16).copyWith(top: 10),
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 10),
-                      child: Text(
-                        "Library Type",
-                        style: GoogleFonts.poppins(
-                            fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-                      ),
-                    ),
-                    const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: SizedBox(
+                            width: double.maxFinite,
+                            height: context.getSize.width * .4,
+                            child: Hero(
+                              tag: mainCategory.bannerProfile.toString(),
+                              child: Material(
+                                color: Colors.transparent,
+                                surfaceTintColor: Colors.transparent,
+                                child: CachedNetworkImage(
+                                  imageUrl: mainCategory.bannerProfile.toString(),
+                                  errorWidget: (_, __, ___) => const Icon(Icons.error_outline),
+                                ),
+                              ),
+                            ))),
                   ],
                 ),
               ),
             ),
-          ),
-          if (modelCategoryStores != null)
-            for (var i = 0; i < modelCategoryStores!.length; i++) ...list(i, context)
-          else
-            const SliverToBoxAdapter(
-              child: LoadingAnimation(),
+            SliverAppBar(
+              primary: false,
+              pinned: true,
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
+              leading: const SizedBox.shrink(),
+              titleSpacing: 0,
+              leadingWidth: 16,
+              title: InkWell(
+                onTap: () {},
+                child: Container(
+                  height: 36,
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xff014E70)),
+                      color: const Color(0xffEBF1F4),
+                      borderRadius: BorderRadius.circular(22)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 10),
+                        child: Text(
+                          "${mainCategory.name.toString()} Type",
+                          style:
+                              GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                        ),
+                      ),
+                      const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
+                    ],
+                  ),
+                ),
+              ),
             ),
-          SliverToBoxAdapter(
-            child: Obx(() {
-              if (refreshInt.value > 0) {}
-              return paginationLoading && modelCategoryStores != null
-                  ? const LoadingAnimation()
-                  : const SizedBox.shrink();
-            }),
-          )
-        ],
+            if (modelCategoryStores != null)
+              for (var i = 0; i < modelCategoryStores!.length; i++) ...list(i)
+            else
+              const SliverToBoxAdapter(
+                child: LoadingAnimation(),
+              ),
+            SliverToBoxAdapter(
+              child: Obx(() {
+                if (refreshInt.value > 0) {}
+                return paginationLoading && modelCategoryStores != null ? const LoadingAnimation() : const SizedBox.shrink();
+              }),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  List<Widget> list(int i, BuildContext context) {
+  List<Widget> list(int i) {
     return [
       SliverList.builder(
           itemCount: modelCategoryStores![i].user!.data!.length,
           itemBuilder: (context, index) {
             final store = modelCategoryStores![i].user!.data![index];
-            print(index);
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: InkWell(
                   onTap: () {
-                    Get.toNamed(GeneralLibrary.generalLibrary);
+                    Get.to(() => GeneralLibrary(
+                          storeDetails: store,
+                        ));
                   },
                   child: Container(
                       margin: const EdgeInsets.only(
@@ -233,8 +254,8 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                 children: [
                                   Text(
                                     store.storeName.toString(),
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                                    style:
+                                        GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -242,9 +263,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                       store.description.toString(),
                                       maxLines: 1,
                                       style: GoogleFonts.poppins(
-                                          color: Colors.grey.withOpacity(.7),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500),
+                                          color: Colors.grey.withOpacity(.7), fontSize: 12, fontWeight: FontWeight.w500),
                                     ),
                                   ),
                                   Text(
@@ -269,19 +288,20 @@ class _SingleCategoriesState extends State<SingleCategories> {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: SizedBox(
+                        key: ValueKey(i * DateTime.now().millisecond),
                         height: context.getSize.width * .4,
                         width: double.maxFinite,
-                        child: Image.network(
-                          modelCategoryStores![i]
+                        child: CachedNetworkImage(
+                          imageUrl: modelCategoryStores![i]
                               .promotionData![min(i % 3, modelCategoryStores![i].promotionData!.length - 1)]
                               .banner
                               .toString(),
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => const Icon(
+                          errorWidget: (_, __, ___) => const Icon(
                             Icons.error_outline,
                             color: Colors.red,
                           ),
-                        ))),
+                        )).animate().fade(duration: 300.ms)),
               ],
             ),
           ),
@@ -294,7 +314,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Text(
-                  'Popular Products',
+                  'Related Products',
                   style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               ),
