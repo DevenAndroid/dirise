@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/repository/repository.dart';
-import 'package:dirise/screens/categores/single_categorie.dart';
+import 'package:dirise/screens/categores/single_category_with_stores/single_categorie.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -82,7 +82,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               final item = homeController.vendorCategory.usphone![index];
                               return InkWell(
                                 onTap: () {
-                                  Get.toNamed(SingleCategories.route);
+
+                                  Get.to(()=> SingleCategories(vendorCategories: item,));
+
+
                                   // if (index == 0) {
                                   //    Get.toNamed(SingleCategories.singleCategoriesScreen);
                                   // } else if (index == 1) {

@@ -10,7 +10,7 @@ import '../../widgets/common_colour.dart';
 import '../Authors/authors_screen.dart';
 import '../Authors/teacher_screen.dart';
 import '../categores/categories_screen.dart';
-import '../categores/single_categorie.dart';
+import '../categores/single_category_with_stores/single_categorie.dart';
 import '../officefurniture_sceen/officefurniture_screen.dart';
 import '../school_nursery_category.dart';
 

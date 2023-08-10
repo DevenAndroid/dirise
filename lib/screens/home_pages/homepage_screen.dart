@@ -57,8 +57,7 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.only(left: 18, top: 5),
                             child: Text(
                               'Deliver order to',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 18, color: Colors.white),
+                              style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
                             ),
                           ),
                           const Padding(
@@ -111,25 +110,18 @@ class _HomePageState extends State<HomePage> {
                           ),
                           border: InputBorder.none,
                           enabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
-                              borderSide:
-                                  BorderSide(color: AppTheme.buttonColor)),
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: AppTheme.buttonColor)),
                           disabledBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
-                              borderSide:
-                                  BorderSide(color: AppTheme.buttonColor)),
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: AppTheme.buttonColor)),
                           focusedBorder: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
-                              borderSide:
-                                  BorderSide(color: AppTheme.buttonColor)),
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: AppTheme.buttonColor)),
                           fillColor: Colors.white,
                           contentPadding: const EdgeInsets.all(15),
                           hintText: 'what are you looking for?',
-                          hintStyle:
-                              GoogleFonts.poppins(color: AppTheme.buttonColor)),
+                          hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                     ),
                   ),
                 ],
@@ -165,8 +157,7 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             alignment: Alignment.center,
             height: 40,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8), color: Colors.white),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -185,8 +176,7 @@ class _HomePageState extends State<HomePage> {
                 cartController.apiLoaded
                     ? Text(
                         cartController.cartModel.totalQuantity.toString(),
-                        style: GoogleFonts.poppins(
-                            color: AppTheme.buttonColor, fontSize: 20),
+                        style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 20),
                       )
                     : const CupertinoActivityIndicator(),
                 const SizedBox(

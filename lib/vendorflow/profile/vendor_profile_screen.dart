@@ -53,7 +53,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   final Repositories repositories = Repositories();
   Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
   ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
-  Map<String, Usphone> allSelectedCategory = {};
+  Map<String, VendorCategoriesData> allSelectedCategory = {};
 
   updateParameters(){
     print("updating values.........          ");
@@ -74,7 +74,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     businessImage.value = File(user.storeImage.toString().checkNullable);
     allLoaded = true;
     for (var element in user.venderCategory!) {
-      allSelectedCategory[element.id.toString()] = Usphone.fromJson(element.toJson());
+      allSelectedCategory[element.id.toString()] = VendorCategoriesData.fromJson(element.toJson());
     }
     // allSelectedCategory
     setState(() {});
@@ -340,7 +340,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                       child: Text(e.name.toString().capitalize!)))
                                   .toList());
                             }
-                            return DropdownButtonFormField<Usphone>(
+                            return DropdownButtonFormField<VendorCategoriesData>(
                               key: categoryKey,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,

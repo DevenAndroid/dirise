@@ -99,7 +99,7 @@ class _ProductUIState extends State<ProductUI> {
         // width: size.width * .54,
         constraints: BoxConstraints(
           minWidth: 0,
-          maxWidth: size.width * .5,
+          maxWidth: size.width * .45,
         ),
         // color: Colors.red,
         margin: const EdgeInsets.only(right: 18),
@@ -121,7 +121,9 @@ class _ProductUIState extends State<ProductUI> {
                   height: 10,
                 ),
                 Text(
-                  "${widget.productElement.discountPercentage} Off",
+                  "${widget.productElement.discountPercentage == null ? (
+                      (widget.productElement.sPrice.toString().convertToNum / widget.productElement.pPrice.toString().convertToNum)
+                  ) : widget.productElement.discountPercentage} Off",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

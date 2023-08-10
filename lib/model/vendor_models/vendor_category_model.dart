@@ -1,7 +1,7 @@
 class ModelVendorCategory {
   bool? status;
   String? message;
-  List<Usphone>? usphone = [];
+  List<VendorCategoriesData>? usphone = [];
 
   ModelVendorCategory({this.status, this.message, this.usphone});
 
@@ -9,9 +9,9 @@ class ModelVendorCategory {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      usphone = <Usphone>[];
+      usphone = <VendorCategoriesData>[];
       json['data'].forEach((v) {
-        usphone!.add(Usphone.fromJson(v));
+        usphone!.add(VendorCategoriesData.fromJson(v));
       });
     } else {
       usphone = [];
@@ -29,7 +29,7 @@ class ModelVendorCategory {
   }
 }
 
-class Usphone {
+class VendorCategoriesData {
   int? id;
   String? name;
   String? status;
@@ -39,7 +39,7 @@ class Usphone {
   String? createdAt;
   String? updatedAt;
 
-  Usphone(
+  VendorCategoriesData(
       {this.id,
         this.name,
         this.status,
@@ -49,7 +49,7 @@ class Usphone {
         this.createdAt,
         this.updatedAt});
 
-  Usphone.fromJson(Map<String, dynamic> json) {
+  VendorCategoriesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     status = json['status'];

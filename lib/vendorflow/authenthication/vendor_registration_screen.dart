@@ -46,7 +46,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
   ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
   // Usphone? selectedCategory;
-  Map<String, Usphone> allSelectedCategory = {};
+  Map<String, VendorCategoriesData> allSelectedCategory = {};
 
   void vendorRegistration() {
     showValidation.value = true;
@@ -269,7 +269,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
                           .toList());
                       }
-                      return DropdownButtonFormField<Usphone>(
+                      return DropdownButtonFormField<VendorCategoriesData>(
                         key: categoryKey,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         icon: vendorCategoryStatus.value.isLoading
