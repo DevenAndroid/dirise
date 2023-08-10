@@ -121,9 +121,10 @@ class _ProductUIState extends State<ProductUI> {
                   height: 10,
                 ),
                 Text(
-                  "${widget.productElement.discountPercentage == null ? (
-                      (widget.productElement.sPrice.toString().convertToNum / widget.productElement.pPrice.toString().convertToNum)
-                  ) : widget.productElement.discountPercentage} Off",
+                  "${widget.productElement.discountPercentage ?? (
+                      (((widget.productElement.pPrice.toString().toNum - widget.productElement.sPrice.toString().toNum)
+                          /widget.productElement.pPrice.toString().toNum) * 100).toStringAsFixed(2)
+                  )} Off",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
