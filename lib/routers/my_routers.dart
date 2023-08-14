@@ -20,7 +20,7 @@ import '../screens/calender.dart';
 import '../screens/check_out/add_bag_screen.dart';
 import '../screens/categores/categories_screen.dart';
 import '../screens/check_out/check_out_screen.dart';
-import '../screens/categores/general_library.dart';
+import '../screens/categores/single_category_with_stores/single_store_screen.dart';
 import '../screens/check_out/direct_check_out.dart';
 import '../screens/check_out/order_completed_screen.dart';
 import '../screens/categores/single_category_with_stores/single_categorie.dart';
@@ -78,7 +78,7 @@ class MyRouters {
     GetPage(name: EventCalendarScreen.route, page: () => const EventCalendarScreen()),
     GetPage(name: EBookScreen.route, page: () => const EBookScreen()),
     GetPage(name: WithdrawMoney.route, page: () => const WithdrawMoney()),
-    GetPage(name: SingleChairScreen.route, page: () => const SingleChairScreen()),
+    // GetPage(name: SingleChairScreen.route, page: () => const SingleChairScreen()),
     GetPage(name: VendorDashBoardScreen.route, page: () => const VendorDashBoardScreen()),
     GetPage(name: VendorRegistrationScreen.registrationScreen, page: () => const VendorRegistrationScreen()),
     GetPage(name: EBookCategoryScreen.route, page: () => const EBookCategoryScreen()),
@@ -94,9 +94,9 @@ class MyRouters {
     GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),
     GetPage(name: OrderCompleteScreen.route, page: () => const OrderCompleteScreen()),
     // GetPage(name: AuthorsScreen.authorsScreen, page: () => const AuthorsScreen()),
-    GetPage(name: SingleAuthorScreen.singleAuthorScreen, page: () => const SingleAuthorScreen()),
+    // GetPage(name: SingleAuthorScreen.singleAuthorScreen, page: () => const SingleAuthorScreen()),
     // GetPage(name: TeacherScreen.teacherScreen, page: () => const TeacherScreen()),
-    GetPage(name: SelectedTeacher.selectedTeacher, page: () => const SelectedTeacher()),
+    // GetPage(name: SelectedTeacher.selectedTeacher, page: () => const SelectedTeacher()),
     GetPage(name: MyOrdersScreen.myOrdersScreen, page: () => const MyOrdersScreen()),
     GetPage(name: SelectedOrderScreen.route, page: () => const SelectedOrderScreen()),
     GetPage(name: DirectCheckOutScreen.route, page: () => const DirectCheckOutScreen()),

@@ -5,6 +5,7 @@ import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/common_colour.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,13 +15,14 @@ import '../../controller/wish_list_controller.dart';
 import '../../model/order_models/model_direct_order_details.dart';
 import '../../model/trending_products_modal.dart';
 import '../../utils/ApiConstant.dart';
+import '../../widgets/like_button.dart';
 import '../check_out/direct_check_out.dart';
 
 class ProductUI extends StatefulWidget {
   final ProductElement productElement;
   final Function(bool gg) onLiked;
-  const ProductUI(
-      {super.key, required this.productElement, required this.onLiked});
+
+  const ProductUI({super.key, required this.productElement, required this.onLiked});
 
   @override
   State<ProductUI> createState() => _ProductUIState();
@@ -36,26 +38,28 @@ class _ProductUIState extends State<ProductUI> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    size = MediaQuery.of(context).size;
+    size = MediaQuery
+        .of(context)
+        .size;
   }
 
   addToWishList() {
     repositories
         .postApi(
-            url: ApiUrls.addToWishListUrl,
-            mapData: {
-              "product_id": widget.productElement.id.toString(),
-            },
-            context: context)
+        url: ApiUrls.addToWishListUrl,
+        mapData: {
+          "product_id": widget.productElement.id.toString(),
+        },
+        context: context)
         .then((value) {
       widget.onLiked(true);
       ModelCommonResponse response =
-          ModelCommonResponse.fromJson(jsonDecode(value));
+      ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message);
       if (response.status == true) {
         wishListController.getYourWishList();
-        inWishList = true;
-        setState(() {});
+        wishListController.favoriteItems.add(widget.productElement.id.toString());
+        wishListController.updateFav;
       }
     });
   }
@@ -63,20 +67,20 @@ class _ProductUIState extends State<ProductUI> {
   removeFromWishList() {
     repositories
         .postApi(
-            url: ApiUrls.removeFromWishListUrl,
-            mapData: {
-              "product_id": widget.productElement.id.toString(),
-            },
-            context: context)
+        url: ApiUrls.removeFromWishListUrl,
+        mapData: {
+          "product_id": widget.productElement.id.toString(),
+        },
+        context: context)
         .then((value) {
       widget.onLiked(false);
       ModelCommonResponse response =
-          ModelCommonResponse.fromJson(jsonDecode(value));
+      ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message);
       if (response.status == true) {
         wishListController.getYourWishList();
-        inWishList = false;
-        setState(() {});
+        wishListController.favoriteItems.removeWhere((element) => element == widget.productElement.id.toString());
+        wishListController.updateFav;
       }
     });
   }
@@ -84,10 +88,7 @@ class _ProductUIState extends State<ProductUI> {
   @override
   void initState() {
     super.initState();
-    inWishList = widget.productElement.inWishlist ?? false;
   }
-
-  bool inWishList = false;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +97,6 @@ class _ProductUIState extends State<ProductUI> {
         bottomSheet(productDetails: widget.productElement, context: context);
       },
       child: Container(
-        // width: size.width * .54,
         constraints: BoxConstraints(
           minWidth: 0,
           maxWidth: size.width * .45,
@@ -122,8 +122,14 @@ class _ProductUIState extends State<ProductUI> {
                 ),
                 Text(
                   "${widget.productElement.discountPercentage ?? (
-                      (((widget.productElement.pPrice.toString().toNum - widget.productElement.sPrice.toString().toNum)
-                          /widget.productElement.pPrice.toString().toNum) * 100).toStringAsFixed(2)
+                      (((widget.productElement.pPrice
+                          .toString()
+                          .toNum - widget.productElement.sPrice
+                          .toString()
+                          .toNum)
+                          / widget.productElement.pPrice
+                              .toString()
+                              .toNum) * 100).toStringAsFixed(2)
                   )} Off",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
@@ -172,20 +178,22 @@ class _ProductUIState extends State<ProductUI> {
               ],
             ),
             Positioned(
-                top: 0,
-                right: 10,
-                child: IconButton(
+              top: 0,
+              right: 10,
+              child: Obx(() {
+                if(wishListController.refreshFav.value > 0){}
+                return LikeButton(
                   onPressed: () {
-                    if (inWishList) {
+                    if (wishListController.favoriteItems.contains(widget.productElement.id.toString())) {
                       removeFromWishList();
                     } else {
                       addToWishList();
                     }
                   },
-                  icon: Icon(inWishList
-                      ? Icons.favorite_rounded
-                      : Icons.favorite_border_rounded),
-                ))
+                  isLiked: wishListController.favoriteItems.contains(widget.productElement.id.toString()),
+                );
+              }),
+            )
           ],
         ),
       ),
@@ -193,28 +201,48 @@ class _ProductUIState extends State<ProductUI> {
   }
 }
 
-Future bottomSheet(
-    {required ProductElement productDetails, required BuildContext context}) {
-  Size size = MediaQuery.of(context).size;
-  RxInt productQuantity = 1.obs;
-  log("Product Details.....   ${productDetails.toJson()}");
+Future bottomSheet({required ProductElement productDetails, required BuildContext context}) {
   final Repositories repositories = Repositories();
+  repositories.postApi(url: ApiUrls.singleProductUrl,mapData: {
+    "id" : productDetails.id.toString()
+  }).then((value) {
+
+  });
+  Size size = MediaQuery
+      .of(context)
+      .size;
+  RxInt productQuantity = 1.obs;
+  // log("Product Details.....   ${productDetails.toJson()}");
   final cartController = Get.put(CartController());
   return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.white,
       constraints: BoxConstraints(
-          maxHeight: size.height * .82, minHeight: size.height * .4),
+          maxHeight: size.height * .9, minHeight: size.height * .4),
       builder: (context) {
         return SizedBox(
           width: size.width,
           child: Padding(
-            padding: const EdgeInsets.all(20).copyWith(bottom: 10),
+            padding: const EdgeInsets.all(20).copyWith(bottom: 10).copyWith(top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 5,
+                      width: context.getSize.width*.22,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade400,
+                        borderRadius: BorderRadius.circular(100)
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 6,),
                 Flexible(
                   child: SingleChildScrollView(
                     child: Column(
@@ -234,7 +262,7 @@ Future bottomSheet(
                           height: 30,
                         ),
                         Text(
-                          productDetails.discountPercentage.toString(),
+                          "${productDetails.discountPercentage} Off",
                           style: GoogleFonts.poppins(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -244,7 +272,7 @@ Future bottomSheet(
                           height: 5,
                         ),
                         Text(
-                          productDetails.pname.toString(),
+                          productDetails.pname.toString().capitalize!,
                           style: GoogleFonts.poppins(
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
@@ -260,43 +288,26 @@ Future bottomSheet(
                           height: 5,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'KD ${productDetails.sPrice.toString()}',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Text(
-                                  'KD ${productDetails.pPrice.toString()}',
-                                  style: GoogleFonts.poppins(
-                                      decoration: TextDecoration.lineThrough,
-                                      color: const Color(0xff858484),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
                             Text(
-                              'Add to list',
+                              'KD ${productDetails.sPrice.toString()}',
                               style: GoogleFonts.poppins(
-                                shadows: [
-                                  const Shadow(
-                                      color: Colors.black,
-                                      offset: Offset(0, -4))
-                                ],
-                                color: Colors.transparent,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.underline,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            Expanded(
+                              child: Text(
+                                'KD ${productDetails.pPrice.toString()}',
+                                style: GoogleFonts.poppins(
+                                    decoration: TextDecoration.lineThrough,
+                                    color: const Color(0xff858484),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500),
                               ),
-                            )
+                            ),
                           ],
                         ),
                         const SizedBox(
@@ -338,6 +349,7 @@ Future bottomSheet(
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Flexible(
                       child: Row(
@@ -353,12 +365,12 @@ Future bottomSheet(
                               backgroundColor: const Color(0xffEAEAEA),
                               child: Center(
                                   child: Text(
-                                "━",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
-                              )),
+                                    "━",
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
+                                  )),
                             ),
                           ),
                           const SizedBox(
@@ -377,9 +389,9 @@ Future bottomSheet(
                           GestureDetector(
                             onTap: () {
                               if ((productDetails.inStock
-                                          .toString()
-                                          .convertToNum ??
-                                      0) >
+                                  .toString()
+                                  .convertToNum ??
+                                  0) >
                                   productQuantity.value) {
                                 productQuantity.value++;
                               } else {
@@ -391,12 +403,12 @@ Future bottomSheet(
                               backgroundColor: const Color(0xffEAEAEA),
                               child: Center(
                                   child: Text(
-                                "+",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black),
-                              )),
+                                    "+",
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                  )),
                             ),
                           ),
                         ],
@@ -410,17 +422,19 @@ Future bottomSheet(
                           map["quantity"] = productQuantity.value.toString();
                           repositories
                               .postApi(
-                                  url: ApiUrls.buyNowDetailsUrl,
-                                  mapData: map,
-                                  context: context)
+                              url: ApiUrls.buyNowDetailsUrl,
+                              mapData: map,
+                              context: context)
                               .then((value) {
                             ModelDirectOrderResponse response =
-                                ModelDirectOrderResponse.fromJson(
-                                    jsonDecode(value));
+                            ModelDirectOrderResponse.fromJson(
+                                jsonDecode(value));
                             showToast(response.message.toString());
                             if (response.status == true) {
                               response.quantity = productQuantity.value;
-                              print(response.quantity);
+                              if (kDebugMode) {
+                                print(response.quantity);
+                              }
                               Get.toNamed(DirectCheckOutScreen.route,
                                   arguments: response);
                             }
@@ -449,12 +463,12 @@ Future bottomSheet(
                           map["quantity"] = productQuantity.value.toString();
                           repositories
                               .postApi(
-                                  url: ApiUrls.addToCartUrl,
-                                  mapData: map,
-                                  context: context)
+                              url: ApiUrls.addToCartUrl,
+                              mapData: map,
+                              context: context)
                               .then((value) {
                             ModelCommonResponse response =
-                                ModelCommonResponse.fromJson(jsonDecode(value));
+                            ModelCommonResponse.fromJson(jsonDecode(value));
                             showToast(response.message.toString());
                             if (response.status == true) {
                               Get.back();

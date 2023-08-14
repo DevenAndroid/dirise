@@ -17,9 +17,10 @@ import '../../../model/model_category_stores.dart';
 import '../../../model/trending_products_modal.dart';
 import '../../../model/vendor_models/vendor_category_model.dart';
 import '../../../utils/ApiConstant.dart';
-import '../../../widgets/common_app_bar.dart';
+import '../../../widgets/cart_widget.dart';
+import '../../app_bar/common_app_bar.dart';
 import '../../home_pages/product_widget.dart';
-import '../general_library.dart';
+import 'single_store_screen.dart';
 
 class SingleCategories extends StatefulWidget {
   const SingleCategories({super.key, required this.vendorCategories});
@@ -116,6 +117,9 @@ class _SingleCategoriesState extends State<SingleCategories> {
         preferredSize: const Size.fromHeight(60),
         child: CommonAppBar(
           titleText: mainCategory.name.toString(),
+          actions: const [
+            CartBagCard(isBlackTheme: true),
+          ],
         ),
       ),
       body: RefreshIndicator(
@@ -297,26 +301,28 @@ class _SingleCategoriesState extends State<SingleCategories> {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(16).copyWith(top: 10),
-            child: Column(
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: SizedBox(
-                        key: ValueKey(i * DateTime.now().millisecond),
-                        height: context.getSize.width * .4,
-                        width: double.maxFinite,
-                        child: CachedNetworkImage(
-                          imageUrl: modelCategoryStores![i]
-                              .promotionData![min(i % 3, modelCategoryStores![i].promotionData!.length - 1)]
-                              .banner
-                              .toString(),
-                          fit: BoxFit.cover,
-                          errorWidget: (_, __, ___) => const Icon(
-                            Icons.error_outline,
-                            color: Colors.red,
-                          ),
-                        )).animate().fade(duration: 300.ms)),
-              ],
+            child: GestureDetector(
+              onTap: (){
+                print(jsonEncode(modelCategoryStores![i]
+                    .promotionData![min(i % 3, modelCategoryStores![i].promotionData!.length - 1)]));
+              },
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: SizedBox(
+                      key: ValueKey(i * DateTime.now().millisecond),
+                      height: context.getSize.width * .4,
+                      width: double.maxFinite,
+                      child: CachedNetworkImage(
+                        imageUrl: modelCategoryStores![i]
+                            .promotionData![min(i % 3, modelCategoryStores![i].promotionData!.length - 1)]
+                            .banner
+                            .toString(),
+                        fit: BoxFit.cover,
+                        errorWidget: (_, __, ___) => const Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                        ),
+                      )).animate().fade(duration: 300.ms)),
             ),
           ),
         ),

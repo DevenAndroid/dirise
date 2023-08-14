@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../widgets/common_app_bar.dart';
+import 'app_bar/common_app_bar.dart';
 import '../widgets/common_colour.dart';
 import 'check_out/add_bag_screen.dart';
 

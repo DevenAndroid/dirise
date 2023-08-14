@@ -9,7 +9,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/home_controller.dart';
-import '../../widgets/common_app_bar.dart';
+import '../../widgets/cart_widget.dart';
+import '../app_bar/common_app_bar.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
@@ -30,7 +31,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         preferredSize: Size.fromHeight(60),
         child: CommonAppBar(
           titleText: 'Categories',
-
+          actions: [
+            CartBagCard(isBlackTheme: true),
+          ],
         ),
       ),
       body: Obx(() {

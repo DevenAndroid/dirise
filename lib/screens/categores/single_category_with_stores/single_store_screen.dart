@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/model_category_stores.dart';
-import '../../model/model_store_products.dart';
-import '../../model/trending_products_modal.dart';
-import '../../model/vendor_models/model_vendor_product_list.dart';
-import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
-import '../../widgets/common_app_bar.dart';
-import '../check_out/add_bag_screen.dart';
-import '../home_pages/product_widget.dart';
+import '../../../model/model_category_stores.dart';
+import '../../../model/model_store_products.dart';
+import '../../../model/trending_products_modal.dart';
+import '../../../repository/repository.dart';
+import '../../../utils/ApiConstant.dart';
+import '../../../widgets/cart_widget.dart';
+import '../../app_bar/common_app_bar.dart';
+import '../../check_out/add_bag_screen.dart';
+import '../../home_pages/product_widget.dart';
 
 class SingleStoreScreen extends StatefulWidget {
   const SingleStoreScreen({super.key, required this.storeDetails});
@@ -36,7 +36,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
 
   ModelStoreProducts modelProductsList = ModelStoreProducts(data: null);
 
-  getCategoryStores({required int page, String? search, bool? resetAll}) {
+  Future getCategoryStores({required int page, String? search, bool? resetAll}) async {
     if (resetAll == true) {
       allLoaded = false;
       paginationLoading = false;
@@ -50,7 +50,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
     String url = "vendor_id=$vendorId";
     paginationLoading = true;
 
-    repositories.getApi(url: "${ApiUrls.vendorProductListUrl}$url").then((value) {
+    await repositories.getApi(url: "${ApiUrls.vendorProductListUrl}$url").then((value) {
       paginationLoading = false;
 
       modelProductsList.data ??= [];
@@ -85,152 +85,167 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
         preferredSize: Size.fromHeight(60),
         child: CommonAppBar(
           titleText: 'General Libraries',
+          actions: [
+            CartBagCard(isBlackTheme: true),
+          ],
         ),
       ),
-      body: CustomScrollView(
-        shrinkWrap: true,
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16).copyWith(top: 10),
-              child: Column(
-                children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: SizedBox(
-                          width: double.maxFinite,
-                          height: context.getSize.width * .4,
-                          child: Hero(
-                            tag: storeInfo.storeLogo.toString(),
-                            child: Material(
-                              color: Colors.transparent,
-                              surfaceTintColor: Colors.transparent,
-                              child: CachedNetworkImage(
-                                imageUrl: storeInfo.storeLogo.toString(),
-                                errorWidget: (_, __, ___) => const Icon(Icons.error_outline),
-                              ),
-                            ),
-                          ))),
-                ],
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16).copyWith(top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image(
-                    image: NetworkImage(storeInfo.storeImage.toString()),
-                    height: 84,
-                    width: 104,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          storeInfo.storeName.toString().capitalize!,
-                          style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 5),
-                          child: Text(
-                            storeInfo.description.toString(),
-                            maxLines: 1,
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xff8F8F8F), fontSize: 13, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        Text(
-                          ("1457 items -- Static"),
-                          style:
-                              GoogleFonts.poppins(color: const Color(0xff014E70), fontSize: 17, fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          SliverAppBar(
-            primary: false,
-            pinned: true,
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
-            leading: const SizedBox.shrink(),
-            titleSpacing: 0,
-            leadingWidth: 16,
-            title: InkWell(
-              onTap: () {},
-              child: Container(
-                height: 36,
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xff014E70)),
-                    color: const Color(0xffEBF1F4),
-                    borderRadius: BorderRadius.circular(22)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+      body: RefreshIndicator(
+        onRefresh: ()async{
+          await getCategoryStores(page: paginationPage,resetAll: true);
+        },
+        child: CustomScrollView(
+          shrinkWrap: true,
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16).copyWith(top: 10),
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 10),
-                      child: Text(
-                        "${storeInfo.storeName.toString()} Type",
-                        style:
-                            GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-                      ),
-                    ),
-                    const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: SizedBox(
+                            width: double.maxFinite,
+                            height: context.getSize.width * .4,
+                            child: Hero(
+                              tag: storeInfo.storeLogo.toString(),
+                              child: Material(
+                                color: Colors.transparent,
+                                surfaceTintColor: Colors.transparent,
+                                child: CachedNetworkImage(
+                                  imageUrl: storeInfo.storeLogo.toString(),
+                                  errorWidget: (_, __, ___) => const Icon(Icons.error_outline),
+                                ),
+                              ),
+                            ))),
                   ],
                 ),
               ),
             ),
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 20,
-            ),
-          ),
-          if (modelProductsList.data != null)
-            modelProductsList.data!.isNotEmpty
-                ? SliverGrid.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: .74),
-                    itemCount: modelProductsList.data!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final item = modelProductsList.data![index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: ProductUI(
-                          productElement: ProductElement.fromJson(item.toJson()),
-                          onLiked: (value) {
-                            // modelProductsList.data![index].inWishlist = value;
-                          },
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16).copyWith(top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 84,
+                      width: 104,
+                      child: Image(
+                        image: NetworkImage(storeInfo.storeImage.toString()),
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => const Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
                         ),
-                      );
-                    },
-                  )
-                : const SliverToBoxAdapter(
-                    child: Center(
-                    child: Text("Store don't have any product"),
-                  ))
-          else
-            const SliverToBoxAdapter(child: LoadingAnimation()),
-          // const SizedBox(
-          //   height: 10,
-          // ),
-          // const Image(
-          //   image: AssetImage('assets/images/collectionbooks.png'),
-          // ),
-        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            storeInfo.storeName.toString().capitalize!,
+                            style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, bottom: 5),
+                            child: Text(
+                              storeInfo.description.toString(),
+                              maxLines: 1,
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xff8F8F8F), fontSize: 13, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Text(
+                            ("1457 items -- Static"),
+                            style:
+                                GoogleFonts.poppins(color: const Color(0xff014E70), fontSize: 17, fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SliverAppBar(
+              primary: false,
+              pinned: true,
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
+              leading: const SizedBox.shrink(),
+              titleSpacing: 0,
+              leadingWidth: 16,
+              title: InkWell(
+                onTap: () {},
+                child: Container(
+                  height: 36,
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xff014E70)),
+                      color: const Color(0xffEBF1F4),
+                      borderRadius: BorderRadius.circular(22)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 10),
+                        child: Text(
+                          "${storeInfo.storeName.toString()} Type",
+                          style:
+                              GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                        ),
+                      ),
+                      const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 20,
+              ),
+            ),
+            if (modelProductsList.data != null)
+              modelProductsList.data!.isNotEmpty
+                  ? SliverGrid.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: .74),
+                      itemCount: modelProductsList.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = modelProductsList.data![index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: ProductUI(
+                            productElement: ProductElement.fromJson(item.toJson()),
+                            onLiked: (value) {
+                              // modelProductsList.data![index].inWishlist = value;
+                            },
+                          ),
+                        );
+                      },
+                    )
+                  : const SliverToBoxAdapter(
+                      child: Center(
+                      child: Text("Store don't have any product"),
+                    ))
+            else
+              const SliverToBoxAdapter(child: LoadingAnimation()),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            // const Image(
+            //   image: AssetImage('assets/images/collectionbooks.png'),
+            // ),
+          ],
+        ),
       ),
     );
   }

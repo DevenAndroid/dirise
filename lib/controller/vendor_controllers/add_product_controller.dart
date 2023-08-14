@@ -242,10 +242,12 @@ class AddProductController extends GetxController {
       }
     }
 
-    if (galleryImages.isEmpty)
+    if (galleryImages.isEmpty) {
       return showToast("Please select product gallery images");
-    if (productImage.path.isEmpty)
+    }
+    if (productImage.path.isEmpty) {
       return showToast("Please select product images");
+    }
 
     // return;
     Map<String, String> map = {};
@@ -257,6 +259,7 @@ class AddProductController extends GetxController {
         "virtual") {
       // "virtual_product"
       map["product_type"] = "virtual_product";
+      map["virtual_product_type"] = productFileType.value == "pdf" ? "digital reader" : "voice";
     }
 
     if (productType == "Booking Product") {

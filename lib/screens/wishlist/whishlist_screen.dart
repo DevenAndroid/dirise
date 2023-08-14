@@ -6,13 +6,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import '../controller/cart_controller.dart';
-import '../controller/wish_list_controller.dart';
-import '../model/common_modal.dart';
-import '../model/trending_products_modal.dart';
-import '../repository/repository.dart';
-import '../utils/ApiConstant.dart';
-import 'home_pages/product_widget.dart';
+import '../../controller/cart_controller.dart';
+import '../../controller/wish_list_controller.dart';
+import '../../model/common_modal.dart';
+import '../../model/trending_products_modal.dart';
+import '../../repository/repository.dart';
+import '../../utils/ApiConstant.dart';
+import '../../widgets/cart_widget.dart';
+import '../home_pages/product_widget.dart';
 
 class WishListScreen extends StatefulWidget {
   const WishListScreen({Key? key}) : super(key: key);
@@ -58,6 +59,9 @@ class _WishListScreenState extends State<WishListScreen> {
             style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
           ),
         ),
+        actions: const [
+          CartBagCard(isBlackTheme: true),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {

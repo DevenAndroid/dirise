@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
+import '../../widgets/cart_widget.dart';
 import '../check_out/add_bag_screen.dart';
 import 'ad_banner.dart';
 import 'authers.dart';
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                             )),
                       ),
                       const Spacer(),
-                      cartWidget(),
+                      const CartBagCard(),
                     ],
                   ),
                   const SizedBox(
@@ -142,51 +143,5 @@ class _HomePageState extends State<HomePage> {
               AdBannerUI(),
               AuthorScreen(),
             ]))));
-  }
-
-  cartWidget() {
-    return Obx(() {
-      if (cartController.refreshInt.value > 0) {}
-      return GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          Get.toNamed(BagsScreen.addBagScreen);
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(right: 15, top: 10),
-          child: Container(
-            alignment: Alignment.center,
-            height: 40,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  width: 10,
-                ),
-                const Image(
-                  height: 25,
-                  image: AssetImage(
-                    'assets/icons/whishlist.png',
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                cartController.apiLoaded
-                    ? Text(
-                        cartController.cartModel.totalQuantity.toString(),
-                        style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 20),
-                      )
-                    : const CupertinoActivityIndicator(),
-                const SizedBox(
-                  width: 10,
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    });
   }
 }

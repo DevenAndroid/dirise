@@ -56,19 +56,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ),
           ),
           title: Text(
-            "Add Product",
-            style: GoogleFonts.raleway(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: const Color(0xff303C5E)),
+            controller.productId.isEmpty ? "Add Product" : "Edit Product",
+            style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
           ),
         ),
         body: Obx(() {
           if (controller.refreshInt.value > 0) {}
           return controller.apiLoaded
               ? RefreshIndicator(
-                  onRefresh: () async =>
-                      await controller.getProductCategoryLit(),
+                  onRefresh: () async => await controller.getProductCategoryLit(),
                   child: SingleChildScrollView(
                       child: Form(
                     key: controller.formKey,
@@ -77,8 +73,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         child: Column(children: [
                           const AddProductDescriptionScreen(),
                           16.spaceY,
-                          if (controller.productType == "Booking Product")
-                            const BookableUI(),
+                          if (controller.productType == "Booking Product") const BookableUI(),
                           const AddProductImageAndVirtualFile(),
                           16.spaceY,
                           const ProductGalleryImages(),
@@ -91,23 +86,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                   minimumSize: const Size(double.maxFinite, 60),
                                   backgroundColor: AppTheme.buttonColor,
                                   elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          AddSize.size10)),
-                                  textStyle: GoogleFonts.poppins(
-                                      fontSize: AddSize.font20,
-                                      fontWeight: FontWeight.w600)),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
+                                  textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                               child: Text(
-                                controller.productId.isEmpty
-                                    ? "Create"
-                                    : "Update",
+                                controller.productId.isEmpty ? "Create" : "Update",
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
-                                    .copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: AddSize.font18),
+                                    .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
                               )),
                           10.spaceY,
                         ])),
