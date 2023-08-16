@@ -1,5 +1,8 @@
 import 'package:dirise/utils/helper.dart';
+import 'package:dirise/utils/styles.dart';
+import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +24,9 @@ class _BagsScreenState extends State<BagsScreen> {
   @override
   void initState() {
     super.initState();
-    cartController.getCart();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      cartController.getCart();
+    });
   }
 
   @override
@@ -59,7 +64,8 @@ class _BagsScreenState extends State<BagsScreen> {
                                         child: GestureDetector(
                                           onTap: () {
                                             // Get.back();
-                                            cartController.removeItemFromCart(productId: cart.id.toString(), context: context);
+                                            cartController.removeItemFromCart(
+                                                productId: cart.id.toString(), context: context);
                                           },
                                           child: Container(
                                               decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
@@ -79,74 +85,129 @@ class _BagsScreenState extends State<BagsScreen> {
                               decoration: const BoxDecoration(
                                 border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
                               ),
-                              padding: const EdgeInsets.only(bottom: 20, top: 20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 20,
-                                          backgroundColor: const Color(0xffEEEEEE),
-                                          child: Text(
-                                            "${cart.qty}x",
-                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
-                                          ),
+                              padding: const EdgeInsets.only(top: 16, bottom: 16),
+                              child: IntrinsicHeight(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: size.height * .06 - 20),
+                                      child: CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: const Color(0xffEEEEEE),
+                                        child: Text(
+                                          "${cart.qty}x",
+                                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
                                         ),
-                                        const SizedBox(
-                                          width: 15,
-                                        ),
-                                        Image.network(
-                                          cart.featuredImage.toString(),
-                                          height: size.height * .12,
-                                          width: size.height * .12,
-                                          errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                '50% off -Static',
-                                                style: GoogleFonts.poppins(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color(0xffC22E2E)),
-                                              ),
-                                              const SizedBox(
-                                                height: 4,
-                                              ),
-                                              Text(
-                                                cart.pname.toString(),
-                                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                              const SizedBox(
-                                                height: 4,
-                                              ),
-                                              Text(
-                                                '${cart.qty.toString()} piece',
-                                                style: GoogleFonts.poppins(color: const Color(0xff858484)),
-                                              ),
-                                              const SizedBox(
-                                                height: 4,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'KD ${cart.sPrice}',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-                                  ),
-                                ],
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    Image.network(
+                                      cart.featuredImage.toString(),
+                                      height: size.height * .12,
+                                      width: size.height * .12,
+                                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            '50% off -Static',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 12, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          Text(
+                                            cart.pname.toString(),
+                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          Text(
+                                            'USD ${cart.sPrice}',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                                          ),
+                                          if (cart.selectedSlotDate.toString() != "" &&
+                                              cart.selectedSlotStart.toString() != "")
+                                            GestureDetector(
+                                              behavior: HitTestBehavior.translucent,
+                                              onTap: () {
+                                                cart.showDetails.value = !cart.showDetails.value;
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(vertical: 6),
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      "Booking Details",
+                                                      style: normalStyle,
+                                                    )),
+                                                    Obx(() {
+                                                      return cart.showDetails.value
+                                                          ? const Icon(
+                                                              Icons.keyboard_arrow_down_rounded,
+                                                              color: AppTheme.buttonColor,
+                                                              size: 22,
+                                                            )
+                                                          : const Icon(
+                                                              Icons.arrow_forward_ios_rounded,
+                                                              size: 16,
+                                                            );
+                                                    }),
+                                                    const SizedBox(
+                                                      width: 4,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          Obx(() {
+                                            return cart.showDetails.value
+                                                ? Column(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                              child: Text(
+                                                            "Date: ${cart.selectedSlotDate}",
+                                                            style: normalStyle,
+                                                          )),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                              child: Text(
+                                                            "Time: ${cart.selectedSlotStart} - ${cart.selectedSlotEnd}",
+                                                            style: normalStyle,
+                                                          )),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )
+                                                : const SizedBox.shrink();
+                                          }),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -191,8 +252,7 @@ class _BagsScreenState extends State<BagsScreen> {
                             Row(
                               children: [
                                 Container(
-                                    decoration:
-                                        BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
                                     padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
                                     child: Text(
                                       cartController.cartModel.cart!
@@ -206,8 +266,8 @@ class _BagsScreenState extends State<BagsScreen> {
                                   width: 10,
                                 ),
                                 Text("KD ${cartController.cartModel.subtotal}",
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
+                                    style:
+                                        GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
                               ],
                             ),
                             Row(

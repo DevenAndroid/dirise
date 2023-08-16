@@ -326,6 +326,15 @@ extension ConvertToNum on String{
   String get checkHTTP{
     return contains("https://") || contains("http://") ? split("/").last : "";
   }
+
+  String get convertToFormatTime{
+    return "${split(":")[0]}:${split(":")[1]}";
+  }
+
+
+
+
+
 }
 
 // extension CheckNull on String?{

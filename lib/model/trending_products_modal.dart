@@ -75,7 +75,7 @@ class ProductElement {
   dynamic longDescription;
   dynamic arabLongDescription;
   dynamic featuredImage;
-  List<String>? galleryImage;
+  List<String>? galleryImage = [];
   dynamic inStock;
   dynamic stockAlert;
   dynamic shippingType;

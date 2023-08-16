@@ -396,6 +396,11 @@ class CartController extends GetxController {
   }
 
   Future getCart() async {
+    if(cartModel.cart != null){
+      for (var element in cartModel.cart!) {
+        element.showDetails.value = false;
+      }
+    }
     await repositories.postApi(url: ApiUrls.cartListUrl).then((value) {
       cartModel = ModelCartResponse.fromJson(jsonDecode(value));
       apiLoaded = true;

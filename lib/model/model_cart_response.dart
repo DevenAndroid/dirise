@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:dirise/utils/helper.dart';
+import 'package:get/get.dart';
 
 ModelCartResponse modelCartResponseFromJson(String str) => ModelCartResponse.fromJson(json.decode(str));
 
@@ -58,6 +59,10 @@ class ModelCartResponse {
 
 class Cart {
   dynamic id;
+  dynamic selectedSlotStart;
+  dynamic selectedSlotEnd;
+  dynamic selectedSlotDate;
+  RxBool showDetails = false.obs;
   dynamic vendorId;
   dynamic catId;
   dynamic catId2;
@@ -122,6 +127,9 @@ class Cart {
 
   Cart({
     this.id,
+    this.selectedSlotStart,
+    this.selectedSlotEnd,
+    this.selectedSlotDate,
     this.vendorId,
     this.catId,
     this.catId2,
@@ -187,6 +195,9 @@ class Cart {
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
     id: json["id"],
+    selectedSlotStart: json["selected_sloat_start"],
+    selectedSlotEnd: json["selected_sloat_end"],
+    selectedSlotDate: json["selected_sloat_date"],
     vendorId: json["vendor_id"],
     catId: json["cat_id"],
     catId2: json["cat_id_2"],
