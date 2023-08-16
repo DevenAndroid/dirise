@@ -56,7 +56,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   Map<String, VendorCategoriesData> allSelectedCategory = {};
 
   updateParameters(){
-    print("updating values.........          ");
     VendorUser? user = vendorProfileController.model.user;
     if(user == null)return;
     if(modelVendorCategory.usphone!.isEmpty)return;

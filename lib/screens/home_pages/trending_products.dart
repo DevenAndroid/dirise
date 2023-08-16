@@ -1,4 +1,4 @@
-import 'package:dirise/screens/home_pages/product_widget.dart';
+import 'package:dirise/screens/product_details/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';

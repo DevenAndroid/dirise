@@ -1,6 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:dirise/widgets/common_colour.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../widgets/cart_widget.dart';
-import '../check_out/add_bag_screen.dart';
 import 'ad_banner.dart';
 import 'authers.dart';
 import 'popular_products.dart';

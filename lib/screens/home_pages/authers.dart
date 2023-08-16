@@ -19,7 +19,6 @@ class _AuthorScreenState extends State<AuthorScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      print("context.......     $context");
       return homeController.authorModal.value.data != null ?
       Column(
         children: [

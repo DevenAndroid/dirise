@@ -7,11 +7,9 @@ import 'package:client_information/client_information.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/login_model.dart';
-import '../screens/auth_screens/login_screen.dart';
 import '../utils/ApiConstant.dart';
 import '../utils/helper.dart';
 

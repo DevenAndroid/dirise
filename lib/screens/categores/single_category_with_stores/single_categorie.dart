@@ -19,7 +19,7 @@ import '../../../model/vendor_models/vendor_category_model.dart';
 import '../../../utils/ApiConstant.dart';
 import '../../../widgets/cart_widget.dart';
 import '../../app_bar/common_app_bar.dart';
-import '../../home_pages/product_widget.dart';
+import '../../product_details/product_widget.dart';
 import 'single_store_screen.dart';
 
 class SingleCategories extends StatefulWidget {
@@ -303,8 +303,6 @@ class _SingleCategoriesState extends State<SingleCategories> {
             padding: const EdgeInsets.all(16).copyWith(top: 10),
             child: GestureDetector(
               onTap: (){
-                print(jsonEncode(modelCategoryStores![i]
-                    .promotionData![min(i % 3, modelCategoryStores![i].promotionData!.length - 1)]));
               },
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),

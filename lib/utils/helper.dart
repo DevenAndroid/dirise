@@ -14,8 +14,6 @@ import 'package:shimmer/shimmer.dart';
 import '../widgets/common_colour.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/services.dart';
-// import 'package:image_picker/image_picker.dart';
 
 class NewHelper {
   Future<File?> addFilePicker({

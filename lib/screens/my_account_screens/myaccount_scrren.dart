@@ -26,7 +26,7 @@ import 'profile_screen.dart';
 import 'return_policy_screen.dart';
 import 'termsconditions_screen.dart';
 
-Locale locale = Locale('en', 'US');
+Locale locale = const Locale('en', 'US');
 
 class MyAccountScreen extends StatefulWidget {
   const MyAccountScreen({Key? key}) : super(key: key);
@@ -478,7 +478,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                   value: "English",
                                                   groupValue: selectedLAnguage.value,
                                                   onChanged: (value) {
-                                                    locale = Locale('en', 'US');
+                                                    locale = const Locale('en', 'US');
                                                     Get.updateLocale(locale);
                                                     selectedLAnguage.value = value!;
                                                     updateLanguage("english");

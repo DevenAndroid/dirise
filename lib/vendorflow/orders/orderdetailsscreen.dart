@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../routers/my_routers.dart';
 import '../../widgets/customsize.dart';
 import '../../widgets/dimension_screen.dart';
 import '../bank_account_screen.dart';

@@ -1,5 +1,4 @@
-import 'package:dirise/screens/home_pages/product_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dirise/screens/product_details/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,15 +23,13 @@ class _PopularProductsState extends State<PopularProducts> {
           ? Column(
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Popular Products',
-                        style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                        style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       InkWell(
                         onTap: () {
@@ -47,9 +44,7 @@ class _PopularProductsState extends State<PopularProducts> {
                         child: Container(
                           padding: const EdgeInsets.all(2),
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  color: AppTheme.buttonColor, width: 1.2)),
+                              shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
                           child: const Icon(
                             Icons.arrow_forward,
                             color: AppTheme.buttonColor,
@@ -67,18 +62,15 @@ class _PopularProductsState extends State<PopularProducts> {
                     height: 230,
                     margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                     child: ListView.builder(
-                        itemCount: homeController
-                            .popularProdModal.value.product!.product!.length,
+                        itemCount: homeController.popularProdModal.value.product!.product!.length,
                         // itemScrollController: itemController1,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
-                          final item = homeController
-                              .popularProdModal.value.product!.product![index];
+                          final item = homeController.popularProdModal.value.product!.product![index];
                           return ProductUI(
                             productElement: item,
                             onLiked: (value) {
-                              homeController.popularProdModal.value.product!
-                                  .product![index].inWishlist = value;
+                              homeController.popularProdModal.value.product!.product![index].inWishlist = value;
                             },
                           );
                         }),

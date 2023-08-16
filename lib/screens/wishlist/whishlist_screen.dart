@@ -13,7 +13,7 @@ import '../../model/trending_products_modal.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../widgets/cart_widget.dart';
-import '../home_pages/product_widget.dart';
+import '../product_details/product_widget.dart';
 
 class WishListScreen extends StatefulWidget {
   const WishListScreen({Key? key}) : super(key: key);

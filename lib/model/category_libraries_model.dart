@@ -15,18 +15,18 @@ class CategoryLibraryModel {
     if (json['product'] != null) {
       product = <Product>[];
       json['product'].forEach((v) {
-        product!.add(new Product.fromJson(v));
+        product!.add(Product.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    data['category_name'] = this.categoryName;
-    if (this.product != null) {
-      data['product'] = this.product!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    data['category_name'] = categoryName;
+    if (product != null) {
+      data['product'] = product!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -187,74 +187,74 @@ class Product {
     currencySign = json['currency_sign'];
     currencyCode = json['currency_code'];
     storemeta = json['storemeta'] != null
-        ? new Storemeta.fromJson(json['storemeta'])
+        ? Storemeta.fromJson(json['storemeta'])
         : null;
     allowBid = json['allow_bid'];
     nextBidPrice = json['next_bid_price'];
     if (json['serviceTimeSloat'] != null) {
       serviceTimeSloat = <ServiceTimeSloat>[];
       json['serviceTimeSloat'].forEach((v) {
-        serviceTimeSloat!.add(new ServiceTimeSloat.fromJson(v));
+        serviceTimeSloat!.add(ServiceTimeSloat.fromJson(v));
       });
     }
     productAvailability = json['productAvailability'] != null
-        ? new ProductAvailability.fromJson(json['productAvailability'])
+        ? ProductAvailability.fromJson(json['productAvailability'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['vendor_id'] = this.vendorId;
-    data['cat_id'] = this.catId;
-    data['brand_slug'] = this.brandSlug;
-    data['slug'] = this.slug;
-    data['pname'] = this.pname;
-    data['prodect_sku'] = this.prodectSku;
-    data['booking_product_type'] = this.bookingProductType;
-    data['image'] = this.image;
-    data['product_type'] = this.productType;
-    data['sku_id'] = this.skuId;
-    data['p_price'] = this.pPrice;
-    data['s_price'] = this.sPrice;
-    data['commission'] = this.commission;
-    data['best_saller'] = this.bestSaller;
-    data['featured'] = this.featured;
-    data['tax_apply'] = this.taxApply;
-    data['short_description'] = this.shortDescription;
-    data['long_description'] = this.longDescription;
-    data['featured_image'] = this.featuredImage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['vendor_id'] = vendorId;
+    data['cat_id'] = catId;
+    data['brand_slug'] = brandSlug;
+    data['slug'] = slug;
+    data['pname'] = pname;
+    data['prodect_sku'] = prodectSku;
+    data['booking_product_type'] = bookingProductType;
+    data['image'] = image;
+    data['product_type'] = productType;
+    data['sku_id'] = skuId;
+    data['p_price'] = pPrice;
+    data['s_price'] = sPrice;
+    data['commission'] = commission;
+    data['best_saller'] = bestSaller;
+    data['featured'] = featured;
+    data['tax_apply'] = taxApply;
+    data['short_description'] = shortDescription;
+    data['long_description'] = longDescription;
+    data['featured_image'] = featuredImage;
 
-    data['virtual_product_file'] = this.virtualProductFile;
-    data['virtual_product_file_type'] = this.virtualProductFileType;
-    data['in_stock'] = this.inStock;
-    data['stock_alert'] = this.stockAlert;
-    data['avg_rating'] = this.avgRating;
-    data['parent_id'] = this.parentId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['top_hunderd'] = this.topHunderd;
-    data['return_days'] = this.returnDays;
-    data['is_publish'] = this.isPublish;
-    data['in_offer'] = this.inOffer;
-    data['for_auction'] = this.forAuction;
-    data['return_policy_desc'] = this.returnPolicyDesc;
-    data['in_cart'] = this.inCart;
-    data['in_wishlist'] = this.inWishlist;
-    data['currency_sign'] = this.currencySign;
-    data['currency_code'] = this.currencyCode;
-    if (this.storemeta != null) {
-      data['storemeta'] = this.storemeta!.toJson();
+    data['virtual_product_file'] = virtualProductFile;
+    data['virtual_product_file_type'] = virtualProductFileType;
+    data['in_stock'] = inStock;
+    data['stock_alert'] = stockAlert;
+    data['avg_rating'] = avgRating;
+    data['parent_id'] = parentId;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['top_hunderd'] = topHunderd;
+    data['return_days'] = returnDays;
+    data['is_publish'] = isPublish;
+    data['in_offer'] = inOffer;
+    data['for_auction'] = forAuction;
+    data['return_policy_desc'] = returnPolicyDesc;
+    data['in_cart'] = inCart;
+    data['in_wishlist'] = inWishlist;
+    data['currency_sign'] = currencySign;
+    data['currency_code'] = currencyCode;
+    if (storemeta != null) {
+      data['storemeta'] = storemeta!.toJson();
     }
-    data['allow_bid'] = this.allowBid;
-    data['next_bid_price'] = this.nextBidPrice;
+    data['allow_bid'] = allowBid;
+    data['next_bid_price'] = nextBidPrice;
 
-    if (this.serviceTimeSloat != null) {
+    if (serviceTimeSloat != null) {
       data['serviceTimeSloat'] =
-          this.serviceTimeSloat!.map((v) => v.toJson()).toList();
+          serviceTimeSloat!.map((v) => v.toJson()).toList();
     }
-    if (this.productAvailability != null) {
-      data['productAvailability'] = this.productAvailability!.toJson();
+    if (productAvailability != null) {
+      data['productAvailability'] = productAvailability!.toJson();
     }
     return data;
   }
@@ -283,12 +283,12 @@ class Storemeta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['store_id'] = this.storeId;
-    data['profile_img'] = this.profileImg;
-    data['banner_img'] = this.bannerImg;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['store_id'] = storeId;
+    data['profile_img'] = profileImg;
+    data['banner_img'] = bannerImg;
     return data;
   }
 }
@@ -305,9 +305,9 @@ class ServiceTimeSloat {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['time_sloat'] = this.timeSloat;
-    data['time_sloat_end'] = this.timeSloatEnd;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['time_sloat'] = timeSloat;
+    data['time_sloat_end'] = timeSloatEnd;
     return data;
   }
 }
@@ -328,11 +328,11 @@ class ProductAvailability {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['qty'] = this.qty;
-    data['type'] = this.type;
-    data['from_date'] = this.fromDate;
-    data['to_date'] = this.toDate;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['qty'] = qty;
+    data['type'] = type;
+    data['from_date'] = fromDate;
+    data['to_date'] = toDate;
     return data;
   }
 }

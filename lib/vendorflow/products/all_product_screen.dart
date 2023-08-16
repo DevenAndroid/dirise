@@ -107,7 +107,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 16,),
+                    const SizedBox(width: 16,),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(AddProductScreen.route);
@@ -243,7 +243,6 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                                   changed: (bool value1){
                                                     if(value1 == true){
                                                       productController.model.product![index].isPublish = !productController.model.product![index].isPublish!;
-                                                      print("dffsdff");
                                                       setState(() {});
                                                     }
                                                   },

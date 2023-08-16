@@ -14,7 +14,7 @@ import '../../../utils/ApiConstant.dart';
 import '../../../widgets/cart_widget.dart';
 import '../../app_bar/common_app_bar.dart';
 import '../../check_out/add_bag_screen.dart';
-import '../../home_pages/product_widget.dart';
+import '../../product_details/product_widget.dart';
 
 class SingleStoreScreen extends StatefulWidget {
   const SingleStoreScreen({super.key, required this.storeDetails});
@@ -55,7 +55,6 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
 
       modelProductsList.data ??= [];
       final response = ModelStoreProducts.fromJson(jsonDecode(value));
-      print(jsonEncode(response));
       if (response.data != null && response.data!.isNotEmpty) {
         modelProductsList.data!.addAll(response.data!);
       } else {
