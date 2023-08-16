@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-import '../../controller/home_controller.dart';
 import '../../model/aboutus_model.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';

@@ -149,7 +149,8 @@ class Data {
     discountType = json['discount_type'];
     discount = json['discount'];
     featuredImage = json['featured_image'];
-    galleryImage = json['gallery_image'].cast<String>();
+    galleryImage = json['gallery_image'].toString() != "" && json['gallery_image'].toString() != "null" ?
+    json['gallery_image'].cast<String>() : [];
     virtualProductFile = json['virtual_product_file'];
     virtualProductFileType = json['virtual_product_file_type'];
     bookingProductType = json['booking_product_type'];

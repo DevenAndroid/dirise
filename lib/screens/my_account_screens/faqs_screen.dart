@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../model/aboutus_model.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
-import '../../widgets/common_colour.dart';
 
 class FrequentlyAskedQuestionsScreen extends StatefulWidget {
   static String route = "/FrequentlyAskedQuestionsScreen";

@@ -5,7 +5,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:open_filex/open_filex.dart';
 
 import '../../../controller/vendor_controllers/add_product_controller.dart';
 import '../../../widgets/dimension_screen.dart';

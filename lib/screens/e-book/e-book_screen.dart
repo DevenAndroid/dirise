@@ -27,14 +27,12 @@ class _EBookScreenState extends State<EBookScreen> {
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_back_ios,
-                          color: Colors.white, size: 20),
+                      icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     Text(
                       'E books',
-                      style: GoogleFonts.poppins(color: Colors.white,
-                          fontSize: 18, fontWeight: FontWeight.w600),
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
                     )
                   ],
                 ),
@@ -48,10 +46,7 @@ class _EBookScreenState extends State<EBookScreen> {
                     style: GoogleFonts.poppins(fontSize: 17),
                     textInputAction: TextInputAction.search,
                     decoration: InputDecoration(
-
                         filled: true,
-                        // prefixIcon:
-                        //     Icon(Icons.search, color: Color(0xFFC33D18)),
                         prefixIcon: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
@@ -62,22 +57,17 @@ class _EBookScreenState extends State<EBookScreen> {
                         border: InputBorder.none,
                         enabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
-                            borderSide:
-                            BorderSide(color: AppTheme.buttonColor)),
+                            borderSide: BorderSide(color: AppTheme.buttonColor)),
                         disabledBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
-                            borderSide:
-                            BorderSide(color: AppTheme.buttonColor)),
+                            borderSide: BorderSide(color: AppTheme.buttonColor)),
                         focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
-                            borderSide:
-                            BorderSide(color: AppTheme.buttonColor)),
+                            borderSide: BorderSide(color: AppTheme.buttonColor)),
                         fillColor: Colors.white,
-                        contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 60),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 60),
                         hintText: 'Search E Book',
-                        hintStyle:
-                        GoogleFonts.poppins(color: AppTheme.buttonColor)),
+                        hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                   ),
                 ),
               ],
@@ -93,18 +83,14 @@ class _EBookScreenState extends State<EBookScreen> {
             children: [
               Text(
                 'My Book Library',
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600, fontSize: 20),
+                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 20),
               ),
               const SizedBox(
                 height: 20,
               ),
               const TabBar(
-                indicatorPadding:
-                EdgeInsets.symmetric(horizontal: 35, vertical: 6),
-                indicator: BoxDecoration(
-                    color: AppTheme.buttonColor,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                indicatorPadding: EdgeInsets.symmetric(horizontal: 35, vertical: 6),
+                indicator: BoxDecoration(color: AppTheme.buttonColor, borderRadius: BorderRadius.all(Radius.circular(20))),
                 indicatorColor: Colors.transparent,
                 unselectedLabelColor: AppTheme.buttonColor,
                 labelColor: Colors.white,
@@ -116,7 +102,6 @@ class _EBookScreenState extends State<EBookScreen> {
                   Tab(
                     text: 'Voice',
                   ),
-
                 ],
                 indicatorSize: TabBarIndicatorSize.tab,
               ),
@@ -134,8 +119,7 @@ class _EBookScreenState extends State<EBookScreen> {
                           ),
                           Text(
                             'Rock NoteBook',
-                            style: GoogleFonts.poppins(
-                                fontSize: 16, fontWeight: FontWeight.w500),
+                            style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                           )
                         ],
                       ),
@@ -158,14 +142,12 @@ class _EBookScreenState extends State<EBookScreen> {
                             ),
                             Text(
                               'Eustasy 165 days',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
+                              style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                             )
                           ],
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),

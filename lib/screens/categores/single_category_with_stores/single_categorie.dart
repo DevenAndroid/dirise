@@ -8,11 +8,9 @@ import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../controller/home_controller.dart';
 import '../../../model/model_category_stores.dart';
 import '../../../model/trending_products_modal.dart';
 import '../../../model/vendor_models/vendor_category_model.dart';

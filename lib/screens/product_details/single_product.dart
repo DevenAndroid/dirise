@@ -104,7 +104,6 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
           .split("--")
           .last;
     }
-    print(map);
     return map;
   }
 

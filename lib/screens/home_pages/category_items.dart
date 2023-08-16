@@ -6,14 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../controller/home_controller.dart';
 import '../../controller/homepage_controller.dart';
-import '../../routers/my_routers.dart';
 import '../../widgets/common_colour.dart';
-import '../Authors/authors_screen.dart';
-import '../Authors/teacher_screen.dart';
-import '../categores/categories_screen.dart';
 import '../categores/single_category_with_stores/single_categorie.dart';
-import '../officefurniture_sceen/officefurniture_screen.dart';
-import '../school_nursery_category.dart';
 
 class CategoryItems extends StatefulWidget {
   const CategoryItems({super.key});

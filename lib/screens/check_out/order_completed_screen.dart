@@ -43,7 +43,6 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     log(jsonEncode(singleOrder));
     return WillPopScope(
       onWillPop: () async {
@@ -147,6 +146,14 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                                         style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 16),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'USD ${orderItems.productPrice}',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                       ),
                                       const SizedBox(
                                         height: 5,

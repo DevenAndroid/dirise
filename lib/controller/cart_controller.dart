@@ -43,7 +43,6 @@ class CartController extends GetxController {
       if (_timer == null) return;
       _timer!.cancel();
       _timer = null;
-      print("timer Canceled");
     } catch(e){
       return;
     }

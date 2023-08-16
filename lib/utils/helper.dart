@@ -67,7 +67,6 @@ class NewHelper {
   Future<List<File>?> multiImagePicker({int imageQuality = 80}) async {
     try {
       final item = await ImagePicker().pickMultiImage(imageQuality: imageQuality);
-      if(item == null)return null;
       return List.generate(min(5, item.length), (index) => File(item[index].path));
     } on PlatformException catch (e) {
       throw Exception(e);

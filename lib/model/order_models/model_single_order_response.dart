@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class ModelSingleOrderResponse {
   bool? status;
   dynamic message;
@@ -294,7 +296,11 @@ class Shipping {
 }
 
 class OrderItem {
+  RxBool showDetails = false.obs;
   dynamic id;
+  dynamic selectedSlotStart;
+  dynamic selectedSlotEnd;
+  dynamic selectedSlotDate;
   dynamic orderId;
   dynamic childId;
   dynamic productId;
@@ -318,6 +324,9 @@ class OrderItem {
 
   OrderItem(
       {this.id,
+        this.selectedSlotStart,
+        this.selectedSlotEnd,
+        this.selectedSlotDate,
         this.orderId,
         this.childId,
         this.productId,
@@ -341,6 +350,9 @@ class OrderItem {
 
   OrderItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    selectedSlotStart= json["selected_sloat_start"];
+    selectedSlotEnd= json["selected_sloat_end"];
+    selectedSlotDate= json["selected_sloat_date"];
     orderId = json['order_id'];
     childId = json['child_id'];
     productId = json['product_id'];

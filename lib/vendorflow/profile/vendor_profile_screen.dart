@@ -17,7 +17,6 @@ import '../../utils/ApiConstant.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
-import '../authenthication/verify_vendor_otp.dart';
 
 class VendorProfileScreen extends StatefulWidget {
   const VendorProfileScreen({super.key});
