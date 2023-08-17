@@ -61,6 +61,7 @@ class ProductElement {
   dynamic pname;
   dynamic arabPname;
   dynamic productType;
+  dynamic virtual_product_type;
   dynamic skuId;
   dynamic pPrice;
   dynamic sPrice;
@@ -121,6 +122,7 @@ class ProductElement {
     this.pname,
     this.arabPname,
     this.productType,
+    this.virtual_product_type,
     this.skuId,
     this.pPrice,
     this.sPrice,
@@ -182,6 +184,7 @@ class ProductElement {
     pname = json["pname"];
     arabPname = json["arab_pname"];
     productType = json["product_type"];
+    virtual_product_type = json["virtual_product_type"];
     skuId = json["sku_id"];
     pPrice = json["p_price"];
     sPrice = json["s_price"];
@@ -297,6 +300,7 @@ class ProductElement {
   Map<String, dynamic> toJson() => {
         "id": id,
         "vendor_id": vendorId,
+        "virtual_product_type": virtual_product_type,
         "cat_id": catId,
         "cat_id_2": catId2,
         "cat_id_3": catId3,

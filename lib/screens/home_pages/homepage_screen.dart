@@ -25,11 +25,25 @@ class _HomePageState extends State<HomePage> {
   final homeController = Get.put(TrendingProductsController());
   final cartController = Get.put(CartController());
 
+  Future getAllAsync() async {
+    if(!mounted)return;
+    await homeController.homeData();
+    if(!mounted)return;
+    await homeController.getVendorCategories();
+    if(!mounted)return;
+    await homeController.trendingData();
+    if(!mounted)return;
+    await homeController.popularProductsData();
+    if(!mounted)return;
+    await homeController.authorData();
+    if(!mounted)return;
+  }
+
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.getAllAsync();
+      getAllAsync();
     });
   }
 
@@ -130,7 +144,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: RefreshIndicator(
             onRefresh: () async {
-              await homeController.getAllAsync();
+              await getAllAsync();
             },
             child: const SingleChildScrollView(
                 child: Column(children: [

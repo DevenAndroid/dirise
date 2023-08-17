@@ -33,6 +33,7 @@ class Product {
   String? bookingProductType;
   String? image;
   String? productType;
+  String? virtual_product_type;
   String? skuId;
   int? pPrice;
   int? sPrice;
@@ -77,6 +78,7 @@ class Product {
         this.bookingProductType,
         this.image,
         this.productType,
+        this.virtual_product_type,
         this.skuId,
         this.pPrice,
         this.sPrice,
@@ -121,6 +123,7 @@ class Product {
     bookingProductType = json['booking_product_type'];
     image = json['image'];
     productType = json['product_type'];
+    virtual_product_type = json['virtual_product_type'];
     skuId = json['sku_id'];
     pPrice = json['p_price'];
     sPrice = json['s_price'];
@@ -149,20 +152,11 @@ class Product {
     inWishlist = json['in_wishlist'];
     currencySign = json['currency_sign'];
     currencyCode = json['currency_code'];
-    storemeta = json['storemeta'] != null
-        ? Storemeta.fromJson(json['storemeta'])
-        : null;
+    storemeta = json['storemeta'] != null ? Storemeta.fromJson(json['storemeta']) : null;
     allowBid = json['allow_bid'];
     nextBidPrice = json['next_bid_price'];
-    if (json['serviceTimeSloat'] != null) {
-      serviceTimeSloat = <ServiceTimeSloat>[];
-      json['serviceTimeSloat'].forEach((v) {
-        serviceTimeSloat!.add(ServiceTimeSloat.fromJson(v));
-      });
-    }
-    productAvailability = json['productAvailability'] != null
-        ? ProductAvailability.fromJson(json['productAvailability'])
-        : null;
+    if (json['serviceTimeSloat'] != null) {serviceTimeSloat = <ServiceTimeSloat>[];json['serviceTimeSloat'].forEach((v) {serviceTimeSloat!.add(ServiceTimeSloat.fromJson(v));});}
+    productAvailability = json['productAvailability'] != null ? ProductAvailability.fromJson(json['productAvailability']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -170,6 +164,7 @@ class Product {
     data['id'] = id;
     data['vendor_id'] = vendorId;
     data['cat_id'] = catId;
+    data['virtual_product_type'] = virtual_product_type;
     data['brand_slug'] = brandSlug;
     data['slug'] = slug;
     data['pname'] = pname;
@@ -204,18 +199,11 @@ class Product {
     data['in_wishlist'] = inWishlist;
     data['currency_sign'] = currencySign;
     data['currency_code'] = currencyCode;
-    if (storemeta != null) {
-      data['storemeta'] = storemeta!.toJson();
-    }
+    if (storemeta != null) {data['storemeta'] = storemeta!.toJson();}
     data['allow_bid'] = allowBid;
     data['next_bid_price'] = nextBidPrice;
-    if (serviceTimeSloat != null) {
-      data['serviceTimeSloat'] =
-          serviceTimeSloat!.map((v) => v.toJson()).toList();
-    }
-    if (productAvailability != null) {
-      data['productAvailability'] = productAvailability!.toJson();
-    }
+    if (serviceTimeSloat != null) {data['serviceTimeSloat'] = serviceTimeSloat!.map((v) => v.toJson()).toList();}
+    if (productAvailability != null) {data['productAvailability'] = productAvailability!.toJson();}
     return data;
   }
 }

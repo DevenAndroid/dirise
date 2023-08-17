@@ -56,12 +56,4 @@ class TrendingProductsController extends GetxController {
     popularProductsData();
     authorData();
   }
-
-  Future getAllAsync() async {
-    await homeData();
-    await getVendorCategories();
-    await trendingData();
-    await popularProductsData();
-    await authorData();
-  }
 }
