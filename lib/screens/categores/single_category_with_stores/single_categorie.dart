@@ -296,7 +296,18 @@ class _SingleCategoriesState extends State<SingleCategories> {
           child: Padding(
             padding: const EdgeInsets.all(16).copyWith(top: 10),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                final kk =
+                    modelCategoryStores![i].promotionData![min(i % 3, modelCategoryStores![i].promotionData!.length - 1)];
+                print(jsonEncode(kk));
+                if (kk.promotionType == "product") {
+                  bottomSheet(
+                      productDetails: ProductElement(
+                        id: kk.productStoreId.toString(),
+                      ),
+                      context: context);
+                }
+              },
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: SizedBox(

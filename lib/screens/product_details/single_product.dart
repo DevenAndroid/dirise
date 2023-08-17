@@ -174,12 +174,15 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
   RxInt productQuantity = 1.obs;
   final cartController = Get.put(CartController());
 
+  bool get checkLoaded => productDetails.pname != null && productDetails.sPrice != null;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width,
-      child: Form(
+      child: checkLoaded ?
+      Form(
         key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(20).copyWith(bottom: 10).copyWith(top: 10),
@@ -529,7 +532,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
             ],
           ),
         ),
-      ),
+      ) : const LoadingAnimation(),
     );
   }
 }

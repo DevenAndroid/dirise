@@ -27,15 +27,15 @@ class _HomePageState extends State<HomePage> {
 
   Future getAllAsync() async {
     if(!mounted)return;
-    await homeController.homeData();
+    homeController.homeData();
     if(!mounted)return;
-    await homeController.getVendorCategories();
+    homeController.getVendorCategories();
     if(!mounted)return;
-    await homeController.trendingData();
+    homeController.trendingData();
     if(!mounted)return;
-    await homeController.popularProductsData();
+    homeController.popularProductsData();
     if(!mounted)return;
-    await homeController.authorData();
+    homeController.authorData();
     if(!mounted)return;
   }
 

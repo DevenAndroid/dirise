@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:dirise/screens/home_pages/homepage_screen.dart';
 import 'package:dirise/screens/wishlist/whishlist_screen.dart';
 import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/helper.dart';
+import 'package:dirise/virtual_file_opener/audio_player_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,6 +28,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   final bottomController = Get.put(BottomNavBarController());
   final profileController = Get.put(ProfileController());
   final cartController = Get.put(CartController());
+  String name = "kartik--ghosh--ram";
 
   final pages = [
     const HomePage(),
@@ -72,6 +75,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
+    print(name);
+    print(name.getNames());
+    print(MediaQuery.of(context).size.width);
+    print(context.getSize);
     return WillPopScope(
       onWillPop: () async {
         if (bottomController.pageIndex.value != 0) {

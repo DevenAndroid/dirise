@@ -9,7 +9,7 @@ class ModelSingleProduct {
     status = json['status'];
     message = json['message'];
     product =
-    json['product'] != null ? Product.fromJson(json['product']) : null;
+    json['product'] != null && json['product'].toString() != "[]" && json['product'].toString().isNotEmpty ? Product.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {

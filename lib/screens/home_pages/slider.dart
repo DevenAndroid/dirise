@@ -56,7 +56,8 @@ class _SliderWidgetState extends State<SliderWidget> {
                         pagination: const SwiperPagination(),
                         control: const SwiperControl(size: 0), // remove arrows
                       ),
-                    )),
+                    )
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                   child: Row(
@@ -125,7 +126,12 @@ class _SliderWidgetState extends State<SliderWidget> {
                                                 height: 20,
                                               ),
                                               Text(
-                                                "Artificial Intelligence (Al) is gaining a strong foothold in various niches, and blogging is no exception. By making use of the best Al writing tools, you can create a long-form affiliate blog post in 10 to 15 minutes (instead of spending hours writing it yourself) and generate traffic.",
+                                                "Artificial Intelligence (Al) is gaining a strong foothold in "
+                                                    "various niches, and blogging is no exception."
+                                                    " By making use of the best Al writing tools, you "
+                                                    "can create a long-form affiliate blog post in 10"
+                                                    " to 15 minutes (instead of spending hours writing "
+                                                    "it yourself) and generate traffic.",
                                                 style: GoogleFonts.poppins(fontSize: 14, color: const Color(0xff484848)),
                                               ),
                                               const SizedBox(

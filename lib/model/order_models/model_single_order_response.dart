@@ -294,11 +294,16 @@ class Shipping {
 }
 
 class OrderItem {
+
+  bool get isVirtualProduct => productType == "virtual_product";
+  bool get isVirtualProductPDF => virtual_product_file.toString().contains(".pdf");
+
   RxBool showDetails = false.obs;
   dynamic id;
   dynamic selectedSlotStart;
   dynamic selectedSlotEnd;
   dynamic selectedSlotDate;
+  dynamic virtual_product_file;
   dynamic orderId;
   dynamic childId;
   dynamic productId;
@@ -325,6 +330,7 @@ class OrderItem {
       this.selectedSlotStart,
       this.selectedSlotEnd,
       this.selectedSlotDate,
+      this.virtual_product_file,
       this.orderId,
       this.childId,
       this.productId,
@@ -349,9 +355,10 @@ class OrderItem {
   OrderItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     selectedSlotStart = json["selected_sloat_start"];
-    selectedSlotEnd = json["selected_sloat_end"];
-    selectedSlotDate = json["selected_sloat_date"];
+    selectedSlotEnd = json["selected_sloat_end"] ?? "";
+    selectedSlotDate = json["selected_sloat_date"] ?? "";
     orderId = json['order_id'];
+    virtual_product_file = json['virtual_product_file'];
     childId = json['child_id'];
     productId = json['product_id'];
     vendorId = json['vendor_id'];
@@ -378,6 +385,7 @@ class OrderItem {
     data['id'] = id;
     data['order_id'] = orderId;
     data['child_id'] = childId;
+    data['virtual_product_file'] = virtual_product_file;
     data['product_id'] = productId;
     data['vendor_id'] = vendorId;
     data['user_id'] = userId;

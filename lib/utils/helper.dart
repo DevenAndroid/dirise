@@ -363,6 +363,7 @@ extension Spacing on num {
 }
 
 extension GetContext on BuildContext {
+
   Size get getSize => MediaQuery.of(this).size;
 
   void get navigate {

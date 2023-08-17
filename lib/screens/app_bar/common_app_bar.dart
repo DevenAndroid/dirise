@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CommonAppBar extends StatelessWidget {
+class CommonAppBar extends StatelessWidget implements PreferredSizeWidget{
   final String? titleText;
   final List<Widget>? actions;
   const CommonAppBar({super.key, required this.titleText, this.actions});
@@ -19,4 +19,8 @@ class CommonAppBar extends StatelessWidget {
       actions: [...actions ?? []],
     );
   }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size(double.maxFinite, kToolbarHeight);
 }

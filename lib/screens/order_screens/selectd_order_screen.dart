@@ -8,6 +8,8 @@ import '../../model/order_models/model_single_order_response.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/styles.dart';
+import '../../virtual_file_opener/audio_player_screen.dart';
+import '../../virtual_file_opener/pdf_reader.dart';
 import '../../widgets/common_colour.dart';
 
 class SelectedOrderScreen extends StatefulWidget {
@@ -92,7 +94,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                           decoration: const BoxDecoration(
                             border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
                           ),
-                          padding: const EdgeInsets.only(bottom: 6, top: 6),
+                          padding: const EdgeInsets.only(bottom: 12, top: 12),
                           child: Row(
                             children: [
                               CircleAvatar(
@@ -135,6 +137,28 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                       '${item.quantity.toString()} piece',
                                       style: GoogleFonts.poppins(color: const Color(0xff858484)),
                                     ),
+                                    if (item.isVirtualProduct)
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          InkWell(
+                                              onTap: () {
+                                                if (item.isVirtualProductPDF) {
+                                                  Get.to(() => PDFOpener(
+                                                        pdfUrl: item,
+                                                      ));
+                                                } else {
+                                                  Get.to(() => AudioPlayerScreen(
+                                                    orderItem: item,
+                                                  ));
+                                                }
+                                              },
+                                              child: Text(
+                                                "View",
+                                                style: normalStyle,
+                                              )),
+                                        ],
+                                      ),
                                     if (item.selectedSlotDate.toString() != "" && item.selectedSlotStart.toString() != "")
                                       GestureDetector(
                                         behavior: HitTestBehavior.translucent,
