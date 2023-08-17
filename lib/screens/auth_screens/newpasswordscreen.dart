@@ -83,7 +83,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       controller: passwordController,
                       obSecure: hide1.value,
                       suffixIcon: IconButton(
-                        onPressed: (){
+                        onPressed: () {
                           hide1.value = !hide1.value;
                         },
                         icon: hide1.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
@@ -92,12 +92,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       validator: MultiValidator([
                         RequiredValidator(errorText: 'Please enter your password'),
                         MinLengthValidator(8,
-                            errorText:
-                            'Password must be at least 8 characters, with 1 special character & 1 numerical'),
+                            errorText: 'Password must be at least 8 characters, with 1 special character & 1 numerical'),
                         // MaxLengthValidator(16, errorText: "Password maximum length is 16"),
                         PatternValidator(r"(?=.*\W)(?=.*?[#?!@()$%^&*-_])(?=.*[0-9])",
-                            errorText:
-                            "Password must be at least 8 characters, with 1 special character & 1 numerical"),
+                            errorText: "Password must be at least 8 characters, with 1 special character & 1 numerical"),
                       ]),
                     );
                   }),
@@ -106,24 +104,24 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   ),
                   Obx(() {
                     return CommonTextfield(
-                    controller: newPasswordController,
-                    obSecure: hide2.value,
-                    suffixIcon: IconButton(
-                      onPressed: (){
-                        hide2.value = !hide2.value;
+                      controller: newPasswordController,
+                      obSecure: hide2.value,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          hide2.value = !hide2.value;
+                        },
+                        icon: hide2.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
+                      ),
+                      hintText: 'Confirm New Password',
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return 'Conform password is required ';
+                        } else if (value.trim() != passwordController.text.trim()) {
+                          return 'Conform password not matching';
+                        } else {
+                          return null;
+                        }
                       },
-                      icon: hide2.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
-                    ),
-                    hintText: 'Confirm New Password',
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return 'Conform password is required ';
-                      } else if (value.trim() != passwordController.text.trim()) {
-                        return 'Conform password not matching';
-                      } else {
-                        return null;
-                      }
-                    },
                     );
                   }),
                   SizedBox(
@@ -133,14 +131,12 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     title: "Continue",
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        changePasswordRepo(password: passwordController.text, email: email, context: context)
-                            .then((value) {
+                        changePasswordRepo(password: passwordController.text, email: email, context: context).then((value) {
                           if (value.status == true) {
                             showToast(value.message.toString());
                             Get.offNamed(BottomNavbar.route);
                             Get.toNamed(LoginScreen.route);
-                          }
-                          else {
+                          } else {
                             showToast(value.message.toString());
                           }
                         });

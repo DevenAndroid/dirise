@@ -16,8 +16,7 @@ class SingleCategoryController extends GetxController {
   }
 
   getYourSingleOrder() async {
-
-    await repositories.postApi(url: ApiUrls.storesUrl).then((value){
+    await repositories.postApi(url: ApiUrls.storesUrl).then((value) {
       model.value = SingleCategoryModel.fromJson(jsonDecode(value));
       isDataLoading.value = true;
     });

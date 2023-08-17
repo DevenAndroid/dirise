@@ -126,8 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Text(
                         'Forgot Password',
-                        style:
-                            GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
+                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                       ),
                     ),
                   ],
@@ -240,9 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(
                         text: 'Sign Up',
                         style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
-                            color: AppTheme.buttonColor,
-                            decoration: TextDecoration.underline),
+                            fontWeight: FontWeight.w600, color: AppTheme.buttonColor, decoration: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             Get.toNamed(CreateAccountScreen.route);

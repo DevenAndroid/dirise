@@ -5,8 +5,7 @@ class CategoryLibraryModel {
   String? categoryName;
   List<Product>? product;
 
-  CategoryLibraryModel(
-      {this.status, this.message, this.categoryName, this.product});
+  CategoryLibraryModel({this.status, this.message, this.categoryName, this.product});
 
   CategoryLibraryModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -104,48 +103,48 @@ class Product {
 
   Product(
       {this.id,
-        this.vendorId,
-        this.catId,
-        this.brandSlug,
-        this.slug,
-        this.pname,
-        this.prodectSku,
-        this.bookingProductType,
-        this.image,
-        this.productType,
-        this.skuId,
-        this.pPrice,
-        this.sPrice,
-        this.commission,
-        this.bestSaller,
-        this.featured,
-        this.taxApply,
-        this.shortDescription,
-        this.longDescription,
-        this.featuredImage,
-        this.virtualProductFile,
-        this.virtualProductFileType,
-        this.inStock,
-        this.stockAlert,
-        this.avgRating,
-        this.parentId,
-        this.createdAt,
-        this.updatedAt,
-        this.topHunderd,
-        this.returnDays,
-        this.isPublish,
-        this.inOffer,
-        this.forAuction,
-        this.returnPolicyDesc,
-        this.inCart,
-        this.inWishlist,
-        this.currencySign,
-        this.currencyCode,
-        this.storemeta,
-        this.allowBid,
-        this.nextBidPrice,
-        this.serviceTimeSloat,
-        this.productAvailability});
+      this.vendorId,
+      this.catId,
+      this.brandSlug,
+      this.slug,
+      this.pname,
+      this.prodectSku,
+      this.bookingProductType,
+      this.image,
+      this.productType,
+      this.skuId,
+      this.pPrice,
+      this.sPrice,
+      this.commission,
+      this.bestSaller,
+      this.featured,
+      this.taxApply,
+      this.shortDescription,
+      this.longDescription,
+      this.featuredImage,
+      this.virtualProductFile,
+      this.virtualProductFileType,
+      this.inStock,
+      this.stockAlert,
+      this.avgRating,
+      this.parentId,
+      this.createdAt,
+      this.updatedAt,
+      this.topHunderd,
+      this.returnDays,
+      this.isPublish,
+      this.inOffer,
+      this.forAuction,
+      this.returnPolicyDesc,
+      this.inCart,
+      this.inWishlist,
+      this.currencySign,
+      this.currencyCode,
+      this.storemeta,
+      this.allowBid,
+      this.nextBidPrice,
+      this.serviceTimeSloat,
+      this.productAvailability});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -186,9 +185,7 @@ class Product {
     inWishlist = json['in_wishlist'];
     currencySign = json['currency_sign'];
     currencyCode = json['currency_code'];
-    storemeta = json['storemeta'] != null
-        ? Storemeta.fromJson(json['storemeta'])
-        : null;
+    storemeta = json['storemeta'] != null ? Storemeta.fromJson(json['storemeta']) : null;
     allowBid = json['allow_bid'];
     nextBidPrice = json['next_bid_price'];
     if (json['serviceTimeSloat'] != null) {
@@ -197,9 +194,8 @@ class Product {
         serviceTimeSloat!.add(ServiceTimeSloat.fromJson(v));
       });
     }
-    productAvailability = json['productAvailability'] != null
-        ? ProductAvailability.fromJson(json['productAvailability'])
-        : null;
+    productAvailability =
+        json['productAvailability'] != null ? ProductAvailability.fromJson(json['productAvailability']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -250,8 +246,7 @@ class Product {
     data['next_bid_price'] = nextBidPrice;
 
     if (serviceTimeSloat != null) {
-      data['serviceTimeSloat'] =
-          serviceTimeSloat!.map((v) => v.toJson()).toList();
+      data['serviceTimeSloat'] = serviceTimeSloat!.map((v) => v.toJson()).toList();
     }
     if (productAvailability != null) {
       data['productAvailability'] = productAvailability!.toJson();
@@ -267,12 +262,7 @@ class Storemeta {
   String? profileImg;
   String? bannerImg;
 
-  Storemeta(
-      {this.firstName,
-        this.lastName,
-        this.storeId,
-        this.profileImg,
-        this.bannerImg});
+  Storemeta({this.firstName, this.lastName, this.storeId, this.profileImg, this.bannerImg});
 
   Storemeta.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];

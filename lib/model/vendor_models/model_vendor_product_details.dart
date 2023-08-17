@@ -8,8 +8,7 @@ class ModelVendorProductDetails {
   ModelVendorProductDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    product =
-    json['product'] != null ? ModelVendorProductDetailsData.fromJson(json['product']) : null;
+    product = json['product'] != null ? ModelVendorProductDetailsData.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -47,25 +46,25 @@ class ModelVendorProductDetailsData {
 
   ModelVendorProductDetailsData(
       {this.catId,
-        this.brandSlug,
-        this.slug,
-        this.pname,
-        this.sku_id,
-        this.bookingProductType,
-        this.p_price,
-        this.sPrice,
-        this.productType,
-        this.shortDescription,
-        this.longDescription,
-        this.featuredImage,
-        this.galleryImage,
-        this.galleryTempData,
-        this.virtualProductFile,
-        this.virtualProductFileType,
-        this.inStock,
-        this.serviceTimeSloat,
-        this.productAvailability,
-        this.returnDays});
+      this.brandSlug,
+      this.slug,
+      this.pname,
+      this.sku_id,
+      this.bookingProductType,
+      this.p_price,
+      this.sPrice,
+      this.productType,
+      this.shortDescription,
+      this.longDescription,
+      this.featuredImage,
+      this.galleryImage,
+      this.galleryTempData,
+      this.virtualProductFile,
+      this.virtualProductFileType,
+      this.inStock,
+      this.serviceTimeSloat,
+      this.productAvailability,
+      this.returnDays});
 
   ModelVendorProductDetailsData.fromJson(Map<String, dynamic> json) {
     catId = json['cat_id'];
@@ -116,8 +115,7 @@ class ModelVendorProductDetailsData {
     data['virtual_product_file_type'] = virtualProductFileType;
     data['in_stock'] = inStock;
     if (serviceTimeSloat != null) {
-      data['serviceTimeSloat'] =
-          serviceTimeSloat!.map((v) => v.toJson()).toList();
+      data['serviceTimeSloat'] = serviceTimeSloat!.map((v) => v.toJson()).toList();
     }
     if (productAvailability != null) {
       data['productAvailability'] = productAvailability!.toJson();

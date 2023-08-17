@@ -34,13 +34,13 @@ class Data {
 
   Data(
       {this.id,
-        this.title,
-        this.arabTitle,
-        this.content,
-        this.arabContent,
-        this.metatitle,
-        this.metaDetails,
-        this.metaKeyword});
+      this.title,
+      this.arabTitle,
+      this.content,
+      this.arabContent,
+      this.metatitle,
+      this.metaDetails,
+      this.metaKeyword});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -44,7 +44,8 @@ class _SingleSlotUIState extends State<SingleSlotUI> {
                 widget.endDateTime.millisecondsSinceEpoch)
               Text(
                 " Exceeded",
-                style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontWeight: FontWeight.w500, height: 1.8, fontSize: 12),
+                style:
+                    GoogleFonts.poppins(color: AppTheme.buttonColor, fontWeight: FontWeight.w500, height: 1.8, fontSize: 12),
               )
           ],
         ));

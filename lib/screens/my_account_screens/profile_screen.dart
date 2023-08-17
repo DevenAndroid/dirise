@@ -45,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
       body: Obx(() {
-        if(profileController.refreshInt.value > 0){}
+        if (profileController.refreshInt.value > 0) {}
         return profileController.apiLoaded
             ? SingleChildScrollView(
                 child: Padding(
@@ -105,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   height: 3,
                                 ),
                                 Text(
-                                 profileController.model.user!.name.toString(),
+                                  profileController.model.user!.name.toString(),
                                   style: GoogleFonts.poppins(
                                       color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
                                 ),

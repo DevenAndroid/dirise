@@ -27,7 +27,8 @@ class VendorCommonTextfield extends StatefulWidget {
   final Widget? prefix;
   final List<TextInputFormatter>? inputFormatters;
 
-  const VendorCommonTextfield({super.key,
+  const VendorCommonTextfield({
+    super.key,
     this.controller,
     this.validator,
     this.maxLength,
@@ -47,7 +48,8 @@ class VendorCommonTextfield extends StatefulWidget {
     this.onSaved,
     this.labelText,
     this.inputFormatters,
-    this.onFieldSubmitted, this.hintStyle,
+    this.onFieldSubmitted,
+    this.hintStyle,
   });
 
   @override
@@ -78,7 +80,7 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
         decoration: InputDecoration(
           filled: true,
           fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 14),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
           errorMaxLines: 2,
           enabled: true,
           hintText: widget.hintText,
@@ -86,12 +88,15 @@ class _VendorCommonTextfieldState extends State<VendorCommonTextfield> {
           labelText: widget.hintText,
           prefixIcon: widget.prefix,
           suffixIcon: widget.suffixIcon,
-          labelStyle: GoogleFonts.poppins(color: Colors.black,
-            fontSize: 14,),
-          hintStyle: widget.hintStyle ??  GoogleFonts.poppins(
-            color: const Color(0xff463B57),
+          labelStyle: GoogleFonts.poppins(
+            color: Colors.black,
             fontSize: 14,
           ),
+          hintStyle: widget.hintStyle ??
+              GoogleFonts.poppins(
+                color: const Color(0xff463B57),
+                fontSize: 14,
+              ),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             borderSide: BorderSide(color: AppTheme.secondaryColor),

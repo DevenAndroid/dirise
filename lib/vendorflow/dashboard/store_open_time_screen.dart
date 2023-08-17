@@ -111,7 +111,6 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       appBar: AppBar(
         title: Text('Set Store Time',
             style: GoogleFonts.poppins(
@@ -171,7 +170,8 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                             ),
                             Text(
                               "Sun",
-                              style: GoogleFonts.poppins(color: const Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
                             ),
                             /* Spacer(),
                                  GestureDetector(
@@ -275,7 +275,8 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                             addWidth(15),
                             Text(
                               "To",
-                              style: GoogleFonts.poppins(color: const Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF9C9CB4), fontSize: 14, fontWeight: FontWeight.w300),
                             ),
                             addWidth(15),
                             DropdownButtonHideUnderline(

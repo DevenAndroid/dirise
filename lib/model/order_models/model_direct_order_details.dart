@@ -26,12 +26,8 @@ class ModelDirectOrderResponse {
     shipping = json['shipping'];
     total = json['total'];
     discount = json['discount'];
-    returnData = json['return_data'] != null
-        ? ReturnData.fromJson(json['return_data'])
-        : null;
-    prodcutData = json['prodcut_data'] != null
-        ? ProdcutData.fromJson(json['prodcut_data'])
-        : null;
+    returnData = json['return_data'] != null ? ReturnData.fromJson(json['return_data']) : null;
+    prodcutData = json['prodcut_data'] != null ? ProdcutData.fromJson(json['prodcut_data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -58,8 +54,7 @@ class ReturnData {
   dynamic sloatEndTime;
   dynamic quantity;
 
-  ReturnData(
-      {this.startDate, this.timeSloat, this.sloatEndTime, this.quantity});
+  ReturnData({this.startDate, this.timeSloat, this.sloatEndTime, this.quantity});
 
   ReturnData.fromJson(Map<String, dynamic> json) {
     startDate = json['start_date'];

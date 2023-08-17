@@ -26,7 +26,8 @@ class CommonTextfield extends StatefulWidget {
 
   final List<TextInputFormatter>? inputFormatters;
 
-  const CommonTextfield({super.key,
+  const CommonTextfield({
+    super.key,
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
@@ -98,14 +99,11 @@ class _CommonTextfieldState extends State<CommonTextfield> {
 
           border: InputBorder.none,
           focusedErrorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor)),
+              borderRadius: BorderRadius.all(Radius.circular(8)), borderSide: BorderSide(color: AppTheme.secondaryColor)),
           errorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor)),
+              borderRadius: BorderRadius.all(Radius.circular(8)), borderSide: BorderSide(color: AppTheme.secondaryColor)),
           focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor)),
+              borderRadius: BorderRadius.all(Radius.circular(8)), borderSide: BorderSide(color: AppTheme.secondaryColor)),
           disabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             borderSide: BorderSide(color: AppTheme.secondaryColor),

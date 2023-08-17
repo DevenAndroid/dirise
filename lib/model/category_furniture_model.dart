@@ -5,8 +5,7 @@ class CategoryFurnitureModel {
   dynamic categoryName;
   List<Product>? product;
 
-  CategoryFurnitureModel(
-      {this.status, this.message, this.user, this.categoryName, this.product});
+  CategoryFurnitureModel({this.status, this.message, this.user, this.categoryName, this.product});
 
   CategoryFurnitureModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -50,14 +49,7 @@ class User {
   dynamic storePhone;
   dynamic description;
 
-  User(
-      {this.id,
-        this.storeLogo,
-        this.storeImage,
-        this.storeName,
-        this.email,
-        this.storePhone,
-        this.description});
+  User({this.id, this.storeLogo, this.storeImage, this.storeName, this.email, this.storePhone, this.description});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -154,73 +146,73 @@ class Product {
 
   Product(
       {this.id,
-        this.vendorId,
-        this.catId,
-        this.catId2,
-        this.catId3,
-        this.brandSlug,
-        this.slug,
-        this.pname,
-        this.prodectImage,
-        this.prodectName,
-        this.prodectSku,
-        this.code,
-        this.bookingProductType,
-        this.prodectPrice,
-        this.prodectMinQty,
-        this.prodectMixQty,
-        this.prodectDescription,
-        this.image,
-        this.arabPname,
-        this.productType,
-        this.skuId,
-        this.pPrice,
-        this.sPrice,
-        this.commission,
-        this.bestSaller,
-        this.featured,
-        this.taxApply,
-        this.taxType,
-        this.shortDescription,
-        this.arabShortDescription,
-        this.longDescription,
-        this.arabLongDescription,
-        this.featuredImage,
-        this.galleryImage,
-        this.virtualProductFile,
-        this.virtualProductFileType,
-        this.inStock,
-        this.stockAlert,
-        this.shippingType,
-        this.shippingCharge,
-        this.avgRating,
-        this.metaTitle,
-        this.metaKeyword,
-        this.metaDescription,
-        this.parentId,
-        this.serviceStartTime,
-        this.serviceEndTime,
-        this.serviceDuration,
-        this.createdAt,
-        this.updatedAt,
-        this.topHunderd,
-        this.returnDays,
-        this.isPublish,
-        this.inOffer,
-        this.forAuction,
-        this.returnPolicyDesc,
-        this.inCart,
-        this.quantity,
-        this.inWishlist,
-        this.currencySign,
-        this.currencyCode,
-        this.storemeta,
-        this.allowBid,
-        this.nextBidPrice,
-        this.attributes,
-        this.variants,
-        this.serviceTimeSloat,
-        this.productAvailability});
+      this.vendorId,
+      this.catId,
+      this.catId2,
+      this.catId3,
+      this.brandSlug,
+      this.slug,
+      this.pname,
+      this.prodectImage,
+      this.prodectName,
+      this.prodectSku,
+      this.code,
+      this.bookingProductType,
+      this.prodectPrice,
+      this.prodectMinQty,
+      this.prodectMixQty,
+      this.prodectDescription,
+      this.image,
+      this.arabPname,
+      this.productType,
+      this.skuId,
+      this.pPrice,
+      this.sPrice,
+      this.commission,
+      this.bestSaller,
+      this.featured,
+      this.taxApply,
+      this.taxType,
+      this.shortDescription,
+      this.arabShortDescription,
+      this.longDescription,
+      this.arabLongDescription,
+      this.featuredImage,
+      this.galleryImage,
+      this.virtualProductFile,
+      this.virtualProductFileType,
+      this.inStock,
+      this.stockAlert,
+      this.shippingType,
+      this.shippingCharge,
+      this.avgRating,
+      this.metaTitle,
+      this.metaKeyword,
+      this.metaDescription,
+      this.parentId,
+      this.serviceStartTime,
+      this.serviceEndTime,
+      this.serviceDuration,
+      this.createdAt,
+      this.updatedAt,
+      this.topHunderd,
+      this.returnDays,
+      this.isPublish,
+      this.inOffer,
+      this.forAuction,
+      this.returnPolicyDesc,
+      this.inCart,
+      this.quantity,
+      this.inWishlist,
+      this.currencySign,
+      this.currencyCode,
+      this.storemeta,
+      this.allowBid,
+      this.nextBidPrice,
+      this.attributes,
+      this.variants,
+      this.serviceTimeSloat,
+      this.productAvailability});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -284,18 +276,14 @@ class Product {
     inWishlist = json['in_wishlist'];
     currencySign = json['currency_sign'];
     currencyCode = json['currency_code'];
-    storemeta = json['storemeta'] != null
-        ? Storemeta.fromJson(json['storemeta'])
-        : null;
+    storemeta = json['storemeta'] != null ? Storemeta.fromJson(json['storemeta']) : null;
     allowBid = json['allow_bid'];
     nextBidPrice = json['next_bid_price'];
     if (json['attributes'] != null) {
       attributes = <Null>[];
-
     }
     if (json['variants'] != null) {
       variants = <Null>[];
-
     }
     if (json['serviceTimeSloat'] != null) {
       serviceTimeSloat = <ServiceTimeSloat>[];
@@ -303,9 +291,8 @@ class Product {
         serviceTimeSloat!.add(ServiceTimeSloat.fromJson(v));
       });
     }
-    productAvailability = json['productAvailability'] != null
-        ? ProductAvailability.fromJson(json['productAvailability'])
-        : null;
+    productAvailability =
+        json['productAvailability'] != null ? ProductAvailability.fromJson(json['productAvailability']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -378,8 +365,7 @@ class Product {
     data['next_bid_price'] = nextBidPrice;
 
     if (serviceTimeSloat != null) {
-      data['serviceTimeSloat'] =
-          serviceTimeSloat!.map((v) => v.toJson()).toList();
+      data['serviceTimeSloat'] = serviceTimeSloat!.map((v) => v.toJson()).toList();
     }
     if (productAvailability != null) {
       data['productAvailability'] = productAvailability!.toJson();
@@ -395,12 +381,7 @@ class Storemeta {
   dynamic profileImg;
   dynamic bannerImg;
 
-  Storemeta(
-      {this.firstName,
-        this.lastName,
-        this.storeId,
-        this.profileImg,
-        this.bannerImg});
+  Storemeta({this.firstName, this.lastName, this.storeId, this.profileImg, this.bannerImg});
 
   Storemeta.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];

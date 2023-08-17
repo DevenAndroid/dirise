@@ -73,8 +73,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                   width: AddSize.screenWidth * 1,
                   decoration: const BoxDecoration(
                       color: AppTheme.buttonColor,
-                      borderRadius:
-                          BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
                       image: DecorationImage(
                         image: AssetImage(
                           'assets/images/orderlitscontainer.png',
@@ -123,8 +122,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.white24)),
                               child: Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                                padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -144,9 +142,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                         Text(
                                           "Your earning this month".tr,
                                           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: AddSize.font14,
-                                              color: Colors.white),
+                                              fontWeight: FontWeight.w400, fontSize: AddSize.font14, color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -158,8 +154,8 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       child: Container(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: AddSize.padding20, vertical: AddSize.padding12),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                                          decoration:
+                                              BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                                           child: Text(
                                             "Withdrawal".tr,
                                             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
@@ -182,8 +178,8 @@ class _VendorOrderListState extends State<VendorOrderList> {
                               Expanded(
                                 child: Container(
                                   height: 58,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0), color: AppTheme.buttonColor),
+                                  decoration:
+                                      BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: AppTheme.buttonColor),
                                   child: Row(
                                     children: [
                                       Expanded(

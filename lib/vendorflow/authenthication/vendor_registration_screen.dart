@@ -62,16 +62,15 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       }
 
       if (!inTextFound) {
-        Scrollable.ensureVisible(categoryKey.currentContext!,
-            alignment: .25, duration: const Duration(milliseconds: 600));
+        Scrollable.ensureVisible(categoryKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
       }
       return;
     }
-    if(storeImage.value.path.isEmpty){
+    if (storeImage.value.path.isEmpty) {
       showToast("Please select store logo");
       return;
     }
-    if(businessImage.value.path.isEmpty){
+    if (businessImage.value.path.isEmpty) {
       showToast("Please select business id image");
       return;
     }
@@ -82,18 +81,19 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     images["store_logo"] = storeImage.value;
     images["store_image"] = businessImage.value;
 
-    repositories.multiPartApi(
-        mapData: map,
-        images: images,
-        context: context,
-        url: ApiUrls.vendorRegistrationUrl,
-      onProgress: (int bytes, int totalBytes){
-          // print((bytes/totalBytes).toStringAsFixed(2));
-      }
-    ).then((value) {
+    repositories
+        .multiPartApi(
+            mapData: map,
+            images: images,
+            context: context,
+            url: ApiUrls.vendorRegistrationUrl,
+            onProgress: (int bytes, int totalBytes) {
+              // print((bytes/totalBytes).toStringAsFixed(2));
+            })
+        .then((value) {
       ModelVendorRegistrationResponse response = ModelVendorRegistrationResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
-      if(response.status == true && response.otp != null) {
+      if (response.status == true && response.otp != null) {
         Get.to(() => const VendorOTPVerification(), arguments: [textControllers["email"]!.text.trim()]);
       }
     });
@@ -266,8 +266,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                     Obx(() {
                       if (kDebugMode) {
                         print(modelVendorCategory.usphone!
-                          .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
-                          .toList());
+                            .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
+                            .toList());
                       }
                       return DropdownButtonFormField<VendorCategoriesData>(
                         key: categoryKey,
@@ -318,7 +318,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         hint: const Text('Category'),
                         onChanged: (value) {
                           // selectedCategory = value;
-                          if(value ==null)return;
+                          if (value == null) return;
                           allSelectedCategory[value.id.toString()] = value;
                           setState(() {});
                         },
@@ -334,13 +334,15 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                     Wrap(
                       runSpacing: 0,
                       spacing: 8,
-                      children: allSelectedCategory.entries.map((e) => Chip(
-                          label: Text(e.value.name.toString().capitalize!),
-                          labelPadding: const EdgeInsets.only(right: 4,left: 2),
-                          onDeleted: (){
-                            allSelectedCategory.remove(e.key);
-                            setState(() {});
-                          })).toList(),
+                      children: allSelectedCategory.entries
+                          .map((e) => Chip(
+                              label: Text(e.value.name.toString().capitalize!),
+                              labelPadding: const EdgeInsets.only(right: 4, left: 2),
+                              onDeleted: () {
+                                allSelectedCategory.remove(e.key);
+                                setState(() {});
+                              }))
+                          .toList(),
                     ),
                     14.spaceY,
                     VendorCommonTextfield(
@@ -379,7 +381,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       return GestureDetector(
                         onTap: () {
                           NewHelper().addFilePicker().then((value) {
-                            if(value == null)return;
+                            if (value == null) return;
                             storeImage.value = value;
                           });
                         },
@@ -446,7 +448,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       return GestureDetector(
                         onTap: () {
                           NewHelper().addFilePicker().then((value) {
-                            if(value == null)return;
+                            if (value == null) return;
                             businessImage.value = value;
                           });
                         },

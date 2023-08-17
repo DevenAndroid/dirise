@@ -89,8 +89,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
         ),
       ),
       body: RefreshIndicator(
-        onRefresh: ()async{
-          await getCategoryStores(page: paginationPage,resetAll: true);
+        onRefresh: () async {
+          await getCategoryStores(page: paginationPage, resetAll: true);
         },
         child: CustomScrollView(
           shrinkWrap: true,
@@ -162,8 +162,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                           ),
                           Text(
                             ("1457 items -- Static"),
-                            style:
-                                GoogleFonts.poppins(color: const Color(0xff014E70), fontSize: 17, fontWeight: FontWeight.w500),
+                            style: GoogleFonts.poppins(
+                                color: const Color(0xff014E70), fontSize: 17, fontWeight: FontWeight.w500),
                           )
                         ],
                       ),

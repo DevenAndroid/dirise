@@ -69,8 +69,7 @@ class _PublicSpeakerCategoryScreenState extends State<PublicSpeakerCategoryScree
                               children: [
                                 Text(
                                   ("Sara Luies"),
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5, bottom: 5),

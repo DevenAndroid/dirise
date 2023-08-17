@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import '../../model/vendor_models/model_vendor_details.dart';
 
-class VendorProfileController extends GetxController{
+class VendorProfileController extends GetxController {
   final Repositories repositories = Repositories();
   ModelVendorDetails model = ModelVendorDetails();
   bool apiLoaded = false;
@@ -17,8 +17,8 @@ class VendorProfileController extends GetxController{
   Future getVendorDetails() async {
     await repositories.getApi(url: ApiUrls.getVendorDetailUrl).then((value) {
       model = ModelVendorDetails.fromJson(jsonDecode(value));
-      if(model.user != null){
-      apiLoaded = true;
+      if (model.user != null) {
+        apiLoaded = true;
       } else {
         apiLoaded = false;
       }
@@ -31,9 +31,7 @@ class VendorProfileController extends GetxController{
     super.onInit();
     getVendorDetails();
   }
-
 }
-
 
 const List<String> imgList = [
   'assets/svgs/green_logo.svg',

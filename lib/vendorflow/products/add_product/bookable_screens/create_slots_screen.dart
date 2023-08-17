@@ -98,8 +98,7 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
         elevation: 3,
         margin: const EdgeInsets.only(bottom: 14),
         child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15)
-                .copyWith(bottom: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15).copyWith(bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -108,27 +107,21 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                     Expanded(
                       child: Text(
                         !controller.resetSlots ? "Edit Slots" : "Create Slot",
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xff2F2F2F),
-                            fontSize: 15),
+                        style:
+                            GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 15),
                       ),
                     ),
-                    if (controller.serviceTimeSloat.isNotEmpty &&
-                        controller.productId.isNotEmpty)
+                    if (controller.serviceTimeSloat.isNotEmpty && controller.productId.isNotEmpty)
                       TextButton(
                           onPressed: () {
                             controller.resetSlots = !controller.resetSlots;
                             setState(() {});
                           },
-                          child: Text(!controller.resetSlots
-                              ? "Create Slots"
-                              : "Previous Slots"))
+                          child: Text(!controller.resetSlots ? "Create Slots" : "Previous Slots"))
                   ],
                 ),
                 if (controller.resetSlots == true ||
-                    !(controller.serviceTimeSloat.isNotEmpty &&
-                        controller.productId.isNotEmpty)) ...[
+                    !(controller.serviceTimeSloat.isNotEmpty && controller.productId.isNotEmpty)) ...[
                   12.spaceY,
                   IntrinsicHeight(
                     child: Row(
@@ -141,30 +134,24 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                                 String hour =
                                     "${startDuration.inHours < 10 ? "0${startDuration.inHours}" : startDuration.inHours}";
                                 int minute = startDuration.inMinutes % 60;
-                                String inMinute =
-                                    "${minute < 10 ? "0$minute" : minute}";
+                                String inMinute = "${minute < 10 ? "0$minute" : minute}";
                                 controller.startTime.text = "$hour : $inMinute";
                                 clearSlots();
                                 _showDialog(
                                   CupertinoTimerPicker(
                                     mode: CupertinoTimerPickerMode.hm,
                                     initialTimerDuration: startDuration,
-                                    onTimerDurationChanged:
-                                        (Duration newDuration) {
+                                    onTimerDurationChanged: (Duration newDuration) {
                                       makeDelay(nowPerform: (bool v) {
                                         startDuration = newDuration;
                                         if (kDebugMode) {
-                                          print(
-                                              "performed....    $startDuration");
+                                          print("performed....    $startDuration");
                                         }
                                         String hour =
                                             "${startDuration.inHours < 10 ? "0${startDuration.inHours}" : startDuration.inHours}";
-                                        int minute =
-                                            startDuration.inMinutes % 60;
-                                        String inMinute =
-                                            "${minute < 10 ? "0$minute" : minute}";
-                                        controller.startTime.text =
-                                            "$hour : $inMinute";
+                                        int minute = startDuration.inMinutes % 60;
+                                        String inMinute = "${minute < 10 ? "0$minute" : minute}";
+                                        controller.startTime.text = "$hour : $inMinute";
                                         clearSlots();
                                         setState(() {});
                                       });
@@ -196,8 +183,7 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                                 String hour =
                                     "${endDuration.inHours < 10 ? "0${endDuration.inHours}" : endDuration.inHours}";
                                 int minute = endDuration.inMinutes % 60;
-                                String inMinute =
-                                    "${minute < 10 ? "0$minute" : minute}";
+                                String inMinute = "${minute < 10 ? "0$minute" : minute}";
                                 controller.endTime.text = "$hour : $inMinute";
                                 clearSlots();
                                 _showDialog(
@@ -206,21 +192,17 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                                     initialTimerDuration: endDuration,
                                     // This is called when the user changes the timer's
                                     // duration.
-                                    onTimerDurationChanged:
-                                        (Duration newDuration) {
+                                    onTimerDurationChanged: (Duration newDuration) {
                                       makeDelay(nowPerform: (bool v) {
                                         endDuration = newDuration;
                                         if (kDebugMode) {
-                                          print(
-                                              "performed....    $endDuration");
+                                          print("performed....    $endDuration");
                                         }
                                         String hour =
                                             "${endDuration.inHours < 10 ? "0${endDuration.inHours}" : endDuration.inHours}";
                                         int minute = endDuration.inMinutes % 60;
-                                        String inMinute =
-                                            "${minute < 10 ? "0$minute" : minute}";
-                                        controller.endTime.text =
-                                            "$hour : $inMinute";
+                                        String inMinute = "${minute < 10 ? "0$minute" : minute}";
+                                        controller.endTime.text = "$hour : $inMinute";
                                         clearSlots();
                                         setState(() {});
                                       });
@@ -262,8 +244,7 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                         if (startDateTime
                                 .difference(endDateTime)
                                 .abs()
-                                .compareTo(Duration(
-                                    minutes: int.tryParse(value) ?? 0)) ==
+                                .compareTo(Duration(minutes: int.tryParse(value) ?? 0)) ==
                             -1) {
                           return "Service duration is greater then start & end time duration";
                         }
@@ -284,44 +265,30 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                               showToast("Select end time");
                               return;
                             }
-                            if (controller.serviceDuration.text
-                                .trim()
-                                .isEmpty) {
+                            if (controller.serviceDuration.text.trim().isEmpty) {
                               showToast("Select service duration");
                               return;
                             }
 
                             controller.slots.clear();
                             if (kDebugMode) {
-                              print(
-                                  startDateTime.difference(endDateTime).abs());
+                              print(startDateTime.difference(endDateTime).abs());
                               print(startDateTime
                                   .difference(endDateTime)
                                   .abs()
-                                  .compareTo(Duration(
-                                      minutes: int.tryParse(controller
-                                              .serviceDuration.text) ??
-                                          0)));
+                                  .compareTo(Duration(minutes: int.tryParse(controller.serviceDuration.text) ?? 0)));
                               print(startDateTime
                                       .difference(endDateTime)
                                       .abs()
-                                      .compareTo(Duration(
-                                          minutes: int.tryParse(controller
-                                                  .serviceDuration.text) ??
-                                              0)) ==
+                                      .compareTo(Duration(minutes: int.tryParse(controller.serviceDuration.text) ?? 0)) ==
                                   -1);
                             }
 
-                            Duration minutes = Duration(
-                                minutes: int.tryParse(
-                                        controller.serviceDuration.text) ??
-                                    0);
+                            Duration minutes = Duration(minutes: int.tryParse(controller.serviceDuration.text) ?? 0);
 
                             DateTime temp = startDateTime;
-                            while (temp.millisecondsSinceEpoch <
-                                endDateTime.millisecondsSinceEpoch) {
-                              controller.slots[{temp: temp.add(minutes)}] =
-                                  false;
+                            while (temp.millisecondsSinceEpoch < endDateTime.millisecondsSinceEpoch) {
+                              controller.slots[{temp: temp.add(minutes)}] = false;
                               temp = temp.add(minutes);
                             }
                             FocusManager.instance.primaryFocus!.unfocus();
@@ -332,16 +299,10 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppTheme.buttonColor,
                               surfaceTintColor: AppTheme.buttonColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5))),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
                           child: Text(
-                            controller.slots.isEmpty
-                                ? "Create Slot"
-                                : "Slots Created - ${controller.slots.length}",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
+                            controller.slots.isEmpty ? "Create Slot" : "Slots Created - ${controller.slots.length}",
+                            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 15),
                           ),
                         ),
                       ),
@@ -351,16 +312,13 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                     height: 4,
                   ),
                   Container(
-                    constraints: BoxConstraints(
-                        maxHeight: context.getSize.width * .52, minHeight: 0),
+                    constraints: BoxConstraints(maxHeight: context.getSize.width * .52, minHeight: 0),
                     child: Scrollbar(
                       thumbVisibility: false, //always show scrollbar
                       thickness: 5, //width of scrollbar
                       interactive: true,
-                      radius: const Radius.circular(
-                          20), //corner radius of scrollbar
-                      scrollbarOrientation: ScrollbarOrientation
-                          .right, //which side to show scrollbar
+                      radius: const Radius.circular(20), //corner radius of scrollbar
+                      scrollbarOrientation: ScrollbarOrientation.right, //which side to show scrollbar
                       child: ListView.builder(
                           itemCount: controller.slots.length,
                           padding: const EdgeInsets.only(top: 10),
@@ -375,16 +333,13 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                   ),
                 ] else
                   Container(
-                    constraints: BoxConstraints(
-                        maxHeight: context.getSize.width * .52, minHeight: 0),
+                    constraints: BoxConstraints(maxHeight: context.getSize.width * .52, minHeight: 0),
                     child: Scrollbar(
                       thumbVisibility: false, //always show scrollbar
                       thickness: 5, //width of scrollbar
                       interactive: true,
-                      radius: const Radius.circular(
-                          20), //corner radius of scrollbar
-                      scrollbarOrientation: ScrollbarOrientation
-                          .right, //which side to show scrollbar
+                      radius: const Radius.circular(20), //corner radius of scrollbar
+                      scrollbarOrientation: ScrollbarOrientation.right, //which side to show scrollbar
                       child: ListView.builder(
                           itemCount: controller.serviceTimeSloat.length,
                           padding: const EdgeInsets.only(top: 10),
@@ -396,23 +351,18 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                                 Expanded(
                                   child: Text(
                                     "Start Time: ${item.timeSloat}",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500),
+                                    style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
                                   ),
                                 ),
                                 Expanded(
                                   child: Text(
                                     "End Time: ${item.timeSloatEnd.toString()}",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500),
+                                    style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
                                   ),
                                 ),
                                 IconButton(
                                     onPressed: () {
-                                      controller.serviceTimeSloat
-                                          .removeAt(index);
+                                      controller.serviceTimeSloat.removeAt(index);
                                       if (controller.serviceTimeSloat.isEmpty) {
                                         controller.resetSlots = true;
                                       }

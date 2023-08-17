@@ -76,55 +76,55 @@ class VendorUser {
 
   VendorUser(
       {this.id,
-        this.name,
-        this.firstName,
-        this.lastName,
-        this.email,
-        this.dob,
-        this.countryCode,
-        this.phone,
-        this.storeName,
-        this.storeBusinessId,
-        this.storeAboutUs,
-        this.storeAboutMe,
-        this.storeAddress,
-        this.storeLogo,
-        this.storeImage,
-        this.storePhone,
-        this.description,
-        this.categoryId,
-        this.bio,
-        this.socialId,
-        this.apiToken,
-        this.deviceId,
-        this.deviceToken,
-        this.emailVerifiedAt,
-        this.newSocialUser,
-        this.customerId,
-        this.defaultCard,
-        this.userWallet,
-        this.isMobileVerified,
-        this.otpVerified,
-        this.isApproved,
-        this.vendorWallet,
-        this.profileImage,
-        this.bannerProfile,
-        this.categoryImage,
-        this.address,
-        this.countryId,
-        this.stateId,
-        this.city,
-        this.streetName,
-        this.block,
-        this.stripeId,
-        this.currency,
-        this.storeOn,
-        this.readyForOrder,
-        this.isVendor,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.venderCategory});
+      this.name,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.dob,
+      this.countryCode,
+      this.phone,
+      this.storeName,
+      this.storeBusinessId,
+      this.storeAboutUs,
+      this.storeAboutMe,
+      this.storeAddress,
+      this.storeLogo,
+      this.storeImage,
+      this.storePhone,
+      this.description,
+      this.categoryId,
+      this.bio,
+      this.socialId,
+      this.apiToken,
+      this.deviceId,
+      this.deviceToken,
+      this.emailVerifiedAt,
+      this.newSocialUser,
+      this.customerId,
+      this.defaultCard,
+      this.userWallet,
+      this.isMobileVerified,
+      this.otpVerified,
+      this.isApproved,
+      this.vendorWallet,
+      this.profileImage,
+      this.bannerProfile,
+      this.categoryImage,
+      this.address,
+      this.countryId,
+      this.stateId,
+      this.city,
+      this.streetName,
+      this.block,
+      this.stripeId,
+      this.currency,
+      this.storeOn,
+      this.readyForOrder,
+      this.isVendor,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.venderCategory});
 
   VendorUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -181,8 +181,7 @@ class VendorUser {
       json['vender_category'].forEach((v) {
         venderCategory!.add(VenderCategory.fromJson(v));
       });
-    }
-    else {
+    } else {
       venderCategory = [];
     }
   }
@@ -239,8 +238,7 @@ class VendorUser {
     data['updated_at'] = updatedAt;
     data['deleted_at'] = deletedAt;
     if (venderCategory != null) {
-      data['vender_category'] =
-          venderCategory!.map((v) => v.toJson()).toList();
+      data['vender_category'] = venderCategory!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -259,14 +257,14 @@ class VenderCategory {
 
   VenderCategory(
       {this.id,
-        this.name,
-        this.status,
-        this.description,
-        this.profileImage,
-        this.bannerProfile,
-        this.createdAt,
-        this.updatedAt,
-        this.pivot});
+      this.name,
+      this.status,
+      this.description,
+      this.profileImage,
+      this.bannerProfile,
+      this.createdAt,
+      this.updatedAt,
+      this.pivot});
 
   VenderCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];

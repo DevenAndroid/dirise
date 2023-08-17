@@ -80,14 +80,12 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                               ),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 5, top: 15),
+                              padding: const EdgeInsets.only(bottom: 5, top: 15),
                               child: Text(
                                 "Your order has been confirmed\n"
                                 "Order Id: #${singleOrder.order!.id.toString()}",
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500, fontSize: 18),
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
                               ),
                             ),
                             const SizedBox(
@@ -97,8 +95,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 "Order Details",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500, fontSize: 18),
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
                               ),
                             ),
                           ],
@@ -108,12 +105,10 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                           delegate: SliverChildBuilderDelegate(
                         childCount: singleOrder.order!.orderItem!.length,
                         (context, index) {
-                          final orderItems =
-                              singleOrder.order!.orderItem![index];
+                          final orderItems = singleOrder.order!.orderItem![index];
                           return Container(
                             decoration: const BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(color: Color(0xffD9D9D9))),
+                              border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
                             ),
                             padding: const EdgeInsets.only(bottom: 20, top: 20),
                             child: Row(
@@ -130,22 +125,18 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                                   height: 60,
                                   width: 60,
                                   orderItems.featuredImage.toString(),
-                                  errorBuilder: (_, __, ___) =>
-                                      const SizedBox.shrink(),
+                                  errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                                 ),
                                 const SizedBox(
                                   width: 12,
                                 ),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         orderItems.productName.toString(),
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16),
+                                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                       ),
                                       const SizedBox(
                                         height: 5,
@@ -160,8 +151,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                                       ),
                                       Text(
                                         '${orderItems.quantity} piece',
-                                        style: GoogleFonts.poppins(
-                                            color: const Color(0xff858484)),
+                                        style: GoogleFonts.poppins(color: const Color(0xff858484)),
                                       ),
                                       const SizedBox(
                                         height: 5,
@@ -187,18 +177,12 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                                   Expanded(
                                     child: Text(
                                       "Total",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16,
-                                          height: 1.8),
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, height: 1.8),
                                     ),
                                   ),
                                   Text(
                                     "${singleOrder.order!.orderMeta!.totalPrice} USD",
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
-                                        height: 1.8),
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, height: 1.8),
                                   ),
                                 ],
                               ),
@@ -207,10 +191,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                               ),
                               Text(
                                 "Thank you for using DIRISE.",
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                    height: 1.8),
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, height: 1.8),
                               ),
                             ],
                           ),
@@ -236,18 +217,13 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                     Get.back();
                   },
                   child: Container(
-                    decoration: BoxDecoration(
-                        color: const Color(0xff014E70),
-                        borderRadius: BorderRadius.circular(10)),
+                    decoration: BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(10)),
                     height: 55,
                     alignment: Alignment.bottomCenter,
                     child: Align(
                         alignment: Alignment.center,
                         child: Text("Home",
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 19,
-                                color: Colors.white))),
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                   ),
                 ),
               )

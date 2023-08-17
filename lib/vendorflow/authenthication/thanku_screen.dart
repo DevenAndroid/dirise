@@ -72,7 +72,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
           padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.size40),
           child: ElevatedButton(
               onPressed: () {
-                Get.off(()=> const VendorDashBoardScreen());
+                Get.off(() => const VendorDashBoardScreen());
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.maxFinite, 60),

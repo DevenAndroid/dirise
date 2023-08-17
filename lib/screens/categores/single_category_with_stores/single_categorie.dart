@@ -122,10 +122,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await getCategoryStores(
-            page: paginationPage,
-            resetAll: true
-          );
+          await getCategoryStores(page: paginationPage, resetAll: true);
         },
         child: CustomScrollView(
           shrinkWrap: true,
@@ -196,13 +193,12 @@ class _SingleCategoriesState extends State<SingleCategories> {
               const SliverToBoxAdapter(
                 child: LoadingAnimation(),
               ),
-
             if (modelCategoryStores != null && modelCategoryStores!.isEmpty)
-            const SliverToBoxAdapter(
-              child: Center(
-                child: Text("Category don't have any store."),
+              const SliverToBoxAdapter(
+                child: Center(
+                  child: Text("Category don't have any store."),
+                ),
               ),
-            ),
             SliverToBoxAdapter(
               child: Obx(() {
                 if (refreshInt.value > 0) {}
@@ -300,8 +296,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
           child: Padding(
             padding: const EdgeInsets.all(16).copyWith(top: 10),
             child: GestureDetector(
-              onTap: (){
-              },
+              onTap: () {},
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: SizedBox(

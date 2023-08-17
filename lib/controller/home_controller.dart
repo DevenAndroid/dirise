@@ -18,7 +18,6 @@ class TrendingProductsController extends GetxController {
   ModelVendorCategory vendorCategory = ModelVendorCategory();
   RxInt updateCate = 0.obs;
 
-
   Future trendingData() async {
     await repositories.postApi(url: ApiUrls.trendingProductsUrl, mapData: {}).then((value) {
       trendingModel.value = TendingModel.fromJson(jsonDecode(value));
@@ -42,7 +41,8 @@ class TrendingProductsController extends GetxController {
       authorModal.value = AuthorModal.fromJson(jsonDecode(value));
     });
   }
-  getVendorCategories(){
+
+  getVendorCategories() {
     repositories.getApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
       vendorCategory = ModelVendorCategory.fromJson(jsonDecode(value));
       updateCate.value = DateTime.now().millisecondsSinceEpoch;

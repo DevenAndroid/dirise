@@ -25,7 +25,7 @@ class WishListController extends GetxController {
   }
 
   getYourWishList() async {
-    await repositories.postApi(url: ApiUrls.wishListUrl).then((value){
+    await repositories.postApi(url: ApiUrls.wishListUrl).then((value) {
       model.value = WhishlistModel.fromJson(jsonDecode(value));
       favoriteItems = model.value.wishlist!.map((e) => e.id.toString()).toList();
       apiLoaded = true;

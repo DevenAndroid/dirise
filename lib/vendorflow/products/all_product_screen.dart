@@ -102,12 +102,14 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
                               hintText: 'Search Products',
-                              hintStyle:
-                                  GoogleFonts.poppins(fontSize: AddSize.font16, color: Colors.black, fontWeight: FontWeight.w400)),
+                              hintStyle: GoogleFonts.poppins(
+                                  fontSize: AddSize.font16, color: Colors.black, fontWeight: FontWeight.w400)),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16,),
+                    const SizedBox(
+                      width: 16,
+                    ),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(AddProductScreen.route);
@@ -156,8 +158,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
+                                  padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
                                   child: Row(children: [
                                     SizedBox(
                                         height: AddSize.size80,
@@ -182,8 +183,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Get.toNamed(AddProductScreen.route,
-                                                      arguments: (item.id ?? "").toString());
+                                                  Get.toNamed(AddProductScreen.route, arguments: (item.id ?? "").toString());
                                                 },
                                                 child: Container(
                                                     height: AddSize.size25,
@@ -240,13 +240,15 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                               activeColor: AppTheme.buttonColor,
                                               onToggle: (val) {
                                                 productController.updateProductStatus(
-                                                  changed: (bool value1){
-                                                    if(value1 == true){
-                                                      productController.model.product![index].isPublish = !productController.model.product![index].isPublish!;
-                                                      setState(() {});
-                                                    }
-                                                  },
-                                                    context: context, productID: item.id.toString());
+                                                    changed: (bool value1) {
+                                                      if (value1 == true) {
+                                                        productController.model.product![index].isPublish =
+                                                            !productController.model.product![index].isPublish!;
+                                                        setState(() {});
+                                                      }
+                                                    },
+                                                    context: context,
+                                                    productID: item.id.toString());
                                               },
                                               value: item.isPublish!,
                                             )

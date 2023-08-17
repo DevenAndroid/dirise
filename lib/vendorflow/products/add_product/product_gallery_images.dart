@@ -61,8 +61,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               color: Colors.white,
                               child: Text(
                                 "Take picture",
-                                style: Theme
-                                    .of(context)
+                                style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
                                     .copyWith(color: AppTheme.buttonColor, fontWeight: FontWeight.w500, fontSize: 16),
@@ -97,8 +96,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               color: Colors.white,
                               child: Text(
                                 "Choose From Gallery",
-                                style: Theme
-                                    .of(context)
+                                style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
                                     .copyWith(color: AppTheme.buttonColor, fontWeight: FontWeight.w500, fontSize: 16),
@@ -122,8 +120,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               textStyle: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600)),
                           child: Text(
                             "Submit",
-                            style: Theme
-                                .of(context)
+                            style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall!
                                 .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),
@@ -142,10 +139,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
     return Card(
       elevation: 3,
       child: SizedBox(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+          width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -175,10 +169,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                                 padding: const EdgeInsets.only(left: 5, top: 2),
                                 child: Icon(
                                   Icons.error_outline_rounded,
-                                  color: Theme
-                                      .of(context)
-                                      .colorScheme
-                                      .error,
+                                  color: Theme.of(context).colorScheme.error,
                                   size: 21,
                                 ),
                               ),
@@ -190,8 +181,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                           showImagesBottomSheet();
                         },
                         child: Text(
-                          'Choose From Gallery ${controller.galleryImages.isNotEmpty ? "${controller.galleryImages
-                              .length}/5" : ""}',
+                          'Choose From Gallery ${controller.galleryImages.isNotEmpty ? "${controller.galleryImages.length}/5" : ""}',
                           style: GoogleFonts.poppins(
                             fontSize: 14,
                             color: AppTheme.buttonColor,
@@ -207,41 +197,42 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                 SizedBox(
                   height: 125,
                   child: Obx(() {
-                    if(controller.refreshInt.value > 0){}
+                    if (controller.refreshInt.value > 0) {}
                     return SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.only(left: 20),
                       child: Row(
                         children: controller.galleryImages
-                            .mapIndexed((i, e) =>
-                            Padding(
-                              padding: const EdgeInsets.only(right: 18),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    NewHelper.showImagePickerSheet(
-                                        gotImage: (value) {
-                                          controller.galleryImages[i] = value;
-                                          setState(() {});
-                                        },
-                                        context: context,
-                                        removeOption: true,
-                                        removeImage: (fg) {
-                                          controller.galleryImages.removeAt(i);
-                                          setState(() {});
-                                        });
-                                  },
-                                  child: Container(
-                                    constraints: const BoxConstraints(
-                                      minWidth: 50,
-                                      minHeight: 125
-                                    ),
-                                    child: Image.file(e,
-                                    errorBuilder: (_,__,___)=> Image.network(
-                                      e.path,
-                                    errorBuilder: (_,__,___)=> const Icon(Icons.error_outline,color: Colors.red,),),),
-                                  )
-                              ),
-                            ))
+                            .mapIndexed((i, e) => Padding(
+                                  padding: const EdgeInsets.only(right: 18),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        NewHelper.showImagePickerSheet(
+                                            gotImage: (value) {
+                                              controller.galleryImages[i] = value;
+                                              setState(() {});
+                                            },
+                                            context: context,
+                                            removeOption: true,
+                                            removeImage: (fg) {
+                                              controller.galleryImages.removeAt(i);
+                                              setState(() {});
+                                            });
+                                      },
+                                      child: Container(
+                                        constraints: const BoxConstraints(minWidth: 50, minHeight: 125),
+                                        child: Image.file(
+                                          e,
+                                          errorBuilder: (_, __, ___) => Image.network(
+                                            e.path,
+                                            errorBuilder: (_, __, ___) => const Icon(
+                                              Icons.error_outline,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ),
+                                      )),
+                                ))
                             .toList(),
                       ),
                     );

@@ -58,39 +58,33 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                         ),
                         const LatestSalesAppBar(),
                         SliverList.builder(
-                            itemCount:
-                                controller.modelVendorDashboard.order!.length,
+                            itemCount: controller.modelVendorDashboard.order!.length,
                             itemBuilder: (context, index) {
-                              final order =
-                                  controller.modelVendorDashboard.order![index];
+                              final order = controller.modelVendorDashboard.order![index];
                               if (kDebugMode) {
                                 print(jsonEncode(order));
                                 print("SliverList....    $index");
                               }
                               return Container(
                                 color: Colors.white,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
+                                padding: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Column(
                                   children: [
                                     SizedBox(
                                       height: AddSize.size5,
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Expanded(
                                           flex: 5,
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 "#${order.orderId.toString()}",
                                                 style: GoogleFonts.poppins(
-                                                    color:
-                                                        const Color(0xFF454B5C),
+                                                    color: const Color(0xFF454B5C),
                                                     height: 1.5,
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 15),
@@ -98,22 +92,14 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                               const SizedBox(
                                                 height: 5,
                                               ),
-                                              if (DateTime.tryParse(order
-                                                      .updatedAt
-                                                      .toString()) !=
-                                                  null)
+                                              if (DateTime.tryParse(order.updatedAt.toString()) != null)
                                                 Text(
-                                                  DateFormat(
-                                                          "HH:mm a - dd MMM, yyyy")
-                                                      .format(DateTime.tryParse(
-                                                          order.updatedAt
-                                                              .toString())!),
+                                                  DateFormat("HH:mm a - dd MMM, yyyy")
+                                                      .format(DateTime.tryParse(order.updatedAt.toString())!),
                                                   style: GoogleFonts.poppins(
-                                                      fontWeight:
-                                                          FontWeight.w500,
+                                                      fontWeight: FontWeight.w500,
                                                       fontSize: 13,
-                                                      color: const Color(
-                                                          0xFF8C9BB2)),
+                                                      color: const Color(0xFF8C9BB2)),
                                                 ),
                                             ],
                                           ),
@@ -126,9 +112,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                           child: Text(
                                             order.status.toString().capitalize!,
                                             style: GoogleFonts.poppins(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 14,
-                                                color: const Color(0xFFFFB26B)),
+                                                fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFFFFB26B)),
                                           ),
                                         ),
                                         const SizedBox(
@@ -176,10 +160,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
           ),
           Text(
             "This Month Report",
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: Color(0xFF292F45)),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF292F45)),
           ),
           SizedBox(
             height: 10,

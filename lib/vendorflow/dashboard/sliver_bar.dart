@@ -40,11 +40,10 @@ class _LatestSalesAppBarState extends State<LatestSalesAppBar> {
                 Expanded(
                   child: Text(
                     "Latest Sales",
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        height: 1.5,
-                        color: const Color(0xff454B5C),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(height: 1.5, color: const Color(0xff454B5C), fontWeight: FontWeight.w500, fontSize: 16),
                   ),
                 ),
                 TextButton(
@@ -53,8 +52,7 @@ class _LatestSalesAppBarState extends State<LatestSalesAppBar> {
                       //     .vendorOrderList);
                     },
                     style: TextButton.styleFrom(
-                        visualDensity: VisualDensity.compact,
-                        padding: const EdgeInsets.symmetric(horizontal: 10)),
+                        visualDensity: VisualDensity.compact, padding: const EdgeInsets.symmetric(horizontal: 10)),
                     child: Text(
                       "See All",
                       style: GoogleFonts.poppins(
@@ -73,10 +71,7 @@ class _LatestSalesAppBarState extends State<LatestSalesAppBar> {
                   flex: 5,
                   child: Text(
                     "Order No.",
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: const Color(0xFF52AC1A)),
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFF52AC1A)),
                   ),
                 ),
                 const SizedBox(
@@ -87,10 +82,7 @@ class _LatestSalesAppBarState extends State<LatestSalesAppBar> {
                   child: Text(
                     "Status",
                     style: GoogleFonts.poppins(
-                        height: 1.5,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: const Color(0xFF52AC1A)),
+                        height: 1.5, fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFF52AC1A)),
                   ),
                 ),
                 const SizedBox(
@@ -102,10 +94,7 @@ class _LatestSalesAppBarState extends State<LatestSalesAppBar> {
                     "Earning",
                     textAlign: TextAlign.end,
                     style: GoogleFonts.poppins(
-                        height: 1.5,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        color: const Color(0xFF52AC1A)),
+                        height: 1.5, fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFF52AC1A)),
                   ),
                 )
               ],

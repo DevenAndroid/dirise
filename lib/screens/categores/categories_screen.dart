@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/screens/categores/single_category_with_stores/single_categorie.dart';
 import 'package:dirise/utils/helper.dart';
@@ -52,7 +51,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         ),
                         const ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-
                             child: Image(image: AssetImage('assets/images/storybooks.png'))),
                         const SizedBox(
                           height: 20,
@@ -76,7 +74,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               final item = homeController.vendorCategory.usphone![index];
                               return InkWell(
                                 onTap: () {
-                                  Get.to(()=> SingleCategories(vendorCategories: item,));
+                                  Get.to(() => SingleCategories(
+                                        vendorCategories: item,
+                                      ));
                                 },
                                 borderRadius: BorderRadius.circular(10),
                                 child: Container(
@@ -88,7 +88,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                        width: context.getSize.width*.5*.3,
+                                        width: context.getSize.width * .5 * .3,
                                         child: Hero(
                                           tag: item.bannerProfile.toString(),
                                           child: Material(
@@ -108,21 +108,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                         child: Text(
                                           item.name.toString(),
                                           style: GoogleFonts.poppins(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xff014E70)),
+                                              fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ).animate(
-                                  delay: Duration(milliseconds: index*80))
-                                  .scale(duration: 500.ms);
+                              ).animate(delay: Duration(milliseconds: index * 80)).scale(duration: 500.ms);
                             },
                           ),
                         ),
-                        const SizedBox(height: 60,),
+                        const SizedBox(
+                          height: 60,
+                        ),
                       ],
                     )),
               )

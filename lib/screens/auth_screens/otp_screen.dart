@@ -34,11 +34,11 @@ class _OtpScreenState extends State<OtpScreen> {
   Map<String, dynamic> tempMap = {};
 
   verifyOtp() {
-    if(_otpController.text.trim().isEmpty){
+    if (_otpController.text.trim().isEmpty) {
       showToast("Please enter OTP");
       return;
     }
-    if(_otpController.text.trim().length < 4){
+    if (_otpController.text.trim().length < 4) {
       showToast("Enter complete OTP");
       return;
     }
@@ -59,7 +59,6 @@ class _OtpScreenState extends State<OtpScreen> {
     });
   }
 
-
   Future registerApi() async {
     // Map<String, dynamic> map = {};
     // map['email'] = _emailController.text.trim();
@@ -75,7 +74,6 @@ class _OtpScreenState extends State<OtpScreen> {
       }
     });
   }
-
 
   Future<ModelCommonResponse> forgotPasswordRepo() async {
     OverlayEntry loader = Helpers.overlayLoader(context);
@@ -137,120 +135,115 @@ class _OtpScreenState extends State<OtpScreen> {
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(
-                color: Colors.grey.shade300,
-                width: 4.0,
-              ))));
+        color: Colors.grey.shade300,
+        width: 4.0,
+      ))));
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-              height: size.height,
-              width: size.width,
-              child: Stack(children: [
-                Container(
-                  height: size.height,
-                  width: size.width,
-                  decoration: const BoxDecoration(color: AppTheme.buttonColor),
-                  padding: EdgeInsets.symmetric(horizontal: size.width * .02, vertical: size.height * .06),
-                  child: Column(
-                    children: [
-                      Image.asset(height: size.height * .15, 'assets/images/otplogo.png'),
-                      const SizedBox(
-                        height: 13,
-                      ),
-                      Text(
-                        'OTP Verification',
-                        style: GoogleFonts.poppins(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.white),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        'Enter the OTP Send to Your Email',
-                        style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
-                      )
-                    ],
-                  ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+            height: size.height,
+            width: size.width,
+            child: Stack(children: [
+              Container(
+                height: size.height,
+                width: size.width,
+                decoration: const BoxDecoration(color: AppTheme.buttonColor),
+                padding: EdgeInsets.symmetric(horizontal: size.width * .02, vertical: size.height * .06),
+                child: Column(
+                  children: [
+                    Image.asset(height: size.height * .15, 'assets/images/otplogo.png'),
+                    const SizedBox(
+                      height: 13,
+                    ),
+                    Text(
+                      'OTP Verification',
+                      style: GoogleFonts.poppins(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      'Enter the OTP Send to Your Email',
+                      style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
+                    )
+                  ],
                 ),
-                Positioned(
-                    top: size.height * .40,
-                    right: 0,
-                    left: 0,
-                    bottom: 0,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(100))),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
-                        child: Column(
-                          children: [
-                            Pinput(
-                              controller: _otpController,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              keyboardType: TextInputType.number,
-                              length: 4,
-                              defaultPinTheme: defaultPinTheme,
-                            ),
-                            SizedBox(
-                              height: size.height * .05,
-                            ),
-                            Text(
-                              "Didn't you receive the OTP?",
-                              style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 17),
-                            ),
-                            SizedBox(
-                              height: size.height * .03,
-                            ),
-                            GestureDetector(
-                              onTap: () async {
-                                if (timerInt.value == 0) {
-                                  if (check) {
-                                    registerApi();
-                                  } else {
-                                    await forgotPasswordRepo().then((value) {
-                                      if (value.status == true) {
-                                        setTimer();
-                                        showToast("OTP sent successfully");
-                                      }
-                                    });
-                                  }
+              ),
+              Positioned(
+                  top: size.height * .40,
+                  right: 0,
+                  left: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(100))),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
+                      child: Column(
+                        children: [
+                          Pinput(
+                            controller: _otpController,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            keyboardType: TextInputType.number,
+                            length: 4,
+                            defaultPinTheme: defaultPinTheme,
+                          ),
+                          SizedBox(
+                            height: size.height * .05,
+                          ),
+                          Text(
+                            "Didn't you receive the OTP?",
+                            style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 17),
+                          ),
+                          SizedBox(
+                            height: size.height * .03,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              if (timerInt.value == 0) {
+                                if (check) {
+                                  registerApi();
+                                } else {
+                                  await forgotPasswordRepo().then((value) {
+                                    if (value.status == true) {
+                                      setTimer();
+                                      showToast("OTP sent successfully");
+                                    }
+                                  });
                                 }
-                              },
-                              child: Obx(() {
-                                return Text(
-                                  ' Resend OTP\n'
-                                      '${timerInt.value > 0 ? "In ${timerInt.value > 9 ? timerInt.value : "0${timerInt
-                                      .value}"}" : ""}',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
-                                );
-                              }),
-                            ),
-                            SizedBox(
-                              height: size.height * .2,
-                            ),
-                          ],
-                        ),
+                              }
+                            },
+                            child: Obx(() {
+                              return Text(
+                                ' Resend OTP\n'
+                                '${timerInt.value > 0 ? "In ${timerInt.value > 9 ? timerInt.value : "0${timerInt.value}"}" : ""}',
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
+                              );
+                            }),
+                          ),
+                          SizedBox(
+                            height: size.height * .2,
+                          ),
+                        ],
                       ),
-                    ))
-              ])),
-        ),
-      bottomNavigationBar:
-      SizedBox(
+                    ),
+                  ))
+            ])),
+      ),
+      bottomNavigationBar: SizedBox(
         width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.all(15.0).copyWith(bottom: 10),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.buttonColor,
-                shape:
-                const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                 textStyle: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                 )),
@@ -261,8 +254,7 @@ class _OtpScreenState extends State<OtpScreen> {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Verify OTP',
-                style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+                style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ),
           ),

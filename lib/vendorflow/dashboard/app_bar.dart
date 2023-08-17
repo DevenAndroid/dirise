@@ -58,9 +58,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
                   Text(
                     "Hi, ${vendorProfileController.model.user!.name.toString().checkNullable}",
                     style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w600,
-                        fontSize: AddSize.font22,
-                        color: const Color(0xff292F45)),
+                        fontWeight: FontWeight.w600, fontSize: AddSize.font22, color: const Color(0xff292F45)),
                   ),
                   const SizedBox(
                     height: 3,
@@ -70,19 +68,14 @@ class _AppBarScreenState extends State<AppBarScreen> {
                       Flexible(
                         child: Text(
                           "Store Time :",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: const Color(0xff737A8A)),
+                          style:
+                              GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16, color: const Color(0xff737A8A)),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           " 10am to 9pm",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: AppTheme.buttonColor),
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.buttonColor),
                         ),
                       ),
                       InkWell(
@@ -126,13 +119,10 @@ class _AppBarScreenState extends State<AppBarScreen> {
                                 // color: Colors.brown
                               ),
                               child: Image.network(
-                                vendorProfileController.model.user!.storeImage
-                                    .toString(),
+                                vendorProfileController.model.user!.storeImage.toString(),
                                 errorBuilder: (_, __, ___) => Container(
                                     decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(1000),
-                                        border: Border.all(color: Colors.grey)),
+                                        borderRadius: BorderRadius.circular(1000), border: Border.all(color: Colors.grey)),
                                     child: Icon(
                                       Icons.person_2_rounded,
                                       color: Colors.grey.shade700,

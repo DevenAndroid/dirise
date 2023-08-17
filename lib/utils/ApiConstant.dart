@@ -51,10 +51,9 @@ class ApiUrls {
   static const String getCategoryStoresUrl = "${baseUrl}get-vendor-details?";
   static const String vendorProductListUrl = "${baseUrl}vendor-product-list?";
   static const String singleProductUrl = "${baseUrl}product";
-
 }
 
-showToast(message,{ToastGravity? gravity}) {
+showToast(message, {ToastGravity? gravity}) {
   Fluttertoast.cancel();
   Fluttertoast.showToast(
       msg: message.toString().capitalize!,
@@ -65,7 +64,8 @@ showToast(message,{ToastGravity? gravity}) {
       textColor: const Color(0xffffffff),
       fontSize: 15);
 }
-hideToast(){
+
+hideToast() {
   Fluttertoast.cancel();
 }
 

@@ -388,8 +388,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                     // const SizedBox(width: 20,),
                     Text(
                       'Delete',
-                      style:
-                          GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 17, color: AppTheme.buttonColor),
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 17, color: AppTheme.buttonColor),
                     )
                   ],
                 ),

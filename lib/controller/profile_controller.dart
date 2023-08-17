@@ -6,7 +6,6 @@ import '../model/profile_model.dart';
 import '../repository/repository.dart';
 import '../utils/ApiConstant.dart';
 
-
 class ProfileController extends GetxController {
   ProfileModel model = ProfileModel();
   final Repositories repositories = Repositories();
@@ -25,7 +24,7 @@ class ProfileController extends GetxController {
     return userLoggedIn;
   }
 
-  updateUI(){
+  updateUI() {
     refreshInt.value = DateTime.now().millisecondsSinceEpoch;
   }
 
@@ -35,13 +34,13 @@ class ProfileController extends GetxController {
   void onInit() {
     super.onInit();
     checkUserLoggedIn().then((value) {
-        getDataProfile();
+      getDataProfile();
     });
   }
 
   Future getDataProfile() async {
     await checkUserLoggedIn();
-    if(userLoggedIn) {
+    if (userLoggedIn) {
       await repositories.postApi(url: ApiUrls.userProfile).then((value) {
         model = ProfileModel.fromJson(jsonDecode(value));
         // isVendorRegistered = model.user.
@@ -53,5 +52,4 @@ class ProfileController extends GetxController {
       updateUI();
     }
   }
-
 }

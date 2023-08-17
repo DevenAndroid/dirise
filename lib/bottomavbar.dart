@@ -23,7 +23,6 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
-
   final bottomController = Get.put(BottomNavBarController());
   final profileController = Get.put(ProfileController());
   final cartController = Get.put(CartController());
@@ -39,8 +38,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   Timer? _timer;
 
-  bool exitApp(){
-    if(allowExitApp == true){
+  bool exitApp() {
+    if (allowExitApp == true) {
       stopTimer();
       hideToast();
       return true;
@@ -48,21 +47,19 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
     allowExitApp = true;
     stopTimer();
-    showToast("Press again to exit app",gravity: ToastGravity.CENTER);
+    showToast("Press again to exit app", gravity: ToastGravity.CENTER);
     _timer = Timer(const Duration(seconds: 2), () {
       allowExitApp = false;
     });
     return false;
   }
 
-  stopTimer(){
-    try{
-
-      if(_timer == null)return;
+  stopTimer() {
+    try {
+      if (_timer == null) return;
       _timer!.cancel();
       _timer = null;
-
-    } catch(e){
+    } catch (e) {
       return;
     }
   }
@@ -76,8 +73,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
-        if(bottomController.pageIndex.value != 0){
+      onWillPop: () async {
+        if (bottomController.pageIndex.value != 0) {
           bottomController.pageIndex.value = 0;
           return false;
         } else {
@@ -100,7 +97,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   }
 
   buildMyNavBar() {
-    const padding = EdgeInsets.only(bottom: 7,top: 3);
+    const padding = EdgeInsets.only(bottom: 7, top: 3);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -137,9 +134,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               child: SvgPicture.asset(
                                 'assets/svgs/home.svg',
                                 colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 0
-                                    ? AppTheme.buttonColor
-                                    : AppTheme.primaryColor, BlendMode.srcIn),
+                                    bottomController.pageIndex.value == 0 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                    BlendMode.srcIn),
                                 height: 20,
                               ),
                             ),
@@ -147,9 +143,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               child: Text(
                                 "Home",
                                 style: GoogleFonts.poppins(
-                                    color: bottomController.pageIndex.value == 0
-                                        ? AppTheme.buttonColor
-                                        : AppTheme.primaryColor,
+                                    color:
+                                        bottomController.pageIndex.value == 0 ? AppTheme.buttonColor : AppTheme.primaryColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -175,18 +170,16 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               child: SvgPicture.asset(
                                 'assets/svgs/category.svg',
                                 colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 1
-                                        ? AppTheme.buttonColor
-                                        : AppTheme.primaryColor, BlendMode.srcIn),
+                                    bottomController.pageIndex.value == 1 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                    BlendMode.srcIn),
                                 height: 20,
                               ),
                             ),
                             Text(
                               "Categories",
                               style: GoogleFonts.poppins(
-                                  color: bottomController.pageIndex.value == 1
-                                      ? AppTheme.buttonColor
-                                      : AppTheme.primaryColor,
+                                  color:
+                                      bottomController.pageIndex.value == 1 ? AppTheme.buttonColor : AppTheme.primaryColor,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                             )
@@ -211,18 +204,16 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               child: SvgPicture.asset(
                                 'assets/svgs/fav.svg',
                                 colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 2
-                                        ? AppTheme.buttonColor
-                                        : AppTheme.primaryColor, BlendMode.srcIn),
+                                    bottomController.pageIndex.value == 2 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                    BlendMode.srcIn),
                                 height: 20,
                               ),
                             ),
                             Text(
                               "Favorite",
                               style: GoogleFonts.poppins(
-                                  color: bottomController.pageIndex.value == 2
-                                      ? AppTheme.buttonColor
-                                      : AppTheme.primaryColor,
+                                  color:
+                                      bottomController.pageIndex.value == 2 ? AppTheme.buttonColor : AppTheme.primaryColor,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                             )
@@ -248,17 +239,15 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                 'assets/svgs/person.svg',
                                 height: 20,
                                 colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 3
-                                        ? AppTheme.buttonColor
-                                        : AppTheme.primaryColor, BlendMode.srcIn),
+                                    bottomController.pageIndex.value == 3 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                    BlendMode.srcIn),
                               ),
                             ),
                             Text(
                               "Profile",
                               style: GoogleFonts.poppins(
-                                  color: bottomController.pageIndex.value == 3
-                                      ? AppTheme.buttonColor
-                                      : AppTheme.primaryColor,
+                                  color:
+                                      bottomController.pageIndex.value == 3 ? AppTheme.buttonColor : AppTheme.primaryColor,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                             )

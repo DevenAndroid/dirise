@@ -24,7 +24,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   updateLanguage() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if(sharedPreferences.getString("app_language") == null || sharedPreferences.getString("app_language") == "english"){
+    if (sharedPreferences.getString("app_language") == null || sharedPreferences.getString("app_language") == "english") {
       Get.updateLocale(const Locale('en', 'US'));
     } else {
       Get.updateLocale(const Locale('ro', 'Ro'));
@@ -43,18 +43,14 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       locale: const Locale('en', 'US'),
       theme: ThemeData(
-        fontFamily: GoogleFonts.poppins().fontFamily,
-        useMaterial3: true,
+          fontFamily: GoogleFonts.poppins().fontFamily,
+          useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
-              seedColor: AppTheme.buttonColor,
-          surfaceTint: Colors.white,
-          background: Colors.white,
+            seedColor: AppTheme.buttonColor,
+            surfaceTint: Colors.white,
+            background: Colors.white,
           ),
-        cardTheme: const CardTheme(
-          color: Colors.white,
-          surfaceTintColor: Colors.white
-        )
-      ),
+          cardTheme: const CardTheme(color: Colors.white, surfaceTintColor: Colors.white)),
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       initialRoute: "/",

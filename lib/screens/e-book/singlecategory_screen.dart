@@ -18,8 +18,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(200),
         child: Container(
-          color:AppTheme.buttonColor,
-
+          color: AppTheme.buttonColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,8 +26,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios,
-                      color: Colors.white, size: 20),
+                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
@@ -61,36 +59,31 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                   fontSize: 20,
                 ),
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Text('Author Name',
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: const Color(0XFFACACAC))),
-              const SizedBox(height: 30,),
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 20, color: const Color(0XFFACACAC))),
+              const SizedBox(
+                height: 30,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     height: 80,
                     width: 110,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Color(0xffE8E8E8)),
+                    decoration:
+                        const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xffE8E8E8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           '4.4',
-                          style: GoogleFonts.poppins(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: AppTheme.buttonColor),
+                          style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                         ),
-                        Text('Rating',
-                            style: GoogleFonts.poppins(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        Text('Rating', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),
@@ -100,23 +93,17 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                   Container(
                     height: 80,
                     width: 120,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Color(0xffE8E8E8)),
+                    decoration:
+                        const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xffE8E8E8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           '362',
-                          style: GoogleFonts.poppins(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: AppTheme.buttonColor),
+                          style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                         ),
-                        Text('No. of page',
-                            style: GoogleFonts.poppins(
-                                fontSize: 17, fontWeight: FontWeight.w500)),
+                        Text('No. of page', style: GoogleFonts.poppins(fontSize: 17, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),
@@ -127,28 +114,21 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: [
                   Container(
                     height: 90,
                     width: 110,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Color(0xffE8E8E8)),
+                    decoration:
+                        const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xffE8E8E8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'Eng',
-                          style: GoogleFonts.poppins(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: AppTheme.buttonColor),
+                          style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                         ),
-                        Text('Language',
-                            style: GoogleFonts.poppins(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        Text('Language', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),
@@ -158,23 +138,17 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> {
                   Container(
                     height: 90,
                     width: 110,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Color(0xffE8E8E8)),
+                    decoration:
+                        const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10)), color: Color(0xffE8E8E8)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           '2h14m',
-                          style: GoogleFonts.poppins(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
-                              color: AppTheme.buttonColor),
+                          style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                         ),
-                        Text('Audio',
-                            style: GoogleFonts.poppins(
-                                fontSize: 17, fontWeight: FontWeight.w500)),
+                        Text('Audio', style: GoogleFonts.poppins(fontSize: 17, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),

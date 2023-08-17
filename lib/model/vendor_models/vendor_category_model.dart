@@ -41,13 +41,13 @@ class VendorCategoriesData {
 
   VendorCategoriesData(
       {this.id,
-        this.name,
-        this.status,
-        this.description,
-        this.profileImage,
-        this.bannerProfile,
-        this.createdAt,
-        this.updatedAt});
+      this.name,
+      this.status,
+      this.description,
+      this.profileImage,
+      this.bannerProfile,
+      this.createdAt,
+      this.updatedAt});
 
   VendorCategoriesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

@@ -13,12 +13,10 @@ class CommonAppBar extends StatelessWidget {
       surfaceTintColor: Colors.white,
       backgroundColor: Colors.white,
       title: Text(
-            titleText!,
-            style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
-          ),
-      actions: [
-        ...actions ?? []
-      ],
+        titleText!,
+        style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
+      ),
+      actions: [...actions ?? []],
     );
   }
 }

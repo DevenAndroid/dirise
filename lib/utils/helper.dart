@@ -16,9 +16,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 
 class NewHelper {
-  Future<File?> addFilePicker({
-    List<String>? allowedExtensions
-}) async {
+  Future<File?> addFilePicker({List<String>? allowedExtensions}) async {
     try {
       final item = await FilePicker.platform.pickFiles(
         type: FileType.custom,
@@ -63,7 +61,7 @@ class NewHelper {
       throw Exception(e);
     }
   }
-  
+
   Future<List<File>?> multiImagePicker({int imageQuality = 80}) async {
     try {
       final item = await ImagePicker().pickMultiImage(imageQuality: imageQuality);
@@ -116,21 +114,20 @@ class NewHelper {
               });
             },
           ),
-          if(removeOption == true)
-          CupertinoActionSheetAction(
-            child: const Text('Remove'),
-            onPressed: () {
-              Get.back();
-              if(removeImage != null) {
-                removeImage(true);
-              }
-            },
-          ),
+          if (removeOption == true)
+            CupertinoActionSheetAction(
+              child: const Text('Remove'),
+              onPressed: () {
+                Get.back();
+                if (removeImage != null) {
+                  removeImage(true);
+                }
+              },
+            ),
         ],
       ),
     );
   }
-
 }
 
 class Helpers {
@@ -295,45 +292,45 @@ class Helpers {
   }
 
   static bool validateEmail(String value) {
-    Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = RegExp(pattern.toString());
     return (!regex.hasMatch(value)) ? false : true;
   }
 }
 
-extension ConvertToNum on String{
-  num? get convertToNum{
+extension ConvertToNum on String {
+  num? get convertToNum {
     return num.tryParse(this);
   }
-  num get toNum{
+
+  num get toNum {
     return num.tryParse(this) ?? 0;
   }
-  bool get isValidEmail{
-    Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+  bool get isValidEmail {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = RegExp(pattern.toString());
     return (regex.hasMatch(this)) ? false : true;
   }
 
-  String? validateEmpty(String gg){
-    return trim().isEmpty ? "$gg is required" :  null;
+  String? validateEmpty(String gg) {
+    return trim().isEmpty ? "$gg is required" : null;
   }
 
-  String get checkNullable{
-    if(this == "null") return"";
+  String get checkNullable {
+    if (this == "null") return "";
     return this;
   }
-  String get checkHTTP{
+
+  String get checkHTTP {
     return contains("https://") || contains("http://") ? split("/").last : "";
   }
 
-  String get convertToFormatTime{
+  String get convertToFormatTime {
     return "${split(":")[0]}:${split(":")[1]}";
   }
-
-
-
-
-
 }
 
 // extension CheckNull on String?{
@@ -350,43 +347,34 @@ extension ConvertToNum on String{
 //   }
 // }
 
-extension GetTotal on List<num>{
-  num get getTotal{
+extension GetTotal on List<num> {
+  num get getTotal {
     return sum;
   }
 }
 
-extension Spacing on num{
-  SizedBox get spaceX=> SizedBox(width: toDouble(),);
-  SizedBox get spaceY=> SizedBox(height: toDouble(),);
-
+extension Spacing on num {
+  SizedBox get spaceX => SizedBox(
+        width: toDouble(),
+      );
+  SizedBox get spaceY => SizedBox(
+        height: toDouble(),
+      );
 }
 
-extension GetContext on BuildContext{
-  Size get getSize=> MediaQuery.of(this).size;
+extension GetContext on BuildContext {
+  Size get getSize => MediaQuery.of(this).size;
 
-  void get navigate{
-    Scrollable.ensureVisible(this,
-        alignment: .25, duration: const Duration(milliseconds: 600));
+  void get navigate {
+    Scrollable.ensureVisible(this, alignment: .25, duration: const Duration(milliseconds: 600));
   }
-
 }
 
-extension ValidateErrors on TextEditingController{
-  bool get checkEmpty{
-    if(text.trim().isNotEmpty)return false;
+extension ValidateErrors on TextEditingController {
+  bool get checkEmpty {
+    if (text.trim().isNotEmpty) return false;
     BuildContext? context1 = getKey.currentContext;
-    if(context1 != null) {
-      context1.navigate;
-      return true;
-    } else {
-      return false;
-    }
-  }
-  bool get checkNum{
-    if((num.tryParse(text.trim()) ?? 0) > 0)return false;
-    BuildContext? context1 = getKey.currentContext;
-    if(context1 != null) {
+    if (context1 != null) {
       context1.navigate;
       return true;
     } else {
@@ -394,15 +382,26 @@ extension ValidateErrors on TextEditingController{
     }
   }
 
-  bool get checkBoth{
+  bool get checkNum {
+    if ((num.tryParse(text.trim()) ?? 0) > 0) return false;
+    BuildContext? context1 = getKey.currentContext;
+    if (context1 != null) {
+      context1.navigate;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool get checkBoth {
     // print("checkEmpty.....   $checkEmpty");
     // print("checkNum.....   $checkNum");
     return checkEmpty || checkNum;
   }
 }
 
-extension ToShimmer on Widget{
-  Widget get toShimmer{
+extension ToShimmer on Widget {
+  Widget get toShimmer {
     return Shimmer.fromColors(
       baseColor: Colors.grey,
       highlightColor: Colors.white,
@@ -411,9 +410,9 @@ extension ToShimmer on Widget{
   }
 }
 
-extension ConvertToDateon on Duration{
-  DateTime get fromTodayStart{
-    DateTime now =DateTime.now();
+extension ConvertToDateon on Duration {
+  DateTime get fromTodayStart {
+    DateTime now = DateTime.now();
     DateTime gg = DateTime(now.year, now.month, now.day);
     return gg.add(this);
   }

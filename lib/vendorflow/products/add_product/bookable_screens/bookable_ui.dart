@@ -22,8 +22,7 @@ class _BookableUIState extends State<BookableUI> {
   // DateTime? selectedStartDateTime;
   // DateTime? selectedEndDateTIme;
 
-  pickDate(
-      {required Function(DateTime gg) onPick, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate}) async {
+  pickDate({required Function(DateTime gg) onPick, DateTime? initialDate, DateTime? firstDate, DateTime? lastDate}) async {
     DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: initialDate ?? DateTime.now(),
@@ -141,8 +140,7 @@ class _BookableUIState extends State<BookableUI> {
         surfaceTintColor: Colors.white,
         elevation: 3,
         child: Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20).copyWith(bottom: 10),
+            padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20).copyWith(bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

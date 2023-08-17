@@ -48,20 +48,20 @@ class ProductCategoryData {
 
   ProductCategoryData(
       {this.id,
-        this.vendorId,
-        this.parentId,
-        this.level,
-        this.commision,
-        this.categoryImage,
-        this.categoryImageBanner,
-        this.discription,
-        this.arabDescription,
-        this.status,
-        this.title,
-        this.arabTitle,
-        this.slug,
-        this.createdAt,
-        this.updatedAt});
+      this.vendorId,
+      this.parentId,
+      this.level,
+      this.commision,
+      this.categoryImage,
+      this.categoryImageBanner,
+      this.discription,
+      this.arabDescription,
+      this.status,
+      this.title,
+      this.arabTitle,
+      this.slug,
+      this.createdAt,
+      this.updatedAt});
 
   ProductCategoryData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

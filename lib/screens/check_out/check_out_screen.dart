@@ -23,7 +23,6 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
-
   final cartController = Get.put(CartController());
   final profileController = Get.put(ProfileController());
 
@@ -70,7 +69,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void initState() {
     super.initState();
     profileController.checkUserLoggedIn().then((value) {
-      if(value == false)return;
+      if (value == false) return;
       cartController.getAddress();
     });
   }
@@ -156,8 +155,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        Text("Have a coupon code?",
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                        Text("Have a coupon code?", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -184,13 +182,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 applyCouponCode();
                               },
                               child: Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                                decoration:
+                                    BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                                 padding: const EdgeInsets.fromLTRB(22, 9, 22, 9),
                                 child: Text(
                                   "Apply",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+                                  style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
                                 ),
                               ),
                             )
@@ -402,8 +399,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     Row(
                       children: [
                         Expanded(
-                            child: Text("Delivery to",
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+                            child:
+                                Text("Delivery to", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
                         Radio<String>(
                             value: "delivery",
                             groupValue: deliveryOption.value,
@@ -423,8 +420,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       Material(
                         child: InkWell(
                           onTap: () {
-                            if(userLoggedIn){
-                            bottomSheetChangeAddress();
+                            if (userLoggedIn) {
+                              bottomSheetChangeAddress();
                             } else {
                               addAddressWithoutLogin(addressData: selectedAddress);
                             }
@@ -453,7 +450,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       if (selectedAddress.id != null)
                         InkWell(
                             onTap: () {
-                              if(userLoggedIn){
+                              if (userLoggedIn) {
                                 bottomSheetChangeAddress();
                               } else {
                                 addAddressWithoutLogin(addressData: selectedAddress);
@@ -461,13 +458,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             },
                             child: Align(
                                 alignment: Alignment.topRight,
-                                child: Text("Change Address", style: GoogleFonts.poppins(fontSize: 14,fontWeight: FontWeight.w500)))),
+                                child: Text("Change Address",
+                                    style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
                     ],
                     Row(
                       children: [
                         Expanded(
-                            child:
-                                Text("Pick Up", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+                            child: Text("Pick Up", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
                         Radio<String>(
                             value: "pickup",
                             groupValue: deliveryOption.value,
@@ -496,8 +493,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     final TextEditingController firstNameController = TextEditingController(text: addressData.firstName ?? "");
     final TextEditingController lastNameController = TextEditingController(text: addressData.lastName ?? "");
     final TextEditingController phoneController = TextEditingController(text: addressData.phone ?? "");
-    final TextEditingController alternatePhoneController =
-        TextEditingController(text: addressData.alternatePhone ?? "");
+    final TextEditingController alternatePhoneController = TextEditingController(text: addressData.alternatePhone ?? "");
     final TextEditingController addressController = TextEditingController(text: addressData.address ?? "");
     final TextEditingController address2Controller = TextEditingController(text: addressData.address2 ?? "");
     final TextEditingController cityController = TextEditingController(text: addressData.city ?? "");
@@ -700,8 +696,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           child: Align(
                               alignment: Alignment.center,
                               child: Text("Save",
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
+                                  style:
+                                      GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
@@ -762,8 +758,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       Container(
                         width: 100,
                         height: 6,
-                        decoration:
-                            BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(100)),
+                        decoration: BoxDecoration(color: Colors.grey.shade400, borderRadius: BorderRadius.circular(100)),
                       )
                     ],
                   ),
@@ -860,8 +855,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                           )
                                                               .then((value) {
                                                             if (value == true) {
-                                                              cartController.addressListModel.address!.shipping!
-                                                                  .removeWhere((element) =>
+                                                              cartController.addressListModel.address!.shipping!.removeWhere(
+                                                                  (element) =>
                                                                       element.id.toString() == address.id.toString());
                                                               cartController.updateUI();
                                                             }
@@ -877,8 +872,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                       'Edit',
                                                       style: GoogleFonts.poppins(
                                                           shadows: [
-                                                            const Shadow(
-                                                                color: Color(0xff014E70), offset: Offset(0, -4))
+                                                            const Shadow(color: Color(0xff014E70), offset: Offset(0, -4))
                                                           ],
                                                           color: Colors.transparent,
                                                           fontSize: 16,
@@ -925,8 +919,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     final TextEditingController emailController = TextEditingController(text: addressData.email ?? "");
     final TextEditingController lastNameController = TextEditingController(text: addressData.lastName ?? "");
     final TextEditingController phoneController = TextEditingController(text: addressData.phone ?? "");
-    final TextEditingController alternatePhoneController =
-    TextEditingController(text: addressData.alternatePhone ?? "");
+    final TextEditingController alternatePhoneController = TextEditingController(text: addressData.alternatePhone ?? "");
     final TextEditingController addressController = TextEditingController(text: addressData.address ?? "");
     final TextEditingController address2Controller = TextEditingController(text: addressData.address2 ?? "");
     final TextEditingController cityController = TextEditingController(text: addressData.city ?? "");
@@ -974,7 +967,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             if (value!.trim().isEmpty) {
                               return "Please enter email address";
                             }
-                            if(value.trim().isValidEmail){
+                            if (value.trim().isValidEmail) {
                               return "Please enter valid email address";
                             }
                             return null;
@@ -1161,8 +1154,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           child: Align(
                               alignment: Alignment.center,
                               child: Text("Save",
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
+                                  style:
+                                      GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).viewInsets.bottom),

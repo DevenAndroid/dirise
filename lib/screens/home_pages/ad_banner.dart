@@ -18,16 +18,14 @@ class _AdBannerUIState extends State<AdBannerUI> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return homeController.homeModal.value.home != null &&
-              homeController.popularProdModal.value.product != null
+      return homeController.homeModal.value.home != null && homeController.popularProdModal.value.product != null
           ? Column(
               children: [
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: SizedBox(
                       child: CachedNetworkImage(
-                        imageUrl: homeController.homeModal.value.home!.bannerImg
-                            .toString(),
+                        imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),
                         fit: BoxFit.cover,
                         width: context.getSize.width,
                       ),

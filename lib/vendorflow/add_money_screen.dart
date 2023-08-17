@@ -39,7 +39,6 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
           leading: GestureDetector(
             onTap: () {
               Get.back();
-
             },
             child: Padding(
               padding: const EdgeInsets.all(15),
@@ -165,10 +164,12 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                         Get.toNamed(OrderDetails.route);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                          minimumSize: Size(double.maxFinite, AddSize.size50), backgroundColor: AppTheme.buttonColor,
+                                          minimumSize: Size(double.maxFinite, AddSize.size50),
+                                          backgroundColor: AppTheme.buttonColor,
                                           elevation: 0,
                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                          textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w500)),
+                                          textStyle:
+                                              GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w500)),
                                       child: Text(
                                         "Withdrawal".tr.toUpperCase(),
                                         style: GoogleFonts.poppins(
@@ -206,26 +207,17 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                 Text(
                                   "Amount".tr,
                                   style: GoogleFonts.poppins(
-                                      height: 1.5,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: AppTheme.buttonColor),
+                                      height: 1.5, fontWeight: FontWeight.w600, fontSize: 12, color: AppTheme.buttonColor),
                                 ),
                                 Text(
                                   "Date".tr,
                                   style: GoogleFonts.poppins(
-                                      height: 1.5,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: AppTheme.buttonColor),
+                                      height: 1.5, fontWeight: FontWeight.w600, fontSize: 12, color: AppTheme.buttonColor),
                                 ),
                                 Text(
                                   "Status".tr,
                                   style: GoogleFonts.poppins(
-                                      height: 1.5,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: AppTheme.buttonColor),
+                                      height: 1.5, fontWeight: FontWeight.w600, fontSize: 12, color: AppTheme.buttonColor),
                                 )
                               ],
                             ),
@@ -289,8 +281,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
     return ChoiceChip(
       padding: EdgeInsets.symmetric(horizontal: width * .005, vertical: height * .005),
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30), side: BorderSide(color: Colors.grey.shade300)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30), side: BorderSide(color: Colors.grey.shade300)),
       label: Text("+€$title",
           style: GoogleFonts.poppins(color: const Color(0xFF262F33), fontSize: 14, fontWeight: FontWeight.w500)),
       selected: false,

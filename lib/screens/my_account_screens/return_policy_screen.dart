@@ -21,12 +21,13 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
   bool senderExpansion = true;
   Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
   Future aboutUsData() async {
-    Map<String,dynamic> map = {};
+    Map<String, dynamic> map = {};
     map["id"] = 14;
     repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
       aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
     });
   }
+
   final Repositories repositories = Repositories();
 
   @override
@@ -35,35 +36,36 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
     super.initState();
     aboutUsData();
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: SafeArea(
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                Text(
-                  'Return Policy',
-                  style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: SafeArea(
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  Text(
+                    'Return Policy',
+                    style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
+            )),
+        body: Obx(() {
+          return aboutusModal.value.status == true
+              ? SingleChildScrollView(
+                  child: Html(data: aboutusModal.value.data!.content!),
                 )
-              ],
-            ),
-          )),
-      body: Obx(() {
-        return aboutusModal.value.status == true
-            ?  SingleChildScrollView(
-          child: Html(data: aboutusModal.value.data!.content!),
-        )
-            : const Center(
-            child: CircularProgressIndicator(
-              color: Colors.grey,
-            ));
-      }));
+              : const Center(
+                  child: CircularProgressIndicator(
+                  color: Colors.grey,
+                ));
+        }));
   }
 }

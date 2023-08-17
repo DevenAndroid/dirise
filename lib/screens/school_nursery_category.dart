@@ -69,8 +69,8 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                         ),
                         Text(
                           ("24 items"),
-                          style: GoogleFonts.poppins(
-                              color: const Color(0xff014E70), fontSize: 18, fontWeight: FontWeight.w500),
+                          style:
+                              GoogleFonts.poppins(color: const Color(0xff014E70), fontSize: 18, fontWeight: FontWeight.w500),
                         )
                       ],
                     ),
@@ -109,8 +109,8 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                       ),
                       Text(
                         ("Teacher@gmail.com"),
-                        style: GoogleFonts.poppins(
-                            color: const Color(0xff7D7D7D), fontSize: 14, fontWeight: FontWeight.w500),
+                        style:
+                            GoogleFonts.poppins(color: const Color(0xff7D7D7D), fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -125,8 +125,8 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                       ),
                       Text(
                         ("+965 6565655"),
-                        style: GoogleFonts.poppins(
-                            color: const Color(0xff7D7D7D), fontSize: 14, fontWeight: FontWeight.w500),
+                        style:
+                            GoogleFonts.poppins(color: const Color(0xff7D7D7D), fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                     ],
                   )
@@ -149,7 +149,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                 height: 15,
               ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   bottemSheet1();
                 },
                 child: Container(
@@ -169,8 +169,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                             children: [
                               Text(
                                 ("EPG Tiny Tots"),
-                                style:
-                                    GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w500),
+                                style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w500),
                               ),
                               const SizedBox(
                                 height: 3,
@@ -301,12 +300,9 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                     Padding(
                       padding: const EdgeInsets.only(top: 25.0),
                       child: Align(
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          height: size.height * .24,
-                          width: size.width * .7,
-                          'assets/images/schoolnursery.png')
-                      ),
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                              height: size.height * .24, width: size.width * .7, 'assets/images/schoolnursery.png')),
                     ),
                     const SizedBox(
                       height: 30,
@@ -315,8 +311,8 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
                         '50% off',
-                        style: GoogleFonts.poppins(
-                            fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                        style:
+                            GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                       ),
                     ),
                     const SizedBox(
@@ -429,9 +425,9 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                 backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
-                                      "━",
-                                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                                    )),
+                                  "━",
+                                  style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                                )),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -448,9 +444,9 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                 backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
-                                      "+",
-                                      style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
-                                    )),
+                                  "+",
+                                  style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+                                )),
                               ),
                             ],
                           ),
@@ -460,12 +456,11 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                             },
                             child: Container(
                               decoration:
-                              BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                                  BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
                                 "Add to Bag",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
                             ),
                           )
@@ -478,9 +473,8 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
             ),
           );
         });
-
-
   }
+
   Future bottemSheet1() {
     Size size = MediaQuery.of(context).size;
 
@@ -504,10 +498,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                       child: Align(
                           alignment: Alignment.center,
                           child: Image.asset(
-                              height: size.height * .24,
-                              width: size.width * .7,
-                              'assets/images/schoolnursery.png')
-                      ),
+                              height: size.height * .24, width: size.width * .7, 'assets/images/schoolnursery.png')),
                     ),
                     const SizedBox(
                       height: 30,
@@ -516,8 +507,8 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
                         '50% off',
-                        style: GoogleFonts.poppins(
-                            fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                        style:
+                            GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                       ),
                     ),
                     const SizedBox(
@@ -632,9 +623,9 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                 backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
-                                      "━",
-                                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                                    )),
+                                  "━",
+                                  style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
+                                )),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -651,9 +642,9 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                 backgroundColor: const Color(0xffEAEAEA),
                                 child: Center(
                                     child: Text(
-                                      "+",
-                                      style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
-                                    )),
+                                  "+",
+                                  style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black),
+                                )),
                               ),
                             ],
                           ),
@@ -663,12 +654,11 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                             },
                             child: Container(
                               decoration:
-                              BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                                  BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
                                 "Add to Bag",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
                             ),
                           )
@@ -681,7 +671,5 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
             ),
           );
         });
-
-
   }
 }

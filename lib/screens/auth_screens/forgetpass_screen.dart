@@ -93,21 +93,22 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         RequiredValidator(errorText: 'Email is required'),
                         EmailValidator(errorText: 'Enter valid email address'),
                       ]),
-                      obSecure: false, hintText: 'Email'),
+                      obSecure: false,
+                      hintText: 'Email'),
                   SizedBox(
                     height: size.height * .03,
                   ),
                   CustomOutlineButton(
                     title: "Send Otp",
                     onPressed: () {
-                      if(!formKey.currentState!.validate())return;
+                      if (!formKey.currentState!.validate()) return;
                       forgotPasswordRepo(email: emailController.text, context: context).then((value) {
                         if (value.status == true) {
                           showToast(value.message.toString());
 
                           var map = <String, dynamic>{};
                           map['email'] = emailController.text.trim();
-                          Get.toNamed(OtpScreen.route, arguments: [emailController.text, false,map]);
+                          Get.toNamed(OtpScreen.route, arguments: [emailController.text, false, map]);
                         } else {
                           showToast(value.message.toString());
                         }

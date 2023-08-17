@@ -6,13 +6,7 @@ class ModelVendorRegistrationResponse {
   int? otp;
   String? redirectTo;
 
-  ModelVendorRegistrationResponse(
-      {this.status,
-        this.message,
-        this.token,
-        this.user,
-        this.otp,
-        this.redirectTo});
+  ModelVendorRegistrationResponse({this.status, this.message, this.token, this.user, this.otp, this.redirectTo});
 
   ModelVendorRegistrationResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -70,16 +64,16 @@ class User {
 
   User(
       {this.email,
-        this.storeName,
-        this.storeAddress,
-        this.storeBusinessId,
-        this.storeAboutUs,
-        this.storeAboutMe,
-        this.storeLogo,
-        this.storeImage,
-        this.updatedAt,
-        this.createdAt,
-        this.id});
+      this.storeName,
+      this.storeAddress,
+      this.storeBusinessId,
+      this.storeAboutUs,
+      this.storeAboutMe,
+      this.storeLogo,
+      this.storeImage,
+      this.updatedAt,
+      this.createdAt,
+      this.id});
 
   User.fromJson(Map<String, dynamic> json) {
     email = json['email'];

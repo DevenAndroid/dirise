@@ -18,12 +18,7 @@ class AddProductController extends GetxController {
 
   Future getProductCategoryLit() async {
     refreshCategory.value = -2;
-    await repositories
-        .postApi(
-            url: ApiUrls.productCategoryListUrl,
-            showResponse: false,
-            showMap: false)
-        .then((value) {
+    await repositories.postApi(url: ApiUrls.productCategoryListUrl, showResponse: false, showMap: false).then((value) {
       productCategory = ModelAddProductCategory.fromJson(jsonDecode(value));
       updateCategory();
       refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
@@ -51,10 +46,8 @@ class AddProductController extends GetxController {
   final TextEditingController purchasePriceController = TextEditingController();
   final TextEditingController sellingPriceController = TextEditingController();
   final TextEditingController stockController = TextEditingController();
-  final TextEditingController shortDescriptionController =
-      TextEditingController();
-  final TextEditingController longDescriptionController =
-      TextEditingController();
+  final TextEditingController shortDescriptionController = TextEditingController();
+  final TextEditingController longDescriptionController = TextEditingController();
   final TextEditingController returnDaysController = TextEditingController();
 
   RxString productFileType = "".obs;
@@ -138,8 +131,8 @@ class AddProductController extends GetxController {
 
   updateStartDateTime() {
     try {
-      selectedStartDateTime = DateFormat("yyyy-MM-dd").parse(
-          productDetails.product!.productAvailability!.fromDate.toString());
+      selectedStartDateTime =
+          DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.fromDate.toString());
       startDate.text = DateFormat("dd-MMM-yyyy").format(selectedStartDateTime!);
     } catch (e) {
       throw Exception(e);
@@ -148,8 +141,7 @@ class AddProductController extends GetxController {
 
   updateEndDateTime() {
     try {
-      selectedEndDateTIme = DateFormat("yyyy-MM-dd").parse(
-          productDetails.product!.productAvailability!.toDate.toString());
+      selectedEndDateTIme = DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.toDate.toString());
       endDate.text = DateFormat("dd-MMM-yyyy").format(selectedEndDateTIme!);
     } catch (e) {
       throw Exception(e);
@@ -157,12 +149,8 @@ class AddProductController extends GetxController {
   }
 
   updateCategory() {
-    if (productDetails.product != null &&
-        productCategory.data != null &&
-        productCategory.data!.isNotEmpty) {
-      if (productCategory.data!
-          .map((e) => e.id.toString())
-          .contains(productDetails.product!.catId.toString())) {
+    if (productDetails.product != null && productCategory.data != null && productCategory.data!.isNotEmpty) {
+      if (productCategory.data!.map((e) => e.id.toString()).contains(productDetails.product!.catId.toString())) {
         selectedCategory = productDetails.product!.catId.toString();
         refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
       }
@@ -179,18 +167,15 @@ class AddProductController extends GetxController {
       updateUI;
     }
     List<String> timeslots = [];
-    if (productId.isNotEmpty &&
-        serviceTimeSloat.isNotEmpty &&
-        resetSlots == false) {
+    if (productId.isNotEmpty && serviceTimeSloat.isNotEmpty && resetSlots == false) {
       timeslots = serviceTimeSloat
-          .map((e) =>
-              "${convertToTime(e.timeSloat.toString())},${convertToTime(e.timeSloatEnd.toString())}")
+          .map((e) => "${convertToTime(e.timeSloat.toString())},${convertToTime(e.timeSloatEnd.toString())}")
           .toList();
     } else if (slots.isNotEmpty) {
       timeslots = slots.entries
           .where((element) => element.value == true)
-          .map((e) =>
-              "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
+          .map(
+              (e) => "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
           .toList();
     }
 
@@ -204,8 +189,7 @@ class AddProductController extends GetxController {
       if (returnDaysController.checkBoth) return;
       if (selectedCategory.isEmpty) {
         if (categoryKey.currentContext != null) {
-          Scrollable.ensureVisible(categoryKey.currentContext!,
-              alignment: .25, duration: const Duration(milliseconds: 600));
+          Scrollable.ensureVisible(categoryKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
           return;
         }
       }
@@ -252,11 +236,9 @@ class AddProductController extends GetxController {
     // return;
     Map<String, String> map = {};
     // single,variants,booking,virtual_product
-    map["product_type"] =
-        productType.replaceAll("Product", "").trim().toLowerCase();
+    map["product_type"] = productType.replaceAll("Product", "").trim().toLowerCase();
 
-    if (productType.replaceAll("Product", "").trim().toLowerCase() ==
-        "virtual") {
+    if (productType.replaceAll("Product", "").trim().toLowerCase() == "virtual") {
       // "virtual_product"
       map["product_type"] = "virtual_product";
       map["virtual_product_type"] = productFileType.value == "pdf" ? "digital reader" : "voice";
@@ -293,8 +275,7 @@ class AddProductController extends GetxController {
 
     Map<String, File> imageMap = {};
     if (productType == "Virtual Product") {
-      imageMap["virtual_product_file"] =
-          productFileType.value == "pdf" ? pdfFile : voiceFile;
+      imageMap["virtual_product_file"] = productFileType.value == "pdf" ? pdfFile : voiceFile;
     }
     imageMap["featured_image"] = productImage;
 
@@ -302,11 +283,8 @@ class AddProductController extends GetxController {
       imageMap["gallery_image[$key]"] = value;
     });
 
-    map["galleryTempData"] = galleryImages
-        .where((element) => element.path.checkHTTP.isNotEmpty)
-        .map((e) => e.path.checkHTTP)
-        .toList()
-        .join(",");
+    map["galleryTempData"] =
+        galleryImages.where((element) => element.path.checkHTTP.isNotEmpty).map((e) => e.path.checkHTTP).toList().join(",");
 
     imageMap.removeWhere((key, value) => value.path.checkHTTP.isNotEmpty);
     map.removeWhere((key, value) => value.isEmpty);
@@ -322,8 +300,7 @@ class AddProductController extends GetxController {
             context: context,
             onProgress: (int bytes, int totalBytes) {})
         .then((value) {
-      ModelCommonResponse response =
-          ModelCommonResponse.fromJson(jsonDecode(value));
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         Get.back();
@@ -339,9 +316,7 @@ class AddProductController extends GetxController {
     if (productId.isEmpty) {
       apiLoaded = true;
     } else {
-      await repositories
-          .getApi(url: ApiUrls.getProductDetailsUrl + productId)
-          .then((value) {
+      await repositories.getApi(url: ApiUrls.getProductDetailsUrl + productId).then((value) {
         productDetails = ModelVendorProductDetails.fromJson(jsonDecode(value));
         apiLoaded = true;
         updateControllers();

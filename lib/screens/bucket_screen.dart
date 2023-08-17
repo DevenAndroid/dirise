@@ -30,20 +30,19 @@ class _BucketScreenState extends State<BucketScreen> {
               style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 20),
             ),
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
           ElevatedButton(
-
-
               onPressed: () {},
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(AppTheme.buttonColor),
-              padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 35,vertical: 13)),
-            ),
-
-              child: Text('Shop now!',style: GoogleFonts.poppins
-                (
-                color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500
-              ),))
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(AppTheme.buttonColor),
+                padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 35, vertical: 13)),
+              ),
+              child: Text(
+                'Shop now!',
+                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+              ))
         ],
       ),
     );

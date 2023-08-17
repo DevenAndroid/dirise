@@ -79,51 +79,51 @@ class ProductListData {
 
   ProductListData(
       {this.id,
-        this.vendorId,
-        this.catId,
-        this.catId2,
-        this.brandSlug,
-        this.slug,
-        this.pname,
-        this.image,
-        this.productType,
-        this.skuId,
-        this.pPrice,
-        this.sPrice,
-        this.commission,
-        this.bestSaller,
-        this.featured,
-        this.taxApply,
-        this.shortDescription,
-        this.longDescription,
-        this.featuredImage,
-        this.galleryImage,
-        this.virtualProductFile,
-        this.virtualProductFileType,
-        this.inStock,
-        this.stockAlert,
-        this.avgRating,
-        this.metaTitle,
-        this.metaKeyword,
-        this.metaDescription,
-        this.parentId,
-        this.createdAt,
-        this.updatedAt,
-        this.topHunderd,
-        this.returnDays,
-        this.isPublish,
-        this.inOffer,
-        this.forAuction,
-        this.returnPolicyDesc,
-        this.inCart,
-        this.inWishlist,
-        this.currencySign,
-        this.currencyCode,
-        this.storemeta,
-        this.allowBid,
-        this.nextBidPrice,
-        this.serviceTimeSloat,
-        this.productAvailability});
+      this.vendorId,
+      this.catId,
+      this.catId2,
+      this.brandSlug,
+      this.slug,
+      this.pname,
+      this.image,
+      this.productType,
+      this.skuId,
+      this.pPrice,
+      this.sPrice,
+      this.commission,
+      this.bestSaller,
+      this.featured,
+      this.taxApply,
+      this.shortDescription,
+      this.longDescription,
+      this.featuredImage,
+      this.galleryImage,
+      this.virtualProductFile,
+      this.virtualProductFileType,
+      this.inStock,
+      this.stockAlert,
+      this.avgRating,
+      this.metaTitle,
+      this.metaKeyword,
+      this.metaDescription,
+      this.parentId,
+      this.createdAt,
+      this.updatedAt,
+      this.topHunderd,
+      this.returnDays,
+      this.isPublish,
+      this.inOffer,
+      this.forAuction,
+      this.returnPolicyDesc,
+      this.inCart,
+      this.inWishlist,
+      this.currencySign,
+      this.currencyCode,
+      this.storemeta,
+      this.allowBid,
+      this.nextBidPrice,
+      this.serviceTimeSloat,
+      this.productAvailability});
 
   ProductListData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -159,7 +159,7 @@ class ProductListData {
     updatedAt = json['updated_at'];
     topHunderd = json['top_hunderd'];
     returnDays = json['return_days'];
-    isPublish = json['is_publish'].toString() == "1" ? true: false;
+    isPublish = json['is_publish'].toString() == "1" ? true : false;
     inOffer = json['in_offer'];
     forAuction = json['for_auction'];
     returnPolicyDesc = json['return_policy_desc'];
@@ -167,9 +167,7 @@ class ProductListData {
     inWishlist = json['in_wishlist'];
     currencySign = json['currency_sign'];
     currencyCode = json['currency_code'];
-    storemeta = json['storemeta'] != null
-        ? Storemeta.fromJson(json['storemeta'])
-        : null;
+    storemeta = json['storemeta'] != null ? Storemeta.fromJson(json['storemeta']) : null;
     allowBid = json['allow_bid'];
     nextBidPrice = json['next_bid_price'];
     if (json['serviceTimeSloat'] != null) {
@@ -178,9 +176,8 @@ class ProductListData {
         serviceTimeSloat!.add(ServiceTimeSloat.fromJson(v));
       });
     }
-    productAvailability = json['productAvailability'] != null
-        ? ProductAvailability.fromJson(json['productAvailability'])
-        : null;
+    productAvailability =
+        json['productAvailability'] != null ? ProductAvailability.fromJson(json['productAvailability']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -232,8 +229,7 @@ class ProductListData {
     data['allow_bid'] = allowBid;
     data['next_bid_price'] = nextBidPrice;
     if (serviceTimeSloat != null) {
-      data['serviceTimeSloat'] =
-          serviceTimeSloat!.map((v) => v.toJson()).toList();
+      data['serviceTimeSloat'] = serviceTimeSloat!.map((v) => v.toJson()).toList();
     }
     if (productAvailability != null) {
       data['productAvailability'] = productAvailability!.toJson();
@@ -249,12 +245,7 @@ class Storemeta {
   dynamic profileImg;
   dynamic bannerImg;
 
-  Storemeta(
-      {this.firstName,
-        this.lastName,
-        this.storeId,
-        this.profileImg,
-        this.bannerImg});
+  Storemeta({this.firstName, this.lastName, this.storeId, this.profileImg, this.bannerImg});
 
   Storemeta.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];

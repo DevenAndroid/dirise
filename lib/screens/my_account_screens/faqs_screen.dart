@@ -21,12 +21,13 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
   bool senderExpansion = true;
   Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
   Future aboutUsData() async {
-    Map<String,dynamic> map = {};
+    Map<String, dynamic> map = {};
     map["id"] = 11;
     repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
       aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
     });
   }
+
   final Repositories repositories = Repositories();
 
   @override
@@ -39,32 +40,32 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(140),
-          child: SafeArea(
-            child: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            Text(
-              'Faqs',
-              style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-            )
-          ],
-            ),
-          )),
-      body: Obx(() {
-        return aboutusModal.value.status == true
-            ?  SingleChildScrollView(
-          child: Html(data: aboutusModal.value.data!.content!),
-        )
-            : const Center(
-            child: CircularProgressIndicator(
-              color: Colors.grey,
-            ));
-      }));
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(140),
+            child: SafeArea(
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  Text(
+                    'Faqs',
+                    style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
+            )),
+        body: Obx(() {
+          return aboutusModal.value.status == true
+              ? SingleChildScrollView(
+                  child: Html(data: aboutusModal.value.data!.content!),
+                )
+              : const Center(
+                  child: CircularProgressIndicator(
+                  color: Colors.grey,
+                ));
+        }));
   }
 }

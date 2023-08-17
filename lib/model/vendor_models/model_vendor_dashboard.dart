@@ -9,9 +9,7 @@ class ModelVendorDashboard {
   ModelVendorDashboard.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    dashboard = json['dashboard'] != null
-        ? Dashboard.fromJson(json['dashboard'])
-        : null;
+    dashboard = json['dashboard'] != null ? Dashboard.fromJson(json['dashboard']) : null;
 
     if (json['order'] != null) {
       order = <Order>[];
@@ -45,7 +43,6 @@ class Dashboard {
   dynamic storeOn;
   Map<String, String> values = {};
 
-
   // updateDashBoard(){
   //   // Gross Sales
   //   // Earning
@@ -53,12 +50,7 @@ class Dashboard {
   //   // Order Received
   // }
 
-  Dashboard(
-      {this.grossSales,
-        this.earning,
-        this.soldItems,
-        this.orderReceived,
-        this.storeOn});
+  Dashboard({this.grossSales, this.earning, this.soldItems, this.orderReceived, this.storeOn});
 
   Dashboard.fromJson(Map<String, dynamic> json) {
     grossSales = json['gross_sales'];
@@ -116,29 +108,29 @@ class Order {
 
   Order(
       {this.id,
-        this.orderId,
-        this.childId,
-        this.productId,
-        this.vendorId,
-        this.userId,
-        this.productName,
-        this.category,
-        this.productType,
-        this.quantity,
-        this.productPrice,
-        this.discount,
-        this.totalPrice,
-        this.tax,
-        this.status,
-        this.startDate,
-        this.sloatTime,
-        this.sloatEndTime,
-        this.endDate,
-        this.updatedAt,
-        this.createdDate,
-        this.orderMeta,
-        this.expectedDate,
-        this.orderItem});
+      this.orderId,
+      this.childId,
+      this.productId,
+      this.vendorId,
+      this.userId,
+      this.productName,
+      this.category,
+      this.productType,
+      this.quantity,
+      this.productPrice,
+      this.discount,
+      this.totalPrice,
+      this.tax,
+      this.status,
+      this.startDate,
+      this.sloatTime,
+      this.sloatEndTime,
+      this.endDate,
+      this.updatedAt,
+      this.createdDate,
+      this.orderMeta,
+      this.expectedDate,
+      this.orderItem});
 
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -162,9 +154,7 @@ class Order {
     endDate = json['end_date'];
     updatedAt = json['updated_at'];
     createdDate = json['created_date'];
-    orderMeta = json['order_meta'] != null
-        ? OrderMeta.fromJson(json['order_meta'])
-        : null;
+    orderMeta = json['order_meta'] != null ? OrderMeta.fromJson(json['order_meta']) : null;
     expectedDate = json['expected_date'];
     if (json['order_item'] != null) {
       orderItem = <OrderItem>[];
@@ -242,35 +232,35 @@ class OrderMeta {
 
   OrderMeta(
       {this.billingFirstName,
-        this.billingLastName,
-        this.billingPhone,
-        this.billingAlternatePhone,
-        this.billingAddress2,
-        this.billingAddressType,
-        this.billingCity,
-        this.billingCountry,
-        this.billingState,
-        this.billingZipCode,
-        this.billingLandmark,
-        this.subtotalPrice,
-        this.totalPrice,
-        this.giftCardAmount,
-        this.giftCardData,
-        this.currencySign,
-        this.shippingPrice,
-        this.shipping,
-        this.shippingFirstName,
-        this.shippingLastName,
-        this.shippingPhone,
-        this.shippingAlternatePhone,
-        this.shippingAddress2,
-        this.shippingAddressType,
-        this.shippingCity,
-        this.shippingCountry,
-        this.shippingState,
-        this.shippingZipCode,
-        this.shippingLandmark,
-        this.refundAmountIn});
+      this.billingLastName,
+      this.billingPhone,
+      this.billingAlternatePhone,
+      this.billingAddress2,
+      this.billingAddressType,
+      this.billingCity,
+      this.billingCountry,
+      this.billingState,
+      this.billingZipCode,
+      this.billingLandmark,
+      this.subtotalPrice,
+      this.totalPrice,
+      this.giftCardAmount,
+      this.giftCardData,
+      this.currencySign,
+      this.shippingPrice,
+      this.shipping,
+      this.shippingFirstName,
+      this.shippingLastName,
+      this.shippingPhone,
+      this.shippingAlternatePhone,
+      this.shippingAddress2,
+      this.shippingAddressType,
+      this.shippingCity,
+      this.shippingCountry,
+      this.shippingState,
+      this.shippingZipCode,
+      this.shippingLandmark,
+      this.refundAmountIn});
 
   OrderMeta.fromJson(Map<String, dynamic> json) {
     billingFirstName = json['billing_first_name'];
@@ -399,27 +389,27 @@ class OrderItem {
 
   OrderItem(
       {this.id,
-        this.orderId,
-        this.childId,
-        this.productId,
-        this.vendorId,
-        this.userId,
-        this.productName,
-        this.category,
-        this.productType,
-        this.quantity,
-        this.productPrice,
-        this.discount,
-        this.totalPrice,
-        this.tax,
-        this.status,
-        this.startDate,
-        this.sloatTime,
-        this.sloatEndTime,
-        this.endDate,
-        this.createdAt,
-        this.updatedAt,
-        this.featuredImage});
+      this.orderId,
+      this.childId,
+      this.productId,
+      this.vendorId,
+      this.userId,
+      this.productName,
+      this.category,
+      this.productType,
+      this.quantity,
+      this.productPrice,
+      this.discount,
+      this.totalPrice,
+      this.tax,
+      this.status,
+      this.startDate,
+      this.sloatTime,
+      this.sloatEndTime,
+      this.endDate,
+      this.createdAt,
+      this.updatedAt,
+      this.featuredImage});
 
   OrderItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];

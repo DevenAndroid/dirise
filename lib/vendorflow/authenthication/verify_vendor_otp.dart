@@ -27,11 +27,11 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
   final profileController = Get.put(ProfileController());
 
   verifyOtp() {
-    if(_otpController.text.trim().isEmpty){
+    if (_otpController.text.trim().isEmpty) {
       showToast("Please enter OTP");
       return;
     }
-    if(_otpController.text.trim().length < 4){
+    if (_otpController.text.trim().length < 4) {
       showToast("Enter complete OTP");
       return;
     }
@@ -43,7 +43,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
       showToast(response.message);
       if (response.status == true) {
         Get.back();
-        Get.off(()=> const ThankYouVendorScreen());
+        Get.off(() => const ThankYouVendorScreen());
         profileController.getDataProfile();
       }
     });
@@ -51,9 +51,9 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
 
   Future resendOTP() async {
     await repositories.postApi(
-        url: ApiUrls.vendorResendOTPUrl,
-        context: context,
-        mapData: {"email" : email},
+      url: ApiUrls.vendorResendOTPUrl,
+      context: context,
+      mapData: {"email": email},
     ).then((value) {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
@@ -102,15 +102,13 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(
-                color: Colors.grey.shade300,
-                width: 4.0,
-              ))));
+        color: Colors.grey.shade300,
+        width: 4.0,
+      ))));
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -180,8 +178,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
                             child: Obx(() {
                               return Text(
                                 ' Resend OTP\n'
-                                    '${timerInt.value > 0 ? "In ${timerInt.value > 9 ? timerInt.value : "0${timerInt
-                                    .value}"}" : ""}',
+                                '${timerInt.value > 0 ? "In ${timerInt.value > 9 ? timerInt.value : "0${timerInt.value}"}" : ""}',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
@@ -197,16 +194,14 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
                   ))
             ])),
       ),
-      bottomNavigationBar:
-      SizedBox(
+      bottomNavigationBar: SizedBox(
         width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.all(15.0).copyWith(bottom: 10),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
                 backgroundColor: AppTheme.buttonColor,
-                shape:
-                const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                 textStyle: GoogleFonts.poppins(
                   fontWeight: FontWeight.bold,
                 )),
@@ -217,8 +212,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Verify OTP',
-                style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+                style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ),
           ),

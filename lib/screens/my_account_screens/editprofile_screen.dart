@@ -54,11 +54,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       // map['password'] = passwordController.text.trim();
 
       Map<String, File> gg = {};
-      if(image.path.isNotEmpty){
+      if (image.path.isNotEmpty) {
         gg["profile_image"] = image;
       }
       repositories
-          .multiPartApi(mapData: map, images: gg, url: ApiUrls.updateProfile, context: context,onProgress: (gg,kk){})
+          .multiPartApi(mapData: map, images: gg, url: ApiUrls.updateProfile, context: context, onProgress: (gg, kk) {})
           .then((value) {
         ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
         showToast(response.message.toString());
@@ -159,8 +159,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 obSecure: false,
                 hintText: 'Enter Name',
                 controller: nameController,
-                validator: (v){
-                  if(v!.trim().isEmpty){
+                validator: (v) {
+                  if (v!.trim().isEmpty) {
                     return "Please enter your name";
                   }
                   return null;
@@ -181,11 +181,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 hintText: 'example@gmail.com',
                 readOnly: true,
                 controller: emailController,
-                validator: (v){
-                  if(v!.trim().isEmpty){
+                validator: (v) {
+                  if (v!.trim().isEmpty) {
                     return "Please enter your email address";
                   }
-                  if(v.trim().isValidEmail){
+                  if (v.trim().isValidEmail) {
                     return "Please enter valid email address";
                   }
                   return null;
@@ -205,11 +205,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 obSecure: false,
                 hintText: 'Enter Phone Number',
                 controller: phoneController,
-                validator: (v){
-                  if(v!.trim().isEmpty){
+                validator: (v) {
+                  if (v!.trim().isEmpty) {
                     return "Please enter phone number";
                   }
-                  if(v.trim().length < 10){
+                  if (v.trim().length < 10) {
                     return "Please enter valid phone number";
                   }
                   return null;

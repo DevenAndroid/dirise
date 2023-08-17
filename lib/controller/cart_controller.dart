@@ -26,11 +26,11 @@ class CartController extends GetxController {
   RxInt countDown = 30.obs;
   Timer? _timer;
 
-  startTimer(){
+  startTimer() {
     stopTimer();
     countDown.value = 30;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if(countDown.value != 0){
+      if (countDown.value != 0) {
         countDown.value--;
       } else {
         stopTimer();
@@ -38,12 +38,12 @@ class CartController extends GetxController {
     });
   }
 
-  stopTimer(){
+  stopTimer() {
     try {
       if (_timer == null) return;
       _timer!.cancel();
       _timer = null;
-    } catch(e){
+    } catch (e) {
       return;
     }
   }
@@ -78,23 +78,15 @@ class CartController extends GetxController {
       "shipping_method": "test",
       "currency_sign": "\$",
       "shipping": [
-        {
-          "store_id": 13,
-          "store_name": "vendor",
-          "title": "Normal Shipping",
-          "ship_price": "2"
-        }
+        {"store_id": 13, "store_name": "vendor", "title": "Normal Shipping", "ship_price": "2"}
       ],
       "cart_id": ["2"],
       if (address != null) "shipping_address": address,
       if (address != null) "billing_address": address
     };
-    repositories
-        .postApi(url: ApiUrls.placeOrderUrl, context: context, mapData: gg)
-        .then((value) {
+    repositories.postApi(url: ApiUrls.placeOrderUrl, context: context, mapData: gg).then((value) {
       // ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
-      ModelPlaceOrderResponse response =
-          ModelPlaceOrderResponse.fromJson(jsonDecode(value));
+      ModelPlaceOrderResponse response = ModelPlaceOrderResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         getCart();
@@ -102,8 +94,7 @@ class CartController extends GetxController {
         if (dialogOpened) {
           Get.back();
         }
-        Get.offNamed(OrderCompleteScreen.route,
-            arguments: response.order_id.toString());
+        Get.offNamed(OrderCompleteScreen.route, arguments: response.order_id.toString());
       } else {
         if (response.message.toString().toLowerCase().contains("otp")) {
           startTimer();
@@ -172,12 +163,11 @@ class CartController extends GetxController {
                   15.spaceY,
                   Text(
                     "Didn't you receive the OTP?",
-                    style: GoogleFonts.poppins(
-                        color: const Color(0xff3D4260), fontSize: 16,fontWeight: FontWeight.w500),
+                    style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   TextButton(
                     onPressed: () async {
-                      if(countDown.value != 0)return;
+                      if (countDown.value != 0) return;
                       placeOrder(
                           context: context,
                           currencyCode: currencyCode,
@@ -191,13 +181,11 @@ class CartController extends GetxController {
                           address: address);
                     },
                     child: Obx(() => Text(
-                      countDown.value != 0 ? "Resend OTP in ${countDown.value}s" : "Resend OTP",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xff578AE8),
-                          fontSize: 16),
-                    )) ,
+                          countDown.value != 0 ? "Resend OTP in ${countDown.value}s" : "Resend OTP",
+                          textAlign: TextAlign.center,
+                          style:
+                              GoogleFonts.poppins(fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
+                        )),
                   ),
                   Row(
                     children: [
@@ -211,13 +199,13 @@ class CartController extends GetxController {
                             "Cancel",
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context).colorScheme.error,
-                                fontSize: 16),
+                                fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.error, fontSize: 16),
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10,),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       Expanded(
                         child: TextButton(
                           onPressed: () async {
@@ -246,9 +234,7 @@ class CartController extends GetxController {
                             "Submit",
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xff578AE8),
-                                fontSize: 16),
+                                fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
                           ),
                         ),
                       ),
@@ -288,11 +274,8 @@ class CartController extends GetxController {
     map["orderId"] = orderId;
     map["productId"] = productId;
     map["productName"] = productName;
-    repositories
-        .postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map)
-        .then((value) {
-      ModelCommonResponse response =
-          ModelCommonResponse.fromJson(jsonDecode(value));
+    repositories.postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         getAddress();
@@ -335,11 +318,8 @@ class CartController extends GetxController {
     map["landmark"] = landmark;
     map["title"] = title;
 
-    repositories
-        .postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map)
-        .then((value) {
-      ModelCommonResponse response =
-          ModelCommonResponse.fromJson(jsonDecode(value));
+    repositories.postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         getAddress();
@@ -348,16 +328,12 @@ class CartController extends GetxController {
     });
   }
 
-  Future<bool> deleteAddress(
-      {required BuildContext context, required String id}) async {
+  Future<bool> deleteAddress({required BuildContext context, required String id}) async {
     Map<String, dynamic> map = {};
     map["id"] = id;
 
-    await repositories
-        .postApi(url: ApiUrls.deleteAddressUrl, context: context, mapData: map)
-        .then((value) {
-      ModelCommonResponse response =
-          ModelCommonResponse.fromJson(jsonDecode(value));
+    await repositories.postApi(url: ApiUrls.deleteAddressUrl, context: context, mapData: map).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         getAddress();
@@ -384,18 +360,15 @@ class CartController extends GetxController {
   }) {
     Map<String, dynamic> map = {};
     map["product_id"] = productId;
-    repositories
-        .postApi(url: ApiUrls.deleteCartUrl, context: context, mapData: map)
-        .then((value) {
-      ModelCommonResponse response =
-          ModelCommonResponse.fromJson(jsonDecode(value));
+    repositories.postApi(url: ApiUrls.deleteCartUrl, context: context, mapData: map).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       getCart();
     });
   }
 
   Future getCart() async {
-    if(cartModel.cart != null){
+    if (cartModel.cart != null) {
       for (var element in cartModel.cart!) {
         element.showDetails.value = false;
       }
@@ -422,5 +395,4 @@ class CartController extends GetxController {
     super.dispose();
     stopTimer();
   }
-
 }

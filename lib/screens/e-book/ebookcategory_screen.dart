@@ -40,11 +40,11 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-
-
                     child: const Image(image: AssetImage('assets/images/storybooks.png'))),
                 const SizedBox(
                   height: 20,
@@ -104,8 +104,8 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
                                                 )),
                                       );
                                     }),
-                                     SizedBox(
-                                      height: size.height*.2,
+                                    SizedBox(
+                                      height: size.height * .2,
                                     ),
                                     Align(
                                       alignment: Alignment.bottomCenter,
@@ -133,9 +133,7 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
                                             child: Text(
                                               "Clear All",
                                               style: GoogleFonts.poppins(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: const Color(0xff014E70)),
+                                                  fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                             ),
                                           ),
                                         ],
@@ -310,7 +308,6 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
                       ),
                     ),
                     InkWell(
-
                       onTap: () {
                         showModalBottomSheet(
                             isScrollControlled: true,
@@ -332,38 +329,38 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
                                       return Column(
                                         children: List.generate(
                                             gender.length,
-                                                (index) => Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                ListTileTheme(
-                                                  horizontalTitleGap: 5,
-                                                  child: CheckboxListTile(
-                                                    controlAffinity: ListTileControlAffinity.leading,
-                                                    dense: true,
-                                                    visualDensity: VisualDensity.compact,
-                                                    activeColor: const Color(0xff014E70),
-                                                    value: gender1[index].isCheck!.value,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        gender1[index].isCheck!.value = value!;
-                                                      });
-                                                    },
-                                                    title: Text(
-                                                      data1[index].title.toString(),
-                                                      style: GoogleFonts.poppins(
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Colors.black,
-                                                        fontSize: 16,
+                                            (index) => Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    ListTileTheme(
+                                                      horizontalTitleGap: 5,
+                                                      child: CheckboxListTile(
+                                                        controlAffinity: ListTileControlAffinity.leading,
+                                                        dense: true,
+                                                        visualDensity: VisualDensity.compact,
+                                                        activeColor: const Color(0xff014E70),
+                                                        value: gender1[index].isCheck!.value,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            gender1[index].isCheck!.value = value!;
+                                                          });
+                                                        },
+                                                        title: Text(
+                                                          data1[index].title.toString(),
+                                                          style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w500,
+                                                            color: Colors.black,
+                                                            fontSize: 16,
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
+                                                  ],
+                                                )),
                                       );
                                     }),
                                     SizedBox(
-                                      height: size.height*.2,
+                                      height: size.height * .2,
                                     ),
                                     Align(
                                       alignment: Alignment.bottomCenter,
@@ -391,9 +388,7 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
                                             child: Text(
                                               "Clear All",
                                               style: GoogleFonts.poppins(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: const Color(0xff014E70)),
+                                                  fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                             ),
                                           ),
                                         ],
@@ -444,17 +439,13 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 5,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 20,
-                        mainAxisExtent: size.height * .35),
+                        crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 20, mainAxisExtent: size.height * .35),
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
                           Get.toNamed(SingleCategoryScreen.route);
                         },
                         child: Stack(
-
                           children: [
                             Container(
                               decoration: BoxDecoration(

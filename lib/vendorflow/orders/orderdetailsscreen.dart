@@ -213,7 +213,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             ),
                                             Text(
                                               'Rajesh Sharma',
-                                              style: GoogleFonts.poppins(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                              style: GoogleFonts.poppins(
+                                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                             ),
                                           ],
                                         ),
@@ -221,8 +222,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       Container(
                                         height: 37,
                                         width: 37,
-                                        decoration:
-                                            const ShapeDecoration(color: Color(0xFFFE7E73), shape: CircleBorder()),
+                                        decoration: const ShapeDecoration(color: Color(0xFFFE7E73), shape: CircleBorder()),
                                         child: const Center(
                                             child: Icon(
                                           Icons.person_rounded,
@@ -247,7 +247,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             ),
                                             Text(
                                               "86859654",
-                                              style: GoogleFonts.poppins(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                              style: GoogleFonts.poppins(
+                                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                             ),
                                           ],
                                         ),
@@ -289,8 +290,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 ),
                                                 Text(
                                                   "Punjab",
-                                                  style:
-                                                      GoogleFonts.poppins(height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                                  style: GoogleFonts.poppins(
+                                                      height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
                                                 ),
                                                 const SizedBox(
                                                   width: 5,
@@ -305,8 +306,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         child: Container(
                                           height: 37,
                                           width: 37,
-                                          decoration:
-                                              const ShapeDecoration(color: Color(0xFF7ED957), shape: CircleBorder()),
+                                          decoration: const ShapeDecoration(color: Color(0xFF7ED957), shape: CircleBorder()),
                                           child: const Center(
                                               child: Icon(
                                             Icons.location_on,

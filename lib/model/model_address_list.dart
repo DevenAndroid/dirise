@@ -11,8 +11,7 @@ class ModelUserAddressList {
   ModelUserAddressList.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    address =
-    json['address'] != null ? Address.fromJson(json['address']) : null;
+    address = json['address'] != null ? Address.fromJson(json['address']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -88,63 +87,62 @@ class AddressData {
 
   AddressData(
       {this.id,
-        this.userId,
-        this.firstName,
-        this.lastName,
-        this.email,
-        this.companyName,
-        this.orderId,
-        this.phone,
-        this.alternatePhone,
-        this.addressType,
-        this.type,
-        this.isDefault,
-        this.address,
-        this.address2,
-        this.city,
-        this.country,
-        this.state,
-        this.zipCode,
-        this.landmark,
-        this.createdAt,
-        this.updatedAt});
+      this.userId,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.companyName,
+      this.orderId,
+      this.phone,
+      this.alternatePhone,
+      this.addressType,
+      this.type,
+      this.isDefault,
+      this.address,
+      this.address2,
+      this.city,
+      this.country,
+      this.state,
+      this.zipCode,
+      this.landmark,
+      this.createdAt,
+      this.updatedAt});
 
-  String get getCompleteAddressInFormat{
-    List<String> gg= [];
-      gg.add(("${getOutput(firstName)} ${getOutput(lastName)}").toString().trim());
-      gg.add(getOutput(address));
-      gg.add(getOutput(address2));
-      gg.add(getOutput(landmark));
-      gg.add(("${getOutput(city)} ${getOutput(zipCode)}").toString().trim());
-      gg.add(getOutput(state));
-      gg.add(getOutput(country));
-      gg.removeWhere((element) => element.isEmpty);
-      if (kDebugMode) {
-        print(gg);
-      }
+  String get getCompleteAddressInFormat {
+    List<String> gg = [];
+    gg.add(("${getOutput(firstName)} ${getOutput(lastName)}").toString().trim());
+    gg.add(getOutput(address));
+    gg.add(getOutput(address2));
+    gg.add(getOutput(landmark));
+    gg.add(("${getOutput(city)} ${getOutput(zipCode)}").toString().trim());
+    gg.add(getOutput(state));
+    gg.add(getOutput(country));
+    gg.removeWhere((element) => element.isEmpty);
+    if (kDebugMode) {
+      print(gg);
+    }
     return gg.join(", ");
   }
 
-  String get getShortAddress{
-    List<String> gg= [];
-      gg.add(("${getOutput(firstName)} ${getOutput(lastName)}").toString().trim());
-      gg.add(getOutput(address));
-      // gg.add(getOutput(address2));
-      // gg.add(getOutput(landmark));
-      gg.add(("${getOutput(city)} ${getOutput(zipCode)}").toString().trim());
-      // gg.add(getOutput(state));
-      // gg.add(getOutput(country));
-      gg.removeWhere((element) => element.isEmpty);
-      if (kDebugMode) {
-        print(gg);
-      }
+  String get getShortAddress {
+    List<String> gg = [];
+    gg.add(("${getOutput(firstName)} ${getOutput(lastName)}").toString().trim());
+    gg.add(getOutput(address));
+    // gg.add(getOutput(address2));
+    // gg.add(getOutput(landmark));
+    gg.add(("${getOutput(city)} ${getOutput(zipCode)}").toString().trim());
+    // gg.add(getOutput(state));
+    // gg.add(getOutput(country));
+    gg.removeWhere((element) => element.isEmpty);
+    if (kDebugMode) {
+      print(gg);
+    }
     return gg.join(", ");
   }
 
-  String getOutput(kk){
+  String getOutput(kk) {
     return (kk != null ? kk.toString() : "").toString().capitalizeFirst!;
   }
-
 
   AddressData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

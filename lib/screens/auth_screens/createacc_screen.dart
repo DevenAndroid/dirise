@@ -44,7 +44,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
-        Get.toNamed(OtpScreen.route, arguments: [_emailController.text, true,map]);
+        Get.toNamed(OtpScreen.route, arguments: [_emailController.text, true, map]);
       }
     });
   }
@@ -60,9 +60,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -124,12 +122,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     validator: MultiValidator([
                       RequiredValidator(errorText: 'Please enter your password'),
                       MinLengthValidator(8,
-                          errorText:
-                          'Password must be at least 8 characters, with 1 special character & 1 numerical'),
+                          errorText: 'Password must be at least 8 characters, with 1 special character & 1 numerical'),
                       // MaxLengthValidator(16, errorText: "Password maximum length is 16"),
                       PatternValidator(r"(?=.*\W)(?=.*?[#?!@()$%^&*-_])(?=.*[0-9])",
-                          errorText:
-                          "Password must be at least 8 characters, with 1 special character & 1 numerical"),
+                          errorText: "Password must be at least 8 characters, with 1 special character & 1 numerical"),
                     ]),
                   );
                 }),
@@ -185,8 +181,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     Expanded(
                       child: Text(
                         "Privacy policy",
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
+                        style:
+                            GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
                       ),
                     ),
                   ],
@@ -217,12 +213,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       TextSpan(
                         text: 'Login',
                         style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
-                            color: AppTheme.buttonColor,
-                            decoration: TextDecoration.underline),
+                            fontWeight: FontWeight.w600, color: AppTheme.buttonColor, decoration: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                          Get.back();
+                            Get.back();
                           },
                       ),
                     ],

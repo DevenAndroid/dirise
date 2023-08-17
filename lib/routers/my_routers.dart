@@ -40,7 +40,6 @@ import '../vendorflow/authenthication/verify_vendor_otp.dart';
 import '../vendorflow/profile/vendor_profile_screen.dart';
 
 class MyRouters {
-
   static var route = [
     GetPage(name: '/', page: () => const BottomNavbar()),
     GetPage(name: LoginScreen.route, page: () => const LoginScreen()),

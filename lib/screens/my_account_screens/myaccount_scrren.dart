@@ -53,8 +53,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
   checkLanguage() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString("app_language") == null ||
-        sharedPreferences.getString("app_language") == "english") {
+    if (sharedPreferences.getString("app_language") == null || sharedPreferences.getString("app_language") == "english") {
       Get.updateLocale(const Locale('en', 'US'));
       selectedLAnguage.value = "English";
     } else {
@@ -178,9 +177,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         width: 60,
                         child: profileController.userLoggedIn
                             ? Image.network(
-                                profileController.apiLoaded
-                                    ? profileController.model.user!.profileImage.toString()
-                                    : "",
+                                profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
                                 errorBuilder: (_, __, ___) => Image.asset(
                                   'assets/images/myaccount.png',
                                   height: 60,
@@ -435,8 +432,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                   height: 330,
                                   decoration: const BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                                      borderRadius:
+                                          BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                                   child: Obx(() {
                                     return Center(
                                       child: Column(

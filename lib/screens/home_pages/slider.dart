@@ -40,32 +40,25 @@ class _SliderWidgetState extends State<SliderWidget> {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
                                 child: CachedNetworkImage(
-                                    imageUrl: homeController.homeModal.value
-                                        .home!.slider![index].image
-                                        .toString(),
+                                    imageUrl: homeController.homeModal.value.home!.slider![index].image.toString(),
                                     fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        const SizedBox(),
-                                    errorWidget: (context, url, error) =>
-                                        const SizedBox()),
+                                    placeholder: (context, url) => const SizedBox(),
+                                    errorWidget: (context, url, error) => const SizedBox()),
                               ),
                             ),
                           );
                         },
-                        itemCount:
-                            homeController.homeModal.value.home!.slider!.length,
+                        itemCount: homeController.homeModal.value.home!.slider!.length,
                         pagination: const SwiperPagination(),
                         control: const SwiperControl(size: 0), // remove arrows
                       ),
                     )),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                   child: Row(
                     children: [
                       Container(
@@ -73,9 +66,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                         width: context.getSize.width * .40,
                         decoration: const BoxDecoration(
                             color: Color(0xffF0F0F0),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10))),
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10))),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8.0, right: 8),
                           child: Row(
@@ -90,11 +81,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                               const SizedBox(
                                 width: 8,
                               ),
-                              const Expanded(
-                                  child: Image(
-                                      height: 20,
-                                      image: AssetImage(
-                                          'assets/icons/trends.png')))
+                              const Expanded(child: Image(height: 20, image: AssetImage('assets/icons/trends.png')))
                             ],
                           ),
                         ),
@@ -107,9 +94,8 @@ class _SliderWidgetState extends State<SliderWidget> {
                               border: Border.all(
                                 color: const Color(0xffF0F0F0),
                               ),
-                              borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(10),
-                                  topRight: Radius.circular(10))),
+                              borderRadius:
+                                  const BorderRadius.only(bottomRight: Radius.circular(10), topRight: Radius.circular(10))),
                           child: Padding(
                             padding: const EdgeInsets.only(top: 15, left: 7),
                             child: InkWell(
@@ -121,36 +107,26 @@ class _SliderWidgetState extends State<SliderWidget> {
                                       return SizedBox(
                                         height: context.getSize.height * .7,
                                         child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 30, right: 18, left: 18),
+                                          padding: const EdgeInsets.only(top: 30, right: 18, left: 18),
                                           child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Image.asset(
-                                                  'assets/images/aritificial.png'),
+                                              Image.asset('assets/images/aritificial.png'),
                                               const SizedBox(
                                                 height: 20,
                                               ),
                                               Text(
                                                 "Artificial Intelligence Gains a Foot Hold In Writing",
                                                 style: GoogleFonts.poppins(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w600,
-                                                    color:
-                                                        AppTheme.buttonColor),
+                                                    fontSize: 16, fontWeight: FontWeight.w600, color: AppTheme.buttonColor),
                                               ),
                                               const SizedBox(
                                                 height: 20,
                                               ),
                                               Text(
                                                 "Artificial Intelligence (Al) is gaining a strong foothold in various niches, and blogging is no exception. By making use of the best Al writing tools, you can create a long-form affiliate blog post in 10 to 15 minutes (instead of spending hours writing it yourself) and generate traffic.",
-                                                style: GoogleFonts.poppins(
-                                                    fontSize: 14,
-                                                    color: const Color(
-                                                        0xff484848)),
+                                                style: GoogleFonts.poppins(fontSize: 14, color: const Color(0xff484848)),
                                               ),
                                               const SizedBox(
                                                 height: 40,
@@ -158,10 +134,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                                               Text(
                                                 'Published: 06/06/2023',
                                                 style: GoogleFonts.poppins(
-                                                    fontSize: 15,
-                                                    color: Colors.black,
-                                                    fontWeight:
-                                                        FontWeight.w500),
+                                                    fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500),
                                               )
                                             ],
                                           ),
@@ -177,13 +150,10 @@ class _SliderWidgetState extends State<SliderWidget> {
                                 reverseScroll: false,
                                 duplicateChild: 25,
                                 enableScrollInput: true,
-                                delayAfterScrollInput:
-                                    const Duration(seconds: 1),
+                                delayAfterScrollInput: const Duration(seconds: 1),
                                 child: Text(
                                   'Artificial Intelligence Gains a Foot Hold In Writing',
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 13),
+                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
                                 ),
                               ),
                             ),
