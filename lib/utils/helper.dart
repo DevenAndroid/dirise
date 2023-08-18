@@ -16,6 +16,18 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 
 class NewHelper {
+
+  static String getDiscountPercentage({
+    required String sellingPrice,
+    required String actualPrice,
+}){
+    double percent = (((actualPrice.toNum - sellingPrice.toNum)/actualPrice.toNum) * 100);
+    if(percent == 0 || percent > 100){
+      return "";
+    }
+    return percent.toStringAsFixed(2);
+  }
+
   Future<File?> addFilePicker({List<String>? allowedExtensions}) async {
     try {
       final item = await FilePicker.platform.pickFiles(
@@ -128,6 +140,7 @@ class NewHelper {
       ),
     );
   }
+
 }
 
 class Helpers {

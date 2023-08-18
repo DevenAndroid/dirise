@@ -9,12 +9,6 @@ import 'package:flutter/material.dart';
 
 import '../model/order_models/model_single_order_response.dart';
 
-extension FilterName on String{
-  List<String> getNames(){
-    return this.split("--");
-  }
-}
-
 class AudioPlayerScreen extends StatefulWidget{
   const AudioPlayerScreen({super.key, required this.orderItem});
 

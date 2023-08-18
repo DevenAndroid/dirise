@@ -28,7 +28,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
   final bottomController = Get.put(BottomNavBarController());
   final profileController = Get.put(ProfileController());
   final cartController = Get.put(CartController());
-  String name = "kartik--ghosh--ram";
 
   final pages = [
     const HomePage(),
@@ -75,10 +74,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    print(name);
-    print(name.getNames());
-    print(MediaQuery.of(context).size.width);
-    print(context.getSize);
     return WillPopScope(
       onWillPop: () async {
         if (bottomController.pageIndex.value != 0) {
@@ -141,7 +136,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               child: SvgPicture.asset(
                                 'assets/svgs/home.svg',
                                 colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 0 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                    bottomController.pageIndex.value == 0
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor,
                                     BlendMode.srcIn),
                                 height: 20,
                               ),
@@ -150,8 +147,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               child: Text(
                                 "Home",
                                 style: GoogleFonts.poppins(
-                                    color:
-                                        bottomController.pageIndex.value == 0 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                    color: bottomController.pageIndex.value == 0
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -177,7 +175,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               child: SvgPicture.asset(
                                 'assets/svgs/category.svg',
                                 colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 1 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                    bottomController.pageIndex.value == 1
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor,
                                     BlendMode.srcIn),
                                 height: 20,
                               ),
@@ -185,8 +185,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                             Text(
                               "Categories",
                               style: GoogleFonts.poppins(
-                                  color:
-                                      bottomController.pageIndex.value == 1 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                  color: bottomController.pageIndex.value == 1
+                                      ? AppTheme.buttonColor
+                                      : AppTheme.primaryColor,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                             )
@@ -211,7 +212,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               child: SvgPicture.asset(
                                 'assets/svgs/fav.svg',
                                 colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 2 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                    bottomController.pageIndex.value == 2
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor,
                                     BlendMode.srcIn),
                                 height: 20,
                               ),
@@ -219,8 +222,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
                             Text(
                               "Favorite",
                               style: GoogleFonts.poppins(
-                                  color:
-                                      bottomController.pageIndex.value == 2 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                  color: bottomController.pageIndex.value == 2
+                                      ? AppTheme.buttonColor
+                                      : AppTheme.primaryColor,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                             )
@@ -246,15 +250,18 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                 'assets/svgs/person.svg',
                                 height: 20,
                                 colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 3 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                    bottomController.pageIndex.value == 3
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor,
                                     BlendMode.srcIn),
                               ),
                             ),
                             Text(
                               "Profile",
                               style: GoogleFonts.poppins(
-                                  color:
-                                      bottomController.pageIndex.value == 3 ? AppTheme.buttonColor : AppTheme.primaryColor,
+                                  color: bottomController.pageIndex.value == 3
+                                      ? AppTheme.buttonColor
+                                      : AppTheme.primaryColor,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                             )

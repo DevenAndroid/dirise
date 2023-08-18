@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../model_cart_response.dart';
+
 class ModelSingleOrderResponse {
   bool? status;
   dynamic message;
@@ -324,12 +326,14 @@ class OrderItem {
   dynamic createdAt;
   dynamic updatedAt;
   dynamic featuredImage;
+  List<OrderTrackData>? orderTrackData;
 
   OrderItem(
       {this.id,
       this.selectedSlotStart,
       this.selectedSlotEnd,
       this.selectedSlotDate,
+      this.orderTrackData,
       this.virtual_product_file,
       this.orderId,
       this.childId,
@@ -378,6 +382,12 @@ class OrderItem {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     featuredImage = json['featured_image'];
+    if (json['order_track_data'] != null) {
+      orderTrackData = <OrderTrackData>[];
+      json['order_track_data'].forEach((v) {
+        orderTrackData!.add(OrderTrackData.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -404,6 +414,33 @@ class OrderItem {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['featured_image'] = featuredImage;
+    if (orderTrackData != null) {
+      data['order_track_data'] =
+          orderTrackData!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+
+class OrderTrackData {
+  dynamic title;
+  dynamic completed;
+  dynamic date;
+
+  OrderTrackData({this.title, this.completed, this.date});
+
+  OrderTrackData.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+    completed = json['completed'];
+    date = json['date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['title'] = title;
+    data['completed'] = completed;
+    data['date'] = date;
     return data;
   }
 }

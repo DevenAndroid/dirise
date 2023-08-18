@@ -73,7 +73,7 @@ class Cart {
   dynamic arabPname;
   dynamic productType;
   dynamic skuId;
-  // dynamic pPrice;
+  dynamic pPrice;
   dynamic sPrice;
   dynamic commission;
   dynamic cartNew;
@@ -140,7 +140,7 @@ class Cart {
     this.arabPname,
     this.productType,
     this.skuId,
-    // this.pPrice,
+    this.pPrice,
     this.sPrice,
     this.commission,
     this.cartNew,
@@ -208,7 +208,7 @@ class Cart {
         arabPname: json["arab_pname"],
         productType: json["product_type"],
         skuId: json["sku_id"],
-        // pPrice: json["p_price"],
+        pPrice: json["p_price"],
         sPrice: json["s_price"],
         commission: json["commission"],
         cartNew: json["new"],
@@ -273,7 +273,7 @@ class Cart {
         "arab_pname": arabPname,
         "product_type": productType,
         "sku_id": skuId,
-        // "p_price": pPrice,
+        "p_price": pPrice,
         "s_price": sPrice,
         "commission": commission,
         "new": cartNew,

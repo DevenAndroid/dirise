@@ -53,7 +53,8 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
         surfaceTintColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+          icon: const Icon(Icons.arrow_back_ios,
+              color: Color(0xff014E70), size: 20),
           onPressed: () => Navigator.of(context).pop(),
         ),
         titleSpacing: 0,
@@ -62,7 +63,10 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
           children: [
             Text(
               "Order Details",
-              style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
+              style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22),
             ),
           ],
         ),
@@ -81,7 +85,10 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Text(
                           "Order #${singleOrder.order!.orderId}",
-                          style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
+                          style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18),
                         ),
                       ),
                     ),
@@ -92,7 +99,8 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                         final item = singleOrder.order!.orderItem![index];
                         return Container(
                           decoration: const BoxDecoration(
-                            border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
+                            border: Border(
+                                bottom: BorderSide(color: Color(0xffD9D9D9))),
                           ),
                           padding: const EdgeInsets.only(bottom: 12, top: 12),
                           child: Row(
@@ -109,7 +117,8 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                 height: size.height * .12,
                                 width: size.height * .12,
                                 item.featuredImage.toString(),
-                                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                errorBuilder: (_, __, ___) =>
+                                    const SizedBox.shrink(),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -120,7 +129,9 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                   children: [
                                     Text(
                                       item.productName.toString(),
-                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14),
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14),
                                     ),
                                     const SizedBox(
                                       height: 4,
@@ -128,18 +139,34 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                     Text(
                                       'USD ${item.productPrice}',
                                       style: GoogleFonts.poppins(
-                                          fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: const Color(0xff014E70)),
                                     ),
+                                    if (item.orderTrackData != null) ...[
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      Text(
+                                        '${item.orderTrackData!.reversed.toList().firstWhere((element) => element.completed.toString() == "true", orElse: () => OrderTrackData(title: "Order Placed")).title.toString().capitalize}',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xff014E70)),
+                                      ),
+                                    ],
                                     const SizedBox(
                                       height: 4,
                                     ),
                                     Text(
                                       '${item.quantity.toString()} piece',
-                                      style: GoogleFonts.poppins(color: const Color(0xff858484)),
+                                      style: GoogleFonts.poppins(
+                                          color: const Color(0xff858484)),
                                     ),
                                     if (item.isVirtualProduct)
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           InkWell(
                                               onTap: () {
@@ -148,9 +175,10 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                                         pdfUrl: item,
                                                       ));
                                                 } else {
-                                                  Get.to(() => AudioPlayerScreen(
-                                                    orderItem: item,
-                                                  ));
+                                                  Get.to(
+                                                      () => AudioPlayerScreen(
+                                                            orderItem: item,
+                                                          ));
                                                 }
                                               },
                                               child: Text(
@@ -159,14 +187,18 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                               )),
                                         ],
                                       ),
-                                    if (item.selectedSlotDate.toString() != "" && item.selectedSlotStart.toString() != "")
+                                    if (item.selectedSlotDate.toString() !=
+                                            "" &&
+                                        item.selectedSlotStart.toString() != "")
                                       GestureDetector(
                                         behavior: HitTestBehavior.translucent,
                                         onTap: () {
-                                          item.showDetails.value = !item.showDetails.value;
+                                          item.showDetails.value =
+                                              !item.showDetails.value;
                                         },
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 6),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 6),
                                           child: Row(
                                             children: [
                                               Expanded(
@@ -177,12 +209,15 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                               Obx(() {
                                                 return item.showDetails.value
                                                     ? const Icon(
-                                                        Icons.keyboard_arrow_down_rounded,
-                                                        color: AppTheme.buttonColor,
+                                                        Icons
+                                                            .keyboard_arrow_down_rounded,
+                                                        color: AppTheme
+                                                            .buttonColor,
                                                         size: 22,
                                                       )
                                                     : const Icon(
-                                                        Icons.arrow_forward_ios_rounded,
+                                                        Icons
+                                                            .arrow_forward_ios_rounded,
                                                         size: 16,
                                                       );
                                               }),
@@ -244,12 +279,17 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                               children: [
                                 Text(
                                   "Order Date",
-                                  style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18),
                                 ),
                                 Text(
                                   singleOrder.order!.createdDate.toString(),
                                   style: GoogleFonts.poppins(
-                                      color: const Color(0xff9B9B9B), fontWeight: FontWeight.w500, fontSize: 14),
+                                      color: const Color(0xff9B9B9B),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14),
                                 ),
                               ],
                             ),
@@ -261,12 +301,19 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                               children: [
                                 Text(
                                   "Status",
-                                  style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18),
                                 ),
                                 Text(
-                                  singleOrder.order!.status.toString().capitalize!,
+                                  singleOrder.order!.status
+                                      .toString()
+                                      .capitalize!,
                                   style: GoogleFonts.poppins(
-                                      color: const Color(0xff9B9B9B), fontWeight: FontWeight.w500, fontSize: 14),
+                                      color: const Color(0xff9B9B9B),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14),
                                 ),
                               ],
                             ),
@@ -278,12 +325,17 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                               children: [
                                 Text(
                                   "Payment",
-                                  style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18),
                                 ),
                                 Text(
                                   "${singleOrder.order!.orderMeta!.totalPrice.toString()} ${singleOrder.order!.orderMeta!.currencySign.toString()}",
                                   style: GoogleFonts.poppins(
-                                      color: const Color(0xff9B9B9B), fontWeight: FontWeight.w500, fontSize: 14),
+                                      color: const Color(0xff9B9B9B),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14),
                                 ),
                               ],
                             ),
@@ -295,12 +347,17 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                               children: [
                                 Text(
                                   "Deliver",
-                                  style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18),
                                 ),
                                 Text(
                                   "Static 2 KWD",
                                   style: GoogleFonts.poppins(
-                                      color: const Color(0xff9B9B9B), fontWeight: FontWeight.w500, fontSize: 14),
+                                      color: const Color(0xff9B9B9B),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14),
                                 ),
                               ],
                             ),

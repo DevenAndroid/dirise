@@ -119,7 +119,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text(
-                                            '50% off -Static',
+                                            "${NewHelper.getDiscountPercentage(sellingPrice: cart.sPrice.toString(), actualPrice: cart.pPrice.toString())} %Off",
                                             style: GoogleFonts.poppins(
                                                 fontSize: 12, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                                           ),
