@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
 import '../../model/vendor_models/model_vendor_orders.dart';
 import '../../widgets/dimension_screen.dart';
 

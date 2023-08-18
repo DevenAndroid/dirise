@@ -1,18 +1,15 @@
 import 'dart:convert';
-
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/utils/ApiConstant.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart' as intl;
-import 'package:intl/intl.dart';
 import '../../model/vendor_models/model_vendor_orders.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
 import '../add_money_screen.dart';
 import '../dashboard/sliver_bar.dart';
+import 'order_tile.dart';
 
 class VendorOrderList extends StatefulWidget {
   const VendorOrderList({Key? key}) : super(key: key);
@@ -23,6 +20,7 @@ class VendorOrderList extends StatefulWidget {
 }
 
 class _VendorOrderListState extends State<VendorOrderList> {
+
   final Repositories repositories = Repositories();
   ModelVendorOrders modelVendorOrders = ModelVendorOrders();
 
@@ -36,20 +34,6 @@ class _VendorOrderListState extends State<VendorOrderList> {
 
   final TextEditingController searchController = TextEditingController();
   RxBool isValue = false.obs;
-  String? selectedStatus;
-  String? selectedTime;
-  final List<String> optionMenu = ["vendor", "ffgsfgs"];
-
-  final List<String> dropDownTimeList = [
-    "This week",
-    "Last week",
-    "This month",
-    "Last three month",
-    "Custom"
-  ];
-  final List<String> dropDownStatusList = ["Completed", "Pending"];
-
-  final format = intl.DateFormat('dd-MM-yyyy');
 
   @override
   void initState() {
@@ -246,91 +230,8 @@ class _VendorOrderListState extends State<VendorOrderList> {
                     itemCount: modelVendorOrders.order!.data!.length,
                     itemBuilder: (context, index) {
                       final order = modelVendorOrders.order!.data![index];
-                      if (kDebugMode) {
-                        print(jsonEncode(order));
-                        print("SliverList....    $index");
-                      }
-                      return Container(
-                        color: Colors.white,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: AddSize.size5,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "#${order.orderId.toString()}",
-                                        style: GoogleFonts.poppins(
-                                            color: const Color(0xFF454B5C),
-                                            height: 1.5,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 15),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      if (DateTime.tryParse(
-                                              order.updatedAt.toString()) !=
-                                          null)
-                                        Text(
-                                          DateFormat("HH:mm a - dd MMM, yyyy")
-                                              .format(DateTime.tryParse(
-                                                  order.updatedAt.toString())!),
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 13,
-                                              color: const Color(0xFF8C9BB2)),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 6,
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Text(
-                                    order.status.toString().capitalize!,
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
-                                        color: const Color(0xFFFFB26B)),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 6,
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    "\$${order.totalPrice}",
-                                    textAlign: TextAlign.end,
-                                    style: GoogleFonts.poppins(
-                                        height: 1.5,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15,
-                                        color: const Color(0xFF454B5C)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: AddSize.size5,
-                            ),
-                            const Divider(
-                              color: Color(0xffEFEFEF),
-                            ),
-                          ],
-                        ),
+                      return OrderTile(
+                        order: order,
                       );
                     }),
             ],
