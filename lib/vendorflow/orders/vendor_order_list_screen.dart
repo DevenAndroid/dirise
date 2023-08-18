@@ -23,13 +23,12 @@ class VendorOrderList extends StatefulWidget {
 }
 
 class _VendorOrderListState extends State<VendorOrderList> {
-
   final Repositories repositories = Repositories();
   ModelVendorOrders modelVendorOrders = ModelVendorOrders();
 
-  getOrdersList(){
+  getOrdersList() {
     String url = "vendor-order?page=1";
-    repositories.getApi(url: ApiUrls.baseUrl+url).then((value) {
+    repositories.getApi(url: ApiUrls.baseUrl + url).then((value) {
       modelVendorOrders = ModelVendorOrders.fromJson(jsonDecode(value));
       setState(() {});
     });
@@ -39,11 +38,15 @@ class _VendorOrderListState extends State<VendorOrderList> {
   RxBool isValue = false.obs;
   String? selectedStatus;
   String? selectedTime;
-  String _statusController = "Filter";
-  String _filterController = "Status";
   final List<String> optionMenu = ["vendor", "ffgsfgs"];
 
-  final List<String> dropDownTimeList = ["This week", "Last week", "This month", "Last three month", "Custom"];
+  final List<String> dropDownTimeList = [
+    "This week",
+    "Last week",
+    "This month",
+    "Last three month",
+    "Custom"
+  ];
   final List<String> dropDownStatusList = ["Completed", "Pending"];
 
   final format = intl.DateFormat('dd-MM-yyyy');
@@ -56,41 +59,49 @@ class _VendorOrderListState extends State<VendorOrderList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff014E70),
-      body: SafeArea(
-        child: CustomScrollView(
-          shrinkWrap: true,
-          slivers: [
-            SliverToBoxAdapter(
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: AppTheme.buttonColor,
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/orderlitscontainer.png',
-                      ),
-                      fit: BoxFit.cover,
-                    )),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
-                  child: SafeArea(
+    return Container(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              colors: [
+                Color(0xff014E70),
+                Colors.white,
+                Colors.white,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              tileMode: TileMode.clamp,
+              stops: [.06, .061, 1])),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: CustomScrollView(
+            shrinkWrap: true,
+            slivers: [
+              SliverToBoxAdapter(
+                child: Container(
+                  decoration: const BoxDecoration(
+                      color: AppTheme.buttonColor,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/images/orderlitscontainer.png',
+                        ),
+                        fit: BoxFit.cover,
+                      )),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AddSize.padding10),
                     child: Column(
                       children: [
-                        const SizedBox(
-                          height: 5,
-                        ),
                         Row(
                           // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GestureDetector(
-                              onTap: () {
+                            IconButton(
+                              onPressed: () {
                                 Get.back();
                               },
-                              child: const Icon(
-                                Icons.arrow_back,
+                              icon: Icon(
+                                Icons.adaptive.arrow_back,
                                 color: Colors.white,
-                                size: 26,
                               ),
                             ),
                             // addWidth(20),
@@ -106,35 +117,49 @@ class _VendorOrderListState extends State<VendorOrderList> {
                           ],
                         ),
                         const SizedBox(
-                          height: 38,
+                          height: 10,
                         ),
                         Container(
                             decoration: BoxDecoration(
-                                color: AppTheme.buttonColor,
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.white24)),
+                                color: Colors.white.withOpacity(.1),
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: Colors.white24),
+                            ),
+                            margin: const EdgeInsets.symmetric(horizontal: 16),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: AddSize.padding16,
+                                  vertical: AddSize.padding16),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         '€450.00',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall!
-                                            .copyWith(fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),
+                                            .copyWith(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 28,
+                                                color: Colors.white),
                                       ),
                                       SizedBox(
                                         height: AddSize.size5,
                                       ),
                                       Text(
                                         "Your earning this month".tr,
-                                        style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                            fontWeight: FontWeight.w400, fontSize: AddSize.font14, color: Colors.white),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: AddSize.font14,
+                                                color: Colors.white),
                                       ),
                                     ],
                                   ),
@@ -145,188 +170,32 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                     },
                                     child: Container(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: AddSize.padding20, vertical: AddSize.padding12),
-                                        decoration:
-                                        BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                                            horizontal: AddSize.padding20,
+                                            vertical: AddSize.padding12),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
                                         child: Text(
                                           "Withdrawal".tr,
-                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: AddSize.font16,
-                                              color: AppTheme.buttonColor),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: AddSize.font16,
+                                                  color:
+                                                      AppTheme.buttonColor),
                                         )),
                                   )
                                 ],
                               ),
                             )),
-                        SizedBox(
-                          height: AddSize.size12,
-                        ),
                         const SizedBox(
-                          height: 12,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 58,
-                                decoration:
-                                BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: AppTheme.buttonColor),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: DropdownButtonFormField<String>(
-                                        iconEnabledColor: Colors.white,
-                                        iconDisabledColor: Colors.white,
-
-                                        // value: _statusController,
-                                        decoration: const InputDecoration(
-                                          border: InputBorder.none,
-                                          focusedErrorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                                              borderSide: BorderSide(color: Colors.white24)),
-                                          errorBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                                              borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                                              borderSide: BorderSide(color: Colors.white24)),
-                                          disabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                                            borderSide: BorderSide(color: Colors.white24),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                                            borderSide: BorderSide(color: Colors.white24),
-                                          ),
-                                        ),
-                                        items: ["vendor", "customer"]
-                                            .map((label) => DropdownMenuItem(
-                                          value: label,
-                                          child: Text(
-                                            label.toString(),
-                                            style: GoogleFonts.poppins(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ))
-                                            .toList(),
-                                        // hint: Text('Rating',style: GoogleFonts.poppins(color: Colors.grey),),
-
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _statusController = value!;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              //     child: Container(
-                              //   decoration: BoxDecoration(
-                              //       color: Colors.white,
-                              //       borderRadius: BorderRadius.circular(6),
-                              //       border: Border.all(color: Colors.white24)),
-                              //   child: TextFormField(
-                              //     style: GoogleFonts.poppins(
-                              //       fontSize: 17,
-                              //       color: AppTheme.buttonColor,
-                              //     ),
-                              //     decoration: InputDecoration(
-                              //         border: const OutlineInputBorder(
-                              //             borderSide: BorderSide.none),
-                              //         contentPadding: EdgeInsets.symmetric(
-                              //             horizontal: AddSize.padding20,
-                              //             vertical: AddSize.padding10),
-                              //         hintText: 'FiIter',
-                              //         hintStyle: GoogleFonts.poppins(
-                              //             fontSize: AddSize.font14,
-                              //             color: const Color(0xFF676363),
-                              //             fontWeight: FontWeight.w400)),
-                              //     readOnly: true,
-                              //     onTap: () {
-                              //       // selectDate();
-                              //     },
-                              //     // controller: TextEditingController(
-                              //     //     text: format.format(DateTime.parse('45/5'))),
-                              //   ),
-                              // )
-                            ),
-                            const SizedBox(
-                              width: 18,
-                            ),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      height: 58,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.0), color: AppTheme.buttonColor),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: DropdownButtonFormField<String>(
-                                              iconEnabledColor: Colors.white,
-                                              iconDisabledColor: Colors.white,
-                                              // value: _filterController,
-                                              decoration: const InputDecoration(
-                                                border: InputBorder.none,
-                                                focusedErrorBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                    borderSide: BorderSide(color: Colors.white24)),
-                                                errorBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                    borderSide: BorderSide(color: Colors.white24)),
-                                                focusedBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                    borderSide: BorderSide(color: Colors.white24)),
-                                                disabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                  borderSide: BorderSide(color: Colors.white24),
-                                                ),
-                                                enabledBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                                                    borderSide: BorderSide(color: Colors.white24)),
-                                              ),
-                                              items: ["vendor", "customer"]
-                                                  .map((label) => DropdownMenuItem(
-                                                value: label,
-                                                child: Text(
-                                                  label.toString(),
-                                                  style: GoogleFonts.poppins(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ))
-                                                  .toList(),
-                                              hint: const Text('Rating'),
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  _filterController = value!;
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: AddSize.size12,
+                          height: 16,
                         ),
                         Container(
-                          height: 57,
-                          decoration: BoxDecoration(
-                              color: AppTheme.buttonColor,
-                              borderRadius: BorderRadius.circular(6),
-                              border: Border.all(color: Colors.white12)),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: TextField(
                             // onTap: (){
                             //   vendorOrderListController.searchController.value=vendorOrderListController.model.value.data.orderList.length;
@@ -343,14 +212,24 @@ class _VendorOrderListState extends State<VendorOrderList> {
                             onSubmitted: (value) {},
                             decoration: InputDecoration(
                                 filled: true,
-                                fillColor: AppTheme.buttonColor,
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide.none, borderRadius: BorderRadius.all(Radius.circular(4))),
-                                contentPadding:
-                                EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
+                                fillColor: Colors.white.withOpacity(.1),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.circular(6))),
+                                enabled: true,
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(6))),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: AddSize.padding20,
+                                    vertical: AddSize.padding10),
                                 hintText: 'Search'.tr,
                                 hintStyle: GoogleFonts.poppins(
-                                    fontSize: AddSize.font16, color: Colors.white, fontWeight: FontWeight.w400)),
+                                    fontSize: AddSize.font16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400)),
                           ),
                         ),
                         SizedBox(
@@ -361,95 +240,101 @@ class _VendorOrderListState extends State<VendorOrderList> {
                   ),
                 ),
               ),
-            ),
-            const LatestSalesAppBar(),
-            if(modelVendorOrders.order != null)
-            SliverList.builder(
-                itemCount: modelVendorOrders.order!.data!.length,
-                itemBuilder: (context, index) {
-                  final order = modelVendorOrders.order!.data![index];
-                  if (kDebugMode) {
-                    print(jsonEncode(order));
-                    print("SliverList....    $index");
-                  }
-                  return Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: AddSize.size5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              const LatestSalesAppBar(),
+              if (modelVendorOrders.order != null)
+                SliverList.builder(
+                    itemCount: modelVendorOrders.order!.data!.length,
+                    itemBuilder: (context, index) {
+                      final order = modelVendorOrders.order!.data![index];
+                      if (kDebugMode) {
+                        print(jsonEncode(order));
+                        print("SliverList....    $index");
+                      }
+                      return Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
                           children: [
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "#${order.orderId.toString()}",
+                            SizedBox(
+                              height: AddSize.size5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 5,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "#${order.orderId.toString()}",
+                                        style: GoogleFonts.poppins(
+                                            color: const Color(0xFF454B5C),
+                                            height: 1.5,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      if (DateTime.tryParse(
+                                              order.updatedAt.toString()) !=
+                                          null)
+                                        Text(
+                                          DateFormat("HH:mm a - dd MMM, yyyy")
+                                              .format(DateTime.tryParse(
+                                                  order.updatedAt.toString())!),
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 13,
+                                              color: const Color(0xFF8C9BB2)),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 6,
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Text(
+                                    order.status.toString().capitalize!,
                                     style: GoogleFonts.poppins(
-                                        color: const Color(0xFF454B5C),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                        color: const Color(0xFFFFB26B)),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 6,
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    "\$${order.totalPrice}",
+                                    textAlign: TextAlign.end,
+                                    style: GoogleFonts.poppins(
                                         height: 1.5,
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 15),
+                                        fontSize: 15,
+                                        color: const Color(0xFF454B5C)),
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  if (DateTime.tryParse(order.updatedAt.toString()) != null)
-                                    Text(
-                                      DateFormat("HH:mm a - dd MMM, yyyy")
-                                          .format(DateTime.tryParse(order.updatedAt.toString())!),
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 13,
-                                          color: const Color(0xFF8C9BB2)),
-                                    ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(
-                              width: 6,
+                            SizedBox(
+                              height: AddSize.size5,
                             ),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                order.status.toString().capitalize!,
-                                style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFFFFB26B)),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 6,
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                "\$${order.totalPrice}",
-                                textAlign: TextAlign.end,
-                                style: GoogleFonts.poppins(
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    color: const Color(0xFF454B5C)),
-                              ),
+                            const Divider(
+                              color: Color(0xffEFEFEF),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: AddSize.size5,
-                        ),
-                        const Divider(
-                          color: Color(0xffEFEFEF),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-          ],
+                      );
+                    }),
+            ],
+          ),
         ),
       ),
     );

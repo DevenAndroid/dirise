@@ -27,7 +27,7 @@ class ModelVendorOrders {
 
 class Order {
   dynamic currentPage;
-  List<Data>? data;
+  List<OrderData>? data;
   dynamic firstPageUrl;
   dynamic from;
   dynamic lastPage;
@@ -58,9 +58,9 @@ class Order {
   Order.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <OrderData>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(OrderData.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -104,7 +104,7 @@ class Order {
   }
 }
 
-class Data {
+class OrderData {
   dynamic id;
   dynamic orderId;
   dynamic childId;
@@ -131,7 +131,7 @@ class Data {
   dynamic expectedDate;
   // List<Null>? orderItem;
 
-  Data(
+  OrderData(
       {this.id,
         this.orderId,
         this.childId,
@@ -159,7 +159,7 @@ class Data {
         // this.orderItem
       });
 
-  Data.fromJson(Map<String, dynamic> json) {
+  OrderData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     orderId = json['order_id'];
     childId = json['child_id'];
