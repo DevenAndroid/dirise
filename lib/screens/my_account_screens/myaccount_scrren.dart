@@ -18,8 +18,8 @@ import '../../vendorflow/orders/vendor_order_list_screen.dart';
 import '../../vendorflow/authenthication/vendor_registration_screen.dart';
 import '../../widgets/common_colour.dart';
 import '../calender.dart';
-import '../e-book/e-book_screen.dart';
 import '../order_screens/my_orders_screen.dart';
+import '../virtual_assets/virtual_assets_screen.dart';
 import 'about_us_screen.dart';
 import 'faqs_screen.dart';
 import 'profile_screen.dart';
@@ -252,7 +252,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
-                        Get.toNamed(EBookScreen.route);
+                        Get.toNamed(VirtualAssetsScreen.route);
                       },
                       child: Row(
                         children: [

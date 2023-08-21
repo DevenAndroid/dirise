@@ -11,3 +11,8 @@ final TextStyle normalStyle = GoogleFonts.poppins(
   fontSize: 14,
   fontWeight: FontWeight.w500
 );
+
+final TextStyle titleStyle = GoogleFonts.poppins(
+  fontSize: 16,
+  fontWeight: FontWeight.w500
+);

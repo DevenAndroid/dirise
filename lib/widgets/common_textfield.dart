@@ -93,9 +93,6 @@ class _CommonTextfieldState extends State<CommonTextfield> {
             color: AppTheme.primaryColor,
             fontSize: 15,
           ),
-          /*errorStyle: GoogleFonts.poppins(
-              overflow: TextOverflow.clip,
-            // ),*/
 
           border: InputBorder.none,
           focusedErrorBorder: const OutlineInputBorder(
@@ -108,7 +105,6 @@ class _CommonTextfieldState extends State<CommonTextfield> {
             borderRadius: BorderRadius.all(Radius.circular(8)),
             borderSide: BorderSide(color: AppTheme.secondaryColor),
           ),
-
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             borderSide: BorderSide(color: AppTheme.secondaryColor),

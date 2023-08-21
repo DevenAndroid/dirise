@@ -176,7 +176,7 @@ class _WishListScreenState extends State<WishListScreen> {
                                           Row(
                                             children: [
                                               Text(
-                                                'KD ${_wishListController.model.value.wishlist![index].sPrice.toString()}',
+                                                'USD ${_wishListController.model.value.wishlist![index].sPrice.toString()}',
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w500,
@@ -186,7 +186,7 @@ class _WishListScreenState extends State<WishListScreen> {
                                                 width: 10,
                                               ),
                                               Text(
-                                                'KD ${_wishListController.model.value.wishlist![index].pPrice.toString()}',
+                                                'USD ${_wishListController.model.value.wishlist![index].pPrice.toString()}',
                                                 style: GoogleFonts.poppins(
                                                     decoration: TextDecoration.lineThrough,
                                                     fontSize: 16,

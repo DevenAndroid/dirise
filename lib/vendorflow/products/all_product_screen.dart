@@ -338,7 +338,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                   4.spaceY,
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Text(
-                      'KD 6.350',
+                      'USD 6.350',
                       style: GoogleFonts.poppins(
                         color: AppTheme.buttonColor,
                         fontWeight: FontWeight.w500,

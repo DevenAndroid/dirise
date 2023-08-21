@@ -51,6 +51,9 @@ class ApiUrls {
   static const String getCategoryStoresUrl = "${baseUrl}get-vendor-details?";
   static const String vendorProductListUrl = "${baseUrl}vendor-product-list?";
   static const String singleProductUrl = "${baseUrl}product";
+  static const String getEventsUrl = "${baseUrl}get-events";
+  static const String addEventUrl = "${baseUrl}event";
+  static const String deleteEventUrl = "${baseUrl}delete-event";
 }
 
 showToast(message, {ToastGravity? gravity}) {

@@ -1,186 +1,16 @@
-// // Copyright 2019 Aleksander Woźniak
-// // SPDX-License-Identifier: Apache-2.0
-//
-// import 'dart:developer';
-//
-// import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:table_calendar/table_calendar.dart';
-//
-//
-// import '../widgets/event.dart';
-//
-// class TableEventsExample extends StatefulWidget {
-//   @override
-//   _TableEventsExampleState createState() => _TableEventsExampleState();
-// }
-//
-// class _TableEventsExampleState extends State<TableEventsExample> {
-//   late final ValueNotifier<List<Event>> _selectedEvents;
-//   CalendarFormat _calendarFormat = CalendarFormat.month;
-//   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
-//       .toggledOff; // Can be toggled on/off by longpressing a date
-//   DateTime _focusedDay = DateTime.now();
-//   DateTime? _selectedDay;
-//   DateTime? _rangeStart;
-//   DateTime? _rangeEnd;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//
-//     _selectedDay = _focusedDay;
-//     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
-//   }
-//
-//   @override
-//   void dispose() {
-//     _selectedEvents.dispose();
-//     super.dispose();
-//   }
-//
-//   List<Event> _getEventsForDay(DateTime day) {
-//     // Implementation example
-//     return kEvents[day] ?? [];
-//   }
-//
-//   List<Event> _getEventsForRange(DateTime start, DateTime end) {
-//     // Implementation example
-//     final days = daysInRange(start, end);
-//
-//     return [
-//       for (final d in days) ..._getEventsForDay(d),
-//     ];
-//   }
-//
-//   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-//     if (!isSameDay(_selectedDay, selectedDay)) {
-//       setState(() {
-//         _selectedDay = selectedDay;
-//         _focusedDay = focusedDay;
-//         _rangeStart = null; // Important to clean those
-//         _rangeEnd = null;
-//         _rangeSelectionMode = RangeSelectionMode.toggledOff;
-//       });
-//
-//       _selectedEvents.value = _getEventsForDay(selectedDay);
-//     }
-//   }
-//
-//   void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
-//     setState(() {
-//       _selectedDay = null;
-//       _focusedDay = focusedDay;
-//       _rangeStart = start;
-//       _rangeEnd = end;
-//       _rangeSelectionMode = RangeSelectionMode.toggledOn;
-//     });
-//
-//     // `start` or `end` could be null
-//     if (start != null && end != null) {
-//       _selectedEvents.value = _getEventsForRange(start, end);
-//     } else if (start != null) {
-//       _selectedEvents.value = _getEventsForDay(start);
-//     } else if (end != null) {
-//       _selectedEvents.value = _getEventsForDay(end);
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       appBar: AppBar(
-//
-//           elevation: 0,
-//           surfaceTintColor: Colors.white,
-//           backgroundColor: Colors.white,
-//           title: Text(
-//             'My calendar',
-//             style: GoogleFonts.poppins(
-//                 color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
-//           ),
-//           leading: IconButton(
-//             icon: Image.asset(height: 28, 'assets/icons/arrowback.png'),
-//             onPressed: () => Navigator.of(context).pop(),
-//             //   ),
-//           )
-//
-//       ),
-//       body: Column(
-//         children: [
-//           TableCalendar<Event>(
-//             firstDay: kFirstDay,
-//             lastDay: kLastDay,
-//             focusedDay: _focusedDay,
-//             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-//             rangeStartDay: _rangeStart,
-//             rangeEndDay: _rangeEnd,
-//             calendarFormat: _calendarFormat,
-//             rangeSelectionMode: _rangeSelectionMode,
-//             eventLoader: _getEventsForDay,
-//             startingDayOfWeek: StartingDayOfWeek.monday,
-//             calendarStyle: const CalendarStyle(
-//
-//               // Use `CalendarStyle` to customize the UI
-//               outsideDaysVisible: false,
-//             ),
-//             onDaySelected: _onDaySelected,
-//             onRangeSelected: _onRangeSelected,
-//             onFormatChanged: (format) {
-//               if (_calendarFormat != format) {
-//                 setState(() {
-//                   _calendarFormat = format;
-//                 });
-//               }
-//             },
-//             onPageChanged: (focusedDay) {
-//               _focusedDay = focusedDay;
-//             },
-//           ),
-//           const SizedBox(height: 8.0),
-//           Expanded(
-//             child: ValueListenableBuilder<List<Event>>(
-//               valueListenable: _selectedEvents,
-//               builder: (context, value, _) {
-//                 return ListView.builder(
-//                   itemCount: value.length,
-//                   itemBuilder: (context, index) {
-//                     return Container(
-//                       margin: const EdgeInsets.symmetric(
-//                         horizontal: 12.0,
-//                         vertical: 4.0,
-//                       ),
-//                       decoration: BoxDecoration(
-//                         border: Border.all(color: const Color(0xffDCDCDC)),
-//                         borderRadius: BorderRadius.circular(12.0),
-//                       ),
-//                       child: ListTile(
-//                         onTap: () => log('${value[index]}'),
-//                         title: Text('${value[index]}'),
-//                       ),
-//                     );
-//                   },
-//                 );
-//               },
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 import 'dart:convert';
-
-import 'dart:developer';
+import 'package:dirise/model/common_modal.dart';
+import 'package:dirise/repository/repository.dart';
+import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/styles.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import 'package:intl/intl.dart';
-
+import '../model/model_event_list.dart';
 import '../widgets/common_colour.dart';
 import '../widgets/event.dart';
 
@@ -193,42 +23,91 @@ class EventCalendarScreen extends StatefulWidget {
 }
 
 class _EventCalendarScreenState extends State<EventCalendarScreen> {
+  final Repositories repositories = Repositories();
+  ModelEventsList modelEventsList = ModelEventsList();
+
+  Map<String, List<EventData>> mySelectedEvents = {};
+
+  getEvents() {
+    repositories.getApi(url: ApiUrls.getEventsUrl).then((value) {
+      modelEventsList = ModelEventsList.fromJson(jsonDecode(value));
+      loadAllEvents();
+      setState(() {});
+    });
+  }
+
+  loadAllEvents() {
+    if (modelEventsList.data == null) return;
+    mySelectedEvents.clear();
+    for (var element in modelEventsList.data!) {
+      mySelectedEvents[element.date.toString()] ??= [];
+      mySelectedEvents[element.date.toString()]!.add(element);
+    }
+    for (var element in mySelectedEvents.entries) {
+      Set<String> ids = {};
+      for (var element1 in element.value) {
+        if (ids.contains(element1.id.toString())) {
+          element1.remove = true;
+        } else {
+          ids.add(element1.id.toString());
+        }
+      }
+      element.value.removeWhere((element) => element.remove);
+    }
+  }
+
+  addEvent({
+    required String title,
+    required String description,
+    required String date,
+  }) {
+    final map = {
+      'title': title,
+      'description': description,
+      'date': date,
+    };
+    repositories.postApi(url: ApiUrls.addEventUrl, mapData: map, context: context).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(response.message);
+      if (response.status == true) {
+        getEvents();
+        Get.back();
+      }
+    });
+  }
+
+  deleteEvent({
+    required String id,
+  }) {
+    final map = {
+      'event_id': id,
+    };
+    repositories.postApi(url: ApiUrls.deleteEventUrl, mapData: map, context: context).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(response.message);
+      if (response.status == true) {
+        getEvents();
+        setState(() {});
+      }
+    });
+  }
+
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDate;
 
-  Map<String, List> mySelectedEvents = {};
-
-  final titleController = TextEditingController();
-  final descpController = TextEditingController();
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
+    getEvents();
     _selectedDate = _focusedDay;
-
-    loadPreviousEvents();
   }
 
-  loadPreviousEvents() {
-    mySelectedEvents = {
-      "2022-09-13": [
-        {"eventDescp": "11", "eventTitle": "111"},
-        {"eventDescp": "22", "eventTitle": "22"}
-      ],
-      "2022-09-30": [
-        {"eventDescp": "22", "eventTitle": "22"}
-      ],
-      "2022-09-20": [
-        {"eventTitle": "ss", "eventDescp": "ss"}
-      ]
-    };
-  }
-
-  List _listOfDayEvents(DateTime dateTime) {
+  List<EventData> _listOfDayEvents(DateTime dateTime) {
+    if (kDebugMode) {
+      print(mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)]);
+    }
     if (mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)] != null) {
       return mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)]!;
     } else {
@@ -237,79 +116,140 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
   }
 
   _showAddEventDialog() async {
+    final titleController = TextEditingController();
+    final descpController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text(
-          'Add New Event',
-          textAlign: TextAlign.center,
-        ),
-        content: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: titleController,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
-                labelText: 'Title',
+      builder: (context) => Dialog(
+        insetPadding: const EdgeInsets.all(18),
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Add New Event',
+                    textAlign: TextAlign.center,
+                    style: titleStyle,
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  TextFormField(
+                    controller: titleController,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
+                        return "Please Enter Title";
+                      }
+                      return null;
+                    },
+                    textCapitalization: TextCapitalization.words,
+                    decoration: const InputDecoration(
+                      labelText: 'Title',
+                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                      border: InputBorder.none,
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  TextFormField(
+                    controller: descpController,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    textCapitalization: TextCapitalization.words,
+                    maxLines: null,
+                    validator: (value) {
+                      if (value!.trim().isEmpty) {
+                        return "Please Enter Description";
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Description',
+                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                      border: InputBorder.none,
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text(
+                            'Cancel',
+                            style: titleStyle,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 18,
+                      ),
+                      Expanded(
+                        child: TextButton(
+                          child: Text(
+                            'Save',
+                            style: titleStyle,
+                          ),
+                          onPressed: () {
+                            if (!formKey.currentState!.validate()) return;
+
+                            addEvent(
+                              date: DateFormat("yyyy-MM-dd").format(_selectedDate!),
+                              description: descpController.text.trim(),
+                              title: titleController.text.trim(),
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
-            TextField(
-              controller: descpController,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(labelText: 'Description'),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
           ),
-          TextButton(
-            child: const Text('Save'),
-            onPressed: () {
-              if (titleController.text.isEmpty && descpController.text.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Required title and description'),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-                //Navigator.pop(context);
-                return;
-              } else {
-                log(titleController.text);
-                log(descpController.text);
-
-                setState(() {
-                  if (mySelectedEvents[DateFormat('yyyy-MM-dd').format(_selectedDate!)] != null) {
-                    mySelectedEvents[DateFormat('yyyy-MM-dd').format(_selectedDate!)]?.add({
-                      "eventTitle": titleController.text,
-                      "eventDescp": descpController.text,
-                    });
-                  } else {
-                    mySelectedEvents[DateFormat('yyyy-MM-dd').format(_selectedDate!)] = [
-                      {
-                        "eventTitle": titleController.text,
-                        "eventDescp": descpController.text,
-                      }
-                    ];
-                  }
-                });
-
-                if (kDebugMode) {
-                  print("New Event for backend developer ${json.encode(mySelectedEvents)}");
-                }
-                titleController.clear();
-                descpController.clear();
-                Navigator.pop(context);
-                return;
-              }
-            },
-          )
-        ],
+        ),
       ),
     );
   }
@@ -370,7 +310,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                 // No need to call `setState()` here
                 _focusedDay = focusedDay;
               },
-              eventLoader: _listOfDayEvents,
+              // eventLoader: _listOfDayEvents,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -381,21 +321,28 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
             ),
             ..._listOfDayEvents(_selectedDate!).map(
               (myEvents) => Slidable(
-                // key: const ValueKey(0),
+                key: ValueKey(myEvents.id.toString()),
                 endActionPane: ActionPane(
+                  extentRatio: .26,
                   motion: const ScrollMotion(),
                   children: [
                     // const SizedBox(width: 20,),
-                    Text(
-                      'Delete',
-                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 17, color: AppTheme.buttonColor),
+                    TextButton(
+                      onPressed: () {
+                        deleteEvent(id: myEvents.id.toString());
+                      },
+                      child: Text(
+                        'Delete',
+                        style:
+                            GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 17, color: AppTheme.buttonColor),
+                      ),
                     )
                   ],
                 ),
                 child: Container(
                   margin: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 4.0,
+                    horizontal: 16.0,
+                    vertical: 5.0,
                   ),
                   decoration: BoxDecoration(
                     border: Border.all(color: const Color(0xffDCDCDC)),
@@ -412,24 +359,32 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            '6',
+                            _selectedDate!.day.toString(),
                             style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
                           ),
                           Text(
-                            'jun',
+                            DateFormat("MMM").format(_selectedDate!),
                             style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
                           ),
                         ],
                       ),
                     ),
                     title: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text('Event Title:   ${myEvents['eventTitle']}'),
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: Text('Event Title: ${myEvents.title}'),
                     ),
-                    subtitle: Text('Description:   ${myEvents['eventDescp']}'),
+                    subtitle: Text('Description: ${myEvents.description}'),
                   ),
                 ),
               ),
+            ),
+            if (_listOfDayEvents(_selectedDate!).isEmpty)
+              const Center(
+                heightFactor: 4,
+                child: Text("No Event Registered"),
+              ),
+            const SizedBox(
+              height: 80,
             ),
           ],
         ),

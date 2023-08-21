@@ -471,7 +471,7 @@ class _EBookCategoryScreenState extends State<EBookCategoryScreen> {
                                     style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
                                   ),
                                   Text(
-                                    'KD 12.700',
+                                    'USD 12.700',
                                     style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                                   )
                                 ],

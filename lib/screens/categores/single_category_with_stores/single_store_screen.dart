@@ -318,7 +318,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                           Row(
                             children: [
                               Text(
-                                'KD 6.350',
+                                'USD 6.350',
                                 style: GoogleFonts.poppins(
                                     fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                               ),
@@ -326,7 +326,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                 width: 10,
                               ),
                               Text(
-                                'KD 12.700',
+                                'USD 12.700',
                                 style: GoogleFonts.poppins(
                                     decoration: TextDecoration.lineThrough,
                                     fontSize: 16,

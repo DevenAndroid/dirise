@@ -129,14 +129,14 @@ class _ProductUIState extends State<ProductUI> {
                 Row(
                   children: [
                     Text(
-                      'KD ${widget.productElement.sPrice.toString()}',
+                      'USD ${widget.productElement.sPrice.toString()}',
                       style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
                       width: 15,
                     ),
                     Text(
-                      'KD ${widget.productElement.pPrice.toString()}',
+                      'USD ${widget.productElement.pPrice.toString()}',
                       style: GoogleFonts.poppins(
                           decoration: TextDecoration.lineThrough,
                           color: const Color(0xff858484),

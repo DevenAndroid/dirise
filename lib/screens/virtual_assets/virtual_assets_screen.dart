@@ -1,24 +1,36 @@
+import 'package:dirise/repository/repository.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/common_colour.dart';
-import 'singlecategory_screen.dart';
+import 'audio_files_list.dart';
+import 'e_books_screen.dart';
 
-class EBookScreen extends StatefulWidget {
-  static String route = "/EBookScreen";
-  const EBookScreen({Key? key}) : super(key: key);
+class VirtualAssetsScreen extends StatefulWidget {
+  static String route = "/VirtualAssetsScreen";
+  const VirtualAssetsScreen({Key? key}) : super(key: key);
 
   @override
-  State<EBookScreen> createState() => _EBookScreenState();
+  State<VirtualAssetsScreen> createState() => _VirtualAssetsScreenState();
 }
 
-class _EBookScreenState extends State<EBookScreen> {
+class _VirtualAssetsScreenState extends State<VirtualAssetsScreen> with AutomaticKeepAliveClientMixin {
+  final Repositories repositories = Repositories();
+
+  // getEBooks() {
+  //   // repositories.
+  // }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    super.build(context);
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(140),
+        preferredSize: const Size.fromHeight(120),
         child: Container(
           color: AppTheme.buttonColor,
           child: SafeArea(
@@ -37,7 +49,7 @@ class _EBookScreenState extends State<EBookScreen> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 13),
@@ -75,27 +87,26 @@ class _EBookScreenState extends State<EBookScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
-        child: DefaultTabController(
-          length: 2,
-          child: Column(
-            children: [
-              Text(
-                'My Book Library',
-                style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 20),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const TabBar(
-                indicatorPadding: EdgeInsets.symmetric(horizontal: 35, vertical: 6),
-                indicator: BoxDecoration(color: AppTheme.buttonColor, borderRadius: BorderRadius.all(Radius.circular(20))),
+      body: DefaultTabController(
+        length: 2,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: TabBar(
+                indicatorPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                indicator: const BoxDecoration(
+                    color: AppTheme.buttonColor, borderRadius: BorderRadius.all(Radius.circular(20))),
                 indicatorColor: Colors.transparent,
                 unselectedLabelColor: AppTheme.buttonColor,
                 labelColor: Colors.white,
                 dividerColor: Colors.white,
-                tabs: [
+                labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+                // unselectedLabelStyle: GoogleFonts.poppins(),
+                tabs: const [
                   Tab(
                     text: 'E Book',
                   ),
@@ -105,56 +116,22 @@ class _EBookScreenState extends State<EBookScreen> {
                 ],
                 indicatorSize: TabBarIndicatorSize.tab,
               ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            height: size.height * .2,
-                            'assets/images/notebook.png',
-                          ),
-                          Text(
-                            'Rock NoteBook',
-                            style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: InkWell(
-                        onTap: () {
-                          Get.toNamed(SingleCategoryScreen.route);
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              height: size.height * .2,
-                              'assets/images/voicebook.png',
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Eustasy 165 days',
-                              style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+            ),
+            // SizedBox(height: 10,),
+            const Expanded(
+              child: TabBarView(
+                children: [
+                  EBookListScreen(),
+                  AudioFilesListScreen(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

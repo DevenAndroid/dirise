@@ -265,7 +265,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                Text("KD ${cartController.cartModel.subtotal}",
+                                Text("USD ${cartController.cartModel.subtotal}",
                                     style:
                                         GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
                               ],

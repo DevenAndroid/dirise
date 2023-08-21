@@ -16,9 +16,6 @@ import '../screens/categores/categories_screen.dart';
 import '../screens/check_out/check_out_screen.dart';
 import '../screens/check_out/direct_check_out.dart';
 import '../screens/check_out/order_completed_screen.dart';
-import '../screens/e-book/e-book_screen.dart';
-import '../screens/e-book/ebookcategory_screen.dart';
-import '../screens/e-book/singlecategory_screen.dart';
 import '../screens/my_account_screens/faqs_screen.dart';
 import '../screens/auth_screens/login_screen.dart';
 import '../screens/order_screens/my_orders_screen.dart';
@@ -27,6 +24,9 @@ import '../screens/public_speaker_screen/publicspeaker_screen.dart';
 import '../screens/public_speaker_screen/single_public_speaker_screen.dart';
 import '../screens/school_nursery_category.dart';
 import '../screens/order_screens/selectd_order_screen.dart';
+import '../screens/virtual_assets/ebookcategory_screen.dart';
+import '../screens/virtual_assets/singlecategory_screen.dart';
+import '../screens/virtual_assets/virtual_assets_screen.dart';
 import '../vendorflow/add_money_screen.dart';
 import '../vendorflow/dashboard/dashboard_screen.dart';
 import '../vendorflow/bank_account_screen.dart';
@@ -66,7 +66,7 @@ class MyRouters {
     GetPage(name: NewPasswordScreen.route, page: () => const NewPasswordScreen()),
     GetPage(name: TermConditionScreen.route, page: () => const TermConditionScreen()),
     GetPage(name: EventCalendarScreen.route, page: () => const EventCalendarScreen()),
-    GetPage(name: EBookScreen.route, page: () => const EBookScreen()),
+    GetPage(name: VirtualAssetsScreen.route, page: () => const VirtualAssetsScreen()),
     GetPage(name: WithdrawMoney.route, page: () => const WithdrawMoney()),
     // GetPage(name: SingleChairScreen.route, page: () => const SingleChairScreen()),
     GetPage(name: VendorDashBoardScreen.route, page: () => const VendorDashBoardScreen()),
