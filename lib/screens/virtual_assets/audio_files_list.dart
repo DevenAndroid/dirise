@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../model/model_virtual_assets.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
