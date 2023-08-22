@@ -1,5 +1,11 @@
+import 'dart:convert';
+
+import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../model/model_virtual_assets.dart';
+import '../../repository/repository.dart';
 
 class EBookListScreen extends StatefulWidget {
   const EBookListScreen({super.key});
@@ -9,9 +15,27 @@ class EBookListScreen extends StatefulWidget {
 }
 
 class _EBookListScreenState extends State<EBookListScreen> {
+
+  final Repositories repositories = Repositories();
+  ModelVirtualAssets modelVirtualAssets = ModelVirtualAssets();
+  
+  getData(){
+    repositories.getApi(url: ApiUrls.virtualAssetsPDFUrl).then((value) {
+      modelVirtualAssets = ModelVirtualAssets.fromJson(jsonDecode(value));
+      setState(() {});
+    });
+  }
+  
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+  
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
+    return modelVirtualAssets.order != null ?
+    GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 15,
@@ -20,6 +44,7 @@ class _EBookListScreenState extends State<EBookListScreen> {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         shrinkWrap: true,
+        itemCount: modelVirtualAssets.order!.data!.length,
         itemBuilder: (context, index){
           return Padding(
             padding: const EdgeInsets.all(15),
@@ -40,6 +65,6 @@ class _EBookListScreenState extends State<EBookListScreen> {
               ],
             ),
           );
-        });
+        }) : const LoadingAnimation();
   }
 }

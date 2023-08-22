@@ -54,6 +54,10 @@ class ApiUrls {
   static const String getEventsUrl = "${baseUrl}get-events";
   static const String addEventUrl = "${baseUrl}event";
   static const String deleteEventUrl = "${baseUrl}delete-event";
+  static const String storeTimingUrl = "${baseUrl}store-timing";
+  static const String storeAvailabilityUrl = "${baseUrl}store-availability";
+  static const String virtualAssetsPDFUrl = "${baseUrl}my-e-book?type=digital_reader";
+  static const String virtualAssetsVoiceUrl = "${baseUrl}my-e-book?type=voice";
 }
 
 showToast(message, {ToastGravity? gravity}) {

@@ -1,5 +1,12 @@
+import 'dart:convert';
+
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../model/model_virtual_assets.dart';
+import '../../repository/repository.dart';
+import '../../utils/ApiConstant.dart';
 
 class AudioFilesListScreen extends StatefulWidget {
   const AudioFilesListScreen({super.key});
@@ -9,9 +16,27 @@ class AudioFilesListScreen extends StatefulWidget {
 }
 
 class _AudioFilesListScreenState extends State<AudioFilesListScreen> {
+
+  final Repositories repositories = Repositories();
+  ModelVirtualAssets modelVirtualAssets = ModelVirtualAssets();
+
+  getData(){
+    repositories.getApi(url: ApiUrls.virtualAssetsVoiceUrl).then((value) {
+      modelVirtualAssets = ModelVirtualAssets.fromJson(jsonDecode(value));
+      setState(() {});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
+    return modelVirtualAssets.order != null ?
+    GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 15,
@@ -20,26 +45,32 @@ class _AudioFilesListScreenState extends State<AudioFilesListScreen> {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         shrinkWrap: true,
+        itemCount: modelVirtualAssets.order!.data!.length,
         itemBuilder: (context, index){
+          final item = modelVirtualAssets.order!.data![index];
           return Padding(
             padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Image.asset(
-                    'assets/images/voicebook.png',
+            child: GestureDetector(
+              onTap: (){},
+              behavior: HitTestBehavior.translucent,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Image.network(
+                      item.featuredImage.toString(),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10,),
-                Text(
-                  'Eustasy 165 days',
-                  maxLines: 3,
-                  style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
-                )
-              ],
+                  const SizedBox(height: 10,),
+                  Text(
+                    item.productName.toString(),
+                    maxLines: 3,
+                    style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
             ),
           );
-        });
+        }) : const LoadingAnimation();
   }
 }

@@ -14,7 +14,6 @@ class VirtualAssetsScreen extends StatefulWidget {
 }
 
 class _VirtualAssetsScreenState extends State<VirtualAssetsScreen> with AutomaticKeepAliveClientMixin {
-  final Repositories repositories = Repositories();
 
   // getEBooks() {
   //   // repositories.

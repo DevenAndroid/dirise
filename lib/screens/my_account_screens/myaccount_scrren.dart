@@ -144,565 +144,579 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            await profileController.getDataProfile();
-          },
-          child: Column(
-            children: [
-              Container(
-                width: MediaQuery.sizeOf(context).width,
-                color: AppTheme.buttonColor,
-                child: Obx(() {
-                  if (profileController.refreshInt.value > 0) {}
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      4.spaceY,
-                      Text(
-                        profileController.userLoggedIn
-                            ? profileController.apiLoaded
-                                ? profileController.model.user!.name ?? ""
-                                : ""
-                            : "Guest User",
-                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
-                      ),
-                      4.spaceY,
-                      SizedBox(
-                        height: 60,
-                        width: 60,
-                        child: profileController.userLoggedIn
-                            ? Image.network(
-                                profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
-                                errorBuilder: (_, __, ___) => Image.asset(
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+            colors: [
+              AppTheme.buttonColor,
+              Colors.white,
+              Colors.white,
+            ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [.1,.11,1]
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await profileController.getDataProfile();
+            },
+            child: Column(
+              children: [
+                Container(
+                  width: MediaQuery.sizeOf(context).width,
+                  color: AppTheme.buttonColor,
+                  child: Obx(() {
+                    if (profileController.refreshInt.value > 0) {}
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        4.spaceY,
+                        Text(
+                          profileController.userLoggedIn
+                              ? profileController.apiLoaded
+                                  ? profileController.model.user!.name ?? ""
+                                  : ""
+                              : "Guest User",
+                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
+                        ),
+                        4.spaceY,
+                        SizedBox(
+                          height: 60,
+                          width: 60,
+                          child: profileController.userLoggedIn
+                              ? Image.network(
+                                  profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
+                                  errorBuilder: (_, __, ___) => Image.asset(
+                                    'assets/images/myaccount.png',
+                                    height: 60,
+                                    width: 60,
+                                  ),
+                                )
+                              : Image.asset(
                                   'assets/images/myaccount.png',
                                   height: 60,
                                   width: 60,
                                 ),
-                              )
-                            : Image.asset(
-                                'assets/images/myaccount.png',
-                                height: 60,
-                                width: 60,
+                        ),
+                        5.spaceY,
+                        Text(
+                          profileController.userLoggedIn
+                              ? profileController.apiLoaded
+                                  ? profileController.model.user!.email ?? ""
+                                  : ""
+                              : "",
+                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
+                        ),
+                        5.spaceY,
+                      ],
+                    );
+                  }),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: Column(children: [
+                      16.spaceY,
+                      ListTile(
+                        onTap: () {
+                          if (profileController.userLoggedIn) {
+                            Get.toNamed(ProfileScreen.route);
+                          } else {
+                            Get.toNamed(LoginScreen.route);
+                          }
+                        },
+                        dense: true,
+                        minLeadingWidth: 0,
+                        contentPadding: EdgeInsets.zero,
+                        minVerticalPadding: 0,
+                        visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
+                        title: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/drawerprofile.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "Profile",
+                                style: GoogleFonts.poppins(
+                                    color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                               ),
+                            ),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
                       ),
-                      5.spaceY,
-                      Text(
-                        profileController.userLoggedIn
-                            ? profileController.apiLoaded
-                                ? profileController.model.user!.email ?? ""
-                                : ""
-                            : "",
-                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
                       ),
-                      5.spaceY,
-                    ],
-                  );
-                }),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: Column(children: [
-                    16.spaceY,
-                    ListTile(
-                      onTap: () {
-                        if (profileController.userLoggedIn) {
-                          Get.toNamed(ProfileScreen.route);
-                        } else {
-                          Get.toNamed(LoginScreen.route);
-                        }
-                      },
-                      dense: true,
-                      minLeadingWidth: 0,
-                      contentPadding: EdgeInsets.zero,
-                      minVerticalPadding: 0,
-                      visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
-                      title: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/icons/drawerprofile.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Text(
-                              "Profile",
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Get.toNamed(VirtualAssetsScreen.route);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/ebook.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "E Books",
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
-                          ),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        Get.toNamed(VirtualAssetsScreen.route);
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/icons/ebook.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "E Books",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 5,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        if (profileController.userLoggedIn) {
-                          Get.toNamed(MyOrdersScreen.myOrdersScreen);
-                        } else {
-                          Get.toNamed(LoginScreen.route);
-                        }
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/icons/order.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "Orders",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        Get.toNamed(EventCalendarScreen.route);
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/icons/calendar.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "My Calender",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 5,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        Get.toNamed(FrequentlyAskedQuestionsScreen.route);
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/icons/faq.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "Faq's",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                      InkWell(
+                        onTap: () {
+                          if (profileController.userLoggedIn) {
+                            Get.toNamed(MyOrdersScreen.myOrdersScreen);
+                          } else {
+                            Get.toNamed(LoginScreen.route);
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/order.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Orders",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {},
-                      child: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/images/digitalreader.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "Digital Pdf Reader",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 5,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    ...vendorPartner(),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        showModalBottomSheet<void>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                  height: 330,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-                                  child: Obx(() {
-                                    return Center(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(color: const Color(0xffDCDCDC)),
-                                                    borderRadius: BorderRadius.circular(15)),
-                                                child: RadioListTile(
-                                                  title: const Text('Arabic'),
-                                                  activeColor: const Color(0xff014E70),
-                                                  value: "Engleză",
-                                                  groupValue: selectedLAnguage.value,
-                                                  onChanged: (value) {
-                                                    locale = const Locale('ro', 'Ro');
-                                                    Get.updateLocale(locale);
-                                                    selectedLAnguage.value = value!;
-                                                    updateLanguage("Engleză");
-                                                    setState(() {});
-                                                  },
-                                                )),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 20, right: 20),
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(color: const Color(0xffDCDCDC)),
-                                                    borderRadius: BorderRadius.circular(15)),
-                                                child: RadioListTile(
-                                                  title: const Text('English'),
-                                                  activeColor: const Color(0xff014E70),
-                                                  value: "English",
-                                                  groupValue: selectedLAnguage.value,
-                                                  onChanged: (value) {
-                                                    locale = const Locale('en', 'US');
-                                                    Get.updateLocale(locale);
-                                                    selectedLAnguage.value = value!;
-                                                    updateLanguage("english");
-                                                    setState(() {});
-                                                  },
-                                                )),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Padding(
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Get.toNamed(EventCalendarScreen.route);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/calendar.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "My Calender",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Get.toNamed(FrequentlyAskedQuestionsScreen.route);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/faq.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Faq's",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/images/digitalreader.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Digital Pdf Reader",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      ...vendorPartner(),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          showModalBottomSheet<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                    height: 330,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                                    child: Obx(() {
+                                      return Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(color: const Color(0xffDCDCDC)),
+                                                      borderRadius: BorderRadius.circular(15)),
+                                                  child: RadioListTile(
+                                                    title: const Text('Arabic'),
+                                                    activeColor: const Color(0xff014E70),
+                                                    value: "Engleză",
+                                                    groupValue: selectedLAnguage.value,
+                                                    onChanged: (value) {
+                                                      locale = const Locale('ro', 'Ro');
+                                                      Get.updateLocale(locale);
+                                                      selectedLAnguage.value = value!;
+                                                      updateLanguage("Engleză");
+                                                      setState(() {});
+                                                    },
+                                                  )),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Padding(
                                               padding: const EdgeInsets.only(left: 20, right: 20),
                                               child: Container(
                                                   decoration: BoxDecoration(
                                                       border: Border.all(color: const Color(0xffDCDCDC)),
                                                       borderRadius: BorderRadius.circular(15)),
                                                   child: RadioListTile(
-                                                    title: const Text('Several languages'),
+                                                    title: const Text('English'),
                                                     activeColor: const Color(0xff014E70),
-                                                    value: "Several languages",
-                                                    groupValue: language.value,
+                                                    value: "English",
+                                                    groupValue: selectedLAnguage.value,
                                                     onChanged: (value) {
-                                                      setState(() {
-                                                        language.value = value!;
-                                                      });
+                                                      locale = const Locale('en', 'US');
+                                                      Get.updateLocale(locale);
+                                                      selectedLAnguage.value = value!;
+                                                      updateLanguage("english");
+                                                      setState(() {});
                                                     },
-                                                  ))),
-                                          SizedBox(
-                                            height: size.height * .08,
-                                          ),
-                                          Center(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 20, right: 20),
-                                              child: Container(
-                                                height: 56,
-                                                width: MediaQuery.sizeOf(context).width,
-                                                color: const Color(0xff014E70),
-                                                child: Center(
-                                                  child: Text(
-                                                    'Apply',
-                                                    style: GoogleFonts.poppins(
-                                                        fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                                                  )),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Padding(
+                                                padding: const EdgeInsets.only(left: 20, right: 20),
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: const Color(0xffDCDCDC)),
+                                                        borderRadius: BorderRadius.circular(15)),
+                                                    child: RadioListTile(
+                                                      title: const Text('Several languages'),
+                                                      activeColor: const Color(0xff014E70),
+                                                      value: "Several languages",
+                                                      groupValue: language.value,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          language.value = value!;
+                                                        });
+                                                      },
+                                                    ))),
+                                            SizedBox(
+                                              height: size.height * .08,
+                                            ),
+                                            Center(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 20, right: 20),
+                                                child: Container(
+                                                  height: 56,
+                                                  width: MediaQuery.sizeOf(context).width,
+                                                  color: const Color(0xff014E70),
+                                                  child: Center(
+                                                    child: Text(
+                                                      'Apply',
+                                                      style: GoogleFonts.poppins(
+                                                          fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  }));
-                            });
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/icons/language.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "Language",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    }));
+                              });
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/language.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Language",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        Get.toNamed(AboutUsScreen.route);
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/icons/aboutus.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "About Us",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 5,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        Get.toNamed(TermConditionScreen.route);
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/icons/termscondition.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "Terms Of Conditions",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        Get.toNamed(ReturnPolicyScreen.route);
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(height: 18, 'assets/icons/policy.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "Return policy",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 5,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: Color(0x1A000000),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () async {
-                        if (profileController.userLoggedIn) {
-                          SharedPreferences shared = await SharedPreferences.getInstance();
-                          await shared.clear();
-                          setState(() {});
-                          Get.toNamed(LoginScreen.route);
-                          profileController.userLoggedIn = false;
-                          profileController.updateUI();
-                          profileController.getDataProfile();
-                          cartController.getCart();
-                          homeController.getAll();
-                        } else {
-                          Get.toNamed(LoginScreen.route);
-                        }
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(height: 25, 'assets/icons/signout.png'),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            profileController.userLoggedIn ? "Sign Out" : "Login",
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15,
-                          ),
-                        ],
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Get.toNamed(AboutUsScreen.route);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/aboutus.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "About Us",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                  ]),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Get.toNamed(TermConditionScreen.route);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/termscondition.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Terms Of Conditions",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Get.toNamed(ReturnPolicyScreen.route);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 18, 'assets/icons/policy.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Return policy",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () async {
+                          if (profileController.userLoggedIn) {
+                            SharedPreferences shared = await SharedPreferences.getInstance();
+                            await shared.clear();
+                            setState(() {});
+                            Get.toNamed(LoginScreen.route);
+                            profileController.userLoggedIn = false;
+                            profileController.updateUI();
+                            profileController.getDataProfile();
+                            cartController.getCart();
+                            homeController.getAll();
+                          } else {
+                            Get.toNamed(LoginScreen.route);
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/signout.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              profileController.userLoggedIn ? "Sign Out" : "Login",
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                    ]),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

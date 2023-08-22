@@ -313,6 +313,22 @@ class Helpers {
 }
 
 extension ConvertToNum on String {
+
+  Duration get durationTime{
+    return Duration(
+      hours: split(":").first.toNum.toInt(),
+      minutes: split(":")[1].toNum.toInt(),
+    );
+  }
+
+  String get normalTime{
+    if(split(":").length > 1){
+    return "${split(":").first}:${split(":")[1]}";
+    }
+    return this;
+  }
+
+
   num? get convertToNum {
     return num.tryParse(this);
   }
