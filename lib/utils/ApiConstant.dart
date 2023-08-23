@@ -58,6 +58,7 @@ class ApiUrls {
   static const String storeAvailabilityUrl = "${baseUrl}store-availability";
   static const String virtualAssetsPDFUrl = "${baseUrl}my-e-book?type=digital_reader";
   static const String virtualAssetsVoiceUrl = "${baseUrl}my-e-book?type=voice";
+  static const String accountDetailsUrl = "${baseUrl}account-details";
 }
 
 showToast(message, {ToastGravity? gravity}) {

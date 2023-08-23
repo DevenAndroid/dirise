@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dirise/model/model_virtual_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +12,7 @@ import '../../utils/styles.dart';
 import '../../virtual_file_opener/audio_player_screen.dart';
 import '../../virtual_file_opener/pdf_reader.dart';
 import '../../widgets/common_colour.dart';
+import '../virtual_assets/singlecategory_screen.dart';
 
 class SelectedOrderScreen extends StatefulWidget {
   const SelectedOrderScreen({super.key});
@@ -176,8 +178,8 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                                       ));
                                                 } else {
                                                   Get.to(
-                                                      () => AudioPlayerScreen(
-                                                            orderItem: item,
+                                                      () => SingleCategoryScreen(
+                                                        product: VirtualProductData.fromJson(item.toJson()),
                                                           ));
                                                 }
                                               },
