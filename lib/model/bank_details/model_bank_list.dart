@@ -3,6 +3,10 @@ class ModelBankList {
   String? message;
   Data? data;
 
+  bool get checkAll{
+    return data != null && data!.banks!.isNotEmpty;
+  }
+
   ModelBankList({this.status, this.message, this.data});
 
   ModelBankList.fromJson(Map<String, dynamic> json) {

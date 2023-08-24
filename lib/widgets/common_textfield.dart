@@ -7,7 +7,7 @@ import 'common_colour.dart';
 class CommonTextfield extends StatefulWidget {
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
-  final bool obSecure;
+  final bool? obSecure;
   final bool readOnly;
   final VoidCallback? onTap;
   final VoidCallback? onEditingCompleted;
@@ -31,7 +31,7 @@ class CommonTextfield extends StatefulWidget {
     this.controller,
     this.validator,
     this.keyboardType = TextInputType.text,
-    required this.obSecure,
+    this.obSecure,
     this.onTap,
     this.isMulti = false,
     this.readOnly = false,
@@ -65,7 +65,7 @@ class _CommonTextfieldState extends State<CommonTextfield> {
         inputFormatters: widget.inputFormatters,
         onChanged: widget.onChanged,
         onEditingComplete: widget.onEditingCompleted,
-        obscureText: widget.obSecure,
+        obscureText: widget.obSecure ?? false,
         minLines: widget.isMulti ? 4 : 1,
         maxLines: widget.isMulti ? null : 1,
         onTap: widget.onTap,

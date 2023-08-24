@@ -57,7 +57,7 @@ class MyRouters {
     GetPage(name: PublicSpeakerCategoryScreen.route, page: () => const PublicSpeakerCategoryScreen()),
     // GetPage(name: SchoolNurseryScreen.route, page: () => const SchoolNurseryScreen()),
     GetPage(name: BankDetailsScreen.route, page: () => const BankDetailsScreen()),
-    GetPage(name: OrderDetails.route, page: () => const OrderDetails()),
+    // GetPage(name: OrderDetails.route, page: () => const OrderDetails()),
     GetPage(name: ReturnPolicyScreen.route, page: () => const ReturnPolicyScreen()),
     GetPage(name: PublicSpeakerScreen.route, page: () => const PublicSpeakerScreen()),
     GetPage(name: ThankYouVendorScreen.route, page: () => const ThankYouVendorScreen()),

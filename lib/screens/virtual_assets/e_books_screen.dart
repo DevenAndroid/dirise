@@ -57,7 +57,7 @@ class _EBookListScreenState extends State<EBookListScreen> {
               onTap: (){
                 Get.to(()=> PDFOpener(
                   pdfUrl: OrderItem(
-                    virtual_product_file: item.virtualProductFile,
+                    virtualProductFile: item.virtualProductFile,
                     productName: item.pname
                   ),
                 ));

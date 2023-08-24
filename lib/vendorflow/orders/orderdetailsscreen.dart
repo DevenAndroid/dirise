@@ -1,22 +1,43 @@
+import 'dart:convert';
+
+import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../model/order_models/model_single_order_response.dart';
+import '../../repository/repository.dart';
+import '../../utils/ApiConstant.dart';
 import '../../widgets/customsize.dart';
 import '../../widgets/dimension_screen.dart';
+import '../../widgets/loading_animation.dart';
 import '../bank_account_screen.dart';
 
 class OrderDetails extends StatefulWidget {
-  const OrderDetails({Key? key}) : super(key: key);
-  static var route = "/orderDetails";
+  final String orderId;
+  const OrderDetails({Key? key, required this.orderId}) : super(key: key);
 
   @override
   State<OrderDetails> createState() => _OrderDetailsState();
 }
 
 class _OrderDetailsState extends State<OrderDetails> {
+  final Repositories repositories = Repositories();
+  String get orderId => widget.orderId;
+  ModelSingleOrderResponse singleOrder = ModelSingleOrderResponse();
+
+  Future getOrderDetails() async {
+    await repositories.postApi(url: ApiUrls.orderDetailsUrl, mapData: {
+      "order_id": orderId,
+    }).then((value) {
+      singleOrder = ModelSingleOrderResponse.fromJson(jsonDecode(value));
+      setState(() {});
+    });
+  }
+
   _makingPhoneCall(call) async {
     var url = Uri.parse(call);
     if (await canLaunchUrl(url)) {
@@ -24,6 +45,14 @@ class _OrderDetailsState extends State<OrderDetails> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  SingleOrderData get order => singleOrder.order!;
+
+  @override
+  void initState() {
+    super.initState();
+    getOrderDetails();
   }
 
   @override
@@ -53,342 +82,422 @@ class _OrderDetailsState extends State<OrderDetails> {
             ),
           ),
         ),
-        body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
-            child: SingleChildScrollView(
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF37C666).withOpacity(0.10),
-                          offset: const Offset(
-                            .1,
-                            .1,
-                          ),
-                          blurRadius: 20.0,
-                          spreadRadius: 1.0,
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: Column(children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                'assets/images/orderdetails.png',
-                                height: 18,
-                              ),
-                              addWidth(15),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Order ID: 8520255',
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w600, fontSize: 15, color: AppTheme.buttonColor),
+        body: singleOrder.order != null
+            ? Padding(
+                padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
+                child: SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF37C666).withOpacity(0.10),
+                                  offset: const Offset(
+                                    .1,
+                                    .1,
                                   ),
-                                  Text(
-                                    'Monday, 2 June, 2021',
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w400, fontSize: 11, color: const Color(0xFF303C5E)),
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              Container(
-                                height: 25,
-                                width: 72,
-                                decoration:
-                                    BoxDecoration(borderRadius: BorderRadius.circular(6), color: AppTheme.buttonColor),
-                                child: Center(
-                                  child: Text(
-                                    'Pickup',
-                                    style: GoogleFonts.poppins(
-                                      color: const Color(0xFFFFFFFF),
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 1.0,
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 13,
-                          ),
-                          ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: 3,
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                              ],
+                            ),
+                            child: Padding(
+                                padding: const EdgeInsets.all(18.0).copyWith(bottom: 8),
+                                child: Column(children: [
                                   Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/orderdetails.png',
+                                        height: 18,
+                                      ),
+                                      addWidth(15),
+                                      Expanded(
+                                        child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Testasy Book',
+                                              'Order ID: ${order.id.toString()}',
                                               style: GoogleFonts.poppins(
-                                                  color: const Color(0xFF303C5E), fontWeight: FontWeight.w600, fontSize: 16),
+                                                  fontWeight: FontWeight.w600, fontSize: 15, color: AppTheme.buttonColor),
                                             ),
-                                            addHeight(5),
                                             Text(
-                                              '2 piece',
+                                              order.createdDate.toString(),
                                               style: GoogleFonts.poppins(
-                                                  color: const Color(0xFF6A8289), fontWeight: FontWeight.w500, fontSize: 14),
-                                            ),
-                                            const Divider(
-                                              color: Colors.red,
+                                                  fontWeight: FontWeight.w500, fontSize: 12, color: Colors.grey.shade800),
                                             ),
                                           ],
                                         ),
-                                        Text(
-                                          '€10.00',
-                                          style: GoogleFonts.poppins(
-                                              color: AppTheme.primaryColor, fontWeight: FontWeight.w600, fontSize: 17),
+                                      ),
+                                      Container(
+                                        height: 25,
+                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(6), color: AppTheme.buttonColor),
+                                        child: Center(
+                                          child: Text(
+                                            order.status,
+                                            style: GoogleFonts.poppins(
+                                              color: const Color(0xFFFFFFFF),
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
                                         ),
-                                      ]),
-                                  const SizedBox(
-                                    height: 5,
+                                      ),
+                                    ],
                                   ),
-                                ]);
-                              })
-                        ]))),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Customer Detail',
-                  style: GoogleFonts.poppins(color: const Color(0xff303C5E), fontSize: 18, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF37C666).withOpacity(0.10),
-                          offset: const Offset(
-                            .1,
-                            .1,
-                          ),
-                          blurRadius: 20.0,
-                          spreadRadius: 1.0,
+                                  const SizedBox(
+                                    height: 13,
+                                  ),
+                                  ...order.orderItem!
+                                      .map((e) => Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(bottom: 2),
+                                                child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              e.productName.toString(),
+                                                              style: GoogleFonts.poppins(
+                                                                  color: const Color(0xFF303C5E),
+                                                                  fontWeight: FontWeight.w600,
+                                                                  fontSize: 16),
+                                                            ),
+                                                            addHeight(5),
+                                                            Text(
+                                                              '${e.quantity.toString()} piece',
+                                                              style: GoogleFonts.poppins(
+                                                                  color: const Color(0xFF6A8289),
+                                                                  fontWeight: FontWeight.w500,
+                                                                  fontSize: 14),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "\$${(e.productPrice.toString().toNum * e.quantity.toString().toNum).toStringAsFixed(2)}",
+                                                        style: GoogleFonts.poppins(
+                                                            color: AppTheme.primaryColor,
+                                                            fontWeight: FontWeight.w600,
+                                                            fontSize: 16),
+                                                      ),
+                                                    ]),
+                                              ),
+                                              const Divider(),
+                                              const SizedBox(
+                                                height: 10,
+                                              )
+                                            ],
+                                          ))
+                                      .toList(),
+                                ]))),
+                        const SizedBox(
+                          height: 20,
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AddSize.screenWidth * 0.02, vertical: AddSize.screenHeight * .005),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: AddSize.padding15, vertical: AddSize.padding15),
+                        Text(
+                          'Customer Detail',
+                          style:
+                              GoogleFonts.poppins(color: const Color(0xff303C5E), fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF37C666).withOpacity(0.10),
+                                  offset: const Offset(
+                                    .1,
+                                    .1,
+                                  ),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 1.0,
+                                ),
+                              ],
+                            ),
                             child: Column(
                               children: [
-                                ...[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: AddSize.screenWidth * 0.02, vertical: AddSize.screenHeight * .005),
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: AddSize.padding15, vertical: AddSize.padding15),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              "Driver Name",
-                                              style: GoogleFonts.poppins(
-                                                  color: const Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
-                                            ),
-                                            Text(
-                                              'Rajesh Sharma',
-                                              style: GoogleFonts.poppins(
-                                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                            Row(children: [
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Customer Name",
+                                                    style: GoogleFonts.poppins(
+                                                        color: const Color(0xff486769),
+                                                        fontWeight: FontWeight.w300,
+                                                        fontSize: 14),
+                                                  ),
+                                                  Text(
+                                                    order.user != null
+                                                        ? order.user!.name.toString()
+                                                        : order.orderMeta!.billingFirstName ??
+                                                            order.orderMeta!.billingLastName ??
+                                                            "",
+                                                    style: GoogleFonts.poppins(
+                                                        height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                                  ),
+                                                ],
+                                              ),
+                                            ]),
+                                            Container(
+                                              height: 37,
+                                              width: 37,
+                                              decoration:
+                                                  const ShapeDecoration(color: Color(0xFFFE7E73), shape: CircleBorder()),
+                                              child: const Center(
+                                                  child: Icon(
+                                                Icons.person_rounded,
+                                                color: Colors.white,
+                                                size: 20,
+                                              )),
                                             ),
                                           ],
                                         ),
-                                      ]),
-                                      Container(
-                                        height: 37,
-                                        width: 37,
-                                        decoration: const ShapeDecoration(color: Color(0xFFFE7E73), shape: CircleBorder()),
-                                        child: const Center(
-                                            child: Icon(
-                                          Icons.person_rounded,
-                                          color: Colors.white,
-                                          size: 20,
-                                        )),
-                                      ),
-                                    ],
-                                  ),
-                                  const Divider(),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                        const Divider(),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              "Driver Number",
-                                              style: GoogleFonts.poppins(
-                                                  color: const Color(0xff486769), fontWeight: FontWeight.w300, fontSize: 14),
-                                            ),
-                                            Text(
-                                              "86859654",
-                                              style: GoogleFonts.poppins(
-                                                  height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                            Row(children: [
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Customer Number",
+                                                    style: GoogleFonts.poppins(
+                                                        color: const Color(0xff486769),
+                                                        fontWeight: FontWeight.w300,
+                                                        fontSize: 14),
+                                                  ),
+                                                  Text(
+                                                    order.orderMeta!.billingPhone ?? "",
+                                                    style: GoogleFonts.poppins(
+                                                        height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
+                                                  ),
+                                                ],
+                                              ),
+                                            ]),
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (order.orderMeta!.billingPhone != null &&
+                                                    order.orderMeta!.billingPhone.toString().isNotEmpty) {
+                                                  _makingPhoneCall("tel:${order.orderMeta!.billingPhone}");
+                                                }
+                                              },
+                                              child: Container(
+                                                  height: 37,
+                                                  width: 37,
+                                                  decoration:
+                                                      const ShapeDecoration(color: Color(0xFF71E189), shape: CircleBorder()),
+                                                  child: const Center(
+                                                      child: Icon(
+                                                    Icons.phone,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  ))),
                                             ),
                                           ],
                                         ),
-                                      ]),
-                                      GestureDetector(
-                                        onTap: () {
-                                          _makingPhoneCall("tel:+916565656545");
-                                        },
-                                        child: Container(
-                                            height: 37,
-                                            width: 37,
-                                            decoration:
-                                                const ShapeDecoration(color: Color(0xFF71E189), shape: CircleBorder()),
-                                            child: const Center(
-                                                child: Icon(
-                                              Icons.phone,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ))),
-                                      ),
-                                    ],
+                                        const Divider(),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Customer Address",
+                                                    style: GoogleFonts.poppins(
+                                                        color: const Color(0xff486769),
+                                                        fontWeight: FontWeight.w300,
+                                                        fontSize: 14),
+                                                  ),
+                                                  Text(
+                                                    order.orderMeta!.completeOrder,
+                                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 15),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {},
+                                              child: Container(
+                                                height: 37,
+                                                width: 37,
+                                                decoration:
+                                                    const ShapeDecoration(color: Color(0xFF7ED957), shape: CircleBorder()),
+                                                child: const Center(
+                                                    child: Icon(
+                                                  Icons.location_on,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                )),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  const Divider(),
+                                )
+                              ],
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF37C666).withOpacity(0.10),
+                                  offset: const Offset(
+                                    .1,
+                                    .1,
+                                  ),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 1.0,
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                              child: Column(
+                                children: [
+                                  // order.couponCode
+                                  if (order.couponCode != null) ...[
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Coupon Code:',
+                                            style: GoogleFonts.poppins(
+                                              color: const Color(0xFF293044),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          order.couponCode.toString(),
+                                          style: GoogleFonts.poppins(
+                                            color: const Color(0xFF797F90),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 12,
+                                    ),
+                                  ],
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
-                                        child: Row(children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Delivery Address",
-                                                  style: GoogleFonts.poppins(
-                                                      color: const Color(0xff486769),
-                                                      fontWeight: FontWeight.w300,
-                                                      fontSize: 14),
-                                                ),
-                                                Text(
-                                                  "Punjab",
-                                                  style: GoogleFonts.poppins(
-                                                      height: 1.5, fontWeight: FontWeight.w600, fontSize: 16),
-                                                ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                              ],
-                                            ),
+                                        child: Text(
+                                          'Subtotal:',
+                                          style: GoogleFonts.poppins(
+                                            color: const Color(0xFF293044),
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
                                           ),
-                                        ]),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          height: 37,
-                                          width: 37,
-                                          decoration: const ShapeDecoration(color: Color(0xFF7ED957), shape: CircleBorder()),
-                                          child: const Center(
-                                              child: Icon(
-                                            Icons.location_on,
-                                            color: Colors.white,
-                                            size: 20,
-                                          )),
                                         ),
                                       ),
+                                      Text(
+                                        "\$${order.orderMeta!.subtotalPrice}",
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF797F90),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      )
                                     ],
                                   ),
-                                ]
-                              ],
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'Total:',
+                                          style: GoogleFonts.poppins(
+                                            color: const Color(0xFF293044),
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "\$${order.orderMeta!.totalPrice}",
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF797F90),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        )
-                      ],
-                    )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF37C666).withOpacity(0.10),
-                          offset: const Offset(
-                            .1,
-                            .1,
-                          ),
-                          blurRadius: 20.0,
-                          spreadRadius: 1.0,
                         ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Subtotal:',
-                            style: GoogleFonts.poppins(
-                              color: const Color(0xFF293044),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Text(
-                            '€35.00',
-                            style: GoogleFonts.poppins(
-                              color: const Color(0xFF797F90),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed(BankDetailsScreen.route);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.maxFinite, 60),
-                        backgroundColor: AppTheme.buttonColor,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                        textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
-                    child: Text(
-                      "Mark Delivered",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall!
-                          .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
-                    )),
-              ]),
-            )));
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              Get.toNamed(BankDetailsScreen.route);
+                            },
+                            style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(double.maxFinite, 60),
+                                backgroundColor: AppTheme.buttonColor,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
+                                textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                            child: Text(
+                              "Mark Delivered",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16,
+                              ),
+                            )),
+                      ].animate(interval: 80.ms, autoPlay: true).fade(duration: 160.ms)),
+                ))
+            : const LoadingAnimation());
   }
 }

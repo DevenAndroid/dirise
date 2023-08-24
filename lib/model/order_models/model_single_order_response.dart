@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 
-import '../model_cart_response.dart';
-
 class ModelSingleOrderResponse {
   bool? status;
   dynamic message;
@@ -47,6 +45,7 @@ class SingleOrderData {
   OrderMeta? orderMeta;
   dynamic expectedDate;
   List<OrderItem>? orderItem = [];
+  User? user;
 
   SingleOrderData(
       {this.id,
@@ -67,6 +66,7 @@ class SingleOrderData {
       this.updatedAt,
       this.createdDate,
       this.orderMeta,
+      this.user,
       this.expectedDate,
       this.orderItem});
 
@@ -95,9 +95,11 @@ class SingleOrderData {
       json['order_item'].forEach((v) {
         orderItem!.add(OrderItem.fromJson(v));
       });
-    } else {
+    }
+    else {
       orderItem = [];
     }
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -126,11 +128,38 @@ class SingleOrderData {
     if (orderItem != null) {
       data['order_item'] = orderItem!.map((v) => v.toJson()).toList();
     }
+
+    if (user != null) {
+      data['user'] = user!.toJson();
+    }
     return data;
   }
 }
 
 class OrderMeta {
+
+  String get completeOrder{
+    List<String> kk = [];
+
+    if(billingAddress2 != null){
+      kk.add(billingAddress2.toString());
+    }
+    if(billingLandmark != null){
+      kk.add(billingLandmark.toString());
+    }
+    if(billingCity != null){
+      kk.add(billingCity.toString());
+    }
+    if(billingState != null){
+      kk.add(billingState.toString());
+    }
+    if(billingCountry != null){
+      kk.add(billingCountry.toString());
+    }
+    kk.removeWhere((element) => element.isEmpty);
+    return kk.join(", ");
+  }
+
   dynamic billingFirstName;
   dynamic billingLastName;
   dynamic billingPhone;
@@ -148,7 +177,6 @@ class OrderMeta {
   dynamic giftCardData;
   dynamic currencySign;
   dynamic shippingPrice;
-  // List<Shipping>? shipping;
   dynamic shippingFirstName;
   dynamic shippingLastName;
   dynamic shippingPhone;
@@ -298,14 +326,14 @@ class Shipping {
 class OrderItem {
 
   bool get isVirtualProduct => productType == "virtual_product";
-  bool get isVirtualProductPDF => virtual_product_file.toString().contains(".pdf");
+  bool get isVirtualProductPDF => virtualProductFile.toString().contains(".pdf");
 
   RxBool showDetails = false.obs;
   dynamic id;
   dynamic selectedSlotStart;
   dynamic selectedSlotEnd;
   dynamic selectedSlotDate;
-  dynamic virtual_product_file;
+  dynamic virtualProductFile;
   dynamic orderId;
   dynamic childId;
   dynamic productId;
@@ -334,7 +362,7 @@ class OrderItem {
       this.selectedSlotEnd,
       this.selectedSlotDate,
       this.orderTrackData,
-      this.virtual_product_file,
+      this.virtualProductFile,
       this.orderId,
       this.childId,
       this.productId,
@@ -362,7 +390,7 @@ class OrderItem {
     selectedSlotEnd = json["selected_sloat_end"] ?? "";
     selectedSlotDate = json["selected_sloat_date"] ?? "";
     orderId = json['order_id'];
-    virtual_product_file = json['virtual_product_file'];
+    virtualProductFile = json['virtual_product_file'];
     childId = json['child_id'];
     productId = json['product_id'];
     vendorId = json['vendor_id'];
@@ -395,7 +423,7 @@ class OrderItem {
     data['id'] = id;
     data['order_id'] = orderId;
     data['child_id'] = childId;
-    data['virtual_product_file'] = virtual_product_file;
+    data['virtual_product_file'] = virtualProductFile;
     data['product_id'] = productId;
     data['vendor_id'] = vendorId;
     data['user_id'] = userId;
@@ -441,6 +469,219 @@ class OrderTrackData {
     data['title'] = title;
     data['completed'] = completed;
     data['date'] = date;
+    return data;
+  }
+}
+
+class User {
+  dynamic id;
+  dynamic name;
+  dynamic firstName;
+  dynamic lastName;
+  dynamic email;
+  dynamic dob;
+  dynamic countryCode;
+  dynamic earnedBalance;
+  dynamic phone;
+  dynamic storeName;
+  dynamic storeBusinessId;
+  dynamic storeAboutUs;
+  dynamic storeAboutMe;
+  dynamic storeAddress;
+  dynamic storeLogo;
+  dynamic storeImage;
+  dynamic storePhone;
+  dynamic description;
+  dynamic categoryId;
+  dynamic bio;
+  dynamic socialId;
+  dynamic apiToken;
+  dynamic deviceId;
+  dynamic deviceToken;
+  dynamic emailVerifiedAt;
+  dynamic newSocialUser;
+  dynamic customerId;
+  dynamic defaultCard;
+  dynamic userWallet;
+  dynamic isMobileVerified;
+  dynamic otpVerified;
+  dynamic isApproved;
+  dynamic vendorWallet;
+  dynamic profileImage;
+  dynamic bannerProfile;
+  dynamic categoryImage;
+  dynamic address;
+  dynamic countryId;
+  dynamic stateId;
+  dynamic city;
+  dynamic streetName;
+  dynamic block;
+  dynamic stripeId;
+  dynamic currency;
+  dynamic storeOn;
+  dynamic readyForOrder;
+  dynamic isVendor;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic deletedAt;
+
+  User(
+      {this.id,
+        this.name,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.dob,
+        this.countryCode,
+        this.earnedBalance,
+        this.phone,
+        this.storeName,
+        this.storeBusinessId,
+        this.storeAboutUs,
+        this.storeAboutMe,
+        this.storeAddress,
+        this.storeLogo,
+        this.storeImage,
+        this.storePhone,
+        this.description,
+        this.categoryId,
+        this.bio,
+        this.socialId,
+        this.apiToken,
+        this.deviceId,
+        this.deviceToken,
+        this.emailVerifiedAt,
+        this.newSocialUser,
+        this.customerId,
+        this.defaultCard,
+        this.userWallet,
+        this.isMobileVerified,
+        this.otpVerified,
+        this.isApproved,
+        this.vendorWallet,
+        this.profileImage,
+        this.bannerProfile,
+        this.categoryImage,
+        this.address,
+        this.countryId,
+        this.stateId,
+        this.city,
+        this.streetName,
+        this.block,
+        this.stripeId,
+        this.currency,
+        this.storeOn,
+        this.readyForOrder,
+        this.isVendor,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    email = json['email'];
+    dob = json['dob'];
+    countryCode = json['country_code'];
+    earnedBalance = json['earned_balance'];
+    phone = json['phone'];
+    storeName = json['store_name'];
+    storeBusinessId = json['store_business_id'];
+    storeAboutUs = json['store_about_us'];
+    storeAboutMe = json['store_about_me'];
+    storeAddress = json['store_address'];
+    storeLogo = json['store_logo'];
+    storeImage = json['store_image'];
+    storePhone = json['store_phone'];
+    description = json['description'];
+    categoryId = json['category_id'];
+    bio = json['bio'];
+    socialId = json['social_id'];
+    apiToken = json['api_token'];
+    deviceId = json['device_id'];
+    deviceToken = json['device_token'];
+    emailVerifiedAt = json['email_verified_at'];
+    newSocialUser = json['new_social_user'];
+    customerId = json['customer_id'];
+    defaultCard = json['default_card'];
+    userWallet = json['user_wallet'];
+    isMobileVerified = json['is_mobile_verified'];
+    otpVerified = json['otp_verified'];
+    isApproved = json['is_approved'];
+    vendorWallet = json['vendor_wallet'];
+    profileImage = json['profile_image'];
+    bannerProfile = json['banner_profile'];
+    categoryImage = json['category_image'];
+    address = json['address'];
+    countryId = json['country_id'];
+    stateId = json['state_id'];
+    city = json['city'];
+    streetName = json['street_name'];
+    block = json['block'];
+    stripeId = json['stripe_id'];
+    currency = json['currency'];
+    storeOn = json['store_on'];
+    readyForOrder = json['ready_for_order'];
+    isVendor = json['is_vendor'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    deletedAt = json['deleted_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['email'] = email;
+    data['dob'] = dob;
+    data['country_code'] = countryCode;
+    data['earned_balance'] = earnedBalance;
+    data['phone'] = phone;
+    data['store_name'] = storeName;
+    data['store_business_id'] = storeBusinessId;
+    data['store_about_us'] = storeAboutUs;
+    data['store_about_me'] = storeAboutMe;
+    data['store_address'] = storeAddress;
+    data['store_logo'] = storeLogo;
+    data['store_image'] = storeImage;
+    data['store_phone'] = storePhone;
+    data['description'] = description;
+    data['category_id'] = categoryId;
+    data['bio'] = bio;
+    data['social_id'] = socialId;
+    data['api_token'] = apiToken;
+    data['device_id'] = deviceId;
+    data['device_token'] = deviceToken;
+    data['email_verified_at'] = emailVerifiedAt;
+    data['new_social_user'] = newSocialUser;
+    data['customer_id'] = customerId;
+    data['default_card'] = defaultCard;
+    data['user_wallet'] = userWallet;
+    data['is_mobile_verified'] = isMobileVerified;
+    data['otp_verified'] = otpVerified;
+    data['is_approved'] = isApproved;
+    data['vendor_wallet'] = vendorWallet;
+    data['profile_image'] = profileImage;
+    data['banner_profile'] = bannerProfile;
+    data['category_image'] = categoryImage;
+    data['address'] = address;
+    data['country_id'] = countryId;
+    data['state_id'] = stateId;
+    data['city'] = city;
+    data['street_name'] = streetName;
+    data['block'] = block;
+    data['stripe_id'] = stripeId;
+    data['currency'] = currency;
+    data['store_on'] = storeOn;
+    data['ready_for_order'] = readyForOrder;
+    data['is_vendor'] = isVendor;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['deleted_at'] = deletedAt;
     return data;
   }
 }

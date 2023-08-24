@@ -140,7 +140,7 @@ class _PDFOpenerState extends State<PDFOpener> {
         ],
       ),
       body: SfPdfViewer.network(
-        widget.pdfUrl.virtual_product_file,
+        widget.pdfUrl.virtualProductFile,
         canShowPageLoadingIndicator: true,
         enableTextSelection: true,
         canShowPaginationDialog: false,

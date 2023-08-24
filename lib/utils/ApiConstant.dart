@@ -60,6 +60,7 @@ class ApiUrls {
   static const String virtualAssetsVoiceUrl = "${baseUrl}my-e-book?type=voice";
   static const String accountDetailsUrl = "${baseUrl}account-details";
   static const String bankListUrl = "${baseUrl}banks-list";
+  static const String addAccountDetailsUrl = "${baseUrl}add-account-details";
 }
 
 showToast(message, {ToastGravity? gravity}) {
