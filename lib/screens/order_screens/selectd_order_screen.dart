@@ -1,15 +1,12 @@
 import 'dart:convert';
-
 import 'package:dirise/model/model_virtual_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../model/order_models/model_single_order_response.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/styles.dart';
-import '../../virtual_file_opener/audio_player_screen.dart';
 import '../../virtual_file_opener/pdf_reader.dart';
 import '../../widgets/common_colour.dart';
 import '../virtual_assets/singlecategory_screen.dart';
