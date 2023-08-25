@@ -12,7 +12,6 @@ import '../../widgets/loading_animation.dart';
 import '../app_bar/common_app_bar.dart';
 
 class SingleCategoryScreen extends StatefulWidget {
-  static String route = "/SingleCategoryScreen";
   final VirtualProductData product;
   const SingleCategoryScreen({Key? key, required this.product}) : super(key: key);
 
@@ -112,7 +111,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> with Single
             const SizedBox(
               height: 5,
             ),
-            Text(product.shortDescription,
+            Text(product.shortDescription.toString(),
                 style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14, color: Colors.grey.shade700)),
             const SizedBox(
               height: 30,

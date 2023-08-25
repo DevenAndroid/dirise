@@ -241,7 +241,7 @@ class AddProductController extends GetxController {
     if (productType.replaceAll("Product", "").trim().toLowerCase() == "virtual") {
       // "virtual_product"
       map["product_type"] = "virtual_product";
-      map["virtual_product_type"] = productFileType.value == "pdf" ? "digital reader" : "voice";
+      map["virtual_product_type"] = productFileType.value == "pdf" ? "digital_reader" : "voice";
     }
 
     if (productType == "Booking Product") {

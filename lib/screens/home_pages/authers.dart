@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../controller/home_controller.dart';
+import '../../model/model_category_stores.dart';
 import '../../widgets/common_colour.dart';
+import '../categores/single_category_with_stores/single_store_screen.dart';
 
 class AuthorScreen extends StatefulWidget {
   const AuthorScreen({super.key});
@@ -62,30 +64,40 @@ class _AuthorScreenState extends State<AuthorScreen> {
                   margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: ListView.builder(
                     itemCount: homeController.authorModal.value.data!.length,
-                    // itemScrollController: itemController2,
+                    shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                          width: context.getSize.width * .5,
-                          margin: const EdgeInsets.only(right: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: CachedNetworkImage(
-                                    imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
-                                    fit: BoxFit.cover,
-                                    errorWidget: (context, url, error) => Image.asset("assets/images/Soud Alsanousi.png")),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                homeController.authorModal.value.data![index].name.toString(),
-                                style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-                              ),
-                            ],
+                      return GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: (){
+                          Get.to(()=> SingleStoreScreen(
+                            storeDetails: VendorStoreData(id: homeController.authorModal.value.data![index].id.toString()),
                           ));
+                        },
+                        child: Container(
+                            width: context.getSize.width * .5,
+                            margin: const EdgeInsets.only(right: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: CachedNetworkImage(
+                                      imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
+                                      fit: BoxFit.cover,
+                                      errorWidget: (context, url, error) =>
+                                          const Center(child: Icon(Icons.error_outline_rounded,color: Colors.red,))
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  homeController.authorModal.value.data![index].name.toString(),
+                                  style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            )),
+                      );
                     },
                   ),
                 ),

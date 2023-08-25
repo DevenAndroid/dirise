@@ -120,7 +120,7 @@ class VirtualProductData {
     shortDescription = json['short_description'];
     longDescription = json['long_description'];
     featuredImage = json['featured_image'];
-    galleryImage = json['gallery_image'].cast<String>();
+    // galleryImage = json['gallery_image'].cast<String>();
     virtualProductFile = json['virtual_product_file'];
     virtualProductFileType = json['virtual_product_file_type'];
     inStock = json['in_stock'];

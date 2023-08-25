@@ -10,6 +10,7 @@ import '../../utils/styles.dart';
 import '../../virtual_file_opener/pdf_reader.dart';
 import '../../widgets/common_colour.dart';
 import '../virtual_assets/singlecategory_screen.dart';
+import '../virtual_assets/virtual_assets_screen.dart';
 
 class SelectedOrderScreen extends StatefulWidget {
   const SelectedOrderScreen({super.key});
@@ -169,16 +170,19 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                         children: [
                                           InkWell(
                                               onTap: () {
-                                                if (item.isVirtualProductPDF) {
-                                                  Get.to(() => PDFOpener(
-                                                        pdfUrl: item,
-                                                      ));
-                                                } else {
-                                                  Get.to(
-                                                      () => SingleCategoryScreen(
-                                                        product: VirtualProductData.fromJson(item.toJson()),
-                                                          ));
-                                                }
+                                                Get.toNamed(VirtualAssetsScreen.route);
+                                                // if (item.isVirtualProductPDF) {
+                                                //   Get.to(() => PDFOpener(
+                                                //         pdfUrl: item,
+                                                //       ));
+                                                // } else {
+                                                //   656erwfa
+                                                //   print(item.toJson());
+                                                //   Get.to(
+                                                //       () => SingleCategoryScreen(
+                                                //         product: VirtualProductData.fromJson(item.toJson()),
+                                                //           ));
+                                                // }
                                               },
                                               child: Text(
                                                 "View",

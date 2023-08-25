@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../controller/vendor_controllers/vendor_dashboard_controller.dart';
 import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../widgets/dimension_screen.dart';
+import '../orders/orderdetailsscreen.dart';
 import 'app_bar.dart';
 import 'charts.dart';
 import 'sliver_bar.dart';
@@ -40,7 +41,6 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
             backgroundColor: Colors.grey.shade100,
             body: RefreshIndicator(
               onRefresh: () async {
-                // await vendorProfileController.getVendorDetails();
                 await controller.getVendorDashBoard();
               },
               child: Obx(() {
@@ -67,80 +67,86 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                     print(jsonEncode(order));
                                     print("SliverList....    $index");
                                   }
-                                  return Container(
-                                    color: Colors.white,
-                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: AddSize.size5,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              flex: 5,
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "#${order.orderId.toString()}",
-                                                    style: GoogleFonts.poppins(
-                                                        color: const Color(0xFF454B5C),
-                                                        height: 1.5,
-                                                        fontWeight: FontWeight.w500,
-                                                        fontSize: 15),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  if (DateTime.tryParse(order.updatedAt.toString()) != null)
+                                  return GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: (){
+                                      Get.to(()=> OrderDetails(orderId: order.orderId.toString(),));
+                                    },
+                                    child: Container(
+                                      color: Colors.white,
+                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: AddSize.size5,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                flex: 5,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
                                                     Text(
-                                                      DateFormat("HH:mm a - dd MMM, yyyy")
-                                                          .format(DateTime.tryParse(order.updatedAt.toString())!),
+                                                      "#${order.orderId.toString()}",
                                                       style: GoogleFonts.poppins(
+                                                          color: const Color(0xFF454B5C),
+                                                          height: 1.5,
                                                           fontWeight: FontWeight.w500,
-                                                          fontSize: 13,
-                                                          color: const Color(0xFF8C9BB2)),
+                                                          fontSize: 15),
                                                     ),
-                                                ],
+                                                    const SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    if (DateTime.tryParse(order.updatedAt.toString()) != null)
+                                                      Text(
+                                                        DateFormat("HH:mm a - dd MMM, yyyy")
+                                                            .format(DateTime.tryParse(order.updatedAt.toString())!),
+                                                        style: GoogleFonts.poppins(
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: 13,
+                                                            color: const Color(0xFF8C9BB2)),
+                                                      ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 6,
-                                            ),
-                                            Expanded(
-                                              flex: 3,
-                                              child: Text(
-                                                order.status.toString().capitalize!,
-                                                style: GoogleFonts.poppins(
-                                                    fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFFFFB26B)),
+                                              const SizedBox(
+                                                width: 6,
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 6,
-                                            ),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Text(
-                                                "\$${order.totalPrice}",
-                                                textAlign: TextAlign.end,
-                                                style: GoogleFonts.poppins(
-                                                    height: 1.5,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 15,
-                                                    color: const Color(0xFF454B5C)),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Text(
+                                                  order.status.toString().capitalize!,
+                                                  style: GoogleFonts.poppins(
+                                                      fontWeight: FontWeight.w600, fontSize: 14, color: const Color(0xFFFFB26B)),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: AddSize.size5,
-                                        ),
-                                        const Divider(
-                                          color: Color(0xffEFEFEF),
-                                        ),
-                                      ],
+                                              const SizedBox(
+                                                width: 6,
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                  "\$${order.totalPrice}",
+                                                  textAlign: TextAlign.end,
+                                                  style: GoogleFonts.poppins(
+                                                      height: 1.5,
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 15,
+                                                      color: const Color(0xFF454B5C)),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: AddSize.size5,
+                                          ),
+                                          const Divider(
+                                            color: Color(0xffEFEFEF),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }),

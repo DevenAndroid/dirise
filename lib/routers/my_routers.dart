@@ -71,7 +71,7 @@ class MyRouters {
     // GetPage(name: SingleChairScreen.route, page: () => const SingleChairScreen()),
     GetPage(name: VendorDashBoardScreen.route, page: () => const VendorDashBoardScreen()),
     GetPage(name: VendorRegistrationScreen.registrationScreen, page: () => const VendorRegistrationScreen()),
-    GetPage(name: EBookCategoryScreen.route, page: () => const EBookCategoryScreen()),
+    // GetPage(name: EBookCategoryScreen.route, page: () => const EBookCategoryScreen()),
     // GetPage(name: SingleCategoryScreen.route, page: () => const SingleCategoryScreen()),
     GetPage(name: SchoolNurseryCategory.route, page: () => const SchoolNurseryCategory()),
     GetPage(name: SetTimeScreen.setTimeScreen, page: () => const SetTimeScreen()),
