@@ -299,13 +299,19 @@ class _SingleCategoriesState extends State<SingleCategories> {
               onTap: () {
                 final kk =
                     modelCategoryStores![i].promotionData![min(i % 3, modelCategoryStores![i].promotionData!.length - 1)];
-                print(jsonEncode(kk));
                 if (kk.promotionType == "product") {
                   bottomSheet(
                       productDetails: ProductElement(
                         id: kk.productStoreId.toString(),
                       ),
                       context: context);
+                  return;
+                }
+                if(kk.promotionType == "store"){
+                  Get.to(() => SingleStoreScreen(
+                    storeDetails: VendorStoreData(id: kk.productStoreId.toString()),
+                  ));
+                  return;
                 }
               },
               child: ClipRRect(

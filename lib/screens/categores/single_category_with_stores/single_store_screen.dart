@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../model/model_category_stores.dart';
 import '../../../model/model_store_products.dart';
 import '../../../model/trending_products_modal.dart';
+import '../../../model/vendor_models/model_single_vendor.dart';
 import '../../../repository/repository.dart';
 import '../../../utils/ApiConstant.dart';
 import '../../../widgets/cart_widget.dart';
@@ -27,12 +28,15 @@ class SingleStoreScreen extends StatefulWidget {
 class _SingleStoreScreenState extends State<SingleStoreScreen> {
   final Repositories repositories = Repositories();
   int paginationPage = 1;
+  VendorStoreData gg = VendorStoreData();
 
-  VendorStoreData get storeInfo => widget.storeDetails;
+  VendorStoreData get storeInfo => gg;
   String get vendorId => widget.storeDetails.id.toString();
 
   bool allLoaded = false;
   bool paginationLoading = false;
+
+  ScrollController scrollController = ScrollController();
 
   ModelStoreProducts modelProductsList = ModelStoreProducts(data: null);
 
@@ -64,15 +68,31 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
     });
   }
 
-  ScrollController scrollController = ScrollController();
+  getVendorInfo(){
+    if(widget.storeDetails.storeName == null || true) {
+      repositories.getApi(url: ApiUrls.getVendorInfoUrl + vendorId).then((value) {
+        ModelSingleVendor response = ModelSingleVendor.fromJson(jsonDecode(value));
+        gg = VendorStoreData.fromJson(response.user!.toJson());
+        setState(() {});
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    gg = widget.storeDetails;
+    getVendorInfo();
     getCategoryStores(page: paginationPage);
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       scrollController.addListener(() {});
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 
   @override
@@ -95,6 +115,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
         child: CustomScrollView(
           shrinkWrap: true,
           slivers: [
+            if(gg.storeName != null && gg.email != null)
+            ...[
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(16).copyWith(top: 10),
@@ -172,6 +194,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                 ),
               ),
             ),
+            ],
             SliverAppBar(
               primary: false,
               pinned: true,

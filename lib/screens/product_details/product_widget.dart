@@ -94,13 +94,20 @@ class _ProductUIState extends State<ProductUI> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(
-                  child: CachedNetworkImage(
-                    imageUrl: widget.productElement.featuredImage.toString(),
-                    height: 100,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => Image.asset("assets/images/bag.png"),
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: CachedNetworkImage(
+                          imageUrl: widget.productElement.featuredImage.toString(),
+                          height: 100,
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) => Image.asset("assets/images/bag.png"),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
@@ -121,19 +128,18 @@ class _ProductUIState extends State<ProductUI> {
                 ),
                 Text(
                   '${widget.productElement.inStock.toString()} pieces',
-                  style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 17),
+                  style: GoogleFonts.poppins(color: Colors.grey.shade700, fontSize: 15,fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
                   height: 3,
                 ),
                 Row(
                   children: [
-                    Text(
-                      'USD ${widget.productElement.sPrice.toString()}',
-                      style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                    const SizedBox(
-                      width: 15,
+                    Expanded(
+                      child: Text(
+                        'USD ${widget.productElement.sPrice.toString()}',
+                        style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
                     ),
                     Text(
                       'USD ${widget.productElement.pPrice.toString()}',
