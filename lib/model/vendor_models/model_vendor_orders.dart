@@ -9,7 +9,7 @@ class ModelVendorOrders {
   ModelVendorOrders.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    order = json['order'] != null ? Order.fromJson(json['order']) : null;
+    order = json['order'] != null && json['order'].toString() != "[]" ? Order.fromJson(json['order']) : Order(data: []);
     totalPage = json['total_page'];
   }
 

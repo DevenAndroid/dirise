@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/vendor_models/model_vendor_orders.dart';
@@ -22,23 +25,69 @@ class VendorOrderList extends StatefulWidget {
 class _VendorOrderListState extends State<VendorOrderList> {
 
   final Repositories repositories = Repositories();
-  ModelVendorOrders modelVendorOrders = ModelVendorOrders();
+  bool loaded = false;
+  bool paginationLoading = false;
+  bool allLoaded = false;
+  List<OrderData> data = [];
+  final ScrollController scrollController = ScrollController();
 
-  getOrdersList() {
-    String url = "vendor-order?page=1";
-    repositories.getApi(url: ApiUrls.baseUrl + url).then((value) {
-      modelVendorOrders = ModelVendorOrders.fromJson(jsonDecode(value));
+  final TextEditingController searchController = TextEditingController();
+  RxBool isValue = false.obs;
+  int page = 1;
+
+  addListener(){
+    scrollController.addListener(() {
+      if(scrollController.offset > (scrollController.position.maxScrollExtent - 10)){
+        getOrdersList();
+      }
+    });
+  }
+
+  Future getOrdersList({
+    bool? reset,
+}) async {
+    if(reset == true){
+      allLoaded = false;
+      paginationLoading = false;
+      page = 1;
+    }
+    if(allLoaded)return;
+    if(paginationLoading == true)return;
+    paginationLoading = true;
+    String url = "vendor-order?page=$page&pagination=20";
+    await repositories.getApi(url: ApiUrls.baseUrl + url).then((value) {
+      if(reset == true){
+        data = [];
+      }
+      loaded = true;
+      paginationLoading = false;
+      ModelVendorOrders response = ModelVendorOrders.fromJson(jsonDecode(value));
+      if(response.order != null){
+        if(response.order!.data != null && response.order!.data!.isNotEmpty){
+          data.addAll( response.order!.data!);
+          page++;
+        }
+        else {
+          allLoaded = false;
+        }
+      }
       setState(() {});
     });
   }
 
-  final TextEditingController searchController = TextEditingController();
-  RxBool isValue = false.obs;
-
   @override
   void initState() {
     super.initState();
-    getOrdersList();
+    getOrdersList(reset: true);
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      addListener();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 
   @override
@@ -57,184 +106,194 @@ class _VendorOrderListState extends State<VendorOrderList> {
               stops: [.06, .061, 1])),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SafeArea(
-          child: CustomScrollView(
-            shrinkWrap: true,
-            slivers: [
-              SliverToBoxAdapter(
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: AppTheme.buttonColor,
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/orderlitscontainer.png',
-                        ),
-                        fit: BoxFit.cover,
-                      )),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AddSize.padding10),
-                    child: Column(
-                      children: [
-                        Row(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              icon: Icon(
-                                Icons.adaptive.arrow_back,
-                                color: Colors.white,
+        body: RefreshIndicator(
+          onRefresh: ()async{
+            await getOrdersList(reset: true);
+          },
+          child: SafeArea(
+            child: CustomScrollView(
+              controller: scrollController,
+              shrinkWrap: true,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        color: AppTheme.buttonColor,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/orderlitscontainer.png',
+                          ),
+                          fit: BoxFit.cover,
+                        )),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: AddSize.padding10),
+                      child: Column(
+                        children: [
+                          Row(
+                            // crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                icon: Icon(
+                                  Icons.adaptive.arrow_back,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            // addWidth(20),
-                            Text(
-                              'Orders List',
-                              style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1,
+                              // addWidth(20),
+                              Text(
+                                'Orders List',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 1,
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(.1),
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(color: Colors.white24),
                               ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(.1),
-                                borderRadius: BorderRadius.circular(6),
-                                border: Border.all(color: Colors.white24),
-                            ),
-                            margin: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AddSize.padding16,
-                                  vertical: AddSize.padding16),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '€450.00',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall!
-                                            .copyWith(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 28,
-                                                color: Colors.white),
-                                      ),
-                                      SizedBox(
-                                        height: AddSize.size5,
-                                      ),
-                                      Text(
-                                        "Your earning this month".tr,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall!
-                                            .copyWith(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: AddSize.font14,
-                                                color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      // controller.id.value=vendorOrderListController.model.value.data
-                                      Get.toNamed(WithdrawMoney.route);
-                                    },
-                                    child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: AddSize.padding20,
-                                            vertical: AddSize.padding12),
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Text(
-                                          "Withdrawal".tr,
+                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AddSize.padding16,
+                                    vertical: AddSize.padding16),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '€450.00',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineSmall!
                                               .copyWith(
                                                   fontWeight: FontWeight.w600,
-                                                  fontSize: AddSize.font16,
-                                                  color:
-                                                      AppTheme.buttonColor),
-                                        )),
-                                  )
-                                ],
-                              ),
-                            )),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: TextField(
-                            // onTap: (){
-                            //   vendorOrderListController.searchController.value=vendorOrderListController.model.value.data.orderList.length;
-                            // },
-                            maxLines: 1,
-                            // controller:
-                            // vendorOrderListController.searchController,
-                            style: GoogleFonts.poppins(
-                              fontSize: 17,
-                              color: const Color(0xFF676363),
-                            ),
-                            textAlignVertical: TextAlignVertical.center,
-                            textInputAction: TextInputAction.search,
-                            onSubmitted: (value) {},
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white.withOpacity(.1),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(6))),
-                                enabled: true,
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
-                                    borderRadius:
-                                    const BorderRadius.all(Radius.circular(6))),
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: AddSize.padding20,
-                                    vertical: AddSize.padding10),
-                                hintText: 'Search'.tr,
-                                hintStyle: GoogleFonts.poppins(
-                                    fontSize: AddSize.font16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400)),
+                                                  fontSize: 28,
+                                                  color: Colors.white),
+                                        ),
+                                        SizedBox(
+                                          height: AddSize.size5,
+                                        ),
+                                        Text(
+                                          "Your earning this month".tr,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: AddSize.font14,
+                                                  color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        // controller.id.value=vendorOrderListController.model.value.data
+                                        Get.toNamed(WithdrawMoney.route);
+                                      },
+                                      child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: AddSize.padding20,
+                                              vertical: AddSize.padding12),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Text(
+                                            "Withdrawal".tr,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineSmall!
+                                                .copyWith(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: AddSize.font16,
+                                                    color:
+                                                        AppTheme.buttonColor),
+                                          )),
+                                    )
+                                  ],
+                                ),
+                              )),
+                          const SizedBox(
+                            height: 16,
                           ),
-                        ),
-                        SizedBox(
-                          height: AddSize.size12,
-                        ),
-                      ],
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: TextField(
+                              // onTap: (){
+                              //   vendorOrderListController.searchController.value=vendorOrderListController.model.value.data.orderList.length;
+                              // },
+                              maxLines: 1,
+                              // controller:
+                              // vendorOrderListController.searchController,
+                              style: GoogleFonts.poppins(
+                                fontSize: 17,
+                                color: const Color(0xFF676363),
+                              ),
+                              textAlignVertical: TextAlignVertical.center,
+                              textInputAction: TextInputAction.search,
+                              onSubmitted: (value) {},
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white.withOpacity(.1),
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
+                                      borderRadius:
+                                          const BorderRadius.all(Radius.circular(6))),
+                                  enabled: true,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
+                                      borderRadius:
+                                      const BorderRadius.all(Radius.circular(6))),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: AddSize.padding20,
+                                      vertical: AddSize.padding10),
+                                  hintText: 'Search'.tr,
+                                  hintStyle: GoogleFonts.poppins(
+                                      fontSize: AddSize.font16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400)),
+                            ),
+                          ),
+                          SizedBox(
+                            height: AddSize.size12,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const LatestSalesAppBar(),
-              if (modelVendorOrders.order != null)
-                SliverList.builder(
-                    itemCount: modelVendorOrders.order!.data!.length,
-                    itemBuilder: (context, index) {
-                      final order = modelVendorOrders.order!.data![index];
-                      return OrderTile(
-                        order: order,
-                      );
-                    }),
-            ],
+                const LatestSalesAppBar(),
+                if (loaded)
+                  SliverList.builder(
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        final order = data[index];
+                        return OrderTile(
+                          order: order,
+                        );
+                      })
+                else
+                  const SliverToBoxAdapter(
+                    child: LoadingAnimation(),
+                  )
+              ],
+            ),
           ),
         ),
       ),
