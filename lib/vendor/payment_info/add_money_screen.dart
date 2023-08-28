@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../widgets/common_colour.dart';
-import '../widgets/dimension_screen.dart';
-import 'orders/orderdetailsscreen.dart';
+import '../../widgets/common_colour.dart';
+import '../../widgets/dimension_screen.dart';
+import '../orders/orderdetailsscreen.dart';
 
 class WithdrawMoney extends StatefulWidget {
   const WithdrawMoney({Key? key}) : super(key: key);

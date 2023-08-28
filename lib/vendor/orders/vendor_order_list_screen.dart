@@ -4,13 +4,12 @@ import 'package:dirise/utils/ApiConstant.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/vendor_models/model_vendor_orders.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
-import '../add_money_screen.dart';
+import '../payment_info/add_money_screen.dart';
 import '../dashboard/sliver_bar.dart';
 import 'order_tile.dart';
 
@@ -203,7 +202,6 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        // controller.id.value=vendorOrderListController.model.value.data
                                         Get.toNamed(WithdrawMoney.route);
                                       },
                                       child: Container(

@@ -14,7 +14,7 @@ import '../../utils/ApiConstant.dart';
 import '../../widgets/customsize.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/loading_animation.dart';
-import '../bank_account_screen.dart';
+import '../payment_info/bank_account_screen.dart';
 
 class OrderDetails extends StatefulWidget {
   final String orderId;

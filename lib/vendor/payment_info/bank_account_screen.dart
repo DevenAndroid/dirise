@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../controller/vendor_controllers/bank_details_controller.dart';
-import '../repository/repository.dart';
-import '../widgets/common_button.dart';
-import '../widgets/common_colour.dart';
-import '../widgets/common_textfield.dart';
-import '../widgets/loading_animation.dart';
+import '../../controller/vendor_controllers/bank_details_controller.dart';
+import '../../repository/repository.dart';
+import '../../widgets/common_button.dart';
+import '../../widgets/common_colour.dart';
+import '../../widgets/common_textfield.dart';
+import '../../widgets/loading_animation.dart';
 
 class BankDetailsScreen extends StatefulWidget {
   const BankDetailsScreen({Key? key}) : super(key: key);

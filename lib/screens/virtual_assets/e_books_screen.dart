@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/model_virtual_assets.dart';
+import '../../preview_file/pdf_reader.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
-import '../../virtual_file_opener/pdf_reader.dart';
 import '../../widgets/loading_animation.dart';
 
 class EBookListScreen extends StatefulWidget {
