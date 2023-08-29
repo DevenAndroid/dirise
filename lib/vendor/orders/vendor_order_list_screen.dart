@@ -22,7 +22,6 @@ class VendorOrderList extends StatefulWidget {
 }
 
 class _VendorOrderListState extends State<VendorOrderList> {
-
   final Repositories repositories = Repositories();
   bool loaded = false;
   bool paginationLoading = false;
@@ -34,9 +33,9 @@ class _VendorOrderListState extends State<VendorOrderList> {
   RxBool isValue = false.obs;
   int page = 1;
 
-  addListener(){
+  addListener() {
     scrollController.addListener(() {
-      if(scrollController.offset > (scrollController.position.maxScrollExtent - 10)){
+      if (scrollController.offset > (scrollController.position.maxScrollExtent - 10)) {
         getOrdersList();
       }
     });
@@ -44,29 +43,28 @@ class _VendorOrderListState extends State<VendorOrderList> {
 
   Future getOrdersList({
     bool? reset,
-}) async {
-    if(reset == true){
+  }) async {
+    if (reset == true) {
       allLoaded = false;
       paginationLoading = false;
       page = 1;
     }
-    if(allLoaded)return;
-    if(paginationLoading == true)return;
+    if (allLoaded) return;
+    if (paginationLoading == true) return;
     paginationLoading = true;
     String url = "vendor-order?page=$page&pagination=20";
     await repositories.getApi(url: ApiUrls.baseUrl + url).then((value) {
-      if(reset == true){
+      if (reset == true) {
         data = [];
       }
       loaded = true;
       paginationLoading = false;
       ModelVendorOrders response = ModelVendorOrders.fromJson(jsonDecode(value));
-      if(response.order != null){
-        if(response.order!.data != null && response.order!.data!.isNotEmpty){
-          data.addAll( response.order!.data!);
+      if (response.order != null) {
+        if (response.order!.data != null && response.order!.data!.isNotEmpty) {
+          data.addAll(response.order!.data!);
           page++;
-        }
-        else {
+        } else {
           allLoaded = false;
         }
       }
@@ -106,7 +104,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: RefreshIndicator(
-          onRefresh: ()async{
+          onRefresh: () async {
             await getOrdersList(reset: true);
           },
           child: SafeArea(
@@ -125,8 +123,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                           fit: BoxFit.cover,
                         )),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: AddSize.padding10),
+                      padding: EdgeInsets.symmetric(vertical: AddSize.padding10),
                       child: Column(
                         children: [
                           Row(
@@ -158,45 +155,33 @@ class _VendorOrderListState extends State<VendorOrderList> {
                           ),
                           Container(
                               decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(.1),
-                                  borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(color: Colors.white24),
+                                color: Colors.white.withOpacity(.1),
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: Colors.white24),
                               ),
                               margin: const EdgeInsets.symmetric(horizontal: 16),
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AddSize.padding16,
-                                    vertical: AddSize.padding16),
+                                padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           '€450.00',
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineSmall!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 28,
-                                                  color: Colors.white),
+                                              .copyWith(fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),
                                         ),
                                         SizedBox(
                                           height: AddSize.size5,
                                         ),
                                         Text(
                                           "Your earning this month".tr,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: AddSize.font14,
-                                                  color: Colors.white),
+                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                              fontWeight: FontWeight.w400, fontSize: AddSize.font14, color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -206,22 +191,15 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       },
                                       child: Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: AddSize.padding20,
-                                              vertical: AddSize.padding12),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
+                                              horizontal: AddSize.padding20, vertical: AddSize.padding12),
+                                          decoration:
+                                              BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                                           child: Text(
                                             "Withdrawal".tr,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineSmall!
-                                                .copyWith(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: AddSize.font16,
-                                                    color:
-                                                        AppTheme.buttonColor),
+                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: AddSize.font16,
+                                                color: AppTheme.buttonColor),
                                           )),
                                     )
                                   ],
@@ -251,21 +229,16 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                   fillColor: Colors.white.withOpacity(.1),
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
-                                      borderRadius:
-                                          const BorderRadius.all(Radius.circular(6))),
+                                      borderRadius: const BorderRadius.all(Radius.circular(6))),
                                   enabled: true,
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
-                                      borderRadius:
-                                      const BorderRadius.all(Radius.circular(6))),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: AddSize.padding20,
-                                      vertical: AddSize.padding10),
+                                      borderRadius: const BorderRadius.all(Radius.circular(6))),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
                                   hintText: 'Search'.tr,
                                   hintStyle: GoogleFonts.poppins(
-                                      fontSize: AddSize.font16,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400)),
+                                      fontSize: AddSize.font16, color: Colors.white, fontWeight: FontWeight.w400)),
                             ),
                           ),
                           SizedBox(

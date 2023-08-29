@@ -18,7 +18,10 @@ class AddProductController extends GetxController {
 
   Future getProductCategoryLit() async {
     refreshCategory.value = -2;
-    await repositories.postApi(url: ApiUrls.productCategoryListUrl, showResponse: false, showMap: false).then((value) {
+    await repositories.postApi(
+        url: ApiUrls.productCategoryListUrl,
+        showResponse: false,
+        showMap: false).then((value) {
       productCategory = ModelAddProductCategory.fromJson(jsonDecode(value));
       updateCategory();
       refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
