@@ -103,7 +103,7 @@ class _ProductUIState extends State<ProductUI> {
                           imageUrl: widget.productElement.featuredImage.toString(),
                           height: 100,
                           fit: BoxFit.cover,
-                          errorWidget: (context, url, error) => Image.asset("assets/images/bag.png"),
+                          errorWidget: (context, url, error) => Icon(Icons.report_gmailerrorred_rounded,color: Theme.of(context).colorScheme.error,),
                         ),
                       ),
                     ),

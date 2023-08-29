@@ -1,10 +1,20 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:dirise/repository/repository.dart';
 import 'package:dirise/screens/app_bar/common_app_bar.dart';
+import 'package:dirise/screens/product_details/product_widget.dart';
+import 'package:dirise/utils/ApiConstant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../model/trending_products_modal.dart';
+import '../model/vendor_models/model_vendor_product_list.dart';
 import '../widgets/common_colour.dart';
 
 class SearchProductsScreen extends StatefulWidget {
   final String searchText;
+
   const SearchProductsScreen({Key? key, required this.searchText}) : super(key: key);
 
   @override
@@ -12,22 +22,86 @@ class SearchProductsScreen extends StatefulWidget {
 }
 
 class _SearchProductsScreenState extends State<SearchProductsScreen> {
-
   late TextEditingController textEditingController;
+  final Repositories repositories = Repositories();
+  int page = 1;
+  RxInt refreshInt = 0.obs;
+  ModelProductsList modelProductsList = ModelProductsList(product: []);
+  bool allLoaded = false;
+  bool paginating = false;
+  final ScrollController scrollController = ScrollController();
+  Timer? timer;
+
+  debounceSearch() {
+    if (timer != null) {
+      timer!.cancel();
+    }
+    searchProducts(reset: true);
+  }
+
+  addScrollListener() {
+    scrollController.addListener(() {
+      if (scrollController.offset > (scrollController.position.maxScrollExtent - 10)) {
+        searchProducts();
+      }
+    });
+  }
+
+  searchProducts({bool? reset}) {
+    if (reset == true) {
+      allLoaded = false;
+      paginating = false;
+      page = 1;
+    }
+
+    if (allLoaded) return;
+    if (paginating) return;
+    paginating = true;
+    refreshInt.value = -2;
+    repositories.postApi(url: ApiUrls.searchProductUrl, mapData: {
+      'search': textEditingController.text.trim(),
+      'page': page,
+      'limit': "20",
+    }).then((value) {
+      paginating = false;
+      if (reset == true) {
+        modelProductsList.product = [];
+      }
+      ModelProductsList response = ModelProductsList.fromJson(jsonDecode(value));
+      response.product ??= [];
+      if (response.product!.isNotEmpty) {
+        modelProductsList.product!.addAll(response.product!);
+        page++;
+      } else {
+        allLoaded = true;
+      }
+      refreshInt.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     textEditingController = TextEditingController(text: widget.searchText);
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      searchProducts();
+      addScrollListener();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    textEditingController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const CommonAppBar(
-            titleText: "Search",
-            backGroundColor: AppTheme.buttonColor,
-            textColor: Colors.white,
+          titleText: "Search",
+          backGroundColor: AppTheme.buttonColor,
+          textColor: Colors.white,
         ),
         body: RefreshIndicator(
             onRefresh: () async {
@@ -50,6 +124,9 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                               controller: textEditingController,
                               style: GoogleFonts.poppins(fontSize: 16),
                               textInputAction: TextInputAction.search,
+                              onChanged: (value) {
+                                debounceSearch();
+                              },
                               decoration: InputDecoration(
                                   filled: true,
                                   prefixIcon: Padding(
@@ -86,15 +163,31 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                 Expanded(
                   child: Container(
                     color: Colors.white,
-                    child: const SingleChildScrollView(
-                        child: Column(children: [
-                      // SliderWidget(),
-                      // CategoryItems(),
-                      // TrendingProducts(),
-                      // PopularProducts(),
-                      // AdBannerUI(),
-                      // AuthorScreen(),
-                    ])),
+                    child: Obx(() {
+                      if (refreshInt.value > 0) {}
+                      return GridView.builder(
+                        controller: scrollController,
+                        shrinkWrap: true,
+                        itemCount: modelProductsList.product!.length,
+                        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 20,
+                            childAspectRatio:
+                                MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.3)),
+                        itemBuilder: (BuildContext context, int index) {
+                          final item = modelProductsList.product![index];
+                          print(item.toJson());
+                          return ProductUI(
+                            productElement: ProductElement.fromJson(item.toJson()),
+                            onLiked: (value) {
+                              item.inWishlist = value;
+                            },
+                          );
+                        },
+                      );
+                    }),
                   ),
                 ),
               ],

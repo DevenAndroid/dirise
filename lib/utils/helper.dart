@@ -31,8 +31,8 @@ class NewHelper {
   Future<File?> addFilePicker({List<String>? allowedExtensions}) async {
     try {
       final item = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: allowedExtensions ?? ['jpg', 'png', 'jpeg'],
+        type: allowedExtensions != null ? FileType.custom : FileType.any,
+        allowedExtensions: allowedExtensions,
       );
       if (item == null) {
         return null;

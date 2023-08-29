@@ -13,7 +13,8 @@ class ModelProductsList {
       json['product'].forEach((v) {
         product!.add(ProductListData.fromJson(v));
       });
-    } else {
+    }
+    else {
       product = [];
     }
   }

@@ -13,6 +13,7 @@ import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
+import 'image_widget.dart';
 import 'verify_vendor_otp.dart';
 
 class VendorRegistrationScreen extends StatefulWidget {
@@ -25,45 +26,54 @@ class VendorRegistrationScreen extends StatefulWidget {
 }
 
 class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
+  final Repositories repositories = Repositories();
+  ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
+
   final _formKey = GlobalKey<FormState>();
   final GlobalKey categoryKey = GlobalKey();
 
-  Map<String, TextEditingController> textControllers = {
-    "store_name": TextEditingController(),
-    "phone": TextEditingController(),
-    "email": TextEditingController(),
-    "store_address": TextEditingController(),
-    "store_business_id": TextEditingController(),
-    "store_about_us": TextEditingController(),
-    "store_about_me": TextEditingController(),
-  };
+  List<String> vendorType = ["Advertising", "Personal/ home business", "Company"];
+  String storeType = "Advertising";
+  RxBool showValidation = false.obs;
+  RxBool hideText = true.obs;
+  Map<String, VendorCategoriesData> allSelectedCategory = {};
+  Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
 
   Rx<File> storeImage = File("").obs;
   Rx<File> businessImage = File("").obs;
-  RxBool showValidation = false.obs;
-  RxBool hideText = true.obs;
-  final Repositories repositories = Repositories();
-  Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
-  ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
-  // Usphone? selectedCategory;
-  Map<String, VendorCategoriesData> allSelectedCategory = {};
+
+  /// Vendor 1 Fields and some are mandatory and present in all
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+  final TextEditingController storeName = TextEditingController();
+  final TextEditingController homeAddress = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController emailAddress = TextEditingController();
+  final TextEditingController optionalController1 = TextEditingController();
+  final TextEditingController optionalController2 = TextEditingController();
+  final TextEditingController optionalController3 = TextEditingController();
+
+  /// Vendor 2 Fields and rest are from above
+  final TextEditingController ceoName = TextEditingController();
+  final TextEditingController partnerCount = TextEditingController();
+  File paymentReceiptCertificate = File("");
+
+  /// Vendor 3 Fields
+  final TextEditingController companyName = TextEditingController();
+  final TextEditingController workAddress = TextEditingController();
+  final TextEditingController businessNumber = TextEditingController();
+  final TextEditingController taxNumber = TextEditingController();
+  File memorandumAssociation = File("");
+  File commercialLicense = File("");
+  File signatureApproval = File("");
+  File ministryCommerce = File("");
+  File originalCivilInformation = File("");
+  File companyBankAccount = File("");
 
   void vendorRegistration() {
     showValidation.value = true;
+    setState(() {});
     if (!_formKey.currentState!.validate()) {
-      bool inTextFound = false;
-      for (var element in textControllers.entries) {
-        if (element.value.text.trim().isEmpty) {
-          inTextFound = true;
-          Scrollable.ensureVisible(element.value.getKey.currentContext!,
-              alignment: .25, duration: const Duration(milliseconds: 600));
-          break;
-        }
-      }
-
-      if (!inTextFound) {
-        Scrollable.ensureVisible(categoryKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
-      }
       return;
     }
     if (storeImage.value.path.isEmpty) {
@@ -74,7 +84,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       showToast("Please select business id image");
       return;
     }
-    Map<String, String> map = textControllers.map((key, value) => MapEntry(key, value.text.trim()));
+    Map<String, String> map = {};
     map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
 
     Map<String, File> images = {};
@@ -94,7 +104,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       ModelVendorRegistrationResponse response = ModelVendorRegistrationResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true && response.otp != null) {
-        Get.to(() => const VendorOTPVerification(), arguments: [textControllers["email"]!.text.trim()]);
+        // Get.to(() => const VendorOTPVerification(), arguments: [textControllers["email"]!.text.trim()]);
       }
     });
   }
@@ -127,9 +137,9 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   @override
   void dispose() {
     super.dispose();
-    textControllers.forEach((key, value) {
-      value.dispose();
-    });
+    // textControllers.forEach((key, value) {
+    //   value.dispose();
+    // });
   }
 
   @override
@@ -171,9 +181,78 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
               child: Column(
                 children: [
                   Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    DropdownButtonFormField<String>(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      iconSize: 30,
+                      iconDisabledColor: const Color(0xff97949A),
+                      iconEnabledColor: const Color(0xff97949A),
+                      value: storeType,
+                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        filled: true,
+                        fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
+                        focusedErrorBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                        errorBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                        focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                        disabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
+                      ),
+                      items: vendorType.map((e) => DropdownMenuItem(value: e, child: Text(e.toString()))).toList(),
+                      hint: const Text('Category'),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        storeType = value;
+                        setState(() {});
+                      },
+                      validator: (value) {
+                        if (allSelectedCategory.isEmpty) {
+                          return "Please select Category";
+                        }
+                        return null;
+                      },
+                    ),
+
+                    14.spaceY,
                     VendorCommonTextfield(
-                        controller: textControllers["store_name"],
-                        key: textControllers["store_name"]!.getKey,
+                        controller: firstName,
+                        key: firstName.getKey,
+                        hintText: "First Name",
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return "Please enter first name";
+                          }
+                          return null;
+                        }),
+                    14.spaceY,
+                    VendorCommonTextfield(
+                        controller: lastName,
+                        key: lastName.getKey,
+                        hintText: "Last Name",
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return "Please enter last name";
+                          }
+                          return null;
+                        }),
+
+                    14.spaceY,
+                    VendorCommonTextfield(
+                        controller: storeName,
+                        key: storeName.getKey,
                         hintText: "Store Name",
                         validator: (value) {
                           if (value!.trim().isEmpty) {
@@ -183,9 +262,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         }),
                     14.spaceY,
                     VendorCommonTextfield(
-                        //obSecure: true,
-                        controller: textControllers["phone"],
-                        key: textControllers["phone"]!.getKey,
+                        controller: phoneNumber,
+                        key: phoneNumber.getKey,
                         hintText: "Phone Number",
                         keyboardType: TextInputType.name,
                         validator: (value) {
@@ -199,10 +277,9 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         }),
                     14.spaceY,
                     VendorCommonTextfield(
-                        //obSecure: true,
-                        controller: textControllers["email"],
+                        controller: emailAddress,
                         keyboardType: TextInputType.emailAddress,
-                        key: textControllers["email"]!.getKey,
+                        key: emailAddress.getKey,
                         hintText: "Store Email Address",
                         validator: (value) {
                           if (value!.trim().isEmpty) {
@@ -213,56 +290,131 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           }
                           return null;
                         }),
-                    // 14.spaceY,
-                    // Obx(() {
-                    //   return VendorCommonTextfield(
-                    //       //obSecure: true,
-                    //       obSecure: hideText.value,
-                    //       controller: textControllers["password"],
-                    //       key: textControllers["password"]!.getKey,
-                    //       hintText: "Set Store Password",
-                    //       suffixIcon: IconButton(
-                    //         onPressed: () {
-                    //           hideText.value = !hideText.value;
-                    //         },
-                    //         icon: Icon(hideText.value ? Icons.visibility_off_rounded : Icons.visibility),
-                    //       ),
-                    //       validator: (value) {
-                    //         if (value!.trim().isEmpty) {
-                    //           return "Password is required";
-                    //         }
-                    //         if (value.trim().length < 8) {
-                    //           return "Password required minimum 8 characters";
-                    //         }
-                    //         return null;
-                    //       });
-                    // }),
                     14.spaceY,
                     VendorCommonTextfield(
-                        controller: textControllers["store_address"],
+                        controller: homeAddress,
                         keyboardType: TextInputType.streetAddress,
-                        key: textControllers["store_address"]!.getKey,
-                        hintText: "Address",
+                        key: homeAddress.getKey,
+                        hintText: "Home Address",
                         validator: (value) {
                           if (value!.trim().isEmpty) {
-                            return "Please enter store address";
+                            return "Please enter home address";
+                          }
+                          return null;
+                        }),
+
+                    /// Optional Fields
+                    14.spaceY,
+                    VendorCommonTextfield(
+                        controller: optionalController1,
+                        keyboardType: TextInputType.streetAddress,
+                        key: optionalController1.getKey,
+                        hintText: "Optional1",
+                        validator: (value) {
+                          // if (value!.trim().isEmpty) {
+                          //   return "Please enter home address";
+                          // }
+                          return null;
+                        }),
+                    14.spaceY,
+                    VendorCommonTextfield(
+                        controller: optionalController2,
+                        keyboardType: TextInputType.streetAddress,
+                        key: optionalController2.getKey,
+                        hintText: "Optional2",
+                        validator: (value) {
+                          // if (value!.trim().isEmpty) {
+                          //   return "Please enter home address";
+                          // }
+                          return null;
+                        }),
+                    14.spaceY,
+                    VendorCommonTextfield(
+                        controller: optionalController3,
+                        keyboardType: TextInputType.streetAddress,
+                        key: optionalController3.getKey,
+                        hintText: "Optional3",
+                        validator: (value) {
+                          // if (value!.trim().isEmpty) {
+                          //   return "Please enter home address";
+                          // }
+                          return null;
+                        }),
+                    14.spaceY,
+
+                    if(storeType == "Personal/ home business")
+                      ...[
+                        VendorCommonTextfield(
+                            controller: ceoName,
+                            keyboardType: TextInputType.streetAddress,
+                            key: ceoName.getKey,
+                            hintText: "Ceo Name",
+                            validator: (value) {
+                              if (value!.trim().isEmpty) {
+                                return "Please enter ceo name";
+                              }
+                              return null;
+                            }),
+                        14.spaceY,
+                        VendorCommonTextfield(
+                            controller: partnerCount,
+                            keyboardType: TextInputType.streetAddress,
+                            key: partnerCount.getKey,
+                            hintText: "#Partners",
+                            validator: (value) {
+                              if (value!.trim().isEmpty) {
+                                return "Please enter you partners";
+                              }
+                              return null;
+                            }),
+                        14.spaceY,
+                        VendorCommonTextfield(
+                            controller: ceoName,
+                            keyboardType: TextInputType.streetAddress,
+                            key: ceoName.getKey,
+                            hintText: "Optional3",
+                            validator: (value) {
+                              // if (value!.trim().isEmpty) {
+                              //   return "Please enter home address";
+                              // }
+                              return null;
+                            }),
+                        14.spaceY,
+                      ],
+
+
+
+
+
+                    VendorCommonTextfield(
+                        controller: companyName,
+                        keyboardType: TextInputType.streetAddress,
+                        key: companyName.getKey,
+                        hintText: "Company Name",
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return "Please enter company name";
                           }
                           return null;
                         }),
                     14.spaceY,
                     VendorCommonTextfield(
-                        //obSecure: true,
-                        controller: textControllers["store_business_id"],
-                        keyboardType: TextInputType.number,
-                        key: textControllers["store_business_id"]!.getKey,
-                        hintText: "Business ID (number)",
+                        controller: workAddress,
+                        keyboardType: TextInputType.streetAddress,
+                        key: workAddress.getKey,
+                        hintText: "Work Address",
                         validator: (value) {
                           if (value!.trim().isEmpty) {
-                            return "Please enter Business ID (number)";
+                            return "Please enter work address";
                           }
                           return null;
                         }),
                     14.spaceY,
+
+
+
+
+
                     Obx(() {
                       if (kDebugMode) {
                         print(modelVendorCategory.usphone!
@@ -345,165 +497,29 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           .toList(),
                     ),
                     14.spaceY,
+                    ImageWidget(
+                      title: "Payment Receipt Certificate",
+                      file: paymentReceiptCertificate,
+                      validation: checkValidation(showValidation.value, paymentReceiptCertificate.path.isEmpty),
+                      filePicked: (File g){
+                        paymentReceiptCertificate = g;
+                      },
+                    ),
                     VendorCommonTextfield(
-                        //obSecure: true,
-                        controller: textControllers["store_about_us"],
-                        key: textControllers["store_about_us"]!.getKey,
-                        hintText: "Tell us about the store....",
-                        isMulti: true,
+                        controller: workAddress,
+                        keyboardType: TextInputType.streetAddress,
+                        key: workAddress.getKey,
+                        hintText: "Work Address",
                         validator: (value) {
                           if (value!.trim().isEmpty) {
-                            return "Store description is required";
+                            return "Please enter company name";
                           }
                           return null;
                         }),
                     14.spaceY,
-                    VendorCommonTextfield(
-                        //obSecure: true,
-                        controller: textControllers["store_about_me"],
-                        key: textControllers["store_about_me"]!.getKey,
-                        hintText: "Tell us about you.",
-                        isMulti: true,
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please tell us about yourself";
-                          }
-                          return null;
-                        }),
-                    14.spaceY,
-                    Text(
-                      "Store Logo",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: AddSize.font18),
-                    ),
-                    14.spaceY,
-                    Obx(() {
-                      return GestureDetector(
-                        onTap: () {
-                          NewHelper().addFilePicker().then((value) {
-                            if (value == null) return;
-                            storeImage.value = value;
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
-                          width: AddSize.screenWidth,
-                          height: context.getSize.width * .38,
-                          decoration: BoxDecoration(
-                              color: const Color(0xffE2E2E2).withOpacity(.4),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: !checkValidation(showValidation.value, storeImage.value.path == "")
-                                    ? Colors.grey.shade300
-                                    : Colors.red,
-                              )),
-                          child: storeImage.value.path == ""
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Select Store Logo",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
-                                          color: showValidation.value && storeImage.value.path.isEmpty
-                                              ? Theme.of(context).colorScheme.error
-                                              : const Color(0xff463B57),
-                                          fontSize: AddSize.font16),
-                                    ),
-                                    SizedBox(
-                                      height: AddSize.size10,
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            color: showValidation.value && storeImage.value.path.isEmpty
-                                                ? Theme.of(context).colorScheme.error
-                                                : Colors.grey,
-                                            width: 1.8,
-                                          )),
-                                      padding: const EdgeInsets.all(6),
-                                      child: Icon(
-                                        CupertinoIcons.photo_camera,
-                                        size: 20,
-                                        color: showValidation.value && storeImage.value.path.isEmpty
-                                            ? Theme.of(context).colorScheme.error
-                                            : Colors.grey,
-                                      ),
-                                    )
-                                  ],
-                                )
-                              : Image.file(storeImage.value),
-                        ),
-                      );
-                    }),
-                    14.spaceY,
-                    Text(
-                      "Business ID One Image ",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: AddSize.font18),
-                    ),
-                    14.spaceY,
-                    Obx(() {
-                      return GestureDetector(
-                        onTap: () {
-                          NewHelper().addFilePicker().then((value) {
-                            if (value == null) return;
-                            businessImage.value = value;
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
-                          width: AddSize.screenWidth,
-                          height: context.width * .38,
-                          decoration: BoxDecoration(
-                              color: const Color(0xffE2E2E2).withOpacity(.4),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: !checkValidation(showValidation.value, businessImage.value.path == "")
-                                    ? Colors.grey.shade300
-                                    : Colors.red,
-                              )),
-                          child: businessImage.value.path == ""
-                              ? Column(
-                                  children: [
-                                    Text(
-                                      "Select Business ID Image",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
-                                          color: showValidation.value && businessImage.value.path.isEmpty
-                                              ? Theme.of(context).colorScheme.error
-                                              : const Color(0xff463B57),
-                                          fontSize: AddSize.font16),
-                                    ),
-                                    SizedBox(
-                                      height: AddSize.size10,
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            color: showValidation.value && businessImage.value.path.isEmpty
-                                                ? Theme.of(context).colorScheme.error
-                                                : Colors.grey,
-                                            width: 1.8,
-                                          )),
-                                      padding: const EdgeInsets.all(6),
-                                      child: Icon(
-                                        CupertinoIcons.photo_camera,
-                                        size: 20,
-                                        color: showValidation.value && businessImage.value.path.isEmpty
-                                            ? Theme.of(context).colorScheme.error
-                                            : Colors.grey,
-                                      ),
-                                    )
-                                  ],
-                                )
-                              : Image.file(businessImage.value),
-                        ),
-                      );
-                    }),
-                    14.spaceY,
+
+
+
                     ElevatedButton(
                         onPressed: () {
                           vendorRegistration();
