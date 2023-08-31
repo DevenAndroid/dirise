@@ -14,7 +14,6 @@ import '../../utils/helper.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
 import 'image_widget.dart';
-import 'verify_vendor_otp.dart';
 
 class VendorRegistrationScreen extends StatefulWidget {
   const VendorRegistrationScreen({Key? key}) : super(key: key);
@@ -42,7 +41,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   Rx<File> storeImage = File("").obs;
   Rx<File> businessImage = File("").obs;
 
-  /// Vendor 1 Fields and some are mandatory and present in all
+  /// Vendor 1 Fields and some are mandatory and present in all.
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
   final TextEditingController storeName = TextEditingController();
@@ -61,6 +60,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   /// Vendor 3 Fields
   final TextEditingController companyName = TextEditingController();
   final TextEditingController workAddress = TextEditingController();
+  final TextEditingController workEmail = TextEditingController();
   final TextEditingController businessNumber = TextEditingController();
   final TextEditingController taxNumber = TextEditingController();
   File memorandumAssociation = File("");
@@ -71,8 +71,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   File companyBankAccount = File("");
 
   void vendorRegistration() {
-    showValidation.value = true;
-    setState(() {});
+    if(showValidation.value== false){
+      showValidation.value = true;
+      setState(() {});
+    }
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -218,12 +220,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         storeType = value;
                         setState(() {});
                       },
-                      validator: (value) {
-                        if (allSelectedCategory.isEmpty) {
-                          return "Please select Category";
-                        }
-                        return null;
-                      },
                     ),
 
                     14.spaceY,
@@ -342,78 +338,95 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         }),
                     14.spaceY,
 
-                    if(storeType == "Personal/ home business")
-                      ...[
-                        VendorCommonTextfield(
-                            controller: ceoName,
-                            keyboardType: TextInputType.streetAddress,
-                            key: ceoName.getKey,
-                            hintText: "Ceo Name",
-                            validator: (value) {
-                              if (value!.trim().isEmpty) {
-                                return "Please enter ceo name";
-                              }
-                              return null;
-                            }),
-                        14.spaceY,
-                        VendorCommonTextfield(
-                            controller: partnerCount,
-                            keyboardType: TextInputType.streetAddress,
-                            key: partnerCount.getKey,
-                            hintText: "#Partners",
-                            validator: (value) {
-                              if (value!.trim().isEmpty) {
-                                return "Please enter you partners";
-                              }
-                              return null;
-                            }),
-                        14.spaceY,
-                        VendorCommonTextfield(
-                            controller: ceoName,
-                            keyboardType: TextInputType.streetAddress,
-                            key: ceoName.getKey,
-                            hintText: "Optional3",
-                            validator: (value) {
-                              // if (value!.trim().isEmpty) {
-                              //   return "Please enter home address";
-                              // }
-                              return null;
-                            }),
-                        14.spaceY,
-                      ],
+                    if (storeType == "Personal/ home business") ...[
+                      VendorCommonTextfield(
+                          controller: ceoName,
+                          keyboardType: TextInputType.streetAddress,
+                          key: ceoName.getKey,
+                          hintText: "Ceo Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter ceo name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      VendorCommonTextfield(
+                          controller: partnerCount,
+                          keyboardType: TextInputType.streetAddress,
+                          key: partnerCount.getKey,
+                          hintText: "#Partners",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter you partners";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                    ],
 
-
-
-
-
-                    VendorCommonTextfield(
-                        controller: companyName,
-                        keyboardType: TextInputType.streetAddress,
-                        key: companyName.getKey,
-                        hintText: "Company Name",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please enter company name";
-                          }
-                          return null;
-                        }),
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: workAddress,
-                        keyboardType: TextInputType.streetAddress,
-                        key: workAddress.getKey,
-                        hintText: "Work Address",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please enter work address";
-                          }
-                          return null;
-                        }),
-                    14.spaceY,
-
-
-
-
+                    if (storeType == "Company") ...[
+                      VendorCommonTextfield(
+                          controller: companyName,
+                          keyboardType: TextInputType.streetAddress,
+                          key: companyName.getKey,
+                          hintText: "Company Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter company name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      VendorCommonTextfield(
+                          controller: workAddress,
+                          keyboardType: TextInputType.streetAddress,
+                          key: workAddress.getKey,
+                          hintText: "Work Address",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter work address";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      VendorCommonTextfield(
+                          controller: businessNumber,
+                          keyboardType: TextInputType.streetAddress,
+                          key: businessNumber.getKey,
+                          hintText: "Business Number",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter business number";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      VendorCommonTextfield(
+                          controller: workEmail,
+                          keyboardType: TextInputType.streetAddress,
+                          key: workEmail.getKey,
+                          hintText: "Work Email",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter work email";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      VendorCommonTextfield(
+                          controller: taxNumber,
+                          keyboardType: TextInputType.streetAddress,
+                          key: taxNumber.getKey,
+                          hintText: "Tax number * (outside Kuwait)",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter work email";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                    ],
 
                     Obx(() {
                       if (kDebugMode) {
@@ -497,28 +510,72 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           .toList(),
                     ),
                     14.spaceY,
-                    ImageWidget(
-                      title: "Payment Receipt Certificate",
-                      file: paymentReceiptCertificate,
-                      validation: checkValidation(showValidation.value, paymentReceiptCertificate.path.isEmpty),
-                      filePicked: (File g){
-                        paymentReceiptCertificate = g;
-                      },
-                    ),
-                    VendorCommonTextfield(
-                        controller: workAddress,
-                        keyboardType: TextInputType.streetAddress,
-                        key: workAddress.getKey,
-                        hintText: "Work Address",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please enter company name";
-                          }
-                          return null;
-                        }),
-                    14.spaceY,
 
-
+                    if (storeType == "Personal/ home business")
+                      ImageWidget(
+                        title: "Payment Receipt Certificate",
+                        file: paymentReceiptCertificate,
+                        validation: checkValidation(showValidation.value, paymentReceiptCertificate.path.isEmpty),
+                        filePicked: (File g) {
+                          paymentReceiptCertificate = g;
+                        },
+                      ),
+                    if (storeType == "Company") ...[
+                      // memorandumAssociation
+                      // commercialLicense
+                      // signatureApproval
+                      // ministryCommerce
+                      // originalCivilInformation
+                      // companyBankAccount
+                      ImageWidget(
+                        title: "Memorandum of Association",
+                        file: memorandumAssociation,
+                        validation: checkValidation(showValidation.value, memorandumAssociation.path.isEmpty),
+                        filePicked: (File g) {
+                          memorandumAssociation = g;
+                        },
+                      ),
+                      ImageWidget(
+                        title: "Commercial license",
+                        file: commercialLicense,
+                        validation: checkValidation(showValidation.value, commercialLicense.path.isEmpty),
+                        filePicked: (File g) {
+                          commercialLicense = g;
+                        },
+                      ),
+                      ImageWidget(
+                        title: "Signature approval",
+                        file: signatureApproval,
+                        validation: checkValidation(showValidation.value, signatureApproval.path.isEmpty),
+                        filePicked: (File g) {
+                          signatureApproval = g;
+                        },
+                      ),
+                      ImageWidget(
+                        title: "Extract from the Ministry of Commerce",
+                        file: ministryCommerce,
+                        validation: checkValidation(showValidation.value, ministryCommerce.path.isEmpty),
+                        filePicked: (File g) {
+                          ministryCommerce = g;
+                        },
+                      ),
+                      ImageWidget(
+                        title: "Original civil information",
+                        file: originalCivilInformation,
+                        validation: checkValidation(showValidation.value, originalCivilInformation.path.isEmpty),
+                        filePicked: (File g) {
+                          originalCivilInformation = g;
+                        },
+                      ),
+                      ImageWidget(
+                        title: "Company bank account",
+                        file: companyBankAccount,
+                        validation: checkValidation(showValidation.value, companyBankAccount.path.isEmpty),
+                        filePicked: (File g) {
+                          companyBankAccount = g;
+                        },
+                      ),
+                    ],
 
                     ElevatedButton(
                         onPressed: () {

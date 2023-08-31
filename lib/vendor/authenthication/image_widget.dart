@@ -41,11 +41,12 @@ class _ImageWidgetState extends State<ImageWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        8.spaceY,
         Text(
           widget.title,
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: AddSize.font18),
+          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 16),
         ),
-        10.spaceY,
+        8.spaceY,
         GestureDetector(
           onTap: () {
             pickImage();
@@ -69,7 +70,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w500,
                       color: validation ? Theme.of(context).colorScheme.error : const Color(0xff463B57),
-                      fontSize: AddSize.font16),
+                      fontSize: 15),
                 ),
                 SizedBox(
                   height: AddSize.size10,
@@ -83,8 +84,8 @@ class _ImageWidgetState extends State<ImageWidget> {
                       )),
                   padding: const EdgeInsets.all(6),
                   child: Icon(
-                    Icons.file_copy_rounded,
-                    size: 20,
+                    Icons.upload_file_outlined,
+                    size: 24,
                     color: validation ? Theme.of(context).colorScheme.error : Colors.grey,
                   ),
                 )
