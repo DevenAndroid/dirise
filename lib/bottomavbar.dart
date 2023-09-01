@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/home_pages/homepage_screen.dart';
 import 'package:dirise/screens/wishlist/whishlist_screen.dart';
 import 'package:dirise/utils/ApiConstant.dart';
@@ -143,7 +144,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                             ),
                             FittedBox(
                               child: Text(
-                                "Home",
+                                AppStrings.home,
                                 style: GoogleFonts.poppins(
                                     color: bottomController.pageIndex.value == 0
                                         ? AppTheme.buttonColor
@@ -181,7 +182,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                             ),
                             Text(
-                              "Categories",
+                              AppStrings.categories,
                               style: GoogleFonts.poppins(
                                   color: bottomController.pageIndex.value == 1
                                       ? AppTheme.buttonColor
@@ -218,7 +219,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                             ),
                             Text(
-                              "Favorite",
+                              AppStrings.favorite,
                               style: GoogleFonts.poppins(
                                   color: bottomController.pageIndex.value == 2
                                       ? AppTheme.buttonColor
@@ -255,7 +256,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                             ),
                             Text(
-                              "Profile",
+                              AppStrings.profile,
                               style: GoogleFonts.poppins(
                                   color: bottomController.pageIndex.value == 3
                                       ? AppTheme.buttonColor

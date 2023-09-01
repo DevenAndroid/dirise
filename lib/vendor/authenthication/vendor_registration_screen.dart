@@ -6,33 +6,50 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../model/vendor_models/model_plan_list.dart';
 import '../../model/vendor_models/model_vendor_registration.dart';
 import '../../model/vendor_models/vendor_category_model.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
+import '../../utils/styles.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
 import 'image_widget.dart';
 
 class VendorRegistrationScreen extends StatefulWidget {
-  const VendorRegistrationScreen({Key? key}) : super(key: key);
-
-  static var registrationScreen = "/registrationScreen";
+  const VendorRegistrationScreen({Key? key, required this.selectedPlan, required this.modelPlansList}) : super(key: key);
+  final PlanInfoData selectedPlan;
+  final ModelPlansList modelPlansList;
 
   @override
   State<VendorRegistrationScreen> createState() => _VendorRegistrationScreenState();
 }
 
 class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
+
+  PlanInfoData get planInfo => widget.selectedPlan;
+
   final Repositories repositories = Repositories();
   ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey categoryKey = GlobalKey();
 
-  List<String> vendorType = ["Advertising", "Personal/ home business", "Company"];
-  String storeType = "Advertising";
+  // List<String> vendorType = [];
+  //
+  // List<String> get getVendorType{
+  //   List<String> gg = [];
+  //   for (var element in widget.modelPlansList.allPlans) {
+  //     for (var element1 in element!) {
+  //       gg.add(element1.businessType.toString());
+  //     }
+  //   }
+  //   gg = gg.toSet().toList();
+  //   return gg;
+  // }
+
+  String storeType = "";
   RxBool showValidation = false.obs;
   RxBool hideText = true.obs;
   Map<String, VendorCategoriesData> allSelectedCategory = {};
@@ -133,6 +150,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   @override
   void initState() {
     super.initState();
+    // vendorType= getVendorType;
+    storeType = widget.selectedPlan.businessType.toString();
     getVendorCategories();
   }
 
@@ -183,44 +202,88 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
               child: Column(
                 children: [
                   Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    DropdownButtonFormField<String>(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      iconSize: 30,
-                      iconDisabledColor: const Color(0xff97949A),
-                      iconEnabledColor: const Color(0xff97949A),
-                      value: storeType,
-                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        filled: true,
-                        fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
-                        focusedErrorBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                        errorBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                        focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                        disabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                    // DropdownButtonFormField<String>(
+                    //   autovalidateMode: AutovalidateMode.onUserInteraction,
+                    //   iconSize: 30,
+                    //   iconDisabledColor: const Color(0xff97949A),
+                    //   iconEnabledColor: const Color(0xff97949A),
+                    //   value: storeType,
+                    //   style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
+                    //   decoration: InputDecoration(
+                    //     border: InputBorder.none,
+                    //     filled: true,
+                    //     fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                    //     contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
+                    //     focusedErrorBorder: const OutlineInputBorder(
+                    //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                    //         borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                    //     errorBorder: const OutlineInputBorder(
+                    //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                    //         borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                    //     focusedBorder: const OutlineInputBorder(
+                    //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                    //         borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                    //     disabledBorder: const OutlineInputBorder(
+                    //       borderRadius: BorderRadius.all(Radius.circular(8)),
+                    //       borderSide: BorderSide(color: AppTheme.secondaryColor),
+                    //     ),
+                    //     enabledBorder: const OutlineInputBorder(
+                    //       borderRadius: BorderRadius.all(Radius.circular(8)),
+                    //       borderSide: BorderSide(color: AppTheme.secondaryColor),
+                    //     ),
+                    //   ),
+                    //   items: vendorType.map((e) => DropdownMenuItem(value: e, child: Text(e.toString()))).toList(),
+                    //   hint: const Text('Category'),
+                    //   onChanged: (value) {
+                    //     if (value == null) return;
+                    //     storeType = value;
+                    //     setState(() {});
+                    //   },
+                    // ),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 14),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            children: [
+                                Text(
+                                  planInfo.businessType.toString().capitalize!,
+                                  style: titleStyle.copyWith(fontSize: 18),
+                                ),
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: Text(
+                                            planInfo.title.toString().capitalize!,
+                                            style: titleStyle,
+                                          )),
+                                      Text(planInfo.amount.toString()),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: Text(
+                                            "Validity",
+                                            style: titleStyle,
+                                          )),
+                                      Text("${planInfo.label}"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: AppTheme.secondaryColor),
-                        ),
-                      ),
-                      items: vendorType.map((e) => DropdownMenuItem(value: e, child: Text(e.toString()))).toList(),
-                      hint: const Text('Category'),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        storeType = value;
-                        setState(() {});
-                      },
+                      )
                     ),
+
 
                     14.spaceY,
                     VendorCommonTextfield(

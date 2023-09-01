@@ -96,8 +96,10 @@ class _HomePageState extends State<HomePage> {
                               maxLines: 1,
                               style: GoogleFonts.poppins(fontSize: 16),
                               textInputAction: TextInputAction.search,
-                              onSubmitted: (vb){
-                                Get.to(()=> SearchProductsScreen(searchText: vb,));
+                              onSubmitted: (vb) {
+                                Get.to(() => SearchProductsScreen(
+                                      searchText: vb,
+                                    ));
                               },
                               decoration: InputDecoration(
                                   filled: true,
@@ -121,8 +123,8 @@ class _HomePageState extends State<HomePage> {
                                   fillColor: Colors.white,
                                   contentPadding: const EdgeInsets.all(15),
                                   hintText: 'What are you looking for?',
-                                  hintStyle: GoogleFonts.poppins(
-                                      color: AppTheme.buttonColor,fontWeight: FontWeight.w400)),
+                                  hintStyle:
+                                      GoogleFonts.poppins(color: AppTheme.buttonColor, fontWeight: FontWeight.w400)),
                             ),
                           ),
                         ),
@@ -144,11 +146,13 @@ class _HomePageState extends State<HomePage> {
                       PopularProducts(),
                       AdBannerUI(),
                       AuthorScreen(),
+                      SizedBox(
+                        height: 30,
+                      ),
                     ])),
                   ),
                 ),
               ],
-            ))
-    );
+            )));
   }
 }

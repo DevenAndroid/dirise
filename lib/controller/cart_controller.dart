@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+import '../language/app_strings.dart';
 import '../model/model_address_list.dart';
 import '../model/model_cart_response.dart';
 import '../model/order_models/place_order_response.dart';
@@ -144,8 +145,7 @@ class CartController extends GetxController {
                 children: [
                   6.spaceY,
                   Text(
-                    "OPT has been sent to your given email address.\n"
-                    "Verify email to place order.",
+                    AppStrings.otpHasBeenSent,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w500,
@@ -162,7 +162,7 @@ class CartController extends GetxController {
                   ),
                   15.spaceY,
                   Text(
-                    "Didn't you receive the OTP?",
+                    AppStrings.doNotReceivedOtp,
                     style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   TextButton(
@@ -181,7 +181,7 @@ class CartController extends GetxController {
                           address: address);
                     },
                     child: Obx(() => Text(
-                          countDown.value != 0 ? "Resend OTP in ${countDown.value}s" : "Resend OTP",
+                          countDown.value != 0 ? "Resend OTP in ${countDown.value}s" : AppStrings.resendOtp,
                           textAlign: TextAlign.center,
                           style:
                               GoogleFonts.poppins(fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),

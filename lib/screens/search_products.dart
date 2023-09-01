@@ -24,9 +24,9 @@ class SearchProductsScreen extends StatefulWidget {
 class _SearchProductsScreenState extends State<SearchProductsScreen> {
   late TextEditingController textEditingController;
   final Repositories repositories = Repositories();
-  int page = 1;
-  RxInt refreshInt = 0.obs;
   ModelProductsList modelProductsList = ModelProductsList(product: []);
+  RxInt refreshInt = 0.obs;
+  int page = 1;
   bool allLoaded = false;
   bool paginating = false;
   final ScrollController scrollController = ScrollController();

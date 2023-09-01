@@ -89,7 +89,7 @@ class _CategoryItemsState extends State<CategoryItems> {
                         ),
                         Expanded(
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(1500),
                             child: Hero(
                               tag: item.bannerProfile.toString(),
                               child: Material(

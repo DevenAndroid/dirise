@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/profile_controller.dart';
+import '../../vendor/authenthication/vendor_plans_screen.dart';
 import '../../vendor/authenthication/vendor_registration_screen.dart';
 import '../../vendor/dashboard/dashboard_screen.dart';
 import '../../vendor/dashboard/store_open_time_screen.dart';
@@ -737,11 +738,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             showVendorDialog();
             return;
           }
-
           if (profileController.model.user!.isVendor != true) {
-            Get.toNamed(
-              VendorRegistrationScreen.registrationScreen,
-            );
+            Get.to(()=> const VendorPlansScreen());
             return;
           }
           _isValue.value = !_isValue.value;
