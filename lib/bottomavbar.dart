@@ -89,7 +89,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           //   children: pages,
           // ),
           body: pages[bottomController.pageIndex.value],
-          extendBody: true,
+          // extendBody: true,
           backgroundColor: Colors.white,
           bottomNavigationBar: buildMyNavBar(),
         );
@@ -102,176 +102,180 @@ class _BottomNavbarState extends State<BottomNavbar> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: double.maxFinite,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 1.0), //(x,y)
-                blurRadius: 6.0,
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: MaterialButton(
-                        padding: padding,
-                        onPressed: () {
-                          bottomController.updateIndexValue(0);
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset(
-                                'assets/svgs/home.svg',
-                                colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 0
-                                        ? AppTheme.buttonColor
-                                        : AppTheme.primaryColor,
-                                    BlendMode.srcIn),
-                                height: 20,
+        SafeArea(
+          bottom: true,
+          child: Card(
+            elevation: 0,
+            // width: double.maxFinite,
+            // decoration: const BoxDecoration(
+            //   color: Colors.white,
+            //   boxShadow: [
+            //     BoxShadow(
+            //       color: Colors.grey,
+            //       offset: Offset(0.0, 1.0), //(x,y)
+            //       blurRadius: 6.0,
+            //     ),
+            //   ],
+            // ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: MaterialButton(
+                          padding: padding,
+                          onPressed: () {
+                            bottomController.updateIndexValue(0);
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SvgPicture.asset(
+                                  'assets/svgs/home.svg',
+                                  colorFilter: ColorFilter.mode(
+                                      bottomController.pageIndex.value == 0
+                                          ? AppTheme.buttonColor
+                                          : AppTheme.primaryColor,
+                                      BlendMode.srcIn),
+                                  height: 20,
+                                ),
                               ),
-                            ),
-                            FittedBox(
-                              child: Text(
-                                AppStrings.home,
+                              FittedBox(
+                                child: Text(
+                                  AppStrings.home,
+                                  style: GoogleFonts.poppins(
+                                      color: bottomController.pageIndex.value == 0
+                                          ? AppTheme.buttonColor
+                                          : AppTheme.primaryColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: MaterialButton(
+                          padding: padding,
+                          onPressed: () {
+                            bottomController.updateIndexValue(1);
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SvgPicture.asset(
+                                  'assets/svgs/category.svg',
+                                  colorFilter: ColorFilter.mode(
+                                      bottomController.pageIndex.value == 1
+                                          ? AppTheme.buttonColor
+                                          : AppTheme.primaryColor,
+                                      BlendMode.srcIn),
+                                  height: 20,
+                                ),
+                              ),
+                              Text(
+                                AppStrings.categories,
                                 style: GoogleFonts.poppins(
-                                    color: bottomController.pageIndex.value == 0
+                                    color: bottomController.pageIndex.value == 1
                                         ? AppTheme.buttonColor
                                         : AppTheme.primaryColor,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: MaterialButton(
-                        padding: padding,
-                        onPressed: () {
-                          bottomController.updateIndexValue(1);
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset(
-                                'assets/svgs/category.svg',
-                                colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 1
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: MaterialButton(
+                          padding: padding,
+                          onPressed: () {
+                            bottomController.updateIndexValue(2);
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SvgPicture.asset(
+                                  'assets/svgs/fav.svg',
+                                  colorFilter: ColorFilter.mode(
+                                      bottomController.pageIndex.value == 2
+                                          ? AppTheme.buttonColor
+                                          : AppTheme.primaryColor,
+                                      BlendMode.srcIn),
+                                  height: 20,
+                                ),
+                              ),
+                              Text(
+                                AppStrings.favorite,
+                                style: GoogleFonts.poppins(
+                                    color: bottomController.pageIndex.value == 2
                                         ? AppTheme.buttonColor
                                         : AppTheme.primaryColor,
-                                    BlendMode.srcIn),
-                                height: 20,
-                              ),
-                            ),
-                            Text(
-                              AppStrings.categories,
-                              style: GoogleFonts.poppins(
-                                  color: bottomController.pageIndex.value == 1
-                                      ? AppTheme.buttonColor
-                                      : AppTheme.primaryColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500),
-                            )
-                          ],
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: MaterialButton(
-                        padding: padding,
-                        onPressed: () {
-                          bottomController.updateIndexValue(2);
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset(
-                                'assets/svgs/fav.svg',
-                                colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 2
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: MaterialButton(
+                          padding: padding,
+                          onPressed: () {
+                            bottomController.updateIndexValue(3);
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SvgPicture.asset(
+                                  'assets/svgs/person.svg',
+                                  height: 20,
+                                  colorFilter: ColorFilter.mode(
+                                      bottomController.pageIndex.value == 3
+                                          ? AppTheme.buttonColor
+                                          : AppTheme.primaryColor,
+                                      BlendMode.srcIn),
+                                ),
+                              ),
+                              Text(
+                                AppStrings.profile,
+                                style: GoogleFonts.poppins(
+                                    color: bottomController.pageIndex.value == 3
                                         ? AppTheme.buttonColor
                                         : AppTheme.primaryColor,
-                                    BlendMode.srcIn),
-                                height: 20,
-                              ),
-                            ),
-                            Text(
-                              AppStrings.favorite,
-                              style: GoogleFonts.poppins(
-                                  color: bottomController.pageIndex.value == 2
-                                      ? AppTheme.buttonColor
-                                      : AppTheme.primaryColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500),
-                            )
-                          ],
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: MaterialButton(
-                        padding: padding,
-                        onPressed: () {
-                          bottomController.updateIndexValue(3);
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset(
-                                'assets/svgs/person.svg',
-                                height: 20,
-                                colorFilter: ColorFilter.mode(
-                                    bottomController.pageIndex.value == 3
-                                        ? AppTheme.buttonColor
-                                        : AppTheme.primaryColor,
-                                    BlendMode.srcIn),
-                              ),
-                            ),
-                            Text(
-                              AppStrings.profile,
-                              style: GoogleFonts.poppins(
-                                  color: bottomController.pageIndex.value == 3
-                                      ? AppTheme.buttonColor
-                                      : AppTheme.primaryColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ],

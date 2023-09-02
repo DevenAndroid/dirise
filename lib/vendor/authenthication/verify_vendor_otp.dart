@@ -42,9 +42,10 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message);
       if (response.status == true) {
+        profileController.getDataProfile();
+        Get.back();
         Get.back();
         Get.off(() => const ThankYouVendorScreen());
-        profileController.getDataProfile();
       }
     });
   }

@@ -19,7 +19,7 @@ class ImageWidget extends StatefulWidget {
 class _ImageWidgetState extends State<ImageWidget> {
   File file = File("");
 
-  bool get validation => widget.validation;
+  bool get validation => widget.validation ? file.path.isNotEmpty ? false : widget.validation : false;
 
   pickImage() {
     NewHelper().addFilePicker().then((value) {
@@ -91,7 +91,14 @@ class _ImageWidgetState extends State<ImageWidget> {
                 )
               ],
             )
-                : Image.file(file),
+                : Image.file(file,
+            errorBuilder: (_,__,___)=> Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.upload),
+                Text(file.path.toString().split("/").last)
+              ],
+            ),),
           ),
         ),
         14.spaceY,

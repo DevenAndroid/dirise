@@ -185,7 +185,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   if (v!.trim().isEmpty) {
                     return "Please enter your email address";
                   }
-                  if (v.trim().isValidEmail) {
+                  if (v.trim().invalidEmail) {
                     return "Please enter valid email address";
                   }
                   return null;

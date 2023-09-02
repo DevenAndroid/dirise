@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dirise/screens/app_bar/common_app_bar.dart';
+import 'package:dirise/utils/notification_service.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -16,9 +18,13 @@ import '../../utils/styles.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
 import 'image_widget.dart';
+import 'verify_vendor_otp.dart';
+
+enum PlansType { advertisement, company, personal }
 
 class VendorRegistrationScreen extends StatefulWidget {
-  const VendorRegistrationScreen({Key? key, required this.selectedPlan, required this.modelPlansList}) : super(key: key);
+  const VendorRegistrationScreen({Key? key, required this.selectedPlan, required this.modelPlansList})
+      : super(key: key);
   final PlanInfoData selectedPlan;
   final ModelPlansList modelPlansList;
 
@@ -27,7 +33,6 @@ class VendorRegistrationScreen extends StatefulWidget {
 }
 
 class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
-
   PlanInfoData get planInfo => widget.selectedPlan;
 
   final Repositories repositories = Repositories();
@@ -35,21 +40,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey categoryKey = GlobalKey();
-
-  // List<String> vendorType = [];
-  //
-  // List<String> get getVendorType{
-  //   List<String> gg = [];
-  //   for (var element in widget.modelPlansList.allPlans) {
-  //     for (var element1 in element!) {
-  //       gg.add(element1.businessType.toString());
-  //     }
-  //   }
-  //   gg = gg.toSet().toList();
-  //   return gg;
-  // }
-
-  String storeType = "";
   RxBool showValidation = false.obs;
   RxBool hideText = true.obs;
   Map<String, VendorCategoriesData> allSelectedCategory = {};
@@ -65,14 +55,27 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   final TextEditingController homeAddress = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController emailAddress = TextEditingController();
-  final TextEditingController optionalController1 = TextEditingController();
-  final TextEditingController optionalController2 = TextEditingController();
-  final TextEditingController optionalController3 = TextEditingController();
+
+  final TextEditingController optional1Plan1 = TextEditingController();
+  final TextEditingController optional2Plan1 = TextEditingController();
+  final TextEditingController optional3Plan1 = TextEditingController();
+
+  final TextEditingController optional1Plan2 = TextEditingController();
+  final TextEditingController optional2Plan2 = TextEditingController();
+  final TextEditingController optional3Plan2 = TextEditingController();
+
+  final TextEditingController optional1Plan3 = TextEditingController();
+  final TextEditingController optional2Plan3 = TextEditingController();
+  final TextEditingController optional3Plan3 = TextEditingController();
 
   /// Vendor 2 Fields and rest are from above
   final TextEditingController ceoName = TextEditingController();
   final TextEditingController partnerCount = TextEditingController();
   File paymentReceiptCertificate = File("");
+  final GlobalKey paymentReceiptCertificateKey = GlobalKey();
+  File optionalFile1 = File("");
+  File optionalFile2 = File("");
+  File optionalFile3 = File("");
 
   /// Vendor 3 Fields
   final TextEditingController companyName = TextEditingController();
@@ -80,36 +83,234 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   final TextEditingController workEmail = TextEditingController();
   final TextEditingController businessNumber = TextEditingController();
   final TextEditingController taxNumber = TextEditingController();
+
   File memorandumAssociation = File("");
+  final GlobalKey memorandumAssociationKey = GlobalKey();
   File commercialLicense = File("");
+  final GlobalKey commercialLicenseKey = GlobalKey();
   File signatureApproval = File("");
+  final GlobalKey signatureApprovalKey = GlobalKey();
   File ministryCommerce = File("");
+  final GlobalKey ministryCommerceKey = GlobalKey();
   File originalCivilInformation = File("");
+  final GlobalKey originalCivilInformationKey = GlobalKey();
   File companyBankAccount = File("");
+  final GlobalKey companyBankAccountKey = GlobalKey();
+
+  PlansType selectedPlan = PlansType.personal;
+
+
 
   void vendorRegistration() {
-    if(showValidation.value== false){
+    if (showValidation.value == false) {
       showValidation.value = true;
       setState(() {});
     }
+
+    /// Validations
     if (!_formKey.currentState!.validate()) {
+      if(selectedPlan == PlansType.advertisement){
+        // First Name
+        if(firstName.checkEmpty)return;
+        // Last Name
+        if(lastName.checkEmpty)return;
+        // Store Name
+        if(storeName.checkEmpty)return;
+        // Home Adress
+        if(homeAddress.checkEmpty)return;
+        // Phone Number
+        if(phoneNumber.checkBothWithPhone)return;
+        // Email
+        if(emailAddress.checkBothWithEmail)return;
+        // Optional
+        // Optional
+        // Optional
+      }
+      if(selectedPlan == PlansType.personal){
+        // First Name
+        if(firstName.checkEmpty)return;
+        // Last Name
+        if(lastName.checkEmpty)return;
+        // Store Name
+        if(storeName.checkEmpty)return;
+        // Home Adress
+        if(homeAddress.checkEmpty)return;
+        // Phone Number
+        if(ceoName.checkEmpty)return;
+        // Email
+        if(partnerCount.checkEmpty)return;
+        // Phone Number
+        if(phoneNumber.checkBothWithPhone)return;
+        // Phone Number
+        if(emailAddress.checkBothWithEmail)return;
+      }
+      if(selectedPlan == PlansType.company){
+        // First Name
+        if(firstName.checkEmpty)return;
+        // Last Name
+        if(lastName.checkEmpty)return;
+        // Store Name
+        if(storeName.checkEmpty)return;
+        // Company Name
+        if(companyName.checkEmpty)return;
+        // Work Adress
+        if(workAddress.checkEmpty)return;
+        // Business number
+        if(businessNumber.checkEmpty)return;
+        // Email
+        if(emailAddress.checkBothWithEmail)return;
+        // Work Email
+        if(workEmail.checkBothWithEmail)return;
+      }
       return;
     }
-    if (storeImage.value.path.isEmpty) {
-      showToast("Please select store logo");
-      return;
+    if(selectedPlan == PlansType.personal){
+      // Payment receipt certificate
+      if (paymentReceiptCertificate.path.isEmpty) {
+        showToast("Please Select Payment Receipt Certificate");
+        paymentReceiptCertificateKey.currentContext!.navigate;
+        return;
+      }
     }
-    if (businessImage.value.path.isEmpty) {
-      showToast("Please select business id image");
-      return;
+    if(selectedPlan == PlansType.company){
+
+      // Memorandum of Association
+      if (memorandumAssociation.path.isEmpty) {
+        showToast("Please Select Memorandum of Association");
+        memorandumAssociationKey.currentContext!.navigate;
+        return;
+      }
+
+      // Commercial license
+      if (commercialLicense.path.isEmpty) {
+        showToast("Please Select Commercial license");
+        commercialLicenseKey.currentContext!.navigate;
+        return;
+      }
+
+      // Signature approval
+      if (signatureApproval.path.isEmpty) {
+        showToast("Please Select Signature approval");
+        signatureApprovalKey.currentContext!.navigate;
+        return;
+      }
+
+      // Extract from the Ministry of Commerce
+      if (ministryCommerce.path.isEmpty) {
+        showToast("Please Select Extract from the Ministry of Commerce");
+        ministryCommerceKey.currentContext!.navigate;
+        return;
+      }
+
+      // Original civil information
+      if (originalCivilInformation.path.isEmpty) {
+        showToast("Please Select Original civil information");
+        originalCivilInformationKey.currentContext!.navigate;
+        return;
+      }
+
+      // Company bank account
+      if (companyBankAccount.path.isEmpty) {
+        showToast("Please Select Company bank account");
+        companyBankAccountKey.currentContext!.navigate;
+        return;
+      }
     }
+
+
+
+    /// Map Data
+    /*{
+  'first_name': 'karan',
+  'last_name': 'Junwal',
+  'email': 'karanjunwal143@yopmail.com',
+  'phone': '8599612592',
+  'password': '12345678',
+  'store_name': 'halak',
+  'store_url': 'www.abc.com',
+  'category_id': '3',
+  'store_address': 'Jaipur',
+  'store_business_id': '1',
+  'store_about_us': 'checking out',
+  'store_about_me': 'damn serious',
+  'vendor_type': 'company',
+  'owner_name': 'Rishi',
+  'ceo_name': 'dsfsdfs',
+  'home_address': 'Amer Road',
+  'partners': '6',
+  'company_name': 'webluci',
+  'work_email': 'luci@yopmail.com',
+  'tax_number': '',
+  'label1': 'optional',
+  'label2': 'optional',
+  'label3': 'optional',
+  'work_address': 'adfadfda'
+}*/
+
     Map<String, String> map = {};
-    map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
+    if(selectedPlan == PlansType.advertisement){
+      map = {
+        'first_name': firstName.text.trim(),
+        'last_name': lastName.text.trim(),
+        'email': emailAddress.text.trim(),
+        'phone': phoneNumber.text.trim(),
+        'store_name': storeName.text.trim(),
+        'home_address': homeAddress.text.trim(),
+      };
+    }
+    if(selectedPlan == PlansType.personal){
+      map = {
+        'partners': partnerCount.text.trim(),
+        'first_name': firstName.text.trim(),
+        'ceo_name': ceoName.text.trim(),
+        'last_name': lastName.text.trim(),
+        'email': emailAddress.text.trim(),
+        'phone': phoneNumber.text.trim(),
+        'store_name': storeName.text.trim(),
+        'home_address': homeAddress.text.trim(),
+      };
+    }
+    if(selectedPlan == PlansType.company){
+      // Business number
+      map = {
+        'first_name': firstName.text.trim(),
+        'last_name': lastName.text.trim(),
+        'email': emailAddress.text.trim(),
+        'store_name': storeName.text.trim(),
+        'company_name': companyName.text.trim(),
+        'work_address': workAddress.text.trim(),
+        'work_email': workEmail.text.trim(),
+        'business_number': businessNumber.text.trim(),
+      };
+    }
 
+    map["vendor_type"] = selectedPlan.name;
+
+
+
+
+
+    /// Files upload map
     Map<String, File> images = {};
-    images["store_logo"] = storeImage.value;
-    images["store_image"] = businessImage.value;
 
+    if(selectedPlan == PlansType.personal){
+      images["payment_certificate"] = paymentReceiptCertificate;
+    }
+
+    if(selectedPlan == PlansType.company){
+      // Memorandum of Association  ✅
+      // Commercial license ✅
+      // Signature approval ✅
+      // Extract from the Ministry of Commerce ✅
+      // Original civil information ✅
+      // Company bank account ✅
+      images["memorandum_of_association"] = memorandumAssociation;
+      images["commercial_license"] = commercialLicense;
+      images["signature_approval"] = signatureApproval;
+      images["ministy_of_commerce"] = ministryCommerce;
+      images["original_civil_information"] = originalCivilInformation;
+      images["company_bank_account"] = companyBankAccount;
+    }
     repositories
         .multiPartApi(
             mapData: map,
@@ -117,14 +318,19 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
             context: context,
             url: ApiUrls.vendorRegistrationUrl,
             onProgress: (int bytes, int totalBytes) {
-              // print((bytes/totalBytes).toStringAsFixed(2));
+              NotificationService().showNotificationWithProgress(
+                  title: "Uploading Documents", body: "Uploading Documents are in progress", payload: "payload",
+                  maxProgress: 100, progress: ((bytes/ totalBytes) * 100).toInt(), progressId: 770);
             })
         .then((value) {
+      NotificationService().hideAllNotifications();
       ModelVendorRegistrationResponse response = ModelVendorRegistrationResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true && response.otp != null) {
-        // Get.to(() => const VendorOTPVerification(), arguments: [textControllers["email"]!.text.trim()]);
+        Get.to(() => const VendorOTPVerification(), arguments: [emailAddress.text.trim()]);
       }
+    }).catchError((e){
+      NotificationService().hideAllNotifications();
     });
   }
 
@@ -150,8 +356,12 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   @override
   void initState() {
     super.initState();
+
+    selectedPlan = PlansType.values.firstWhere(
+        (element) => element.name.toLowerCase() == widget.selectedPlan.businessType.toString(),
+        orElse: () => PlansType.personal);
     // vendorType= getVendorType;
-    storeType = widget.selectedPlan.businessType.toString();
+    // storeType = widget.selectedPlan.businessType.toString();
     getVendorCategories();
   }
 
@@ -167,28 +377,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
-      appBar: AppBar(
-        title: Text('Vendor Registration',
-            style: GoogleFonts.poppins(
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xff423E5E),
-            )),
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-            // _scaffoldKey.currentState!.openDrawer();
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Image.asset(
-              'assets/icons/backicon.png',
-              height: 20,
-            ),
-          ),
-        ),
+      appBar: const CommonAppBar(
+        titleText: "Vendor Registration",
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -202,209 +392,169 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
               child: Column(
                 children: [
                   Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    // DropdownButtonFormField<String>(
-                    //   autovalidateMode: AutovalidateMode.onUserInteraction,
-                    //   iconSize: 30,
-                    //   iconDisabledColor: const Color(0xff97949A),
-                    //   iconEnabledColor: const Color(0xff97949A),
-                    //   value: storeType,
-                    //   style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
-                    //   decoration: InputDecoration(
-                    //     border: InputBorder.none,
-                    //     filled: true,
-                    //     fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                    //     contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
-                    //     focusedErrorBorder: const OutlineInputBorder(
-                    //         borderRadius: BorderRadius.all(Radius.circular(8)),
-                    //         borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                    //     errorBorder: const OutlineInputBorder(
-                    //         borderRadius: BorderRadius.all(Radius.circular(8)),
-                    //         borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                    //     focusedBorder: const OutlineInputBorder(
-                    //         borderRadius: BorderRadius.all(Radius.circular(8)),
-                    //         borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                    //     disabledBorder: const OutlineInputBorder(
-                    //       borderRadius: BorderRadius.all(Radius.circular(8)),
-                    //       borderSide: BorderSide(color: AppTheme.secondaryColor),
-                    //     ),
-                    //     enabledBorder: const OutlineInputBorder(
-                    //       borderRadius: BorderRadius.all(Radius.circular(8)),
-                    //       borderSide: BorderSide(color: AppTheme.secondaryColor),
-                    //     ),
-                    //   ),
-                    //   items: vendorType.map((e) => DropdownMenuItem(value: e, child: Text(e.toString()))).toList(),
-                    //   hint: const Text('Category'),
-                    //   onChanged: (value) {
-                    //     if (value == null) return;
-                    //     storeType = value;
-                    //     setState(() {});
-                    //   },
-                    // ),
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            children: [
-                                Text(
-                                  planInfo.businessType.toString().capitalize!,
-                                  style: titleStyle.copyWith(fontSize: 18),
-                                ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                            planInfo.title.toString().capitalize!,
-                                            style: titleStyle,
-                                          )),
-                                      Text(planInfo.amount.toString()),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                            "Validity",
-                                            style: titleStyle,
-                                          )),
-                                      Text("${planInfo.label}"),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ),
+                    planCard(),
 
-
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: firstName,
-                        key: firstName.getKey,
-                        hintText: "First Name",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please enter first name";
-                          }
-                          return null;
-                        }),
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: lastName,
-                        key: lastName.getKey,
-                        hintText: "Last Name",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please enter last name";
-                          }
-                          return null;
-                        }),
-
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: storeName,
-                        key: storeName.getKey,
-                        hintText: "Store Name",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please enter store name";
-                          }
-                          return null;
-                        }),
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: phoneNumber,
-                        key: phoneNumber.getKey,
-                        hintText: "Phone Number",
-                        keyboardType: TextInputType.name,
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please enter store phone number";
-                          }
-                          if (value.trim().length < 10) {
-                            return "Please enter valid store phone number";
-                          }
-                          return null;
-                        }),
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: emailAddress,
-                        keyboardType: TextInputType.emailAddress,
-                        key: emailAddress.getKey,
-                        hintText: "Store Email Address",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please enter store email address";
-                          }
-                          if (value.trim().isValidEmail) {
-                            return "Please enter valid email address";
-                          }
-                          return null;
-                        }),
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: homeAddress,
-                        keyboardType: TextInputType.streetAddress,
-                        key: homeAddress.getKey,
-                        hintText: "Home Address",
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Please enter home address";
-                          }
-                          return null;
-                        }),
-
-                    /// Optional Fields
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: optionalController1,
-                        keyboardType: TextInputType.streetAddress,
-                        key: optionalController1.getKey,
-                        hintText: "Optional1",
-                        validator: (value) {
-                          // if (value!.trim().isEmpty) {
-                          //   return "Please enter home address";
-                          // }
-                          return null;
-                        }),
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: optionalController2,
-                        keyboardType: TextInputType.streetAddress,
-                        key: optionalController2.getKey,
-                        hintText: "Optional2",
-                        validator: (value) {
-                          // if (value!.trim().isEmpty) {
-                          //   return "Please enter home address";
-                          // }
-                          return null;
-                        }),
-                    14.spaceY,
-                    VendorCommonTextfield(
-                        controller: optionalController3,
-                        keyboardType: TextInputType.streetAddress,
-                        key: optionalController3.getKey,
-                        hintText: "Optional3",
-                        validator: (value) {
-                          // if (value!.trim().isEmpty) {
-                          //   return "Please enter home address";
-                          // }
-                          return null;
-                        }),
-                    14.spaceY,
-
-                    if (storeType == "Personal/ home business") ...[
+                    if (selectedPlan == PlansType.advertisement) ...[
+                      14.spaceY,
+                      // First Name
+                      VendorCommonTextfield(
+                          controller: firstName,
+                          key: firstName.getKey,
+                          hintText: "First Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter first name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Last Name
+                      VendorCommonTextfield(
+                          controller: lastName,
+                          key: lastName.getKey,
+                          hintText: "Last Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter last name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Store Name
+                      VendorCommonTextfield(
+                          controller: storeName,
+                          key: storeName.getKey,
+                          hintText: "Store Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter store name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Home Address
+                      VendorCommonTextfield(
+                          controller: homeAddress,
+                          keyboardType: TextInputType.streetAddress,
+                          key: homeAddress.getKey,
+                          hintText: "Home Address",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter home address";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Phone Number
+                      VendorCommonTextfield(
+                          controller: phoneNumber,
+                          key: phoneNumber.getKey,
+                          hintText: "Phone Number",
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter store phone number";
+                            }
+                            if (value.trim().length < 10) {
+                              return "Please enter valid store phone number";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Email Address
+                      VendorCommonTextfield(
+                          controller: emailAddress,
+                          keyboardType: TextInputType.emailAddress,
+                          key: emailAddress.getKey,
+                          hintText: "Email Address",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter email address";
+                            }
+                            if (value.trim().invalidEmail) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Optional1
+                      VendorCommonTextfield(
+                          controller: optional1Plan1,
+                          key: optional1Plan1.getKey,
+                          hintText: "Optional1",
+                          validator: (value) {
+                            // if (value!.trim().isEmpty) {
+                            //   return "Please enter home address";
+                            // }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Optional2
+                      VendorCommonTextfield(
+                          controller: optional2Plan1,
+                          key: optional2Plan1.getKey,
+                          hintText: "Optional2",
+                          validator: (value) {
+                            // if (value!.trim().isEmpty) {
+                            //   return "Please enter home address";
+                            // }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Optional3
+                      VendorCommonTextfield(
+                          controller: optional3Plan1,
+                          key: optional3Plan1.getKey,
+                          hintText: "Optional3",
+                          validator: (value) {
+                            // if (value!.trim().isEmpty) {
+                            //   return "Please enter home address";
+                            // }
+                            return null;
+                          }),
+                    ],
+                    if (selectedPlan == PlansType.personal) ...[
+                      14.spaceY,
+                      // First Name
+                      VendorCommonTextfield(
+                          controller: firstName,
+                          key: firstName.getKey,
+                          hintText: "First Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter first name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Last Name
+                      VendorCommonTextfield(
+                          controller: lastName,
+                          key: lastName.getKey,
+                          hintText: "Last Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter last name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Store Name
+                      VendorCommonTextfield(
+                          controller: storeName,
+                          key: storeName.getKey,
+                          hintText: "Store Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter store name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Ceo Name
                       VendorCommonTextfield(
                           controller: ceoName,
-                          keyboardType: TextInputType.streetAddress,
+                          keyboardType: TextInputType.name,
                           key: ceoName.getKey,
                           hintText: "Ceo Name",
                           validator: (value) {
@@ -414,9 +564,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             return null;
                           }),
                       14.spaceY,
+                      //#Partners
                       VendorCommonTextfield(
                           controller: partnerCount,
-                          keyboardType: TextInputType.streetAddress,
+                          keyboardType: TextInputType.name,
                           key: partnerCount.getKey,
                           hintText: "#Partners",
                           validator: (value) {
@@ -426,12 +577,146 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             return null;
                           }),
                       14.spaceY,
+                      // Home Address
+                      VendorCommonTextfield(
+                          controller: homeAddress,
+                          keyboardType: TextInputType.streetAddress,
+                          key: homeAddress.getKey,
+                          hintText: "Home Address",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter home address";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Phone Number
+                      VendorCommonTextfield(
+                          controller: phoneNumber,
+                          key: phoneNumber.getKey,
+                          hintText: "Phone Number",
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter store phone number";
+                            }
+                            if (value.trim().length < 10) {
+                              return "Please enter valid store phone number";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Email Address
+                      VendorCommonTextfield(
+                          controller: emailAddress,
+                          keyboardType: TextInputType.emailAddress,
+                          key: emailAddress.getKey,
+                          hintText: "Email Address",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter email address";
+                            }
+                            if (value.trim().invalidEmail) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Optional1
+                      VendorCommonTextfield(
+                          controller: optional1Plan2,
+                          key: optional1Plan2.getKey,
+                          hintText: "Optional1",
+                          validator: (value) {
+                            // if (value!.trim().isEmpty) {
+                            //   return "Please enter home address";
+                            // }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Optional2
+                      VendorCommonTextfield(
+                          controller: optional2Plan2,
+                          key: optional2Plan2.getKey,
+                          hintText: "Optional2",
+                          validator: (value) {
+                            // if (value!.trim().isEmpty) {
+                            //   return "Please enter home address";
+                            // }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Optional3
+                      VendorCommonTextfield(
+                          controller: optional3Plan2,
+                          key: optional3Plan2.getKey,
+                          hintText: "Optional3",
+                          validator: (value) {
+                            // if (value!.trim().isEmpty) {
+                            //   return "Please enter home address";
+                            // }
+                            return null;
+                          }),
+                      ImageWidget(
+                        key: paymentReceiptCertificateKey,
+                        title: "Payment Receipt Certificate",
+                        file: paymentReceiptCertificate,
+                        validation: checkValidation(showValidation.value, paymentReceiptCertificate.path.isEmpty),
+                        filePicked: (File g) {
+                          paymentReceiptCertificate = g;
+                        },
+                      ),
+                      ImageWidget(
+                        title: "Optional",
+                        file: optionalFile1,
+                        validation: false,
+                        filePicked: (File g) {
+                          optionalFile1 = g;
+                        },
+                      ),
                     ],
-
-                    if (storeType == "Company") ...[
+                    if (selectedPlan == PlansType.company) ...[
+                      14.spaceY,
+                      // First Name
+                      VendorCommonTextfield(
+                          controller: firstName,
+                          key: firstName.getKey,
+                          hintText: "First Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter first name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Last Name
+                      VendorCommonTextfield(
+                          controller: lastName,
+                          key: lastName.getKey,
+                          hintText: "Last Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter last name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Store Name
+                      VendorCommonTextfield(
+                          controller: storeName,
+                          key: storeName.getKey,
+                          hintText: "Store Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter store name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Company Name
                       VendorCommonTextfield(
                           controller: companyName,
-                          keyboardType: TextInputType.streetAddress,
+                          keyboardType: TextInputType.name,
                           key: companyName.getKey,
                           hintText: "Company Name",
                           validator: (value) {
@@ -441,6 +726,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             return null;
                           }),
                       14.spaceY,
+                      // Work Address
                       VendorCommonTextfield(
                           controller: workAddress,
                           keyboardType: TextInputType.streetAddress,
@@ -453,9 +739,9 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             return null;
                           }),
                       14.spaceY,
+                      // Business Number
                       VendorCommonTextfield(
                           controller: businessNumber,
-                          keyboardType: TextInputType.streetAddress,
                           key: businessNumber.getKey,
                           hintText: "Business Number",
                           validator: (value) {
@@ -465,125 +751,90 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             return null;
                           }),
                       14.spaceY,
+                      // Email Address
+                      VendorCommonTextfield(
+                          controller: emailAddress,
+                          keyboardType: TextInputType.emailAddress,
+                          key: emailAddress.getKey,
+                          hintText: "Email Address",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter email address";
+                            }
+                            if (value.trim().invalidEmail) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Work Email
                       VendorCommonTextfield(
                           controller: workEmail,
-                          keyboardType: TextInputType.streetAddress,
+                          keyboardType: TextInputType.emailAddress,
                           key: workEmail.getKey,
                           hintText: "Work Email",
                           validator: (value) {
                             if (value!.trim().isEmpty) {
                               return "Please enter work email";
                             }
-                            return null;
-                          }),
-                      14.spaceY,
-                      VendorCommonTextfield(
-                          controller: taxNumber,
-                          keyboardType: TextInputType.streetAddress,
-                          key: taxNumber.getKey,
-                          hintText: "Tax number * (outside Kuwait)",
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Please enter work email";
+                            if (value.trim().invalidEmail) {
+                              return "Please enter valid email address";
                             }
                             return null;
                           }),
                       14.spaceY,
-                    ],
+                      // Work Email
+                      VendorCommonTextfield(
+                          controller: taxNumber,
+                          key: taxNumber.getKey,
+                          hintText: "Tax number* (outside Kuwait)",
+                          validator: (value) {
+                            return null;
+                            if (value!.trim().isEmpty) {
+                              return "Please enter work email";
+                            }
+                            if (value.trim().invalidEmail) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          }),
 
-                    Obx(() {
-                      if (kDebugMode) {
-                        print(modelVendorCategory.usphone!
-                            .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
-                            .toList());
-                      }
-                      return DropdownButtonFormField<VendorCategoriesData>(
-                        key: categoryKey,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        icon: vendorCategoryStatus.value.isLoading
-                            ? const CupertinoActivityIndicator()
-                            : vendorCategoryStatus.value.isError
-                                ? IconButton(
-                                    onPressed: () => getVendorCategories(),
-                                    padding: EdgeInsets.zero,
-                                    visualDensity: VisualDensity.compact,
-                                    icon: const Icon(
-                                      Icons.refresh,
-                                      color: Colors.black,
-                                    ))
-                                : const Icon(Icons.keyboard_arrow_down_rounded),
-                        iconSize: 30,
-                        iconDisabledColor: const Color(0xff97949A),
-                        iconEnabledColor: const Color(0xff97949A),
-                        value: null,
-                        style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          filled: true,
-                          fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
-                          focusedErrorBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                          errorBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                          focusedBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                          disabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide: BorderSide(color: AppTheme.secondaryColor),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide: BorderSide(color: AppTheme.secondaryColor),
-                          ),
-                        ),
-                        items: modelVendorCategory.usphone!
-                            .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
-                            .toList(),
-                        hint: const Text('Category'),
-                        onChanged: (value) {
-                          // selectedCategory = value;
-                          if (value == null) return;
-                          allSelectedCategory[value.id.toString()] = value;
-                          setState(() {});
-                        },
-                        validator: (value) {
-                          if (allSelectedCategory.isEmpty) {
-                            return "Please select Category";
-                          }
-                          return null;
-                        },
-                      );
-                    }),
-                    5.spaceY,
-                    Wrap(
-                      runSpacing: 0,
-                      spacing: 8,
-                      children: allSelectedCategory.entries
-                          .map((e) => Chip(
-                              label: Text(e.value.name.toString().capitalize!),
-                              labelPadding: const EdgeInsets.only(right: 4, left: 2),
-                              onDeleted: () {
-                                allSelectedCategory.remove(e.key);
-                                setState(() {});
-                              }))
-                          .toList(),
-                    ),
-                    14.spaceY,
-
-                    if (storeType == "Personal/ home business")
-                      ImageWidget(
-                        title: "Payment Receipt Certificate",
-                        file: paymentReceiptCertificate,
-                        validation: checkValidation(showValidation.value, paymentReceiptCertificate.path.isEmpty),
-                        filePicked: (File g) {
-                          paymentReceiptCertificate = g;
-                        },
-                      ),
-                    if (storeType == "Company") ...[
+                      14.spaceY,
+                      //Optional1
+                      VendorCommonTextfield(
+                          controller: optional1Plan3,
+                          key: optional1Plan3.getKey,
+                          hintText: "Optional1",
+                          validator: (value) {
+                            // if (value!.trim().isEmpty) {
+                            //   return "Please enter home address";
+                            // }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Optional2
+                      VendorCommonTextfield(
+                          controller: optional2Plan3,
+                          key: optional2Plan3.getKey,
+                          hintText: "Optional2",
+                          validator: (value) {
+                            // if (value!.trim().isEmpty) {
+                            //   return "Please enter home address";
+                            // }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Optional3
+                      VendorCommonTextfield(
+                          controller: optional3Plan3,
+                          key: optional3Plan3.getKey,
+                          hintText: "Optional3",
+                          validator: (value) {
+                            // if (value!.trim().isEmpty) {
+                            //   return "Please enter home address";
+                            // }
+                            return null;
+                          }),
                       // memorandumAssociation
                       // commercialLicense
                       // signatureApproval
@@ -591,6 +842,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       // originalCivilInformation
                       // companyBankAccount
                       ImageWidget(
+                        key: memorandumAssociationKey,
                         title: "Memorandum of Association",
                         file: memorandumAssociation,
                         validation: checkValidation(showValidation.value, memorandumAssociation.path.isEmpty),
@@ -601,6 +853,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       ImageWidget(
                         title: "Commercial license",
                         file: commercialLicense,
+                        key: commercialLicenseKey,
                         validation: checkValidation(showValidation.value, commercialLicense.path.isEmpty),
                         filePicked: (File g) {
                           commercialLicense = g;
@@ -609,6 +862,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       ImageWidget(
                         title: "Signature approval",
                         file: signatureApproval,
+                        key: signatureApprovalKey,
                         validation: checkValidation(showValidation.value, signatureApproval.path.isEmpty),
                         filePicked: (File g) {
                           signatureApproval = g;
@@ -617,6 +871,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       ImageWidget(
                         title: "Extract from the Ministry of Commerce",
                         file: ministryCommerce,
+                        key: ministryCommerceKey,
                         validation: checkValidation(showValidation.value, ministryCommerce.path.isEmpty),
                         filePicked: (File g) {
                           ministryCommerce = g;
@@ -625,6 +880,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       ImageWidget(
                         title: "Original civil information",
                         file: originalCivilInformation,
+                        key: originalCivilInformationKey,
                         validation: checkValidation(showValidation.value, originalCivilInformation.path.isEmpty),
                         filePicked: (File g) {
                           originalCivilInformation = g;
@@ -633,13 +889,14 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       ImageWidget(
                         title: "Company bank account",
                         file: companyBankAccount,
+                        key: companyBankAccountKey,
                         validation: checkValidation(showValidation.value, companyBankAccount.path.isEmpty),
                         filePicked: (File g) {
                           companyBankAccount = g;
                         },
                       ),
                     ],
-
+                    const SizedBox(height: 25,),
                     ElevatedButton(
                         onPressed: () {
                           vendorRegistration();
@@ -665,5 +922,50 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         ),
       ),
     );
+  }
+
+  Card planCard() {
+    return Card(
+        child: Padding(
+      padding: const EdgeInsets.only(bottom: 14),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          children: [
+            Text(
+              planInfo.businessType.toString().capitalize!,
+              style: titleStyle.copyWith(fontSize: 18),
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                      planInfo.title.toString().capitalize!,
+                      style: titleStyle,
+                    )),
+                    Text(planInfo.amount.toString()),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                      "Validity",
+                      style: titleStyle,
+                    )),
+                    Text("${planInfo.label}"),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 }

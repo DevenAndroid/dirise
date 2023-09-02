@@ -186,10 +186,10 @@ class AddProductController extends GetxController {
       if (productNameController.checkEmpty) return;
       if (skuController.checkEmpty) return;
       // if (priceController.checkBoth) return;
-      if (purchasePriceController.checkBoth) return;
-      if (sellingPriceController.checkBoth) return;
-      if (stockController.checkBoth) return;
-      if (returnDaysController.checkBoth) return;
+      if (purchasePriceController.checkBothWithNum) return;
+      if (sellingPriceController.checkBothWithNum) return;
+      if (stockController.checkBothWithNum) return;
+      if (returnDaysController.checkBothWithNum) return;
       if (selectedCategory.isEmpty) {
         if (categoryKey.currentContext != null) {
           Scrollable.ensureVisible(categoryKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));

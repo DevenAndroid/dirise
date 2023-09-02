@@ -255,7 +255,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   if (value!.trim().isEmpty) {
                                     return "Please enter store email address";
                                   }
-                                  if (value.trim().isValidEmail) {
+                                  if (value.trim().invalidEmail) {
                                     return "Please enter valid email address";
                                   }
                                   return null;

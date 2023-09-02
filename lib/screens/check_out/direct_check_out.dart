@@ -862,7 +862,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             if (value!.trim().isEmpty) {
                               return "Please enter email address";
                             }
-                            if (value.trim().isValidEmail) {
+                            if (value.trim().invalidEmail) {
                               return "Please enter valid email address";
                             }
                             return null;

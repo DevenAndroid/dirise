@@ -337,7 +337,7 @@ extension ConvertToNum on String {
     return num.tryParse(this) ?? 0;
   }
 
-  bool get isValidEmail {
+  bool get invalidEmail {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = RegExp(pattern.toString());
@@ -423,10 +423,44 @@ extension ValidateErrors on TextEditingController {
     }
   }
 
-  bool get checkBoth {
+  bool get checkEmail {
+    if(!text.trim().invalidEmail)return false;
+    BuildContext? context1 = getKey.currentContext;
+    if (context1 != null) {
+      context1.navigate;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool get checkPhoneNumber {
+    if(text.trim().length >= 10)return false;
+    BuildContext? context1 = getKey.currentContext;
+    if (context1 != null) {
+      context1.navigate;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool get checkBothWithNum {
     // print("checkEmpty.....   $checkEmpty");
     // print("checkNum.....   $checkNum");
     return checkEmpty || checkNum;
+  }
+
+  bool get checkBothWithEmail{
+    // print("checkEmpty.....   $checkEmpty");
+    // print("checkNum.....   $checkNum");
+    return checkEmpty || checkEmail;
+  }
+
+  bool get checkBothWithPhone{
+    // print("checkEmpty.....   $checkEmpty");
+    // print("checkNum.....   $checkNum");
+    return checkEmpty || checkPhoneNumber;
   }
 }
 
