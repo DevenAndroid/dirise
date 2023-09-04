@@ -40,14 +40,16 @@ class PlanInfoData {
   dynamic amount;
   dynamic validity;
   dynamic label;
+  dynamic currency;
   String? planType;
 
   PlanInfoData(
-      {this.id, this.title, this.businessType, this.amount, this.validity, this.label});
+      {this.id, this.title, this.businessType, this.amount, this.validity, this.label, this.currency});
 
   PlanInfoData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
+    currency = json['currency'];
     businessType = json['business_type'];
     amount = json['amount'];
     validity = json['validity'];
@@ -59,6 +61,7 @@ class PlanInfoData {
     data['id'] = id;
     data['title'] = title;
     data['business_type'] = businessType;
+    data['currency'] = currency;
     data['amount'] = amount;
     data['validity'] = validity;
     data['label'] = label;

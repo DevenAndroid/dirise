@@ -74,7 +74,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
                   child: Text(
                     "Store Time :",
                     style:
-                    GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16, color: const Color(0xff737A8A)),
+                    GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff737A8A)),
                   ),
                 ),
                 Expanded(
@@ -88,13 +88,13 @@ class _AppBarScreenState extends State<AppBarScreen> {
                           orElse: () =>
                               TimeData(
                                   startTime: ""
-                              )).startTime.toString().normalTime} to ${vendorStoreTimingController.modelStoreAvailability.data!.firstWhere((
+                              )).startTime.toString().normalTime} to ${(vendorStoreTimingController.modelStoreAvailability.data!.firstWhere((
                           element) =>
                       element.weekDay.toString().toLowerCase() == DateFormat("EEEE").format(DateTime.now()).toLowerCase(),
                           orElse: () =>
                               TimeData(
                                   startTime: ""
-                              )).endTime.toString().normalTime}" : "",
+                              )).endTime ?? "").toString().normalTime}" : "",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.buttonColor),
                     );

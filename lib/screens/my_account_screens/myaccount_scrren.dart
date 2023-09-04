@@ -164,6 +164,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           child: RefreshIndicator(
             onRefresh: () async {
               await profileController.getDataProfile();
+              setState(() {});
             },
             child: Column(
               children: [

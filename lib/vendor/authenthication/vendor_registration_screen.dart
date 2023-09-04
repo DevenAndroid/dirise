@@ -327,7 +327,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       ModelVendorRegistrationResponse response = ModelVendorRegistrationResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true && response.otp != null) {
-        Get.to(() => const VendorOTPVerification(), arguments: [emailAddress.text.trim()]);
+        Get.to(() => const VendorOTPVerification(), arguments: [emailAddress.text.trim(),planInfo]);
       }
     }).catchError((e){
       NotificationService().hideAllNotifications();

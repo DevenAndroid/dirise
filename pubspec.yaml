@@ -53,6 +53,8 @@ dependencies:
   audioplayers: ^5.1.0
   audio_video_progress_bar: ^2.0.0
   flutter_local_notifications: ^15.1.1
+  flutter_exif_rotation: ^0.5.1
+  webview_flutter: ^4.2.4
 
 
 dev_dependencies:

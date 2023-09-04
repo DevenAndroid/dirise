@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -109,9 +110,9 @@ class NewHelper {
             onPressed: () {
               // pickImage(
               //     ImageSource.gallery);
-              NewHelper().addImagePicker(imageSource: ImageSource.gallery).then((value) {
+              NewHelper().addImagePicker(imageSource: ImageSource.gallery).then((value) async {
                 if (value == null) return;
-                gotImage(value);
+                gotImage(await FlutterExifRotation.rotateImage(path: value.path));
                 Get.back();
               });
             },
@@ -119,9 +120,9 @@ class NewHelper {
           CupertinoActionSheetAction(
             child: const Text('Camera'),
             onPressed: () {
-              NewHelper().addImagePicker(imageSource: ImageSource.camera).then((value) {
+              NewHelper().addImagePicker(imageSource: ImageSource.camera).then((value) async {
                 if (value == null) return;
-                gotImage(value);
+                gotImage(await FlutterExifRotation.rotateImage(path: value.path));
                 Get.back();
               });
             },

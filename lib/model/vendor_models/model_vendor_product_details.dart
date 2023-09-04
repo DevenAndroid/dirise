@@ -39,6 +39,8 @@ class ModelVendorProductDetailsData {
   List<String>? galleryTempData = [];
   String? virtualProductFile;
   dynamic virtualProductFileType;
+  dynamic weight;
+  dynamic weight_unit;
   String? inStock;
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
@@ -49,7 +51,9 @@ class ModelVendorProductDetailsData {
       this.brandSlug,
       this.slug,
       this.pname,
+      this.weight,
       this.sku_id,
+      this.weight_unit,
       this.bookingProductType,
       this.p_price,
       this.sPrice,
@@ -68,6 +72,8 @@ class ModelVendorProductDetailsData {
 
   ModelVendorProductDetailsData.fromJson(Map<String, dynamic> json) {
     catId = json['cat_id'];
+    weight_unit = json['weight_unit'];
+    weight = json['weight'];
     brandSlug = json['brand_slug'];
     slug = json['slug'];
     pname = json['pname'];
@@ -100,6 +106,8 @@ class ModelVendorProductDetailsData {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['cat_id'] = catId;
     data['brand_slug'] = brandSlug;
+    data['weight'] = weight;
+    data['weight_unit'] = weight_unit;
     data['slug'] = slug;
     data['pname'] = pname;
     data['sku_id'] = sku_id;

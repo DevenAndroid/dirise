@@ -8,6 +8,7 @@ import '../../../model/common_modal.dart';
 import '../../../utils/ApiConstant.dart';
 import '../../../widgets/common_colour.dart';
 import '../../controller/profile_controller.dart';
+import '../../model/vendor_models/model_plan_list.dart';
 import '../../repository/repository.dart';
 import 'thanku_screen.dart';
 
@@ -24,6 +25,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
   final TextEditingController _otpController = TextEditingController();
   final Repositories repositories = Repositories();
   String email = "";
+  PlanInfoData selectedPlan = PlanInfoData();
   final profileController = Get.put(ProfileController());
 
   verifyOtp() {
@@ -45,7 +47,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
         profileController.getDataProfile();
         Get.back();
         Get.back();
-        Get.off(() => const ThankYouVendorScreen());
+        Get.off(() => ThankYouVendorScreen(planInfoData: selectedPlan,));
       }
     });
   }
@@ -82,6 +84,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
   void initState() {
     super.initState();
     email = Get.arguments[0];
+    selectedPlan = Get.arguments[1];
     setTimer();
   }
 

@@ -2,10 +2,13 @@ import 'dart:convert';
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/screens/app_bar/common_app_bar.dart';
 import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/helper.dart';
 import 'package:dirise/utils/styles.dart';
+import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import 'vendor_registration_screen.dart';
 
@@ -37,99 +40,151 @@ class _VendorPlansScreenState extends State<VendorPlansScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CommonAppBar(
-        titleText: 'Available Plans',
-      ),
-      body: modelPlansList != null
-          ? SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: CommonAppBar(
+          titleText: 'Plans',
+          bottom: modelPlansList != null
+              ? PreferredSize(
+                  preferredSize: Size(context.getSize.width, kToolbarHeight + 50),
+                  child: TabBar(
+                    isScrollable: true,
+                    tabs: modelPlansList!.allPlans
+                        .map((e) => Tab(
+                              child: Text(
+                                e!.first.businessType.toString().capitalize!,
+                                // style: titleStyle,
+                              ),
+                            ))
+                        .toList(),
+                    unselectedLabelStyle: titleStyle.copyWith(fontWeight: FontWeight.w400),
+                    labelStyle: titleStyle,
+                  ),
+                )
+              : null,
+        ),
+        backgroundColor: Colors.grey.shade100,
+        body: modelPlansList != null
+            ? TabBarView(
                 children: modelPlansList!.allPlans
-                    .map((e) => Card(
-                          margin: const EdgeInsets.only(bottom: 20),
+                    .map((e) => SingleChildScrollView(
+                            child: Card(
+                          margin: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                           child: Column(
-                            children: e!
-                                .asMap()
-                                .entries
-                                .map((e1) => Padding(
-                                      padding: const EdgeInsets.only(bottom: 14),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          selectedPlan = e1.value;
-                                          Get.to(()=> VendorRegistrationScreen(
-                                            selectedPlan: selectedPlan!,
-                                            modelPlansList: modelPlansList!,
-                                          ));
-                                          setState(() {});
-                                        },
-                                        behavior: HitTestBehavior.translucent,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: Column(
-                                            children: [
-                                              if (e1.key == 0)
-                                                Text(
-                                                  e1.value.businessType.toString().capitalize!,
-                                                  style: titleStyle.copyWith(fontSize: 18),
-                                                ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 24),
+                                child: Text(
+                                  e!.first.businessType.toString().capitalize!,
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600, fontSize: 20, color: AppTheme.buttonColor),
+                                ),
+                              ),
+                              const Divider(
+                                color: Color(0xFFC2ECEC),
+                                height: 0,
+                              ),
+                              const SizedBox(
+                                height: 18,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    child: Text(
+                                      'PLANS',
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xFF111727),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: e
+                                          .asMap()
+                                          .entries
+                                          .map((e1) => GestureDetector(
+                                                onTap: () {
+                                                  selectedPlan = e1.value;
+                                                  setState(() {});
+                                                },
+                                                behavior: HitTestBehavior.translucent,
+                                                child: Column(
+                                                  children: [
+                                                    Row(
                                                       children: [
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                                child: Text(
-                                                              e1.value.title.toString().capitalize!,
-                                                              style: titleStyle,
-                                                            )),
-                                                            Text(e1.value.amount.toString()),
-                                                          ],
-                                                        ),
+                                                        Radio<PlanInfoData?>(
+                                                            value: e1.value,
+                                                            groupValue: selectedPlan,
+                                                            visualDensity:
+                                                                const VisualDensity(horizontal: -4, vertical: -2),
+                                                            onChanged: (value) {
+                                                              selectedPlan = value;
+                                                              if (selectedPlan == null) return;
+                                                              setState(() {});
+                                                            }),
                                                         const SizedBox(
-                                                          height: 5,
+                                                          width: 5,
                                                         ),
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                                child: Text(
-                                                              "Validity",
+                                                        Expanded(
+                                                            flex: 3,
+                                                            child: Text(
+                                                              e1.value.label.toString().capitalize!,
                                                               style: titleStyle,
                                                             )),
-                                                            Text("${e1.value.label}"),
-                                                          ],
-                                                        ),
+                                                        Expanded(flex: 2, child: Text("${e1.value.amount} ${e1.value.currency}",style: titleStyle.copyWith(
+                                                          fontWeight: FontWeight.w400,
+                                                          fontSize: 14
+                                                        ),)),
                                                       ],
                                                     ),
-                                                  ),
-                                                  Radio<PlanInfoData?>(
-                                                      value: e1.value,
-                                                      groupValue: selectedPlan,
-                                                      onChanged: (value) {
-                                                        selectedPlan = value;
-                                                        if(selectedPlan == null)return;
-                                                        Get.to(()=> VendorRegistrationScreen(
-                                                          selectedPlan: selectedPlan!,
-                                                          modelPlansList: modelPlansList!,
-                                                        ));
-                                                        setState(() {});
-                                                      })
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
+                                                  ],
+                                                ),
+                                              ))
+                                          .toList(),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
-                        ))
+                        )))
                     .toList(),
-              ),
-            )
-          : const LoadingAnimation(),
+              )
+            : const LoadingAnimation(),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(bottom: 25),
+          child: ElevatedButton(
+            onPressed: (){
+              if(selectedPlan == null){
+                showToast("Please select any plan");
+                return;
+              }
+              Get.to(() => VendorRegistrationScreen(
+                selectedPlan: selectedPlan!,
+                modelPlansList: modelPlansList!,
+              ));
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppTheme.buttonColor,
+              surfaceTintColor: AppTheme.buttonColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4)
+              )
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Text("Proceed",style: titleStyle.copyWith(color: Colors.white),),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

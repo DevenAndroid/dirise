@@ -7,7 +7,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Color? backGroundColor;
   final Color? textColor;
-  const CommonAppBar({super.key, required this.titleText, this.actions, this.backGroundColor, this.textColor});
+  final PreferredSizeWidget? bottom;
+  const CommonAppBar({super.key, required this.titleText, this.actions, this.backGroundColor, this.textColor, this.bottom});
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +50,10 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: GoogleFonts.poppins(color: textColor ?? Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
       ),
       actions: [...actions ?? []],
+      bottom: bottom,
     );
   }
 
   @override
-  Size get preferredSize => const Size(double.maxFinite, kToolbarHeight);
+  Size get preferredSize => bottom == null ?  const Size(double.maxFinite, kToolbarHeight) : bottom!.preferredSize;
 }

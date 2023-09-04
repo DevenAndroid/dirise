@@ -10,9 +10,14 @@ import '../../model/vendor_models/model_vendor_product_details.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
+import '../../utils/notification_service.dart';
 import 'products_controller.dart';
 
 class AddProductController extends GetxController {
+  List<String> gg = [
+    "gram",
+    "kilogram",
+  ];
   ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
   RxInt refreshCategory = 0.obs;
 
@@ -52,6 +57,10 @@ class AddProductController extends GetxController {
   final TextEditingController shortDescriptionController = TextEditingController();
   final TextEditingController longDescriptionController = TextEditingController();
   final TextEditingController returnDaysController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+  // final TextEditingController weightUnitController = TextEditingController();
+  String weightUnit = "";
+  final GlobalKey weightUnitKey = GlobalKey();
 
   RxString productFileType = "".obs;
   File productImage = File("");
@@ -60,7 +69,7 @@ class AddProductController extends GetxController {
   File voiceFile = File("");
   List<File> galleryImages = [];
   String selectedCategory = "";
-  String productType = "Single Product";
+  String productType = "Simple Product";
   bool showValidations = false;
   DateTime? selectedStartDateTime;
   DateTime? selectedEndDateTIme;
@@ -87,6 +96,8 @@ class AddProductController extends GetxController {
       serviceTimeSloat = item.serviceTimeSloat ?? [];
     }
     productNameController.text = item.pname.toString();
+    weightController.text = (item.weight ?? "").toString();
+    weightUnit = (item.weight_unit ?? "").toString();
     skuController.text = item.sku_id.toString();
     purchasePriceController.text = (item.p_price ?? "").toString();
     sellingPriceController.text = item.sPrice.toString();
@@ -190,6 +201,13 @@ class AddProductController extends GetxController {
       if (sellingPriceController.checkBothWithNum) return;
       if (stockController.checkBothWithNum) return;
       if (returnDaysController.checkBothWithNum) return;
+      if (weightController.checkBothWithNum) return;
+      if (weightUnit.isEmpty) {
+        if (weightUnitKey.currentContext != null) {
+          Scrollable.ensureVisible(weightUnitKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
+          return;
+        }
+      }
       if (selectedCategory.isEmpty) {
         if (categoryKey.currentContext != null) {
           Scrollable.ensureVisible(categoryKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
@@ -239,7 +257,9 @@ class AddProductController extends GetxController {
     // return;
     Map<String, String> map = {};
     // single,variants,booking,virtual_product
-    map["product_type"] = productType.replaceAll("Product", "").trim().toLowerCase();
+    map["product_type"] = productType.replaceAll("Product", "").replaceAll("Simple", "single").trim().toLowerCase();
+    map["weight"] = weightController.text.trim();
+    map["weight_unit"] = weightUnit;
 
     if (productType.replaceAll("Product", "").trim().toLowerCase() == "virtual") {
       // "virtual_product"
@@ -262,6 +282,8 @@ class AddProductController extends GetxController {
         map["sloat[${element.key}]"] = element.value;
       });
     }
+
+
 
     map["product_name"] = productNameController.text.trim();
     map["sku_id"] = skuController.text.trim();
@@ -301,14 +323,21 @@ class AddProductController extends GetxController {
             images: imageMap,
             url: ApiUrls.addVendorProductUrl,
             context: context,
-            onProgress: (int bytes, int totalBytes) {})
+            onProgress: (int bytes, int totalBytes) {
+              NotificationService().showNotificationWithProgress(
+                  title: "Uploading Images", body: "Uploading Images are in progress", payload: "payload",
+                  maxProgress: 100, progress: ((bytes/ totalBytes) * 100).toInt(), progressId: 770);
+            })
         .then((value) {
+      NotificationService().hideAllNotifications();
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         Get.back();
         productListController.getProductList();
       }
+    }).catchError((e){
+      NotificationService().hideAllNotifications();
     });
   }
 
@@ -355,19 +384,19 @@ class AddProductController extends GetxController {
     });
   }
 
-  disposeControllers() {
-    startTime.dispose();
-    endTime.dispose();
-    serviceDuration.dispose();
-    startDate.dispose();
-    endDate.dispose();
-    productNameController.dispose();
-    skuController.dispose();
-    purchasePriceController.dispose();
-    sellingPriceController.dispose();
-    stockController.dispose();
-    shortDescriptionController.dispose();
-    longDescriptionController.dispose();
-    returnDaysController.dispose();
-  }
+  // disposeControllers() {
+  //   startTime.dispose();
+  //   endTime.dispose();
+  //   serviceDuration.dispose();
+  //   startDate.dispose();
+  //   endDate.dispose();
+  //   productNameController.dispose();
+  //   skuController.dispose();
+  //   purchasePriceController.dispose();
+  //   sellingPriceController.dispose();
+  //   stockController.dispose();
+  //   shortDescriptionController.dispose();
+  //   longDescriptionController.dispose();
+  //   returnDaysController.dispose();
+  // }
 }

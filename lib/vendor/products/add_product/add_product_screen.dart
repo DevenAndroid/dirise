@@ -32,7 +32,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   void dispose() {
     super.dispose();
-    controller.disposeControllers();
+    // controller.disposeControllers();
     controller.dispose();
   }
 
