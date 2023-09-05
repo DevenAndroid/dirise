@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../model/common_modal.dart';
 import '../../model/vendor_models/model_add_product_category.dart';
+import '../../model/vendor_models/model_attribute.dart';
+import '../../model/vendor_models/model_varient.dart';
 import '../../model/vendor_models/model_vendor_product_details.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
@@ -14,12 +16,25 @@ import '../../utils/notification_service.dart';
 import 'products_controller.dart';
 
 class AddProductController extends GetxController {
+
   List<String> gg = [
     "gram",
     "kilogram",
   ];
+
   ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
   RxInt refreshCategory = 0.obs;
+  ModelAttributes modelAttributes = ModelAttributes();
+  RxInt attributeRefresh = 0.obs;
+  List<AttributeData> attributeList = [];
+  List<AddMultipleItems> addMultipleItems = [];
+
+  getProductAttributes(){
+    repositories.getApi(url: ApiUrls.getAttributeUrl).then((value) {
+      modelAttributes = ModelAttributes.fromJson(jsonDecode(value));
+      attributeRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }
 
   Future getProductCategoryLit() async {
     refreshCategory.value = -2;

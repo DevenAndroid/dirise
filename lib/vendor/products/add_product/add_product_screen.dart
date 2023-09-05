@@ -9,6 +9,7 @@ import '../../../widgets/loading_animation.dart';
 import 'add_product_description.dart';
 import 'bookable_screens/bookable_ui.dart';
 import 'product_gallery_images.dart';
+import 'varient_product/varient_product.dart';
 import 'vertual_product_and_image.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -27,6 +28,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void initState() {
     super.initState();
     controller.getProductDetails();
+    controller.getProductAttributes();
   }
 
   @override
@@ -74,6 +76,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           const AddProductDescriptionScreen(),
                           16.spaceY,
                           if (controller.productType == "Booking Product") const BookableUI(),
+                          if (controller.productType == "Variants Product") const ProductVarient(),
                           const AddProductImageAndVirtualFile(),
                           16.spaceY,
                           const ProductGalleryImages(),

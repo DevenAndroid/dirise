@@ -143,11 +143,16 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                   child: Obx(() {
                     if (productController.refreshInt.value > 0) {}
                     return ListView.builder(
-                      itemCount: productController.apiLoaded ? productController.model.product!.length : 5,
+                      itemCount: productController.apiLoaded ? productController.model.product!.isEmpty ? 1 : productController.model.product!.length : 5,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         if (!productController.apiLoaded) {
                           return shimmerLoader(index);
+                        }
+                        if(productController.model.product!.isEmpty){
+                          return const Center(
+                            child: Text("No Product Added"),
+                          );
                         }
                         final item = productController.model.product![index];
                         return Column(

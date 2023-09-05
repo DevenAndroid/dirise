@@ -65,6 +65,10 @@ class ApiUrls {
   static const String searchProductUrl = "${baseUrl}search-product";
   static const String vendorPlanUrl = "${baseUrl}vendor-plan";
   static const String createPaymentUrl = "${baseUrl}create-payment";
+  static const String getAttributeUrl = "${baseUrl}get-attributes";
+
+
+
 }
 
 showToast(message, {ToastGravity? gravity}) {

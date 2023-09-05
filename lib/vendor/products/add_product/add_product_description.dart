@@ -22,6 +22,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
     "Simple Product",
     "Virtual Product",
     "Booking Product",
+    "Variants Product",
   ];
 
   @override

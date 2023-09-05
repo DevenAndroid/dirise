@@ -48,10 +48,6 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
       start.add(value.startTime.toString().normalTime);
       end.add(value.endTime.toString().normalTime);
       status.add(value.status == true ? "1" : "0");
-      // map["week_day[$key]"] = key;
-      // map["start_time[$key]"] = value.startTime.toString().normalTime;
-      // map["end_time[$key]"] = value.endTime.toString().normalTime;
-      // map["status[$key]"] = value.status == true ? "1" : "0";
     });
     map["start_time"] = start;
     map["end_time"] = end;

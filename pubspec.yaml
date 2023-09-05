@@ -55,6 +55,7 @@ dependencies:
   flutter_local_notifications: ^15.1.1
   flutter_exif_rotation: ^0.5.1
   webview_flutter: ^4.2.4
+  trotter: ^2.1.0
 
 
 dev_dependencies:

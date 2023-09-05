@@ -28,6 +28,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
   getPaymentUrl(){
     print(widget.planInfoData.toJson());
     repositories.postApi(url: ApiUrls.createPaymentUrl,
+    context: context,
     mapData: {
       'plan_id': widget.planInfoData.id.toString(),
       'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl'
@@ -43,7 +44,9 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return true;
+        Get.back();
+        Get.off(() => const VendorDashBoardScreen());
+        return false;
       },
       child: Scaffold(
         body: SingleChildScrollView(
