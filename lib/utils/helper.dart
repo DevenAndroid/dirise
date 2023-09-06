@@ -396,8 +396,8 @@ extension GetContext on BuildContext {
 
   Size get getSize => MediaQuery.of(this).size;
 
-  void get navigate {
-    Scrollable.ensureVisible(this, alignment: .25, duration: const Duration(milliseconds: 600));
+  Future get navigate async {
+    return await Scrollable.ensureVisible(this, alignment: .25, duration: const Duration(milliseconds: 600));
   }
 }
 

@@ -86,12 +86,10 @@ class GetAttrvalues {
   String? slug;
   String? createdAt;
   String? updatedAt;
-  List<GetAttrvalues>? itselfList = [];
 
   GetAttrvalues(
       {this.id,
         this.attrId,
-        this.itselfList,
         this.attrValueName,
         this.arabName,
         this.slug,

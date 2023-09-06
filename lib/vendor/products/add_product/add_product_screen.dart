@@ -32,77 +32,75 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    // controller.disposeControllers();
-    controller.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xffF4F4F4),
-          surfaceTintColor: Colors.white,
-          leading: GestureDetector(
-            onTap: () {
-              Get.back();
-              // _scaffoldKey.currentState!.openDrawer();
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Image.asset(
-                'assets/icons/backicon.png',
-                // height: 21,
+    return WillPopScope(
+      onWillPop: ()async{
+        return true;
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xffF4F4F4),
+            surfaceTintColor: Colors.white,
+            leading: GestureDetector(
+              onTap: () {
+                Get.back();
+                // _scaffoldKey.currentState!.openDrawer();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Image.asset(
+                  'assets/icons/backicon.png',
+                  // height: 21,
+                ),
               ),
             ),
+            title: Text(
+              controller.productId.isEmpty ? "Add Product" : "Edit Product",
+              style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
+            ),
           ),
-          title: Text(
-            controller.productId.isEmpty ? "Add Product" : "Edit Product",
-            style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
-          ),
-        ),
-        body: Obx(() {
-          if (controller.refreshInt.value > 0) {}
-          return controller.apiLoaded
-              ? RefreshIndicator(
-                  onRefresh: () async => await controller.getProductCategoryLit(),
-                  child: SingleChildScrollView(
-                      child: Form(
-                    key: controller.formKey,
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(children: [
-                          const AddProductDescriptionScreen(),
-                          16.spaceY,
-                          if (controller.productType == "Booking Product") const BookableUI(),
-                          if (controller.productType == "Variants Product") const ProductVarient(),
-                          const AddProductImageAndVirtualFile(),
-                          16.spaceY,
-                          const ProductGalleryImages(),
-                          16.spaceY,
-                          ElevatedButton(
-                              onPressed: () {
-                                controller.addProduct(context: context);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(double.maxFinite, 60),
-                                  backgroundColor: AppTheme.buttonColor,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                                  textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
-                              child: Text(
-                                controller.productId.isEmpty ? "Create" : "Update",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
-                              )),
-                          10.spaceY,
-                        ])),
-                  )),
-                )
-              : const LoadingAnimation();
-        }));
+          body: Obx(() {
+            if (controller.refreshInt.value > 0) {}
+            return controller.apiLoaded
+                ? RefreshIndicator(
+                    onRefresh: () async => await controller.getProductCategoryLit(),
+                    child: SingleChildScrollView(
+                        child: Form(
+                      key: controller.formKey,
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(children: [
+                            const AddProductDescriptionScreen(),
+                            16.spaceY,
+                            if (controller.productType == "Booking Product") const BookableUI(),
+                            if (controller.productType == "Variants Product") const ProductVarient(),
+                            const AddProductImageAndVirtualFile(),
+                            16.spaceY,
+                            const ProductGalleryImages(),
+                            16.spaceY,
+                            ElevatedButton(
+                                onPressed: () {
+                                  controller.addProduct(context: context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size(double.maxFinite, 60),
+                                    backgroundColor: AppTheme.buttonColor,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
+                                    textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                                child: Text(
+                                  controller.productId.isEmpty ? "Create" : "Update",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
+                                )),
+                            10.spaceY,
+                          ])),
+                    )),
+                  )
+                : const LoadingAnimation();
+          })),
+    );
   }
 }

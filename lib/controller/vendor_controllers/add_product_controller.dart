@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../model/common_modal.dart';
@@ -13,10 +14,10 @@ import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
 import '../../utils/notification_service.dart';
+import '../../vendor/products/add_product/varient_product/varient_product.dart';
 import 'products_controller.dart';
 
 class AddProductController extends GetxController {
-
   List<String> gg = [
     "gram",
     "kilogram",
@@ -24,12 +25,8 @@ class AddProductController extends GetxController {
 
   ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
   RxInt refreshCategory = 0.obs;
-  ModelAttributes modelAttributes = ModelAttributes();
-  RxInt attributeRefresh = 0.obs;
-  List<AttributeData> attributeList = [];
-  List<AddMultipleItems> addMultipleItems = [];
 
-  getProductAttributes(){
+  getProductAttributes() {
     repositories.getApi(url: ApiUrls.getAttributeUrl).then((value) {
       modelAttributes = ModelAttributes.fromJson(jsonDecode(value));
       attributeRefresh.value = DateTime.now().millisecondsSinceEpoch;
@@ -38,10 +35,7 @@ class AddProductController extends GetxController {
 
   Future getProductCategoryLit() async {
     refreshCategory.value = -2;
-    await repositories.postApi(
-        url: ApiUrls.productCategoryListUrl,
-        showResponse: false,
-        showMap: false).then((value) {
+    await repositories.postApi(url: ApiUrls.productCategoryListUrl, showResponse: false, showMap: false).then((value) {
       productCategory = ModelAddProductCategory.fromJson(jsonDecode(value));
       updateCategory();
       refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
@@ -170,7 +164,8 @@ class AddProductController extends GetxController {
 
   updateEndDateTime() {
     try {
-      selectedEndDateTIme = DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.toDate.toString());
+      selectedEndDateTIme =
+          DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.toDate.toString());
       endDate.text = DateFormat("dd-MMM-yyyy").format(selectedEndDateTIme!);
     } catch (e) {
       throw Exception(e);
@@ -190,6 +185,16 @@ class AddProductController extends GetxController {
     return "${gg.split(":")[0]}:${gg.split(":")[1]}";
   }
 
+  // For Variation
+  ModelAttributes modelAttributes = ModelAttributes();
+  RxInt attributeRefresh = 0.obs;
+  RxInt variation = 0.obs;
+  List<AttributeData> attributeList = [];
+  final GlobalKey attributeListKey = GlobalKey();
+  final GlobalKey attributeEmptyListKey = GlobalKey();
+  final GlobalKey createAttributeButton = GlobalKey();
+  List<AddMultipleItems> addMultipleItems = [];
+
   addProduct({required BuildContext context}) {
     if (showValidations == false) {
       showValidations = true;
@@ -203,11 +208,12 @@ class AddProductController extends GetxController {
     } else if (slots.isNotEmpty) {
       timeslots = slots.entries
           .where((element) => element.value == true)
-          .map(
-              (e) => "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
+          .map((e) =>
+              "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
           .toList();
     }
 
+    /// Form Validation
     if (!formKey.currentState!.validate()) {
       if (productNameController.checkEmpty) return;
       if (skuController.checkEmpty) return;
@@ -219,31 +225,97 @@ class AddProductController extends GetxController {
       if (weightController.checkBothWithNum) return;
       if (weightUnit.isEmpty) {
         if (weightUnitKey.currentContext != null) {
-          Scrollable.ensureVisible(weightUnitKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
+          Scrollable.ensureVisible(weightUnitKey.currentContext!,
+              alignment: .25, duration: const Duration(milliseconds: 600));
           return;
         }
       }
       if (selectedCategory.isEmpty) {
         if (categoryKey.currentContext != null) {
-          Scrollable.ensureVisible(categoryKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
+          Scrollable.ensureVisible(categoryKey.currentContext!,
+              alignment: .25, duration: const Duration(milliseconds: 600));
           return;
         }
       }
       if (shortDescriptionController.checkEmpty) return;
       if (longDescriptionController.checkEmpty) return;
 
+      if (productType == "Variants Product") {
+        if (attributeList.isEmpty) {
+          attributeListKey.currentContext!.navigate;
+          return;
+        }
+        for (var element in addMultipleItems) {
+          if(element.variantImages.path.isEmpty){
+            element.variantImageKey.currentContext!.navigate;
+            showToast("Select Variant Image",center: true);
+            return;
+          }
+          if (element.variantSku.checkEmpty) return;
+          if (element.variantPrice.checkBothWithNum) return;
+          if (element.variantStock.checkBothWithNum) return;
+        }
+      }
+
       if (productType == "Booking Product") {
         if (startTime.checkEmpty) return;
         if (endTime.checkEmpty) return;
         if (serviceDuration.checkEmpty) return;
         if (startDate.checkEmpty) return;
-
         if (selectedEndDateTIme == null && dateType.value == "range") {
           if (serviceDuration.checkEmpty) return;
         }
       }
 
       return;
+    }
+
+    /// Other Validation
+    if (productType == "Variants Product") {
+      // print("testing...    ${}")
+      if (!attributeList
+          .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
+          .toList()
+          .contains(true)) {
+        showToast("Please select at least 1 variant",gravity: ToastGravity.CENTER);
+        attributeEmptyListKey.currentContext!.navigate;
+        return;
+      }
+      if(attributeList
+          .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
+          .toList()
+          .contains(true) && addMultipleItems.isEmpty){
+        createAttributeButton.currentContext!.navigate.then((value) {
+          addMultipleItems.clear();
+          combinations(
+              attributeList.map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList()).toList()
+          ).forEach((element) {
+            log(element.map((e) => e.aboveParentSlug).toList().toString());
+            Map<String, GetAttrvalues> tempMap = {};
+            for (var element1 in element) {
+              tempMap[element1.aboveParentSlug] = element1;
+            }
+            addMultipleItems.add(AddMultipleItems(
+                attributes: tempMap,
+            ));
+          });
+          Future.delayed(const Duration(milliseconds: 200)).then((value) {
+            showToast("Fill available fields properly.",gravity: ToastGravity.CENTER);
+          });
+          variation.value = DateTime.now().millisecondsSinceEpoch;
+        });
+        return;
+      }
+      for (var element in addMultipleItems) {
+        if(element.variantImages.path.isEmpty){
+          element.variantImageKey.currentContext!.navigate;
+          showToast("Select Variant Image",center: true);
+          return;
+        }
+        if (element.variantSku.checkEmpty) return;
+        if (element.variantPrice.checkBothWithNum) return;
+        if (element.variantStock.checkBothWithNum) return;
+      }
     }
 
     if (productType == "Booking Product") {
@@ -268,6 +340,8 @@ class AddProductController extends GetxController {
     if (productImage.path.isEmpty) {
       return showToast("Please select product images");
     }
+
+
 
     // return;
     Map<String, String> map = {};
@@ -298,7 +372,18 @@ class AddProductController extends GetxController {
       });
     }
 
-
+    if (productType == "Variants Product") {
+      addMultipleItems.asMap().entries.forEach((element) {
+        map["variant_sku[${element.key}]"] = element.value.variantSku.text.trim();
+        map["variant_price[${element.key}]"] = element.value.variantPrice.text.trim();
+        map["variant_stock[${element.key}]"] = element.value.variantStock.text.trim();
+        Map<String, String> kk = {};
+        for (var element11 in element.value.attributes!.entries) {
+          kk[element11.key] = element11.value.id.toString();
+        }
+        map["variant_value[${element.key}]"] = jsonEncode(kk);
+      });
+    }
 
     map["product_name"] = productNameController.text.trim();
     map["sku_id"] = skuController.text.trim();
@@ -319,19 +404,29 @@ class AddProductController extends GetxController {
     }
     imageMap["featured_image"] = productImage;
 
+    if (productType == "Variants Product") {
+      addMultipleItems.asMap().entries.forEach((element) {
+    imageMap["variant_images[${element.key}]"] = element.value.variantImages;
+      });
+
+    }
+
     galleryImages.asMap().forEach((key, value) {
       imageMap["gallery_image[$key]"] = value;
     });
 
-    map["galleryTempData"] =
-        galleryImages.where((element) => element.path.checkHTTP.isNotEmpty).map((e) => e.path.checkHTTP).toList().join(",");
+    map["galleryTempData"] = galleryImages
+        .where((element) => element.path.checkHTTP.isNotEmpty)
+        .map((e) => e.path.checkHTTP)
+        .toList()
+        .join(",");
 
     imageMap.removeWhere((key, value) => value.path.checkHTTP.isNotEmpty);
     map.removeWhere((key, value) => value.isEmpty);
     log(map.toString());
     log(imageMap.toString());
     // if(productId.isNotEmpty)return;
-
+    // return;
     repositories
         .multiPartApi(
             mapData: map,
@@ -340,8 +435,12 @@ class AddProductController extends GetxController {
             context: context,
             onProgress: (int bytes, int totalBytes) {
               NotificationService().showNotificationWithProgress(
-                  title: "Uploading Images", body: "Uploading Images are in progress", payload: "payload",
-                  maxProgress: 100, progress: ((bytes/ totalBytes) * 100).toInt(), progressId: 770);
+                  title: "Uploading Images",
+                  body: "Uploading Images are in progress",
+                  payload: "payload",
+                  maxProgress: 100,
+                  progress: ((bytes / totalBytes) * 100).toInt(),
+                  progressId: 770);
             })
         .then((value) {
       NotificationService().hideAllNotifications();
@@ -351,7 +450,7 @@ class AddProductController extends GetxController {
         Get.back();
         productListController.getProductList();
       }
-    }).catchError((e){
+    }).catchError((e) {
       NotificationService().hideAllNotifications();
     });
   }

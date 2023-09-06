@@ -288,7 +288,7 @@ class Repositories {
 
       final response = await request.send();
       String value = await response.stream.bytesToString();
-      log(value);
+      log("Api Response.....      $value");
       log(response.statusCode.toString());
       Helpers.hideLoader(loader);
       if (response.statusCode == 200) {

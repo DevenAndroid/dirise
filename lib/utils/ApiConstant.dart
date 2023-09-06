@@ -71,12 +71,12 @@ class ApiUrls {
 
 }
 
-showToast(message, {ToastGravity? gravity}) {
+showToast(message, {ToastGravity? gravity, bool? center}) {
   Fluttertoast.cancel();
   Fluttertoast.showToast(
       msg: message.toString().capitalize!,
       toastLength: Toast.LENGTH_LONG,
-      gravity: gravity ?? ToastGravity.BOTTOM,
+      gravity: center == true ? ToastGravity.CENTER :  gravity ?? ToastGravity.BOTTOM,
       timeInSecForIosWeb: 4,
       backgroundColor: AppTheme.buttonColor,
       textColor: const Color(0xffffffff),

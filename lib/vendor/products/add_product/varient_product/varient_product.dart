@@ -28,6 +28,8 @@ class _ProductVarientState extends State<ProductVarient> {
   Widget build(BuildContext context) {
     return Obx(() {
       if (controller.attributeRefresh.value > 0) {}
+      if (controller.refreshInt.value > 0) {}
+      if (controller.variation.value > 0) {}
       return controller.modelAttributes.data != null
           ? Card(
               margin: const EdgeInsets.symmetric(vertical: 18, horizontal: 4),
@@ -42,6 +44,7 @@ class _ProductVarientState extends State<ProductVarient> {
                     ),
                     10.spaceY,
                     DropdownButtonFormField<AttributeData>(
+                      key: controller.attributeListKey,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       isExpanded: true,
                       iconDisabledColor: const Color(0xff97949A),
@@ -74,7 +77,11 @@ class _ProductVarientState extends State<ProductVarient> {
                           .toList(),
                       onChanged: (value) {
                         if (value == null) return;
-                        controller.attributeList.add(value);
+                        AttributeData kk = value;
+                        for (var element in kk.getAttrvalues!) {
+                          element.aboveParentSlug = kk.slug.toString();
+                        }
+                        controller.attributeList.add(kk);
                         controller.attributeList = controller.attributeList.toSet().toList();
                         setState(() {});
                       },
@@ -86,6 +93,7 @@ class _ProductVarientState extends State<ProductVarient> {
                     ),
                     5.spaceY,
                     Column(
+                      key: controller.attributeEmptyListKey,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: controller.attributeList
                           .map((e) => Column(
@@ -99,7 +107,31 @@ class _ProductVarientState extends State<ProductVarient> {
                                           style: normalStyle,
                                         ),
                                       ),
-                                      IconButton(onPressed: (){},
+                                      IconButton(onPressed: (){
+                                        controller.attributeList.remove(e);
+                                        if(controller.attributeList
+                                            .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
+                                            .toList()
+                                            .contains(true)){
+                                          controller.addMultipleItems.clear();
+                                          combinations(
+                                              controller.attributeList.map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList()).toList()
+                                          ).forEach((element) {
+                                            log(element.map((e) => e.aboveParentSlug).toList().toString());
+                                            Map<String, GetAttrvalues> tempMap = {};
+                                            for (var element1 in element) {
+                                              tempMap[element1.aboveParentSlug] = element1;
+                                            }
+                                            controller.addMultipleItems.add(AddMultipleItems(
+                                                attributes: tempMap,
+                                            ));
+                                          });
+                                          setState(() {});
+                                        } else {
+                                          controller.addMultipleItems.clear();
+                                        }
+                                        setState(() {});
+                                      },
                                           visualDensity: VisualDensity.compact,
                                           icon: const Icon(Icons.clear))
                                     ],
@@ -130,44 +162,22 @@ class _ProductVarientState extends State<ProductVarient> {
                       Padding(
                         padding: const EdgeInsets.only(top: 6),
                         child: ElevatedButton(
+                          key: controller.createAttributeButton,
                             onPressed: () {
-                              // List<GetAttrvalues> gg = [];
-                              // List<AttributeData> attributeList = [];
-                              //
-                              // for (var element in controller.attributeList) {
-                              //   AttributeData kk = AttributeData.fromJson(element.toJson());
-                              //   kk.getAttrvalues = kk.getAttrvalues!.where((element) => !element.selectedVariant).toList();
-                              //   attributeList.add(kk);
-                              // }
-                              // log(attributeList.map((e) =>
-                              //     e.getAttrvalues!.map((e1) => e1.slug.toString()).toList()).toString());
-
+                              controller.addMultipleItems.clear();
                               combinations(
                                   controller.attributeList.map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList()).toList()
                               ).forEach((element) {
-                                log(element.map((e) => e.attrValueName).toList().toString());
+                                log(element.map((e) => e.aboveParentSlug).toList().toString());
+                                Map<String, GetAttrvalues> tempMap = {};
+                                for (var element1 in element) {
+                                  tempMap[element1.aboveParentSlug] = element1;
+                                }
+                                controller.addMultipleItems.add(AddMultipleItems(
+                                  attributes: tempMap,
+                                ));
                               });
-
-
-
-
-                              // combinations(attributeList.map((e) => e.getAttrvalues!).toList()).map((e) => e.map((e1) => e1.slug.toString())).forEach((element) {
-
-                              // });
-                              // log(.toString());
-                              // final bagOfItems = gg,
-                              //     combos = Compounds(bagOfItems);
-                              // for (final combo in combos()) {
-                              //   print(combo.map((e) => "${e.slug}  ${e.aboveParentSlug}"));
-                              // }
-                              // log(gg.map((e) => e.toJson()).toString());
-                              // log(gg.length.toString());
-                              // for (var element in gg) {
-                              //
-                              // }
-
-
-                              // controller.addMultipleItems
+                              setState(() {});
                             },
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -188,19 +198,36 @@ class _ProductVarientState extends State<ProductVarient> {
                       Column(
                         children: controller.addMultipleItems
                             .map((e) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    8.spaceY,
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            "Variation: \n${e.attributes!.entries.map((e) => "${e.key.capitalizeFirst}: ${e.value.attrValueName.toString().capitalizeFirst}").toList().join("\n")}",
+                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 14),
+                                          ),
+                                        ),
+                                        IconButton(onPressed: (){
+                                          controller.addMultipleItems.remove(e);
+                                          setState(() {});
+                                        }, icon: const Icon(Icons.clear))
+                                      ],
+                                    ),
                                     ImageWidget(
                                       title: "Variant Image",
+                                      key: e.variantImageKey,
                                       file: e.variantImages!,
                                       filePicked: (File gg) {
                                         e.variantImages = gg;
                                       },
-                                      validation: true,
+                                      validation: e.variantImages!.path.isEmpty,
                                     ),
                                     2.spaceY,
                                     VendorCommonTextfield(
-                                        controller: TextEditingController(text: e.variantSku),
-                                        key: e.variantSkuKey,
+                                        controller: e.variantSku,
+                                        key: e.variantSku.getKey,
                                         hintText: "Variant SKU",
                                         validator: (value) {
                                           if (value!.trim().isEmpty) {
@@ -210,9 +237,10 @@ class _ProductVarientState extends State<ProductVarient> {
                                         }),
                                     18.spaceY,
                                     VendorCommonTextfield(
-                                        controller: TextEditingController(text: e.variantPrice),
-                                        key: e.variantPriceKey,
+                                        controller: e.variantPrice,
+                                        key: e.variantPrice.getKey,
                                         hintText: "Variant Price",
+                                        keyboardType: TextInputType.number,
                                         validator: (value) {
                                           if (value!.trim().isEmpty) {
                                             return "Variant price is required";
@@ -221,8 +249,9 @@ class _ProductVarientState extends State<ProductVarient> {
                                         }),
                                     18.spaceY,
                                     VendorCommonTextfield(
-                                        controller: TextEditingController(text: e.variantStock),
-                                        key: e.variantStockKey,
+                                        controller: e.variantStock,
+                                        key: e.variantStock.getKey,
+                                        keyboardType: TextInputType.number,
                                         hintText: "Variant Stock",
                                         validator: (value) {
                                           if (value!.trim().isEmpty) {
@@ -230,6 +259,7 @@ class _ProductVarientState extends State<ProductVarient> {
                                           }
                                           return null;
                                         }),
+                                    18.spaceY,
                                   ],
                                 ))
                             .toList(),
