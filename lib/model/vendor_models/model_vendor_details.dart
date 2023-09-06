@@ -30,6 +30,7 @@ class VendorUser {
   dynamic email;
   dynamic dob;
   dynamic countryCode;
+  dynamic earnedBalance;
   dynamic phone;
   dynamic storeName;
   dynamic storeBusinessId;
@@ -69,62 +70,75 @@ class VendorUser {
   dynamic storeOn;
   dynamic readyForOrder;
   dynamic isVendor;
+  dynamic vendorType;
+  dynamic taxNumber;
+  dynamic vendorPublishStatus;
+  dynamic activePlanId;
+  dynamic planStartDate;
+  dynamic planExpireDate;
   dynamic createdAt;
   dynamic updatedAt;
   dynamic deletedAt;
-  List<VenderCategory>? venderCategory = [];
+  List<Null>? venderCategory;
 
   VendorUser(
       {this.id,
-      this.name,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.dob,
-      this.countryCode,
-      this.phone,
-      this.storeName,
-      this.storeBusinessId,
-      this.storeAboutUs,
-      this.storeAboutMe,
-      this.storeAddress,
-      this.storeLogo,
-      this.storeImage,
-      this.storePhone,
-      this.description,
-      this.categoryId,
-      this.bio,
-      this.socialId,
-      this.apiToken,
-      this.deviceId,
-      this.deviceToken,
-      this.emailVerifiedAt,
-      this.newSocialUser,
-      this.customerId,
-      this.defaultCard,
-      this.userWallet,
-      this.isMobileVerified,
-      this.otpVerified,
-      this.isApproved,
-      this.vendorWallet,
-      this.profileImage,
-      this.bannerProfile,
-      this.categoryImage,
-      this.address,
-      this.countryId,
-      this.stateId,
-      this.city,
-      this.streetName,
-      this.block,
-      this.stripeId,
-      this.currency,
-      this.storeOn,
-      this.readyForOrder,
-      this.isVendor,
-      this.createdAt,
-      this.updatedAt,
-      this.deletedAt,
-      this.venderCategory});
+        this.name,
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.dob,
+        this.countryCode,
+        this.earnedBalance,
+        this.phone,
+        this.storeName,
+        this.storeBusinessId,
+        this.storeAboutUs,
+        this.storeAboutMe,
+        this.storeAddress,
+        this.storeLogo,
+        this.storeImage,
+        this.storePhone,
+        this.description,
+        this.categoryId,
+        this.bio,
+        this.socialId,
+        this.apiToken,
+        this.deviceId,
+        this.deviceToken,
+        this.emailVerifiedAt,
+        this.newSocialUser,
+        this.customerId,
+        this.defaultCard,
+        this.userWallet,
+        this.isMobileVerified,
+        this.otpVerified,
+        this.isApproved,
+        this.vendorWallet,
+        this.profileImage,
+        this.bannerProfile,
+        this.categoryImage,
+        this.address,
+        this.countryId,
+        this.stateId,
+        this.city,
+        this.streetName,
+        this.block,
+        this.stripeId,
+        this.currency,
+        this.storeOn,
+        this.readyForOrder,
+        this.isVendor,
+        this.vendorType,
+        this.taxNumber,
+        this.vendorPublishStatus,
+        this.activePlanId,
+        this.planStartDate,
+        this.planExpireDate,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt,
+        this.venderCategory});
 
   VendorUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -134,6 +148,7 @@ class VendorUser {
     email = json['email'];
     dob = json['dob'];
     countryCode = json['country_code'];
+    earnedBalance = json['earned_balance'];
     phone = json['phone'];
     storeName = json['store_name'];
     storeBusinessId = json['store_business_id'];
@@ -173,17 +188,21 @@ class VendorUser {
     storeOn = json['store_on'];
     readyForOrder = json['ready_for_order'];
     isVendor = json['is_vendor'];
+    vendorType = json['vendor_type'];
+    taxNumber = json['tax_number'];
+    vendorPublishStatus = json['vendor_publish_status'];
+    activePlanId = json['active_plan_id'];
+    planStartDate = json['plan_start_date'];
+    planExpireDate = json['plan_expire_date'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
-    if (json['vender_category'] != null) {
-      venderCategory = <VenderCategory>[];
-      json['vender_category'].forEach((v) {
-        venderCategory!.add(VenderCategory.fromJson(v));
-      });
-    } else {
-      venderCategory = [];
-    }
+    // if (json['vender_category'] != null) {
+    //   venderCategory = <Null>[];
+    //   json['vender_category'].forEach((v) {
+    //     venderCategory!.add(new Null.fromJson(v));
+    //   });
+    // }
   }
 
   Map<String, dynamic> toJson() {
@@ -195,6 +214,7 @@ class VendorUser {
     data['email'] = email;
     data['dob'] = dob;
     data['country_code'] = countryCode;
+    data['earned_balance'] = earnedBalance;
     data['phone'] = phone;
     data['store_name'] = storeName;
     data['store_business_id'] = storeBusinessId;
@@ -234,82 +254,19 @@ class VendorUser {
     data['store_on'] = storeOn;
     data['ready_for_order'] = readyForOrder;
     data['is_vendor'] = isVendor;
+    data['vendor_type'] = vendorType;
+    data['tax_number'] = taxNumber;
+    data['vendor_publish_status'] = vendorPublishStatus;
+    data['active_plan_id'] = activePlanId;
+    data['plan_start_date'] = planStartDate;
+    data['plan_expire_date'] = planExpireDate;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['deleted_at'] = deletedAt;
-    if (venderCategory != null) {
-      data['vender_category'] = venderCategory!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class VenderCategory {
-  dynamic id;
-  dynamic name;
-  dynamic status;
-  dynamic description;
-  dynamic profileImage;
-  dynamic bannerProfile;
-  dynamic createdAt;
-  dynamic updatedAt;
-  Pivot? pivot;
-
-  VenderCategory(
-      {this.id,
-      this.name,
-      this.status,
-      this.description,
-      this.profileImage,
-      this.bannerProfile,
-      this.createdAt,
-      this.updatedAt,
-      this.pivot});
-
-  VenderCategory.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    status = json['status'];
-    description = json['description'];
-    profileImage = json['profile_image'];
-    bannerProfile = json['banner_profile'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    pivot = json['pivot'] != null ? Pivot.fromJson(json['pivot']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['status'] = status;
-    data['description'] = description;
-    data['profile_image'] = profileImage;
-    data['banner_profile'] = bannerProfile;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    if (pivot != null) {
-      data['pivot'] = pivot!.toJson();
-    }
-    return data;
-  }
-}
-
-class Pivot {
-  dynamic userId;
-  dynamic userVendorCategoryId;
-
-  Pivot({this.userId, this.userVendorCategoryId});
-
-  Pivot.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
-    userVendorCategoryId = json['user_vendor_category_id'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['user_id'] = userId;
-    data['user_vendor_category_id'] = userVendorCategoryId;
+    // if (this.venderCategory != null) {
+    //   data['vender_category'] =
+    //       this.venderCategory!.map((v) => v.toJson()).toList();
+    // }
     return data;
   }
 }

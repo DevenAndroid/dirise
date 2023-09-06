@@ -68,7 +68,7 @@ class NewHelper {
       if (item == null) {
         return null;
       } else {
-        return File(item.path);
+        return await FlutterExifRotation.rotateImage(path: item.path);
       }
     } on PlatformException catch (e) {
       throw Exception(e);
@@ -97,7 +97,6 @@ class NewHelper {
           'Select Image',
           style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18, color: AppTheme.primaryColor),
         ),
-        // message: Text('Message'),
         cancelButton: CupertinoActionSheetAction(
           child: const Text('Cancel'),
           onPressed: () {

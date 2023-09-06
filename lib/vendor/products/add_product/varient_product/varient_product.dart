@@ -218,11 +218,11 @@ class _ProductVarientState extends State<ProductVarient> {
                                     ImageWidget(
                                       title: "Variant Image",
                                       key: e.variantImageKey,
-                                      file: e.variantImages!,
+                                      file: e.variantImages,
                                       filePicked: (File gg) {
                                         e.variantImages = gg;
                                       },
-                                      validation: e.variantImages!.path.isEmpty,
+                                      validation: e.variantImages.path.isEmpty,
                                     ),
                                     2.spaceY,
                                     VendorCommonTextfield(
