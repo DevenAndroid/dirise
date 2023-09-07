@@ -34,14 +34,14 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   PlanInfoData get planInfo => widget.selectedPlan;
 
   final Repositories repositories = Repositories();
-  ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
+  // ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey categoryKey = GlobalKey();
   RxBool showValidation = false.obs;
   RxBool hideText = true.obs;
   Map<String, VendorCategoriesData> allSelectedCategory = {};
-  Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
+  // Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
 
   Rx<File> storeImage = File("").obs;
   Rx<File> businessImage = File("").obs;
@@ -332,16 +332,16 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     });
   }
 
-  void getVendorCategories() {
-    vendorCategoryStatus.value = RxStatus.loading();
-    repositories.getApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
-      modelVendorCategory = ModelVendorCategory.fromJson(jsonDecode(value));
-      vendorCategoryStatus.value = RxStatus.success();
-    }).catchError((e) {
-      vendorCategoryStatus.value = RxStatus.error();
-      throw Exception(e);
-    });
-  }
+  // void getVendorCategories() {
+  //   vendorCategoryStatus.value = RxStatus.loading();
+  //   repositories.getApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
+  //     modelVendorCategory = ModelVendorCategory.fromJson(jsonDecode(value));
+  //     vendorCategoryStatus.value = RxStatus.success();
+  //   }).catchError((e) {
+  //     vendorCategoryStatus.value = RxStatus.error();
+  //     throw Exception(e);
+  //   });
+  // }
 
   bool checkValidation(bool bool1, bool2) {
     if (bool1 == true && bool2 == true) {
@@ -360,7 +360,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         orElse: () => PlansType.personal);
     // vendorType= getVendorType;
     // storeType = widget.selectedPlan.businessType.toString();
-    getVendorCategories();
+    // getVendorCategories();
   }
 
   @override
