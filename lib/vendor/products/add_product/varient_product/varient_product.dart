@@ -6,7 +6,6 @@ import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:trotter/trotter.dart';
 import '../../../../controller/vendor_controllers/add_product_controller.dart';
 import '../../../../model/vendor_models/model_attribute.dart';
 import '../../../../model/vendor_models/model_varient.dart';
@@ -113,7 +112,7 @@ class _ProductVarientState extends State<ProductVarient> {
                                             .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
                                             .toList()
                                             .contains(true)){
-                                          controller.addMultipleItems.clear();
+                                          controller.filterClearAttributes();
                                           combinations(
                                               controller.attributeList.map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList()).toList()
                                           ).forEach((element) {
@@ -128,7 +127,7 @@ class _ProductVarientState extends State<ProductVarient> {
                                           });
                                           setState(() {});
                                         } else {
-                                          controller.addMultipleItems.clear();
+                                          controller.filterClearAttributes();
                                         }
                                         setState(() {});
                                       },
@@ -164,7 +163,7 @@ class _ProductVarientState extends State<ProductVarient> {
                         child: ElevatedButton(
                           key: controller.createAttributeButton,
                             onPressed: () {
-                              controller.addMultipleItems.clear();
+                              controller.filterClearAttributes();
                               combinations(
                                   controller.attributeList.map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList()).toList()
                               ).forEach((element) {
@@ -219,6 +218,7 @@ class _ProductVarientState extends State<ProductVarient> {
                                       title: "Variant Image",
                                       key: e.variantImageKey,
                                       file: e.variantImages,
+                                      imageOnly: true,
                                       filePicked: (File gg) {
                                         e.variantImages = gg;
                                       },

@@ -221,12 +221,14 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                             ),
                                           ),
                                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                            Text(
-                                              "\$${item.pPrice ?? "0"}",
-                                              style: GoogleFonts.poppins(
-                                                color: AppTheme.buttonColor,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15,
+                                            Expanded(
+                                              child: Text(
+                                                "\$${item.pPrice ?? "0"}",
+                                                style: GoogleFonts.poppins(
+                                                  color: AppTheme.buttonColor,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15,
+                                                ),
                                               ),
                                             ),
                                             FlutterSwitch(
@@ -257,7 +259,15 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                               },
                                               value: item.isPublish!,
                                             )
-                                          ])
+                                          ]),
+                                          Text(
+                                            "${("${item.productType ?? ""}".capitalize!).toString().replaceAll("_product", "")} Product",
+                                            style: GoogleFonts.poppins(
+                                              color: AppTheme.buttonColor,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),

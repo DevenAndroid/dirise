@@ -45,6 +45,7 @@ class ModelVendorProductDetailsData {
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
   String? returnDays;
+  List<VariantData>? variantData;
 
   ModelVendorProductDetailsData(
       {this.catId,
@@ -55,6 +56,7 @@ class ModelVendorProductDetailsData {
       this.sku_id,
       this.weight_unit,
       this.bookingProductType,
+      this.variantData,
       this.p_price,
       this.sPrice,
       this.productType,
@@ -100,6 +102,12 @@ class ModelVendorProductDetailsData {
         ? ProductAvailability.fromJson(json['productAvailability'])
         : null;
     returnDays = json['return_days'];
+    if (json['variant_data'] != null) {
+      variantData = <VariantData>[];
+      json['variant_data'].forEach((v) {
+        variantData!.add(VariantData.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -129,6 +137,9 @@ class ModelVendorProductDetailsData {
       data['productAvailability'] = productAvailability!.toJson();
     }
     data['return_days'] = returnDays;
+    if (variantData != null) {
+      data['variant_data'] = variantData!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
@@ -173,6 +184,51 @@ class ProductAvailability {
     data['type'] = type;
     data['from_date'] = fromDate;
     data['to_date'] = toDate;
+    return data;
+  }
+}
+
+
+
+class VariantData {
+  int? parentId;
+  int? pId;
+  Map<String, dynamic> variantValue = {};
+  String? variantSku;
+  String? variantPrice;
+  int? variantStock;
+  String? variantImages;
+
+  VariantData(
+      {this.parentId,
+        this.pId,
+        required this.variantValue,
+        this.variantSku,
+        this.variantPrice,
+        this.variantStock,
+        this.variantImages});
+
+  VariantData.fromJson(Map<String, dynamic> json) {
+    parentId = json['parent_id'];
+    pId = json['p_id'];
+    variantValue = json['variant_value'] ?? {};
+    variantSku = json['variant_sku'];
+    variantPrice = json['variant_price'];
+    variantStock = json['variant_stock'];
+    variantImages = json['variant_images'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['parent_id'] = parentId;
+    data['p_id'] = pId;
+    // if (variantValue != null) {
+    //   data['variant_value'] = variantValue!.toJson();
+    // }
+    data['variant_sku'] = variantSku;
+    data['variant_price'] = variantPrice;
+    data['variant_stock'] = variantStock;
+    data['variant_images'] = variantImages;
     return data;
   }
 }

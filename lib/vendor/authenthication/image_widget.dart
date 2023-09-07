@@ -6,10 +6,17 @@ import '../../utils/helper.dart';
 import '../../widgets/dimension_screen.dart';
 
 class ImageWidget extends StatefulWidget {
-  const ImageWidget({super.key, required this.file, required this.title, required this.validation, required this.filePicked});
+  const ImageWidget(
+      {super.key,
+      required this.file,
+      required this.title,
+      required this.validation,
+      required this.filePicked,
+      this.imageOnly});
   final File file;
   final String title;
   final bool validation;
+  final bool? imageOnly;
   final Function(File file) filePicked;
 
   @override
@@ -19,9 +26,24 @@ class ImageWidget extends StatefulWidget {
 class _ImageWidgetState extends State<ImageWidget> {
   File file = File("");
 
-  bool get validation => widget.validation ? file.path.isNotEmpty ? false : widget.validation : false;
+  bool get validation => widget.validation
+      ? file.path.isNotEmpty
+          ? false
+          : widget.validation
+      : false;
 
   pickImage() {
+    if (widget.imageOnly == true) {
+      NewHelper.showImagePickerSheet(
+          context: context,
+          gotImage: (File value) {
+            widget.filePicked(value);
+            file = value;
+            setState(() {});
+            return;
+          });
+      return;
+    }
     NewHelper().addFilePicker().then((value) {
       if (value == null) return;
       widget.filePicked(value);
@@ -63,42 +85,49 @@ class _ImageWidgetState extends State<ImageWidget> {
                 )),
             child: file.path == ""
                 ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Select ${widget.title}",
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w500,
-                      color: validation ? Theme.of(context).colorScheme.error : const Color(0xff463B57),
-                      fontSize: 15),
-                ),
-                SizedBox(
-                  height: AddSize.size10,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: validation ? Theme.of(context).colorScheme.error : Colors.grey,
-                        width: 1.8,
-                      )),
-                  padding: const EdgeInsets.all(6),
-                  child: Icon(
-                    Icons.upload_file_outlined,
-                    size: 24,
-                    color: validation ? Theme.of(context).colorScheme.error : Colors.grey,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Select ${widget.title}",
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                            color: validation ? Theme.of(context).colorScheme.error : const Color(0xff463B57),
+                            fontSize: 15),
+                      ),
+                      SizedBox(
+                        height: AddSize.size10,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: validation ? Theme.of(context).colorScheme.error : Colors.grey,
+                              width: 1.8,
+                            )),
+                        padding: const EdgeInsets.all(6),
+                        child: Icon(
+                          Icons.upload_file_outlined,
+                          size: 24,
+                          color: validation ? Theme.of(context).colorScheme.error : Colors.grey,
+                        ),
+                      )
+                    ],
+                  )
+                : Image.file(
+                    file,
+                    errorBuilder: (_, __, ___) => Image.network(
+                      file.path,
+                      errorBuilder: (_, __, ___) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.upload),
+                          Text(
+                            file.path.toString().split("/").last,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                )
-              ],
-            )
-                : Image.file(file,
-            errorBuilder: (_,__,___)=> Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.upload),
-                Text(file.path.toString().split("/").last)
-              ],
-            ),),
           ),
         ),
         14.spaceY,

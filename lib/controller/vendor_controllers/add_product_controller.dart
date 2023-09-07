@@ -29,6 +29,7 @@ class AddProductController extends GetxController {
   getProductAttributes() {
     repositories.getApi(url: ApiUrls.getAttributeUrl).then((value) {
       modelAttributes = ModelAttributes.fromJson(jsonDecode(value));
+      updateVariants();
       attributeRefresh.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
@@ -92,6 +93,65 @@ class AddProductController extends GetxController {
   List<ServiceTimeSloat> serviceTimeSloat = [];
   bool resetSlots = false;
 
+  // For Variation
+  ModelAttributes modelAttributes = ModelAttributes();
+  RxInt attributeRefresh = 0.obs;
+  RxInt variation = 0.obs;
+  List<AttributeData> attributeList = [];
+  final GlobalKey attributeListKey = GlobalKey();
+  final GlobalKey attributeEmptyListKey = GlobalKey();
+  final GlobalKey createAttributeButton = GlobalKey();
+  List<AddMultipleItems> addMultipleItems = [];
+
+  filterClearAttributes(){
+    addMultipleItems.removeWhere((element) => !element.live);
+    variation.value = DateTime.now().millisecondsSinceEpoch;
+  }
+
+  bool valuesAssigned = false;
+
+  updateVariants(){
+    if (productDetails.product == null) return;
+    if(valuesAssigned)return;
+    ModelVendorProductDetailsData item = productDetails.product!;
+    if(productId.isNotEmpty && item.productType == "variants"){
+      productType = "Variants Product";
+    }
+    if (modelAttributes.data != null && modelAttributes.data!.isNotEmpty) {
+
+      for (var element in item.variantData!) {
+
+        Map<String, GetAttrvalues> kk = {};
+        for (var i in element.variantValue.entries) {
+          if(modelAttributes.attributeMap[i.value.toString()] != null) {
+            kk[i.key] = modelAttributes.attributeMap[i.value.toString()]!;
+          }
+        }
+
+        addMultipleItems.add(AddMultipleItems.fromServer(
+            attr: kk,
+            filePath: element.variantImages.toString(),
+            variantSkuLive: element.variantSku.toString(),
+            variantPriceLive: element.variantPrice.toString(),
+            variantStockLive: element.variantStock.toString()));
+      }
+      valuesAssigned = true;
+
+      // for (var element in addMultipleItems) {
+      //   for (var element1 in modelAttributes.data!) {
+      //     if(element.attributes != null && element.attributes![element1.slug.toString()] != null){
+      //       attributeList.add(element1);
+      //     }
+      //   }
+      // }
+      // attributeList = attributeList.toSet().toList();
+      variation.value = DateTime.now().millisecondsSinceEpoch;
+
+    }
+
+  }
+
+
   updateControllers() {
     if (productDetails.product == null) return;
     ModelVendorProductDetailsData item = productDetails.product!;
@@ -100,6 +160,8 @@ class AddProductController extends GetxController {
     if (item.productType == "virtual_product") {
       productType = "Virtual Product";
     }
+    updateVariants();
+
     if (item.productType == "booking") {
       productType = "Booking Product";
       serviceTimeSloat = item.serviceTimeSloat ?? [];
@@ -107,6 +169,9 @@ class AddProductController extends GetxController {
     productNameController.text = item.pname.toString();
     weightController.text = (item.weight ?? "").toString();
     weightUnit = (item.weight_unit ?? "").toString();
+    if(!gg.contains(weightUnit)){
+      gg.add(weightUnit);
+    }
     skuController.text = item.sku_id.toString();
     purchasePriceController.text = (item.p_price ?? "").toString();
     sellingPriceController.text = item.sPrice.toString();
@@ -184,16 +249,6 @@ class AddProductController extends GetxController {
   String convertToTime(String gg) {
     return "${gg.split(":")[0]}:${gg.split(":")[1]}";
   }
-
-  // For Variation
-  ModelAttributes modelAttributes = ModelAttributes();
-  RxInt attributeRefresh = 0.obs;
-  RxInt variation = 0.obs;
-  List<AttributeData> attributeList = [];
-  final GlobalKey attributeListKey = GlobalKey();
-  final GlobalKey attributeEmptyListKey = GlobalKey();
-  final GlobalKey createAttributeButton = GlobalKey();
-  List<AddMultipleItems> addMultipleItems = [];
 
   addProduct({required BuildContext context}) {
     if (showValidations == false) {
@@ -286,7 +341,7 @@ class AddProductController extends GetxController {
           .toList()
           .contains(true) && addMultipleItems.isEmpty){
         createAttributeButton.currentContext!.navigate.then((value) {
-          addMultipleItems.clear();
+          filterClearAttributes();
           combinations(
               attributeList.map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList()).toList()
           ).forEach((element) {

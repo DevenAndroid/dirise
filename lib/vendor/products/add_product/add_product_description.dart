@@ -85,6 +85,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                     if (value == null) return;
                     controller.productType = value;
                     controller.updateUI;
+                    setState(() {});
                   },
                 ),
                 18.spaceY,
@@ -184,72 +185,74 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       }
                       return null;
                     }),
-                18.spaceY,
                 // sadd
-                VendorCommonTextfield(
-                    controller: controller.weightController,
-                    key: controller.weightController.getKey,
-                    keyboardType: TextInputType.number,
-                    hintText: "Weight",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Product weight is required";
+                if (controller.productType == "Simple Product" || controller.productType == "Variants Product") ...[
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.weightController,
+                      key: controller.weightController.getKey,
+                      keyboardType: TextInputType.number,
+                      hintText: "Weight",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Product weight is required";
+                        }
+                        if (double.tryParse(value.trim()) == null) {
+                          return "Please enter valid weight";
+                        }
+                        // if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                        //   return "Enter valid return days";
+                        // }
+                        return null;
+                      }),
+                  18.spaceY,
+                  DropdownButtonFormField<String>(
+                    key: controller.weightUnitKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    isExpanded: true,
+                    iconDisabledColor: const Color(0xff97949A),
+                    iconEnabledColor: const Color(0xff97949A),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                      enabled: true,
+                      filled: true,
+                      hintText: "Weight Unit",
+                      labelStyle: GoogleFonts.poppins(color: Colors.black),
+                      labelText: "Weight Unit",
+                      fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                    ),
+                    value: controller.weightUnit.isEmpty ? null : controller.weightUnit,
+                    validator: (gg) {
+                      if (controller.weightUnit.isEmpty) {
+                        return "Please select weight unit";
                       }
-                      if (double.tryParse(value!.trim()) == null) {
-                        return "Please enter valid weight";
-                      }
-                      // if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                      //   return "Enter valid return days";
-                      // }
                       return null;
-                    }),
-                18.spaceY,
-                DropdownButtonFormField<String>(
-                  key: controller.weightUnitKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  isExpanded: true,
-                  iconDisabledColor: const Color(0xff97949A),
-                  iconEnabledColor: const Color(0xff97949A),
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: AppTheme.secondaryColor),
-                    ),
-                    enabled: true,
-                    filled: true,
-                    hintText: "Weight Unit",
-                    labelStyle: GoogleFonts.poppins(color: Colors.black),
-                    labelText: "Weight Unit",
-                    fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                    enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: AppTheme.secondaryColor),
-                    ),
-                  ),
-                  value: controller.weightUnit.isEmpty ? null : controller.weightUnit,
-                  validator: (gg) {
-                    if (controller.weightUnit.isEmpty) {
-                      return "Please select weight unit";
-                    }
-                    return null;
-                  },
-                  items: controller.gg
-                      .map((label) => DropdownMenuItem(
-                            value: label,
-                            child: Text(
-                              label.toString().capitalize!,
-                              style: GoogleFonts.poppins(
-                                color: const Color(0xff463B57),
+                    },
+                    items: controller.gg
+                        .map((label) => DropdownMenuItem(
+                              value: label,
+                              child: Text(
+                                label.toString().capitalize!,
+                                style: GoogleFonts.poppins(
+                                  color: const Color(0xff463B57),
+                                ),
                               ),
-                            ),
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    if (value == null) return;
-                    controller.weightUnit = value;
-                  },
-                ),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      if (value == null) return;
+                      controller.weightUnit = value;
+                    },
+                  ),
+                ],
                 18.spaceY,
                 Obx(() {
                   if (controller.refreshCategory.value > 0) {}

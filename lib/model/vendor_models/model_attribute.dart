@@ -2,6 +2,17 @@ class ModelAttributes {
   bool? status;
   String? message;
   List<AttributeData>? data;
+  Map<String, GetAttrvalues> attributeMap = {};
+
+
+
+  List<GetAttrvalues> get getAllAttributes{
+    List<GetAttrvalues> kk = [];
+    data!.map((e) => e.getAttrvalues ?? []).toList().forEach((element) {
+      kk.addAll(element);
+    });
+    return kk;
+  }
 
   ModelAttributes({this.status, this.message, this.data});
 
@@ -13,6 +24,9 @@ class ModelAttributes {
       json['data'].forEach((v) {
         data!.add(AttributeData.fromJson(v));
       });
+    }
+    for (var element in getAllAttributes) {
+      attributeMap[element.id.toString()] = element;
     }
   }
 
