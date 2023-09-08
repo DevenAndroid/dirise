@@ -24,8 +24,6 @@ import '../screens/public_speaker_screen/single_public_speaker_screen.dart';
 import '../screens/school_nursery_category.dart';
 import '../screens/order_screens/selectd_order_screen.dart';
 import '../screens/virtual_assets/virtual_assets_screen.dart';
-import '../vendor/authenthication/thanku_screen.dart';
-import '../vendor/authenthication/vendor_registration_screen.dart';
 import '../vendor/authenthication/verify_vendor_otp.dart';
 import '../vendor/dashboard/dashboard_screen.dart';
 import '../vendor/dashboard/store_open_time_screen.dart';

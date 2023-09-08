@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/loading_animation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +13,16 @@ import '../../../../model/vendor_models/model_varient.dart';
 import '../../../../widgets/common_colour.dart';
 import '../../../../widgets/vendor_common_textfield.dart';
 import '../../../authenthication/image_widget.dart';
+
+extension ToSimpleMap on Map<String, GetAttrvalues> {
+  Map<String, String> get toSimpleMap {
+    Map<String, String> gg = {};
+    for (var element in entries) {
+      gg[element.key] = element.value.id.toString();
+    }
+    return gg;
+  }
+}
 
 class ProductVarient extends StatefulWidget {
   const ProductVarient({super.key});
@@ -66,7 +77,7 @@ class _ProductVarientState extends State<ProductVarient> {
                         ),
                       ),
                       validator: (gg) {
-                        if (controller.attributeList.isEmpty) {
+                        if (controller.attributeList.isEmpty && controller.addMultipleItems.isEmpty) {
                           return "Please select variants";
                         }
                         return null;
@@ -106,31 +117,38 @@ class _ProductVarientState extends State<ProductVarient> {
                                           style: normalStyle,
                                         ),
                                       ),
-                                      IconButton(onPressed: (){
-                                        controller.attributeList.remove(e);
-                                        if(controller.attributeList
-                                            .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
-                                            .toList()
-                                            .contains(true)){
-                                          controller.filterClearAttributes();
-                                          combinations(
-                                              controller.attributeList.map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList()).toList()
-                                          ).forEach((element) {
-                                            log(element.map((e) => e.aboveParentSlug).toList().toString());
-                                            Map<String, GetAttrvalues> tempMap = {};
-                                            for (var element1 in element) {
-                                              tempMap[element1.aboveParentSlug] = element1;
+                                      IconButton(
+                                          onPressed: () {
+                                            controller.attributeList.remove(e);
+                                            if (controller.attributeList
+                                                .map((e) => e.getAttrvalues!
+                                                    .map((e2) => e2.selectedVariant)
+                                                    .toList()
+                                                    .contains(true))
+                                                .toList()
+                                                .contains(true)) {
+                                              controller.filterClearAttributes();
+                                              combinations(controller.attributeList
+                                                      .map((e) => e.getAttrvalues!
+                                                          .where((element) => element.selectedVariant == true)
+                                                          .toList())
+                                                      .toList())
+                                                  .forEach((element) {
+                                                log(element.map((e) => e.aboveParentSlug).toList().toString());
+                                                Map<String, GetAttrvalues> tempMap = {};
+                                                for (var element1 in element) {
+                                                  tempMap[element1.aboveParentSlug] = element1;
+                                                }
+                                                controller.addMultipleItems.add(AddMultipleItems(
+                                                  attributes: tempMap,
+                                                ));
+                                              });
+                                              setState(() {});
+                                            } else {
+                                              controller.filterClearAttributes();
                                             }
-                                            controller.addMultipleItems.add(AddMultipleItems(
-                                                attributes: tempMap,
-                                            ));
-                                          });
-                                          setState(() {});
-                                        } else {
-                                          controller.filterClearAttributes();
-                                        }
-                                        setState(() {});
-                                      },
+                                            setState(() {});
+                                          },
                                           visualDensity: VisualDensity.compact,
                                           icon: const Icon(Icons.clear))
                                     ],
@@ -161,20 +179,43 @@ class _ProductVarientState extends State<ProductVarient> {
                       Padding(
                         padding: const EdgeInsets.only(top: 6),
                         child: ElevatedButton(
-                          key: controller.createAttributeButton,
+                            key: controller.createAttributeButton,
                             onPressed: () {
                               controller.filterClearAttributes();
-                              combinations(
-                                  controller.attributeList.map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList()).toList()
-                              ).forEach((element) {
+                              List<Map<String, GetAttrvalues>> previousList = [];
+                              for (var element in controller.addMultipleItems) {
+                                Map<String, GetAttrvalues> tempMap1 = {};
+                                if (element.attributes != null) {
+                                  for (var element1 in element.attributes!.entries) {
+                                    tempMap1[element1.key] = element1.value;
+                                  }
+                                }
+
+                                log(tempMap1.toSimpleMap.toString());
+                                previousList.add(tempMap1);
+                              }
+                              combinations(controller.attributeList
+                                      .map((e) =>
+                                          e.getAttrvalues!.where((element) => element.selectedVariant == true).toList())
+                                      .toList())
+                                  .forEach((element) {
                                 log(element.map((e) => e.aboveParentSlug).toList().toString());
                                 Map<String, GetAttrvalues> tempMap = {};
                                 for (var element1 in element) {
                                   tempMap[element1.aboveParentSlug] = element1;
                                 }
-                                controller.addMultipleItems.add(AddMultipleItems(
-                                  attributes: tempMap,
-                                ));
+                                for (var element2 in previousList) {
+                                  log(element2.toSimpleMap.toString());
+                                  log(tempMap.toSimpleMap.toString());
+                                }
+                                if (!previousList
+                                    .map((e) => mapEquals(e.toSimpleMap, tempMap.toSimpleMap))
+                                    .toList()
+                                    .contains(true)) {
+                                  controller.addMultipleItems.add(AddMultipleItems(
+                                    attributes: tempMap,
+                                  ));
+                                }
                               });
                               setState(() {});
                             },
@@ -194,76 +235,81 @@ class _ProductVarientState extends State<ProductVarient> {
                               ],
                             )),
                       ),
-                      Column(
-                        children: controller.addMultipleItems
-                            .map((e) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    8.spaceY,
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "Variation: \n${e.attributes!.entries.map((e) => "${e.key.capitalizeFirst}: ${e.value.attrValueName.toString().capitalizeFirst}").toList().join("\n")}",
-                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 14),
-                                          ),
+                    Column(
+                      children: controller.addMultipleItems
+                          .map((e) => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  8.spaceY,
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          "Variation: \n${e.attributes!.entries.map((e) => "${e.key.capitalizeFirst}: ${e.value.attrValueName.toString().capitalizeFirst}").toList().join("\n")}",
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff2F2F2F),
+                                              fontSize: 14),
                                         ),
-                                        IconButton(onPressed: (){
-                                          controller.addMultipleItems.remove(e);
-                                          setState(() {});
-                                        }, icon: const Icon(Icons.clear))
-                                      ],
-                                    ),
-                                    ImageWidget(
-                                      title: "Variant Image",
-                                      key: e.variantImageKey,
-                                      file: e.variantImages,
-                                      imageOnly: true,
-                                      filePicked: (File gg) {
-                                        e.variantImages = gg;
-                                      },
-                                      validation: e.variantImages.path.isEmpty,
-                                    ),
-                                    2.spaceY,
-                                    VendorCommonTextfield(
-                                        controller: e.variantSku,
-                                        key: e.variantSku.getKey,
-                                        hintText: "Variant SKU",
-                                        validator: (value) {
-                                          if (value!.trim().isEmpty) {
-                                            return "Variant sku is required";
-                                          }
-                                          return null;
-                                        }),
-                                    18.spaceY,
-                                    VendorCommonTextfield(
-                                        controller: e.variantPrice,
-                                        key: e.variantPrice.getKey,
-                                        hintText: "Variant Price",
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if (value!.trim().isEmpty) {
-                                            return "Variant price is required";
-                                          }
-                                          return null;
-                                        }),
-                                    18.spaceY,
-                                    VendorCommonTextfield(
-                                        controller: e.variantStock,
-                                        key: e.variantStock.getKey,
-                                        keyboardType: TextInputType.number,
-                                        hintText: "Variant Stock",
-                                        validator: (value) {
-                                          if (value!.trim().isEmpty) {
-                                            return "Variant stock is required";
-                                          }
-                                          return null;
-                                        }),
-                                    18.spaceY,
-                                  ],
-                                ))
-                            .toList(),
-                      ),
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            controller.addMultipleItems.remove(e);
+                                            setState(() {});
+                                          },
+                                          icon: const Icon(Icons.clear))
+                                    ],
+                                  ),
+                                  ImageWidget(
+                                    title: "Variant Image",
+                                    key: e.variantImageKey,
+                                    file: e.variantImages,
+                                    imageOnly: true,
+                                    filePicked: (File gg) {
+                                      e.variantImages = gg;
+                                    },
+                                    validation: e.variantImages.path.isEmpty,
+                                  ),
+                                  2.spaceY,
+                                  VendorCommonTextfield(
+                                      controller: e.variantSku,
+                                      key: e.variantSku.getKey,
+                                      hintText: "Variant SKU",
+                                      validator: (value) {
+                                        if (value!.trim().isEmpty) {
+                                          return "Variant sku is required";
+                                        }
+                                        return null;
+                                      }),
+                                  18.spaceY,
+                                  VendorCommonTextfield(
+                                      controller: e.variantPrice,
+                                      key: e.variantPrice.getKey,
+                                      hintText: "Variant Price",
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value!.trim().isEmpty) {
+                                          return "Variant price is required";
+                                        }
+                                        return null;
+                                      }),
+                                  18.spaceY,
+                                  VendorCommonTextfield(
+                                      controller: e.variantStock,
+                                      key: e.variantStock.getKey,
+                                      keyboardType: TextInputType.number,
+                                      hintText: "Variant Stock",
+                                      validator: (value) {
+                                        if (value!.trim().isEmpty) {
+                                          return "Variant stock is required";
+                                        }
+                                        return null;
+                                      }),
+                                  18.spaceY,
+                                ],
+                              ))
+                          .toList(),
+                    ),
                   ],
                 ),
               ),
@@ -272,11 +318,12 @@ class _ProductVarientState extends State<ProductVarient> {
     });
   }
 }
+
 Iterable<List<T>> combinations<T>(
-    List<List<T>> lists, [
-      int index = 0,
-      List<T>? prefix,
-    ]) sync* {
+  List<List<T>> lists, [
+  int index = 0,
+  List<T>? prefix,
+]) sync* {
   prefix ??= <T>[];
 
   if (lists.length == index) {

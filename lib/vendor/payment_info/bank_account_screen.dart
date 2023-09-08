@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/utils/ApiConstant.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -131,7 +132,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                               DropdownButtonFormField<String?>(
                                 isExpanded: true,
                                 value: bankId.isEmpty ? null : bankId,
-                                style: TextStyle(color: Colors.red),
+                                style: const TextStyle(color: Colors.red),
                                 decoration: const InputDecoration(
                                   hintText: "Please select bank",
                                   // labelText: "Please select bank",
@@ -173,7 +174,9 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                                 },
                                 onChanged: (newValue) {
                                   bankId = newValue!;
-                                  print(bankId);
+                                  if (kDebugMode) {
+                                    print(bankId);
+                                  }
                                   setState(() {});
                                 },
                               ),

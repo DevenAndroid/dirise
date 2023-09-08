@@ -80,7 +80,6 @@ class _AppBarScreenState extends State<AppBarScreen> {
                 Expanded(
                   child: Obx(() {
                     if(vendorStoreTimingController.refreshInt.value > 0){}
-                    print("fffff....    ${DateFormat("EEEE").format(DateTime.now()).toLowerCase()}");
                     return Text(
                       vendorStoreTimingController.modelStoreAvailability.data != null ?
                       "${vendorStoreTimingController.modelStoreAvailability.data!.firstWhere((element) =>

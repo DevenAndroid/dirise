@@ -178,7 +178,6 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                                 MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.3)),
                         itemBuilder: (BuildContext context, int index) {
                           final item = modelProductsList.product![index];
-                          print(item.toJson());
                           return ProductUI(
                             productElement: ProductElement.fromJson(item.toJson()),
                             onLiked: (value) {

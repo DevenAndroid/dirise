@@ -35,7 +35,6 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> with Single
   getDuration() async {
     totalDuration = (await audioPlayer.getDuration()) ?? Duration.zero;
     setState(() {});
-    print("total Duration.....       $totalDuration");
   }
 
   @override

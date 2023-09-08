@@ -26,7 +26,6 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
   final Repositories repositories = Repositories();
 
   getPaymentUrl(){
-    print(widget.planInfoData.toJson());
     repositories.postApi(url: ApiUrls.createPaymentUrl,
     context: context,
     mapData: {

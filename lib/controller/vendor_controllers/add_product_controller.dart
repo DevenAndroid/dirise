@@ -272,7 +272,6 @@ class AddProductController extends GetxController {
     if (!formKey.currentState!.validate()) {
       if (productNameController.checkEmpty) return;
       if (skuController.checkEmpty) return;
-      // if (priceController.checkBoth) return;
       if (purchasePriceController.checkBothWithNum) return;
       if (sellingPriceController.checkBothWithNum) return;
       if (stockController.checkBothWithNum) return;
@@ -331,7 +330,7 @@ class AddProductController extends GetxController {
       if (!attributeList
           .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
           .toList()
-          .contains(true)) {
+          .contains(true) && addMultipleItems.isEmpty) {
         showToast("Please select at least 1 variant",gravity: ToastGravity.CENTER);
         attributeEmptyListKey.currentContext!.navigate;
         return;
@@ -461,7 +460,11 @@ class AddProductController extends GetxController {
 
     if (productType == "Variants Product") {
       addMultipleItems.asMap().entries.forEach((element) {
-    imageMap["variant_images[${element.key}]"] = element.value.variantImages;
+        if(element.value.variantImages.path.checkHTTP.isEmpty) {
+          imageMap["variant_images[${element.key}]"] = element.value.variantImages;
+        } else {
+          map["variant_images[${element.key}]"] = element.value.variantImages.path;
+        }
       });
 
     }

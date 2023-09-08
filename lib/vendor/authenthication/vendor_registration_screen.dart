@@ -788,13 +788,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           hintText: "Tax number* (outside Kuwait)",
                           validator: (value) {
                             return null;
-                            if (value!.trim().isEmpty) {
-                              return "Please enter work email";
-                            }
-                            if (value.trim().invalidEmail) {
-                              return "Please enter valid email address";
-                            }
-                            return null;
                           }),
 
                       14.spaceY,

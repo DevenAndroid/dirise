@@ -10,7 +10,6 @@ import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/profile_controller.dart';
 import '../../vendor/authenthication/vendor_plans_screen.dart';
-import '../../vendor/authenthication/vendor_registration_screen.dart';
 import '../../vendor/dashboard/dashboard_screen.dart';
 import '../../vendor/dashboard/store_open_time_screen.dart';
 import '../../vendor/orders/vendor_order_list_screen.dart';
