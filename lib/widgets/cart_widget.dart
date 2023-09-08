@@ -53,7 +53,8 @@ class _CartBagCardState extends State<CartBagCard> {
                 ),
                 cartController.apiLoaded
                     ? Text(
-                        cartController.cartModel.totalQuantity.toString(),
+                  "",
+                        // cartController.cartModel.totalQuantity.toString(),
                         style: GoogleFonts.poppins(color: widget.isBlackTheme == true ? Colors.white : AppTheme.buttonColor, fontSize: 20),
                       )
                     : const CupertinoActivityIndicator(),

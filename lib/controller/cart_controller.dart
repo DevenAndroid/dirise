@@ -19,7 +19,7 @@ enum PurchaseType { buy, cart }
 class CartController extends GetxController {
   RxInt refreshInt = 0.obs;
   final Repositories repositories = Repositories();
-  ModelCartResponse cartModel = ModelCartResponse(cart: []);
+  ModelCartResponse cartModel = ModelCartResponse();
   bool apiLoaded = false;
   ModelUserAddressList addressListModel = ModelUserAddressList();
   bool addressLoaded = false;
@@ -346,6 +346,25 @@ class CartController extends GetxController {
     return false;
   }
 
+  Future updateCartQuantity({
+    required BuildContext context,
+    required String productId,
+    required String quantity,
+  }) async {
+    final map = {
+      "product_id": productId,
+      "qty": quantity,
+    };
+
+    await repositories.postApi(url: ApiUrls.quantityUpdateUrl, context: context, mapData: map).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(response.message.toString());
+      getCart();
+    }).catchError((e) {
+    });
+    return false;
+  }
+
   getAddress() {
     repositories.postApi(url: ApiUrls.addressListUrl).then((value) {
       addressListModel = ModelUserAddressList.fromJson(jsonDecode(value));
@@ -368,11 +387,11 @@ class CartController extends GetxController {
   }
 
   Future getCart() async {
-    if (cartModel.cart != null) {
-      for (var element in cartModel.cart!) {
-        element.showDetails.value = false;
-      }
-    }
+    // if (cartModel.cart != null) {
+    //   for (var element in cartModel.cart!) {
+    //     element.showDetails.value = false;
+    //   }
+    // }
     await repositories.postApi(url: ApiUrls.cartListUrl).then((value) {
       cartModel = ModelCartResponse.fromJson(jsonDecode(value));
       apiLoaded = true;

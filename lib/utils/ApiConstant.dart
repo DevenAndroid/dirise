@@ -66,6 +66,7 @@ class ApiUrls {
   static const String vendorPlanUrl = "${baseUrl}vendor-plan";
   static const String createPaymentUrl = "${baseUrl}create-payment";
   static const String getAttributeUrl = "${baseUrl}get-attributes";
+  static const String quantityUpdateUrl = "${baseUrl}qty-update";
 
 
 

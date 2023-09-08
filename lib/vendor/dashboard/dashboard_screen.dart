@@ -11,6 +11,7 @@ import '../../widgets/dimension_screen.dart';
 import '../orders/orderdetailsscreen.dart';
 import 'app_bar.dart';
 import 'charts.dart';
+import 'plans_widget.dart';
 import 'sliver_bar.dart';
 
 class VendorDashBoardScreen extends StatefulWidget {
@@ -42,6 +43,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
             body: RefreshIndicator(
               onRefresh: () async {
                 await controller.getVendorDashBoard();
+                await vendorProfileController.getVendorDetails();
               },
               child: Obx(() {
                 if (controller.refreshInt.value > 0) {}
@@ -51,6 +53,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                         child: CustomScrollView(
                           shrinkWrap: true,
                           slivers: [
+                            const PlanWidget(),
                             thisMonth(),
                             const DashBoardCharts(),
                             const SliverToBoxAdapter(
@@ -64,8 +67,8 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                 itemBuilder: (context, index) {
                                   final order = controller.modelVendorDashboard.order![index];
                                   if (kDebugMode) {
-                                    print(jsonEncode(order));
-                                    print("SliverList....    $index");
+                                    // print(jsonEncode(order));
+                                    // print("SliverList....    $index");
                                   }
                                   return GestureDetector(
                                     behavior: HitTestBehavior.translucent,

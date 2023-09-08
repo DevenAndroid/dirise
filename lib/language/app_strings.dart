@@ -8,5 +8,7 @@ class AppStrings{
   static String otpHasBeenSent = "OPT has been sent to your given email address.\nVerify email to place order.";
   static String doNotReceivedOtp = "Didn't you receive the OTP?";
   static String resendOtp = "Resend OTP";
+  static String renewPlan = "Renew Plan";
+  static String upgradePlan = "Upgrade Plan";
 
 }

@@ -5,12 +5,16 @@ import 'package:dirise/widgets/loading_animation.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/profile_controller.dart';
 import '../../model/model_address_list.dart';
+import '../../model/model_cart_response.dart';
 import '../../utils/ApiConstant.dart';
+import '../../utils/styles.dart';
+import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -98,175 +102,334 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            addressPart(size),
-            const SizedBox(
-              height: 30,
-            ),
-            paymentMethod(size),
-            Column(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Text("Add delivery instructions",
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          style: GoogleFonts.poppins(),
-                          controller: deliveryInstructions,
-                          decoration: InputDecoration.collapsed(
-                              hintText: "Add delivery instructions to help us with the delivery",
-                              hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14)),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
+      body: CustomScrollView(
+        shrinkWrap: true,
+        slivers: [
+          SliverToBoxAdapter(child: addressPart(size)),
+          30.spaceY.toBoxAdapter,
+          paymentMethod(size).toBoxAdapter,
+          Column(
+            children: [
+              Container(
+                decoration: const BoxDecoration(color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text("Add delivery instructions",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        style: GoogleFonts.poppins(),
+                        controller: deliveryInstructions,
+                        decoration: InputDecoration.collapsed(
+                            hintText: "Add delivery instructions to help us with the delivery",
+                            hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
                   ),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+            ],
+          ).toBoxAdapter,
+          ...List.generate(cartController.cartModel.cart!.getAllProducts.length, (i) {
+            List<SellersData> items = cartController.cartModel.cart!.getAllProducts[i];
+            return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: items.length,
+                      (context, ii) {
+                    SellersData product = items[ii];
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: i != 0 ? ii != items.length - 1
+                            ? const Border(bottom: BorderSide(color: Color(0xffD9D9D9)))
+                            : null
+                            : null,
+                      ),
+                      margin: EdgeInsets.only(top: ii == 0 ? 16 : 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (ii == 0)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: Text(
+                                "Sold By ${product.storeName}",
+                                style: titleStyle,
+                              ),
+                            ),
+                          IntrinsicHeight(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 75,
+                                  height: 75,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.network(
+                                      product.featuredImage.toString(),
+                                      fit: BoxFit.fill,
+                                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 16,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        product.pname.toString(),
+                                        style: titleStyle.copyWith(fontWeight: FontWeight.w400),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                      const SizedBox(
+                                        height: 6,
+                                      ),
+                                      Text(
+                                        '\$${product.sPrice}',
+                                        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      IntrinsicHeight(
+                                        child: Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  if (product.qty.toString().toNum > 1) {
+                                                    cartController.updateCartQuantity(
+                                                        context: context,
+                                                        productId: product.id.toString(),
+                                                        quantity: (product.qty.toString().toNum - 1).toString());
+                                                  } else {
+                                                    cartController.removeItemFromCart(
+                                                        productId: product.id.toString(), context: context);
+                                                  }
+                                                },
+                                                style: IconButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(2)),
+                                                  backgroundColor: AppTheme.buttonColor,
+                                                ),
+                                                constraints: const BoxConstraints(minHeight: 0),
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                                                visualDensity: VisualDensity.compact,
+                                                icon: const Icon(
+                                                  Icons.remove,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                )),
+                                            5.spaceX,
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(2),
+                                                  // color: Colors.grey,
+                                                  border: Border.all(color: Colors.grey.shade800)),
+                                              margin: const EdgeInsets.symmetric(vertical: 6),
+                                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                product.qty.toString(),
+                                                style: normalStyle,
+                                              ),
+                                            ),
+                                            5.spaceX,
+                                            IconButton(
+                                                onPressed: () {
+                                                  if (product.qty.toString().toNum <
+                                                      product.stockAlert.toString().toNum) {
+                                                    cartController.updateCartQuantity(
+                                                        context: context,
+                                                        productId: product.id.toString(),
+                                                        quantity: (product.qty.toString().toNum + 1).toString());
+                                                  }
+                                                },
+                                                style: IconButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(2)),
+                                                  backgroundColor: AppTheme.buttonColor,
+                                                ),
+                                                constraints: const BoxConstraints(minHeight: 0),
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                                                visualDensity: VisualDensity.compact,
+                                                icon: const Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                )),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      cartController.removeItemFromCart(
+                                          productId: product.id.toString(), context: context);
+                                    },
+                                    visualDensity: VisualDensity.compact,
+                                    icon: SvgPicture.asset(
+                                      "assets/svgs/delete.svg",
+                                      height: 18,
+                                      width: 18,
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ));
+          }),
+          Column(
+            children: [
+              const SizedBox(height: 15,),
+              Container(
+                decoration: const BoxDecoration(color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text("Have a coupon code?", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Expanded(child: CommonTextfield(obSecure: false, hintText: 'Enter Code',)),
+                          Expanded(
+                            child: TextFormField(
+                                style: GoogleFonts.poppins(),
+                                controller: couponController,
+                                decoration: InputDecoration.collapsed(
+                                  hintText: "Enter Code",
+                                  hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14),
+                                )),
+                          ),
+                          Obx(() {
+                            return cartController.refreshInt.value == -2
+                                ? const CupertinoActivityIndicator()
+                                : const SizedBox.shrink();
+                          }),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              applyCouponCode();
+                            },
+                            child: Container(
+                              decoration:
+                              BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                              padding: const EdgeInsets.fromLTRB(22, 9, 22, 9),
+                              child: Text(
+                                "Apply",
+                                style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ).toBoxAdapter,
+          const SizedBox(
+            height: 30,
+          ).toBoxAdapter,
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Your Order", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Text("Subtotal (${cartController.cartModel.totalQuantity} items)",
+                    //     style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
+                    Text("KWD ${cartController.cartModel.subtotal.toString()}",
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
+                  ],
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
+                ),
+                Obx(() {
+                  if (cartController.refreshInt.value > 0) {}
+                  return couponApplied.isNotEmpty
+                      ? Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Coupon Applied: $appliedCode",
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w400, color: CupertinoColors.activeGreen)),
+                          Text("KWD $couponApplied",
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w400,
+                                  color: CupertinoColors.activeGreen,
+                                  decoration: TextDecoration.lineThrough,
+                                  decorationColor: Colors.lightGreenAccent)),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  )
+                      : const SizedBox.shrink();
+                }),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Total", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                    Text(
+                        "KWD ${cartController.cartModel.total.toString().convertToNum! - (couponApplied.convertToNum ?? 0)}",
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                  ],
                 ),
               ],
             ),
-            Column(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Text("Have a coupon code?", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Expanded(child: CommonTextfield(obSecure: false, hintText: 'Enter Code',)),
-                            Expanded(
-                              child: TextFormField(
-                                  style: GoogleFonts.poppins(),
-                                  controller: couponController,
-                                  decoration: InputDecoration.collapsed(
-                                    hintText: "Enter Code",
-                                    hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14),
-                                  )),
-                            ),
-                            Obx(() {
-                              return cartController.refreshInt.value == -2
-                                  ? const CupertinoActivityIndicator()
-                                  : const SizedBox.shrink();
-                            }),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                applyCouponCode();
-                              },
-                              child: Container(
-                                decoration:
-                                    BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
-                                padding: const EdgeInsets.fromLTRB(22, 9, 22, 9),
-                                child: Text(
-                                  "Apply",
-                                  style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Your Order", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Subtotal (${cartController.cartModel.totalQuantity} items)",
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
-                      Text("KWD ${cartController.cartModel.subtotal.toString()}",
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Obx(() {
-                    if (cartController.refreshInt.value > 0) {}
-                    return couponApplied.isNotEmpty
-                        ? Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("Coupon Applied: $appliedCode",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w400, color: CupertinoColors.activeGreen)),
-                                  Text("KWD $couponApplied",
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w400,
-                                          color: CupertinoColors.activeGreen,
-                                          decoration: TextDecoration.lineThrough,
-                                          decorationColor: Colors.lightGreenAccent)),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          )
-                        : const SizedBox.shrink();
-                  }),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Total", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                      Text(
-                          "KWD ${cartController.cartModel.total.toString().convertToNum! - (couponApplied.convertToNum ?? 0)}",
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+          ).toBoxAdapter
+        ],
       ),
       bottomNavigationBar: InkWell(
         onTap: () {

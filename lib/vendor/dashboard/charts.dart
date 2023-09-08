@@ -30,9 +30,9 @@ class _DashBoardChartsState extends State<DashBoardCharts> {
             crossAxisCount: 2, childAspectRatio: 1.25, crossAxisSpacing: 12, mainAxisSpacing: 12),
         itemCount: gg.length,
         itemBuilder: (context, index) {
-          if (kDebugMode) {
-            print("Grid....    $index");
-          }
+          // if (kDebugMode) {
+          //   print("Grid....    $index");
+          // }
           return Card(
             margin: EdgeInsets.zero,
             elevation: 2,

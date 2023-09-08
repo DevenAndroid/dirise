@@ -464,7 +464,7 @@ extension ValidateErrors on TextEditingController {
   }
 }
 
-extension ToShimmer on Widget {
+extension WidgetExtensions on Widget {
   Widget get toShimmer {
     return Shimmer.fromColors(
       baseColor: Colors.grey,
@@ -472,6 +472,9 @@ extension ToShimmer on Widget {
       child: this,
     );
   }
+
+  SliverToBoxAdapter get toBoxAdapter => SliverToBoxAdapter(child: this,);
+
 }
 
 extension ConvertToDateon on Duration {

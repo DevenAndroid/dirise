@@ -79,7 +79,6 @@ class VendorUser {
   dynamic createdAt;
   dynamic updatedAt;
   dynamic deletedAt;
-  List<Null>? venderCategory;
 
   VendorUser(
       {this.id,
@@ -138,7 +137,7 @@ class VendorUser {
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
-        this.venderCategory});
+      });
 
   VendorUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -197,12 +196,6 @@ class VendorUser {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
-    // if (json['vender_category'] != null) {
-    //   venderCategory = <Null>[];
-    //   json['vender_category'].forEach((v) {
-    //     venderCategory!.add(new Null.fromJson(v));
-    //   });
-    // }
   }
 
   Map<String, dynamic> toJson() {
@@ -263,10 +256,6 @@ class VendorUser {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['deleted_at'] = deletedAt;
-    // if (this.venderCategory != null) {
-    //   data['vender_category'] =
-    //       this.venderCategory!.map((v) => v.toJson()).toList();
-    // }
     return data;
   }
 }

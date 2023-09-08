@@ -3,10 +3,11 @@ import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
+import '../../model/model_cart_response.dart';
 import 'check_out_screen.dart';
 
 class BagsScreen extends StatefulWidget {
@@ -31,9 +32,8 @@ class _BagsScreenState extends State<BagsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade50,
         appBar: customAppBar(title: "Bag"),
         body: RefreshIndicator(
           onRefresh: () async {
@@ -42,176 +42,171 @@ class _BagsScreenState extends State<BagsScreen> {
           child: Obx(() {
             if (cartController.refreshInt.value > 0) {}
             return cartController.apiLoaded
-                ? cartController.cartModel.cart!.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: cartController.cartModel.cart!.length,
-                        padding: const EdgeInsets.only(left: 15, right: 10),
-                        scrollDirection: Axis.vertical,
+                ? cartController.cartModel.cart!.getAllProducts.isNotEmpty
+                    ? CustomScrollView(
                         shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          final cart = cartController.cartModel.cart![index];
-                          return Slidable(
-                            key: ValueKey(cart.id!),
-                            endActionPane: ActionPane(
-                              motion: const ScrollMotion(),
-                              extentRatio: .25,
-                              children: [
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Flexible(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            // Get.back();
-                                            cartController.removeItemFromCart(
-                                                productId: cart.id.toString(), context: context);
-                                          },
-                                          child: Container(
-                                              decoration: const BoxDecoration(color: Color(0xffEEEEEE)),
-                                              padding: const EdgeInsets.fromLTRB(23, 8, 23, 8),
-                                              child: const Icon(
-                                                Icons.delete_rounded,
-                                                color: Colors.red,
-                                              )),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                border: Border(bottom: BorderSide(color: Color(0xffD9D9D9))),
-                              ),
-                              padding: const EdgeInsets.only(top: 16, bottom: 16),
-                              child: IntrinsicHeight(
-                                child: Row(
+                        slivers: List.generate(cartController.cartModel.cart!.getAllProducts.length, (i) {
+                          List<SellersData> items = cartController.cartModel.cart!.getAllProducts[i];
+                          return SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                            childCount: items.length,
+                            (context, ii) {
+                              SellersData product = items[ii];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: ii != items.length - 1
+                                      ? const Border(bottom: BorderSide(color: Color(0xffD9D9D9)))
+                                      : null,
+                                ),
+                                margin: EdgeInsets.only(top: ii == 0 ? 16 : 0),
+                                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: size.height * .06 - 20),
-                                      child: CircleAvatar(
-                                        radius: 20,
-                                        backgroundColor: const Color(0xffEEEEEE),
+                                    if (ii == 0)
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 16),
                                         child: Text(
-                                          "${cart.qty}x",
-                                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                                          "Sold By ${product.storeName}",
+                                          style: titleStyle,
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 15,
-                                    ),
-                                    Image.network(
-                                      cart.featuredImage.toString(),
-                                      height: size.height * .12,
-                                      width: size.height * .12,
-                                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: Column(
+                                    IntrinsicHeight(
+                                      child: Row(
                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(
-                                            "${NewHelper.getDiscountPercentage(sellingPrice: cart.sPrice.toString(), actualPrice: cart.pPrice.toString())} %Off",
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 12, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
-                                          ),
-                                          const SizedBox(
-                                            height: 4,
-                                          ),
-                                          Text(
-                                            cart.pname.toString(),
-                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                          const SizedBox(
-                                            height: 4,
-                                          ),
-                                          Text(
-                                            'USD ${cart.sPrice}',
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-                                          ),
-                                          if (cart.selectedSlotDate.toString() != "" &&
-                                              cart.selectedSlotStart.toString() != "")
-                                            GestureDetector(
-                                              behavior: HitTestBehavior.translucent,
-                                              onTap: () {
-                                                cart.showDetails.value = !cart.showDetails.value;
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 6),
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                        child: Text(
-                                                      "Booking Details",
-                                                      style: normalStyle,
-                                                    )),
-                                                    Obx(() {
-                                                      return cart.showDetails.value
-                                                          ? const Icon(
-                                                              Icons.keyboard_arrow_down_rounded,
-                                                              color: AppTheme.buttonColor,
-                                                              size: 22,
-                                                            )
-                                                          : const Icon(
-                                                              Icons.arrow_forward_ios_rounded,
-                                                              size: 16,
-                                                            );
-                                                    }),
-                                                    const SizedBox(
-                                                      width: 4,
-                                                    )
-                                                  ],
-                                                ),
+                                          Container(
+                                            width: 75,
+                                            height: 75,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(12),
+                                              child: Image.network(
+                                                product.featuredImage.toString(),
+                                                fit: BoxFit.fill,
+                                                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                                               ),
                                             ),
-                                          Obx(() {
-                                            return cart.showDetails.value
-                                                ? Column(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Expanded(
-                                                              child: Text(
-                                                            "Date: ${cart.selectedSlotDate}",
-                                                            style: normalStyle,
-                                                          )),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Expanded(
-                                                              child: Text(
-                                                            "Time: ${cart.selectedSlotStart} - ${cart.selectedSlotEnd}",
-                                                            style: normalStyle,
-                                                          )),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  )
-                                                : const SizedBox.shrink();
-                                          }),
-                                          const SizedBox(
-                                            height: 4,
                                           ),
+                                          const SizedBox(
+                                            width: 16,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text(
+                                                  product.pname.toString(),
+                                                  style: titleStyle.copyWith(fontWeight: FontWeight.w400),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                                const SizedBox(
+                                                  height: 6,
+                                                ),
+                                                Text(
+                                                  '\$${product.sPrice}',
+                                                  style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
+                                                ),
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                IntrinsicHeight(
+                                                  child: Row(
+                                                    children: [
+                                                      IconButton(
+                                                          onPressed: () {
+                                                            if (product.qty.toString().toNum > 1) {
+                                                              cartController.updateCartQuantity(
+                                                                  context: context,
+                                                                  productId: product.id.toString(),
+                                                                  quantity: (product.qty.toString().toNum - 1).toString());
+                                                            } else {
+                                                              cartController.removeItemFromCart(
+                                                                  productId: product.id.toString(), context: context);
+                                                            }
+                                                          },
+                                                          style: IconButton.styleFrom(
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.circular(2)),
+                                                            backgroundColor: AppTheme.buttonColor,
+                                                          ),
+                                                          constraints: const BoxConstraints(minHeight: 0),
+                                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                                                          visualDensity: VisualDensity.compact,
+                                                          icon: const Icon(
+                                                            Icons.remove,
+                                                            color: Colors.white,
+                                                            size: 20,
+                                                          )),
+                                                      5.spaceX,
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(2),
+                                                            // color: Colors.grey,
+                                                            border: Border.all(color: Colors.grey.shade800)),
+                                                        margin: const EdgeInsets.symmetric(vertical: 6),
+                                                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                        alignment: Alignment.center,
+                                                        child: Text(
+                                                          product.qty.toString(),
+                                                          style: normalStyle,
+                                                        ),
+                                                      ),
+                                                      5.spaceX,
+                                                      IconButton(
+                                                          onPressed: () {
+                                                            if (product.qty.toString().toNum <
+                                                                product.stockAlert.toString().toNum) {
+                                                              cartController.updateCartQuantity(
+                                                                  context: context,
+                                                                  productId: product.id.toString(),
+                                                                  quantity: (product.qty.toString().toNum + 1).toString());
+                                                            }
+                                                          },
+                                                          style: IconButton.styleFrom(
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.circular(2)),
+                                                            backgroundColor: AppTheme.buttonColor,
+                                                          ),
+                                                          constraints: const BoxConstraints(minHeight: 0),
+                                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                                                          visualDensity: VisualDensity.compact,
+                                                          icon: const Icon(
+                                                            Icons.add,
+                                                            color: Colors.white,
+                                                            size: 20,
+                                                          )),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          IconButton(
+                                              onPressed: () {
+                                                cartController.removeItemFromCart(
+                                                    productId: product.id.toString(), context: context);
+                                              },
+                                              visualDensity: VisualDensity.compact,
+                                              icon: SvgPicture.asset(
+                                                "assets/svgs/delete.svg",
+                                                height: 18,
+                                                width: 18,
+                                              ))
                                         ],
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ),
-                          );
-                        })
+                              );
+                            },
+                          ));
+                        }),
+                      )
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -240,58 +235,56 @@ class _BagsScreenState extends State<BagsScreen> {
         bottomNavigationBar: Obx(() {
           if (cartController.refreshInt.value > 0) {}
           return cartController.apiLoaded
-              ? cartController.cartModel.cart!.isNotEmpty
-                  ? Container(
-                      height: 63,
-                      decoration: const BoxDecoration(color: Color(0xff014E70)),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
-                                    padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
-                                    child: Text(
-                                      cartController.cartModel.cart!
-                                          .map((e) => e.qty.toString().convertToNum ?? 0)
-                                          .toList()
-                                          .getTotal
-                                          .toString(),
-                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18),
-                                    )),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text("USD ${cartController.cartModel.subtotal}",
-                                    style:
-                                        GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                InkWell(
-                                    onTap: () {
-                                      Get.toNamed(CheckOutScreen.checkOutScreen);
-                                    },
-                                    child: Text("Checkout",
-                                        style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white))),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Image(
-                                  height: 25,
-                                  image: AssetImage(
-                                    'assets/icons/whishlist.png',
+              ? cartController.cartModel.cart!.getAllProducts.isNotEmpty
+                  ? GestureDetector(
+                      onTap: () {
+                        Get.toNamed(CheckOutScreen.checkOutScreen);
+                      },
+                      behavior: HitTestBehavior.translucent,
+                      child: Container(
+                        height: 63,
+                        decoration: const BoxDecoration(color: Color(0xff014E70)),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+                                      padding: const EdgeInsets.fromLTRB(20, 7, 20, 7),
+                                      child: Text(
+                                        cartController.cartModel.totalProducts,
+                                        style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18),
+                                      )),
+                                  const SizedBox(
+                                    width: 10,
                                   ),
-                                  color: Colors.white,
-                                ),
-                              ],
-                            )
-                          ],
+                                  Text("USD ${cartController.cartModel.subtotal}",
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text("Checkout",
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Image(
+                                    height: 25,
+                                    image: AssetImage(
+                                      'assets/icons/whishlist.png',
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     )
