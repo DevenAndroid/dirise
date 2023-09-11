@@ -26,7 +26,7 @@ class ModelCartResponse {
     shipping = json['shipping'];
     total = json['total'];
     discount = json['discount'];
-    cart = json['cart'] != null ? Cart.fromJson(json['cart']) : Cart(cartItems: {});
+    cart = json['cart'] != null && json['cart'].toString() != "[]" ? Cart.fromJson(json['cart']) : Cart(cartItems: {});
   }
 
   Map<String, dynamic> toJson() {

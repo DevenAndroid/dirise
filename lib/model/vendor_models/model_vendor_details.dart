@@ -80,8 +80,8 @@ class VendorUser {
   dynamic updatedAt;
   dynamic deletedAt;
 
-  VendorUser(
-      {this.id,
+  VendorUser({
+        this.id,
         this.name,
         this.firstName,
         this.lastName,

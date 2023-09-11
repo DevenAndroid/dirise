@@ -102,15 +102,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   updateControllers(){
     if(valuesLoaded)return;
     if(vendorProfileController.model.user == null)return;
+    selectedPlan = PlansType.values.firstWhere((element) => element.name.toString() == vendorInfo.vendorType.toString(),orElse: ()=> PlansType.personal);
     firstName.text = vendorInfo.firstName ?? "";
     lastName.text = vendorInfo.lastName ?? "";
     storeName.text = vendorInfo.storeName ?? "";
     homeAddress.text = vendorInfo.address ?? "";
     phoneNumber.text = vendorInfo.phone ?? "";
     emailAddress.text = vendorInfo.email ?? "";
-
-    // ceoName.text = vendorInfo.c  ?? "";
-    // partnerCount.text = vendorInfo.pa  ?? "";
   }
 
   @override
@@ -428,7 +426,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             key: paymentReceiptCertificateKey,
                             title: "Payment Receipt Certificate",
                             file: paymentReceiptCertificate,
-                            validation: checkValidation(showValidation.value, paymentReceiptCertificate.path.isEmpty),
+                            validation: checkValidation(
+                                showValidation.value,
+                                paymentReceiptCertificate.path.isEmpty
+                            ),
                             filePicked: (File g) {
                               paymentReceiptCertificate = g;
                             },
@@ -596,7 +597,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             key: memorandumAssociationKey,
                             title: "Memorandum of Association",
                             file: memorandumAssociation,
-                            validation: checkValidation(showValidation.value, memorandumAssociation.path.isEmpty),
+                            validation: checkValidation(showValidation.value,
+                                memorandumAssociation.path.isEmpty),
                             filePicked: (File g) {
                               memorandumAssociation = g;
                             },
@@ -605,7 +607,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             title: "Commercial license",
                             file: commercialLicense,
                             key: commercialLicenseKey,
-                            validation: checkValidation(showValidation.value, commercialLicense.path.isEmpty),
+                            validation: checkValidation(showValidation.value,
+                                commercialLicense.path.isEmpty),
                             filePicked: (File g) {
                               commercialLicense = g;
                             },
@@ -614,7 +617,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             title: "Signature approval",
                             file: signatureApproval,
                             key: signatureApprovalKey,
-                            validation: checkValidation(showValidation.value, signatureApproval.path.isEmpty),
+                            validation: checkValidation(showValidation.value,
+                                signatureApproval.path.isEmpty),
                             filePicked: (File g) {
                               signatureApproval = g;
                             },
@@ -623,7 +627,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             title: "Extract from the Ministry of Commerce",
                             file: ministryCommerce,
                             key: ministryCommerceKey,
-                            validation: checkValidation(showValidation.value, ministryCommerce.path.isEmpty),
+                            validation: checkValidation(showValidation.value,
+                                ministryCommerce.path.isEmpty),
                             filePicked: (File g) {
                               ministryCommerce = g;
                             },
@@ -632,7 +637,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             title: "Original civil information",
                             file: originalCivilInformation,
                             key: originalCivilInformationKey,
-                            validation: checkValidation(showValidation.value, originalCivilInformation.path.isEmpty),
+                            validation: checkValidation(showValidation.value,
+                                originalCivilInformation.path.isEmpty),
                             filePicked: (File g) {
                               originalCivilInformation = g;
                             },
@@ -641,7 +647,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             title: "Company bank account",
                             file: companyBankAccount,
                             key: companyBankAccountKey,
-                            validation: checkValidation(showValidation.value, companyBankAccount.path.isEmpty),
+                            validation: checkValidation(showValidation.value,
+                                companyBankAccount.path.isEmpty),
                             filePicked: (File g) {
                               companyBankAccount = g;
                             },
@@ -656,8 +663,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 minimumSize: const Size(double.maxFinite, 60),
                                 backgroundColor: AppTheme.buttonColor,
                                 elevation: 0,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                                textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                                shape: RoundedRectangleBorder(borderRadius:
+                                BorderRadius.circular(AddSize.size10)),
+                                textStyle: GoogleFonts.poppins(
+                                    fontSize: AddSize.font20,
+                                    fontWeight: FontWeight.w600
+                                )
+                            ),
                             child: Text(
                               "Submit",
                               style: Theme.of(context)
