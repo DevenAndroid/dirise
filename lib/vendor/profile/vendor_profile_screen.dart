@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
@@ -7,13 +8,17 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import '../../model/vendor_models/model_vendor_details.dart';
+import '../../model/vendor_models/model_vendor_registration.dart';
 import '../../repository/repository.dart';
+import '../../utils/ApiConstant.dart';
+import '../../utils/notification_service.dart';
 import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
 import '../authenthication/image_widget.dart';
 import '../authenthication/vendor_registration_screen.dart';
+import '../authenthication/verify_vendor_otp.dart';
 
 class VendorProfileScreen extends StatefulWidget {
   const VendorProfileScreen({super.key});
@@ -109,6 +114,250 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     homeAddress.text = vendorInfo.address ?? "";
     phoneNumber.text = vendorInfo.phone ?? "";
     emailAddress.text = vendorInfo.email ?? "";
+    if(vendorInfo.vendorProfile != null) {
+      ceoName.text = (vendorInfo.vendorProfile!.ceoName ?? "").toString();
+      partnerCount.text = (vendorInfo.vendorProfile!.partners ?? "").toString();
+      paymentReceiptCertificate = File((vendorInfo.vendorProfile!.paymentCertificate ?? "").toString());
+      companyName.text = (vendorInfo.vendorProfile!.companyName ?? "").toString();
+      workAddress.text = (vendorInfo.vendorProfile!.workAddress ?? "").toString();
+      workEmail.text = (vendorInfo.vendorProfile!.workEmail ?? "").toString();
+      // businessNumber.text = (vendorInfo.vendorProfile. ?? "").toString();
+      taxNumber.text = (vendorInfo.vendorProfile!.taxNumber ?? "").toString();
+      memorandumAssociation = File((vendorInfo.vendorProfile!.memorandumOfAssociation ?? "").toString());
+      commercialLicense = File((vendorInfo.vendorProfile!.commercialLicense ?? "").toString());
+      signatureApproval = File((vendorInfo.vendorProfile!.signatureApproval ?? "").toString());
+      ministryCommerce = File((vendorInfo.vendorProfile!.ministyOfCommerce ?? "").toString());
+      originalCivilInformation = File((vendorInfo.vendorProfile!.originalCivilInformation ?? "").toString());
+      companyBankAccount = File((vendorInfo.vendorProfile!.companyBankAccount ?? "").toString());
+    }
+
+  }
+
+  void updateProfile() {
+    if (showValidation.value == false) {
+      showValidation.value = true;
+      setState(() {});
+    }
+
+    /// Validations
+    if (!_formKey.currentState!.validate()) {
+      if(selectedPlan == PlansType.advertisement){
+        // First Name
+        if(firstName.checkEmpty)return;
+        // Last Name
+        if(lastName.checkEmpty)return;
+        // Store Name
+        if(storeName.checkEmpty)return;
+        // Home Adress
+        if(homeAddress.checkEmpty)return;
+        // Phone Number
+        if(phoneNumber.checkBothWithPhone)return;
+        // Email
+        if(emailAddress.checkBothWithEmail)return;
+        // Optional
+        // Optional
+        // Optional
+      }
+      if(selectedPlan == PlansType.personal){
+        // First Name
+        if(firstName.checkEmpty)return;
+        // Last Name
+        if(lastName.checkEmpty)return;
+        // Store Name
+        if(storeName.checkEmpty)return;
+        // Home Adress
+        if(homeAddress.checkEmpty)return;
+        // Phone Number
+        if(ceoName.checkEmpty)return;
+        // Email
+        if(partnerCount.checkEmpty)return;
+        // Phone Number
+        if(phoneNumber.checkBothWithPhone)return;
+        // Phone Number
+        if(emailAddress.checkBothWithEmail)return;
+      }
+      if(selectedPlan == PlansType.company){
+        // First Name
+        if(firstName.checkEmpty)return;
+        // Last Name
+        if(lastName.checkEmpty)return;
+        // Store Name
+        if(storeName.checkEmpty)return;
+        // Company Name
+        if(companyName.checkEmpty)return;
+        // Work Adress
+        if(workAddress.checkEmpty)return;
+        // Business number
+        if(businessNumber.checkEmpty)return;
+        // Email
+        if(emailAddress.checkBothWithEmail)return;
+        // Work Email
+        if(workEmail.checkBothWithEmail)return;
+      }
+      return;
+    }
+    if(selectedPlan == PlansType.personal){
+      // Payment receipt certificate
+      if (paymentReceiptCertificate.path.isEmpty) {
+        showToast("Please Select Payment Receipt Certificate");
+        paymentReceiptCertificateKey.currentContext!.navigate;
+        return;
+      }
+    }
+    if(selectedPlan == PlansType.company){
+
+      // Memorandum of Association
+      if (memorandumAssociation.path.isEmpty) {
+        showToast("Please Select Memorandum of Association");
+        memorandumAssociationKey.currentContext!.navigate;
+        return;
+      }
+
+      // Commercial license
+      if (commercialLicense.path.isEmpty) {
+        showToast("Please Select Commercial license");
+        commercialLicenseKey.currentContext!.navigate;
+        return;
+      }
+
+      // Signature approval
+      if (signatureApproval.path.isEmpty) {
+        showToast("Please Select Signature approval");
+        signatureApprovalKey.currentContext!.navigate;
+        return;
+      }
+
+      // Extract from the Ministry of Commerce
+      if (ministryCommerce.path.isEmpty) {
+        showToast("Please Select Extract from the Ministry of Commerce");
+        ministryCommerceKey.currentContext!.navigate;
+        return;
+      }
+
+      // Original civil information
+      if (originalCivilInformation.path.isEmpty) {
+        showToast("Please Select Original civil information");
+        originalCivilInformationKey.currentContext!.navigate;
+        return;
+      }
+
+      // Company bank account
+      if (companyBankAccount.path.isEmpty) {
+        showToast("Please Select Company bank account");
+        companyBankAccountKey.currentContext!.navigate;
+        return;
+      }
+    }
+
+    /// Map Data
+    /*{
+  'first_name': 'karan',
+  'last_name': 'Junwal',
+  'email': 'karanjunwal143@yopmail.com',
+  'phone': '8599612592',
+  'password': '12345678',
+  'store_name': 'halak',
+  'store_url': 'www.abc.com',
+  'category_id': '3',
+  'store_address': 'Jaipur',
+  'store_business_id': '1',
+  'store_about_us': 'checking out',
+  'store_about_me': 'damn serious',
+  'vendor_type': 'company',
+  'owner_name': 'Rishi',
+  'ceo_name': 'dsfsdfs',
+  'home_address': 'Amer Road',
+  'partners': '6',
+  'company_name': 'webluci',
+  'work_email': 'luci@yopmail.com',
+  'tax_number': '',
+  'label1': 'optional',
+  'label2': 'optional',
+  'label3': 'optional',
+  'work_address': 'adfadfda'
+}*/
+
+    Map<String, String> map = {};
+    if(selectedPlan == PlansType.advertisement){
+      map = {
+        'first_name': firstName.text.trim(),
+        'last_name': lastName.text.trim(),
+        'email': emailAddress.text.trim(),
+        'phone': phoneNumber.text.trim(),
+        'store_name': storeName.text.trim(),
+        'home_address': homeAddress.text.trim(),
+      };
+    }
+    if(selectedPlan == PlansType.personal){
+      map = {
+        'partners': partnerCount.text.trim(),
+        'first_name': firstName.text.trim(),
+        'ceo_name': ceoName.text.trim(),
+        'last_name': lastName.text.trim(),
+        'email': emailAddress.text.trim(),
+        'phone': phoneNumber.text.trim(),
+        'store_name': storeName.text.trim(),
+        'home_address': homeAddress.text.trim(),
+      };
+    }
+    if(selectedPlan == PlansType.company){
+      // Business number
+      map = {
+        'first_name': firstName.text.trim(),
+        'last_name': lastName.text.trim(),
+        'email': emailAddress.text.trim(),
+        'store_name': storeName.text.trim(),
+        'company_name': companyName.text.trim(),
+        'work_address': workAddress.text.trim(),
+        'work_email': workEmail.text.trim(),
+        'business_number': businessNumber.text.trim(),
+      };
+    }
+
+    map["vendor_type"] = selectedPlan.name;
+
+    /// Files upload map
+    Map<String, File> images = {};
+
+    if(selectedPlan == PlansType.personal){
+      images["payment_certificate"] = paymentReceiptCertificate;
+    }
+
+    if(selectedPlan == PlansType.company){
+      // Memorandum of Association  ✅
+      // Commercial license ✅
+      // Signature approval ✅
+      // Extract from the Ministry of Commerce ✅
+      // Original civil information ✅
+      // Company bank account ✅
+      images["memorandum_of_association"] = memorandumAssociation;
+      images["commercial_license"] = commercialLicense;
+      images["signature_approval"] = signatureApproval;
+      images["ministy_of_commerce"] = ministryCommerce;
+      images["original_civil_information"] = originalCivilInformation;
+      images["company_bank_account"] = companyBankAccount;
+    }
+    repositories
+        .multiPartApi(
+        mapData: map,
+        images: images,
+        context: context,
+        url: ApiUrls.editVendorDetailsUrl,
+        onProgress: (int bytes, int totalBytes) {
+          NotificationService().showNotificationWithProgress(
+              title: "Uploading Documents", body: "Uploading Documents are in progress", payload: "payload",
+              maxProgress: 100, progress: ((bytes/ totalBytes) * 100).toInt(), progressId: 770);
+        })
+        .then((value) {
+      NotificationService().hideAllNotifications();
+      ModelVendorRegistrationResponse response = ModelVendorRegistrationResponse.fromJson(jsonDecode(value));
+      showToast(response.message.toString());
+      if (response.status == true && response.otp != null) {
+        Get.to(() => const VendorOTPVerification(), arguments: [emailAddress.text.trim(),planInfo]);
+      }
+    }).catchError((e){
+      NotificationService().hideAllNotifications();
+    });
   }
 
   @override
@@ -657,7 +906,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                         const SizedBox(height: 25,),
                         ElevatedButton(
                             onPressed: () {
-                              // updateVendorProfile();
+                              updateProfile();
                             },
                             style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(double.maxFinite, 60),

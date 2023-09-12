@@ -68,6 +68,8 @@ class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
       onWillPop: ()async{
         if(await controller!.canGoBack()){
           controller!.goBack();
+        } else {
+          return true;
         }
         return false;
       },

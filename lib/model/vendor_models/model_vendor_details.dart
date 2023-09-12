@@ -40,6 +40,10 @@ class VendorUser {
   dynamic storeLogo;
   dynamic storeImage;
   dynamic storePhone;
+  dynamic shippingAddress;
+  dynamic shippingStoreAddress;
+  dynamic shippingStreet1;
+  dynamic shippingStreet2;
   dynamic description;
   dynamic categoryId;
   dynamic bio;
@@ -68,6 +72,8 @@ class VendorUser {
   dynamic stripeId;
   dynamic currency;
   dynamic storeOn;
+  dynamic storeBannerDesccription;
+  dynamic storeUrl;
   dynamic readyForOrder;
   dynamic isVendor;
   dynamic vendorType;
@@ -79,9 +85,11 @@ class VendorUser {
   dynamic createdAt;
   dynamic updatedAt;
   dynamic deletedAt;
+  List<VenderCategory>? venderCategory;
+  VendorProfile? vendorProfile;
 
-  VendorUser({
-        this.id,
+  VendorUser(
+      {this.id,
         this.name,
         this.firstName,
         this.lastName,
@@ -98,6 +106,10 @@ class VendorUser {
         this.storeLogo,
         this.storeImage,
         this.storePhone,
+        this.shippingAddress,
+        this.shippingStoreAddress,
+        this.shippingStreet1,
+        this.shippingStreet2,
         this.description,
         this.categoryId,
         this.bio,
@@ -126,6 +138,8 @@ class VendorUser {
         this.stripeId,
         this.currency,
         this.storeOn,
+        this.storeBannerDesccription,
+        this.storeUrl,
         this.readyForOrder,
         this.isVendor,
         this.vendorType,
@@ -137,7 +151,8 @@ class VendorUser {
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
-      });
+        this.venderCategory,
+        this.vendorProfile});
 
   VendorUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -157,6 +172,10 @@ class VendorUser {
     storeLogo = json['store_logo'];
     storeImage = json['store_image'];
     storePhone = json['store_phone'];
+    shippingAddress = json['shipping_address'];
+    shippingStoreAddress = json['shipping_store_address'];
+    shippingStreet1 = json['shipping_street_1'];
+    shippingStreet2 = json['shipping_street_2'];
     description = json['description'];
     categoryId = json['category_id'];
     bio = json['bio'];
@@ -185,6 +204,8 @@ class VendorUser {
     stripeId = json['stripe_id'];
     currency = json['currency'];
     storeOn = json['store_on'];
+    storeBannerDesccription = json['store_banner_desccription'];
+    storeUrl = json['store_url'];
     readyForOrder = json['ready_for_order'];
     isVendor = json['is_vendor'];
     vendorType = json['vendor_type'];
@@ -196,6 +217,15 @@ class VendorUser {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
+    if (json['vender_category'] != null) {
+      venderCategory = <VenderCategory>[];
+      json['vender_category'].forEach((v) {
+        venderCategory!.add(VenderCategory.fromJson(v));
+      });
+    }
+    vendorProfile = json['vendor_profile'] != null
+        ? VendorProfile.fromJson(json['vendor_profile'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -217,6 +247,10 @@ class VendorUser {
     data['store_logo'] = storeLogo;
     data['store_image'] = storeImage;
     data['store_phone'] = storePhone;
+    data['shipping_address'] = shippingAddress;
+    data['shipping_store_address'] = shippingStoreAddress;
+    data['shipping_street_1'] = shippingStreet1;
+    data['shipping_street_2'] = shippingStreet2;
     data['description'] = description;
     data['category_id'] = categoryId;
     data['bio'] = bio;
@@ -245,6 +279,8 @@ class VendorUser {
     data['stripe_id'] = stripeId;
     data['currency'] = currency;
     data['store_on'] = storeOn;
+    data['store_banner_desccription'] = storeBannerDesccription;
+    data['store_url'] = storeUrl;
     data['ready_for_order'] = readyForOrder;
     data['is_vendor'] = isVendor;
     data['vendor_type'] = vendorType;
@@ -256,6 +292,184 @@ class VendorUser {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['deleted_at'] = deletedAt;
+    if (venderCategory != null) {
+      data['vender_category'] =
+          venderCategory!.map((v) => v.toJson()).toList();
+    }
+    if (vendorProfile != null) {
+      data['vendor_profile'] = vendorProfile!.toJson();
+    }
+    return data;
+  }
+}
+
+class VenderCategory {
+  dynamic id;
+  dynamic name;
+  dynamic status;
+  dynamic description;
+  dynamic profileImage;
+  dynamic bannerProfile;
+  dynamic createdAt;
+  dynamic updatedAt;
+  Pivot? pivot;
+
+  VenderCategory(
+      {this.id,
+        this.name,
+        this.status,
+        this.description,
+        this.profileImage,
+        this.bannerProfile,
+        this.createdAt,
+        this.updatedAt,
+        this.pivot});
+
+  VenderCategory.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    status = json['status'];
+    description = json['description'];
+    profileImage = json['profile_image'];
+    bannerProfile = json['banner_profile'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    pivot = json['pivot'] != null ? Pivot.fromJson(json['pivot']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['status'] = status;
+    data['description'] = description;
+    data['profile_image'] = profileImage;
+    data['banner_profile'] = bannerProfile;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (pivot != null) {
+      data['pivot'] = pivot!.toJson();
+    }
+    return data;
+  }
+}
+
+class Pivot {
+  dynamic userId;
+  dynamic userVendorCategoryId;
+
+  Pivot({this.userId, this.userVendorCategoryId});
+
+  Pivot.fromJson(Map<String, dynamic> json) {
+    userId = json['user_id'];
+    userVendorCategoryId = json['user_vendor_category_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['user_id'] = userId;
+    data['user_vendor_category_id'] = userVendorCategoryId;
+    return data;
+  }
+}
+
+class VendorProfile {
+  dynamic id;
+  dynamic userId;
+  dynamic workEmail;
+  dynamic paymentCertificate;
+  dynamic ownerName;
+  dynamic companyName;
+  dynamic commercialLicense;
+  dynamic memorandumOfAssociation;
+  dynamic ceoName;
+  dynamic homeAddress;
+  dynamic partners;
+  dynamic workAddress;
+  dynamic ministyOfCommerce;
+  dynamic originalCivilInformation;
+  dynamic signatureApproval;
+  dynamic companyBankAccount;
+  dynamic taxNumber;
+  dynamic label1;
+  dynamic label2;
+  dynamic label3;
+  dynamic createdAt;
+  dynamic updatedAt;
+
+  VendorProfile(
+      {this.id,
+        this.userId,
+        this.workEmail,
+        this.paymentCertificate,
+        this.ownerName,
+        this.companyName,
+        this.commercialLicense,
+        this.memorandumOfAssociation,
+        this.ceoName,
+        this.homeAddress,
+        this.partners,
+        this.workAddress,
+        this.ministyOfCommerce,
+        this.originalCivilInformation,
+        this.signatureApproval,
+        this.companyBankAccount,
+        this.taxNumber,
+        this.label1,
+        this.label2,
+        this.label3,
+        this.createdAt,
+        this.updatedAt});
+
+  VendorProfile.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    workEmail = json['work_email'];
+    paymentCertificate = json['payment_certificate'];
+    ownerName = json['owner_name'];
+    companyName = json['company_name'];
+    commercialLicense = json['commercial_license'];
+    memorandumOfAssociation = json['memorandum_of_association'];
+    ceoName = json['ceo_name'];
+    homeAddress = json['home_address'];
+    partners = json['partners'];
+    workAddress = json['work_address'];
+    ministyOfCommerce = json['ministy_of_commerce'];
+    originalCivilInformation = json['original_civil_information'];
+    signatureApproval = json['signature_approval'];
+    companyBankAccount = json['company_bank_account'];
+    taxNumber = json['tax_number'];
+    label1 = json['label1'];
+    label2 = json['label2'];
+    label3 = json['label3'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['work_email'] = workEmail;
+    data['payment_certificate'] = paymentCertificate;
+    data['owner_name'] = ownerName;
+    data['company_name'] = companyName;
+    data['commercial_license'] = commercialLicense;
+    data['memorandum_of_association'] = memorandumOfAssociation;
+    data['ceo_name'] = ceoName;
+    data['home_address'] = homeAddress;
+    data['partners'] = partners;
+    data['work_address'] = workAddress;
+    data['ministy_of_commerce'] = ministyOfCommerce;
+    data['original_civil_information'] = originalCivilInformation;
+    data['signature_approval'] = signatureApproval;
+    data['company_bank_account'] = companyBankAccount;
+    data['tax_number'] = taxNumber;
+    data['label1'] = label1;
+    data['label2'] = label2;
+    data['label3'] = label3;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }

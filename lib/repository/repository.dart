@@ -266,8 +266,11 @@ class Repositories {
         HttpHeaders.acceptHeader: 'application/json',
         if (model.token != null) HttpHeaders.authorizationHeader: 'Bearer ${model.token}'
       };
+      images.removeWhere((key, value) => value.path.checkHTTP.isNotEmpty);
       var request = CloseableMultipartRequest('POST', Uri.parse(url), onProgress: (int bytes, int totalBytes) {
-        onProgress(bytes, totalBytes);
+        if(images.isNotEmpty) {
+          onProgress(bytes, totalBytes);
+        }
       });
 
       request.headers.addAll(headers);

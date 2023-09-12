@@ -97,8 +97,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
 
   PlansType selectedPlan = PlansType.personal;
 
-
-
   void vendorRegistration() {
     if (showValidation.value == false) {
       showValidation.value = true;
@@ -215,8 +213,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       }
     }
 
-
-
     /// Map Data
     /*{
   'first_name': 'karan',
@@ -283,10 +279,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     }
 
     map["vendor_type"] = selectedPlan.name;
-
-
-
-
 
     /// Files upload map
     Map<String, File> images = {};

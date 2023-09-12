@@ -66,7 +66,8 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                   children: [
                     Expanded(
                       child: Container(
-                        decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(10), boxShadow: [
+                        decoration:
+                            BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(10), boxShadow: [
                           BoxShadow(
                               color: Colors.grey.shade300,
                               // offset: Offset(2, 2),
@@ -143,13 +144,17 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                   child: Obx(() {
                     if (productController.refreshInt.value > 0) {}
                     return ListView.builder(
-                      itemCount: productController.apiLoaded ? productController.model.product!.isEmpty ? 1 : productController.model.product!.length : 5,
+                      itemCount: productController.apiLoaded
+                          ? productController.model.product!.isEmpty
+                              ? 1
+                              : productController.model.product!.length
+                          : 5,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         if (!productController.apiLoaded) {
                           return shimmerLoader(index);
                         }
-                        if(productController.model.product!.isEmpty){
+                        if (productController.model.product!.isEmpty) {
                           return const Center(
                             child: Text("No Product Added"),
                           );
@@ -163,7 +168,8 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
                                   child: Row(children: [
                                     SizedBox(
                                         height: AddSize.size80,
@@ -188,7 +194,8 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Get.toNamed(AddProductScreen.route, arguments: (item.id ?? "").toString());
+                                                  Get.toNamed(AddProductScreen.route,
+                                                      arguments: (item.id ?? "").toString());
                                                 },
                                                 child: Container(
                                                     height: AddSize.size25,
@@ -207,7 +214,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                             ],
                                           ),
                                           Text(
-                                            (item.catId ?? "Product ${item.id}").toString(),
+                                            (item.featuredImage).toString(),
                                             style: GoogleFonts.poppins(
                                               color: const Color(0xff676E73),
                                               fontSize: 15,
@@ -261,7 +268,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                             )
                                           ]),
                                           Text(
-                                            "${("${item.productType ?? ""}".capitalize!).toString().replaceAll("_product", "")} Product",
+                                            "${("${item.productType ?? ""}".capitalize!).toString().replaceAll("_product", "").replaceAll("Single", "Simple")} Product",
                                             style: GoogleFonts.poppins(
                                               color: AppTheme.buttonColor,
                                               fontWeight: FontWeight.w500,

@@ -45,7 +45,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                                 borderRadius: BorderRadius.circular(15),
                                 child: CachedNetworkImage(
                                     imageUrl: homeController.homeModal.value.home!.slider![index].image.toString(),
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                     placeholder: (context, url) => const SizedBox(),
                                     errorWidget: (context, url, error) => const SizedBox()),
                               ),
