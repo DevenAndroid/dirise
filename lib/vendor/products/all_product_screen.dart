@@ -1,5 +1,6 @@
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/utils/shimmer_extension.dart';
+import 'package:dirise/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -214,23 +215,18 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                             ],
                                           ),
                                           Text(
-                                            (item.featuredImage).toString(),
-                                            style: GoogleFonts.poppins(
-                                              color: const Color(0xff676E73),
-                                              fontSize: 15,
-                                            ),
+                                            (item.category_name ?? "").toString(),
+                                            style: normalStyle,
                                           ),
+                                          const SizedBox(height: 3,),
                                           Text(
-                                            '${item.inStock} piece',
-                                            style: GoogleFonts.poppins(
-                                              color: const Color(0xff676E73),
-                                              fontSize: 15,
-                                            ),
+                                            'QTY: ${item.inStock} piece',
+                                            style: normalStyle,
                                           ),
                                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                                             Expanded(
                                               child: Text(
-                                                "\$${item.pPrice ?? "0"}",
+                                                "\$${item.sPrice ?? "0"}",
                                                 style: GoogleFonts.poppins(
                                                   color: AppTheme.buttonColor,
                                                   fontWeight: FontWeight.w500,

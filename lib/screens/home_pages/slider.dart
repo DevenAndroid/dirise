@@ -43,7 +43,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
                                 child: CachedNetworkImage(
-                                    imageUrl: homeController.homeModal.value.home!.slider![index].image.toString(),
+                                    imageUrl: homeController.homeModal.value.home!.slider![index].bannerMobile.toString(),
                                     fit: BoxFit.fill,
                                     placeholder: (context, url) => const SizedBox(),
                                     errorWidget: (context, url, error) => const SizedBox()),

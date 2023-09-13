@@ -1,4 +1,5 @@
 import 'package:dirise/utils/helper.dart';
+import 'package:dirise/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,60 +60,68 @@ class _AppBarScreenState extends State<AppBarScreen> {
         return vendorProfileController.apiLoaded
             ? Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 10,),
             Text(
               "Hi, ${vendorProfileController.model.user!
-                  .name
+                  .firstName
+                  .toString()
+                  .checkNullable} ${vendorProfileController.model.user!
+                  .lastName
                   .toString()
                   .checkNullable}",
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600, fontSize: AddSize.font22, color: const Color(0xff292F45)),
+                height: .5,
+                  fontWeight: FontWeight.w600, fontSize: 20, color: const Color(0xff292F45)),
             ),
-            Row(
-              children: [
-                Flexible(
-                  child: Text(
-                    "Store Time :",
-                    style:
-                    GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff737A8A)),
+            const SizedBox(height: 10,),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(SetTimeScreen.setTimeScreen);
+              },
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      "Store Time :",
+                      style:
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff737A8A)),
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Obx(() {
-                    if(vendorStoreTimingController.refreshInt.value > 0){}
-                    return Text(
-                      vendorStoreTimingController.modelStoreAvailability.data != null ?
-                      "${vendorStoreTimingController.modelStoreAvailability.data!.firstWhere((element) =>
-                      element.weekDay.toString().toLowerCase() == DateFormat("EEEE").format(DateTime.now()).toLowerCase(),
-                          orElse: () =>
-                              TimeData(
-                                  startTime: ""
-                              )).startTime.toString().normalTime} to ${(vendorStoreTimingController.modelStoreAvailability.data!.firstWhere((
-                          element) =>
-                      element.weekDay.toString().toLowerCase() == DateFormat("EEEE").format(DateTime.now()).toLowerCase(),
-                          orElse: () =>
-                              TimeData(
-                                  startTime: ""
-                              )).endTime ?? "").toString().normalTime}" : "",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.buttonColor),
-                    );
-                  }),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Get.toNamed(SetTimeScreen.setTimeScreen);
-                  },
-                  padding: EdgeInsets.zero,
-                  visualDensity: VisualDensity.compact,
-                  icon: const Icon(
+                  Expanded(
+                    child: Obx(() {
+                      if(vendorStoreTimingController.refreshInt.value > 0){}
+                      return Text(
+                        vendorStoreTimingController.modelStoreAvailability.data != null ?
+                        "${vendorStoreTimingController.modelStoreAvailability.data!.firstWhere((element) =>
+                        element.weekDay.toString().toLowerCase() == DateFormat("EEEE").format(DateTime.now()).toLowerCase(),
+                            orElse: () =>
+                                TimeData(
+                                    startTime: " 09 AM"
+                                )).startTime.toString().normalTime} to ${(vendorStoreTimingController.modelStoreAvailability.data!.firstWhere((
+                            element) =>
+                        element.weekDay.toString().toLowerCase() == DateFormat("EEEE").format(DateTime.now()).toLowerCase(),
+                            orElse: () =>
+                                TimeData(
+                                    endTime: "7 PM"
+                                )).endTime ?? "").toString().normalTime}" : "",
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400, fontSize: 16, color: AppTheme.buttonColor),
+                      );
+                    }),
+                  ),
+                  const Icon(
                     Icons.edit,
                     color: AppTheme.buttonColor,
                     size: 15,
                   ),
-                ),
-              ],
-            )
+                ],
+              ),
+            ),
+            const SizedBox(height: 4,),
+            if(vendorProfileController.model.user!.vendorPublishStatus.toString() != "approved")
+              Text("Status: ${vendorProfileController.model.user!.vendorPublishStatus}",style: normalStyle,)
           ],
         )
             : const SizedBox();

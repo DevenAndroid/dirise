@@ -1,6 +1,6 @@
 class ModelStateList {
   bool? status;
-  String? message;
+  dynamic message;
   List<CountryState>? state;
 
   ModelStateList({this.status, this.message, this.state});
@@ -28,9 +28,9 @@ class ModelStateList {
 }
 
 class CountryState {
-  int? stateId;
-  String? stateName;
-  int? countryId;
+  dynamic stateId;
+  dynamic stateName;
+  dynamic countryId;
 
   CountryState({this.stateId, this.stateName, this.countryId});
 

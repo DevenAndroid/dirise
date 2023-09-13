@@ -72,8 +72,8 @@ class Repositories {
 
       if (kDebugMode) {
         if (showResponse == true) {
-          log("API Response........  ${response.body}");
           log("API Response Url........  $url");
+          log("API Response........  ${response.body}");
           log("API Response Status Code........  ${response.statusCode}");
           log("API Response Reason Phrase........  ${response.reasonPhrase}");
         }

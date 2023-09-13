@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class ModelCountryList {
   bool? status;
-  String? message;
+  dynamic message;
   List<Country>? country;
 
   ModelCountryList({this.status, this.message, this.country});
@@ -42,16 +42,16 @@ class ModelCountryList {
 }
 
 class Country {
-  int? id;
-  String? sortname;
-  String? name;
-  String? countryCode;
-  String? url;
-  String? flagImg;
-  String? icon;
-  String? createdAt;
-  String? updatedAt;
-  Null? deletedAt;
+  dynamic id;
+  dynamic sortname;
+  dynamic name;
+  dynamic countryCode;
+  dynamic url;
+  dynamic flagImg;
+  dynamic icon;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic deletedAt;
 
   Country(
       {this.id,

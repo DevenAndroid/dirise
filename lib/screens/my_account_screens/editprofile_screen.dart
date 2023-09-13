@@ -6,6 +6,7 @@ import 'package:dirise/model/customer_profile/model_country_list.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -155,11 +156,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-    profileController.getCountryList();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
     firstNameController.text = profileController.model.user!.firstName.toString();
     lastNameController.text = profileController.model.user!.lastName.toString();
     emailController.text = profileController.model.user!.email.toString();
     phoneController.text = profileController.model.user!.phone.toString();
+    addressController.text = profileController.model.user!.street_name.toString();
+    if(profileController.model.user!.country_id != null){
+      profileController.selectedCountry = Country(
+        name: profileController.model.user!.country_name.toString(),
+        id: profileController.model.user!.country_id.toString(),
+      );
+      profileController.getStateList(countryId: profileController.model.user!.country_id.toString()).then((value) {
+        setState(() {});
+      });
+    }
+
+    if(profileController.model.user!.state_id != null){
+      profileController.selectedState = CountryState(
+        stateName: profileController.model.user!.state_name.toString(),
+        stateId: profileController.model.user!.state_id.toString(),
+      );
+      profileController.getCityList(stateId: profileController.model.user!.state_id.toString(),).then((value) {
+        setState(() {});
+      });
+    }
+
+    if(profileController.model.user!.city != null){
+      profileController.selectedCity = City(
+        cityId: profileController.model.user!.city.toString(),
+        cityName: profileController.model.user!.country_name.toString(),
+      );
+    }
+    setState(() {});
+    });
   }
 
   @override

@@ -62,7 +62,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   final TextEditingController optional2Plan2 = TextEditingController();
   final TextEditingController optional3Plan2 = TextEditingController();
 
-  final TextEditingController optional1Plan3 = TextEditingController();
+  // final TextEditingController optional1Plan3 = TextEditingController();
+  final TextEditingController accountNumber = TextEditingController();
   final TextEditingController optional2Plan3 = TextEditingController();
   final TextEditingController optional3Plan3 = TextEditingController();
 
@@ -105,62 +106,62 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
 
     /// Validations
     if (!_formKey.currentState!.validate()) {
-      if(selectedPlan == PlansType.advertisement){
+      if (selectedPlan == PlansType.advertisement) {
         // First Name
-        if(firstName.checkEmpty)return;
+        if (firstName.checkEmpty) return;
         // Last Name
-        if(lastName.checkEmpty)return;
+        if (lastName.checkEmpty) return;
         // Store Name
-        if(storeName.checkEmpty)return;
+        if (storeName.checkEmpty) return;
         // Home Adress
-        if(homeAddress.checkEmpty)return;
+        if (homeAddress.checkEmpty) return;
         // Phone Number
-        if(phoneNumber.checkBothWithPhone)return;
+        if (phoneNumber.checkBothWithPhone) return;
         // Email
-        if(emailAddress.checkBothWithEmail)return;
+        if (emailAddress.checkBothWithEmail) return;
         // Optional
         // Optional
         // Optional
       }
-      if(selectedPlan == PlansType.personal){
+      if (selectedPlan == PlansType.personal) {
         // First Name
-        if(firstName.checkEmpty)return;
+        if (firstName.checkEmpty) return;
         // Last Name
-        if(lastName.checkEmpty)return;
+        if (lastName.checkEmpty) return;
         // Store Name
-        if(storeName.checkEmpty)return;
+        if (storeName.checkEmpty) return;
         // Home Adress
-        if(homeAddress.checkEmpty)return;
+        if (homeAddress.checkEmpty) return;
         // Phone Number
-        if(ceoName.checkEmpty)return;
+        if (ceoName.checkEmpty) return;
         // Email
-        if(partnerCount.checkEmpty)return;
+        if (partnerCount.checkEmpty) return;
         // Phone Number
-        if(phoneNumber.checkBothWithPhone)return;
+        if (phoneNumber.checkBothWithPhone) return;
         // Phone Number
-        if(emailAddress.checkBothWithEmail)return;
+        if (emailAddress.checkBothWithEmail) return;
       }
-      if(selectedPlan == PlansType.company){
+      if (selectedPlan == PlansType.company) {
         // First Name
-        if(firstName.checkEmpty)return;
+        if (firstName.checkEmpty) return;
         // Last Name
-        if(lastName.checkEmpty)return;
+        if (lastName.checkEmpty) return;
         // Store Name
-        if(storeName.checkEmpty)return;
+        if (storeName.checkEmpty) return;
         // Company Name
-        if(companyName.checkEmpty)return;
+        if (companyName.checkEmpty) return;
         // Work Adress
-        if(workAddress.checkEmpty)return;
+        if (workAddress.checkEmpty) return;
         // Business number
-        if(businessNumber.checkEmpty)return;
+        if (businessNumber.checkEmpty) return;
         // Email
-        if(emailAddress.checkBothWithEmail)return;
+        if (emailAddress.checkBothWithEmail) return;
         // Work Email
-        if(workEmail.checkBothWithEmail)return;
+        if (workEmail.checkBothWithEmail) return;
       }
       return;
     }
-    if(selectedPlan == PlansType.personal){
+    if (selectedPlan == PlansType.personal) {
       // Payment receipt certificate
       if (paymentReceiptCertificate.path.isEmpty) {
         showToast("Please Select Payment Receipt Certificate");
@@ -168,8 +169,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         return;
       }
     }
-    if(selectedPlan == PlansType.company){
-
+    if (selectedPlan == PlansType.company) {
       // Memorandum of Association
       if (memorandumAssociation.path.isEmpty) {
         showToast("Please Select Memorandum of Association");
@@ -242,7 +242,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
 }*/
 
     Map<String, String> map = {};
-    if(selectedPlan == PlansType.advertisement){
+    if (selectedPlan == PlansType.advertisement) {
       map = {
         'first_name': firstName.text.trim(),
         'last_name': lastName.text.trim(),
@@ -252,7 +252,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         'home_address': homeAddress.text.trim(),
       };
     }
-    if(selectedPlan == PlansType.personal){
+    if (selectedPlan == PlansType.personal) {
       map = {
         'partners': partnerCount.text.trim(),
         'first_name': firstName.text.trim(),
@@ -264,7 +264,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         'home_address': homeAddress.text.trim(),
       };
     }
-    if(selectedPlan == PlansType.company){
+    if (selectedPlan == PlansType.company) {
       // Business number
       map = {
         'first_name': firstName.text.trim(),
@@ -275,6 +275,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         'work_address': workAddress.text.trim(),
         'work_email': workEmail.text.trim(),
         'business_number': businessNumber.text.trim(),
+        'account_number': accountNumber.text.trim(),
       };
     }
 
@@ -283,11 +284,11 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     /// Files upload map
     Map<String, File> images = {};
 
-    if(selectedPlan == PlansType.personal){
+    if (selectedPlan == PlansType.personal) {
       images["payment_certificate"] = paymentReceiptCertificate;
     }
 
-    if(selectedPlan == PlansType.company){
+    if (selectedPlan == PlansType.company) {
       // Memorandum of Association  ✅
       // Commercial license ✅
       // Signature approval ✅
@@ -309,17 +310,21 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
             url: ApiUrls.vendorRegistrationUrl,
             onProgress: (int bytes, int totalBytes) {
               NotificationService().showNotificationWithProgress(
-                  title: "Uploading Documents", body: "Uploading Documents are in progress", payload: "payload",
-                  maxProgress: 100, progress: ((bytes/ totalBytes) * 100).toInt(), progressId: 770);
+                  title: "Uploading Documents",
+                  body: "Uploading Documents are in progress",
+                  payload: "payload",
+                  maxProgress: 100,
+                  progress: ((bytes / totalBytes) * 100).toInt(),
+                  progressId: 770);
             })
         .then((value) {
       NotificationService().hideAllNotifications();
       ModelVendorRegistrationResponse response = ModelVendorRegistrationResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true && response.otp != null) {
-        Get.to(() => const VendorOTPVerification(), arguments: [emailAddress.text.trim(),planInfo]);
+        Get.to(() => const VendorOTPVerification(), arguments: [emailAddress.text.trim(), planInfo]);
       }
-    }).catchError((e){
+    }).catchError((e) {
       NotificationService().hideAllNotifications();
     });
   }
@@ -383,7 +388,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                 children: [
                   Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     planCard(),
-
                     if (selectedPlan == PlansType.advertisement) ...[
                       14.spaceY,
                       // First Name
@@ -785,13 +789,13 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       14.spaceY,
                       //Optional1
                       VendorCommonTextfield(
-                          controller: optional1Plan3,
-                          key: optional1Plan3.getKey,
-                          hintText: "Optional1",
+                          controller: accountNumber,
+                          key: accountNumber.getKey,
+                          hintText: "Account Number",
                           validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
+                            if (value!.trim().isEmpty) {
+                              return "Please enter account number";
+                            }
                             return null;
                           }),
                       14.spaceY,
@@ -879,7 +883,9 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         },
                       ),
                     ],
-                    const SizedBox(height: 25,),
+                    const SizedBox(
+                      height: 25,
+                    ),
                     ElevatedButton(
                         onPressed: () {
                           vendorRegistration();

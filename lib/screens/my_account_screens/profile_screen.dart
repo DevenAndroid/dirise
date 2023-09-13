@@ -59,14 +59,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                      shape: BoxShape.circle, border: Border.all(color: profileCircleColor, width: 1.2)),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: profileCircleColor, width: 1.2)),
                                   height: 140,
                                   width: 140,
                                 ).animate().scale(
@@ -76,7 +76,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 // if(false)
                                 Container(
                                   decoration: BoxDecoration(
-                                      shape: BoxShape.circle, border: Border.all(color: profileCircleColor, width: 1.2)),
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: profileCircleColor, width: 1.2)),
                                   height: 125,
                                   width: 125,
                                 ).animate(delay: const Duration(milliseconds: 800)).fade(delay: 200.ms).then().scale(
@@ -107,216 +108,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 140,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      SvgPicture.asset("assets/svgs/profile_edit.svg"),
-                                      const SizedBox(
-                                        width: 4,
-                                      )
-                                    ],
-                                  ),
-                                )
+                                // SizedBox(
+                                //   width: 140,
+                                //   child: Row(
+                                //     mainAxisAlignment: MainAxisAlignment.end,
+                                //     children: [
+                                //       SvgPicture.asset("assets/svgs/profile_edit.svg"),
+                                //       const SizedBox(
+                                //         width: 4,
+                                //       )
+                                //     ],
+                                //   ),
+                                // )
                               ],
                             ),
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Image.asset(
-                                'assets/icons/profile.png',
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Name',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: const Color(0xff454545),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  profileController.model.user!.name.toString(),
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                      SizedBox(height: 18),
+                      ...profileCard(
+                        imagePath: "assets/svgs/profile.svg",
+                        title: 'First Name',
+                        value: profileController.model.user!.firstName.toString(),
                       ),
-                      const SizedBox(
-                        height: 15,
+                      ...profileCard(
+                        imagePath: "assets/svgs/profile.svg",
+                        title: 'Last Name',
+                        value: profileController.model.user!.lastName.toString(),
                       ),
-                      const Divider(
-                        color: Color(0xffEFEFEF),
+                      ...profileCard(
+                        imagePath: "assets/svgs/email.svg",
+                        title: 'E-Mail',
+                        value: profileController.model.user!.email.toString(),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      ...profileCard(
+                        imagePath: "assets/svgs/location.svg",
+                        title: 'Street Address',
+                        value: profileController.model.user!.street_name.toString(),
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Image.asset(
-                                'assets/icons/message.png',
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'E-Mail',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: const Color(0xff454545),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  profileController.model.user!.email.toString(),
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                      ...profileCard(
+                        imagePath: "assets/svgs/city.svg",
+                        title: 'State/City',
+                        value: "${profileController.model.user!.state_name}, ${profileController.model.user!.city_name}",
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const Divider(
-                        color: Color(0xffEFEFEF),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Image.asset(
-                                'assets/icons/phone.png',
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Mobile Number',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: const Color(0xff454545),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  profileController.model.user!.phone.toString(),
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const Divider(
-                        color: Color(0xffEFEFEF),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      // Row(
-                      //   children: [
-                      //     Container(
-                      //       height: 50,
-                      //       width: 50,
-                      //       decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
-                      //       child: Padding(
-                      //         padding: const EdgeInsets.all(15),
-                      //         child: Image.asset(
-                      //           'assets/icons/location.png',
-                      //           color: Colors.white,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     const SizedBox(
-                      //       width: 15,
-                      //     ),
-                      //     Expanded(
-                      //       child: Column(
-                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                      //         children: [
-                      //           Text(
-                      //             'Address',
-                      //             style: GoogleFonts.poppins(
-                      //               fontSize: 14,
-                      //               color: const Color(0xff454545),
-                      //             ),
-                      //           ),
-                      //           const SizedBox(
-                      //             height: 3,
-                      //           ),
-                      //           Text(
-                      //             profileController.model.value.user!.address.toString(),
-                      //             style: GoogleFonts.poppins(
-                      //                 color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
-                      SizedBox(
-                        height: size.height * .23,
+                      ...profileCard(
+                        imagePath: "assets/svgs/country.svg",
+                        title: 'Country/Region',
+                        value: profileController.model.user!.country_name.toString(),
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -344,5 +182,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
             : const Center(child: CircularProgressIndicator());
       }),
     );
+  }
+
+  List<Widget> profileCard({
+    required String imagePath,
+    required String title,
+    required String value,
+}) {
+    return [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 50,
+            width: 50,
+            child: SvgPicture.asset(imagePath),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: const Color(0xff454545),
+                  ),
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                Text(
+                  value,
+                  style: GoogleFonts.poppins(color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 8,
+      ),
+      const Divider(
+        color: Color(0xffEFEFEF),
+      ),
+      const SizedBox(
+        height: 8,
+      ),
+    ];
   }
 }

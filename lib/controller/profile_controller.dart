@@ -27,6 +27,7 @@ class ProfileController extends GetxController {
   City? selectedCity;
 
   getCountryList() {
+    if(modelCountryList != null)return;
     repositories.getApi(url: ApiUrls.allCountriesUrl).then((value) {
       modelCountryList = ModelCountryList.fromString(value);
     });
@@ -95,7 +96,7 @@ class ProfileController extends GetxController {
     if (userLoggedIn) {
       await repositories.postApi(url: ApiUrls.userProfile).then((value) {
         model = ProfileModel.fromJson(jsonDecode(value));
-        // isVendorRegistered = model.user.
+        print(model.user!.firstName);
         apiLoaded = true;
         updateUI();
       });

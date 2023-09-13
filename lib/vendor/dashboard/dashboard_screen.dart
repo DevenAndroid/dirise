@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                               ),
                             ),
                             const LatestSalesAppBar(),
+                            controller.modelVendorDashboard.order!.isNotEmpty ?
                             SliverList.builder(
                                 itemCount: controller.modelVendorDashboard.order!.length,
                                 itemBuilder: (context, index) {
@@ -152,7 +154,12 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                       ),
                                     ),
                                   );
-                                }),
+                                }) : SliverToBoxAdapter(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10,bottom: 30),
+                                child: Text("Sales not available",style: normalStyle,textAlign: TextAlign.center,),
+                              ),
+                            ),
                           ],
                         ),
                       )

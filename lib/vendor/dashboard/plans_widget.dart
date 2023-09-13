@@ -49,22 +49,35 @@ class _PlanWidgetState extends State<PlanWidget> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text("Plan Start Date"),
-                              Text(
-                                vendorProfileController.model.user!.planStartDate.toString().capitalize!,
-                                style: titleStyle,
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              const Text("Plan Expiry Date"),
-                              Text(
-                                vendorProfileController.model.user!.planExpireDate.toString().capitalize!,
-                                style: titleStyle,
-                              ),
-                              const SizedBox(
-                                height: 14,
-                              ),
+                              if (vendorProfileController.model.user!.planStartDate != null) ...[
+                                const Text("Plan Start Date"),
+                                Text(
+                                  vendorProfileController.model.user!.planStartDate.toString().capitalize!,
+                                  style: titleStyle,
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                              ],
+                              if (vendorProfileController.model.user!.planExpireDate != null) ...[
+                                const Text("Plan Expiry Date"),
+                                Text(
+                                  vendorProfileController.model.user!.planExpireDate.toString().capitalize!,
+                                  style: titleStyle,
+                                ),
+                                const SizedBox(
+                                  height: 14,
+                                ),
+                              ],
+                              if (vendorProfileController.model.user!.planStartDate == null &&
+                                  vendorProfileController.model.user!.planExpireDate == null)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: Text(
+                                    "Plan Info Not Available",
+                                    style: normalStyle,
+                                  ),
+                                ),
                               Row(
                                 children: [
                                   Expanded(

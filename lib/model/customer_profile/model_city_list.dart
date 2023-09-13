@@ -1,6 +1,6 @@
 class ModelCityList {
   bool? status;
-  String? message;
+  dynamic message;
   List<City>? city;
 
   ModelCityList({this.status, this.message, this.city});
@@ -28,11 +28,11 @@ class ModelCityList {
 }
 
 class City {
-  int? cityId;
-  String? cityName;
-  int? stateId;
-  String? createdAt;
-  String? updatedAt;
+  dynamic cityId;
+  dynamic cityName;
+  dynamic stateId;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   City(
       {this.cityId,

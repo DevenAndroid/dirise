@@ -57,7 +57,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   final TextEditingController optional2Plan2 = TextEditingController();
   final TextEditingController optional3Plan2 = TextEditingController();
 
-  final TextEditingController optional1Plan3 = TextEditingController();
+  // final TextEditingController optional1Plan3 = TextEditingController();
+  final TextEditingController accountNumber = TextEditingController();
   final TextEditingController optional2Plan3 = TextEditingController();
   final TextEditingController optional3Plan3 = TextEditingController();
 
@@ -760,6 +761,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                           VendorCommonTextfield(
                               controller: businessNumber,
                               key: businessNumber.getKey,
+                              keyboardType: TextInputType.name,
                               hintText: "Business Number",
                               validator: (value) {
                                 if (value!.trim().isEmpty) {
@@ -812,10 +814,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                           14.spaceY,
                           //Optional1
                           VendorCommonTextfield(
-                              controller: optional1Plan3,
-                              key: optional1Plan3.getKey,
-                              hintText: "Optional1",
+                              controller: accountNumber,
+                              key: accountNumber.getKey,
+                              hintText: "Account Number",
                               validator: (value) {
+                                if (value!.trim().isEmpty) {
+                                  return "Please enter account number";
+                                }
                                 return null;
                               }),
                           14.spaceY,
