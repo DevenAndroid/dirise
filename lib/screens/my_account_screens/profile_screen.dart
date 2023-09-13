@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/profile_controller.dart';
@@ -21,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     profileController.getDataProfile();
+    profileController.getCountryList();
   }
 
   @override
@@ -52,26 +55,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
                   child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(EditProfileScreen.route);
-                        },
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(100)),
-                            color: AppTheme.buttonColor,
-                          ),
-                          child: ClipOval(
-                            child: CachedNetworkImage(
-                              width: 120,
-                              height: 120,
-                              fit: BoxFit.cover,
-                              imageUrl: profileController.model.user!.profileImage.toString(),
-                              placeholder: (context, url) => const SizedBox(),
-                              errorWidget: (context, url, error) => const SizedBox(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                            },
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle, border: Border.all(color: profileCircleColor, width: 1.2)),
+                                  height: 140,
+                                  width: 140,
+                                ).animate().scale(
+                                    duration: const Duration(seconds: 1),
+                                    begin: const Offset(0.6, 0.6),
+                                    end: const Offset(1, 1)),
+                                // if(false)
+                                Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle, border: Border.all(color: profileCircleColor, width: 1.2)),
+                                  height: 125,
+                                  width: 125,
+                                ).animate(delay: const Duration(milliseconds: 800)).fade(delay: 200.ms).then().scale(
+                                    duration: const Duration(milliseconds: 600),
+                                    begin: const Offset(1.12, 1.12),
+                                    end: const Offset(1, 1)),
+                                // if(false)
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10000),
+                                  child: SizedBox(
+                                    height: 110,
+                                    width: 110,
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                                        color: AppTheme.primaryColor,
+                                      ),
+                                      child: ClipOval(
+                                        child: CachedNetworkImage(
+                                          width: 120,
+                                          height: 120,
+                                          fit: BoxFit.cover,
+                                          imageUrl: profileController.model.user!.profileImage.toString(),
+                                          placeholder: (context, url) => const SizedBox(),
+                                          errorWidget: (context, url, error) => const SizedBox(),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 140,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      SvgPicture.asset("assets/svgs/profile_edit.svg"),
+                                      const SizedBox(
+                                        width: 4,
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                        ),
+                        ],
                       ),
                       Row(
                         children: [

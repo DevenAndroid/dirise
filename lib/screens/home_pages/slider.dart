@@ -6,7 +6,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
-
 import '../../controller/home_controller.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/loading_animation.dart';

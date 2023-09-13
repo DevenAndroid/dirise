@@ -79,7 +79,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     height: size.height * .08,
                   ),
                   Obx(() {
-                    return CommonTextfield(
+                    return CommonTextField(
                       controller: passwordController,
                       obSecure: hide1.value,
                       suffixIcon: IconButton(
@@ -103,7 +103,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     height: size.height * .01,
                   ),
                   Obx(() {
-                    return CommonTextfield(
+                    return CommonTextField(
                       controller: newPasswordController,
                       obSecure: hide2.value,
                       suffixIcon: IconButton(

@@ -115,11 +115,11 @@ class User {
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'] ?? "";
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    email = json['email'];
-    dob = json['dob'];
-    countryCode = json['country_code'];
+    firstName = json['first_name'] ?? "";
+    lastName = json['last_name'] ?? "";
+    email = json['email'] ?? "";
+    dob = json['dob'] ?? "";
+    countryCode = json['country_code'] ?? "";
     phone = json['phone'] ?? "";
     storeName = json['store_name'];
     storeBusinessId = json['store_business_id'];
