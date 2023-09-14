@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/vendor_controllers/vendor_profile_controller.dart';
+import '../../model/common_modal.dart';
+import '../../model/vendor_models/model_payment_method.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import '../../model/vendor_models/model_vendor_details.dart';
 import '../../model/vendor_models/model_vendor_registration.dart';
@@ -17,11 +19,15 @@ import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
 import '../authenthication/image_widget.dart';
+import '../authenthication/payment_screen.dart';
+import '../authenthication/thanku_screen.dart';
 import '../authenthication/vendor_registration_screen.dart';
 import '../authenthication/verify_vendor_otp.dart';
 
 class VendorProfileScreen extends StatefulWidget {
-  const VendorProfileScreen({super.key});
+  const VendorProfileScreen({super.key, this.selectedPlan, this.planId});
+  final PlansType? selectedPlan;
+  final String? planId;
   static String route = "/VendorProfileScreen";
 
   @override
@@ -29,8 +35,40 @@ class VendorProfileScreen extends StatefulWidget {
 }
 
 class _VendorProfileScreenState extends State<VendorProfileScreen> {
+
+  String get planId => widget.planId!;
+
   final vendorProfileController = Get.put(VendorProfileController());
   PlanInfoData get planInfo => PlanInfoData();
+
+  ModelPaymentMethods? methods;
+  String paymentMethod = "";
+  getPaymentGateWays() {
+    if(methods != null)return;
+    repositories.getApi(url: ApiUrls.paymentMethodsUrl).then((value) {
+      methods = ModelPaymentMethods.fromJson(jsonDecode(value));
+      setState(() {});
+    });
+  }
+
+  getPaymentUrl() {
+    if (paymentMethod.isEmpty) {
+      showToast("Please select payment method");
+      return;
+    }
+    repositories.postApi(url: ApiUrls.createPaymentUrl, context: context, mapData: {
+      'plan_id': planId,
+      'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
+      'payment_method': paymentMethod,
+    }).then((value) {
+      ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
+      if (modelCommonResponse.uRL != null) {
+        Get.to(() => VendorPaymentScreen(
+          paymentUrl: modelCommonResponse.uRL,
+        ));
+      }
+    });
+  }
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey categoryKey = GlobalKey();
@@ -107,8 +145,17 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
   updateControllers(){
     if(valuesLoaded)return;
+    if(widget.selectedPlan != null) {
+      getPaymentGateWays();
+    }
     if(vendorProfileController.model.user == null)return;
-    selectedPlan = PlansType.values.firstWhere((element) => element.name.toString() == vendorInfo.vendorType.toString(),orElse: ()=> PlansType.personal);
+    if(widget.selectedPlan == null) {
+      selectedPlan =
+          PlansType.values.firstWhere((element) => element.name.toString() == vendorInfo.vendorType.toString(),
+              orElse: () => PlansType.personal);
+    } else {
+      selectedPlan = widget.selectedPlan!;
+    }
     firstName.text = vendorInfo.firstName ?? "";
     lastName.text = vendorInfo.lastName ?? "";
     storeName.text = vendorInfo.storeName ?? "";
@@ -131,8 +178,11 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       originalCivilInformation = File((vendorInfo.vendorProfile!.originalCivilInformation ?? "").toString());
       companyBankAccount = File((vendorInfo.vendorProfile!.companyBankAccount ?? "").toString());
     }
+    valuesLoaded = true;
 
   }
+  
+  bool get planUpdate => widget.selectedPlan != null;
 
   void updateProfile() {
     if (showValidation.value == false) {
@@ -249,6 +299,11 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         return;
       }
     }
+    
+    if(planUpdate && paymentMethod.isEmpty){
+      showToast("Please select payment method");
+      return;
+    }
 
     /// Map Data
     /*{
@@ -353,8 +408,12 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       NotificationService().hideAllNotifications();
       ModelVendorRegistrationResponse response = ModelVendorRegistrationResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
-      if (response.status == true && response.otp != null) {
-        Get.to(() => const VendorOTPVerification(), arguments: [emailAddress.text.trim(),planInfo]);
+      if (response.status == true) {
+        if(!planUpdate) {
+          Get.back();
+        } else {
+          getPaymentUrl();
+        }
       }
     }).catchError((e){
       NotificationService().hideAllNotifications();
@@ -761,7 +820,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                           VendorCommonTextfield(
                               controller: businessNumber,
                               key: businessNumber.getKey,
-                              keyboardType: TextInputType.name,
+                              keyboardType: TextInputType.number,
                               hintText: "Business Number",
                               validator: (value) {
                                 if (value!.trim().isEmpty) {
@@ -908,6 +967,48 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             },
                           ),
                         ],
+                        const SizedBox(height: 10,),
+                        if (methods != null && methods!.data != null)
+                          DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                ),
+                                enabled: true,
+                                filled: true,
+                                hintText: "Select Payment Method",
+                                labelStyle: GoogleFonts.poppins(color: Colors.black),
+                                labelText: "Select Payment Method",
+                                fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                ),
+                              ),
+                              validator: (value){
+                                if(paymentMethod.isEmpty){
+                                  return "Please select payment method";
+                                }
+                              },
+                              isExpanded: true,
+                              items: methods!.data!
+                                  .map((e) => DropdownMenuItem(
+                                  value: e.paymentMethodId.toString(), child: Row(
+                                children: [
+                                  Expanded(child: Text(e.paymentMethodEn.toString())),
+                                  SizedBox(
+                                      width: 35,
+                                      height: 35,
+                                      child: Image.network(e.imageUrl.toString()))
+                                ],
+                              )))
+                                  .toList(),
+                              onChanged: (value) {
+                                if(value == null)return;
+                                paymentMethod = value;
+                              }),
                         const SizedBox(height: 25,),
                         ElevatedButton(
                             onPressed: () {

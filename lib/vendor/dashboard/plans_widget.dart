@@ -3,6 +3,7 @@ import 'package:dirise/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/vendor_controllers/vendor_profile_controller.dart';
+import '../profile/edit_plan_screen.dart';
 
 class PlanWidget extends StatefulWidget {
   const PlanWidget({super.key});
@@ -82,7 +83,11 @@ class _PlanWidgetState extends State<PlanWidget> {
                                 children: [
                                   Expanded(
                                     child: OutlinedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.to(()=> EditVendorPlan(
+                                            selectedPlanId: vendorProfileController.model.user!.activePlanId.toString(),
+                                          ));
+                                        },
                                         style: OutlinedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(5),
@@ -105,7 +110,11 @@ class _PlanWidgetState extends State<PlanWidget> {
                                   ),
                                   Expanded(
                                     child: OutlinedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Get.to(()=> EditVendorPlan(
+                                            selectedPlanId: vendorProfileController.model.user!.activePlanId.toString(),
+                                          ));
+                                          },
                                         style: OutlinedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(5),
