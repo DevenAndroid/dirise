@@ -94,20 +94,22 @@ class _ProductUIState extends State<ProductUI> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: CachedNetworkImage(
-                          imageUrl: widget.productElement.featuredImage.toString(),
-                          height: 100,
-                          fit: BoxFit.cover,
-                          errorWidget: (context, url, error) => Icon(Icons.report_gmailerrorred_rounded,color: Theme.of(context).colorScheme.error,),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: CachedNetworkImage(
+                            imageUrl: widget.productElement.featuredImage.toString(),
+                            height: 100,
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) => Icon(Icons.report_gmailerrorred_rounded,color: Theme.of(context).colorScheme.error,),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
