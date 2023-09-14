@@ -34,14 +34,12 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   PlanInfoData get planInfo => widget.selectedPlan;
 
   final Repositories repositories = Repositories();
-  // ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey categoryKey = GlobalKey();
   RxBool showValidation = false.obs;
   RxBool hideText = true.obs;
   Map<String, VendorCategoriesData> allSelectedCategory = {};
-  // Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
 
   Rx<File> storeImage = File("").obs;
   Rx<File> businessImage = File("").obs;
@@ -96,7 +94,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   final GlobalKey companyBankAccountKey = GlobalKey();
 
   PlansType selectedPlan = PlansType.personal;
-
 
 
   void vendorRegistration() {
@@ -797,9 +794,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           key: optional1Plan3.getKey,
                           hintText: "Optional1",
                           validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
                             return null;
                           }),
                       14.spaceY,
