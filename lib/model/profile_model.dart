@@ -60,10 +60,17 @@ class User {
   dynamic address;
   dynamic block;
   dynamic stripeId;
+  dynamic street_name;
   dynamic currency;
   dynamic createdAt;
   dynamic updatedAt;
   dynamic deletedAt;
+  dynamic city_name;
+  dynamic state_name;
+  dynamic country_name;
+  dynamic state_id;
+  dynamic country_id;
+  dynamic city;
   bool? isVendor;
   List<Roles>? roles;
 
@@ -71,9 +78,15 @@ class User {
       {this.id,
       this.name,
       this.firstName,
+      this.street_name,
+      this.state_id,
+      this.state_name,
+      this.country_name,
       this.lastName,
       this.email,
       this.dob,
+      this.city_name,
+      this.city,
       this.countryCode,
       this.phone,
       this.storeName,
@@ -109,20 +122,28 @@ class User {
       this.createdAt,
       this.updatedAt,
       this.deletedAt,
+      this.country_id,
       this.isVendor,
       this.roles});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    city = json['city'];
     name = json['name'] ?? "";
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    email = json['email'];
-    dob = json['dob'];
-    countryCode = json['country_code'];
+    street_name = json['street_name'] ?? "";
+    firstName = json['first_name'] ?? "";
+    lastName = json['last_name'] ?? "";
+    state_name = json['state_name'] ?? "";
+    email = json['email'] ?? "";
+    dob = json['dob'] ?? "";
+    countryCode = json['country_code'] ?? "";
     phone = json['phone'] ?? "";
+    city_name = json['city_name'] ?? "";
+    country_name = json['country_name'] ?? "";
     storeName = json['store_name'];
     storeBusinessId = json['store_business_id'];
+    state_id = json['state_id'];
+    country_id = json['country_id'];
     storeAboutUs = json['store_about_us'];
     storeAboutMe = json['store_about_me'];
     storeAddress = json['store_address'];

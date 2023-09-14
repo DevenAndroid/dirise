@@ -184,7 +184,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              CommonTextfield(
+                              CommonTextField(
                                 controller: accountNumber,
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
@@ -198,7 +198,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                               const SizedBox(
                                 height: 15,
                               ),
-                              CommonTextfield(
+                              CommonTextField(
                                 controller: accountHolderName,
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
@@ -212,7 +212,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                               const SizedBox(
                                 height: 15,
                               ),
-                              CommonTextfield(
+                              CommonTextField(
                                 controller: bicSwiftCode,
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {

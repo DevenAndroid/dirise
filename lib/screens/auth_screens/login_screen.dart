@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: size.height * .1,
                 ),
-                CommonTextfield(
+                CommonTextField(
                   controller: emailController,
                   obSecure: false,
                   hintText: 'Email or Phone number',
@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: size.height * .01,
                 ),
                 Obx(() {
-                  return CommonTextfield(
+                  return CommonTextField(
                     controller: passwordController,
                     obSecure: hide.value,
                     suffixIcon: IconButton(

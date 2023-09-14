@@ -87,7 +87,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   SizedBox(
                     height: size.height * .05,
                   ),
-                  CommonTextfield(
+                  CommonTextField(
                       controller: emailController,
                       validator: MultiValidator([
                         RequiredValidator(errorText: 'Email is required'),

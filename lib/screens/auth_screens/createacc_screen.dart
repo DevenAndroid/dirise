@@ -96,7 +96,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 SizedBox(
                   height: size.height * .08,
                 ),
-                CommonTextfield(
+                CommonTextField(
                     controller: _emailController,
                     obSecure: false,
                     // hintText: 'Name',
@@ -109,7 +109,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   height: size.height * .01,
                 ),
                 Obx(() {
-                  return CommonTextfield(
+                  return CommonTextField(
                     controller: _passwordController,
                     hintText: 'Password',
                     obSecure: hide.value,
@@ -133,7 +133,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   height: size.height * .01,
                 ),
                 Obx(() {
-                  return CommonTextfield(
+                  return CommonTextField(
                     // controller: _passwordController,
                     // hintText: 'Password',
                     obSecure: hide1.value,

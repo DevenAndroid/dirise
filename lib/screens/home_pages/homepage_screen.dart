@@ -51,7 +51,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // centerTitle: true,
           toolbarHeight: kToolbarHeight + 10,
           backgroundColor: AppTheme.buttonColor,
           surfaceTintColor: AppTheme.buttonColor,

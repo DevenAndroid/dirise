@@ -123,7 +123,8 @@ class _ProductUIState extends State<ProductUI> {
                 ),
                 Text(
                   widget.productElement.pname.toString(),
-                  style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
+                  maxLines: 2,
+                  style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(
                   height: 3,

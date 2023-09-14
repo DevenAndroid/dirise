@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/profile_controller.dart';
@@ -21,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     profileController.getDataProfile();
+    profileController.getCountryList();
   }
 
   @override
@@ -52,220 +55,106 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
                   child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(EditProfileScreen.route);
-                        },
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(100)),
-                            color: AppTheme.buttonColor,
-                          ),
-                          child: ClipOval(
-                            child: CachedNetworkImage(
-                              width: 120,
-                              height: 120,
-                              fit: BoxFit.cover,
-                              imageUrl: profileController.model.user!.profileImage.toString(),
-                              placeholder: (context, url) => const SizedBox(),
-                              errorWidget: (context, url, error) => const SizedBox(),
-                            ),
-                          ),
-                        ),
-                      ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Image.asset(
-                                'assets/icons/profile.png',
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          GestureDetector(
+                            onTap: () {},
+                            child: Stack(
+                              alignment: Alignment.center,
                               children: [
-                                Text(
-                                  'Name',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: const Color(0xff454545),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: profileCircleColor, width: 1.2)),
+                                  height: 140,
+                                  width: 140,
+                                ).animate().scale(
+                                    duration: const Duration(seconds: 1),
+                                    begin: const Offset(0.6, 0.6),
+                                    end: const Offset(1, 1)),
+                                // if(false)
+                                Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: profileCircleColor, width: 1.2)),
+                                  height: 125,
+                                  width: 125,
+                                ).animate(delay: const Duration(milliseconds: 800)).fade(delay: 200.ms).then().scale(
+                                    duration: const Duration(milliseconds: 600),
+                                    begin: const Offset(1.12, 1.12),
+                                    end: const Offset(1, 1)),
+                                // if(false)
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10000),
+                                  child: SizedBox(
+                                    height: 110,
+                                    width: 110,
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                                        color: AppTheme.primaryColor,
+                                      ),
+                                      child: ClipOval(
+                                        child: CachedNetworkImage(
+                                          width: 120,
+                                          height: 120,
+                                          fit: BoxFit.cover,
+                                          imageUrl: profileController.model.user!.profileImage.toString(),
+                                          placeholder: (context, url) => const SizedBox(),
+                                          errorWidget: (context, url, error) => const SizedBox(),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  profileController.model.user!.name.toString(),
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                                ),
+                                // SizedBox(
+                                //   width: 140,
+                                //   child: Row(
+                                //     mainAxisAlignment: MainAxisAlignment.end,
+                                //     children: [
+                                //       SvgPicture.asset("assets/svgs/profile_edit.svg"),
+                                //       const SizedBox(
+                                //         width: 4,
+                                //       )
+                                //     ],
+                                //   ),
+                                // )
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 15,
+                      SizedBox(height: 18),
+                      ...profileCard(
+                        imagePath: "assets/svgs/profile.svg",
+                        title: 'First Name',
+                        value: profileController.model.user!.firstName.toString(),
                       ),
-                      const Divider(
-                        color: Color(0xffEFEFEF),
+                      ...profileCard(
+                        imagePath: "assets/svgs/profile.svg",
+                        title: 'Last Name',
+                        value: profileController.model.user!.lastName.toString(),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      ...profileCard(
+                        imagePath: "assets/svgs/email.svg",
+                        title: 'E-Mail',
+                        value: profileController.model.user!.email.toString(),
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Image.asset(
-                                'assets/icons/message.png',
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'E-Mail',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: const Color(0xff454545),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  profileController.model.user!.email.toString(),
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                      ...profileCard(
+                        imagePath: "assets/svgs/location.svg",
+                        title: 'Street Address',
+                        value: profileController.model.user!.street_name.toString(),
                       ),
-                      const SizedBox(
-                        height: 15,
+                      ...profileCard(
+                        imagePath: "assets/svgs/city.svg",
+                        title: 'State/City',
+                        value: "${profileController.model.user!.state_name}, ${profileController.model.user!.city_name}",
                       ),
-                      const Divider(
-                        color: Color(0xffEFEFEF),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Image.asset(
-                                'assets/icons/phone.png',
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Mobile Number',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: const Color(0xff454545),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  profileController.model.user!.phone.toString(),
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      const Divider(
-                        color: Color(0xffEFEFEF),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      // Row(
-                      //   children: [
-                      //     Container(
-                      //       height: 50,
-                      //       width: 50,
-                      //       decoration: const BoxDecoration(shape: BoxShape.circle, color: AppTheme.buttonColor),
-                      //       child: Padding(
-                      //         padding: const EdgeInsets.all(15),
-                      //         child: Image.asset(
-                      //           'assets/icons/location.png',
-                      //           color: Colors.white,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     const SizedBox(
-                      //       width: 15,
-                      //     ),
-                      //     Expanded(
-                      //       child: Column(
-                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                      //         children: [
-                      //           Text(
-                      //             'Address',
-                      //             style: GoogleFonts.poppins(
-                      //               fontSize: 14,
-                      //               color: const Color(0xff454545),
-                      //             ),
-                      //           ),
-                      //           const SizedBox(
-                      //             height: 3,
-                      //           ),
-                      //           Text(
-                      //             profileController.model.value.user!.address.toString(),
-                      //             style: GoogleFonts.poppins(
-                      //                 color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
-                      SizedBox(
-                        height: size.height * .23,
+                      ...profileCard(
+                        imagePath: "assets/svgs/country.svg",
+                        title: 'Country/Region',
+                        value: profileController.model.user!.country_name.toString(),
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -293,5 +182,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
             : const Center(child: CircularProgressIndicator());
       }),
     );
+  }
+
+  List<Widget> profileCard({
+    required String imagePath,
+    required String title,
+    required String value,
+}) {
+    return [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 50,
+            width: 50,
+            child: SvgPicture.asset(imagePath),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: const Color(0xff454545),
+                  ),
+                ),
+                const SizedBox(
+                  height: 3,
+                ),
+                Text(
+                  value,
+                  style: GoogleFonts.poppins(color: const Color(0xff21181A), fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+      const SizedBox(
+        height: 8,
+      ),
+      const Divider(
+        color: Color(0xffEFEFEF),
+      ),
+      const SizedBox(
+        height: 8,
+      ),
+    ];
   }
 }

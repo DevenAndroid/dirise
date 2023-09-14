@@ -891,7 +891,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       const SizedBox(
         height: 8,
       ),
-      CommonTextfield(
+      CommonTextField(
         controller: textController,
         obSecure: false,
         hintText: hintText,
@@ -928,7 +928,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  CommonTextfield(
+                  CommonTextField(
                     onTap: () {
                       // bottomSheet();
                     },

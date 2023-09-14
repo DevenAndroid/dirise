@@ -6,3 +6,5 @@ class AppTheme {
   static const Color secondaryColor = Color(0xffD5D5D5);
   static const Color lightblack = Color(0xff9C9CB4);
 }
+
+const Color profileCircleColor = Color(0xffF28AA0);

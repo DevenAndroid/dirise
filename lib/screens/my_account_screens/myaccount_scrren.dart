@@ -179,7 +179,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         4.spaceY,
                         Text(
                           profileController.userLoggedIn
-                              ? profileController.apiLoaded
+                              ? profileController.apiLoaded && profileController.model.user != null
                                   ? profileController.model.user!.name ?? ""
                                   : ""
                               : "Guest User",
@@ -191,7 +191,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           width: 60,
                           child: profileController.userLoggedIn
                               ? Image.network(
-                                  profileController.apiLoaded ? profileController.model.user!.profileImage.toString() : "",
+                                  profileController.apiLoaded && profileController.model.user != null ? profileController.model.user!.profileImage.toString() : "",
                                   errorBuilder: (_, __, ___) => Image.asset(
                                     'assets/images/myaccount.png',
                                     height: 60,
@@ -207,7 +207,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         5.spaceY,
                         Text(
                           profileController.userLoggedIn
-                              ? profileController.apiLoaded
+                              ? profileController.apiLoaded && profileController.model.user != null
                                   ? profileController.model.user!.email ?? ""
                                   : ""
                               : "",

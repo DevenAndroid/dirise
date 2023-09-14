@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'common_colour.dart';
 
-class CommonTextfield extends StatefulWidget {
+class CommonTextField extends StatefulWidget {
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
   final bool? obSecure;
@@ -26,7 +26,7 @@ class CommonTextfield extends StatefulWidget {
 
   final List<TextInputFormatter>? inputFormatters;
 
-  const CommonTextfield({
+  const CommonTextField({
     super.key,
     this.controller,
     this.validator,
@@ -50,10 +50,10 @@ class CommonTextfield extends StatefulWidget {
   });
 
   @override
-  State<CommonTextfield> createState() => _CommonTextfieldState();
+  State<CommonTextField> createState() => _CommonTextFieldState();
 }
 
-class _CommonTextfieldState extends State<CommonTextfield> {
+class _CommonTextFieldState extends State<CommonTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
