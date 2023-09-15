@@ -35,7 +35,6 @@ class _VendorOrderListState extends State<VendorOrderList> {
   RxBool isValue = false.obs;
   int page = 1;
 
-
   addListener() {
     scrollController.addListener(() {
       if (scrollController.offset > (scrollController.position.maxScrollExtent - 10)) {
@@ -164,8 +163,8 @@ class _VendorOrderListState extends State<VendorOrderList> {
                               ),
                               margin: const EdgeInsets.symmetric(horizontal: 16),
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -173,16 +172,13 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Obx(() {
-                                          if(vendorProfileController.refreshInt.value > 0){}
+                                          if (vendorProfileController.refreshInt.value > 0) {}
 
                                           return Text(
-                                              vendorProfileController.model.user != null ?
-                                              "\$${vendorProfileController.model.user!.earnedBalance.toString()}" : "",
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .headlineSmall!
-                                                .copyWith(
+                                            vendorProfileController.model.user != null
+                                                ? "\$${vendorProfileController.model.user!.earnedBalance.toString()}"
+                                                : "",
+                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                                 fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),
                                           );
                                         }),
@@ -191,11 +187,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                         ),
                                         Text(
                                           "Your earning this month".tr,
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .headlineSmall!
-                                              .copyWith(
+                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                               fontWeight: FontWeight.w400,
                                               fontSize: AddSize.font14,
                                               color: Colors.white),
@@ -209,15 +201,11 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       child: Container(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: AddSize.padding20, vertical: AddSize.padding12),
-                                          decoration:
-                                          BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white, borderRadius: BorderRadius.circular(10)),
                                           child: Text(
                                             "Withdrawal".tr,
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .headlineSmall!
-                                                .copyWith(
+                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: AddSize.font16,
                                                 color: AppTheme.buttonColor),
@@ -256,7 +244,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
                                       borderRadius: const BorderRadius.all(Radius.circular(6))),
                                   contentPadding:
-                                  EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
+                                      EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
                                   hintText: 'Search'.tr,
                                   hintStyle: GoogleFonts.poppins(
                                       fontSize: AddSize.font16, color: Colors.white, fontWeight: FontWeight.w400)),
