@@ -41,6 +41,12 @@ class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
           if(request.url.contains(navigationBackUrl)){
             showToast("Payment Successfully");
             Get.back();
+            Get.back();
+            Get.back();
+            Get.back();
+            Get.back();
+            Get.back();
+            Get.back();
             Get.off(() => const VendorDashBoardScreen());
             return NavigationDecision.prevent;
           }

@@ -71,6 +71,8 @@ class ApiUrls {
   static const String allCountriesUrl = "${baseUrl}all-countries";
   static const String allStatesUrl = "${baseUrl}all-states";
   static const String allCityUrl = "${baseUrl}all-cities";
+  static const String withdrawalListUrl = "${baseUrl}withdrawal-list";
+  static const String withdrawalRequestUrl= "${baseUrl}withdraw-request";
 
 
 

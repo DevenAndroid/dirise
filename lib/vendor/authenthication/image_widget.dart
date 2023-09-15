@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dirise/utils/ApiConstant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -46,6 +47,13 @@ class _ImageWidgetState extends State<ImageWidget> {
     }
     NewHelper().addFilePicker().then((value) {
       if (value == null) return;
+
+      int sizeInBytes = value.lengthSync();
+      double sizeInMb = sizeInBytes / (1024 * 1024);
+      if (sizeInMb > 10){
+        showToast("Document must be smaller then 10 Mb");
+        return;
+      }
       widget.filePicked(value);
       file = value;
       setState(() {});

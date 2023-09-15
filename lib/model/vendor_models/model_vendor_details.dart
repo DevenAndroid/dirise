@@ -376,6 +376,11 @@ class Pivot {
 class VendorProfile {
   dynamic id;
   dynamic userId;
+  dynamic business_number;
+  dynamic account_number;
+  dynamic ibn_number;
+  dynamic bank_name;
+  dynamic account_holder_name;
   dynamic workEmail;
   dynamic paymentCertificate;
   dynamic ownerName;
@@ -402,6 +407,11 @@ class VendorProfile {
         this.userId,
         this.workEmail,
         this.paymentCertificate,
+        this.business_number,
+        this.account_number,
+        this.ibn_number,
+        this.bank_name,
+        this.account_holder_name,
         this.ownerName,
         this.companyName,
         this.commercialLicense,
@@ -424,6 +434,11 @@ class VendorProfile {
   VendorProfile.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
+    business_number = json['business_number'];
+    account_number = json['account_number'];
+    ibn_number = json['ibn_number'];
+    bank_name = json['bank_name'];
+    account_holder_name = json['account_holder_name'];
     workEmail = json['work_email'];
     paymentCertificate = json['payment_certificate'];
     ownerName = json['owner_name'];

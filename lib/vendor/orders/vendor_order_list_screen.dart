@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../model/vendor_models/model_vendor_orders.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
-import '../payment_info/add_money_screen.dart';
 import '../dashboard/sliver_bar.dart';
+import '../payment_info/withdrawal_screen.dart';
 import 'order_tile.dart';
 
 class VendorOrderList extends StatefulWidget {
@@ -22,6 +23,7 @@ class VendorOrderList extends StatefulWidget {
 }
 
 class _VendorOrderListState extends State<VendorOrderList> {
+  final vendorProfileController = Get.put(VendorProfileController());
   final Repositories repositories = Repositories();
   bool loaded = false;
   bool paginationLoading = false;
@@ -32,6 +34,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
   final TextEditingController searchController = TextEditingController();
   RxBool isValue = false.obs;
   int page = 1;
+
 
   addListener() {
     scrollController.addListener(() {
@@ -161,27 +164,41 @@ class _VendorOrderListState extends State<VendorOrderList> {
                               ),
                               margin: const EdgeInsets.symmetric(horizontal: 16),
                               child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AddSize.padding16, vertical: AddSize.padding16),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          '€450.00',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall!
-                                              .copyWith(fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),
-                                        ),
+                                        Obx(() {
+                                          if(vendorProfileController.refreshInt.value > 0){}
+
+                                          return Text(
+                                              vendorProfileController.model.user != null ?
+                                              "\$${vendorProfileController.model.user!.earnedBalance.toString()}" : "",
+                                            style: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .headlineSmall!
+                                                .copyWith(
+                                                fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),
+                                          );
+                                        }),
                                         SizedBox(
                                           height: AddSize.size5,
                                         ),
                                         Text(
                                           "Your earning this month".tr,
-                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                              fontWeight: FontWeight.w400, fontSize: AddSize.font14, color: Colors.white),
+                                          style: Theme
+                                              .of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: AddSize.font14,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -193,10 +210,14 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: AddSize.padding20, vertical: AddSize.padding12),
                                           decoration:
-                                              BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                                          BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                                           child: Text(
                                             "Withdrawal".tr,
-                                            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                            style: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .headlineSmall!
+                                                .copyWith(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: AddSize.font16,
                                                 color: AppTheme.buttonColor),
@@ -235,7 +256,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                       borderSide: BorderSide(color: Colors.white.withOpacity(.2)),
                                       borderRadius: const BorderRadius.all(Radius.circular(6))),
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
+                                  EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
                                   hintText: 'Search'.tr,
                                   hintStyle: GoogleFonts.poppins(
                                       fontSize: AddSize.font16, color: Colors.white, fontWeight: FontWeight.w400)),

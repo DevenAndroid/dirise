@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/screens/categores/single_category_with_stores/single_categorie.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
@@ -108,7 +107,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                         child: Text(
                                           item.name.toString(),
                                           style: GoogleFonts.poppins(
-                                              fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0xff014E70)),
                                         ),
                                       ),
                                     ],

@@ -13,8 +13,8 @@ import '../../vendor/authenthication/vendor_plans_screen.dart';
 import '../../vendor/dashboard/dashboard_screen.dart';
 import '../../vendor/dashboard/store_open_time_screen.dart';
 import '../../vendor/orders/vendor_order_list_screen.dart';
-import '../../vendor/payment_info/add_money_screen.dart';
 import '../../vendor/payment_info/bank_account_screen.dart';
+import '../../vendor/payment_info/withdrawal_screen.dart';
 import '../../vendor/products/all_product_screen.dart';
 import '../../widgets/common_colour.dart';
 import '../calender.dart';
@@ -53,7 +53,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
   checkLanguage() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString("app_language") == null || sharedPreferences.getString("app_language") == "english") {
+    if (sharedPreferences.getString("app_language") == null ||
+        sharedPreferences.getString("app_language") == "english") {
       Get.updateLocale(const Locale('en', 'US'));
       selectedLAnguage.value = "English";
     } else {
@@ -152,10 +153,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
               Colors.white,
               Colors.white,
             ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [.1,.11,1]
-        ),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [.1, .11, 1]),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -176,7 +176,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        4.spaceY,
                         Text(
                           profileController.userLoggedIn
                               ? profileController.apiLoaded && profileController.model.user != null
@@ -186,23 +185,31 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           style: GoogleFonts.poppins(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
                         ),
                         4.spaceY,
-                        SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: profileController.userLoggedIn
-                              ? Image.network(
-                                  profileController.apiLoaded && profileController.model.user != null ? profileController.model.user!.profileImage.toString() : "",
-                                  errorBuilder: (_, __, ___) => Image.asset(
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(1000),
+                          child: SizedBox(
+                            height: 65,
+                            width: 65,
+                            child: profileController.userLoggedIn
+                                ? Image.network(
+                                    profileController.apiLoaded && profileController.model.user != null
+                                        ? profileController.model.user!.profileImage.toString()
+                                        : "",
+                                    fit: BoxFit.cover,
+                                    height: 65,
+                                    width: 65,
+                                    errorBuilder: (_, __, ___) => Image.asset(
+                                      'assets/images/myaccount.png',
+                                      height: 65,
+                                      width: 65,
+                                    ),
+                                  )
+                                : Image.asset(
                                     'assets/images/myaccount.png',
-                                    height: 60,
-                                    width: 60,
+                                    height: 65,
+                                    width: 65,
                                   ),
-                                )
-                              : Image.asset(
-                                  'assets/images/myaccount.png',
-                                  height: 60,
-                                  width: 60,
-                                ),
+                          ),
                         ),
                         5.spaceY,
                         Text(
@@ -446,8 +453,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                     height: 330,
                                     decoration: const BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                                     child: Obx(() {
                                       return Center(
                                         child: Column(
@@ -531,7 +538,9 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                     child: Text(
                                                       'Apply',
                                                       style: GoogleFonts.poppins(
-                                                          fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: Colors.white),
                                                     ),
                                                   ),
                                                 ),
@@ -739,7 +748,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             return;
           }
           if (profileController.model.user!.isVendor != true) {
-            Get.to(()=> const VendorPlansScreen());
+            Get.to(() => const VendorPlansScreen());
             return;
           }
           _isValue.value = !_isValue.value;
