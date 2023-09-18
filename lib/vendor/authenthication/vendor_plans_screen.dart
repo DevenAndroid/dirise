@@ -35,6 +35,7 @@ class _VendorPlansScreenState extends State<VendorPlansScreen> {
   @override
   void initState() {
     super.initState();
+
     getPlansList();
   }
 

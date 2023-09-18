@@ -381,6 +381,7 @@ class VendorProfile {
   dynamic ibn_number;
   dynamic bank_name;
   dynamic account_holder_name;
+  dynamic home_address;
   dynamic workEmail;
   dynamic paymentCertificate;
   dynamic ownerName;
@@ -408,6 +409,7 @@ class VendorProfile {
         this.workEmail,
         this.paymentCertificate,
         this.business_number,
+        this.home_address,
         this.account_number,
         this.ibn_number,
         this.bank_name,
@@ -434,6 +436,7 @@ class VendorProfile {
   VendorProfile.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
+    home_address = json['home_address'];
     business_number = json['business_number'];
     account_number = json['account_number'];
     ibn_number = json['ibn_number'];
@@ -465,6 +468,7 @@ class VendorProfile {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['user_id'] = userId;
+    data['home_address'] = home_address;
     data['work_email'] = workEmail;
     data['payment_certificate'] = paymentCertificate;
     data['owner_name'] = ownerName;
