@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
@@ -24,7 +23,6 @@ import '../authenthication/image_widget.dart';
 import '../authenthication/payment_screen.dart';
 import '../authenthication/thanku_screen.dart';
 import '../authenthication/vendor_registration_screen.dart';
-import '../authenthication/verify_vendor_otp.dart';
 
 class VendorProfileScreen extends StatefulWidget {
   const VendorProfileScreen({super.key, this.selectedPlan, this.planId});
@@ -102,12 +100,11 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   final TextEditingController optional2Plan2 = TextEditingController();
   final TextEditingController optional3Plan2 = TextEditingController();
 
-  // final TextEditingController optional1Plan3 = TextEditingController();
+
   final TextEditingController accountNumber = TextEditingController();
   final TextEditingController ibnNumber = TextEditingController();
   final TextEditingController accountHolderName = TextEditingController();
 
-  // final TextEditingController bankName = TextEditingController();
 
   final TextEditingController optional2Plan3 = TextEditingController();
   final TextEditingController optional3Plan3 = TextEditingController();
@@ -176,6 +173,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     emailAddress.text = vendorInfo.email ?? "";
     if (vendorInfo.vendorProfile != null) {
       businessNumber.text = vendorInfo.vendorProfile!.business_number ?? "";
+      homeAddress.text = vendorInfo.vendorProfile!.home_address ?? "";
       bankId = vendorInfo.vendorProfile!.bank_name ?? "";
       accountNumber.text = vendorInfo.vendorProfile!.account_number ?? "";
       ibnNumber.text = vendorInfo.vendorProfile!.ibn_number ?? "";
@@ -242,7 +240,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         if (phoneNumber.checkBothWithPhone) return;
         // Phone Number
         if (emailAddress.checkBothWithEmail) return;
-
         // accountNumber
         if (bankId.isEmpty){
           accountNumber.getKey.currentContext!.navigate;
@@ -420,10 +417,12 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         'work_address': workAddress.text.trim(),
         'work_email': workEmail.text.trim(),
         'business_number': businessNumber.text.trim(),
+
         'account_number': accountNumber.text.trim(),
         'ibn_number': ibnNumber.text.trim(),
         'account_holder_name': accountHolderName.text.trim(),
         'bank_name': bankId,
+        'tax_number': taxNumber.text.trim(),
       };
     }
 

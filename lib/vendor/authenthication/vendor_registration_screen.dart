@@ -6,6 +6,7 @@ import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../model/bank_details/model_bank_list.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import '../../model/vendor_models/model_vendor_registration.dart';
 import '../../model/vendor_models/vendor_category_model.dart';
@@ -34,14 +35,20 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   PlanInfoData get planInfo => widget.selectedPlan;
 
   final Repositories repositories = Repositories();
-  // ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
+
+  ModelBankList? modelBankList;
+  String bankId = "";
+
+  bool get bankLoaded => modelBankList != null && modelBankList!.data != null && modelBankList!.data!.banks != null;
+  bool errorResolved = false;
+  RxInt bankListValue = 0.obs;
+
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey categoryKey = GlobalKey();
   RxBool showValidation = false.obs;
   RxBool hideText = true.obs;
   Map<String, VendorCategoriesData> allSelectedCategory = {};
-  // Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
 
   Rx<File> storeImage = File("").obs;
   Rx<File> businessImage = File("").obs;
@@ -63,7 +70,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   final TextEditingController optional3Plan2 = TextEditingController();
 
   // final TextEditingController optional1Plan3 = TextEditingController();
-  final TextEditingController accountNumber = TextEditingController();
+  // final TextEditingController accountNumber = TextEditingController();
   final TextEditingController optional2Plan3 = TextEditingController();
   final TextEditingController optional3Plan3 = TextEditingController();
 
@@ -75,6 +82,11 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   File optionalFile1 = File("");
   File optionalFile2 = File("");
   File optionalFile3 = File("");
+
+
+  final TextEditingController accountNumber = TextEditingController();
+  final TextEditingController ibnNumber = TextEditingController();
+  final TextEditingController accountHolderName = TextEditingController();
 
   /// Vendor 3 Fields
   final TextEditingController companyName = TextEditingController();
@@ -97,6 +109,15 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   final GlobalKey companyBankAccountKey = GlobalKey();
 
   PlansType selectedPlan = PlansType.personal;
+
+
+
+  Future getBankList() async {
+    await repositories.getApi(url: ApiUrls.bankListUrl).then((value) {
+      modelBankList = ModelBankList.fromJson(jsonDecode(value));
+      bankListValue.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }
 
   void vendorRegistration() {
     if (showValidation.value == false) {
@@ -140,6 +161,17 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         if (phoneNumber.checkBothWithPhone) return;
         // Phone Number
         if (emailAddress.checkBothWithEmail) return;
+        // accountNumber
+        if (bankId.isEmpty){
+          accountNumber.getKey.currentContext!.navigate;
+          return;
+        }
+        // accountNumber
+        if (accountNumber.checkEmpty) return;
+        // ibnNumber
+        if (ibnNumber.checkEmpty) return;
+        // accountHolderName
+        if (accountHolderName.checkEmpty) return;
       }
       if (selectedPlan == PlansType.company) {
         // First Name
@@ -158,6 +190,17 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         if (emailAddress.checkBothWithEmail) return;
         // Work Email
         if (workEmail.checkBothWithEmail) return;
+        // accountNumber
+        if (bankId.isEmpty){
+          accountNumber.getKey.currentContext!.navigate;
+          return;
+        }
+        // accountNumber
+        if (accountNumber.checkEmpty) return;
+        // ibnNumber
+        if (ibnNumber.checkEmpty) return;
+        // accountHolderName
+        if (accountHolderName.checkEmpty) return;
       }
       return;
     }
@@ -262,6 +305,11 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         'phone': phoneNumber.text.trim(),
         'store_name': storeName.text.trim(),
         'home_address': homeAddress.text.trim(),
+
+        'account_number': accountNumber.text.trim(),
+        'ibn_number': ibnNumber.text.trim(),
+        'account_holder_name': accountHolderName.text.trim(),
+        'bank_name': bankId,
       };
     }
     if (selectedPlan == PlansType.company) {
@@ -275,7 +323,12 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         'work_address': workAddress.text.trim(),
         'work_email': workEmail.text.trim(),
         'business_number': businessNumber.text.trim(),
+
         'account_number': accountNumber.text.trim(),
+        'ibn_number': ibnNumber.text.trim(),
+        'account_holder_name': accountHolderName.text.trim(),
+        'bank_name': bankId,
+        'tax_number': taxNumber.text.trim(),
       };
     }
 
@@ -289,12 +342,14 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     }
 
     if (selectedPlan == PlansType.company) {
-      // Memorandum of Association  ✅
+
+      // Memorandum of Association ✅
       // Commercial license ✅
       // Signature approval ✅
       // Extract from the Ministry of Commerce ✅
       // Original civil information ✅
       // Company bank account ✅
+
       images["memorandum_of_association"] = memorandumAssociation;
       images["commercial_license"] = commercialLicense;
       images["signature_approval"] = signatureApproval;
@@ -352,6 +407,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   void initState() {
     super.initState();
 
+    getBankList();
     selectedPlan = PlansType.values.firstWhere(
         (element) => element.name.toLowerCase() == widget.selectedPlan.businessType.toString(),
         orElse: () => PlansType.personal);
@@ -615,6 +671,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             }
                             return null;
                           }),
+                      ...bankDetails(),
                       14.spaceY,
                       //Optional1
                       VendorCommonTextfield(
@@ -785,19 +842,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           validator: (value) {
                             return null;
                           }),
-
-                      14.spaceY,
-                      //Optional1
-                      VendorCommonTextfield(
-                          controller: accountNumber,
-                          key: accountNumber.getKey,
-                          hintText: "Account Number",
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Please enter account number";
-                            }
-                            return null;
-                          }),
+                      ...bankDetails(),
                       14.spaceY,
                       //Optional2
                       VendorCommonTextfield(
@@ -957,4 +1002,119 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       ),
     ));
   }
+  resolveError(){
+    if(errorResolved)return;
+    if(bankId.isEmpty)return;
+    if(bankLoaded){
+      int temp = modelBankList!.data!.banks!.indexWhere((element) => element.id.toString() == bankId);
+      if(temp == -1){
+        bankId = "";
+      }
+      errorResolved = true;
+    }
+  }
+
+  List<Widget> bankDetails() {
+    return [
+      14.spaceY,
+      //Bank List
+      Obx(() {
+        if (bankListValue.value > 0) {}
+        resolveError();
+        return DropdownButtonFormField<String?>(
+          isExpanded: true,
+          value: bankLoaded ? bankId.isNotEmpty ? bankId : null : null,
+          style: const TextStyle(color: Colors.red),
+          decoration: InputDecoration(
+            hintText: "Please select bank",
+            labelText: "Please select bank",
+            filled: true,
+            fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+            labelStyle: GoogleFonts.poppins(
+              color: Colors.black,
+              fontSize: 14,
+            ),
+            contentPadding: const EdgeInsets.all(15),
+            focusedErrorBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide(color: AppTheme.secondaryColor)),
+            errorBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide(color: AppTheme.secondaryColor)),
+            focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide(color: AppTheme.secondaryColor)),
+            disabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(color: AppTheme.secondaryColor),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(color: AppTheme.secondaryColor),
+            ),
+          ),
+          icon: const Icon(Icons.keyboard_arrow_down),
+          items: bankLoaded
+              ? modelBankList!.data!.banks!
+              .map((e) => DropdownMenuItem(
+            value: e.id.toString(),
+            child: Text(
+              e.name.toString(),
+              style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+            ),
+          ))
+              .toList()
+              : [],
+          validator: (value) {
+            if (bankId.isEmpty) {
+              return "Please select bank";
+            }
+            return null;
+          },
+          onChanged: (newValue) {
+            if(newValue == null)return;
+            bankId = newValue;
+            setState(() {});
+          },
+        );
+      }),
+      14.spaceY,
+      //accountNumber
+      VendorCommonTextfield(
+          controller: accountNumber,
+          key: accountNumber.getKey,
+          hintText: "Account Number",
+          validator: (value) {
+            if (value!.trim().isEmpty) {
+              return "Please enter account number";
+            }
+            return null;
+          }),
+      14.spaceY,
+      //ibnNumber
+      VendorCommonTextfield(
+          controller: ibnNumber,
+          key: ibnNumber.getKey,
+          hintText: "IBM Number",
+          validator: (value) {
+            if (value!.trim().isEmpty) {
+              return "Please enter IBM number";
+            }
+            return null;
+          }),
+      14.spaceY,
+      //accountHolderName
+      VendorCommonTextfield(
+          controller: accountHolderName,
+          key: accountHolderName.getKey,
+          hintText: "Account Holder Name",
+          validator: (value) {
+            if (value!.trim().isEmpty) {
+              return "Please enter account holder name";
+            }
+            return null;
+          }),
+    ];
+  }
+
 }

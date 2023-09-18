@@ -56,14 +56,14 @@ class Banks {
   Banks({this.id, this.name});
 
   Banks.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
+    id = json['Value'];
+    name = json['Text'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
+    data['Value'] = id;
+    data['Text'] = name;
     return data;
   }
 }

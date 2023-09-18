@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
+import '../../language/app_strings.dart';
 import '../../widgets/cart_widget.dart';
 import '../search_products.dart';
 import 'ad_banner.dart';
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                                       borderSide: BorderSide(color: AppTheme.buttonColor)),
                                   fillColor: Colors.white,
                                   contentPadding: const EdgeInsets.all(15),
-                                  hintText: 'What are you looking for?',
+                                  hintText: AppStrings.searchFieldText,
                                   hintStyle:
                                       GoogleFonts.poppins(color: AppTheme.buttonColor, fontWeight: FontWeight.w400)),
                             ),

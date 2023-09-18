@@ -21,7 +21,7 @@ class AppBarScreen extends StatefulWidget implements PreferredSizeWidget {
   State<AppBarScreen> createState() => _AppBarScreenState();
 
   @override
-  Size get preferredSize => const Size(double.maxFinite, 80);
+  Size get preferredSize => const Size(double.maxFinite, 100);
 }
 
 class _AppBarScreenState extends State<AppBarScreen> {
@@ -62,7 +62,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 10,),
+            // const SizedBox(height: 10,),
             Text(
               "Hi, ${vendorProfileController.model.user!
                   .firstName
@@ -72,7 +72,6 @@ class _AppBarScreenState extends State<AppBarScreen> {
                   .toString()
                   .checkNullable}",
               style: GoogleFonts.poppins(
-                height: .5,
                   fontWeight: FontWeight.w600, fontSize: 20, color: const Color(0xff292F45)),
             ),
             const SizedBox(height: 10,),

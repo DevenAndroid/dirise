@@ -10,5 +10,7 @@ class AppStrings{
   static String resendOtp = "Resend OTP";
   static String renewPlan = "Renew Plan";
   static String upgradePlan = "Upgrade Plan";
+  static String searchFieldText = "What are you looking for?";
+  static String newsAndTrend = "News & Trends";
 
 }

@@ -47,7 +47,7 @@ class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
             Get.back();
             Get.back();
             Get.back();
-            Get.off(() => const VendorDashBoardScreen());
+            Get.to(() => const VendorDashBoardScreen());
             return NavigationDecision.prevent;
           }
           return NavigationDecision.navigate;
