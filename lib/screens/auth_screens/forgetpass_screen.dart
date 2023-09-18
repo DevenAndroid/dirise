@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:dirise/language/app_strings.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:dirise/widgets/common_colour.dart';
@@ -64,7 +65,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Forgot Password",
+               AppStrings.forgotPassword,
                 style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
               ),
             ],
@@ -79,7 +80,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
                     child: Text(
-                      'Enter the email address associated with your account',
+                      AppStrings.associatedAccount,
                       style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 18),
                       textAlign: TextAlign.center,
                     ),
@@ -94,12 +95,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         EmailValidator(errorText: 'Enter valid email address'),
                       ]),
                       obSecure: false,
-                      hintText: 'Email'),
+                      hintText: AppStrings.email),
                   SizedBox(
                     height: size.height * .03,
                   ),
                   CustomOutlineButton(
-                    title: "Send Otp",
+                    title: AppStrings.sendOtp,
                     onPressed: () {
                       if (!formKey.currentState!.validate()) return;
                       forgotPasswordRepo(email: emailController.text, context: context).then((value) {

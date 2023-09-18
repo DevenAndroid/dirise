@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/categores/single_category_with_stores/single_categorie.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
@@ -25,11 +26,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
+      appBar:  PreferredSize(
+        preferredSize: const Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: 'Categories',
-          actions: [
+          titleText: AppStrings.categories,
+          actions: const [
             CartBagCard(isBlackTheme: true),
           ],
         ),
@@ -55,7 +56,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           height: 20,
                         ),
                         Text(
-                          "What are you  looking for ... we back you !",
+                          AppStrings.whatAreYouLooking,
                           style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
                         ),
                         const SizedBox(

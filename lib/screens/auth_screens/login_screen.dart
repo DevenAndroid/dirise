@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/utils/ApiConstant.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
@@ -71,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CommonTextField(
                   controller: emailController,
                   obSecure: false,
-                  hintText: 'Email or Phone number',
+                  hintText: AppStrings.phoneNumber,
                   validator: (value) {
                     if (value!.trim().isEmpty) {
                       return "Please enter your email";
@@ -98,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       icon: hide.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
                     ),
-                    hintText: 'Password',
+                    hintText: AppStrings.password,
                     validator: (value) {
                       if (value!.trim().isEmpty) return 'Password is required';
                       return null;
@@ -109,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 35,
                 ),
                 CustomOutlineButton(
-                  title: "Sign In",
+                  title: AppStrings.signIn,
                   onPressed: () {
                     loginUserApi();
                   },
@@ -125,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Get.toNamed(ForgetPasswordScreen.route);
                       },
                       child: Text(
-                        'Forgot Password',
+                        AppStrings.forgotPassword,
                         style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                       ),
                     ),
@@ -149,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     InkWell(
                       onTap: () {},
                       child: Text(
-                        'Or Sign in with',
+                        AppStrings.signInWith,
                         style: GoogleFonts.poppins(color: AppTheme.buttonColor),
                       ),
                     ),
@@ -233,11 +234,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Already have an Account? ',
+                        text:  AppStrings.alreadyAccount,
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       TextSpan(
-                        text: 'Sign Up',
+                        text: AppStrings.signUp,
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600, color: AppTheme.buttonColor, decoration: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()

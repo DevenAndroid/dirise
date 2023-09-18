@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dirise/language/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -51,7 +52,7 @@ class _TermConditionScreenState extends State<TermConditionScreen> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
-                    'Terms And Conditions',
+                   AppStrings.termsCondition,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                   )
                 ],

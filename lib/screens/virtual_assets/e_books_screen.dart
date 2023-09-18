@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/model/order_models/model_single_order_response.dart';
 import 'package:dirise/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
@@ -82,7 +83,7 @@ class _EBookListScreenState extends State<EBookListScreen> {
             ),
           );
         }) :
-    Center(child: Text("You don't have any book in your collection",style: normalStyle,),) :
+    Center(child: Text(AppStrings.notHaveAnyBooks,style: normalStyle,),) :
     const LoadingAnimation();
   }
 }

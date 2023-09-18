@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dirise/language/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -51,7 +52,7 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
-                    'Return Policy',
+                    AppStrings.returnPolicy,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                   )
                 ],

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ class _AuthorScreenState extends State<AuthorScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Shop By Author',
+                        AppStrings.shopByAuthor,
                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       Container(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dirise/language/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,7 +56,7 @@ class _WishListScreenState extends State<WishListScreen> {
         title: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Text(
-            'My Favourite',
+            AppStrings.myFavourite,
             style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
           ),
         ),
