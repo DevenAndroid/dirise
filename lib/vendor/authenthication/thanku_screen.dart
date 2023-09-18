@@ -16,6 +16,7 @@ import '../dashboard/dashboard_screen.dart';
 import 'payment_screen.dart';
 
 const String navigationBackUrl = "navigationbackUrlCode/navigationbackUrlCode";
+const String failureUrl = "navigationbackUrlCode/navigationbackUrlCode__failureUrl";
 
 class ThankYouVendorScreen extends StatefulWidget {
   const ThankYouVendorScreen({Key? key, required this.planInfoData}) : super(key: key);
@@ -37,6 +38,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
     repositories.postApi(url: ApiUrls.createPaymentUrl, context: context, mapData: {
       'plan_id': widget.planInfoData.id.toString(),
       'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
+      'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
       'payment_method': paymentMethod,
     }).then((value) {
       ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));

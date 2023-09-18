@@ -50,6 +50,11 @@ class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
             Get.to(() => const VendorDashBoardScreen());
             return NavigationDecision.prevent;
           }
+          if(request.url.contains(failureUrl)){
+            showToast("Payment Failed");
+            Get.back();
+            return NavigationDecision.prevent;
+          }
           return NavigationDecision.navigate;
         },
       ),)

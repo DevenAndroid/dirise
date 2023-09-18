@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dirise/screens/app_bar/common_app_bar.dart';
 import 'package:dirise/utils/notification_service.dart';
 import 'package:dirise/widgets/common_colour.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,6 +51,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   RxBool showValidation = false.obs;
   RxBool hideText = true.obs;
   Map<String, VendorCategoriesData> allSelectedCategory = {};
+  ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
+  Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
 
   Rx<File> storeImage = File("").obs;
   Rx<File> businessImage = File("").obs;
@@ -127,6 +131,9 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
 
     /// Validations
     if (!_formKey.currentState!.validate()) {
+      if(allSelectedCategory.isEmpty){
+        categoryKey.currentContext!.navigate;
+      }
       if (selectedPlan == PlansType.advertisement) {
         // First Name
         if (firstName.checkEmpty) return;
@@ -333,6 +340,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     }
 
     map["vendor_type"] = selectedPlan.name;
+    map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
 
     /// Files upload map
     Map<String, File> images = {};
@@ -384,16 +392,16 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     });
   }
 
-  // void getVendorCategories() {
-  //   vendorCategoryStatus.value = RxStatus.loading();
-  //   repositories.getApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
-  //     modelVendorCategory = ModelVendorCategory.fromJson(jsonDecode(value));
-  //     vendorCategoryStatus.value = RxStatus.success();
-  //   }).catchError((e) {
-  //     vendorCategoryStatus.value = RxStatus.error();
-  //     throw Exception(e);
-  //   });
-  // }
+  void getVendorCategories() {
+    vendorCategoryStatus.value = RxStatus.loading();
+    repositories.getApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
+      modelVendorCategory = ModelVendorCategory.fromJson(jsonDecode(value));
+      vendorCategoryStatus.value = RxStatus.success();
+    }).catchError((e) {
+      vendorCategoryStatus.value = RxStatus.error();
+      throw Exception(e);
+    });
+  }
 
   bool checkValidation(bool bool1, bool2) {
     if (bool1 == true && bool2 == true) {
@@ -413,15 +421,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         orElse: () => PlansType.personal);
     // vendorType= getVendorType;
     // storeType = widget.selectedPlan.businessType.toString();
-    // getVendorCategories();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    // textControllers.forEach((key, value) {
-    //   value.dispose();
-    // });
+    getVendorCategories();
   }
 
   @override
@@ -444,6 +444,88 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                 children: [
                   Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     planCard(),
+                    14.spaceY,
+                    Obx(() {
+                      if (kDebugMode) {
+                        print(modelVendorCategory.usphone!
+                            .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
+                            .toList());
+                      }
+                      return DropdownButtonFormField<VendorCategoriesData>(
+                        key: categoryKey,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        icon: vendorCategoryStatus.value.isLoading
+                            ? const CupertinoActivityIndicator()
+                            : vendorCategoryStatus.value.isError
+                            ? IconButton(
+                            onPressed: () => getVendorCategories(),
+                            padding: EdgeInsets.zero,
+                            visualDensity: VisualDensity.compact,
+                            icon: const Icon(
+                              Icons.refresh,
+                              color: Colors.black,
+                            ))
+                            : const Icon(Icons.keyboard_arrow_down_rounded),
+                        iconSize: 30,
+                        iconDisabledColor: const Color(0xff97949A),
+                        iconEnabledColor: const Color(0xff97949A),
+                        value: null,
+                        style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
+                          focusedErrorBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                          errorBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                          focusedBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                          disabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(color: AppTheme.secondaryColor),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide: BorderSide(color: AppTheme.secondaryColor),
+                          ),
+                        ),
+                        items: modelVendorCategory.usphone!
+                            .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
+                            .toList(),
+                        hint: const Text('Category'),
+                        onChanged: (value) {
+                          // selectedCategory = value;
+                          if (value == null) return;
+                          allSelectedCategory[value.id.toString()] = value;
+                          setState(() {});
+                        },
+                        validator: (value) {
+                          if (allSelectedCategory.isEmpty) {
+                            return "Please select Category";
+                          }
+                          return null;
+                        },
+                      );
+                    }),
+                    14.spaceY,
+                    Wrap(
+                      runSpacing: 0,
+                      spacing: 8,
+                      children: allSelectedCategory.entries
+                          .map((e) => Chip(
+                          label: Text(e.value.name.toString().capitalize!),
+                          labelPadding: const EdgeInsets.only(right: 4, left: 2),
+                          onDeleted: () {
+                            allSelectedCategory.remove(e.key);
+                            setState(() {});
+                          }))
+                          .toList(),
+                    ),
                     if (selectedPlan == PlansType.advertisement) ...[
                       14.spaceY,
                       // First Name

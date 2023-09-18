@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +14,7 @@ import '../../model/vendor_models/model_payment_method.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import '../../model/vendor_models/model_vendor_details.dart';
 import '../../model/vendor_models/model_vendor_registration.dart';
+import '../../model/vendor_models/vendor_category_model.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/notification_service.dart';
@@ -61,6 +64,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     repositories.postApi(url: ApiUrls.createPaymentUrl, context: context, mapData: {
       'plan_id': planId,
       'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
+      'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
       'payment_method': paymentMethod,
     }).then((value) {
       ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
@@ -100,11 +104,9 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   final TextEditingController optional2Plan2 = TextEditingController();
   final TextEditingController optional3Plan2 = TextEditingController();
 
-
   final TextEditingController accountNumber = TextEditingController();
   final TextEditingController ibnNumber = TextEditingController();
   final TextEditingController accountHolderName = TextEditingController();
-
 
   final TextEditingController optional2Plan3 = TextEditingController();
   final TextEditingController optional3Plan3 = TextEditingController();
@@ -206,6 +208,9 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
     /// Validations
     if (!_formKey.currentState!.validate()) {
+      if(allSelectedCategory.isEmpty){
+        categoryKey.currentContext!.navigate;
+      }
       if (selectedPlan == PlansType.advertisement) {
         // First Name
         if (firstName.checkEmpty) return;
@@ -241,7 +246,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         // Phone Number
         if (emailAddress.checkBothWithEmail) return;
         // accountNumber
-        if (bankId.isEmpty){
+        if (bankId.isEmpty) {
           accountNumber.getKey.currentContext!.navigate;
           return;
         }
@@ -271,7 +276,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         if (workEmail.checkBothWithEmail) return;
 
         // accountNumber
-        if (bankId.isEmpty){
+        if (bankId.isEmpty) {
           accountNumber.getKey.currentContext!.navigate;
           return;
         }
@@ -381,7 +386,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       };
     }
     if (selectedPlan == PlansType.personal) {
-
       // 'account_number': '96969696969696',
       // 'work_address': 'adfadfda',
       // 'business_number': '969',
@@ -398,8 +402,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         'phone': phoneNumber.text.trim(),
         'store_name': storeName.text.trim(),
         'home_address': homeAddress.text.trim(),
-
-
         'account_number': accountNumber.text.trim(),
         'ibn_number': ibnNumber.text.trim(),
         'account_holder_name': accountHolderName.text.trim(),
@@ -417,7 +419,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         'work_address': workAddress.text.trim(),
         'work_email': workEmail.text.trim(),
         'business_number': businessNumber.text.trim(),
-
         'account_number': accountNumber.text.trim(),
         'ibn_number': ibnNumber.text.trim(),
         'account_holder_name': accountHolderName.text.trim(),
@@ -427,6 +428,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     }
 
     map["vendor_type"] = selectedPlan.name;
+    map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
 
     /// Files upload map
     Map<String, File> images = {};
@@ -469,6 +471,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       ModelVendorRegistrationResponse response = ModelVendorRegistrationResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
+        vendorProfileController.getVendorDetails();
         if (!planUpdate) {
           Get.back();
         } else {
@@ -489,10 +492,31 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     });
   }
 
+  Rx<RxStatus> vendorCategoryStatus = RxStatus.empty().obs;
+  ModelVendorCategory modelVendorCategory = ModelVendorCategory(usphone: []);
+  Map<String, VendorCategoriesData> allSelectedCategory = {};
+
+  void getVendorCategories() {
+    vendorCategoryStatus.value = RxStatus.loading();
+    repositories.getApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
+      modelVendorCategory = ModelVendorCategory.fromJson(jsonDecode(value));
+      vendorCategoryStatus.value = RxStatus.success();
+
+      for (var element in vendorInfo.venderCategory!) {
+        allSelectedCategory[element.id.toString()] = VendorCategoriesData.fromJson(element.toJson());
+      }
+      setState(() {});
+    }).catchError((e) {
+      vendorCategoryStatus.value = RxStatus.error();
+      throw Exception(e);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getBankList();
+    getVendorCategories();
   }
 
   @override
@@ -543,6 +567,91 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                           children: [
                             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                               // planCard(),
+                              Obx(() {
+                                if (kDebugMode) {
+                                  print(modelVendorCategory.usphone!
+                                      .map(
+                                          (e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
+                                      .toList());
+                                }
+                                return DropdownButtonFormField<VendorCategoriesData>(
+                                  key: categoryKey,
+                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                  icon: vendorCategoryStatus.value.isLoading
+                                      ? const CupertinoActivityIndicator()
+                                      : vendorCategoryStatus.value.isError
+                                          ? IconButton(
+                                              onPressed: () => getVendorCategories(),
+                                              padding: EdgeInsets.zero,
+                                              visualDensity: VisualDensity.compact,
+                                              icon: const Icon(
+                                                Icons.refresh,
+                                                color: Colors.black,
+                                              ))
+                                          : const Icon(Icons.keyboard_arrow_down_rounded),
+                                  iconSize: 30,
+                                  iconDisabledColor: const Color(0xff97949A),
+                                  iconEnabledColor: const Color(0xff97949A),
+                                  value: null,
+                                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    filled: true,
+                                    fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                                    contentPadding:
+                                        const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
+                                    focusedErrorBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                    errorBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                        borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                                    focusedBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                    disabledBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                    ),
+                                  ),
+                                  items: modelVendorCategory.usphone!
+                                      .map(
+                                          (e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
+                                      .toList(),
+                                  hint: const Text('Category'),
+                                  onChanged: (value) {
+                                    // selectedCategory = value;
+                                    if (value == null) return;
+                                    allSelectedCategory[value.id.toString()] = value;
+                                    setState(() {});
+                                  },
+                                  validator: (value) {
+                                    if (allSelectedCategory.isEmpty) {
+                                      return "Please select Category";
+                                    }
+                                    return null;
+                                  },
+                                );
+                              }),
+                              10.spaceY,
+                              Wrap(
+                                runSpacing: 0,
+                                spacing: 8,
+                                children: allSelectedCategory.entries
+                                    .map((e) => Chip(
+                                        label: Text(e.value.name.toString().capitalize!),
+                                        labelPadding: const EdgeInsets.only(right: 4, left: 2),
+                                        onDeleted: () {
+                                          allSelectedCategory.remove(e.key);
+                                          setState(() {});
+                                        }))
+                                    .toList(),
+                              ),
+                              if (allSelectedCategory.isNotEmpty) 14.spaceY,
                               if (selectedPlan == PlansType.advertisement) ...[
                                 // 14.spaceY,
                                 // First Name
@@ -1104,12 +1213,12 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
   bool get bankLoaded => modelBankList != null && modelBankList!.data != null && modelBankList!.data!.banks != null;
   bool errorResolved = false;
-  resolveError(){
-    if(errorResolved)return;
-    if(bankId.isEmpty)return;
-    if(bankLoaded){
+  resolveError() {
+    if (errorResolved) return;
+    if (bankId.isEmpty) return;
+    if (bankLoaded) {
       int temp = modelBankList!.data!.banks!.indexWhere((element) => element.id.toString() == bankId);
-      if(temp == -1){
+      if (temp == -1) {
         bankId = "";
       }
       errorResolved = true;
@@ -1125,7 +1234,11 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         resolveError();
         return DropdownButtonFormField<String?>(
           isExpanded: true,
-          value: bankLoaded ? bankId.isNotEmpty ? bankId : null : null,
+          value: bankLoaded
+              ? bankId.isNotEmpty
+                  ? bankId
+                  : null
+              : null,
           style: const TextStyle(color: Colors.red),
           decoration: InputDecoration(
             hintText: "Please select bank",
@@ -1174,7 +1287,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
             return null;
           },
           onChanged: (newValue) {
-            if(newValue == null)return;
+            if (newValue == null) return;
             bankId = newValue;
             setState(() {});
           },
