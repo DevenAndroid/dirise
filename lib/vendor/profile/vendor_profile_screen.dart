@@ -422,6 +422,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         'ibn_number': ibnNumber.text.trim(),
         'account_holder_name': accountHolderName.text.trim(),
         'bank_name': bankId,
+        'tax_number': taxNumber.text.trim(),
       };
     }
 

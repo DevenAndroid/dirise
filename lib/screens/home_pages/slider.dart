@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -72,7 +73,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                           child: Row(
                             children: [
                               Text(
-                                'News & Trends',
+                                AppStrings.newsAndTrend,
                                 style: GoogleFonts.poppins(
                                   color: AppTheme.buttonColor,
                                   fontWeight: FontWeight.w500,

@@ -498,7 +498,8 @@ class AddProductController extends GetxController {
                   payload: "payload",
                   maxProgress: 100,
                   progress: ((bytes / totalBytes) * 100).toInt(),
-                  progressId: 770);
+                  progressId: 770
+              );
             })
         .then((value) {
       NotificationService().hideAllNotifications();
@@ -555,20 +556,4 @@ class AddProductController extends GetxController {
       virtualRefreshInt.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
-
-  // disposeControllers() {
-  //   startTime.dispose();
-  //   endTime.dispose();
-  //   serviceDuration.dispose();
-  //   startDate.dispose();
-  //   endDate.dispose();
-  //   productNameController.dispose();
-  //   skuController.dispose();
-  //   purchasePriceController.dispose();
-  //   sellingPriceController.dispose();
-  //   stockController.dispose();
-  //   shortDescriptionController.dispose();
-  //   longDescriptionController.dispose();
-  //   returnDaysController.dispose();
-  // }
 }

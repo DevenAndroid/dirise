@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 
+import 'app_strings.dart';
+
 class LocaleString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         //ENGLISH LANGUAGE
         'en_US': {
-          "HOME": "Home",
+          AppStrings.home: "Home",
           "PROFILE": "profile",
           "TIMESHEETS": "Timesheets",
           "TASKS": "Tasks",
@@ -125,7 +127,7 @@ class LocaleString extends Translations {
         },
 
         'ro_RO': {
-          "HOME": "Acasa",
+          AppStrings.home: "Acasa",
           "PROFILE": "`پروفائ`",
           "TIMESHEETS": "Timpi",
           "TASKS": "Taskuri",
