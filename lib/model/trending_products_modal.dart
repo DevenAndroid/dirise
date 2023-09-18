@@ -4,6 +4,8 @@
 
 import 'package:dirise/utils/helper.dart';
 
+import 'model_single_product.dart';
+
 class TendingModel {
   bool? status;
   dynamic message;
@@ -107,8 +109,8 @@ class ProductElement {
   dynamic minBidPrice;
   dynamic stepPrice;
   dynamic currentBid;
-  List<dynamic>? attributes;
-  List<dynamic>? variants;
+  List<Attributes>? attributes;
+  List<Variants>? variants;
   dynamic bidStatus;
 
   ProductElement({
@@ -229,8 +231,20 @@ class ProductElement {
     minBidPrice = json["min_bid_price"];
     stepPrice = json["step_price"];
     currentBid = json["current_bid"];
-    attributes = json["attributes"] == null ? [] : List<dynamic>.from(json["attributes"]!.map((x) => x));
-    variants = json["variants"] == null ? [] : List<dynamic>.from(json["variants"]!.map((x) => x));
+    if (json['attributes'] != null) {
+      attributes = <Attributes>[];
+      json['attributes'].forEach((v) {
+        attributes!.add(Attributes.fromJson(v));
+      });
+    }
+    if (json['variants'] != null) {
+      variants = <Variants>[];
+      json['variants'].forEach((v) {
+        variants!.add(Variants.fromJson(v));
+      });
+    } else {
+      variants = [];
+    }
     bidStatus = json["bid_status"];
     discountPercentage = json["discount_percentage"] ??
         ((((pPrice.toString().toNum - sPrice.toString().toNum) / pPrice.toString().toNum) * 100).toStringAsFixed(2));

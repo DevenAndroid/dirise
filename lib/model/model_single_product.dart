@@ -67,6 +67,8 @@ class Product {
   int? nextBidPrice;
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
+  List<Attributes>? attributes;
+  List<Variants>? variants;
 
   Product(
       {this.id,
@@ -111,7 +113,9 @@ class Product {
         this.allowBid,
         this.nextBidPrice,
         this.serviceTimeSloat,
-        this.productAvailability});
+        this.productAvailability,
+        this.attributes,
+        this.variants});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -155,6 +159,18 @@ class Product {
     storemeta = json['storemeta'] != null ? Storemeta.fromJson(json['storemeta']) : null;
     allowBid = json['allow_bid'];
     nextBidPrice = json['next_bid_price'];
+    if (json['attributes'] != null) {
+      attributes = <Attributes>[];
+      json['attributes'].forEach((v) {
+        attributes!.add(Attributes.fromJson(v));
+      });
+    }
+    if (json['variants'] != null) {
+      variants = <Variants>[];
+      json['variants'].forEach((v) {
+        variants!.add(Variants.fromJson(v));
+      });
+    }
     if (json['serviceTimeSloat'] != null) {serviceTimeSloat = <ServiceTimeSloat>[];json['serviceTimeSloat'].forEach((v) {serviceTimeSloat!.add(ServiceTimeSloat.fromJson(v));});}
     productAvailability = json['productAvailability'] != null ? ProductAvailability.fromJson(json['productAvailability']) : null;
   }
@@ -203,7 +219,15 @@ class Product {
     data['allow_bid'] = allowBid;
     data['next_bid_price'] = nextBidPrice;
     if (serviceTimeSloat != null) {data['serviceTimeSloat'] = serviceTimeSloat!.map((v) => v.toJson()).toList();}
-    if (productAvailability != null) {data['productAvailability'] = productAvailability!.toJson();}
+    if (productAvailability != null) {data['productAvailability'] = productAvailability!.toJson();
+
+    }
+    if (this.attributes != null) {
+      data['attributes'] = this.attributes!.map((v) => v.toJson()).toList();
+    }
+    if (this.variants != null) {
+      data['variants'] = this.variants!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
@@ -284,6 +308,53 @@ class ProductAvailability {
     data['type'] = type;
     data['from_date'] = fromDate;
     data['to_date'] = toDate;
+    return data;
+  }
+}
+
+class Attributes {
+  int? id;
+  String? name;
+  List<String>? values;
+
+  Attributes({this.id, this.name, this.values});
+
+  Attributes.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    values = json['values'].cast<String>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['values'] = values;
+    return data;
+  }
+}
+
+class Variants {
+  int? id;
+  String? comb;
+  int? price;
+  String? image;
+
+  Variants({this.id, this.comb, this.price, this.image});
+
+  Variants.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    comb = json['comb'];
+    price = json['price'];
+    image = json['image'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['comb'] = comb;
+    data['price'] = price;
+    data['image'] = image;
     return data;
   }
 }
