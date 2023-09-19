@@ -13,9 +13,7 @@ import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
 import '../../widgets/common_colour.dart';
 import '../../bottomavbar.dart';
-import '../auth_screens/login_screen.dart';
 import 'package:http/http.dart' as http;
-
 import 'newpasswordscreen.dart';
 
 class OtpScreen extends StatefulWidget {
