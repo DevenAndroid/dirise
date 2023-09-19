@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import '../../model/common_modal.dart';
+import '../../model/login_model.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/helper.dart';
 import '../../widgets/common_colour.dart';
@@ -46,12 +47,12 @@ class _OtpScreenState extends State<OtpScreen> {
     map['email'] = email;
     map['otp'] = _otpController.text.trim();
     repositories.postApi(url: ApiUrls.verifyOtpEmail, context: context, mapData: map).then((value) {
-      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      LoginModal response = LoginModal.fromJson(jsonDecode(value));
       showToast(response.message);
       if (response.status == true) {
         if (check == true) {
+          repositories.saveLoginDetails(jsonEncode(response));
           Get.offAllNamed(BottomNavbar.route);
-          Get.toNamed(LoginScreen.route);
         } else {
           Get.offNamed(NewPasswordScreen.route, arguments: [email]);
         }

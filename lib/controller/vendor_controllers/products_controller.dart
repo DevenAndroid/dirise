@@ -6,6 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../model/vendor_models/model_vendor_product_list.dart';
 
+enum ProductTypes{
+  all,
+  virtual,
+  simple,
+  booking,
+  variant,
+}
+
 class ProductsController extends GetxController {
   final Repositories repositories = Repositories();
   RxInt refreshInt = 0.obs;
@@ -15,8 +23,21 @@ class ProductsController extends GetxController {
 
   void get updateUI => refreshInt.value = DateTime.now().millisecondsSinceEpoch;
 
-  Future getProductList() async {
-    await repositories.getApi(url: ApiUrls.myProductsListUrl).then((value) {
+  final TextEditingController textEditingController = TextEditingController();
+
+  int page = 1;
+
+  Future getProductList({bool? reset}) async {
+    String url = ApiUrls.myProductsListUrl;
+    List<String> params = [];
+    if(textEditingController.text.trim().isNotEmpty){
+      params.add("search=${textEditingController.text.trim()}");
+    }
+    params.add("page=$page");
+    if(params.isNotEmpty){
+      url = "$url?${params.join("&")}";
+    }
+    await repositories.getApi(url: "$url&limit=50").then((value) {
       apiLoaded = true;
       model = ModelProductsList.fromJson(jsonDecode(value));
       updateUI;

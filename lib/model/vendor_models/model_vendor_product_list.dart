@@ -50,8 +50,8 @@ class ProductListData {
   dynamic shortDescription;
   dynamic longDescription;
   dynamic featuredImage;
-  dynamic category_name;
-  List<String>? galleryImage;
+  dynamic categoryName;
+  // List<String>? galleryImage;
   dynamic virtualProductFile;
   dynamic virtualProductFileType;
   dynamic inStock;
@@ -99,8 +99,8 @@ class ProductListData {
       this.shortDescription,
       this.longDescription,
       this.featuredImage,
-      this.category_name,
-      this.galleryImage,
+      this.categoryName,
+      // this.galleryImage,
       this.virtualProductFile,
       this.virtualProductFileType,
       this.inStock,
@@ -148,8 +148,8 @@ class ProductListData {
     shortDescription = json['short_description'];
     longDescription = json['long_description'];
     featuredImage = json['featured_image'];
-    category_name = json['category_name'];
-    galleryImage = json['gallery_image'].cast<String>();
+    categoryName = json['category_name'];
+    // galleryImage = json['gallery_image'].cast<String>();
     virtualProductFile = json['virtual_product_file'];
     virtualProductFileType = json['virtual_product_file_type'];
     inStock = json['in_stock'];
@@ -205,8 +205,8 @@ class ProductListData {
     data['short_description'] = shortDescription;
     data['long_description'] = longDescription;
     data['featured_image'] = featuredImage;
-    data['category_name'] = category_name;
-    data['gallery_image'] = galleryImage;
+    data['category_name'] = categoryName;
+    // data['gallery_image'] = galleryImage;
     data['virtual_product_file'] = virtualProductFile;
     data['virtual_product_file_type'] = virtualProductFileType;
     data['in_stock'] = inStock;

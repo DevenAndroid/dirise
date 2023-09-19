@@ -1,15 +1,22 @@
 class ModelSingleProduct {
   bool? status;
-  String? message;
+  dynamic message;
   Product? product;
 
-  ModelSingleProduct({this.status, this.message, this.product});
+  ModelSingleProduct({
+    this.status,
+    this.message,
+    this.product
+  });
 
   ModelSingleProduct.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     product =
-    json['product'] != null && json['product'].toString() != "[]" && json['product'].toString().isNotEmpty ? Product.fromJson(json['product']) : null;
+    json['product'] != null &&
+        json['product'].toString() != "[]" &&
+        json['product'].toString().isNotEmpty ?
+    Product.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -24,47 +31,47 @@ class ModelSingleProduct {
 }
 
 class Product {
-  int? id;
-  int? vendorId;
-  int? catId;
-  String? brandSlug;
-  String? slug;
-  String? pname;
-  String? bookingProductType;
-  String? image;
-  String? productType;
-  String? virtual_product_type;
-  String? skuId;
-  int? pPrice;
-  int? sPrice;
-  int? commission;
-  int? bestSaller;
-  int? featured;
-  String? taxApply;
-  String? shortDescription;
-  String? longDescription;
-  String? featuredImage;
+  dynamic id;
+  dynamic vendorId;
+  dynamic catId;
+  dynamic brandSlug;
+  dynamic slug;
+  dynamic pName;
+  dynamic bookingProductType;
+  dynamic image;
+  dynamic productType;
+  dynamic virtualProductType;
+  dynamic skuId;
+  dynamic pPrice;
+  dynamic sPrice;
+  dynamic commission;
+  dynamic bestSaller;
+  dynamic featured;
+  dynamic taxApply;
+  dynamic shortDescription;
+  dynamic longDescription;
+  dynamic featuredImage;
   List<String>? galleryImage;
-  String? virtualProductFile;
-  String? inStock;
-  String? stockAlert;
-  int? avgRating;
-  int? parentId;
-  String? createdAt;
-  String? updatedAt;
-  int? topHunderd;
-  String? returnDays;
-  int? isPublish;
-  int? inOffer;
-  String? forAuction;
-  String? returnPolicyDesc;
+  dynamic virtualProductFile;
+  dynamic inStock;
+  dynamic stockAlert;
+  dynamic avgRating;
+  dynamic parentId;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic topHunderd;
+  dynamic returnDays;
+  dynamic isPublish;
+  dynamic inOffer;
+  dynamic forAuction;
+  dynamic returnPolicyDesc;
   bool? inCart;
   bool? inWishlist;
-  String? currencySign;
-  String? currencyCode;
-  Storemeta? storemeta;
+  dynamic currencySign;
+  dynamic currencyCode;
+  Storemeta? storeMeta;
   bool? allowBid;
-  int? nextBidPrice;
+  dynamic nextBidPrice;
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
   List<Attributes>? attributes;
@@ -76,11 +83,11 @@ class Product {
         this.catId,
         this.brandSlug,
         this.slug,
-        this.pname,
+        this.pName,
         this.bookingProductType,
         this.image,
         this.productType,
-        this.virtual_product_type,
+        this.virtualProductType,
         this.skuId,
         this.pPrice,
         this.sPrice,
@@ -109,7 +116,7 @@ class Product {
         this.inWishlist,
         this.currencySign,
         this.currencyCode,
-        this.storemeta,
+        this.storeMeta,
         this.allowBid,
         this.nextBidPrice,
         this.serviceTimeSloat,
@@ -123,11 +130,11 @@ class Product {
     catId = json['cat_id'];
     brandSlug = json['brand_slug'];
     slug = json['slug'];
-    pname = json['pname'];
+    pName = json['pname'];
     bookingProductType = json['booking_product_type'];
     image = json['image'];
     productType = json['product_type'];
-    virtual_product_type = json['virtual_product_type'];
+    virtualProductType = json['virtual_product_type'];
     skuId = json['sku_id'];
     pPrice = json['p_price'];
     sPrice = json['s_price'];
@@ -156,7 +163,7 @@ class Product {
     inWishlist = json['in_wishlist'];
     currencySign = json['currency_sign'];
     currencyCode = json['currency_code'];
-    storemeta = json['storemeta'] != null ? Storemeta.fromJson(json['storemeta']) : null;
+    storeMeta = json['storemeta'] != null ? Storemeta.fromJson(json['storemeta']) : null;
     allowBid = json['allow_bid'];
     nextBidPrice = json['next_bid_price'];
     if (json['attributes'] != null) {
@@ -180,10 +187,10 @@ class Product {
     data['id'] = id;
     data['vendor_id'] = vendorId;
     data['cat_id'] = catId;
-    data['virtual_product_type'] = virtual_product_type;
+    data['virtual_product_type'] = virtualProductType;
     data['brand_slug'] = brandSlug;
     data['slug'] = slug;
-    data['pname'] = pname;
+    data['pname'] = pName;
     data['booking_product_type'] = bookingProductType;
     data['image'] = image;
     data['product_type'] = productType;
@@ -215,29 +222,29 @@ class Product {
     data['in_wishlist'] = inWishlist;
     data['currency_sign'] = currencySign;
     data['currency_code'] = currencyCode;
-    if (storemeta != null) {data['storemeta'] = storemeta!.toJson();}
+    if (storeMeta != null) {data['storemeta'] = storeMeta!.toJson();}
     data['allow_bid'] = allowBid;
     data['next_bid_price'] = nextBidPrice;
     if (serviceTimeSloat != null) {data['serviceTimeSloat'] = serviceTimeSloat!.map((v) => v.toJson()).toList();}
     if (productAvailability != null) {data['productAvailability'] = productAvailability!.toJson();
 
     }
-    if (this.attributes != null) {
-      data['attributes'] = this.attributes!.map((v) => v.toJson()).toList();
+    if (attributes != null) {
+      data['attributes'] = attributes!.map((v) => v.toJson()).toList();
     }
-    if (this.variants != null) {
-      data['variants'] = this.variants!.map((v) => v.toJson()).toList();
+    if (variants != null) {
+      data['variants'] = variants!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Storemeta {
-  String? firstName;
-  String? lastName;
-  int? storeId;
-  String? profileImg;
-  String? bannerImg;
+  dynamic firstName;
+  dynamic lastName;
+  dynamic storeId;
+  dynamic profileImg;
+  dynamic bannerImg;
 
   Storemeta(
       {this.firstName,
@@ -266,9 +273,9 @@ class Storemeta {
 }
 
 class ServiceTimeSloat {
-  int? id;
-  String? timeSloat;
-  String? timeSloatEnd;
+  dynamic id;
+  dynamic timeSloat;
+  dynamic timeSloatEnd;
 
   ServiceTimeSloat({this.id, this.timeSloat, this.timeSloatEnd});
 
@@ -288,10 +295,10 @@ class ServiceTimeSloat {
 }
 
 class ProductAvailability {
-  int? qty;
-  String? type;
-  String? fromDate;
-  String? toDate;
+  dynamic qty;
+  dynamic type;
+  dynamic fromDate;
+  dynamic toDate;
 
   ProductAvailability({this.qty, this.type, this.fromDate, this.toDate});
 
@@ -313,8 +320,8 @@ class ProductAvailability {
 }
 
 class Attributes {
-  int? id;
-  String? name;
+  dynamic id;
+  dynamic name;
   List<String>? values;
 
   Attributes({this.id, this.name, this.values});
@@ -335,10 +342,10 @@ class Attributes {
 }
 
 class Variants {
-  int? id;
-  String? comb;
-  int? price;
-  String? image;
+  dynamic id;
+  dynamic comb;
+  dynamic price;
+  dynamic image;
 
   Variants({this.id, this.comb, this.price, this.image});
 

@@ -20,7 +20,6 @@ class VendorPaymentScreen extends StatefulWidget {
 }
 
 class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
-
   WebViewController? controller;
   bool webLoaded = false;
 
@@ -29,35 +28,37 @@ class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       controller = WebViewController()
-      ..setNavigationDelegate(NavigationDelegate(
-        onProgress: (int progress) {
-          // Update loading bar.
-        },
-        onPageStarted: (String url) {},
-        onPageFinished: (String url) {},
-        onWebResourceError: (WebResourceError error) {},
-        onNavigationRequest: (NavigationRequest request) {
-          log("Navigation Request....      ${request.url}");
-          if(request.url.contains(navigationBackUrl)){
-            showToast("Payment Successfully");
-            Get.back();
-            Get.back();
-            Get.back();
-            Get.back();
-            Get.back();
-            Get.back();
-            Get.back();
-            Get.to(() => const VendorDashBoardScreen());
-            return NavigationDecision.prevent;
-          }
-          if(request.url.contains(failureUrl)){
-            showToast("Payment Failed");
-            Get.back();
-            return NavigationDecision.prevent;
-          }
-          return NavigationDecision.navigate;
-        },
-      ),)
+        ..setNavigationDelegate(
+          NavigationDelegate(
+            onProgress: (int progress) {
+              // Update loading bar.
+            },
+            onPageStarted: (String url) {},
+            onPageFinished: (String url) {},
+            onWebResourceError: (WebResourceError error) {},
+            onNavigationRequest: (NavigationRequest request) {
+              log("Navigation Request....      ${request.url}");
+              if (request.url.contains(navigationBackUrl)) {
+                showToast("Payment Successfully");
+                Get.back();
+                Get.back();
+                Get.back();
+                Get.back();
+                Get.back();
+                Get.back();
+                Get.back();
+                Get.to(() => const VendorDashBoardScreen());
+                return NavigationDecision.prevent;
+              }
+              if (request.url.contains(failureUrl)) {
+                showToast("Payment Failed");
+                Get.back();
+                return NavigationDecision.prevent;
+              }
+              return NavigationDecision.navigate;
+            },
+          ),
+        )
         ..setJavaScriptMode(JavaScriptMode.unrestricted);
       controller!.loadRequest(Uri.parse(widget.paymentUrl)).then((value) {
         webLoaded = true;
@@ -76,8 +77,8 @@ class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
-        if(await controller!.canGoBack()){
+      onWillPop: () async {
+        if (await controller!.canGoBack()) {
           controller!.goBack();
         } else {
           return true;
@@ -85,10 +86,15 @@ class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
         return false;
       },
       child: Scaffold(
-        appBar: const CommonAppBar(titleText: "Payment",backGroundColor: Colors.transparent,),
-        body: webLoaded ? WebViewWidget(
-            controller: controller!,
-        ) : const LoadingAnimation(),
+        appBar: const CommonAppBar(
+          titleText: "Payment",
+          backGroundColor: Colors.transparent,
+        ),
+        body: webLoaded
+            ? WebViewWidget(
+                controller: controller!,
+              )
+            : const LoadingAnimation(),
       ),
     );
   }

@@ -26,7 +26,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   updateLanguage() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString("app_language") == null || sharedPreferences.getString("app_language") == "english") {
+    if (sharedPreferences.getString("app_language") == null ||
+        sharedPreferences.getString("app_language") == "english") {
       Get.updateLocale(const Locale('en', 'US'));
     } else {
       Get.updateLocale(const Locale('ro', 'Ro'));

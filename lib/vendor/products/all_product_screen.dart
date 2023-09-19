@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:dirise/repository/repository.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/utils/shimmer_extension.dart';
 import 'package:dirise/utils/styles.dart';
@@ -6,7 +8,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../controller/vendor_controllers/products_controller.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
@@ -24,12 +25,31 @@ class VendorProductScreen extends StatefulWidget {
 class _VendorProductScreenState extends State<VendorProductScreen> {
   final productController = Get.put(ProductsController());
 
+  final Repositories repositories = Repositories();
+
+  Timer? timer;
+
+  debounceSearch() {
+    if (timer != null) timer!.cancel();
+    timer = Timer(const Duration(milliseconds: 500), () {
+      productController.getProductList();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       productController.getProductList();
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (timer != null) {
+      timer!.cancel();
+    }
   }
 
   @override
@@ -46,7 +66,6 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
           leading: GestureDetector(
             onTap: () {
               Get.back();
-              // _scaffoldKey.currentState!.openDrawer();
             },
             child: Padding(
               padding: const EdgeInsets.all(15),
@@ -62,7 +81,6 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
             child: Column(children: [
               IntrinsicHeight(
                 child: Row(
-                  // mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
@@ -75,23 +93,18 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                               blurRadius: 05)
                         ]),
                         child: TextField(
+                          controller: productController.textEditingController,
                           maxLines: 1,
-                          // controller: vendorProductListController
-                          //     .searchController,
                           style: GoogleFonts.poppins(fontSize: 17),
                           textAlignVertical: TextAlignVertical.center,
                           textInputAction: TextInputAction.search,
-                          onChanged: (value) => {
-                            // vendorProductListController
-                            //     .getVendorProductList()
+                          onChanged: (value) {
+                            debounceSearch();
                           },
                           decoration: InputDecoration(
                               filled: true,
                               suffixIcon: IconButton(
-                                onPressed: () {
-                                  // vendorProductListController
-                                  //     .getVendorProductList();
-                                },
+                                onPressed: () {},
                                 icon: Icon(
                                   Icons.search,
                                   color: AppTheme.lightblack,
@@ -215,10 +228,12 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                             ],
                                           ),
                                           Text(
-                                            (item.category_name ?? "").toString(),
+                                            (item.categoryName ?? "").toString(),
                                             style: normalStyle,
                                           ),
-                                          const SizedBox(height: 3,),
+                                          const SizedBox(
+                                            height: 3,
+                                          ),
                                           Text(
                                             'QTY: ${item.inStock} piece',
                                             style: normalStyle,
@@ -286,7 +301,8 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                   }),
                 ),
               ),
-            ])));
+            ])),
+    );
   }
 
   Container shimmerLoader(int index) {
@@ -318,7 +334,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Testasy Book',
+                          'Testate Book',
                           style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
                         ).convertToShimmerWithContainer,
                       ),
