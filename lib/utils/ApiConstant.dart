@@ -73,6 +73,7 @@ class ApiUrls {
   static const String allCityUrl = "${baseUrl}all-cities";
   static const String withdrawalListUrl = "${baseUrl}withdrawal-list";
   static const String withdrawalRequestUrl= "${baseUrl}withdraw-request";
+  static const String deleteProductUrl= "${baseUrl}delete-product";
 
 
 

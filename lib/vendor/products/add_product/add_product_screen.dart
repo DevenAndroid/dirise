@@ -1,3 +1,4 @@
+import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,10 +33,35 @@ class _AddProductScreenState extends State<AddProductScreen> {
     controller.getProductAttributes();
   }
 
+  showDeleteDialog() {
+    showDialog(
+        context: context,
+        builder: (context1) {
+          return AlertDialog(
+            title: Text(
+              "Are you sure you want to delete this product?",
+              style: titleStyle,
+            ),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: const Text("Cancel")),
+              ElevatedButton(
+                  onPressed: () {
+                    controller.deleteProduct(context);
+                  },
+                  child: const Text("Delete")),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         return true;
       },
       child: Scaffold(
@@ -59,6 +85,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
               controller.productId.isEmpty ? "Add Product" : "Edit Product",
               style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
             ),
+            actions: [
+              if (controller.productId.isNotEmpty)
+                PopupMenuButton(itemBuilder: (context1) {
+                  return [
+                    PopupMenuItem(
+                        onTap: () {
+                          showDeleteDialog();
+                        },
+                        child: const Text("Delete Product")),
+                  ];
+                })
+            ],
           ),
           body: Obx(() {
             if (controller.refreshInt.value > 0) {}
@@ -88,13 +126,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     backgroundColor: AppTheme.buttonColor,
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                                    textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                                    textStyle:
+                                        GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                                 child: Text(
                                   controller.productId.isEmpty ? "Create" : "Update",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
+                                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                      color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
                                 )),
                             10.spaceY,
                           ])),

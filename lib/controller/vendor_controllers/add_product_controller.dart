@@ -250,6 +250,23 @@ class AddProductController extends GetxController {
     return "${gg.split(":")[0]}:${gg.split(":")[1]}";
   }
 
+  deleteProduct(BuildContext context){
+    repositories.postApi(url: ApiUrls.deleteProductUrl,
+    context: context,
+    mapData: {
+      'product_id': productId.toString(),
+    }
+    ).then((value) {
+      ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(modelCommonResponse.message.toString());
+      if(modelCommonResponse.status == true){
+        productListController.getProductList();
+        Get.back();
+        Get.back();
+      }
+    });
+  }
+
   addProduct({required BuildContext context}) {
     if (showValidations == false) {
       showValidations = true;
