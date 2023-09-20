@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../model/trending_products_modal.dart';
+import '../model/product_model/model_product_element.dart';
 import '../model/vendor_models/model_vendor_product_list.dart';
 import '../widgets/common_colour.dart';
 

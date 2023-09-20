@@ -75,7 +75,7 @@ class _AudioFilesListScreenState extends State<AudioFilesListScreen> {
                             height: 10,
                           ),
                           Text(
-                            item.pname.toString(),
+                            item.pName.toString(),
                             maxLines: 3,
                             style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
                           )

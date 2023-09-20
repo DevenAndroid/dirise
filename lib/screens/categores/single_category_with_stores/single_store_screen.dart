@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../model/model_category_stores.dart';
 import '../../../model/model_store_products.dart';
-import '../../../model/trending_products_modal.dart';
+import '../../../model/product_model/model_product_element.dart';
 import '../../../model/vendor_models/model_single_vendor.dart';
 import '../../../repository/repository.dart';
 import '../../../utils/ApiConstant.dart';

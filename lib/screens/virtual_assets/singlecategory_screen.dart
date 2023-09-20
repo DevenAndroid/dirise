@@ -1,18 +1,16 @@
 import 'dart:developer';
-
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../model/model_virtual_assets.dart';
+import '../../model/product_model/model_product_element.dart';
 import '../../widgets/loading_animation.dart';
 import '../app_bar/common_app_bar.dart';
 
 class SingleCategoryScreen extends StatefulWidget {
-  final VirtualProductData product;
+  final ProductElement product;
   const SingleCategoryScreen({Key? key, required this.product}) : super(key: key);
 
   @override
@@ -24,7 +22,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> with Single
   late AnimationController animationController;
   late Animation<double> animation;
 
-  VirtualProductData get product => widget.product;
+  ProductElement get product => widget.product;
 
   Duration totalDuration = Duration.zero;
   AudioPlayer audioPlayer = AudioPlayer();
@@ -100,7 +98,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> with Single
               height: 25,
             ),
             Text(
-              product.pname.toString().capitalize!,
+              product.pName.toString().capitalize!,
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w500,

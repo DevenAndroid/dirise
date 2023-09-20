@@ -200,7 +200,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
-                                        product.pname.toString(),
+                                        product.pName.toString(),
                                         style: titleStyle.copyWith(fontWeight: FontWeight.w400),
                                         textAlign: TextAlign.start,
                                       ),

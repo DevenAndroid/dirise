@@ -1,10 +1,6 @@
-// To parse this JSON data, do
-//
-//     final popularProductsModal = popularProductsModalFromJson(jsonString);
-
 import 'dart:convert';
 
-import 'package:dirise/model/trending_products_modal.dart';
+import 'product_model/model_product_element.dart';
 
 PopularProductsModal popularProductsModalFromJson(String str) => PopularProductsModal.fromJson(json.decode(str));
 

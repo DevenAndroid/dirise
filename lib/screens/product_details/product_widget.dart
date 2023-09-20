@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/wish_list_controller.dart';
-import '../../model/trending_products_modal.dart';
+import '../../model/product_model/model_product_element.dart';
 import '../../utils/ApiConstant.dart';
 import '../../widgets/like_button.dart';
 import 'single_product.dart';
@@ -122,7 +122,7 @@ class _ProductUIState extends State<ProductUI> {
                   height: 3,
                 ),
                 Text(
-                  widget.productElement.pname.toString(),
+                  widget.productElement.pName.toString(),
                   maxLines: 2,
                   style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
                 ),

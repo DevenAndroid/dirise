@@ -162,7 +162,9 @@ class Product {
   dynamic catId3;
   dynamic brandSlug;
   dynamic slug;
-  dynamic pname;
+  
+  dynamic pName;
+  dynamic addToCart;
   dynamic prodectImage;
   dynamic prodectName;
   dynamic prodectSku;
@@ -229,7 +231,8 @@ class Product {
       this.catId3,
       this.brandSlug,
       this.slug,
-      this.pname,
+      this.pName,
+    this.addToCart,
       this.prodectImage,
       this.prodectName,
       this.prodectSku,
@@ -296,7 +299,7 @@ class Product {
     catId3 = json['cat_id_3'];
     brandSlug = json['brand_slug'];
     slug = json['slug'];
-    pname = json['pname'];
+    pName = json['pname'];
     prodectImage = json['prodect_image'];
     prodectName = json['prodect_name'];
     prodectSku = json['prodect_sku'];
@@ -371,7 +374,7 @@ class Product {
     data['cat_id_3'] = catId3;
     data['brand_slug'] = brandSlug;
     data['slug'] = slug;
-    data['pname'] = pname;
+    data['pname'] = pName;
     data['prodect_image'] = prodectImage;
     data['prodect_name'] = prodectName;
     data['prodect_sku'] = prodectSku;

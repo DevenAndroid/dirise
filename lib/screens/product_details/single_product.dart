@@ -14,7 +14,7 @@ import '../../controller/cart_controller.dart';
 import '../../model/common_modal.dart';
 import '../../model/model_single_product.dart';
 import '../../model/order_models/model_direct_order_details.dart';
-import '../../model/trending_products_modal.dart';
+import '../../model/product_model/model_product_element.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/styles.dart';
@@ -43,7 +43,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
   bool get isVirtualProduct => productElement.productType == "virtual_product";
   bool get isVariantType => productElement.productType == "variants";
 
-  bool get isVirtualProductAudio => productElement.virtual_product_type == "voice";
+  bool get isVirtualProductAudio => productElement.virtualProductType == "voice";
   String dropdownvalue1 = 'red';
   String dropdownvalue2 = 'l';
   var items1 = [
@@ -201,7 +201,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
   RxInt productQuantity = 1.obs;
   final cartController = Get.put(CartController());
 
-  bool get checkLoaded => productDetails.pname != null && productDetails.sPrice != null;
+  bool get checkLoaded => productDetails.pName != null && productDetails.sPrice != null;
 
   CarouselController carouselController = CarouselController();
 
@@ -298,7 +298,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                       height: 5,
                                     ),
                                     Text(
-                                      productDetails.pname.toString().capitalize!,
+                                      productDetails.pName.toString().capitalize!,
                                       style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                                     ),
                                     const SizedBox(

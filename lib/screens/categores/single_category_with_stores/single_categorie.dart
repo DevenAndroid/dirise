@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../model/model_category_stores.dart';
+import '../../../model/product_model/model_product_element.dart';
 import '../../../model/trending_products_modal.dart';
 import '../../../model/vendor_models/vendor_category_model.dart';
 import '../../../utils/ApiConstant.dart';

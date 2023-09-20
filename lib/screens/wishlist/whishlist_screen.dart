@@ -1,15 +1,13 @@
 import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../controller/cart_controller.dart';
 import '../../controller/wish_list_controller.dart';
 import '../../model/common_modal.dart';
-import '../../model/trending_products_modal.dart';
+import '../../model/product_model/model_product_element.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../widgets/cart_widget.dart';
@@ -79,11 +77,6 @@ class _WishListScreenState extends State<WishListScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // Image(
-                              //     height: context.getSize.height * .24,
-                              //     image: const AssetImage(
-                              //       'assets/images/bucket.png',
-                              //     )),
                               Lottie.asset("assets/loti/wishlist.json"),
                               Center(
                                 child: Text(
@@ -94,20 +87,6 @@ class _WishListScreenState extends State<WishListScreen> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              // ElevatedButton(
-                              //     onPressed: () {
-                              //       // Get.toNamed(editprofileScreen);
-                              //     },
-                              //     style: ButtonStyle(
-                              //       backgroundColor: MaterialStateProperty.all(AppTheme.buttonColor),
-                              //       padding: MaterialStateProperty.all(
-                              //           const EdgeInsets.symmetric(horizontal: 35, vertical: 13)),
-                              //     ),
-                              //     child: Text(
-                              //       'Shop now!',
-                              //       style: GoogleFonts.poppins(
-                              //           color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
-                              //     ))
                             ],
                           )
                         : GridView.builder(
@@ -150,7 +129,7 @@ class _WishListScreenState extends State<WishListScreen> {
                                             height: 5,
                                           ),
                                           Text(
-                                            _wishListController.model.value.wishlist![index].pname.toString(),
+                                            _wishListController.model.value.wishlist![index].pName.toString(),
                                             style: GoogleFonts.poppins(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w500,
@@ -160,7 +139,7 @@ class _WishListScreenState extends State<WishListScreen> {
                                             height: 5,
                                           ),
                                           Text(
-                                            _wishListController.model.value.wishlist![index].pname.toString(),
+                                            _wishListController.model.value.wishlist![index].pName.toString(),
                                             style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                           ),
                                           const SizedBox(

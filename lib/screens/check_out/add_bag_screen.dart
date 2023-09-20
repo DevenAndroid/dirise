@@ -100,7 +100,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Text(
-                                                  product.pname.toString(),
+                                                  product.pName.toString(),
                                                   style: titleStyle.copyWith(fontWeight: FontWeight.w400),
                                                   textAlign: TextAlign.start,
                                                 ),

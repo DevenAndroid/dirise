@@ -49,9 +49,6 @@ class Cart {
 
   List<List<SellersData>> getAllProducts = [];
 
-  // List<DiriseSeller>? diriseSeller;
-  // List<Empire>? empire;
-
   Cart({this.cartItems});
 
   Cart.fromJson(Map<String, dynamic> json) {
@@ -81,7 +78,9 @@ class SellersData {
   dynamic catId3;
   dynamic brandSlug;
   dynamic slug;
-  dynamic pname;
+  
+  dynamic pName;
+  dynamic addToCart;
   dynamic prodectImage;
   dynamic prodectName;
   dynamic prodectSku;
@@ -154,7 +153,8 @@ class SellersData {
         this.catId3,
         this.brandSlug,
         this.slug,
-        this.pname,
+        this.pName,
+    this.addToCart,
         this.prodectImage,
         this.prodectName,
         this.prodectSku,
@@ -219,8 +219,8 @@ class SellersData {
         this.attributes,
         this.variants});
 
-  SellersData.fromJson(Map<String, dynamic> json, {required String storeName1}) {
-    storeName =storeName1;
+  SellersData.fromJson(Map<String, dynamic> json, {required String? storeName1}) {
+    storeName =storeName1 ?? "";
     id = json['id'];
     vendorId = json['vendor_id'];
     catId = json['cat_id'];
@@ -228,7 +228,8 @@ class SellersData {
     catId3 = json['cat_id_3'];
     brandSlug = json['brand_slug'];
     slug = json['slug'];
-    pname = json['pname'];
+    pName = json['pname'];
+    addToCart = json['add_to_cart'];
     prodectImage = json['prodect_image'];
     prodectName = json['prodect_name'];
     prodectSku = json['prodect_sku'];
@@ -313,7 +314,8 @@ class SellersData {
     data['cat_id_3'] = catId3;
     data['brand_slug'] = brandSlug;
     data['slug'] = slug;
-    data['pname'] = pname;
+    data['pname'] = pName;
+    data['add_to_cart'] = addToCart;
     data['prodect_image'] = prodectImage;
     data['prodect_name'] = prodectName;
     data['prodect_sku'] = prodectSku;

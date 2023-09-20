@@ -37,7 +37,9 @@ class ProductListData {
   dynamic catId2;
   dynamic brandSlug;
   dynamic slug;
+  
   dynamic pname;
+  dynamic addToCart;
   dynamic image;
   dynamic productType;
   dynamic skuId;
