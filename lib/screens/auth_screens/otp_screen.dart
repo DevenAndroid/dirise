@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -160,14 +161,14 @@ class _OtpScreenState extends State<OtpScreen> {
                       height: 13,
                     ),
                     Text(
-                      'OTP Verification',
+                      AppStrings.otpVerification,
                       style: GoogleFonts.poppins(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.white),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                     Text(
-                      'Enter the OTP Send to Your Email',
+                      AppStrings.resendOTP,
                       style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
                     )
                   ],
@@ -196,7 +197,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             height: size.height * .05,
                           ),
                           Text(
-                            "Didn't you receive the OTP?",
+                            AppStrings.notReceive,
                             style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 17),
                           ),
                           SizedBox(

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -157,7 +158,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> with Single
                             style:
                                 GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                           ),
-                          Text('Audio', style: GoogleFonts.poppins(fontSize: 17, fontWeight: FontWeight.w500)),
+                          Text(AppStrings.audio, style: GoogleFonts.poppins(fontSize: 17, fontWeight: FontWeight.w500)),
                         ],
                       ),
                     ),

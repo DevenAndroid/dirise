@@ -52,6 +52,44 @@ class AppStrings{
     static String createAccount = "Create Account";
     static String confirmPassword = "Confirm Password";
     static String privacyPolicy = "Privacy Policy";
-
+    static String published = "Published: 06/06/2023";
+    static String artificialIntelligenceAI = " Artificial Intelligence (Al) is gaining a strong foothold in various niches, and blogging is no exception.By making use of the best Al writing tools, you can create a long-form affiliate blog post in 10 to 15 minutes (instead of spending hours writing it yourself) and generate traffic";
+    static String more = "More";
+      static String trendingProducts = "Trending Products";
+      static String popularProducts = "Popular Products";
+      static String type = "Type";
+      static String notHaveAnyProduct = "Category don't have any store.";
+      static String whishlistEmpty = "Your wishlist is empty";
+      static String salesNotAvailable = "Sales not available";
+      static String myProfile1 = "My profile";
+      static String firstName = "First Name";
+      static String lastName = "Last Name";
+      static String streetAddress = "Street Address";
+      static String stateCity = "State/City";
+      static String country = "Country/Region";
+      static String editProfile = "Edit profile";
+      static String order = "My Orders";
+      static String view = "View";
+      static String continuee = "Continue";
+      static String otpVerification = "OTP Verification";
+      static String items = "items";
+      static String resendOTP = "Enter the OTP Send to Your Email";
+      static String notReceive = "Didn't you receive the OTP?";
+      static String notOrdered = "You have not ordered anything yet";
+      static String enterConfirmPassword = "Please enter confirm password";
+      static String enterReType = "Confirm password is not matching";
+      static String emailRequired = "Email is required";
+      static String passwordRequired = "Password is required";
+      static String validEmail = "Enter valid email address";
+      static String newPassword = "Confirm New Password";
+      static String relatedProduct = "Related Products";
+      static String product = "product";
+      static String generalLibraries = "General Libraries";
+      static String bagEmpty = "Your bag is empty";
+      static String schoolNursery = "School & Nurseries";
+      static String audio = "Audio";
+      static String shopNow = "Shop now!";
+      static String notNyProduct = "Store don't have any product";
+      static String vendorRegister = "To register as vendor partner need to create an account first.";
 
 }

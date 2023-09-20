@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dirise/language/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
@@ -68,7 +69,7 @@ class _CategoryItemsState extends State<CategoryItems> {
                         height: 10,
                       ),
                       Text(
-                        'More',
+                       AppStrings.more,
                         style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: AppTheme.buttonColor),
                       )
                     ],

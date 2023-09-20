@@ -88,7 +88,7 @@ class _WishListScreenState extends State<WishListScreen> {
                               Lottie.asset("assets/loti/wishlist.json"),
                               Center(
                                 child: Text(
-                                  'Your wishlist is empty',
+                                  AppStrings.whishlistEmpty,
                                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 22),
                                 ),
                               ),

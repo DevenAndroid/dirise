@@ -91,8 +91,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   CommonTextField(
                       controller: emailController,
                       validator: MultiValidator([
-                        RequiredValidator(errorText: 'Email is required'),
-                        EmailValidator(errorText: 'Enter valid email address'),
+                        RequiredValidator(errorText: AppStrings.emailRequired),
+                        EmailValidator(errorText: AppStrings.validEmail),
                       ]),
                       obSecure: false,
                       hintText: AppStrings.email),

@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../language/app_strings.dart';
 import '../../model/model_all_order.dart';
 
 class MyOrdersScreen extends StatefulWidget {
@@ -51,7 +52,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
           ),
           titleSpacing: 0,
           title: Text(
-            "My Orders",
+            AppStrings.order,
             style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
           ),
         ),
@@ -116,7 +117,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                             borderRadius: BorderRadius.circular(22)),
                                         padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                                         child: Text(
-                                          "View",
+                                          AppStrings.view,
                                           style: GoogleFonts.poppins(
                                               fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                         ),
@@ -157,7 +158,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                   )
                 : Center(
                     child: Text(
-                      "You have not ordered anything yet",
+                      AppStrings.notOrdered,
                       style: normalStyle,
                     ),
                   )

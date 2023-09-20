@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
@@ -99,10 +100,10 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const PreferredSize(
+      appBar:  PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: 'General Libraries',
+          titleText: AppStrings.generalLibraries,
           actions: [
             CartBagCard(isBlackTheme: true),
           ],
@@ -218,7 +219,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8, right: 10),
                         child: Text(
-                          "${storeInfo.storeName.toString()} Type",
+                          "${storeInfo.storeName.toString()} ${AppStrings.type}",
                           style:
                               GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                         ),

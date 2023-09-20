@@ -1,3 +1,4 @@
+import 'package:dirise/language/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,10 +20,10 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
+      appBar:  PreferredSize(
+        preferredSize: const Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: 'School & Nurseries',
+          titleText: AppStrings.schoolNursery,
         ),
       ),
       body: SingleChildScrollView(

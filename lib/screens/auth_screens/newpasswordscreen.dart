@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:dirise/language/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
@@ -112,7 +113,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         },
                         icon: hide2.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
                       ),
-                      hintText: 'Confirm New Password',
+                      hintText: AppStrings.newPassword,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
                           return 'Conform password is required ';
@@ -128,7 +129,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     height: size.height * .03,
                   ),
                   CustomOutlineButton(
-                    title: "Continue",
+                    title: AppStrings.continuee,
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         changePasswordRepo(password: passwordController.text, email: email, context: context).then((value) {

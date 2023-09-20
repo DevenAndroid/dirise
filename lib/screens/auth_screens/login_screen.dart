@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     hintText: AppStrings.password,
                     validator: (value) {
-                      if (value!.trim().isEmpty) return 'Password is required';
+                      if (value!.trim().isEmpty) return AppStrings.passwordRequired;
                       return null;
                     },
                   );

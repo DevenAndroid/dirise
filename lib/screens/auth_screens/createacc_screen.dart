@@ -38,7 +38,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     if (_isValue == false) return;
     Map<String, dynamic> map = {};
     map['email'] = _emailController.text.trim();
-    // map['name'] = _nameController.text.trim();
     map['phone'] = _mobileNumberController.text.trim();
     map['password'] = _passwordController.text.trim();
     repositories.postApi(url: ApiUrls.signInUrl, context: context, mapData: map).then((value) {
@@ -135,8 +134,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 ),
                 Obx(() {
                   return CommonTextField(
-                    // controller: _passwordController,
-                    // hintText: 'Password',
                     obSecure: hide1.value,
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -147,10 +144,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     hintText: AppStrings.confirmPassword,
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return "Please enter confirm password";
+                        return AppStrings.enterConfirmPassword;
                       }
                       if (value.trim() != _passwordController.text.trim()) {
-                        return "Confirm password is not matching";
+                        return AppStrings.enterReType;
                       }
                       return null;
                     },
