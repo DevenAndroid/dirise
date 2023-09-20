@@ -77,7 +77,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
             const SizedBox(height: 10,),
             GestureDetector(
               onTap: () {
-                Get.toNamed(SetTimeScreen.setTimeScreen);
+                Get.toNamed(SetTimeScreen.route);
               },
               child: Row(
                 children: [

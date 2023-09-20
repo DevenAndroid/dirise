@@ -10,8 +10,8 @@ import 'package:get/get.dart';
 import '../screens/auth_screens/createacc_screen.dart';
 import '../screens/auth_screens/otp_screen.dart';
 import '../screens/calender.dart';
+import '../screens/categories/categories_screen.dart';
 import '../screens/check_out/add_bag_screen.dart';
-import '../screens/categores/categories_screen.dart';
 import '../screens/check_out/check_out_screen.dart';
 import '../screens/check_out/direct_check_out.dart';
 import '../screens/check_out/order_completed_screen.dart';
@@ -50,9 +50,7 @@ class MyRouters {
     GetPage(name: VendorProductScreen.route, page: () => const VendorProductScreen()),
     GetPage(name: AboutUsScreen.route, page: () => const AboutUsScreen()),
     GetPage(name: PublicSpeakerCategoryScreen.route, page: () => const PublicSpeakerCategoryScreen()),
-    // GetPage(name: SchoolNurseryScreen.route, page: () => const SchoolNurseryScreen()),
     GetPage(name: BankDetailsScreen.route, page: () => const BankDetailsScreen()),
-    // GetPage(name: OrderDetails.route, page: () => const OrderDetails()),
     GetPage(name: ReturnPolicyScreen.route, page: () => const ReturnPolicyScreen()),
     GetPage(name: PublicSpeakerScreen.route, page: () => const PublicSpeakerScreen()),
     GetPage(name: EditProfileScreen.route, page: () => const EditProfileScreen()),
@@ -62,26 +60,14 @@ class MyRouters {
     GetPage(name: EventCalendarScreen.route, page: () => const EventCalendarScreen()),
     GetPage(name: VirtualAssetsScreen.route, page: () => const VirtualAssetsScreen()),
     GetPage(name: WithdrawMoney.route, page: () => const WithdrawMoney()),
-    // GetPage(name: SingleChairScreen.route, page: () => const SingleChairScreen()),
     GetPage(name: VendorDashBoardScreen.route, page: () => const VendorDashBoardScreen()),
-    // GetPage(name: VendorRegistrationScreen.registrationScreen, page: () => const VendorRegistrationScreen()),
-    // GetPage(name: EBookCategoryScreen.route, page: () => const EBookCategoryScreen()),
-    // GetPage(name: SingleCategoryScreen.route, page: () => const SingleCategoryScreen()),
     GetPage(name: SchoolNurseryCategory.route, page: () => const SchoolNurseryCategory()),
-    GetPage(name: SetTimeScreen.setTimeScreen, page: () => const SetTimeScreen()),
-    // GetPage(name: OfficeFurnitureScreen.route, page: () => const OfficeFurnitureScreen()),
-    GetPage(name: CategoriesScreen.categoriesScreen, page: () => const CategoriesScreen()),
-    GetPage(name: BagsScreen.addBagScreen, page: () => const BagsScreen()),
-    // GetPage(name: SingleCategories.route, page: () => const SingleCategories()),
-    // GetPage(name: GeneralLibrary.generalLibrary, page: () => const GeneralLibrary()),
-    GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),
-    GetPage(name: CheckOutScreen.checkOutScreen, page: () => const CheckOutScreen()),
+    GetPage(name: SetTimeScreen.route, page: () => const SetTimeScreen()),
+    GetPage(name: CategoriesScreen.route, page: () => const CategoriesScreen()),
+    GetPage(name: BagsScreen.route, page: () => const BagsScreen()),
+    GetPage(name: CheckOutScreen.route, page: () => const CheckOutScreen()),
     GetPage(name: OrderCompleteScreen.route, page: () => const OrderCompleteScreen()),
-    // GetPage(name: AuthorsScreen.authorsScreen, page: () => const AuthorsScreen()),
-    // GetPage(name: SingleAuthorScreen.singleAuthorScreen, page: () => const SingleAuthorScreen()),
-    // GetPage(name: TeacherScreen.teacherScreen, page: () => const TeacherScreen()),
-    // GetPage(name: SelectedTeacher.selectedTeacher, page: () => const SelectedTeacher()),
-    GetPage(name: MyOrdersScreen.myOrdersScreen, page: () => const MyOrdersScreen()),
+    GetPage(name: MyOrdersScreen.route, page: () => const MyOrdersScreen()),
     GetPage(name: SelectedOrderScreen.route, page: () => const SelectedOrderScreen()),
     GetPage(name: DirectCheckOutScreen.route, page: () => const DirectCheckOutScreen()),
     GetPage(name: VendorProfileScreen.route, page: () => const VendorProfileScreen()),

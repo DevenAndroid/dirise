@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../model/product_model/model_product_element.dart';
-import '../model/vendor_models/model_vendor_product_list.dart';
+import '../model/model_virtual_assets.dart';
 import '../widgets/common_colour.dart';
 
 class SearchProductsScreen extends StatefulWidget {
@@ -24,7 +23,7 @@ class SearchProductsScreen extends StatefulWidget {
 class _SearchProductsScreenState extends State<SearchProductsScreen> {
   late TextEditingController textEditingController;
   final Repositories repositories = Repositories();
-  ModelProductsList modelProductsList = ModelProductsList(product: []);
+  ModelVirtualAssets modelProductsList = ModelVirtualAssets(product: []);
   RxInt refreshInt = 0.obs;
   int page = 1;
   bool allLoaded = false;
@@ -67,7 +66,7 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
       if (reset == true) {
         modelProductsList.product = [];
       }
-      ModelProductsList response = ModelProductsList.fromJson(jsonDecode(value));
+      ModelVirtualAssets response = ModelVirtualAssets.fromJson(jsonDecode(value));
       response.product ??= [];
       if (response.product!.isNotEmpty) {
         modelProductsList.product!.addAll(response.product!);
@@ -149,7 +148,8 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                                   fillColor: Colors.white,
                                   contentPadding: const EdgeInsets.all(15),
                                   hintText: 'What are you looking for?',
-                                  hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor, fontWeight: FontWeight.w400)),
+                                  hintStyle:
+                                      GoogleFonts.poppins(color: AppTheme.buttonColor, fontWeight: FontWeight.w400)),
                             ),
                           ),
                         ),
@@ -169,7 +169,7 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                         controller: scrollController,
                         shrinkWrap: true,
                         itemCount: modelProductsList.product!.length,
-                        padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 10,
@@ -179,7 +179,7 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           final item = modelProductsList.product![index];
                           return ProductUI(
-                            productElement: ProductElement.fromJson(item.toJson()),
+                            productElement: item,
                             onLiked: (value) {
                               item.inWishlist = value;
                             },

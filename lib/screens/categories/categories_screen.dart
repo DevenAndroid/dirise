@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dirise/screens/categores/single_category_with_stores/single_categorie.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +8,11 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controller/home_controller.dart';
 import '../../widgets/cart_widget.dart';
 import '../app_bar/common_app_bar.dart';
+import 'single_category_with_stores/single_categorie.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key});
-  static var categoriesScreen = "/categoriesScreen";
+  static var route = "/categoriesScreen";
 
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();

@@ -3,11 +3,10 @@ import 'package:dirise/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../controller/home_controller.dart';
 import '../../model/model_category_stores.dart';
 import '../../widgets/common_colour.dart';
-import '../categores/single_category_with_stores/single_store_screen.dart';
+import '../categories/single_category_with_stores/single_store_screen.dart';
 
 class AuthorScreen extends StatefulWidget {
   const AuthorScreen({super.key});

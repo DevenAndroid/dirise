@@ -16,7 +16,7 @@ import '../../widgets/loading_animation.dart';
 
 class SetTimeScreen extends StatefulWidget {
   const SetTimeScreen({Key? key}) : super(key: key);
-  static var setTimeScreen = "/setTimeScreen";
+  static var route = "/setTimeScreen";
 
   @override
   State<SetTimeScreen> createState() => _SetTimeScreenState();

@@ -93,103 +93,19 @@ class _WishListScreenState extends State<WishListScreen> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: _wishListController.model.value.wishlist!.length,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 20,
                                 childAspectRatio:
-                                    MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.3)),
+                                    .7),
                             itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  // bottemSheet();
-                                  bottomSheet(productDetails: ProductElement.fromJson(_wishListController.model.value.wishlist![index].toJson()), context: context);
+                              return ProductUI(
+                                productElement: _wishListController.model.value.wishlist![index],
+                                onLiked: (value) {
+                                  removeFromWishList(
+                                      _wishListController.model.value.wishlist![index].id.toString(),index);
                                 },
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      margin: const EdgeInsets.only(left: 5),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Flexible(
-                                            child: CachedNetworkImage(
-                                              imageUrl: _wishListController.model.value.wishlist![index].featuredImage
-                                                  .toString(),
-                                              height: 100,
-                                              fit: BoxFit.cover,
-                                              errorWidget: (context, url, error) =>
-                                                  Image.asset("assets/images/bag.png"),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            _wishListController.model.value.wishlist![index].pName.toString(),
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500,
-                                                color: const Color(0xffC22E2E)),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            _wishListController.model.value.wishlist![index].pName.toString(),
-                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            _wishListController.model.value.wishlist![index].inStock.toString(),
-                                            style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
-                                          ),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'USD ${_wishListController.model.value.wishlist![index].sPrice.toString()}',
-                                                style: GoogleFonts.poppins(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color(0xff014E70)),
-                                              ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                'USD ${_wishListController.model.value.wishlist![index].pPrice.toString()}',
-                                                style: GoogleFonts.poppins(
-                                                    decoration: TextDecoration.lineThrough,
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color(0xff858484)),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Positioned(
-                                        top: 0,
-                                        right: 10,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            removeFromWishList(
-                                                _wishListController.model.value.wishlist![index].id.toString(),index);
-                                          },
-                                          icon:
-                                              const Icon(Icons.favorite_rounded),
-                                        ))
-                                  ],
-                                ),
                               );
                             },
                           ),

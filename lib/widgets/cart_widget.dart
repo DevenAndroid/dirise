@@ -24,7 +24,7 @@ class _CartBagCardState extends State<CartBagCard> {
       return GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          Get.toNamed(BagsScreen.addBagScreen);
+          Get.toNamed(BagsScreen.route);
         },
         child: Padding(
           padding: const EdgeInsets.only(right: 15, top: 10),

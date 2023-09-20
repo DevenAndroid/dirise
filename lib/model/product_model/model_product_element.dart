@@ -62,7 +62,7 @@ class ProductElement {
   dynamic currentBid;
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
-  List<Attributes>? attributes;
+  // List<Attributes>? attributes;
   List<Variants>? variants;
   dynamic bidStatus;
 
@@ -126,7 +126,7 @@ class ProductElement {
     this.minBidPrice,
     this.stepPrice,
     this.currentBid,
-    this.attributes,
+    // this.attributes,
     this.serviceTimeSloat,
     this.productAvailability,
     this.variants,
@@ -201,12 +201,12 @@ class ProductElement {
     }
     productAvailability =
     json['productAvailability'] != null ? ProductAvailability.fromJson(json['productAvailability']) : null;
-    if (json['attributes'] != null) {
-      attributes = <Attributes>[];
-      json['attributes'].forEach((v) {
-        attributes!.add(Attributes.fromJson(v));
-      });
-    }
+    // if (json['attributes'] != null) {
+    //   attributes = <Attributes>[];
+    //   json['attributes'].forEach((v) {
+    //     attributes!.add(Attributes.fromJson(v));
+    //   });
+    // }
     if (json['variants'] != null) {
       variants = <Variants>[];
       json['variants'].forEach((v) {
@@ -282,7 +282,6 @@ class ProductElement {
     "min_bid_price": minBidPrice,
     "step_price": stepPrice,
     "current_bid": currentBid,
-    "attributes": attributes == null ? [] : List<dynamic>.from(attributes!.map((x) => x)),
     "variants": variants == null ? [] : List<dynamic>.from(variants!.map((x) => x)),
     "bid_status": bidStatus,
   };

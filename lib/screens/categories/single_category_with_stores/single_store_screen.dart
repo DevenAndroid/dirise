@@ -447,7 +447,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.offNamed(BagsScreen.addBagScreen);
+                              Get.offNamed(BagsScreen.route);
                             },
                             child: Container(
                               decoration:

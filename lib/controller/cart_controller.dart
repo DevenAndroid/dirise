@@ -13,6 +13,7 @@ import '../model/model_cart_response.dart';
 import '../model/order_models/place_order_response.dart';
 import '../screens/check_out/order_completed_screen.dart';
 import '../utils/ApiConstant.dart';
+import '../vendor/authenthication/thanku_screen.dart';
 
 enum PurchaseType { buy, cart }
 
@@ -78,6 +79,8 @@ class CartController extends GetxController {
       "refund_amount_in": "bank",
       "shipping_method": "test",
       "currency_sign": "\$",
+      'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
+      'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
       "shipping": [
         {"store_id": 13, "store_name": "vendor", "title": "Normal Shipping", "ship_price": "2"}
       ],

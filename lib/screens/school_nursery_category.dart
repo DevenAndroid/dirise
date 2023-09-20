@@ -452,7 +452,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.offNamed(BagsScreen.addBagScreen);
+                              Get.offNamed(BagsScreen.route);
                             },
                             child: Container(
                               decoration:
@@ -650,7 +650,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.offNamed(BagsScreen.addBagScreen);
+                              Get.offNamed(BagsScreen.route);
                             },
                             child: Container(
                               decoration:

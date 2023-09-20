@@ -14,7 +14,7 @@ import '../../model/model_all_order.dart';
 
 class MyOrdersScreen extends StatefulWidget {
   const MyOrdersScreen({super.key});
-  static var myOrdersScreen = "/myOrdersScreen";
+  static var route = "/myOrdersScreen";
 
   @override
   State<MyOrdersScreen> createState() => _MyOrdersScreenState();

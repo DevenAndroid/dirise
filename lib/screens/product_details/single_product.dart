@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dirise/utils/helper.dart';
@@ -44,6 +45,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
   bool get isVariantType => productElement.productType == "variants";
 
   bool get isVirtualProductAudio => productElement.virtualProductType == "voice";
+  bool get canBuyProduct => productElement.addToCart == true;
   String dropdownvalue1 = 'red';
   String dropdownvalue2 = 'l';
   var items1 = [
@@ -147,7 +149,8 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
     repositories.postApi(url: ApiUrls.singleProductUrl, mapData: {"id": productDetails.id.toString()}).then((value) {
       modelSingleProduct = ModelSingleProduct.fromJson(jsonDecode(value));
       if (modelSingleProduct.product != null) {
-        productElement = ProductElement.fromJson(modelSingleProduct.product!.toJson());
+        log("modelSingleProduct.product!.toJson().....      ${modelSingleProduct.product!.toJson()}");
+        productElement = modelSingleProduct.product!;
         imagesList.addAll(modelSingleProduct.product!.galleryImage ?? []);
         imagesList = imagesList.toSet().toList();
         for (var element in productElement.variants!) {
@@ -356,7 +359,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                   'Variants',
                                   style: normalStyle,
                                 ),
-                                if(modelSingleProduct.product != null && modelSingleProduct.product!.attributes != null)
+                                if(modelSingleProduct.product != null && modelSingleProduct.product!.variants != null)
                                   DropdownButtonFormField(
                                     value: selectedVariant,
                                     isExpanded: true,
@@ -519,6 +522,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                         ),
                       ),
                     ),
+                    if(canBuyProduct)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,

@@ -13,7 +13,7 @@ import 'check_out_screen.dart';
 class BagsScreen extends StatefulWidget {
   const BagsScreen({super.key});
 
-  static var addBagScreen = "/AddBagScreen";
+  static var route = "/AddBagScreen";
 
   @override
   State<BagsScreen> createState() => _BagsScreenState();
@@ -238,7 +238,7 @@ class _BagsScreenState extends State<BagsScreen> {
               ? cartController.cartModel.cart!.getAllProducts.isNotEmpty
                   ? GestureDetector(
                       onTap: () {
-                        Get.toNamed(CheckOutScreen.checkOutScreen);
+                        Get.toNamed(CheckOutScreen.route);
                       },
                       behavior: HitTestBehavior.translucent,
                       child: Container(

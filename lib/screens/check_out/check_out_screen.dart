@@ -12,6 +12,8 @@ import '../../controller/cart_controller.dart';
 import '../../controller/profile_controller.dart';
 import '../../model/model_address_list.dart';
 import '../../model/model_cart_response.dart';
+import '../../model/vendor_models/model_payment_method.dart';
+import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
@@ -20,7 +22,7 @@ import '../../widgets/common_textfield.dart';
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
 
-  static var checkOutScreen = "/checkOutScreen";
+  static var route = "/checkOutScreen";
 
   @override
   State<CheckOutScreen> createState() => _CheckOutScreenState();
@@ -32,12 +34,21 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   String couponApplied = "";
   String appliedCode = "";
+  String paymentMethod1 = "";
 
   final TextEditingController couponController = TextEditingController();
   final TextEditingController deliveryInstructions = TextEditingController();
 
   AddressData selectedAddress = AddressData();
   final GlobalKey addressKey = GlobalKey();
+  ModelPaymentMethods? methods;
+
+  getPaymentGateWays() {
+    Repositories().getApi(url: ApiUrls.paymentMethodsUrl).then((value) {
+      methods = ModelPaymentMethods.fromJson(jsonDecode(value));
+      setState(() {});
+    });
+  }
 
   applyCouponCode() {
     if (couponController.text.trim().isEmpty) {
@@ -72,6 +83,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   @override
   void initState() {
     super.initState();
+    getPaymentGateWays();
     profileController.checkUserLoggedIn().then((value) {
       if (value == false) return;
       cartController.getAddress();
@@ -140,7 +152,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 15,
               ),
             ],
           ).toBoxAdapter,
@@ -451,6 +463,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             return;
           }
           cartController.dialogOpened = false;
+          if(paymentMethod1.isEmpty){
+            showToast("Please select payment Method");
+            return;
+          }
           cartController.placeOrder(
               context: context,
               currencyCode: "usd",
@@ -489,48 +505,84 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      width: size.width * .3,
-                      height: size.height * .08,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
-                      alignment: Alignment.center,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/images/knet.png",
-                            width: 50,
-                            height: 55,
-                          )
-                        ],
+
+                if (methods != null && methods!.data != null)
+                  DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
+                        enabled: true,
+                        filled: true,
+                        hintText: "Select Payment Method",
+                        labelStyle: GoogleFonts.poppins(color: Colors.black),
+                        labelText: "Select Payment Method",
+                        fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Container(
-                      width: size.width * .3,
-                      height: size.height * .08,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.credit_card,
-                            color: Color(0xffAFB1B1),
-                          ),
-                          Text("Credit Card", style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12)),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                      isExpanded: true,
+                      items: methods!.data!
+                          .map((e) => DropdownMenuItem(
+                          value: e.paymentMethodId.toString(),
+                          child: Row(
+                            children: [
+                              Expanded(child: Text(e.paymentMethodEn.toString())),
+                              SizedBox(width: 35, height: 35, child: Image.network(e.imageUrl.toString()))
+                            ],
+                          )))
+                          .toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        paymentMethod1 = value;
+                        setState(() {});
+                      }),
+                // Row(
+                //   children: [
+                //     Container(
+                //       width: size.width * .3,
+                //       height: size.height * .08,
+                //       decoration: BoxDecoration(
+                //           border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
+                //       alignment: Alignment.center,
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.center,
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Image.asset(
+                //             "assets/images/knet.png",
+                //             width: 50,
+                //             height: 55,
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //     const SizedBox(
+                //       width: 15,
+                //     ),
+                //     Container(
+                //       width: size.width * .3,
+                //       height: size.height * .08,
+                //       decoration: BoxDecoration(
+                //           border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
+                //       alignment: Alignment.center,
+                //       child: Column(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           const Icon(
+                //             Icons.credit_card,
+                //             color: Color(0xffAFB1B1),
+                //           ),
+                //           Text("Credit Card", style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12)),
+                //         ],
+                //       ),
+                //     )
+                //   ],
+                // ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -539,7 +591,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ),
         ),
         const SizedBox(
-          height: 30,
+          height: 25,
         ),
       ],
     );

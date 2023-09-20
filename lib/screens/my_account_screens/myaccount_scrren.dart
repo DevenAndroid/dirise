@@ -70,7 +70,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     VendorDashBoardScreen.route,
     VendorOrderList.route,
     VendorProductScreen.route,
-    SetTimeScreen.setTimeScreen,
+    SetTimeScreen.route,
     BankDetailsScreen.route,
     WithdrawMoney.route,
   ];
@@ -307,7 +307,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       InkWell(
                         onTap: () {
                           if (profileController.userLoggedIn) {
-                            Get.toNamed(MyOrdersScreen.myOrdersScreen);
+                            Get.toNamed(MyOrdersScreen.route);
                           } else {
                             Get.toNamed(LoginScreen.route);
                           }

@@ -11,8 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'controller/cart_controller.dart';
 import 'controller/homepage_controller.dart';
 import 'controller/profile_controller.dart';
+import 'screens/categories/categories_screen.dart';
 import 'widgets/common_colour.dart';
-import 'screens/categores/categories_screen.dart';
 import 'screens/my_account_screens/myaccount_scrren.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -24,6 +24,7 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
+
   final bottomController = Get.put(BottomNavBarController());
   final profileController = Get.put(ProfileController());
   final cartController = Get.put(CartController());
@@ -84,12 +85,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
       },
       child: Obx(() {
         return Scaffold(
-          // body: IndexedStack(
-          //   index: bottomController.pageIndex.value,
-          //   children: pages,
-          // ),
           body: pages[bottomController.pageIndex.value],
-          // extendBody: true,
           backgroundColor: Colors.white,
           bottomNavigationBar: buildMyNavBar(),
         );

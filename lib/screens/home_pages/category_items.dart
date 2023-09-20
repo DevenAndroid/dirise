@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../controller/home_controller.dart';
 import '../../controller/homepage_controller.dart';
 import '../../widgets/common_colour.dart';
-import '../categores/single_category_with_stores/single_categorie.dart';
+import '../categories/single_category_with_stores/single_categorie.dart';
 
 class CategoryItems extends StatefulWidget {
   const CategoryItems({super.key});
@@ -72,15 +71,19 @@ class _CategoryItemsState extends State<CategoryItems> {
                         style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: AppTheme.buttonColor),
                       )
                     ],
-                  ).animate(delay: Duration(milliseconds: index * 200)).scale(duration: 500.ms);
-                } else {
+                  )
+                      .animate(delay: Duration(milliseconds: index * 200))
+                      .scale(duration: 500.ms);
+                }
+                else {
                   final item = homeController.vendorCategory.usphone![index];
                   return InkWell(
                     key: ValueKey(index * DateTime.now().millisecondsSinceEpoch),
                     onTap: () {
                       Get.to(() => SingleCategories(
                             vendorCategories: item,
-                          ));
+                          )
+                      );
                     },
                     child: Column(
                       children: [
@@ -117,7 +120,9 @@ class _CategoryItemsState extends State<CategoryItems> {
                         )
                       ],
                     ),
-                  ).animate(delay: Duration(milliseconds: index * 200)).scale(duration: 500.ms);
+                  )
+                      .animate(delay: Duration(milliseconds: index * 200))
+                      .scale(duration: 500.ms);
                 }
               },
             )
