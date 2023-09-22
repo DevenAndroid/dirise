@@ -376,11 +376,11 @@ class Pivot {
 class VendorProfile {
   dynamic id;
   dynamic userId;
-  dynamic business_number;
-  dynamic account_number;
-  dynamic ibn_number;
-  dynamic bank_name;
-  dynamic account_holder_name;
+  dynamic businessNumber;
+  dynamic accountNumber;
+  dynamic ibnNumber;
+  dynamic bankName;
+  dynamic accountHolderName;
   dynamic home_address;
   dynamic workEmail;
   dynamic paymentCertificate;
@@ -408,12 +408,12 @@ class VendorProfile {
         this.userId,
         this.workEmail,
         this.paymentCertificate,
-        this.business_number,
+        this.businessNumber,
         this.home_address,
-        this.account_number,
-        this.ibn_number,
-        this.bank_name,
-        this.account_holder_name,
+        this.accountNumber,
+        this.ibnNumber,
+        this.bankName,
+        this.accountHolderName,
         this.ownerName,
         this.companyName,
         this.commercialLicense,
@@ -437,11 +437,11 @@ class VendorProfile {
     id = json['id'];
     userId = json['user_id'];
     home_address = json['home_address'];
-    business_number = json['business_number'];
-    account_number = json['account_number'];
-    ibn_number = json['ibn_number'];
-    bank_name = json['bank_name'];
-    account_holder_name = json['account_holder_name'];
+    businessNumber = json['business_number'];
+    accountNumber = json['account_number'];
+    ibnNumber = json['ibn_number'];
+    bankName = json['bank_name'];
+    accountHolderName = json['account_holder_name'];
     workEmail = json['work_email'];
     paymentCertificate = json['payment_certificate'];
     ownerName = json['owner_name'];

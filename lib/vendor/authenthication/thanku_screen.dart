@@ -68,7 +68,9 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
     return WillPopScope(
       onWillPop: () async {
         Get.back();
-        Get.off(() => const VendorDashBoardScreen());
+        Get.back();
+        Get.back();
+        Get.to(() => const VendorDashBoardScreen());
         return false;
       },
       child: Scaffold(
@@ -86,7 +88,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
                   Get.back();
                   Get.back();
                   Get.to(() => const VendorDashBoardScreen());
-                  },
+                },
                 child: Text(
                   "Skip",
                   style: titleStyle,

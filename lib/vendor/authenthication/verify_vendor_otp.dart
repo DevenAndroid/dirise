@@ -47,7 +47,10 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
         profileController.getDataProfile();
         Get.back();
         Get.back();
-        Get.off(() => ThankYouVendorScreen(planInfoData: selectedPlan,));
+        Get.back();
+        Get.back();
+        Get.back();
+        Get.to(() => ThankYouVendorScreen(planInfoData: selectedPlan,));
       }
     });
   }

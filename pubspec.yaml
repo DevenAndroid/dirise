@@ -16,10 +16,10 @@ dependencies:
   carousel_slider: ^4.2.1
   smooth_page_indicator: ^1.1.0
   client_information: ^2.1.3
-  get: ^4.6.5
+  get: ^4.6.6
   shared_preferences: ^2.2.1
   flutter_svg: ^2.0.7
-  google_fonts: ^5.1.0
+  google_fonts: ^6.1.0
   collection:
   http: ^1.1.0
   country_code_picker: ^3.0.0
@@ -30,7 +30,7 @@ dependencies:
   table_calendar: ^3.0.9
   form_field_validator: ^1.1.0
   google_sign_in: ^6.1.5
-  firebase_auth: ^4.9.0
+  firebase_auth: ^4.10.0
   flutter_switch: ^0.3.2
   loading_animation_widget: ^1.2.0+4
   shimmer: ^3.0.0
@@ -45,17 +45,16 @@ dependencies:
   scroll_loop_auto_scroll: ^0.0.5
   open_filex: ^4.3.2
   lottie: ^2.6.0
-  firebase_core: ^2.15.1
-  firebase_messaging: ^14.6.7
+  firebase_core: ^2.16.0
+  firebase_messaging: ^14.6.8
   flutter_html: ^3.0.0-beta.2
   flutter_animate: ^4.2.0+1
-  syncfusion_flutter_pdfviewer: ^22.2.11
+  syncfusion_flutter_pdfviewer: ^23.1.36
   audioplayers: ^5.1.0
   audio_video_progress_bar: ^2.0.0
   flutter_local_notifications: ^15.1.1
   flutter_exif_rotation: ^0.5.1
   webview_flutter: ^4.2.4
-  trotter: ^2.1.0
 
 
 dev_dependencies:
