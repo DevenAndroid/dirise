@@ -56,6 +56,7 @@ class CartController extends GetxController {
     required String totalPrice,
     required String currencyCode,
     required String deliveryOption,
+    required String paymentMethod,
     String? couponCode,
     String? shippingPrice,
     String? productID,
@@ -72,6 +73,7 @@ class CartController extends GetxController {
       "type": purchaseType.name,
       "subtotPrice": subTotalPrice,
       "total": totalPrice,
+      "payment_method": paymentMethod,
       "delivery_type": deliveryOption, // delivery or pickup
       "totPrice": totalPrice,
       if (couponCode != null) "coupon_code": couponCode,
@@ -105,6 +107,7 @@ class CartController extends GetxController {
           if (dialogOpened == false) {
             showOTPDialog(
                 context: context,
+                paymentMethod: paymentMethod,
                 purchaseType: purchaseType,
                 subTotalPrice: subTotalPrice,
                 currencyCode: currencyCode,
@@ -129,6 +132,7 @@ class CartController extends GetxController {
     required String totalPrice,
     required String currencyCode,
     required String deliveryOption,
+    required String paymentMethod,
     String? couponCode,
     String? quantity,
     String? productID,
@@ -173,6 +177,7 @@ class CartController extends GetxController {
                       if (countDown.value != 0) return;
                       placeOrder(
                           context: context,
+                          paymentMethod: paymentMethod,
                           currencyCode: currencyCode,
                           subTotalPrice: subTotalPrice,
                           totalPrice: totalPrice,
@@ -222,6 +227,7 @@ class CartController extends GetxController {
                             }
                             placeOrder(
                                 context: context,
+                                paymentMethod: paymentMethod,
                                 currencyCode: currencyCode,
                                 subTotalPrice: subTotalPrice,
                                 totalPrice: totalPrice,

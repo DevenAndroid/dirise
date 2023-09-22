@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -53,11 +54,11 @@ class _CartBagCardState extends State<CartBagCard> {
                 ),
                 cartController.apiLoaded
                     ? Text(
-                  "",
-                        // cartController.cartModel.totalQuantity.toString(),
+                  key: ValueKey(DateTime.now().millisecondsSinceEpoch),
+                    cartController.cartModel.totalProducts.toString(),
                         style: GoogleFonts.poppins(color: widget.isBlackTheme == true ? Colors.white : AppTheme.buttonColor, fontSize: 20),
-                      )
-                    : const CupertinoActivityIndicator(),
+                      ).animate().scale(duration: 200.ms)
+                    : const SizedBox(),
                 const SizedBox(
                   width: 10,
                 ),

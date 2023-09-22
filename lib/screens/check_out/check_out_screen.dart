@@ -443,8 +443,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ).toBoxAdapter
         ],
       ),
-      bottomNavigationBar: InkWell(
-        onTap: () {
+      bottomNavigationBar: ElevatedButton(
+        onPressed: () {
           showValidation.value = true;
           if (deliveryOption.value.isEmpty) {
             BuildContext? context1 = addressKey.currentContext;
@@ -470,6 +470,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           cartController.placeOrder(
               context: context,
               currencyCode: "usd",
+              paymentMethod: paymentMethod1,
               deliveryOption: deliveryOption.value,
               subTotalPrice: cartController.cartModel.subtotal.toString(),
               totalPrice: cartController.cartModel.total.toString(),
@@ -477,8 +478,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               purchaseType: PurchaseType.cart,
               address: selectedAddress.toJson());
         },
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0)
+          ),
+            backgroundColor: const Color(0xff014E70),
+        ),
         child: Container(
-          decoration: const BoxDecoration(color: Color(0xff014E70)),
+          // decoration: const BoxDecoration(color: Color(0xff014E70)),
           height: 56,
           alignment: Alignment.bottomCenter,
           child: Align(
@@ -540,49 +548,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         if (value == null) return;
                         paymentMethod1 = value;
                         setState(() {});
-                      }),
-                // Row(
-                //   children: [
-                //     Container(
-                //       width: size.width * .3,
-                //       height: size.height * .08,
-                //       decoration: BoxDecoration(
-                //           border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
-                //       alignment: Alignment.center,
-                //       child: Column(
-                //         crossAxisAlignment: CrossAxisAlignment.center,
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           Image.asset(
-                //             "assets/images/knet.png",
-                //             width: 50,
-                //             height: 55,
-                //           )
-                //         ],
-                //       ),
-                //     ),
-                //     const SizedBox(
-                //       width: 15,
-                //     ),
-                //     Container(
-                //       width: size.width * .3,
-                //       height: size.height * .08,
-                //       decoration: BoxDecoration(
-                //           border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
-                //       alignment: Alignment.center,
-                //       child: Column(
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           const Icon(
-                //             Icons.credit_card,
-                //             color: Color(0xffAFB1B1),
-                //           ),
-                //           Text("Credit Card", style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12)),
-                //         ],
-                //       ),
-                //     )
-                //   ],
-                // ),
+                      }) else
+                        const LoadingAnimation(),
                 const SizedBox(
                   height: 20,
                 ),
