@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:dirise/utils/ApiConstant.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dirise/utils/api_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/helper.dart';

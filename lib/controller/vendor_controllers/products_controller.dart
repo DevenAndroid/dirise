@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/repository/repository.dart';
-import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/api_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../model/vendor_models/model_vendor_product_list.dart';

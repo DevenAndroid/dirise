@@ -28,6 +28,7 @@ class VendorUser {
   dynamic firstName;
   dynamic lastName;
   dynamic email;
+  dynamic country_id;
   dynamic dob;
   dynamic countryCode;
   dynamic earnedBalance;
@@ -92,6 +93,7 @@ class VendorUser {
       {this.id,
         this.name,
         this.firstName,
+        this.country_id,
         this.lastName,
         this.email,
         this.dob,
@@ -157,6 +159,7 @@ class VendorUser {
   VendorUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    country_id = json['country_id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
     email = json['email'];
@@ -232,6 +235,7 @@ class VendorUser {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
+    data['country_id'] = country_id;
     data['first_name'] = firstName;
     data['last_name'] = lastName;
     data['email'] = email;

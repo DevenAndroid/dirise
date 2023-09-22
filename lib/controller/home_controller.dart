@@ -6,7 +6,7 @@ import '../model/home_modal.dart';
 import '../model/popular_product_modal.dart';
 import '../model/trending_products_modal.dart';
 import '../model/vendor_models/vendor_category_model.dart';
-import '../utils/ApiConstant.dart';
+import '../utils/api_constant.dart';
 
 class TrendingProductsController extends GetxController {
   Rx<HomeModal> homeModal = HomeModal().obs;

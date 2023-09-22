@@ -7,7 +7,7 @@ import '../model/customer_profile/model_country_list.dart';
 import '../model/customer_profile/model_state_list.dart';
 import '../model/profile_model.dart';
 import '../repository/repository.dart';
-import '../utils/ApiConstant.dart';
+import '../utils/api_constant.dart';
 
 class ProfileController extends GetxController {
   ProfileModel model = ProfileModel();

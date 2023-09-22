@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/home_pages/homepage_screen.dart';
 import 'package:dirise/screens/wishlist/whishlist_screen.dart';
-import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/api_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';

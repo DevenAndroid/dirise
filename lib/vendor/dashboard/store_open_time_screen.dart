@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/repository/repository.dart';
-import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/api_constant.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/vendor_controllers/vendor_store_timing.dart';
-import '../../model/vendor_models/model_store_availability.dart';
 import '../../widgets/customsize.dart';
 import '../../widgets/loading_animation.dart';
 

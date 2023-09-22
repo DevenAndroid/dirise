@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import '../../model/common_modal.dart';
 import '../../model/login_model.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/helper.dart';
 import '../../widgets/common_colour.dart';
 import '../../bottomavbar.dart';

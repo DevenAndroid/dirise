@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import '../../model/vendor_models/model_store_availability.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 
 class VendorStoreTimingController extends GetxController{
   final Repositories repositories = Repositories();

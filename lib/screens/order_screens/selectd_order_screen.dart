@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/order_models/model_single_order_response.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
 import '../virtual_assets/virtual_assets_screen.dart';

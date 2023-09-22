@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/screens/app_bar/common_app_bar.dart';
-import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/api_constant.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/utils/styles.dart';
 import 'package:dirise/vendor/profile/vendor_profile_screen.dart';
@@ -181,7 +181,6 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
               showToast("Please select any plan");
               return;
             }
-            print(selectedPlan!.businessType.toString());
             Get.to(() => VendorProfileScreen(
               planId: selectedPlan!.id.toString(),
               selectedPlan: PlansType.values.firstWhere((element) => element.name.toLowerCase() == selectedPlan!.businessType.toString(),orElse: ()=> PlansType.personal),

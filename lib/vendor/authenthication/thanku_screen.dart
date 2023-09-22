@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/repository/repository.dart';
-import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/api_constant.dart';
 import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/loading_animation.dart';

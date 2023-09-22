@@ -125,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 18),
+                      const SizedBox(height: 18),
                       ...profileCard(
                         imagePath: "assets/svgs/profile.svg",
                         title: 'First Name',

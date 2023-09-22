@@ -13,9 +13,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../model/model_category_stores.dart';
 import '../../../model/product_model/model_product_element.dart';
-import '../../../model/trending_products_modal.dart';
 import '../../../model/vendor_models/vendor_category_model.dart';
-import '../../../utils/ApiConstant.dart';
+import '../../../utils/api_constant.dart';
 import '../../../widgets/cart_widget.dart';
 import '../../app_bar/common_app_bar.dart';
 import '../../product_details/product_widget.dart';

@@ -14,7 +14,7 @@ import '../../model/model_address_list.dart';
 import '../../model/model_cart_response.dart';
 import '../../model/vendor_models/model_payment_method.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';

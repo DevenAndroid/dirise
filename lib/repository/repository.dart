@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/login_model.dart';
-import '../utils/ApiConstant.dart';
+import '../utils/api_constant.dart';
 import '../utils/helper.dart';
 
 String deviceId = "";

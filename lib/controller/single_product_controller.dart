@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dirise/repository/repository.dart';
 import 'package:get/get.dart';
 import '../model/single_category_model.dart';
-import '../utils/ApiConstant.dart';
+import '../utils/api_constant.dart';
 
 class SingleCategoryController extends GetxController {
   final Repositories repositories = Repositories();

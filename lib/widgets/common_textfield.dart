@@ -11,7 +11,7 @@ class CommonTextField extends StatefulWidget {
   final bool readOnly;
   final VoidCallback? onTap;
   final VoidCallback? onEditingCompleted;
-  final TextInputType keyboardType;
+  final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onFieldSubmitted;

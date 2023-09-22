@@ -12,7 +12,7 @@ import '../model/model_address_list.dart';
 import '../model/model_cart_response.dart';
 import '../model/order_models/place_order_response.dart';
 import '../screens/check_out/order_completed_screen.dart';
-import '../utils/ApiConstant.dart';
+import '../utils/api_constant.dart';
 import '../vendor/authenthication/thanku_screen.dart';
 
 enum PurchaseType { buy, cart }

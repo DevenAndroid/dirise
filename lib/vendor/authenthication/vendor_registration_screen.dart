@@ -16,7 +16,7 @@ import '../../model/vendor_models/model_plan_list.dart';
 import '../../model/vendor_models/model_vendor_registration.dart';
 import '../../model/vendor_models/vendor_category_model.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/helper.dart';
 import '../../utils/styles.dart';
 import '../../widgets/dimension_screen.dart';
@@ -134,6 +134,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     if (!_formKey.currentState!.validate()) {
       if (allSelectedCategory.isEmpty) {
         categoryKey.currentContext!.navigate;
+      }
+      if (selectedCountry == null) {
+        categoryKey.currentContext!.navigate;
+        return;
       }
       if (selectedPlan == PlansType.advertisement) {
         // First Name
@@ -339,6 +343,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     }
 
     map["vendor_type"] = selectedPlan.name;
+    map["country_id"] = selectedCountry!.id.toString();
     map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
 
     /// Files upload map
@@ -634,18 +639,18 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         controller: TextEditingController(text: selectedCountry != null ? selectedCountry!.name : ""),
                         // key: firstName.getKey,
                         hintText: "Select Country",
-                        prefix: selectedCountry != null
-                            ? SizedBox(
-                          width: 50,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              NewHelper.countryCodeToEmoji(selectedCountry!.countryCode),
-                              style: titleStyle,
-                            ),
-                          ),
-                        )
-                            : null,
+                        // prefix: selectedCountry != null
+                        //     ? SizedBox(
+                        //   width: 50,
+                        //   child: Align(
+                        //     alignment: Alignment.center,
+                        //     child: Text(
+                        //       NewHelper.countryCodeToEmoji(selectedCountry!.countryCode),
+                        //       style: titleStyle,
+                        //     ),
+                        //   ),
+                        // )
+                        //     : null,
                         readOnly: true,
                         onTap: () {
                           showAddressSelectorDialog(
@@ -654,9 +659,9 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                                   title: e.name.toString(), addressId: e.id.toString(), flagUrl: e.icon.toString()))
                                   .toList(),
                               selectedAddressIdPicked: (String gg) {
-                                String previous = ((selectedCountry ?? Country()).id ?? "").toString();
                                 selectedCountry = modelCountryList!.country!
                                     .firstWhere((element) => element.id.toString() == gg);
+                                setState(() {});
                               },
                               selectedAddressId: ((selectedCountry ?? Country()).id ?? "").toString());
                         },
@@ -1066,7 +1071,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           hintText: "Tax number* (outside Kuwait)",
                           validator: (value) {
                             if(selectedCountry == null)return null;
-                            if(!insideKuwait){
+                            if(!insideKuwait && value!.trim().isEmpty){
                               return "Please enter Tax number, you are outside of Kuwait";
                             }
                             return null;

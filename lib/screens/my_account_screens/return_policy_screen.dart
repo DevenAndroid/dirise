@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../model/aboutus_model.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 
 class ReturnPolicyScreen extends StatefulWidget {
   const ReturnPolicyScreen({Key? key}) : super(key: key);

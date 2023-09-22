@@ -11,7 +11,7 @@ import '../../model/vendor_models/model_attribute.dart';
 import '../../model/vendor_models/model_varient.dart';
 import '../../model/vendor_models/model_vendor_product_details.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/helper.dart';
 import '../../utils/notification_service.dart';
 import '../../vendor/products/add_product/varient_product/varient_product.dart';

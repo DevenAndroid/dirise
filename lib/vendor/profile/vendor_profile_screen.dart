@@ -1,9 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -19,7 +19,7 @@ import '../../model/vendor_models/model_vendor_details.dart';
 import '../../model/vendor_models/model_vendor_registration.dart';
 import '../../model/vendor_models/vendor_category_model.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/notification_service.dart';
 import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
@@ -520,6 +520,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     super.initState();
     getBankList();
     getVendorCategories();
+    getCountryList();
   }
 
   showAddressSelectorDialog({
@@ -614,6 +615,14 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     if(modelCountryList != null)return;
     repositories.getApi(url: ApiUrls.allCountriesUrl).then((value) {
       modelCountryList = ModelCountryList.fromString(value);
+      for (var element in modelCountryList!.country!) {
+        log("message....     ${element.id.toString()}      ........      ${vendorInfo.country_id}");
+        if(element.id.toString() == (vendorInfo.country_id ?? "")){
+          selectedCountry = element;
+          setState(() {});
+          break;
+        }
+      }
     });
   }
 
@@ -668,12 +677,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                               // planCard(),
                               Obx(() {
-                                if (kDebugMode) {
-                                  print(modelVendorCategory.usphone!
-                                      .map(
-                                          (e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
-                                      .toList());
-                                }
                                 return DropdownButtonFormField<VendorCategoriesData>(
                                   key: categoryKey,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -726,6 +729,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   onChanged: (value) {
                                     // selectedCategory = value;
                                     if (value == null) return;
+                                    if(allSelectedCategory.isNotEmpty)return;
                                     allSelectedCategory[value.id.toString()] = value;
                                     setState(() {});
                                   },
@@ -758,18 +762,18 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                       TextEditingController(text: selectedCountry != null ? selectedCountry!.name : ""),
                                   // key: firstName.getKey,
                                   hintText: "Select Country",
-                                  prefix: selectedCountry != null
-                                      ? SizedBox(
-                                          width: 50,
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              NewHelper.countryCodeToEmoji(selectedCountry!.countryCode),
-                                              style: titleStyle,
-                                            ),
-                                          ),
-                                        )
-                                      : null,
+                                  // prefix: selectedCountry != null
+                                  //     ? SizedBox(
+                                  //         width: 50,
+                                  //         child: Align(
+                                  //           alignment: Alignment.center,
+                                  //           child: Text(
+                                  //             NewHelper.countryCodeToEmoji(selectedCountry!.countryCode),
+                                  //             style: titleStyle,
+                                  //           ),
+                                  //         ),
+                                  //       )
+                                  //     : null,
                                   readOnly: true,
                                   onTap: () {
                                     showAddressSelectorDialog(
@@ -1352,15 +1356,15 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
   bool get bankLoaded => modelBankList != null && modelBankList!.data != null && modelBankList!.data!.banks != null;
   bool errorResolved = false;
+
   resolveError() {
-    if (errorResolved) return;
     if (bankId.isEmpty) return;
     if (bankLoaded) {
       int temp = modelBankList!.data!.banks!.indexWhere((element) => element.id.toString() == bankId);
       if (temp == -1) {
         bankId = "";
       }
-      errorResolved = true;
+
     }
   }
 
@@ -1368,6 +1372,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     return [
       14.spaceY,
       //Bank List
+      insideKuwait ?
       Obx(() {
         if (bankListValue.value > 0) {}
         resolveError();
@@ -1375,8 +1380,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
           isExpanded: true,
           value: bankLoaded
               ? bankId.isNotEmpty
-                  ? bankId
-                  : null
+              ? bankId
+              : null
               : null,
           style: const TextStyle(color: Colors.red),
           decoration: InputDecoration(
@@ -1410,14 +1415,14 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
           icon: const Icon(Icons.keyboard_arrow_down),
           items: bankLoaded
               ? modelBankList!.data!.banks!
-                  .map((e) => DropdownMenuItem(
-                        value: e.id.toString(),
-                        child: Text(
-                          e.name.toString(),
-                          style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
-                        ),
-                      ))
-                  .toList()
+              .map((e) => DropdownMenuItem(
+            value: e.id.toString(),
+            child: Text(
+              e.name.toString(),
+              style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+            ),
+          ))
+              .toList()
               : [],
           validator: (value) {
             if (bankId.isEmpty) {
@@ -1431,7 +1436,19 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
             setState(() {});
           },
         );
-      }),
+      }) :
+      VendorCommonTextfield(
+          controller: TextEditingController(text: bankId),
+          hintText: "Bank Name",
+          onChanged: (value){
+            bankId = value;
+          },
+          validator: (value) {
+            if (bankId.trim().isEmpty) {
+              return "Please enter bank name";
+            }
+            return null;
+          }),
       14.spaceY,
       //accountNumber
       VendorCommonTextfield(

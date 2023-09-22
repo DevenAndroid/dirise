@@ -15,7 +15,7 @@ import '../../controller/profile_controller.dart';
 import '../../model/customer_profile/model_city_list.dart';
 import '../../model/customer_profile/model_state_list.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';
 
@@ -342,6 +342,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ...fieldWithName(
                 title: 'Phone Number',
                 hintText: 'Enter Phone Number',
+                keyboardType: TextInputType.number,
                 controller: phoneController,
                 validator: (v) {
                   if (v!.trim().isEmpty) {
@@ -521,6 +522,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       required TextEditingController controller,
       FormFieldValidator<String>? validator,
       bool? readOnly,
+        TextInputType? keyboardType,
       VoidCallback? onTap,
       Widget? suffixIcon}) {
     return [
@@ -534,6 +536,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       CommonTextField(
         onTap: onTap,
         hintText: hintText,
+        keyboardType: keyboardType,
         controller: controller,
         validator: validator,
         readOnly: readOnly ?? false,

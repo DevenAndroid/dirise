@@ -10,7 +10,6 @@ import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../controller/vendor_controllers/vendor_store_timing.dart';
 import '../../model/vendor_models/model_store_availability.dart';
 import '../../widgets/common_colour.dart';
-import '../../widgets/dimension_screen.dart';
 import '../profile/vendor_profile_screen.dart';
 import 'store_open_time_screen.dart';
 

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/common_modal.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_textfield.dart';
 import 'otp_screen.dart';

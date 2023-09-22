@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/wish_list_controller.dart';
 import '../../model/product_model/model_product_element.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../widgets/like_button.dart';
 import 'single_product.dart';
 
