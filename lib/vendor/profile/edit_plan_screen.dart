@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/screens/app_bar/common_app_bar.dart';
-import 'package:dirise/utils/ApiConstant.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/common_colour.dart';
@@ -13,6 +12,7 @@ import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../model/common_modal.dart';
 import '../../model/vendor_models/model_payment_method.dart';
 import '../../model/vendor_models/model_plan_list.dart';
+import '../../utils/api_constant.dart';
 import '../authenthication/payment_screen.dart';
 import '../authenthication/thanku_screen.dart';
 
@@ -77,7 +77,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
       ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
       if (modelCommonResponse.uRL != null) {
         Get.back();
-        Get.to(() => VendorPaymentScreen(
+        Get.to(() => PaymentScreen(
               paymentUrl: modelCommonResponse.uRL,
             ));
       }
@@ -261,75 +261,79 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                       const SizedBox(
                         height: 18,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Text(
-                              'PLANS',
-                              style: GoogleFonts.poppins(
-                                color: const Color(0xFF111727),
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                      IgnorePointer(
+                        ignoring: !allowSelect,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                'PLANS',
+                                style: GoogleFonts.poppins(
+                                  color: const Color(0xFF111727),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: e
-                                  .asMap()
-                                  .entries
-                                  .map((e1) => GestureDetector(
-                                        onTap: () {
-                                          selectedPlan = e1.value;
-                                          setState(() {});
-                                        },
-                                        behavior: HitTestBehavior.translucent,
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Radio<PlanInfoData?>(
-                                                    value: e1.value,
-                                                    groupValue: selectedPlan,
-                                                    toggleable: allowSelect,
-                                                    visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
-                                                    onChanged: (value) {
-                                                      if (!allowSelect) return;
-                                                      selectedPlan = value;
-                                                      if (selectedPlan == null) return;
-                                                      setState(() {});
-                                                    }),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Expanded(
-                                                    flex: 3,
-                                                    child: Text(
-                                                      e1.value.label.toString().capitalize!,
-                                                      style: titleStyle.copyWith(
-                                                          color: allowSelect ? Colors.black : Colors.grey),
-                                                    )),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Text(
-                                                      "${e1.value.amount} ${e1.value.currency}",
-                                                      style: titleStyle.copyWith(
-                                                          fontWeight: FontWeight.w400,
-                                                          fontSize: 14,
-                                                          color: allowSelect ? Colors.black : Colors.grey),
-                                                    )),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ))
-                                  .toList(),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: e
+                                    .asMap()
+                                    .entries
+                                    .map((e1) => GestureDetector(
+                                          onTap: () {
+                                            if(!allowSelect)return;
+                                            selectedPlan = e1.value;
+                                            setState(() {});
+                                          },
+                                          behavior: HitTestBehavior.translucent,
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Radio<PlanInfoData?>(
+                                                      value: e1.value,
+                                                      groupValue: selectedPlan,
+                                                      toggleable: allowSelect,
+                                                      visualDensity: const VisualDensity(horizontal: -4, vertical: -2),
+                                                      onChanged: (value) {
+                                                        if (!allowSelect) return;
+                                                        selectedPlan = value;
+                                                        if (selectedPlan == null) return;
+                                                        setState(() {});
+                                                      }),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Expanded(
+                                                      flex: 3,
+                                                      child: Text(
+                                                        e1.value.label.toString().capitalize!,
+                                                        style: titleStyle.copyWith(
+                                                            color: allowSelect ? Colors.black : Colors.grey),
+                                                      )),
+                                                  Expanded(
+                                                      flex: 2,
+                                                      child: Text(
+                                                        "${e1.value.amount} ${e1.value.currency}",
+                                                        style: titleStyle.copyWith(
+                                                            fontWeight: FontWeight.w400,
+                                                            fontSize: 14,
+                                                            color: allowSelect ? Colors.black : Colors.grey),
+                                                      )),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ))
+                                    .toList(),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       )
                     ],
                   ),

@@ -432,6 +432,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     }
 
     map["vendor_type"] = selectedPlan.name;
+    map["country_id"] = selectedCountry!.id.toString();
     map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
 
     /// Files upload map
@@ -783,9 +784,9 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                             title: e.name.toString(), addressId: e.id.toString(), flagUrl: e.icon.toString()))
                                             .toList(),
                                         selectedAddressIdPicked: (String gg) {
-                                          String previous = ((selectedCountry ?? Country()).id ?? "").toString();
                                           selectedCountry = modelCountryList!.country!
                                               .firstWhere((element) => element.id.toString() == gg);
+                                          setState(() {});
                                         },
                                         selectedAddressId: ((selectedCountry ?? Country()).id ?? "").toString());
                                   },

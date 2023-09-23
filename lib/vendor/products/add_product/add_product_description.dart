@@ -1,6 +1,7 @@
 import 'package:dirise/utils/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../controller/vendor_controllers/add_product_controller.dart';
@@ -257,52 +258,73 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Expanded(
+                      //   child: DropdownButtonFormField<String>(
+                      //     autovalidateMode: AutovalidateMode.onUserInteraction,
+                      //     value: controller.productDurationValue.isEmpty ? null : controller.productDurationValue,
+                      //     isExpanded: true,
+                      //     iconDisabledColor: const Color(0xff97949A),
+                      //     iconEnabledColor: const Color(0xff97949A),
+                      //     decoration: InputDecoration(
+                      //       border: const OutlineInputBorder(
+                      //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                      //         borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      //       ),
+                      //       enabled: true,
+                      //       filled: true,
+                      //       labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                      //       labelText: "Preparation Time",
+                      //       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                      //       errorMaxLines: 2,
+                      //       contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                      //       enabledBorder: const OutlineInputBorder(
+                      //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                      //         borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      //       ),
+                      //     ),
+                      //     validator: (gg) {
+                      //       if(controller.productDurationTypeValue.isNotEmpty && controller.productDurationValue.isEmpty){
+                      //         return "Please select preparation time";
+                      //       }
+                      //       return null;
+                      //     },
+                      //     items: controller.productDuration
+                      //         .map((label) => DropdownMenuItem(
+                      //               value: label,
+                      //               child: Text(
+                      //                 label.toString().capitalize!,
+                      //                 style: GoogleFonts.poppins(
+                      //                   color: const Color(0xff463B57),
+                      //                 ),
+                      //               ),
+                      //             ))
+                      //         .toList(),
+                      //     onChanged: (value) {
+                      //       if (value == null) return;
+                      //       controller.productDurationValue = value;
+                      //     },
+                      //   ),
+                      // ),
+
                       Expanded(
-                        child: DropdownButtonFormField<String>(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          value: controller.productDurationValue.isEmpty ? null : controller.productDurationValue,
-                          isExpanded: true,
-                          iconDisabledColor: const Color(0xff97949A),
-                          iconEnabledColor: const Color(0xff97949A),
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: AppTheme.secondaryColor),
-                            ),
-                            enabled: true,
-                            filled: true,
-                            labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                        child: VendorCommonTextfield(
+                            controller: controller.productDurationValueController,
+                            key: controller.productDurationValueController.getKey,
+                            keyboardType: TextInputType.number,
+                            hintText: "Preparation Time",
                             labelText: "Preparation Time",
-                            fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                            errorMaxLines: 2,
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: AppTheme.secondaryColor),
-                            ),
-                          ),
-                          validator: (gg) {
-                            if(controller.productDurationTypeValue.isNotEmpty && controller.productDurationValue.isEmpty){
-                              return "Please select preparation time";
-                            }
-                            return null;
-                          },
-                          items: controller.productDuration
-                              .map((label) => DropdownMenuItem(
-                                    value: label,
-                                    child: Text(
-                                      label.toString().capitalize!,
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xff463B57),
-                                      ),
-                                    ),
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            if (value == null) return;
-                            controller.productDurationValue = value;
-                          },
-                        ),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            validator: (value) {
+                              if (value!.trim().isEmpty && controller.productDurationTypeValue.isNotEmpty) {
+                                return "Please select preparation time";
+                              }
+                              // if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                              //   return "Enter valid return days";
+                              // }
+                              return null;
+                            }),
                       ),
                       const SizedBox(
                         width: 18,
@@ -332,7 +354,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                             ),
                           ),
                           validator: (gg) {
-                            if(controller.productDurationValue.isNotEmpty && controller.productDurationTypeValue.isEmpty){
+                            if(controller.productDurationValueController.text.trim().isNotEmpty && controller.productDurationTypeValue.isEmpty){
                               return "Please select preparation duration";
                             }
                             return null;

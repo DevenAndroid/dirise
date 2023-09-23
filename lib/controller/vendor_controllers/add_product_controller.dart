@@ -26,7 +26,8 @@ class AddProductController extends GetxController {
     "Pound",
   ];
 
-  String productDurationValue = "";
+  // String productDurationValue = "";
+  final TextEditingController productDurationValueController = TextEditingController();
   String productDurationTypeValue = "";
 
   List<String> productDuration = [];
@@ -193,7 +194,7 @@ class AddProductController extends GetxController {
     shortDescriptionController.text = item.shortDescription.toString();
     longDescriptionController.text = item.longDescription.toString();
     returnDaysController.text = item.returnDays.toString();
-    productDurationValue = (item.time ?? "").toString();
+    productDurationValueController.text = (item.time ?? "").toString();
     productDurationTypeValue = (item.time_period ?? "").toString();
     updateCategory();
     galleryImages.clear();
@@ -438,8 +439,8 @@ class AddProductController extends GetxController {
     map["weight"] = weightController.text.trim();
     map["weight_unit"] = weightUnit;
 
-    if(productDurationValue.isNotEmpty && productDurationValue != "none") {
-      map["time"] = productDurationValue;
+    if(productDurationValueController.text.isNotEmpty) {
+      map["time"] = productDurationValueController.text.trim();
     }
     if(productDurationTypeValue.isNotEmpty && productDurationTypeValue != "none") {
       map["time_period"] = productDurationTypeValue;
