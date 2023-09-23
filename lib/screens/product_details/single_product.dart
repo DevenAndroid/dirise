@@ -17,7 +17,7 @@ import '../../model/model_single_product.dart';
 import '../../model/order_models/model_direct_order_details.dart';
 import '../../model/product_model/model_product_element.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/loading_animation.dart';

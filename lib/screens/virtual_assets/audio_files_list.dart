@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/model_virtual_assets.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/styles.dart';
 import 'singlecategory_screen.dart';
 

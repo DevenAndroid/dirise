@@ -28,6 +28,7 @@ class VendorUser {
   dynamic firstName;
   dynamic lastName;
   dynamic email;
+  dynamic country_id;
   dynamic dob;
   dynamic countryCode;
   dynamic earnedBalance;
@@ -92,6 +93,7 @@ class VendorUser {
       {this.id,
         this.name,
         this.firstName,
+        this.country_id,
         this.lastName,
         this.email,
         this.dob,
@@ -157,6 +159,7 @@ class VendorUser {
   VendorUser.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    country_id = json['country_id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
     email = json['email'];
@@ -232,6 +235,7 @@ class VendorUser {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
+    data['country_id'] = country_id;
     data['first_name'] = firstName;
     data['last_name'] = lastName;
     data['email'] = email;
@@ -376,11 +380,11 @@ class Pivot {
 class VendorProfile {
   dynamic id;
   dynamic userId;
-  dynamic business_number;
-  dynamic account_number;
-  dynamic ibn_number;
-  dynamic bank_name;
-  dynamic account_holder_name;
+  dynamic businessNumber;
+  dynamic accountNumber;
+  dynamic ibnNumber;
+  dynamic bankName;
+  dynamic accountHolderName;
   dynamic home_address;
   dynamic workEmail;
   dynamic paymentCertificate;
@@ -408,12 +412,12 @@ class VendorProfile {
         this.userId,
         this.workEmail,
         this.paymentCertificate,
-        this.business_number,
+        this.businessNumber,
         this.home_address,
-        this.account_number,
-        this.ibn_number,
-        this.bank_name,
-        this.account_holder_name,
+        this.accountNumber,
+        this.ibnNumber,
+        this.bankName,
+        this.accountHolderName,
         this.ownerName,
         this.companyName,
         this.commercialLicense,
@@ -437,11 +441,11 @@ class VendorProfile {
     id = json['id'];
     userId = json['user_id'];
     home_address = json['home_address'];
-    business_number = json['business_number'];
-    account_number = json['account_number'];
-    ibn_number = json['ibn_number'];
-    bank_name = json['bank_name'];
-    account_holder_name = json['account_holder_name'];
+    businessNumber = json['business_number'];
+    accountNumber = json['account_number'];
+    ibnNumber = json['ibn_number'];
+    bankName = json['bank_name'];
+    accountHolderName = json['account_holder_name'];
     workEmail = json['work_email'];
     paymentCertificate = json['payment_certificate'];
     ownerName = json['owner_name'];

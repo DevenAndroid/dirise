@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../../model/common_modal.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/helper.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_textfield.dart';

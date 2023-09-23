@@ -4,7 +4,7 @@ import 'package:dirise/repository/repository.dart';
 import 'package:get/get.dart';
 
 import '../model/model_whishlist.dart';
-import '../utils/ApiConstant.dart';
+import '../utils/api_constant.dart';
 
 class WishListController extends GetxController {
   final Repositories repositories = Repositories();

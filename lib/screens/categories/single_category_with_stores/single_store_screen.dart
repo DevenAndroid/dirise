@@ -11,7 +11,7 @@ import '../../../model/model_store_products.dart';
 import '../../../model/product_model/model_product_element.dart';
 import '../../../model/vendor_models/model_single_vendor.dart';
 import '../../../repository/repository.dart';
-import '../../../utils/ApiConstant.dart';
+import '../../../utils/api_constant.dart';
 import '../../../widgets/cart_widget.dart';
 import '../../app_bar/common_app_bar.dart';
 import '../../check_out/add_bag_screen.dart';

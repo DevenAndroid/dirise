@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/screens/order_screens/selectd_order_screen.dart';
-import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/api_constant.dart';
 import 'package:dirise/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

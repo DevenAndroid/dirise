@@ -1,22 +1,25 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../controller/profile_controller.dart';
 import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../model/bank_details/model_bank_list.dart';
 import '../../model/common_modal.dart';
+import '../../model/customer_profile/model_country_list.dart';
 import '../../model/vendor_models/model_payment_method.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import '../../model/vendor_models/model_vendor_details.dart';
 import '../../model/vendor_models/model_vendor_registration.dart';
 import '../../model/vendor_models/vendor_category_model.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/notification_service.dart';
 import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
@@ -70,7 +73,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     }).then((value) {
       ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
       if (modelCommonResponse.uRL != null) {
-        Get.to(() => VendorPaymentScreen(
+        Get.to(() => PaymentScreen(
               paymentUrl: modelCommonResponse.uRL,
             ));
       }
@@ -175,12 +178,12 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     phoneNumber.text = vendorInfo.phone ?? "";
     emailAddress.text = vendorInfo.email ?? "";
     if (vendorInfo.vendorProfile != null) {
-      businessNumber.text = vendorInfo.vendorProfile!.business_number ?? "";
+      businessNumber.text = vendorInfo.vendorProfile!.businessNumber ?? "";
       homeAddress.text = vendorInfo.vendorProfile!.home_address ?? "";
-      bankId = vendorInfo.vendorProfile!.bank_name ?? "";
-      accountNumber.text = vendorInfo.vendorProfile!.account_number ?? "";
-      ibnNumber.text = vendorInfo.vendorProfile!.ibn_number ?? "";
-      accountHolderName.text = vendorInfo.vendorProfile!.account_holder_name ?? "";
+      bankId = vendorInfo.vendorProfile!.bankName ?? "";
+      accountNumber.text = vendorInfo.vendorProfile!.accountNumber ?? "";
+      ibnNumber.text = vendorInfo.vendorProfile!.ibnNumber ?? "";
+      accountHolderName.text = vendorInfo.vendorProfile!.accountHolderName ?? "";
       ceoName.text = (vendorInfo.vendorProfile!.ceoName ?? "").toString();
       partnerCount.text = (vendorInfo.vendorProfile!.partners ?? "").toString();
       paymentReceiptCertificate = File((vendorInfo.vendorProfile!.paymentCertificate ?? "").toString());
@@ -209,7 +212,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
     /// Validations
     if (!_formKey.currentState!.validate()) {
-      if(allSelectedCategory.isEmpty){
+      if (allSelectedCategory.isEmpty) {
         categoryKey.currentContext!.navigate;
       }
       if (selectedPlan == PlansType.advertisement) {
@@ -518,7 +521,113 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     super.initState();
     getBankList();
     getVendorCategories();
+    getCountryList();
   }
+
+  showAddressSelectorDialog({
+    required List<CommonAddressRelatedClass> addressList,
+    required String selectedAddressId,
+    required Function(String selectedId) selectedAddressIdPicked,
+  }) {
+    FocusManager.instance.primaryFocus!.unfocus();
+    final TextEditingController searchController = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            insetPadding: const EdgeInsets.all(18),
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: StatefulBuilder(builder: (context, newState) {
+                String gg = searchController.text.trim().toLowerCase();
+                List<CommonAddressRelatedClass> filteredList =
+                addressList.where((element) => element.title.toString().toLowerCase().contains(gg)).toList();
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextFormField(
+                      controller: searchController,
+                      onChanged: (gg) {
+                        newState(() {});
+                      },
+                      autofocus: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: AppTheme.buttonColor, width: 1.2)),
+                          enabled: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: AppTheme.buttonColor, width: 1.2)),
+                          suffixIcon: const Icon(Icons.search),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12)),
+                    ),
+                    Flexible(
+                        child: ListView.builder(
+                            itemCount: filteredList.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                // dense: true,
+                                onTap: () {
+                                  selectedAddressIdPicked(filteredList[index].addressId);
+                                  FocusManager.instance.primaryFocus!.unfocus();
+                                  Get.back();
+                                },
+                                leading: filteredList[index].flagUrl != null
+                                    ? SizedBox(
+                                    width: 30,
+                                    height: 30,
+                                    child: filteredList[index].flagUrl.toString().contains("svg")
+                                        ? SvgPicture.network(
+                                      filteredList[index].flagUrl.toString(),
+                                    )
+                                        : Image.network(
+                                      filteredList[index].flagUrl.toString(),
+                                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                    ))
+                                    : null,
+                                visualDensity: VisualDensity.compact,
+                                title: Text(filteredList[index].title),
+                                trailing: selectedAddressId == filteredList[index].addressId
+                                    ? const Icon(
+                                  Icons.check,
+                                  color: Colors.purple,
+                                )
+                                    : Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  size: 18,
+                                  color: Colors.grey.shade800,
+                                ),
+                              );
+                            }))
+                  ],
+                );
+              }),
+            ),
+          );
+        });
+  }
+
+  ModelCountryList? modelCountryList;
+  Country? selectedCountry;
+
+  getCountryList() {
+    if(modelCountryList != null)return;
+    repositories.getApi(url: ApiUrls.allCountriesUrl).then((value) {
+      modelCountryList = ModelCountryList.fromString(value);
+      for (var element in modelCountryList!.country!) {
+        log("message....     ${element.id.toString()}      ........      ${vendorInfo.country_id}");
+        if(element.id.toString() == (vendorInfo.country_id ?? "")){
+          selectedCountry = element;
+          setState(() {});
+          break;
+        }
+      }
+    });
+  }
+
+  bool get insideKuwait => selectedCountry == null ? false : selectedCountry!.name.toString() == "Kuwait";
 
   @override
   Widget build(BuildContext context) {
@@ -569,12 +678,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                               // planCard(),
                               Obx(() {
-                                if (kDebugMode) {
-                                  print(modelVendorCategory.usphone!
-                                      .map(
-                                          (e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
-                                      .toList());
-                                }
                                 return DropdownButtonFormField<VendorCategoriesData>(
                                   key: categoryKey,
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -627,6 +730,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   onChanged: (value) {
                                     // selectedCategory = value;
                                     if (value == null) return;
+                                    if(allSelectedCategory.isNotEmpty)return;
                                     allSelectedCategory[value.id.toString()] = value;
                                     setState(() {});
                                   },
@@ -652,7 +756,46 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                         }))
                                     .toList(),
                               ),
-                              if (allSelectedCategory.isNotEmpty) 14.spaceY,
+                              if (allSelectedCategory.isNotEmpty) 12.spaceY,
+                              // // Country Picker
+                              VendorCommonTextfield(
+                                  controller:
+                                      TextEditingController(text: selectedCountry != null ? selectedCountry!.name : ""),
+                                  // key: firstName.getKey,
+                                  hintText: "Select Country",
+                                  // prefix: selectedCountry != null
+                                  //     ? SizedBox(
+                                  //         width: 50,
+                                  //         child: Align(
+                                  //           alignment: Alignment.center,
+                                  //           child: Text(
+                                  //             NewHelper.countryCodeToEmoji(selectedCountry!.countryCode),
+                                  //             style: titleStyle,
+                                  //           ),
+                                  //         ),
+                                  //       )
+                                  //     : null,
+                                  readOnly: true,
+                                  onTap: () {
+                                    showAddressSelectorDialog(
+                                        addressList: modelCountryList!.country!
+                                            .map((e) => CommonAddressRelatedClass(
+                                            title: e.name.toString(), addressId: e.id.toString(), flagUrl: e.icon.toString()))
+                                            .toList(),
+                                        selectedAddressIdPicked: (String gg) {
+                                          String previous = ((selectedCountry ?? Country()).id ?? "").toString();
+                                          selectedCountry = modelCountryList!.country!
+                                              .firstWhere((element) => element.id.toString() == gg);
+                                        },
+                                        selectedAddressId: ((selectedCountry ?? Country()).id ?? "").toString());
+                                  },
+                                  validator: (value) {
+                                    if (selectedCountry == null) {
+                                      return "Please select Country";
+                                    }
+                                    return null;
+                                  }),
+                              14.spaceY,
                               if (selectedPlan == PlansType.advertisement) ...[
                                 // 14.spaceY,
                                 // First Name
@@ -1214,15 +1357,15 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
   bool get bankLoaded => modelBankList != null && modelBankList!.data != null && modelBankList!.data!.banks != null;
   bool errorResolved = false;
+
   resolveError() {
-    if (errorResolved) return;
     if (bankId.isEmpty) return;
     if (bankLoaded) {
       int temp = modelBankList!.data!.banks!.indexWhere((element) => element.id.toString() == bankId);
       if (temp == -1) {
         bankId = "";
       }
-      errorResolved = true;
+
     }
   }
 
@@ -1230,6 +1373,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     return [
       14.spaceY,
       //Bank List
+      insideKuwait ?
       Obx(() {
         if (bankListValue.value > 0) {}
         resolveError();
@@ -1237,8 +1381,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
           isExpanded: true,
           value: bankLoaded
               ? bankId.isNotEmpty
-                  ? bankId
-                  : null
+              ? bankId
+              : null
               : null,
           style: const TextStyle(color: Colors.red),
           decoration: InputDecoration(
@@ -1272,14 +1416,14 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
           icon: const Icon(Icons.keyboard_arrow_down),
           items: bankLoaded
               ? modelBankList!.data!.banks!
-                  .map((e) => DropdownMenuItem(
-                        value: e.id.toString(),
-                        child: Text(
-                          e.name.toString(),
-                          style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
-                        ),
-                      ))
-                  .toList()
+              .map((e) => DropdownMenuItem(
+            value: e.id.toString(),
+            child: Text(
+              e.name.toString(),
+              style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+            ),
+          ))
+              .toList()
               : [],
           validator: (value) {
             if (bankId.isEmpty) {
@@ -1293,7 +1437,19 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
             setState(() {});
           },
         );
-      }),
+      }) :
+      VendorCommonTextfield(
+          controller: TextEditingController(text: bankId),
+          hintText: "Bank Name",
+          onChanged: (value){
+            bankId = value;
+          },
+          validator: (value) {
+            if (bankId.trim().isEmpty) {
+              return "Please enter bank name";
+            }
+            return null;
+          }),
       14.spaceY,
       //accountNumber
       VendorCommonTextfield(

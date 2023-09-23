@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/repository/repository.dart';
-import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/api_constant.dart';
 import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/loading_animation.dart';
@@ -43,7 +43,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
     }).then((value) {
       ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
       if (modelCommonResponse.uRL != null) {
-        Get.to(() => VendorPaymentScreen(
+        Get.to(() => PaymentScreen(
               paymentUrl: modelCommonResponse.uRL,
             ));
       }
@@ -68,7 +68,9 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
     return WillPopScope(
       onWillPop: () async {
         Get.back();
-        Get.off(() => const VendorDashBoardScreen());
+        Get.back();
+        Get.back();
+        Get.to(() => const VendorDashBoardScreen());
         return false;
       },
       child: Scaffold(
@@ -86,7 +88,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
                   Get.back();
                   Get.back();
                   Get.to(() => const VendorDashBoardScreen());
-                  },
+                },
                 child: Text(
                   "Skip",
                   style: titleStyle,

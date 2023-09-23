@@ -4,7 +4,7 @@ import 'package:dirise/repository/repository.dart';
 import 'package:get/get.dart';
 
 import '../../model/vendor_models/model_vendor_dashboard.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 
 class VendorDashboardController extends GetxController {
   ModelVendorDashboard modelVendorDashboard = ModelVendorDashboard();

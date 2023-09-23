@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 import '../../../model/common_modal.dart';
-import '../../../utils/ApiConstant.dart';
+import '../../../utils/api_constant.dart';
 import '../../../widgets/common_colour.dart';
 import '../../controller/profile_controller.dart';
 import '../../model/vendor_models/model_plan_list.dart';
@@ -47,7 +47,10 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
         profileController.getDataProfile();
         Get.back();
         Get.back();
-        Get.off(() => ThankYouVendorScreen(planInfoData: selectedPlan,));
+        Get.back();
+        Get.back();
+        Get.back();
+        Get.to(() => ThankYouVendorScreen(planInfoData: selectedPlan,));
       }
     });
   }

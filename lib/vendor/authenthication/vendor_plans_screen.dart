@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/screens/app_bar/common_app_bar.dart';
-import 'package:dirise/utils/ApiConstant.dart';
+import 'package:dirise/utils/api_constant.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/common_colour.dart';

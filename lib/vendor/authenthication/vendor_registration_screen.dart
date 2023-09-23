@@ -6,14 +6,17 @@ import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../controller/profile_controller.dart';
 import '../../model/bank_details/model_bank_list.dart';
+import '../../model/customer_profile/model_country_list.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import '../../model/vendor_models/model_vendor_registration.dart';
 import '../../model/vendor_models/vendor_category_model.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../utils/helper.dart';
 import '../../utils/styles.dart';
 import '../../widgets/dimension_screen.dart';
@@ -45,6 +48,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   bool errorResolved = false;
   RxInt bankListValue = 0.obs;
 
+  bool get insideKuwait => selectedCountry == null ? false : selectedCountry!.name.toString() == "Kuwait";
 
   final _formKey = GlobalKey<FormState>();
   final GlobalKey categoryKey = GlobalKey();
@@ -87,7 +91,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   File optionalFile2 = File("");
   File optionalFile3 = File("");
 
-
   final TextEditingController accountNumber = TextEditingController();
   final TextEditingController ibnNumber = TextEditingController();
   final TextEditingController accountHolderName = TextEditingController();
@@ -114,8 +117,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
 
   PlansType selectedPlan = PlansType.personal;
 
-
-
   Future getBankList() async {
     await repositories.getApi(url: ApiUrls.bankListUrl).then((value) {
       modelBankList = ModelBankList.fromJson(jsonDecode(value));
@@ -131,8 +132,12 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
 
     /// Validations
     if (!_formKey.currentState!.validate()) {
-      if(allSelectedCategory.isEmpty){
+      if (allSelectedCategory.isEmpty) {
         categoryKey.currentContext!.navigate;
+      }
+      if (selectedCountry == null) {
+        categoryKey.currentContext!.navigate;
+        return;
       }
       if (selectedPlan == PlansType.advertisement) {
         // First Name
@@ -169,7 +174,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         // Phone Number
         if (emailAddress.checkBothWithEmail) return;
         // accountNumber
-        if (bankId.isEmpty){
+        if (bankId.isEmpty) {
           accountNumber.getKey.currentContext!.navigate;
           return;
         }
@@ -198,7 +203,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         // Work Email
         if (workEmail.checkBothWithEmail) return;
         // accountNumber
-        if (bankId.isEmpty){
+        if (bankId.isEmpty) {
           accountNumber.getKey.currentContext!.navigate;
           return;
         }
@@ -312,7 +317,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         'phone': phoneNumber.text.trim(),
         'store_name': storeName.text.trim(),
         'home_address': homeAddress.text.trim(),
-
         'account_number': accountNumber.text.trim(),
         'ibn_number': ibnNumber.text.trim(),
         'account_holder_name': accountHolderName.text.trim(),
@@ -330,7 +334,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         'work_address': workAddress.text.trim(),
         'work_email': workEmail.text.trim(),
         'business_number': businessNumber.text.trim(),
-
         'account_number': accountNumber.text.trim(),
         'ibn_number': ibnNumber.text.trim(),
         'account_holder_name': accountHolderName.text.trim(),
@@ -340,6 +343,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     }
 
     map["vendor_type"] = selectedPlan.name;
+    map["country_id"] = selectedCountry!.id.toString();
     map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
 
     /// Files upload map
@@ -350,7 +354,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     }
 
     if (selectedPlan == PlansType.company) {
-
       // Memorandum of Association ✅
       // Commercial license ✅
       // Signature approval ✅
@@ -411,6 +414,102 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     }
   }
 
+
+  showAddressSelectorDialog({
+    required List<CommonAddressRelatedClass> addressList,
+    required String selectedAddressId,
+    required Function(String selectedId) selectedAddressIdPicked,
+  }) {
+    FocusManager.instance.primaryFocus!.unfocus();
+    final TextEditingController searchController = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            insetPadding: const EdgeInsets.all(18),
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: StatefulBuilder(builder: (context, newState) {
+                String gg = searchController.text.trim().toLowerCase();
+                List<CommonAddressRelatedClass> filteredList =
+                addressList.where((element) => element.title.toString().toLowerCase().contains(gg)).toList();
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextFormField(
+                      controller: searchController,
+                      onChanged: (gg) {
+                        newState(() {});
+                      },
+                      autofocus: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: AppTheme.buttonColor, width: 1.2)),
+                          enabled: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: AppTheme.buttonColor, width: 1.2)),
+                          suffixIcon: const Icon(Icons.search),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12)),
+                    ),
+                    Flexible(
+                        child: ListView.builder(
+                            itemCount: filteredList.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                // dense: true,
+                                onTap: () {
+                                  selectedAddressIdPicked(filteredList[index].addressId);
+                                  FocusManager.instance.primaryFocus!.unfocus();
+                                  Get.back();
+                                },
+                                leading: filteredList[index].flagUrl != null
+                                    ? SizedBox(
+                                    width: 30,
+                                    height: 30,
+                                    child: filteredList[index].flagUrl.toString().contains("svg")
+                                        ? SvgPicture.network(
+                                      filteredList[index].flagUrl.toString(),
+                                    )
+                                        : Image.network(
+                                      filteredList[index].flagUrl.toString(),
+                                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                    ))
+                                    : null,
+                                visualDensity: VisualDensity.compact,
+                                title: Text(filteredList[index].title),
+                                trailing: selectedAddressId == filteredList[index].addressId
+                                    ? const Icon(
+                                  Icons.check,
+                                  color: Colors.purple,
+                                )
+                                    : Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  size: 18,
+                                  color: Colors.grey.shade800,
+                                ),
+                              );
+                            }))
+                  ],
+                );
+              }),
+            ),
+          );
+        });
+  }
+
+  ModelCountryList? modelCountryList;
+  Country? selectedCountry;
+
+  getCountryList() {
+    if(modelCountryList != null)return;
+    repositories.getApi(url: ApiUrls.allCountriesUrl).then((value) {
+      modelCountryList = ModelCountryList.fromString(value);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -422,6 +521,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     // vendorType= getVendorType;
     // storeType = widget.selectedPlan.businessType.toString();
     getVendorCategories();
+    getCountryList();
   }
 
   @override
@@ -457,15 +557,15 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         icon: vendorCategoryStatus.value.isLoading
                             ? const CupertinoActivityIndicator()
                             : vendorCategoryStatus.value.isError
-                            ? IconButton(
-                            onPressed: () => getVendorCategories(),
-                            padding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                            icon: const Icon(
-                              Icons.refresh,
-                              color: Colors.black,
-                            ))
-                            : const Icon(Icons.keyboard_arrow_down_rounded),
+                                ? IconButton(
+                                    onPressed: () => getVendorCategories(),
+                                    padding: EdgeInsets.zero,
+                                    visualDensity: VisualDensity.compact,
+                                    icon: const Icon(
+                                      Icons.refresh,
+                                      color: Colors.black,
+                                    ))
+                                : const Icon(Icons.keyboard_arrow_down_rounded),
                         iconSize: 30,
                         iconDisabledColor: const Color(0xff97949A),
                         iconEnabledColor: const Color(0xff97949A),
@@ -501,6 +601,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         onChanged: (value) {
                           // selectedCategory = value;
                           if (value == null) return;
+                          if(allSelectedCategory.isNotEmpty)return;
                           allSelectedCategory[value.id.toString()] = value;
                           setState(() {});
                         },
@@ -512,20 +613,65 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         },
                       );
                     }),
+                    if (allSelectedCategory.entries.isNotEmpty) ...[
+                      14.spaceY,
+                      StatefulBuilder(
+                        builder: (context, newState) {
+                          return Wrap(
+                            runSpacing: 0,
+                            spacing: 8,
+                            children: allSelectedCategory.entries
+                                .map((e) => Chip(
+                                    label: Text(e.value.name.toString().capitalize!),
+                                    labelPadding: const EdgeInsets.only(right: 4, left: 2),
+                                    onDeleted: () {
+                                      allSelectedCategory.remove(e.key);
+                                      newState(() {});
+                                    }))
+                                .toList(),
+                          );
+                        }
+                      ),
+                    ],
                     14.spaceY,
-                    Wrap(
-                      runSpacing: 0,
-                      spacing: 8,
-                      children: allSelectedCategory.entries
-                          .map((e) => Chip(
-                          label: Text(e.value.name.toString().capitalize!),
-                          labelPadding: const EdgeInsets.only(right: 4, left: 2),
-                          onDeleted: () {
-                            allSelectedCategory.remove(e.key);
-                            setState(() {});
-                          }))
-                          .toList(),
-                    ),
+                    // Country Picker
+                    VendorCommonTextfield(
+                        controller: TextEditingController(text: selectedCountry != null ? selectedCountry!.name : ""),
+                        // key: firstName.getKey,
+                        hintText: "Select Country",
+                        // prefix: selectedCountry != null
+                        //     ? SizedBox(
+                        //   width: 50,
+                        //   child: Align(
+                        //     alignment: Alignment.center,
+                        //     child: Text(
+                        //       NewHelper.countryCodeToEmoji(selectedCountry!.countryCode),
+                        //       style: titleStyle,
+                        //     ),
+                        //   ),
+                        // )
+                        //     : null,
+                        readOnly: true,
+                        onTap: () {
+                          showAddressSelectorDialog(
+                              addressList: modelCountryList!.country!
+                                  .map((e) => CommonAddressRelatedClass(
+                                  title: e.name.toString(), addressId: e.id.toString(), flagUrl: e.icon.toString()))
+                                  .toList(),
+                              selectedAddressIdPicked: (String gg) {
+                                selectedCountry = modelCountryList!.country!
+                                    .firstWhere((element) => element.id.toString() == gg);
+                                setState(() {});
+                              },
+                              selectedAddressId: ((selectedCountry ?? Country()).id ?? "").toString());
+                        },
+                        validator: (value) {
+                          if (selectedCountry == null) {
+                            return "Please select Country";
+                          }
+                          return null;
+                        }),
+
                     if (selectedPlan == PlansType.advertisement) ...[
                       14.spaceY,
                       // First Name
@@ -876,6 +1022,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: businessNumber,
                           key: businessNumber.getKey,
+                          keyboardType: TextInputType.number,
                           hintText: "Business Number",
                           validator: (value) {
                             if (value!.trim().isEmpty) {
@@ -920,8 +1067,13 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: taxNumber,
                           key: taxNumber.getKey,
+                          keyboardType: TextInputType.number,
                           hintText: "Tax number* (outside Kuwait)",
                           validator: (value) {
+                            if(selectedCountry == null)return null;
+                            if(!insideKuwait && value!.trim().isEmpty){
+                              return "Please enter Tax number, you are outside of Kuwait";
+                            }
                             return null;
                           }),
                       ...bankDetails(),
@@ -1084,15 +1236,15 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       ),
     ));
   }
-  resolveError(){
-    if(errorResolved)return;
-    if(bankId.isEmpty)return;
-    if(bankLoaded){
+
+  resolveError() {
+    if (bankId.isEmpty) return;
+    if (bankLoaded) {
       int temp = modelBankList!.data!.banks!.indexWhere((element) => element.id.toString() == bankId);
-      if(temp == -1){
+      if (temp == -1) {
         bankId = "";
       }
-      errorResolved = true;
+
     }
   }
 
@@ -1100,12 +1252,17 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     return [
       14.spaceY,
       //Bank List
+      insideKuwait ?
       Obx(() {
         if (bankListValue.value > 0) {}
         resolveError();
         return DropdownButtonFormField<String?>(
           isExpanded: true,
-          value: bankLoaded ? bankId.isNotEmpty ? bankId : null : null,
+          value: bankLoaded
+              ? bankId.isNotEmpty
+                  ? bankId
+                  : null
+              : null,
           style: const TextStyle(color: Colors.red),
           decoration: InputDecoration(
             hintText: "Please select bank",
@@ -1138,14 +1295,14 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
           icon: const Icon(Icons.keyboard_arrow_down),
           items: bankLoaded
               ? modelBankList!.data!.banks!
-              .map((e) => DropdownMenuItem(
-            value: e.id.toString(),
-            child: Text(
-              e.name.toString(),
-              style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
-            ),
-          ))
-              .toList()
+                  .map((e) => DropdownMenuItem(
+                        value: e.id.toString(),
+                        child: Text(
+                          e.name.toString(),
+                          style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+                        ),
+                      ))
+                  .toList()
               : [],
           validator: (value) {
             if (bankId.isEmpty) {
@@ -1154,17 +1311,30 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
             return null;
           },
           onChanged: (newValue) {
-            if(newValue == null)return;
+            if (newValue == null) return;
             bankId = newValue;
             setState(() {});
           },
         );
-      }),
+      }) :
+      VendorCommonTextfield(
+          controller: TextEditingController(text: bankId),
+          hintText: "Bank Name",
+          onChanged: (value){
+            bankId = value;
+          },
+          validator: (value) {
+            if (bankId.trim().isEmpty) {
+              return "Please enter bank name";
+            }
+            return null;
+          }),
       14.spaceY,
       //accountNumber
       VendorCommonTextfield(
           controller: accountNumber,
           key: accountNumber.getKey,
+          keyboardType: TextInputType.number,
           hintText: "Account Number",
           validator: (value) {
             if (value!.trim().isEmpty) {
@@ -1176,6 +1346,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       //ibnNumber
       VendorCommonTextfield(
           controller: ibnNumber,
+          keyboardType: TextInputType.number,
           key: ibnNumber.getKey,
           hintText: "IBM Number",
           validator: (value) {
@@ -1198,5 +1369,4 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
           }),
     ];
   }
-
 }

@@ -7,7 +7,7 @@ import '../../controller/cart_controller.dart';
 import '../../controller/wish_list_controller.dart';
 import '../../model/common_modal.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../widgets/cart_widget.dart';
 import '../product_details/product_widget.dart';
 
