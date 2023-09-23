@@ -157,19 +157,19 @@ class _AppBarScreenState extends State<AppBarScreen> {
                                       border: Border.all(color: Colors.grey)),
                                   child: Icon(
                                     Icons.person_2_rounded,
-                                    color: Colors.grey.shade700,
+                                    color: Colors.grey.shade500,
                                   )),
                         )),
                   ),
                 ),
-                Positioned(
-                    top: 9,
-                    child: Column(children: [
-                      Image.asset(
-                        'assets/icons/active.png',
-                        height: 12,
-                      ),
-                    ]))
+                // Positioned(
+                //     top: 9,
+                //     child: Column(children: [
+                //       Image.asset(
+                //         'assets/icons/active.png',
+                //         height: 12,
+                //       ),
+                //     ]))
               ],
             )
                 : const Padding(
