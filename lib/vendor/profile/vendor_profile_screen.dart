@@ -72,7 +72,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     }).then((value) {
       ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
       if (modelCommonResponse.uRL != null) {
-        Get.to(() => VendorPaymentScreen(
+        Get.to(() => PaymentScreen(
               paymentUrl: modelCommonResponse.uRL,
             ));
       }

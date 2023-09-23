@@ -11,15 +11,17 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../dashboard/dashboard_screen.dart';
 
-class VendorPaymentScreen extends StatefulWidget {
-  const VendorPaymentScreen({super.key, required this.paymentUrl});
+class PaymentScreen extends StatefulWidget {
+  const PaymentScreen({super.key, required this.paymentUrl, this.onSuccess, this.onFailed});
   final String paymentUrl;
+  final Function()? onSuccess;
+  final Function()? onFailed;
 
   @override
-  State<VendorPaymentScreen> createState() => _VendorPaymentScreenState();
+  State<PaymentScreen> createState() => _PaymentScreenState();
 }
 
-class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
+class _PaymentScreenState extends State<PaymentScreen> {
   WebViewController? controller;
   bool webLoaded = false;
 
@@ -27,6 +29,7 @@ class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      log("Received Url......     ${widget.paymentUrl}");
       controller = WebViewController()
         ..setNavigationDelegate(
           NavigationDelegate(
@@ -40,14 +43,18 @@ class _VendorPaymentScreenState extends State<VendorPaymentScreen> {
               log("Navigation Request....      ${request.url}");
               if (request.url.contains(navigationBackUrl)) {
                 showToast("Payment Successfully");
-                Get.back();
-                Get.back();
-                Get.back();
-                Get.back();
-                Get.back();
-                Get.back();
-                Get.back();
-                Get.to(() => const VendorDashBoardScreen());
+                if(widget.onSuccess == null) {
+                  Get.back();
+                  Get.back();
+                  Get.back();
+                  Get.back();
+                  Get.back();
+                  Get.back();
+                  Get.back();
+                  Get.to(() => const VendorDashBoardScreen());
+                } else {
+                  widget.onSuccess!();
+                }
                 return NavigationDecision.prevent;
               }
               if (request.url.contains(failureUrl)) {

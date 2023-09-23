@@ -13,6 +13,7 @@ import '../model/model_cart_response.dart';
 import '../model/order_models/place_order_response.dart';
 import '../screens/check_out/order_completed_screen.dart';
 import '../utils/api_constant.dart';
+import '../vendor/authenthication/payment_screen.dart';
 import '../vendor/authenthication/thanku_screen.dart';
 
 enum PurchaseType { buy, cart }
@@ -24,6 +25,12 @@ class CartController extends GetxController {
   bool apiLoaded = false;
   ModelUserAddressList addressListModel = ModelUserAddressList();
   bool addressLoaded = false;
+
+  AddressData selectedAddress = AddressData();
+  final GlobalKey addressKey = GlobalKey();
+  RxString deliveryOption = "".obs;
+
+  RxBool showValidation = false.obs;
 
   RxInt countDown = 30.obs;
   Timer? _timer;
@@ -79,7 +86,7 @@ class CartController extends GetxController {
       if (couponCode != null) "coupon_code": couponCode,
       "currency_code": currencyCode,
       "refund_amount_in": "bank",
-      "shipping_method": "test",
+      "shipping_method": "online",
       "currency_sign": "\$",
       'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
       'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
@@ -100,7 +107,12 @@ class CartController extends GetxController {
         if (dialogOpened) {
           Get.back();
         }
-        Get.offNamed(OrderCompleteScreen.route, arguments: response.order_id.toString());
+        Get.to(() => PaymentScreen(
+              paymentUrl: response.URL.toString(),
+              onSuccess: () {
+                Get.offNamed(OrderCompleteScreen.route, arguments: response.order_id.toString());
+              },
+            ));
       } else {
         if (response.message.toString().toLowerCase().contains("otp")) {
           startTimer();
@@ -170,7 +182,8 @@ class CartController extends GetxController {
                   15.spaceY,
                   Text(
                     AppStrings.doNotReceivedOtp,
-                    style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 16, fontWeight: FontWeight.w500),
+                    style:
+                        GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   TextButton(
                     onPressed: () async {
@@ -191,8 +204,8 @@ class CartController extends GetxController {
                     child: Obx(() => Text(
                           countDown.value != 0 ? "Resend OTP in ${countDown.value}s" : AppStrings.resendOtp,
                           textAlign: TextAlign.center,
-                          style:
-                              GoogleFonts.poppins(fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),
                         )),
                   ),
                   Row(
@@ -369,8 +382,7 @@ class CartController extends GetxController {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       getCart();
-    }).catchError((e) {
-    });
+    }).catchError((e) {});
     return false;
   }
 
