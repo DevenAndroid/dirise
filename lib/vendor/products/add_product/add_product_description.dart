@@ -185,7 +185,6 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       }
                       return null;
                     }),
-                // sadd
                 if (controller.productType == "Simple Product" || controller.productType == "Variants Product") ...[
                   18.spaceY,
                   VendorCommonTextfield(
@@ -253,6 +252,111 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                     },
                   ),
                 ],
+                18.spaceY,
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: DropdownButtonFormField<String>(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          value: controller.productDurationValue.isEmpty ? null : controller.productDurationValue,
+                          isExpanded: true,
+                          iconDisabledColor: const Color(0xff97949A),
+                          iconEnabledColor: const Color(0xff97949A),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: AppTheme.secondaryColor),
+                            ),
+                            enabled: true,
+                            filled: true,
+                            labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                            labelText: "Preparation Time",
+                            fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                            errorMaxLines: 2,
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: AppTheme.secondaryColor),
+                            ),
+                          ),
+                          validator: (gg) {
+                            if(controller.productDurationTypeValue.isNotEmpty && controller.productDurationValue.isEmpty){
+                              return "Please select preparation time";
+                            }
+                            return null;
+                          },
+                          items: controller.productDuration
+                              .map((label) => DropdownMenuItem(
+                                    value: label,
+                                    child: Text(
+                                      label.toString().capitalize!,
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xff463B57),
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            if (value == null) return;
+                            controller.productDurationValue = value;
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 18,
+                      ),
+                      Expanded(
+                        child: DropdownButtonFormField<String>(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          value: controller.productDurationTypeValue.isEmpty ? null : controller.productDurationTypeValue,
+                          isExpanded: true,
+                          iconDisabledColor: const Color(0xff97949A),
+                          iconEnabledColor: const Color(0xff97949A),
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: AppTheme.secondaryColor),
+                            ),
+                            enabled: true,
+                            filled: true,
+                            errorMaxLines: 2,
+                            labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                            labelText: "Preparation Duration",
+                            fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                            enabledBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: AppTheme.secondaryColor),
+                            ),
+                          ),
+                          validator: (gg) {
+                            if(controller.productDurationValue.isNotEmpty && controller.productDurationTypeValue.isEmpty){
+                              return "Please select preparation duration";
+                            }
+                            return null;
+                          },
+                          items: controller.productDurationType
+                              .map((label) => DropdownMenuItem(
+                                    value: label.toLowerCase(),
+                                    child: Text(
+                                      label.toString().capitalize!,
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xff463B57),
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            if (value == null) return;
+                            controller.productDurationTypeValue = value;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 18.spaceY,
                 Obx(() {
                   if (controller.refreshCategory.value > 0) {}

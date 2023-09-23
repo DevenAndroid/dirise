@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,7 +6,6 @@ import 'package:lottie/lottie.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/wish_list_controller.dart';
 import '../../model/common_modal.dart';
-import '../../model/product_model/model_product_element.dart';
 import '../../repository/repository.dart';
 import '../../utils/ApiConstant.dart';
 import '../../widgets/cart_widget.dart';

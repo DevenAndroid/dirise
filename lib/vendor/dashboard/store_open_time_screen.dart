@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/vendor_controllers/vendor_store_timing.dart';
-import '../../model/vendor_models/model_store_availability.dart';
 import '../../widgets/customsize.dart';
 import '../../widgets/loading_animation.dart';
 

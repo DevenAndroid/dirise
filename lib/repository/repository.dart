@@ -296,18 +296,22 @@ class Repositories {
       Helpers.hideLoader(loader);
       if (response.statusCode == 200) {
         return value;
-      } else if (response.statusCode == 401) {
+      }
+      else if (response.statusCode == 401) {
         logOutUser();
         throw Exception(value);
-      } else {
+      }
+      else {
         Helpers.hideLoader(loader);
         throw Exception(value);
       }
-    } on SocketException catch (e) {
+    } on
+    SocketException catch (e) {
       Helpers.hideLoader(loader);
       showToast("No Internet Access");
       throw Exception(e);
-    } catch (e) {
+    }
+    catch (e) {
       Helpers.hideLoader(loader);
       showToast("Something went wrong.....${e.toString().substring(0, math.min(e.toString().length, 50))}");
       throw Exception(e);

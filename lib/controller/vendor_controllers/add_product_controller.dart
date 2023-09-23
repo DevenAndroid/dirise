@@ -18,9 +18,24 @@ import '../../vendor/products/add_product/varient_product/varient_product.dart';
 import 'products_controller.dart';
 
 class AddProductController extends GetxController {
+  // Gram Kilogram Pound
+
   List<String> gg = [
-    "gram",
-    "kilogram",
+    "Gram",
+    "Kilogram",
+    "Pound",
+  ];
+
+  String productDurationValue = "";
+  String productDurationTypeValue = "";
+
+  List<String> productDuration = [];
+
+  List<String> productDurationType = [
+    "None",
+    "Hours",
+    "Days",
+    "Months"
   ];
 
   ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
@@ -151,7 +166,6 @@ class AddProductController extends GetxController {
 
   }
 
-
   updateControllers() {
     if (productDetails.product == null) return;
     ModelVendorProductDetailsData item = productDetails.product!;
@@ -166,19 +180,21 @@ class AddProductController extends GetxController {
       productType = "Booking Product";
       serviceTimeSloat = item.serviceTimeSloat ?? [];
     }
-    productNameController.text = item.pname.toString();
+    productNameController.text = item.pName.toString();
     weightController.text = (item.weight ?? "").toString();
-    weightUnit = (item.weight_unit ?? "").toString();
+    weightUnit = (item.weightUnit ?? "").toString();
     if(!gg.contains(weightUnit)){
       gg.add(weightUnit);
     }
-    skuController.text = item.sku_id.toString();
-    purchasePriceController.text = (item.p_price ?? "").toString();
+    skuController.text = item.skuId.toString();
+    purchasePriceController.text = (item.pPrice ?? "").toString();
     sellingPriceController.text = item.sPrice.toString();
     stockController.text = item.inStock.toString();
     shortDescriptionController.text = item.shortDescription.toString();
     longDescriptionController.text = item.longDescription.toString();
     returnDaysController.text = item.returnDays.toString();
+    productDurationValue = (item.time ?? "").toString();
+    productDurationTypeValue = (item.time_period ?? "").toString();
     updateCategory();
     galleryImages.clear();
     for (var element in item.galleryImage!) {
@@ -338,6 +354,7 @@ class AddProductController extends GetxController {
         }
       }
 
+      categoryKey.currentContext!.navigate;
       return;
     }
 
@@ -420,6 +437,13 @@ class AddProductController extends GetxController {
     map["product_type"] = productType.replaceAll("Product", "").replaceAll("Simple", "single").trim().toLowerCase();
     map["weight"] = weightController.text.trim();
     map["weight_unit"] = weightUnit;
+
+    if(productDurationValue.isNotEmpty && productDurationValue != "none") {
+      map["time"] = productDurationValue;
+    }
+    if(productDurationTypeValue.isNotEmpty && productDurationTypeValue != "none") {
+      map["time_period"] = productDurationTypeValue;
+    }
 
     if (productType.replaceAll("Product", "").trim().toLowerCase() == "virtual") {
       // "virtual_product"
@@ -573,4 +597,16 @@ class AddProductController extends GetxController {
       virtualRefreshInt.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
+
+  @override
+  void onInit() {
+    super.onInit();
+    productDuration.clear();
+    productDuration.add("none");
+    for(var i = 0; i < 100; i++){
+      productDuration.add((i+1).toString());
+    }
+  }
+
+
 }

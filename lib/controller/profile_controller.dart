@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -96,7 +97,7 @@ class ProfileController extends GetxController {
     if (userLoggedIn) {
       await repositories.postApi(url: ApiUrls.userProfile).then((value) {
         model = ProfileModel.fromJson(jsonDecode(value));
-        print(model.user!.firstName);
+        if (kDebugMode) print(model.user!.firstName);
         apiLoaded = true;
         updateUI();
       });

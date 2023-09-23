@@ -125,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 18),
+                      const SizedBox(height: 18),
                       ...profileCard(
                         imagePath: "assets/svgs/profile.svg",
                         title: 'First Name',
@@ -149,7 +149,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ...profileCard(
                         imagePath: "assets/svgs/city.svg",
                         title: 'State/City',
-                        value: "${profileController.model.user!.state_name}, ${profileController.model.user!.city_name}",
+                        value:
+                            "${profileController.model.user!.state_name}, ${profileController.model.user!.city_name}",
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/country.svg",
@@ -188,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required String imagePath,
     required String title,
     required String value,
-}) {
+  }) {
     return [
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,

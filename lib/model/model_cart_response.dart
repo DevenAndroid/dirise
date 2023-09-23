@@ -142,8 +142,8 @@ class SellersData {
   bool? inWishlist;
   dynamic currencySign;
   dynamic currencyCode;
-  List<Null>? attributes;
-  List<Null>? variants;
+  List<void>? attributes;
+  List<void>? variants;
 
   SellersData(
       {this.id,

@@ -1,5 +1,4 @@
 import 'product_model/model_product_element.dart';
-import 'trending_products_modal.dart';
 
 class ModelSingleProduct {
   bool? status;

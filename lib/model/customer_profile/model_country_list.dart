@@ -13,7 +13,7 @@ class ModelCountryList {
     if (json['country'] != null) {
       country = <Country>[];
       json['country'].forEach((v) {
-        country!.add(new Country.fromJson(v));
+        country!.add(Country.fromJson(v));
       });
     }
   }
@@ -25,17 +25,17 @@ class ModelCountryList {
     if (json['country'] != null) {
       country = <Country>[];
       json['country'].forEach((v) {
-        country!.add(new Country.fromJson(v));
+        country!.add(Country.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.country != null) {
-      data['country'] = this.country!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    if (country != null) {
+      data['country'] = country!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -79,17 +79,17 @@ class Country {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['sortname'] = this.sortname;
-    data['name'] = this.name;
-    data['country_code'] = this.countryCode;
-    data['url'] = this.url;
-    data['flag_img'] = this.flagImg;
-    data['icon'] = this.icon;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['deleted_at'] = this.deletedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['sortname'] = sortname;
+    data['name'] = name;
+    data['country_code'] = countryCode;
+    data['url'] = url;
+    data['flag_img'] = flagImg;
+    data['icon'] = icon;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['deleted_at'] = deletedAt;
     return data;
   }
 }

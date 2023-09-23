@@ -28,6 +28,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   void initState() {
     super.initState();
+    controller.productDurationValue = "";
+    controller.productDurationTypeValue = "";
     controller.valuesAssigned = false;
     controller.getProductDetails();
     controller.getProductAttributes();

@@ -39,6 +39,7 @@ class VendorProfileScreen extends StatefulWidget {
 }
 
 class _VendorProfileScreenState extends State<VendorProfileScreen> {
+
   String get planId => widget.planId!;
 
   final vendorProfileController = Get.put(VendorProfileController());

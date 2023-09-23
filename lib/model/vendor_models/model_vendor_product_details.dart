@@ -26,10 +26,12 @@ class ModelVendorProductDetailsData {
   int? catId;
   String? brandSlug;
   String? slug;
-  String? pname;
-  dynamic sku_id;
+  String? pName;
+  dynamic skuId;
+  dynamic time;
+  dynamic time_period;
   dynamic bookingProductType;
-  int? p_price;
+  int? pPrice;
   int? sPrice;
   String? productType;
   String? shortDescription;
@@ -40,7 +42,7 @@ class ModelVendorProductDetailsData {
   String? virtualProductFile;
   dynamic virtualProductFileType;
   dynamic weight;
-  dynamic weight_unit;
+  dynamic weightUnit;
   String? inStock;
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
@@ -50,14 +52,16 @@ class ModelVendorProductDetailsData {
   ModelVendorProductDetailsData(
       {this.catId,
       this.brandSlug,
+      this.time,
+      this.time_period,
       this.slug,
-      this.pname,
+      this.pName,
       this.weight,
-      this.sku_id,
-      this.weight_unit,
+      this.skuId,
+      this.weightUnit,
       this.bookingProductType,
       this.variantData,
-      this.p_price,
+      this.pPrice,
       this.sPrice,
       this.productType,
       this.shortDescription,
@@ -74,14 +78,16 @@ class ModelVendorProductDetailsData {
 
   ModelVendorProductDetailsData.fromJson(Map<String, dynamic> json) {
     catId = json['cat_id'];
-    weight_unit = json['weight_unit'];
+    time = json['time'];
+    time_period = json['time_period'];
+    weightUnit = json['weight_unit'];
     weight = json['weight'];
     brandSlug = json['brand_slug'];
     slug = json['slug'];
-    pname = json['pname'];
-    sku_id = json['sku_id'];
+    pName = json['pname'];
+    skuId = json['sku_id'];
     bookingProductType = json['booking_product_type'];
-    p_price = json['p_price'];
+    pPrice = json['p_price'];
     sPrice = json['s_price'];
     productType = json['product_type'];
     shortDescription = json['short_description'];
@@ -113,14 +119,16 @@ class ModelVendorProductDetailsData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['cat_id'] = catId;
+    data['time'] = time;
+    data['time_period'] = time_period;
     data['brand_slug'] = brandSlug;
     data['weight'] = weight;
-    data['weight_unit'] = weight_unit;
+    data['weight_unit'] = weightUnit;
     data['slug'] = slug;
-    data['pname'] = pname;
-    data['sku_id'] = sku_id;
+    data['pname'] = pName;
+    data['sku_id'] = skuId;
     data['booking_product_type'] = bookingProductType;
-    data['p_price'] = p_price;
+    data['p_price'] = pPrice;
     data['s_price'] = sPrice;
     data['product_type'] = productType;
     data['short_description'] = shortDescription;
