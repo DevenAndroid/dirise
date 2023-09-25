@@ -45,17 +45,17 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        const ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            child: Image(image: AssetImage('assets/images/storybooks.png'))),
+                        // const SizedBox(
+                        //   height: 5,
+                        // ),
+                        // const ClipRRect(
+                        //     borderRadius: BorderRadius.all(Radius.circular(10)),
+                        //     child: Image(image: AssetImage('assets/images/storybooks.png'))),
                         const SizedBox(
                           height: 20,
                         ),
                         Text(
-                          "What are you  looking for ... we back you !",
+                          "What are you looking for ... we back you!",
                           style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18),
                         ),
                         const SizedBox(

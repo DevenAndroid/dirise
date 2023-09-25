@@ -3,6 +3,7 @@ import 'package:dirise/screens/auth_screens/login_screen.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -588,7 +589,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         },
                         child: Row(
                           children: [
-                            Image.asset(height: 25, 'assets/icons/aboutus.png'),
+                            SvgPicture.asset(height: 24, 'assets/svgs/about.svg'),
                             const SizedBox(
                               width: 20,
                             ),
