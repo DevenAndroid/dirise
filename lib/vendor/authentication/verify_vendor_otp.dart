@@ -10,7 +10,7 @@ import '../../../widgets/common_colour.dart';
 import '../../controller/profile_controller.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import '../../repository/repository.dart';
-import 'thanku_screen.dart';
+import 'thank_you_screen.dart';
 
 class VendorOTPVerification extends StatefulWidget {
   static String route = "/VendorOTPVerification";

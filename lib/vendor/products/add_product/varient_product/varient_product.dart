@@ -12,7 +12,7 @@ import '../../../../model/vendor_models/model_attribute.dart';
 import '../../../../model/vendor_models/model_varient.dart';
 import '../../../../widgets/common_colour.dart';
 import '../../../../widgets/vendor_common_textfield.dart';
-import '../../../authenthication/image_widget.dart';
+import '../../../authentication/image_widget.dart';
 
 extension ToSimpleMap on Map<String, GetAttrvalues> {
   Map<String, String> get toSimpleMap {

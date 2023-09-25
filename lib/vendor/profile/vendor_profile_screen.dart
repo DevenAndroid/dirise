@@ -25,10 +25,10 @@ import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
 import '../../widgets/vendor_common_textfield.dart';
-import '../authenthication/image_widget.dart';
-import '../authenthication/payment_screen.dart';
-import '../authenthication/thanku_screen.dart';
-import '../authenthication/vendor_registration_screen.dart';
+import '../authentication/image_widget.dart';
+import '../authentication/payment_screen.dart';
+import '../authentication/thank_you_screen.dart';
+import '../authentication/vendor_registration_screen.dart';
 
 class VendorProfileScreen extends StatefulWidget {
   const VendorProfileScreen({super.key, this.selectedPlan, this.planId});

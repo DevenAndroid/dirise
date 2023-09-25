@@ -13,8 +13,8 @@ import '../../model/common_modal.dart';
 import '../../model/vendor_models/model_payment_method.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import '../../utils/api_constant.dart';
-import '../authenthication/payment_screen.dart';
-import '../authenthication/thanku_screen.dart';
+import '../authentication/payment_screen.dart';
+import '../authentication/thank_you_screen.dart';
 
 class EditVendorPlan extends StatefulWidget {
   const EditVendorPlan({super.key, required this.selectedPlanId});

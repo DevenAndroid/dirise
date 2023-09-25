@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dirise/screens/app_bar/common_app_bar.dart';
 import 'package:dirise/utils/api_constant.dart';
-import 'package:dirise/vendor/authenthication/thanku_screen.dart';
+import 'package:dirise/vendor/authentication/thank_you_screen.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
