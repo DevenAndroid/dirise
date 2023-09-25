@@ -227,7 +227,10 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
               controller: tabController,
               children: modelPlansList!.allPlans.map((e) {
                 bool allowSelect = false;
-                if (selectedPlan1!.businessType.toString().toLowerCase() == "advertisement") {
+                if(selectedPlan1 == null){
+                  allowSelect = true;
+                }
+                else if (selectedPlan1!.businessType.toString().toLowerCase() == "advertisement") {
                   allowSelect = true;
                 } else if (selectedPlan1!.businessType.toString().toLowerCase() == "personal") {
                   if (e!.first.businessType.toString() != "advertisement") {
