@@ -28,9 +28,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   void initState() {
     super.initState();
+    controller.productType = "Simple Product";
+    controller.resetValues();
     controller.productDurationValueController.text = "";
     controller.productDurationTypeValue = "";
     controller.valuesAssigned = false;
+    controller.apiLoaded = false;
     controller.getProductDetails();
     controller.getProductAttributes();
   }
@@ -104,7 +107,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
             if (controller.refreshInt.value > 0) {}
             return controller.apiLoaded
                 ? RefreshIndicator(
-                    onRefresh: () async => await controller.getProductCategoryLit(),
+                    onRefresh: () async {
+                      await controller.getProductCategoryLit();
+                      await controller.getProductAttributes();
+                    },
                     child: SingleChildScrollView(
                         child: Form(
                       key: controller.formKey,

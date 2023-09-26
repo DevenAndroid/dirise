@@ -40,423 +40,427 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
         elevation: 3,
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding20),
-            child: Column(children: [
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                DropdownButtonFormField<String>(
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  iconDisabledColor: const Color(0xff97949A),
-                  iconEnabledColor: const Color(0xff97949A),
-                  value: controller.productType,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    filled: true,
-                    fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                    focusedErrorBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                    errorBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                    focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                    disabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: AppTheme.secondaryColor),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: AppTheme.secondaryColor),
-                    ),
-                  ),
-                  items: productTypes
-                      .map((label) => DropdownMenuItem(
-                            value: label,
-                            child: Text(
-                              label.toString(),
-                              style: GoogleFonts.poppins(
-                                color: const Color(0xff463B57),
-                              ),
-                            ),
-                          ))
-                      .toList(),
-                  hint: const Text('Rating'),
-                  onChanged: (value) {
-                    if (value == null) return;
-                    controller.productType = value;
-                    controller.updateUI;
-                    setState(() {});
-                  },
-                ),
-                18.spaceY,
-                VendorCommonTextfield(
-                    controller: controller.productNameController,
-                    key: controller.productNameController.getKey,
-                    hintText: "Enter Product Name",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Product name is required";
-                      }
-                      return null;
-                    }),
-                18.spaceY,
-                VendorCommonTextfield(
-                    controller: controller.skuController,
-                    key: controller.skuController.getKey,
-                    hintText: "Enter SKU",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "SKU is required";
-                      }
-                      return null;
-                    }),
-                // 18.spaceY,
-                // VendorCommonTextfield(
-                //     controller: controller.priceController,
-                //     key: controller.priceController.getKey,
-                //     keyboardType: TextInputType.number,
-                //     hintText: "Price",
-                //     validator: (value) {
-                //       if (value!.trim().isEmpty) {
-                //         return "Price is required";
-                //       }
-                //       if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                //         return "Enter valid price";
-                //       }
-                //       return null;
-                //     }),
-                18.spaceY,
-                VendorCommonTextfield(
-                    controller: controller.purchasePriceController,
-                    key: controller.purchasePriceController.getKey,
-                    keyboardType: TextInputType.number,
-                    hintText: "Purchase Price",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Purchase price is required";
-                      }
-                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                        return "Enter valid purchased price";
-                      }
-                      return null;
-                    }),
-                18.spaceY,
-                VendorCommonTextfield(
-                    controller: controller.sellingPriceController,
-                    key: controller.sellingPriceController.getKey,
-                    keyboardType: TextInputType.number,
-                    hintText: "Selling Price",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Selling price is required";
-                      }
-                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                        return "Enter valid selling price";
-                      }
-                      return null;
-                    }),
-                18.spaceY,
-                VendorCommonTextfield(
-                    controller: controller.stockController,
-                    key: controller.stockController.getKey,
-                    keyboardType: TextInputType.number,
-                    hintText: "Stock Quantity",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Stock quantity is required";
-                      }
-                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                        return "Enter valid stock quantity";
-                      }
-                      return null;
-                    }),
-                18.spaceY,
-                VendorCommonTextfield(
-                    controller: controller.returnDaysController,
-                    key: controller.returnDaysController.getKey,
-                    keyboardType: TextInputType.number,
-                    hintText: "Return Days",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Return days is required";
-                      }
-                      if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                        return "Enter valid return days";
-                      }
-                      return null;
-                    }),
-                if (controller.productType == "Simple Product" || controller.productType == "Variants Product") ...[
-                  18.spaceY,
-                  VendorCommonTextfield(
-                      controller: controller.weightController,
-                      key: controller.weightController.getKey,
-                      keyboardType: TextInputType.number,
-                      hintText: "Weight",
-                      validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Product weight is required";
-                        }
-                        if (double.tryParse(value.trim()) == null) {
-                          return "Please enter valid weight";
-                        }
-                        // if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                        //   return "Enter valid return days";
-                        // }
-                        return null;
-                      }),
-                  18.spaceY,
+            child: Obx(() {
+              if (controller.refreshInt.value > 0) {}
+              return Column(children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   DropdownButtonFormField<String>(
-                    key: controller.weightUnitKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    isExpanded: true,
+                    icon: const Icon(Icons.keyboard_arrow_down),
                     iconDisabledColor: const Color(0xff97949A),
                     iconEnabledColor: const Color(0xff97949A),
+                    value: controller.productType,
                     decoration: InputDecoration(
-                      border: const OutlineInputBorder(
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                      focusedErrorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      errorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                      focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                      disabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: AppTheme.secondaryColor),
                       ),
-                      enabled: true,
-                      filled: true,
-                      hintText: "Weight Unit",
-                      labelStyle: GoogleFonts.poppins(color: Colors.black),
-                      labelText: "Weight Unit",
-                      fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                       enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: AppTheme.secondaryColor),
                       ),
                     ),
-                    value: controller.weightUnit.isEmpty ? null : controller.weightUnit,
-                    validator: (gg) {
-                      if (controller.weightUnit.isEmpty) {
-                        return "Please select weight unit";
-                      }
-                      return null;
-                    },
-                    items: controller.gg
+                    items: productTypes
                         .map((label) => DropdownMenuItem(
                               value: label,
                               child: Text(
-                                label.toString().capitalize!,
+                                label.toString(),
                                 style: GoogleFonts.poppins(
                                   color: const Color(0xff463B57),
                                 ),
                               ),
                             ))
                         .toList(),
+                    hint: const Text('Rating'),
                     onChanged: (value) {
                       if (value == null) return;
-                      controller.weightUnit = value;
+                      controller.productType = value;
+                      controller.updateUI;
+                      setState(() {});
                     },
                   ),
-                ],
-                18.spaceY,
-                IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Expanded(
-                      //   child: DropdownButtonFormField<String>(
-                      //     autovalidateMode: AutovalidateMode.onUserInteraction,
-                      //     value: controller.productDurationValue.isEmpty ? null : controller.productDurationValue,
-                      //     isExpanded: true,
-                      //     iconDisabledColor: const Color(0xff97949A),
-                      //     iconEnabledColor: const Color(0xff97949A),
-                      //     decoration: InputDecoration(
-                      //       border: const OutlineInputBorder(
-                      //         borderRadius: BorderRadius.all(Radius.circular(8)),
-                      //         borderSide: BorderSide(color: AppTheme.secondaryColor),
-                      //       ),
-                      //       enabled: true,
-                      //       filled: true,
-                      //       labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
-                      //       labelText: "Preparation Time",
-                      //       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                      //       errorMaxLines: 2,
-                      //       contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                      //       enabledBorder: const OutlineInputBorder(
-                      //         borderRadius: BorderRadius.all(Radius.circular(8)),
-                      //         borderSide: BorderSide(color: AppTheme.secondaryColor),
-                      //       ),
-                      //     ),
-                      //     validator: (gg) {
-                      //       if(controller.productDurationTypeValue.isNotEmpty && controller.productDurationValue.isEmpty){
-                      //         return "Please select preparation time";
-                      //       }
-                      //       return null;
-                      //     },
-                      //     items: controller.productDuration
-                      //         .map((label) => DropdownMenuItem(
-                      //               value: label,
-                      //               child: Text(
-                      //                 label.toString().capitalize!,
-                      //                 style: GoogleFonts.poppins(
-                      //                   color: const Color(0xff463B57),
-                      //                 ),
-                      //               ),
-                      //             ))
-                      //         .toList(),
-                      //     onChanged: (value) {
-                      //       if (value == null) return;
-                      //       controller.productDurationValue = value;
-                      //     },
-                      //   ),
-                      // ),
-
-                      Expanded(
-                        child: VendorCommonTextfield(
-                            controller: controller.productDurationValueController,
-                            key: controller.productDurationValueController.getKey,
-                            keyboardType: TextInputType.number,
-                            hintText: "Preparation Time",
-                            labelText: "Preparation Time",
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            validator: (value) {
-                              if (value!.trim().isEmpty && controller.productDurationTypeValue.isNotEmpty) {
-                                return "Please select preparation time";
-                              }
-                              // if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                              //   return "Enter valid return days";
-                              // }
-                              return null;
-                            }),
-                      ),
-                      const SizedBox(
-                        width: 18,
-                      ),
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          value: controller.productDurationTypeValue.isEmpty ? null : controller.productDurationTypeValue,
-                          isExpanded: true,
-                          iconDisabledColor: const Color(0xff97949A),
-                          iconEnabledColor: const Color(0xff97949A),
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: AppTheme.secondaryColor),
-                            ),
-                            enabled: true,
-                            filled: true,
-                            errorMaxLines: 2,
-                            labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
-                            labelText: "Preparation Duration",
-                            fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                            enabledBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              borderSide: BorderSide(color: AppTheme.secondaryColor),
-                            ),
-                          ),
-                          validator: (gg) {
-                            if(controller.productDurationValueController.text.trim().isNotEmpty && controller.productDurationTypeValue.isEmpty){
-                              return "Please select preparation duration";
-                            }
-                            return null;
-                          },
-                          items: controller.productDurationType
-                              .map((label) => DropdownMenuItem(
-                                    value: label.toLowerCase(),
-                                    child: Text(
-                                      label.toString().capitalize!,
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xff463B57),
-                                      ),
-                                    ),
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            if (value == null) return;
-                            controller.productDurationTypeValue = value;
-                          },
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.productNameController,
+                      key: controller.productNameController.getKey,
+                      hintText: "Enter Product Name",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Product name is required";
+                        }
+                        return null;
+                      }),
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.skuController,
+                      key: controller.skuController.getKey,
+                      hintText: "Enter SKU",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "SKU is required";
+                        }
+                        return null;
+                      }),
+                  // 18.spaceY,
+                  // VendorCommonTextfield(
+                  //     controller: controller.priceController,
+                  //     key: controller.priceController.getKey,
+                  //     keyboardType: TextInputType.number,
+                  //     hintText: "Price",
+                  //     validator: (value) {
+                  //       if (value!.trim().isEmpty) {
+                  //         return "Price is required";
+                  //       }
+                  //       if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                  //         return "Enter valid price";
+                  //       }
+                  //       return null;
+                  //     }),
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.purchasePriceController,
+                      key: controller.purchasePriceController.getKey,
+                      keyboardType: TextInputType.number,
+                      hintText: "Purchase Price",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Purchase price is required";
+                        }
+                        if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                          return "Enter valid purchased price";
+                        }
+                        return null;
+                      }),
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.sellingPriceController,
+                      key: controller.sellingPriceController.getKey,
+                      keyboardType: TextInputType.number,
+                      hintText: "Selling Price",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Selling price is required";
+                        }
+                        if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                          return "Enter valid selling price";
+                        }
+                        return null;
+                      }),
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.stockController,
+                      key: controller.stockController.getKey,
+                      keyboardType: TextInputType.number,
+                      hintText: "Stock Quantity",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Stock quantity is required";
+                        }
+                        if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                          return "Enter valid stock quantity";
+                        }
+                        return null;
+                      }),
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.returnDaysController,
+                      key: controller.returnDaysController.getKey,
+                      keyboardType: TextInputType.number,
+                      hintText: "Return Days",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Return days is required";
+                        }
+                        if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                          return "Enter valid return days";
+                        }
+                        return null;
+                      }),
+                  if (controller.productType == "Simple Product" || controller.productType == "Variants Product") ...[
+                    18.spaceY,
+                    VendorCommonTextfield(
+                        controller: controller.weightController,
+                        key: controller.weightController.getKey,
+                        keyboardType: TextInputType.number,
+                        hintText: "Weight",
+                        validator: (value) {
+                          if (value!.trim().isEmpty) {
+                            return "Product weight is required";
+                          }
+                          if (double.tryParse(value.trim()) == null) {
+                            return "Please enter valid weight";
+                          }
+                          // if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                          //   return "Enter valid return days";
+                          // }
+                          return null;
+                        }),
+                    18.spaceY,
+                    DropdownButtonFormField<String>(
+                      key: controller.weightUnitKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      isExpanded: true,
+                      iconDisabledColor: const Color(0xff97949A),
+                      iconEnabledColor: const Color(0xff97949A),
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
+                        enabled: true,
+                        filled: true,
+                        hintText: "Weight Unit",
+                        labelStyle: GoogleFonts.poppins(color: Colors.black),
+                        labelText: "Weight Unit",
+                        fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                18.spaceY,
-                Obx(() {
-                  if (controller.refreshCategory.value > 0) {}
-                  return DropdownButtonFormField<String>(
-                    key: controller.categoryKey,
-                    icon: controller.refreshCategory.value == -2
-                        ? const CupertinoActivityIndicator()
-                        : const Icon(Icons.keyboard_arrow_down),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    isExpanded: true,
-                    iconDisabledColor: const Color(0xff97949A),
-                    iconEnabledColor: const Color(0xff97949A),
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: AppTheme.secondaryColor),
-                      ),
-                      enabled: true,
-                      filled: true,
-                      hintText: "Category",
-                      labelStyle: GoogleFonts.poppins(color: Colors.black),
-                      labelText: "Category",
-                      fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: AppTheme.secondaryColor),
-                      ),
-                    ),
-                    value: controller.selectedCategory.isEmpty ? null : controller.selectedCategory,
-                    validator: (gg) {
-                      if (controller.selectedCategory.isEmpty) {
-                        return "Please select product category";
-                      }
-                      return null;
-                    },
-                    items: controller.productCategory.data!
-                        .map((label) => DropdownMenuItem(
-                              value: label.id.toString(),
-                              child: Text(
-                                label.title.toString(),
-                                style: GoogleFonts.poppins(
-                                  color: const Color(0xff463B57),
+                      value: controller.weightUnit.isEmpty ? null : controller.weightUnit,
+                      validator: (gg) {
+                        if (controller.weightUnit.isEmpty) {
+                          return "Please select weight unit";
+                        }
+                        return null;
+                      },
+                      items: controller.gg
+                          .map((label) => DropdownMenuItem(
+                                value: label,
+                                child: Text(
+                                  label.toString().capitalize!,
+                                  style: GoogleFonts.poppins(
+                                    color: const Color(0xff463B57),
+                                  ),
                                 ),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        controller.weightUnit = value;
+                      },
+                    ),
+                  ],
+                  18.spaceY,
+                  IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Expanded(
+                        //   child: DropdownButtonFormField<String>(
+                        //     autovalidateMode: AutovalidateMode.onUserInteraction,
+                        //     value: controller.productDurationValue.isEmpty ? null : controller.productDurationValue,
+                        //     isExpanded: true,
+                        //     iconDisabledColor: const Color(0xff97949A),
+                        //     iconEnabledColor: const Color(0xff97949A),
+                        //     decoration: InputDecoration(
+                        //       border: const OutlineInputBorder(
+                        //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                        //         borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        //       ),
+                        //       enabled: true,
+                        //       filled: true,
+                        //       labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                        //       labelText: "Preparation Time",
+                        //       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                        //       errorMaxLines: 2,
+                        //       contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                        //       enabledBorder: const OutlineInputBorder(
+                        //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                        //         borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        //       ),
+                        //     ),
+                        //     validator: (gg) {
+                        //       if(controller.productDurationTypeValue.isNotEmpty && controller.productDurationValue.isEmpty){
+                        //         return "Please select preparation time";
+                        //       }
+                        //       return null;
+                        //     },
+                        //     items: controller.productDuration
+                        //         .map((label) => DropdownMenuItem(
+                        //               value: label,
+                        //               child: Text(
+                        //                 label.toString().capitalize!,
+                        //                 style: GoogleFonts.poppins(
+                        //                   color: const Color(0xff463B57),
+                        //                 ),
+                        //               ),
+                        //             ))
+                        //         .toList(),
+                        //     onChanged: (value) {
+                        //       if (value == null) return;
+                        //       controller.productDurationValue = value;
+                        //     },
+                        //   ),
+                        // ),
+
+                        Expanded(
+                          child: VendorCommonTextfield(
+                              controller: controller.productDurationValueController,
+                              key: controller.productDurationValueController.getKey,
+                              keyboardType: TextInputType.number,
+                              hintText: "Preparation Time",
+                              labelText: "Preparation Time",
+                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                              validator: (value) {
+                                if (value!.trim().isEmpty && controller.productDurationTypeValue.isNotEmpty) {
+                                  return "Please select preparation time";
+                                }
+                                // if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                                //   return "Enter valid return days";
+                                // }
+                                return null;
+                              }),
+                        ),
+                        const SizedBox(
+                          width: 18,
+                        ),
+                        Expanded(
+                          child: DropdownButtonFormField<String>(
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            value: controller.productDurationTypeValue.isEmpty
+                                ? null
+                                : controller.productDurationTypeValue,
+                            isExpanded: true,
+                            iconDisabledColor: const Color(0xff97949A),
+                            iconEnabledColor: const Color(0xff97949A),
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                borderSide: BorderSide(color: AppTheme.secondaryColor),
                               ),
-                            ))
-                        .toList(),
-                    onChanged: (value) {
-                      if (value == null) return;
-                      controller.selectedCategory = value;
-                    },
-                  );
-                }),
-                18.spaceY,
-                VendorCommonTextfield(
-                    controller: controller.shortDescriptionController,
-                    key: controller.shortDescriptionController.getKey,
-                    hintText: "Short Description",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Short description is required";
-                      }
-                      return null;
-                    }),
-                18.spaceY,
-                VendorCommonTextfield(
-                    controller: controller.longDescriptionController,
-                    key: controller.longDescriptionController.getKey,
-                    maxLength: 5000,
-                    isMulti: true,
-                    hintText: "Long Description",
-                    validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Long description is required";
-                      }
-                      return null;
-                    }),
-              ])
-            ])));
+                              enabled: true,
+                              filled: true,
+                              errorMaxLines: 2,
+                              labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
+                              labelText: "Preparation Duration",
+                              fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                borderSide: BorderSide(color: AppTheme.secondaryColor),
+                              ),
+                            ),
+                            validator: (gg) {
+                              if (controller.productDurationValueController.text.trim().isNotEmpty &&
+                                  controller.productDurationTypeValue.isEmpty) {
+                                return "Please select preparation duration";
+                              }
+                              return null;
+                            },
+                            items: controller.productDurationType
+                                .map((label) => DropdownMenuItem(
+                                      value: label.toLowerCase(),
+                                      child: Text(
+                                        label.toString().capitalize!,
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xff463B57),
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              if (value == null) return;
+                              controller.productDurationTypeValue = value;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  18.spaceY,
+                  Obx(() {
+                    if (controller.refreshCategory.value > 0) {}
+                    return DropdownButtonFormField<String>(
+                      key: controller.categoryKey,
+                      icon: controller.refreshCategory.value == -2
+                          ? const CupertinoActivityIndicator()
+                          : const Icon(Icons.keyboard_arrow_down),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      isExpanded: true,
+                      iconDisabledColor: const Color(0xff97949A),
+                      iconEnabledColor: const Color(0xff97949A),
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
+                        enabled: true,
+                        filled: true,
+                        hintText: "Category",
+                        labelStyle: GoogleFonts.poppins(color: Colors.black),
+                        labelText: "Category",
+                        fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
+                      ),
+                      value: controller.selectedCategory.isEmpty ? null : controller.selectedCategory,
+                      validator: (gg) {
+                        if (controller.selectedCategory.isEmpty) {
+                          return "Please select product category";
+                        }
+                        return null;
+                      },
+                      items: controller.productCategory.data!
+                          .map((label) => DropdownMenuItem(
+                                value: label.id.toString(),
+                                child: Text(
+                                  label.title.toString(),
+                                  style: GoogleFonts.poppins(
+                                    color: const Color(0xff463B57),
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        controller.selectedCategory = value;
+                      },
+                    );
+                  }),
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.shortDescriptionController,
+                      key: controller.shortDescriptionController.getKey,
+                      hintText: "Short Description",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Short description is required";
+                        }
+                        return null;
+                      }),
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.longDescriptionController,
+                      key: controller.longDescriptionController.getKey,
+                      maxLength: 5000,
+                      isMulti: true,
+                      hintText: "Long Description",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Long description is required";
+                        }
+                        return null;
+                      }),
+                ])
+              ]);
+            })));
   }
 }

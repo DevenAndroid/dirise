@@ -50,7 +50,8 @@ class _PlanWidgetState extends State<PlanWidget> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (vendorProfileController.model.user!.planStartDate != null) ...[
+                              if (vendorProfileController.model.user!.planStartDate != null)
+                                ...[
                                 const Text("Plan Start Date"),
                                 Text(
                                   vendorProfileController.model.user!.planStartDate.toString().capitalize!,
@@ -105,9 +106,11 @@ class _PlanWidgetState extends State<PlanWidget> {
                                           ),
                                         )),
                                   ),
+                                  if(vendorProfileController.model.user!.vendorType.toString().toLowerCase() != "company")
                                   const SizedBox(
                                     width: 16,
                                   ),
+                                  if(vendorProfileController.model.user!.vendorType.toString().toLowerCase() != "company")
                                   Expanded(
                                     child: OutlinedButton(
                                         onPressed: () {

@@ -1,6 +1,7 @@
 class ModelPlansList {
   bool? status;
   Plans? plans;
+  PlansDiscount? plansDiscount;
   List<List<PlanInfoData>?> get allPlans => plans!.plants!.entries.map((e) => e.value).toList();
 
   ModelPlansList({this.status, this.plans});
@@ -8,6 +9,7 @@ class ModelPlansList {
   ModelPlansList.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     plans = json['Plans'] != null ? Plans.fromJson(json['Plans']) : null;
+    plansDiscount = json["Plan-discount"] != null ? PlansDiscount.fromJson(json["Plan-discount"]) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -24,12 +26,27 @@ class Plans {
   Plans.fromJson(Map<String, dynamic> json){
     for (var element in json.entries) {
       List<PlanInfoData> temp = [];
-      element.value.forEach((v) {
-        temp.add(PlanInfoData.fromJson(v));
-      });
+      if(element.value.toString().length > 20) {
+        element.value.forEach((v) {
+          temp.add(PlanInfoData.fromJson(v));
+        });
       plants ??= {};
       plants![element.key] = temp;
+      }
     }
+  }
+}
+
+class PlansDiscount {
+  String? companyDiscount;
+  String? personalDiscount;
+
+  PlansDiscount({
+    this.companyDiscount,
+    this.personalDiscount});
+  PlansDiscount.fromJson(Map<String, dynamic> json){
+    companyDiscount = json['company_discount'];
+    personalDiscount = json['personal_discount'];
   }
 }
 

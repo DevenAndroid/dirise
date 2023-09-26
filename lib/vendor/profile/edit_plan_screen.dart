@@ -225,19 +225,26 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
       body: modelPlansList != null
           ? TabBarView(
               controller: tabController,
-              children: modelPlansList!.allPlans.map((e) {
+              children: modelPlansList!.allPlans.asMap().entries.map((e) {
                 bool allowSelect = false;
-                if(selectedPlan1 == null){
-                  allowSelect = true;
+                bool showDiscount = true;
+                if(selectedPlan1 != null && selectedPlan1!.businessType.toString().toLowerCase() == e.value!.first.businessType.toString().toLowerCase()){
+                  showDiscount = false;
                 }
-                else if (selectedPlan1!.businessType.toString().toLowerCase() == "advertisement") {
+                if(selectedPlan1 == null){
+                  showDiscount = false;
+                }
+
+                if (selectedPlan1 == null) {
+                  allowSelect = true;
+                } else if (selectedPlan1!.businessType.toString().toLowerCase() == "advertisement") {
                   allowSelect = true;
                 } else if (selectedPlan1!.businessType.toString().toLowerCase() == "personal") {
-                  if (e!.first.businessType.toString() != "advertisement") {
+                  if (e.value!.first.businessType.toString() != "advertisement") {
                     allowSelect = true;
                   }
                 } else if (selectedPlan1!.businessType.toString().toLowerCase() == "company") {
-                  if (e!.first.businessType.toString() == "company") {
+                  if (e.value!.first.businessType.toString() == "company") {
                     allowSelect = true;
                   }
                 }
@@ -250,7 +257,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 24),
                         child: Text(
-                          e!.first.businessType.toString().capitalize!,
+                          e.value!.first.businessType.toString().capitalize!,
                           style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w600,
                               fontSize: 20,
@@ -271,24 +278,43 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15),
-                              child: Text(
-                                'PLANS',
-                                style: GoogleFonts.poppins(
-                                  color: const Color(0xFF111727),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'PLANS',
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xFF111727),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                  if (allowSelect && modelPlansList!.plansDiscount != null && showDiscount)
+                                    Text(
+                                      e.key == 1
+                                          ? "${modelPlansList!.plansDiscount!.companyDiscount} %Off"
+                                          : e.key == 2
+                                              ? "${modelPlansList!.plansDiscount!.personalDiscount} %Off"
+                                              : "",
+                                      style: GoogleFonts.poppins(
+                                        color: const Color(0xFF111727),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                ],
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
-                                children: e
+                                children: e.value!
                                     .asMap()
                                     .entries
                                     .map((e1) => GestureDetector(
                                           onTap: () {
-                                            if(!allowSelect)return;
+                                            if (!allowSelect) return;
                                             selectedPlan = e1.value;
                                             setState(() {});
                                           },

@@ -43,10 +43,15 @@ class AddProductController extends GetxController {
   RxInt refreshCategory = 0.obs;
 
   getProductAttributes() {
+    log("this is product modelAttributes.....       $modelAttributes");
     repositories.getApi(url: ApiUrls.getAttributeUrl).then((value) {
       modelAttributes = ModelAttributes.fromJson(jsonDecode(value));
-      updateVariants();
+      log("this is product modelAttributes.....       $value");
+      log("this is product modelAttributes.....       ${modelAttributes.data!.map((e) => e.id.toString())}");
+      // updateVariants();
       attributeRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    }).catchError((e){
+      throw Exception(e);
     });
   }
 
@@ -124,6 +129,23 @@ class AddProductController extends GetxController {
     variation.value = DateTime.now().millisecondsSinceEpoch;
   }
 
+  resetValues(){
+    startTime.text = "";
+    endTime.text = "";
+    serviceDuration.text = "";
+    startDate.text = "";
+    endDate.text = "";
+    productNameController.text = "";
+    skuController.text = "";
+    purchasePriceController.text = "";
+    sellingPriceController.text = "";
+    stockController.text = "";
+    shortDescriptionController.text = "";
+    longDescriptionController.text = "";
+    returnDaysController.text = "";
+    weightController.text = "";
+  }
+
   bool valuesAssigned = false;
 
   updateVariants(){
@@ -181,12 +203,14 @@ class AddProductController extends GetxController {
       productType = "Booking Product";
       serviceTimeSloat = item.serviceTimeSloat ?? [];
     }
+    updateUI;
     productNameController.text = item.pName.toString();
     weightController.text = (item.weight ?? "").toString();
     weightUnit = (item.weightUnit ?? "").toString();
     if(!gg.contains(weightUnit)){
       gg.add(weightUnit);
     }
+    updateUI;
     skuController.text = item.skuId.toString();
     purchasePriceController.text = (item.pPrice ?? "").toString();
     sellingPriceController.text = item.sPrice.toString();
@@ -194,7 +218,7 @@ class AddProductController extends GetxController {
     shortDescriptionController.text = item.shortDescription.toString();
     longDescriptionController.text = item.longDescription.toString();
     returnDaysController.text = item.returnDays.toString();
-    productDurationValueController.text = (item.time ?? "").toString();
+    productDurationValueController.text = (item.time ?? "").toString() == "0" ? "" : (item.time ?? "").toString();
     productDurationTypeValue = (item.time_period ?? "").toString();
     updateCategory();
     galleryImages.clear();

@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Dirise',
       locale: const Locale('en', 'US'),
       theme: ThemeData(
           fontFamily: GoogleFonts.poppins().fontFamily,

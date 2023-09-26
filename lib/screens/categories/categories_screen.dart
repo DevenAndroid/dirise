@@ -61,63 +61,59 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        SizedBox(
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.only(bottom: 25),
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: homeController.vendorCategory.usphone!.length,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 10, mainAxisExtent: 80),
-                            itemBuilder: (BuildContext context, int index) {
-                              final item = homeController.vendorCategory.usphone![index];
-                              return InkWell(
-                                onTap: () {
-                                  Get.to(() => SingleCategories(
-                                        vendorCategories: item,
-                                      ));
-                                },
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: const Color(0xffEBF1F4).withOpacity(.5)),
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: context.getSize.width * .5 * .3,
-                                        child: Hero(
-                                          tag: item.bannerProfile.toString(),
-                                          child: Material(
-                                            color: Colors.transparent,
-                                            surfaceTintColor: Colors.transparent,
-                                            child: CachedNetworkImage(
-                                              imageUrl: item.bannerProfile.toString(),
-                                              height: 50,
-                                            ),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.only(bottom: 25),
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: homeController.vendorCategory.usphone!.length,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 10, mainAxisExtent: 80),
+                          itemBuilder: (BuildContext context, int index) {
+                            final item = homeController.vendorCategory.usphone![index];
+                            return InkWell(
+                              onTap: () {
+                                Get.to(() => SingleCategories(
+                                      vendorCategories: item,
+                                    ));
+                              },
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: const Color(0xffEBF1F4).withOpacity(.5)),
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: context.getSize.width * .5 * .3,
+                                      child: Hero(
+                                        tag: item.bannerProfile.toString(),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          surfaceTintColor: Colors.transparent,
+                                          child: CachedNetworkImage(
+                                            imageUrl: item.bannerProfile.toString(),
+                                            height: 50,
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 10,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        item.name.toString(),
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                       ),
-                                      Expanded(
-                                        child: Text(
-                                          item.name.toString(),
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                              color: const Color(0xff014E70)),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ).animate(delay: Duration(milliseconds: index * 80)).scale(duration: 500.ms);
-                            },
-                          ),
+                              ),
+                            ).animate(delay: Duration(milliseconds: index * 80)).scale(duration: 500.ms);
+                          },
                         ),
                         const SizedBox(
                           height: 60,

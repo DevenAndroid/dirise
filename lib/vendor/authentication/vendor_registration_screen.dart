@@ -69,27 +69,11 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController emailAddress = TextEditingController();
 
-  final TextEditingController optional1Plan1 = TextEditingController();
-  final TextEditingController optional2Plan1 = TextEditingController();
-  final TextEditingController optional3Plan1 = TextEditingController();
-
-  final TextEditingController optional1Plan2 = TextEditingController();
-  final TextEditingController optional2Plan2 = TextEditingController();
-  final TextEditingController optional3Plan2 = TextEditingController();
-
-  // final TextEditingController optional1Plan3 = TextEditingController();
-  // final TextEditingController accountNumber = TextEditingController();
-  final TextEditingController optional2Plan3 = TextEditingController();
-  final TextEditingController optional3Plan3 = TextEditingController();
-
   /// Vendor 2 Fields and rest are from above
   final TextEditingController ceoName = TextEditingController();
   final TextEditingController partnerCount = TextEditingController();
   File paymentReceiptCertificate = File("");
   final GlobalKey paymentReceiptCertificateKey = GlobalKey();
-  File optionalFile1 = File("");
-  File optionalFile2 = File("");
-  File optionalFile3 = File("");
 
   final TextEditingController accountNumber = TextEditingController();
   final TextEditingController ibnNumber = TextEditingController();
@@ -754,42 +738,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             }
                             return null;
                           }),
-                      14.spaceY,
-                      //Optional1
-                      VendorCommonTextfield(
-                          controller: optional1Plan1,
-                          key: optional1Plan1.getKey,
-                          hintText: "Optional1",
-                          validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
-                            return null;
-                          }),
-                      14.spaceY,
-                      //Optional2
-                      VendorCommonTextfield(
-                          controller: optional2Plan1,
-                          key: optional2Plan1.getKey,
-                          hintText: "Optional2",
-                          validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
-                            return null;
-                          }),
-                      14.spaceY,
-                      //Optional3
-                      VendorCommonTextfield(
-                          controller: optional3Plan1,
-                          key: optional3Plan1.getKey,
-                          hintText: "Optional3",
-                          validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
-                            return null;
-                          }),
                     ],
                     if (selectedPlan == PlansType.personal) ...[
                       14.spaceY,
@@ -845,7 +793,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       //#Partners
                       VendorCommonTextfield(
                           controller: partnerCount,
-                          keyboardType: TextInputType.name,
+                          keyboardType: TextInputType.number,
                           key: partnerCount.getKey,
                           hintText: "#Partners",
                           validator: (value) {
@@ -900,42 +848,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             return null;
                           }),
                       ...bankDetails(),
-                      14.spaceY,
-                      //Optional1
-                      VendorCommonTextfield(
-                          controller: optional1Plan2,
-                          key: optional1Plan2.getKey,
-                          hintText: "Optional1",
-                          validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
-                            return null;
-                          }),
-                      14.spaceY,
-                      //Optional2
-                      VendorCommonTextfield(
-                          controller: optional2Plan2,
-                          key: optional2Plan2.getKey,
-                          hintText: "Optional2",
-                          validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
-                            return null;
-                          }),
-                      14.spaceY,
-                      //Optional3
-                      VendorCommonTextfield(
-                          controller: optional3Plan2,
-                          key: optional3Plan2.getKey,
-                          hintText: "Optional3",
-                          validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
-                            return null;
-                          }),
                       ImageWidget(
                         key: paymentReceiptCertificateKey,
                         title: "Payment Receipt Certificate",
@@ -943,14 +855,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         validation: checkValidation(showValidation.value, paymentReceiptCertificate.path.isEmpty),
                         filePicked: (File g) {
                           paymentReceiptCertificate = g;
-                        },
-                      ),
-                      ImageWidget(
-                        title: "Optional",
-                        file: optionalFile1,
-                        validation: false,
-                        filePicked: (File g) {
-                          optionalFile1 = g;
                         },
                       ),
                     ],
@@ -1077,30 +981,6 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             return null;
                           }),
                       ...bankDetails(),
-                      14.spaceY,
-                      //Optional2
-                      VendorCommonTextfield(
-                          controller: optional2Plan3,
-                          key: optional2Plan3.getKey,
-                          hintText: "Optional2",
-                          validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
-                            return null;
-                          }),
-                      14.spaceY,
-                      //Optional3
-                      VendorCommonTextfield(
-                          controller: optional3Plan3,
-                          key: optional3Plan3.getKey,
-                          hintText: "Optional3",
-                          validator: (value) {
-                            // if (value!.trim().isEmpty) {
-                            //   return "Please enter home address";
-                            // }
-                            return null;
-                          }),
                       // memorandumAssociation
                       // commercialLicense
                       // signatureApproval
