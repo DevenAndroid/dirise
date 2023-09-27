@@ -153,6 +153,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         });
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -515,36 +516,36 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
+}
 
-  List<Widget> fieldWithName(
-      {required String title,
+List<Widget> fieldWithName(
+    {required String title,
       required String hintText,
       required TextEditingController controller,
       FormFieldValidator<String>? validator,
       bool? readOnly,
-        TextInputType? keyboardType,
+      TextInputType? keyboardType,
       VoidCallback? onTap,
       Widget? suffixIcon}) {
-    return [
-      Text(
-        title,
-        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
-      ),
-      const SizedBox(
-        height: 5,
-      ),
-      CommonTextField(
-        onTap: onTap,
-        hintText: hintText,
-        keyboardType: keyboardType,
-        controller: controller,
-        validator: validator,
-        readOnly: readOnly ?? false,
-        suffixIcon: suffixIcon,
-      ),
-      const SizedBox(
-        height: 12,
-      ),
-    ];
-  }
+  return [
+    Text(
+      title,
+      style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+    ),
+    const SizedBox(
+      height: 5,
+    ),
+    CommonTextField(
+      onTap: onTap,
+      hintText: hintText,
+      keyboardType: keyboardType,
+      controller: controller,
+      validator: validator,
+      readOnly: readOnly ?? false,
+      suffixIcon: suffixIcon,
+    ),
+    const SizedBox(
+      height: 12,
+    ),
+  ];
 }

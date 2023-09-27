@@ -86,7 +86,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                               borderRadius: BorderRadius.circular(12),
                                               child: Image.network(
                                                 product.featuredImage.toString(),
-                                                fit: BoxFit.fill,
+                                                fit: BoxFit.contain,
                                                 errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                                               ),
                                             ),

@@ -119,7 +119,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         shrinkWrap: true,
         slivers: [
           const AddressScreen(),
-          // SliverToBoxAdapter(child: addressPart(size)),
           30.spaceY.toBoxAdapter,
           paymentMethod(size).toBoxAdapter,
           deliveryInstruction().toBoxAdapter,

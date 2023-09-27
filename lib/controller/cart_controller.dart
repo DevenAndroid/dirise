@@ -321,24 +321,42 @@ class CartController extends GetxController {
       required String title,
       required BuildContext context,
       id}) {
-    Map<String, dynamic> map = {};
+    final map = {
+      if(id != null)
+        'id': id,
+      'first_name': firstName,
+      'last_name': lastName,
+      'phone': phone,
+      'alternate_phone': alternatePhone,
+      'address_type': 'shipping',
+      'address': address,
+      'address2': address2,
+      'zip_code': zipCode,
+      'landmark': landmark,
+      'title': title,
+      'country_id': country,
+      'state_id': state,
+      'city_id': city
+    };
 
-    if (id != null) {
-      map["id"] = id;
-    }
-    map["first_name"] = firstName;
-    map["last_name"] = lastName;
-    map["phone"] = phone;
-    map["alternate_phone"] = alternatePhone;
-    map["address"] = address;
-    map["address2"] = address2;
-    map["city"] = city;
-    map["address_type"] = "shipping";
-    map["country"] = country;
-    map["state"] = state;
-    map["zip_code"] = zipCode;
-    map["landmark"] = landmark;
-    map["title"] = title;
+    // Map<String, dynamic> map = {};
+    //
+    // if (id != null) {
+    //   map["id"] = id;
+    // }
+    // map["first_name"] = firstName;
+    // map["last_name"] = lastName;
+    // map["phone"] = phone;
+    // map["alternate_phone"] = alternatePhone;
+    // map["address"] = address;
+    // map["address2"] = address2;
+    // map["city"] = city;
+    // map["address_type"] = "shipping";
+    // map["country"] = country;
+    // map["state"] = state;
+    // map["zip_code"] = zipCode;
+    // map["landmark"] = landmark;
+    // map["title"] = title;
 
     repositories.postApi(url: ApiUrls.editAddressUrl, context: context, mapData: map).then((value) {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
