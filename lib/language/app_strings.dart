@@ -91,5 +91,8 @@ class AppStrings{
       static String shopNow = "Shop now!";
       static String notNyProduct = "Store don't have any product";
       static String vendorRegister = "To register as vendor partner need to create an account first.";
+      static String storeDontHaveAnyProduct = "Store don't have any product";
+      static String fiftyOff = "50% off";
+      static String ecstasy165days = "Ecstasy 165 days ";
 
 }
