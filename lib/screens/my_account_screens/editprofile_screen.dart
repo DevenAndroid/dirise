@@ -12,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/profile_controller.dart';
+import '../../language/app_strings.dart';
 import '../../model/customer_profile/model_city_list.dart';
 import '../../model/customer_profile/model_state_list.dart';
 import '../../repository/repository.dart';
@@ -197,7 +198,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Edit profile',
+          AppStrings.editProfile,
           style: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
         ),
         centerTitle: true,
@@ -303,8 +304,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ],
               ),
               ...fieldWithName(
-                title: 'First Name',
-                hintText: 'Enter First Name',
+                title: AppStrings.firstName,
+                hintText: AppStrings.enterFirstName,
                 controller: firstNameController,
                 validator: (v) {
                   if (v!.trim().isEmpty) {
@@ -314,19 +315,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 },
               ),
               ...fieldWithName(
-                title: 'Last Name',
-                hintText: 'Enter Last Name',
+                title: AppStrings.lastName,
+                hintText: AppStrings.lastName,
                 controller: lastNameController,
                 validator: (v) {
                   if (v!.trim().isEmpty) {
-                    return "Please enter your last name";
+                    return AppStrings.pleaseenteryourlastname;
                   }
                   return null;
                 },
               ),
               ...fieldWithName(
-                title: 'Email',
-                hintText: 'Enter Email',
+                title: AppStrings.email,
+                hintText: AppStrings.enterEmail,
                 readOnly: true,
                 controller: emailController,
                 validator: (v) {
@@ -340,22 +341,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 },
               ),
               ...fieldWithName(
-                title: 'Phone Number',
-                hintText: 'Enter Phone Number',
+                title: AppStrings.phoneNumber,
+                hintText: AppStrings.enterPhoneNumber,
                 controller: phoneController,
                 validator: (v) {
                   if (v!.trim().isEmpty) {
-                    return "Please enter phone number";
+                    return AppStrings.pleaseenterphonenumber;
                   }
                   if (v.trim().length < 10) {
-                    return "Please enter valid phone number";
+                    return AppStrings.pleaseentervalidphonenumber;
                   }
                   return null;
                 },
               ),
               ...fieldWithName(
-                title: 'Country/Region',
-                hintText: 'Select Country',
+                title: AppStrings.country,
+                hintText: AppStrings.selectCountry,
                 readOnly: true,
                 onTap: () {
                   showAddressSelectorDialog(
@@ -379,20 +380,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 controller: TextEditingController(text: (profileController.selectedCountry ?? Country()).name ?? ""),
                 validator: (v) {
                   if (v!.trim().isEmpty) {
-                    return "Please select country";
+                    return AppStrings.pleaseselectcountry;
                   }
                   return null;
                 },
               ),
               ...fieldWithName(
-                title: 'State',
-                hintText: 'Select State',
+                title: AppStrings.state,
+                hintText: AppStrings.selectState,
                 controller:
                     TextEditingController(text: (profileController.selectedState ?? CountryState()).stateName ?? ""),
                 readOnly: true,
                 onTap: () {
                   if (profileController.modelStateList == null && profileController.stateRefresh.value > 0) {
-                    showToast("Select Country First");
+                    showToast(AppStrings.selectCountryFirst);
                     return;
                   }
                   if(profileController.stateRefresh.value < 0){
@@ -427,19 +428,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 }),
                 validator: (v) {
                   if (v!.trim().isEmpty) {
-                    return "Please select state";
+                    return AppStrings.pleaseselectstate;
                   }
                   return null;
                 },
               ),
               if(profileController.modelCityList != null && profileController.modelCityList!.city!.isNotEmpty)
               ...fieldWithName(
-                title: 'City',
-                hintText: 'Select City',
+                title: AppStrings.city,
+                hintText: AppStrings.selectCity,
                 controller: TextEditingController(text: (profileController.selectedCity ?? City()).cityName ?? ""),
                 onTap: () {
                   if (profileController.modelCityList == null && profileController.cityRefresh.value > 0) {
-                    showToast("Select State First");
+                    showToast(AppStrings.selectStateFirst);
                     return;
                   }
                   if(profileController.cityRefresh.value < 0){
@@ -467,19 +468,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 }),
                 validator: (v) {
                   if (v!.trim().isEmpty) {
-                    return "Please select state";
+                    return AppStrings.pleaseselectstate;
                   }
                   return null;
                 },
               ),
 
               ...fieldWithName(
-                title: 'Street Address',
-                hintText: 'Enter street Address',
+                title: AppStrings.streetAddress,
+                hintText: AppStrings.enterstreetAddress,
                 controller: addressController,
                 validator: (v) {
                   if (v!.trim().isEmpty) {
-                    return "Please enter addess";
+                    return AppStrings.pleaseenteraddress;
                   }
                   return null;
                 },
@@ -505,7 +506,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                'Save',
+                AppStrings.save,
                 style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ),

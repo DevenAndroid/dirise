@@ -94,5 +94,25 @@ class AppStrings{
       static String storeDontHaveAnyProduct = "Store don't have any product";
       static String fiftyOff = "50% off";
       static String ecstasy165days = "Ecstasy 165 days ";
-
+      static String save = "Save";
+      static String pleaseenteryourlastname = "Please enter your last name";
+      static String pleaseenteryouremailaddress = "Please enter your email address";
+      static String pleaseentervalidemailaddress = "Please enter valid email address";
+      static String enterPhoneNumber = "Enter Phone Number";
+      static String pleaseenterphonenumber = "Please enter phone number";
+      static String pleaseentervalidphonenumber = "Please enter valid phone number";
+      static String selectCountry = "Select Country";
+      static String pleaseselectcountry = "Please select country";
+      static String selectState = "Select State";
+      static String state = "State";
+      static String selectCountryFirst = "Select Country First";
+      static String pleaseselectstate = "Please select state";
+      static String city = "City";
+      static String selectCity = "Select City";
+      static String selectStateFirst = "Select State First";
+      static String enterstreetAddress = "Enter street Address";
+      static String pleaseenteraddress = "Enter street Address";
+      static String enterFirstName = "Enter First Name";
+      static String enterLastName = "Enter Last Name";
+      static String enterEmail = "Enter Email";
 }
