@@ -1,9 +1,12 @@
 import 'package:dirise/language/app_strings.dart';
+import 'package:dirise/utils/shimmer_extension.dart';
 import 'package:dirise/utils/styles.dart';
+import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../profile/edit_plan_screen.dart';
+import '../profile/vendor_profile_screen.dart';
 
 class PlanWidget extends StatefulWidget {
   const PlanWidget({super.key});
@@ -14,6 +17,9 @@ class PlanWidget extends StatefulWidget {
 
 class _PlanWidgetState extends State<PlanWidget> {
   final vendorProfileController = Get.put(VendorProfileController());
+
+  bool get paymentDone => vendorProfileController.model.user!.subscription_status.toString() == "pending";
+  bool get profileComplete => vendorProfileController.model.user!.vendorProfile!.is_complete == "false";
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +56,70 @@ class _PlanWidgetState extends State<PlanWidget> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (vendorProfileController.model.user!.planStartDate != null)
-                                ...[
+                              if (paymentDone) ...[
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => EditVendorPlan(
+                                          selectedPlanId: vendorProfileController.model.user!.activePlanId.toString(),
+                                        ));
+                                  },
+                                  behavior: HitTestBehavior.translucent,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Subscription Payment: ",
+                                        style: normalStyle,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          "Pending",
+                                          style: titleStyle.copyWith(color: Colors.redAccent),
+                                        ).convertToShimmerRed,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                              if ((paymentDone == false && profileComplete)) ...[
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(VendorProfileScreen.route);
+                                  },
+                                  behavior: HitTestBehavior.translucent,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Profile Form: ",
+                                        style: normalStyle,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          "Pending",
+                                          style: titleStyle.copyWith(color: Colors.redAccent),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: IconButton(
+                                            onPressed: () {
+                                              Get.toNamed(VendorProfileScreen.route);
+                                            },
+                                            icon: const Icon(
+                                              Icons.arrow_forward_ios_rounded,
+                                              size: 18,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              if (vendorProfileController.model.user!.planStartDate != null) ...[
                                 const Text("Plan Start Date"),
                                 Text(
                                   vendorProfileController.model.user!.planStartDate.toString().capitalize!,
@@ -85,56 +153,63 @@ class _PlanWidgetState extends State<PlanWidget> {
                                   Expanded(
                                     child: OutlinedButton(
                                         onPressed: () {
-                                          Get.to(()=> EditVendorPlan(
-                                            selectedPlanId: vendorProfileController.model.user!.activePlanId.toString(),
-                                          ));
+                                          Get.to(() => EditVendorPlan(
+                                                selectedPlanId:
+                                                    vendorProfileController.model.user!.activePlanId.toString(),
+                                              ));
                                         },
                                         style: OutlinedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(5),
                                           ),
-                                          side: const BorderSide(color: Color(0xffECB403)),
+                                          side: BorderSide(
+                                              color: paymentDone ? Colors.redAccent : const Color(0xffECB403)),
                                           surfaceTintColor: Colors.white,
                                           elevation: 2,
-                                          shadowColor: const Color(0xffECB403),
+                                          shadowColor: paymentDone ? Colors.redAccent : const Color(0xffECB403),
                                           backgroundColor: Colors.white,
                                         ),
                                         child: FittedBox(
                                           child: Text(
                                             AppStrings.renewPlan,
-                                            style: titleStyle.copyWith(color: const Color(0xffECB403), fontSize: 18),
+                                            style: titleStyle.copyWith(
+                                                color: paymentDone ? Colors.redAccent : const Color(0xffECB403),
+                                                fontSize: 18),
                                           ),
                                         )),
                                   ),
-                                  if(vendorProfileController.model.user!.vendorType.toString().toLowerCase() != "company")
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  if(vendorProfileController.model.user!.vendorType.toString().toLowerCase() != "company")
-                                  Expanded(
-                                    child: OutlinedButton(
-                                        onPressed: () {
-                                          Get.to(()=> EditVendorPlan(
-                                            selectedPlanId: vendorProfileController.model.user!.activePlanId.toString(),
-                                          ));
+                                  if (vendorProfileController.model.user!.vendorType.toString().toLowerCase() !=
+                                      "company")
+                                    const SizedBox(
+                                      width: 16,
+                                    ),
+                                  if (vendorProfileController.model.user!.vendorType.toString().toLowerCase() !=
+                                      "company")
+                                    Expanded(
+                                      child: OutlinedButton(
+                                          onPressed: () {
+                                            Get.to(() => EditVendorPlan(
+                                                  selectedPlanId:
+                                                      vendorProfileController.model.user!.activePlanId.toString(),
+                                                ));
                                           },
-                                        style: OutlinedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(5),
+                                          style: OutlinedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(5),
+                                            ),
+                                            side: const BorderSide(color: Color(0xff13BFA6)),
+                                            surfaceTintColor: Colors.white,
+                                            elevation: 2,
+                                            shadowColor: const Color(0xff13BFA6),
+                                            backgroundColor: Colors.white,
                                           ),
-                                          side: const BorderSide(color: Color(0xff13BFA6)),
-                                          surfaceTintColor: Colors.white,
-                                          elevation: 2,
-                                          shadowColor: const Color(0xff13BFA6),
-                                          backgroundColor: Colors.white,
-                                        ),
-                                        child: FittedBox(
-                                          child: Text(
-                                            AppStrings.upgradePlan,
-                                            style: titleStyle.copyWith(color: const Color(0xff13BFA6), fontSize: 18),
-                                          ),
-                                        )),
-                                  ),
+                                          child: FittedBox(
+                                            child: Text(
+                                              AppStrings.upgradePlan,
+                                              style: titleStyle.copyWith(color: const Color(0xff13BFA6), fontSize: 18),
+                                            ),
+                                          )),
+                                    ),
                                 ],
                               ),
                               const SizedBox(

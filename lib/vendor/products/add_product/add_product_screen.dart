@@ -29,6 +29,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void initState() {
     super.initState();
     controller.productType = "Simple Product";
+    controller.getReturnPolicyData();
     controller.resetValues();
     controller.productDurationValueController.text = "";
     controller.productDurationTypeValue = "";

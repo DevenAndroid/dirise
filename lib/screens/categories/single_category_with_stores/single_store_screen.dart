@@ -198,18 +198,17 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                           )
                         ],
                       ),
-                      if (storeInfo.description.toString().trim().isNotEmpty || true) ...[
+                      if (storeInfo.description.toString().trim().isNotEmpty) ...[
                         const SizedBox(
                           height: 4,
                         ),
                         Text(
-                          "storeInfo.description.toString()",
+                          storeInfo.description.toString(),
                           style: normalStyle.copyWith(color: AppTheme.buttonColor),
                         )
                       ],
                       if (storeInfo.email.toString().trim().isNotEmpty ||
-                          storeInfo.storePhone.toString().trim().isNotEmpty ||
-                          true) ...[
+                          storeInfo.storePhone.toString().trim().isNotEmpty) ...[
                         const SizedBox(
                           height: 4,
                         ),

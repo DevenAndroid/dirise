@@ -1,4 +1,6 @@
 import 'package:dirise/utils/helper.dart';
+import 'package:dirise/utils/styles.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,6 +32,74 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
   void initState() {
     super.initState();
     controller.getProductCategoryLit();
+  }
+
+  showPolicyDialog() {
+    FocusManager.instance.primaryFocus!.unfocus();
+    controller.getReturnPolicyData();
+    showDialog(context: context,
+        useSafeArea: true,
+        builder: (context) {
+      return Dialog(
+        insetPadding: const EdgeInsets.symmetric(horizontal: 25),
+        child: Obx(() {
+          if(controller.returnPolicyLoaded.value > 0){}
+          return controller.modelReturnPolicy != null ?
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Select Return Policy",style: titleStyle,),
+                StatefulBuilder(
+                  builder: (context, newState) {
+                    return Container(
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery.of(context).size.width*1.2
+                      ),
+                      child: ListView.builder(
+                        itemCount: controller.modelReturnPolicy!.returnPolicy!.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index){
+                          final item = controller.modelReturnPolicy!.returnPolicy![index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: ListTile(
+                            visualDensity: VisualDensity.compact,
+                            contentPadding: EdgeInsets.zero,
+                            minVerticalPadding: 0,
+                            title: Text(item.title.toString(),style: titleStyle,),
+                            trailing: Radio<String>(
+                              value: item.id.toString(),
+
+                              visualDensity: const VisualDensity(horizontal: -4,vertical: -4),
+                              groupValue: controller.selectedReturnPolicy != null ?
+                              controller.selectedReturnPolicy!.id.toString() : "",
+                              onChanged: (lkjasd){
+                                controller.selectedReturnPolicy = item;
+                                controller.returnDaysController.text = item.title.toString();
+                                newState(() {});
+                              },
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("${item.days} Days",style: titleStyle,),
+                                Text(item.policyDiscreption.toString(),style: normalStyle,),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                    );
+                  }
+                ),
+              ],
+            ),
+          ) : const LoadingAnimation();
+        }),
+      );
+    });
   }
 
   @override
@@ -73,15 +143,16 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       ),
                     ),
                     items: productTypes
-                        .map((label) => DropdownMenuItem(
-                              value: label,
-                              child: Text(
-                                label.toString(),
-                                style: GoogleFonts.poppins(
-                                  color: const Color(0xff463B57),
-                                ),
-                              ),
-                            ))
+                        .map((label) =>
+                        DropdownMenuItem(
+                          value: label,
+                          child: Text(
+                            label.toString(),
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xff463B57),
+                            ),
+                          ),
+                        ))
                         .toList(),
                     hint: const Text('Rating'),
                     onChanged: (value) {
@@ -178,14 +249,12 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       controller: controller.returnDaysController,
                       key: controller.returnDaysController.getKey,
                       keyboardType: TextInputType.number,
+                      readOnly: true,
+                      onTap: () {
+                        showPolicyDialog();
+                      },
                       hintText: "Return Days",
                       validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Return days is required";
-                        }
-                        if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                          return "Enter valid return days";
-                        }
                         return null;
                       }),
                   if (controller.productType == "Simple Product" || controller.productType == "Variants Product") ...[
@@ -239,15 +308,18 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                         return null;
                       },
                       items: controller.gg
-                          .map((label) => DropdownMenuItem(
-                                value: label,
-                                child: Text(
-                                  label.toString().capitalize!,
-                                  style: GoogleFonts.poppins(
-                                    color: const Color(0xff463B57),
-                                  ),
-                                ),
-                              ))
+                          .map((label) =>
+                          DropdownMenuItem(
+                            value: label,
+                            child: Text(
+                              label
+                                  .toString()
+                                  .capitalize!,
+                              style: GoogleFonts.poppins(
+                                color: const Color(0xff463B57),
+                              ),
+                            ),
+                          ))
                           .toList(),
                       onChanged: (value) {
                         if (value == null) return;
@@ -260,54 +332,6 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Expanded(
-                        //   child: DropdownButtonFormField<String>(
-                        //     autovalidateMode: AutovalidateMode.onUserInteraction,
-                        //     value: controller.productDurationValue.isEmpty ? null : controller.productDurationValue,
-                        //     isExpanded: true,
-                        //     iconDisabledColor: const Color(0xff97949A),
-                        //     iconEnabledColor: const Color(0xff97949A),
-                        //     decoration: InputDecoration(
-                        //       border: const OutlineInputBorder(
-                        //         borderRadius: BorderRadius.all(Radius.circular(8)),
-                        //         borderSide: BorderSide(color: AppTheme.secondaryColor),
-                        //       ),
-                        //       enabled: true,
-                        //       filled: true,
-                        //       labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
-                        //       labelText: "Preparation Time",
-                        //       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                        //       errorMaxLines: 2,
-                        //       contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                        //       enabledBorder: const OutlineInputBorder(
-                        //         borderRadius: BorderRadius.all(Radius.circular(8)),
-                        //         borderSide: BorderSide(color: AppTheme.secondaryColor),
-                        //       ),
-                        //     ),
-                        //     validator: (gg) {
-                        //       if(controller.productDurationTypeValue.isNotEmpty && controller.productDurationValue.isEmpty){
-                        //         return "Please select preparation time";
-                        //       }
-                        //       return null;
-                        //     },
-                        //     items: controller.productDuration
-                        //         .map((label) => DropdownMenuItem(
-                        //               value: label,
-                        //               child: Text(
-                        //                 label.toString().capitalize!,
-                        //                 style: GoogleFonts.poppins(
-                        //                   color: const Color(0xff463B57),
-                        //                 ),
-                        //               ),
-                        //             ))
-                        //         .toList(),
-                        //     onChanged: (value) {
-                        //       if (value == null) return;
-                        //       controller.productDurationValue = value;
-                        //     },
-                        //   ),
-                        // ),
-
                         Expanded(
                           child: VendorCommonTextfield(
                               controller: controller.productDurationValueController,
@@ -317,12 +341,6 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                               labelText: "Preparation Time",
                               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                               validator: (value) {
-                                if (value!.trim().isEmpty && controller.productDurationTypeValue.isNotEmpty) {
-                                  return "Please select preparation time";
-                                }
-                                // if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                                //   return "Enter valid return days";
-                                // }
                                 return null;
                               }),
                         ),
@@ -356,22 +374,27 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                               ),
                             ),
                             validator: (gg) {
-                              if (controller.productDurationValueController.text.trim().isNotEmpty &&
+                              if (controller.productDurationValueController.text
+                                  .trim()
+                                  .isNotEmpty &&
                                   controller.productDurationTypeValue.isEmpty) {
                                 return "Please select preparation duration";
                               }
                               return null;
                             },
                             items: controller.productDurationType
-                                .map((label) => DropdownMenuItem(
-                                      value: label.toLowerCase(),
-                                      child: Text(
-                                        label.toString().capitalize!,
-                                        style: GoogleFonts.poppins(
-                                          color: const Color(0xff463B57),
-                                        ),
-                                      ),
-                                    ))
+                                .map((label) =>
+                                DropdownMenuItem(
+                                  value: label.toLowerCase(),
+                                  child: Text(
+                                    label
+                                        .toString()
+                                        .capitalize!,
+                                    style: GoogleFonts.poppins(
+                                      color: const Color(0xff463B57),
+                                    ),
+                                  ),
+                                ))
                                 .toList(),
                             onChanged: (value) {
                               if (value == null) return;
@@ -419,15 +442,16 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                         return null;
                       },
                       items: controller.productCategory.data!
-                          .map((label) => DropdownMenuItem(
-                                value: label.id.toString(),
-                                child: Text(
-                                  label.title.toString(),
-                                  style: GoogleFonts.poppins(
-                                    color: const Color(0xff463B57),
-                                  ),
-                                ),
-                              ))
+                          .map((label) =>
+                          DropdownMenuItem(
+                            value: label.id.toString(),
+                            child: Text(
+                              label.title.toString(),
+                              style: GoogleFonts.poppins(
+                                color: const Color(0xff463B57),
+                              ),
+                            ),
+                          ))
                           .toList(),
                       onChanged: (value) {
                         if (value == null) return;

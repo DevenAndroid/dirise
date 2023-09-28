@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../model/common_modal.dart';
 import '../../model/vendor_models/model_add_product_category.dart';
 import '../../model/vendor_models/model_attribute.dart';
+import '../../model/vendor_models/model_return_policy.dart';
 import '../../model/vendor_models/model_varient.dart';
 import '../../model/vendor_models/model_vendor_product_details.dart';
 import '../../repository/repository.dart';
@@ -25,6 +26,18 @@ class AddProductController extends GetxController {
     "Kilogram",
     "Pound",
   ];
+
+  RxInt returnPolicyLoaded = 0.obs;
+  ModelReturnPolicy? modelReturnPolicy;
+  ReturnPolicy? selectedReturnPolicy;
+
+  getReturnPolicyData(){
+    repositories.getApi(url: ApiUrls.returnPolicyUrl).then((value) {
+      modelReturnPolicy = ModelReturnPolicy.fromJson(jsonDecode(value));
+      // if()
+      returnPolicyLoaded.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }
 
   // String productDurationValue = "";
   final TextEditingController productDurationValueController = TextEditingController();
@@ -510,7 +523,9 @@ class AddProductController extends GetxController {
     map["purchase_price"] = purchasePriceController.text.trim();
     map["selling_price"] = sellingPriceController.text.trim();
     map["stock"] = stockController.text.trim();
-    map["return_days"] = returnDaysController.text.trim();
+    if(selectedReturnPolicy != null) {
+      map["return_days"] = selectedReturnPolicy!.id.toString();
+    }
     map["category_id"] = selectedCategory;
     map["short_description"] = shortDescriptionController.text.trim();
     map["long_description"] = longDescriptionController.text.trim();

@@ -78,6 +78,7 @@ class VendorUser {
   dynamic readyForOrder;
   dynamic isVendor;
   dynamic vendorType;
+  dynamic subscription_status;
   dynamic taxNumber;
   dynamic vendorPublishStatus;
   dynamic activePlanId;
@@ -94,6 +95,7 @@ class VendorUser {
         this.name,
         this.firstName,
         this.country_id,
+        this.subscription_status,
         this.lastName,
         this.email,
         this.dob,
@@ -162,6 +164,7 @@ class VendorUser {
     country_id = json['country_id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
+    subscription_status = json['subscription_status'];
     email = json['email'];
     dob = json['dob'];
     countryCode = json['country_code'];
@@ -236,6 +239,7 @@ class VendorUser {
     data['id'] = id;
     data['name'] = name;
     data['country_id'] = country_id;
+    data['subscription_status'] = subscription_status;
     data['first_name'] = firstName;
     data['last_name'] = lastName;
     data['email'] = email;
@@ -382,6 +386,7 @@ class VendorProfile {
   dynamic userId;
   dynamic businessNumber;
   dynamic accountNumber;
+  dynamic is_complete;
   dynamic ibnNumber;
   dynamic bankName;
   dynamic accountHolderName;
@@ -411,6 +416,7 @@ class VendorProfile {
       {this.id,
         this.userId,
         this.workEmail,
+        this.is_complete,
         this.paymentCertificate,
         this.businessNumber,
         this.home_address,
@@ -445,6 +451,7 @@ class VendorProfile {
     accountNumber = json['account_number'];
     ibnNumber = json['ibn_number'];
     bankName = json['bank_name'];
+    is_complete = json['is_complete'];
     accountHolderName = json['account_holder_name'];
     workEmail = json['work_email'];
     paymentCertificate = json['payment_certificate'];
@@ -472,6 +479,7 @@ class VendorProfile {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['user_id'] = userId;
+    data['is_complete'] = is_complete;
     data['home_address'] = home_address;
     data['work_email'] = workEmail;
     data['payment_certificate'] = paymentCertificate;
