@@ -35,7 +35,6 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   shimmer: ^3.0.0
   intl: ^0.18.1
-  url_launcher: ^6.1.14
   card_swiper: ^3.0.1
   file_picker: ^5.5.0
   image_picker: ^1.0.4
@@ -55,6 +54,7 @@ dependencies:
   flutter_local_notifications: ^15.1.1
   flutter_exif_rotation: ^0.5.1
   webview_flutter: ^4.2.4
+  url_launcher: ^6.1.14
 
 
 dev_dependencies:

@@ -10,7 +10,7 @@ import '../../../widgets/loading_animation.dart';
 import 'add_product_description.dart';
 import 'bookable_screens/bookable_ui.dart';
 import 'product_gallery_images.dart';
-import 'varient_product/varient_product.dart';
+import 'variant_product/varient_product.dart';
 import 'vertual_product_and_image.dart';
 
 class AddProductScreen extends StatefulWidget {

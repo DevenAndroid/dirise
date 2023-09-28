@@ -1,9 +1,14 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/utils/helper.dart';
+import 'package:dirise/utils/styles.dart';
+import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../model/model_category_stores.dart';
@@ -68,8 +73,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
     });
   }
 
-  getVendorInfo(){
-    if(widget.storeDetails.storeName == null || true) {
+  getVendorInfo() {
+    if (widget.storeDetails.storeName == null || true) {
       repositories.getApi(url: ApiUrls.getVendorInfoUrl + vendorId).then((value) {
         ModelSingleVendor response = ModelSingleVendor.fromJson(jsonDecode(value));
         gg = VendorStoreData.fromJson(response.user!.toJson());
@@ -115,85 +120,181 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
         child: CustomScrollView(
           shrinkWrap: true,
           slivers: [
-            if(gg.storeName != null && gg.email != null)
-            ...[
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16).copyWith(top: 10),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: SizedBox(
-                            width: double.maxFinite,
-                            height: context.getSize.width * .4,
-                            child: Hero(
-                              tag: storeInfo.storeLogo.toString(),
-                              child: Material(
-                                color: Colors.transparent,
-                                surfaceTintColor: Colors.transparent,
-                                child: CachedNetworkImage(
-                                  imageUrl: storeInfo.storeLogo.toString(),
-                                  errorWidget: (_, __, ___) => const Icon(Icons.error_outline),
+            if (gg.storeName != null && gg.email != null) ...[
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16).copyWith(top: 10),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: SizedBox(
+                              width: double.maxFinite,
+                              height: context.getSize.width * .4,
+                              child: Hero(
+                                tag: storeInfo.storeLogo.toString(),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  surfaceTintColor: Colors.transparent,
+                                  child: CachedNetworkImage(
+                                    imageUrl: storeInfo.storeLogo.toString(),
+                                    errorWidget: (_, __, ___) => const Icon(Icons.error_outline),
+                                  ),
                                 ),
-                              ),
-                            ))),
-                  ],
+                              ))),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16).copyWith(top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 84,
-                      width: 104,
-                      child: Image(
-                        image: NetworkImage(storeInfo.storeImage.toString()),
-                        fit: BoxFit.contain,
-                        errorBuilder: (_, __, ___) => const Icon(
-                          Icons.error_outline,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16).copyWith(top: 10),
+                  child: Column(
+                    children: [
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            storeInfo.storeName.toString().capitalize!,
-                            style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5, bottom: 5),
-                            child: Text(
-                              storeInfo.description.toString(),
-                              maxLines: 1,
-                              style: GoogleFonts.poppins(
-                                  color: const Color(0xff8F8F8F), fontSize: 13, fontWeight: FontWeight.w500),
+                          SizedBox(
+                            height: 84,
+                            width: 104,
+                            child: Image(
+                              image: NetworkImage(storeInfo.storeImage.toString()),
+                              fit: BoxFit.contain,
+                              errorBuilder: (_, __, ___) => const Icon(
+                                Icons.error_outline,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
-                          Text(
-                            ("1457 items -- Static"),
-                            style: GoogleFonts.poppins(
-                                color: const Color(0xff014E70), fontSize: 17, fontWeight: FontWeight.w500),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  storeInfo.storeName.toString().capitalize!,
+                                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: Text(
+                                    storeInfo.description.toString(),
+                                    maxLines: 1,
+                                    style: GoogleFonts.poppins(
+                                        color: const Color(0xff8F8F8F), fontSize: 13, fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Text(
+                                  ("1457 items -- Static"),
+                                  style: GoogleFonts.poppins(
+                                      color: const Color(0xff014E70), fontSize: 17, fontWeight: FontWeight.w500),
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),
-                    )
-                  ],
+                      if (storeInfo.description.toString().trim().isNotEmpty || true) ...[
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          "storeInfo.description.toString()",
+                          style: normalStyle.copyWith(color: AppTheme.buttonColor),
+                        )
+                      ],
+                      if (storeInfo.email.toString().trim().isNotEmpty ||
+                          storeInfo.storePhone.toString().trim().isNotEmpty ||
+                          true) ...[
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          children: [
+                            if (storeInfo.email.toString().trim().isNotEmpty)
+                              Expanded(
+                                child: MaterialButton(
+                                  onPressed: () async {
+                                    await Clipboard.setData(ClipboardData(text: storeInfo.email.toString().trim()));
+                                    final snackBar = SnackBar(
+                                      content: Text(
+                                        "Email copied",
+                                        style: normalStyle,
+                                      ),
+                                      action: SnackBarAction(
+                                          label: "Send Mail",
+                                          onPressed: () {
+                                            Helpers.launchEmail(email: storeInfo.email.toString().trim());
+                                          }),
+                                      backgroundColor: AppTheme.buttonColor,
+                                    );
+                                    if(!mounted)return;
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  },
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        "@",
+                                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        " ${storeInfo.email}",
+                                        style: normalStyle.copyWith(
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            if (storeInfo.storePhone.toString().trim().isNotEmpty)
+                              Expanded(
+                                child: MaterialButton(
+                                  onPressed: () async {
+                                    await Clipboard.setData(ClipboardData(text: storeInfo.storePhone.toString().trim()));
+                                    final snackBar = SnackBar(
+                                      content: Text(
+                                        "Phone no. copied",
+                                        style: normalStyle,
+                                      ),
+                                      action: SnackBarAction(
+                                          label: "Make Call",
+                                          onPressed: () {
+                                            Helpers.makeCall(phoneNumber: storeInfo.storePhone.toString().trim());
+                                          }),
+                                      backgroundColor: AppTheme.buttonColor,
+                                    );
+                                    if(!mounted)return;
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  },
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset("assets/svgs/phone_call.svg"),
+                                      Text(
+                                        " ${storeInfo.storePhone}",
+                                        style: normalStyle.copyWith(
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
+                        )
+                      ],
+                    ],
+                  ),
                 ),
               ),
-            ),
             ],
             SliverAppBar(
               primary: false,
@@ -239,9 +340,9 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                   ? SliverGrid.builder(
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: .74),
-                      itemCount: modelProductsList.data!.length,
+                      itemCount: max(modelProductsList.data!.length, 100000),
                       itemBuilder: (BuildContext context, int index) {
-                        final item = modelProductsList.data![index];
+                        final item = modelProductsList.data![0];
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: ProductUI(

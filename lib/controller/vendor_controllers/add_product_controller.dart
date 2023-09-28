@@ -14,7 +14,7 @@ import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
 import '../../utils/helper.dart';
 import '../../utils/notification_service.dart';
-import '../../vendor/products/add_product/varient_product/varient_product.dart';
+import '../../vendor/products/add_product/variant_product/varient_product.dart';
 import 'products_controller.dart';
 
 class AddProductController extends GetxController {

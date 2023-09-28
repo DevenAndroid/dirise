@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../widgets/common_colour.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -158,6 +159,20 @@ class NewHelper {
 class Helpers {
   Helpers.of(BuildContext context) {
     context = context;
+  }
+
+  static launchEmail({required String email}) async {
+    final Uri params = Uri(
+      scheme: 'mailto',
+      path: email,
+      // query: 'subject=App Feedback&body=App Version 3.23', //add subject and body here
+    );
+    await launchUrl(params);
+  }
+
+  static makeCall({required String phoneNumber}) async {
+    final Uri params = Uri.parse("tel:$phoneNumber");
+    await launchUrl(params);
   }
 
   String convertToBase64(String credentials) {
