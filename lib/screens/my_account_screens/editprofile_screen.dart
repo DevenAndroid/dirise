@@ -481,7 +481,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 controller: addressController,
                 validator: (v) {
                   if (v!.trim().isEmpty) {
-                    return "Please enter addess";
+                    return "Please enter address";
                   }
                   return null;
                 },

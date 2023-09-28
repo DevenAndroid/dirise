@@ -230,7 +230,6 @@ class AddProductController extends GetxController {
     stockController.text = item.inStock.toString();
     shortDescriptionController.text = item.shortDescription.toString();
     longDescriptionController.text = item.longDescription.toString();
-    returnDaysController.text = item.returnDays.toString();
     productDurationValueController.text = (item.time ?? "").toString() == "0" ? "" : (item.time ?? "").toString();
     productDurationTypeValue = (item.time_period ?? "").toString();
     updateCategory();
@@ -346,7 +345,6 @@ class AddProductController extends GetxController {
       if (purchasePriceController.checkBothWithNum) return;
       if (sellingPriceController.checkBothWithNum) return;
       if (stockController.checkBothWithNum) return;
-      if (returnDaysController.checkBothWithNum) return;
       if (weightController.checkBothWithNum) return;
       if (weightUnit.isEmpty) {
         if (weightUnitKey.currentContext != null) {
@@ -524,7 +522,7 @@ class AddProductController extends GetxController {
     map["selling_price"] = sellingPriceController.text.trim();
     map["stock"] = stockController.text.trim();
     if(selectedReturnPolicy != null) {
-      map["return_days"] = selectedReturnPolicy!.id.toString();
+      map["return_policy_desc"] = selectedReturnPolicy!.id.toString();
     }
     map["category_id"] = selectedCategory;
     map["short_description"] = shortDescriptionController.text.trim();
