@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/utils/api_constant.dart';
@@ -260,7 +261,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xffEBF1F4),
         title: Text(
-          'My calendar',
+          AppStrings.calendar,
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 18),
         ),
         leading: IconButton(
@@ -275,7 +276,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Text(
-                'Create your event',
+                AppStrings.createEvent,
                 style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
@@ -315,7 +316,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Text(
-                'My events',
+                AppStrings.myEvent,
                 style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
@@ -332,7 +333,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                         deleteEvent(id: myEvents.id.toString());
                       },
                       child: Text(
-                        'Delete',
+                      AppStrings.delete,
                         style:
                             GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 17, color: AppTheme.buttonColor),
                       ),
@@ -370,18 +371,18 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                       ),
                     ),
                     title: Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: Text('Event Title: ${myEvents.title}'),
+                      padding:  EdgeInsets.only(bottom: 4),
+                      child: Text(AppStrings.eventTitle +myEvents.title!),
                     ),
-                    subtitle: Text('Description: ${myEvents.description}'),
+                    subtitle: Text(AppStrings.description +myEvents.description!),
                   ),
                 ),
               ),
             ),
             if (_listOfDayEvents(_selectedDate!).isEmpty)
-              const Center(
+               Center(
                 heightFactor: 4,
-                child: Text("No Event Registered"),
+                child: Text(AppStrings.noEvent),
               ),
             const SizedBox(
               height: 80,
@@ -391,7 +392,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showAddEventDialog(),
-        label: const Text('Add Event'),
+        label:  Text(AppStrings.addEvent),
       ),
     );
   }

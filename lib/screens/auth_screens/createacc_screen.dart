@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     if (_isValue == false) return;
     Map<String, dynamic> map = {};
     map['email'] = _emailController.text.trim();
-    // map['name'] = _nameController.text.trim();
     map['phone'] = _mobileNumberController.text.trim();
     map['password'] = _passwordController.text.trim();
     repositories.postApi(url: ApiUrls.signInUrl, context: context, mapData: map).then((value) {
@@ -76,7 +76,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Create Account",
+           AppStrings.createAccount,
               style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
             ),
           ],
@@ -100,7 +100,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     controller: _emailController,
                     obSecure: false,
                     // hintText: 'Name',
-                    hintText: 'Email',
+                    hintText: AppStrings.email,
                     validator: MultiValidator([
                       RequiredValidator(errorText: 'Email is required'),
                       EmailValidator(errorText: 'Please enter valid email address'),
@@ -111,7 +111,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 Obx(() {
                   return CommonTextField(
                     controller: _passwordController,
-                    hintText: 'Password',
+                    hintText: AppStrings.password,
                     obSecure: hide.value,
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -134,8 +134,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 ),
                 Obx(() {
                   return CommonTextField(
-                    // controller: _passwordController,
-                    // hintText: 'Password',
                     obSecure: hide1.value,
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -143,13 +141,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       },
                       icon: hide1.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
                     ),
-                    hintText: 'Confirm Password',
+                    hintText: AppStrings.confirmPassword,
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return "Please enter confirm password";
+                        return AppStrings.enterConfirmPassword;
                       }
                       if (value.trim() != _passwordController.text.trim()) {
-                        return "Confirm password is not matching";
+                        return AppStrings.enterReType;
                       }
                       return null;
                     },
@@ -180,7 +178,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        "Privacy policy",
+                       AppStrings.privacyPolicy,
                         style:
                             GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
                       ),
@@ -191,7 +189,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   height: size.height * .03,
                 ),
                 CustomOutlineButton(
-                  title: "Create Account",
+                  title: AppStrings.createAccount,
                   onPressed: () {
                     showValidation = true;
                     if (formKey1.currentState!.validate()) {
@@ -207,11 +205,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Already have an Account? ',
+                        text: AppStrings.alreadyAccount,
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       TextSpan(
-                        text: 'Login',
+                        text: AppStrings.login,
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600, color: AppTheme.buttonColor, decoration: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()

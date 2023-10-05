@@ -1,3 +1,4 @@
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/product_details/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -29,7 +30,7 @@ class _TrendingProductsState extends State<TrendingProducts> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Trending Products',
+                        AppStrings.trendingProducts,
                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       InkWell(

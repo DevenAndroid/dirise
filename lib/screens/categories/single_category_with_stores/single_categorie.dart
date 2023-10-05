@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
@@ -176,7 +177,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8, right: 10),
                         child: Text(
-                          "${mainCategory.name.toString()} Type",
+                          "${mainCategory.name.toString()} ${AppStrings.type}",
                           style:
                               GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                         ),
@@ -194,9 +195,10 @@ class _SingleCategoriesState extends State<SingleCategories> {
                 child: LoadingAnimation(),
               ),
             if (modelCategoryStores != null && modelCategoryStores!.isEmpty)
-              const SliverToBoxAdapter(
+               SliverToBoxAdapter(
                 child: Center(
-                  child: Text("Category don't have any store."),
+                  child: Text
+                    (AppStrings.notHaveAnyProduct)
                 ),
               ),
             SliverToBoxAdapter(
@@ -279,7 +281,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                     ),
                                   ),
                                   Text(
-                                    ("1457 items"),
+                                    ("1457 ${AppStrings.items}"),
                                     style: GoogleFonts.poppins(
                                         color: const Color(0xff014E70), fontSize: 16, fontWeight: FontWeight.w600),
                                   )
@@ -342,7 +344,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Text(
-                  'Related Products',
+                  AppStrings.relatedProduct,
                   style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               ),

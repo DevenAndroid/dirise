@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/auth_screens/login_screen.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -95,8 +96,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "To register as vendor partner need to "
-                      "create an account first.",
+                      AppStrings.vendorRegister,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16),
                     ),
@@ -108,7 +108,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             LoginScreen.route,
                           );
                         },
-                        child: const Text("Create Account"))
+                        child:  Text(AppStrings.createAccount))
                   ],
                 ),
               ),
@@ -252,7 +252,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             ),
                             Expanded(
                               child: Text(
-                                "Profile",
+                                AppStrings.myProfile,
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -283,7 +283,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              "E Books",
+                            AppStrings.eBooks,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -320,7 +320,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              "Orders",
+                              AppStrings.orders,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -354,7 +354,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              "My Calender",
+                              AppStrings.calendar,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -388,7 +388,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              "Faq's",
+                              AppStrings.faq,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -420,7 +420,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              "Digital Pdf Reader",
+                              AppStrings.pdfReader,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -560,7 +560,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              "Language",
+                              AppStrings.language,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -594,7 +594,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              "About Us",
+                              AppStrings.aboutUs,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -628,7 +628,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              "Terms Of Conditions",
+                              AppStrings.termsCondition,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -662,7 +662,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              "Return policy",
+                              AppStrings.returnPolicy,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -708,7 +708,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              profileController.userLoggedIn ? "Sign Out" : "Login",
+                              profileController.userLoggedIn ? AppStrings.signOut : AppStrings.login,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -768,7 +768,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             ),
             Expanded(
               child: Text(
-                'Vendor partner',
+                AppStrings.vendorPartner,
                 style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),

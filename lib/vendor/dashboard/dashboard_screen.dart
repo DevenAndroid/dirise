@@ -1,3 +1,4 @@
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/foundation.dart';
@@ -163,7 +164,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 10, bottom: 30),
                                       child: Text(
-                                        "Sales not available",
+                                        AppStrings.salesNotAvailable,
                                         style: normalStyle,
                                         textAlign: TextAlign.center,
                                       ),

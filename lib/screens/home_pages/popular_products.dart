@@ -1,3 +1,4 @@
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/product_details/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class _PopularProductsState extends State<PopularProducts> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Popular Products',
+                        AppStrings.popularProducts,
                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       InkWell(

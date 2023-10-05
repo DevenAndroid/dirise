@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -32,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'My profile',
+          AppStrings.myProfile1,
           style: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
         ),
         centerTitle: true,
@@ -125,36 +126,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 18),
+                      SizedBox(height: 18),
                       ...profileCard(
                         imagePath: "assets/svgs/profile.svg",
-                        title: 'First Name',
+                        title: AppStrings.firstName,
                         value: profileController.model.user!.firstName.toString(),
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/profile.svg",
-                        title: 'Last Name',
+                        title: AppStrings.lastName,
                         value: profileController.model.user!.lastName.toString(),
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/email.svg",
-                        title: 'E-Mail',
+                        title: AppStrings.email,
                         value: profileController.model.user!.email.toString(),
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/location.svg",
-                        title: 'Street Address',
+                        title: AppStrings.streetAddress,
                         value: profileController.model.user!.street_name.toString(),
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/city.svg",
-                        title: 'State/City',
-                        value:
-                            "${profileController.model.user!.state_name}, ${profileController.model.user!.city_name}",
+                        title: AppStrings.stateCity,
+                        value: "${profileController.model.user!.state_name}, ${profileController.model.user!.city_name}",
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/country.svg",
-                        title: 'Country/Region',
+                        title: AppStrings.country,
                         value: profileController.model.user!.country_name.toString(),
                       ),
                       SizedBox(
@@ -171,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Get.toNamed(EditProfileScreen.route);
                           },
                           child: Text(
-                            'Edit profile',
+                           AppStrings.editProfile,
                             style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
                           ),
                         ),
@@ -189,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required String imagePath,
     required String title,
     required String value,
-  }) {
+}) {
     return [
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,

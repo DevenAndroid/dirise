@@ -118,7 +118,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                                                 height: 20,
                                               ),
                                               Text(
-                                                "Artificial Intelligence Gains a Foot Hold In Writing",
+                                                AppStrings.artificialIntelligence,
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 16, fontWeight: FontWeight.w600, color: AppTheme.buttonColor),
                                               ),
@@ -126,19 +126,14 @@ class _SliderWidgetState extends State<SliderWidget> {
                                                 height: 20,
                                               ),
                                               Text(
-                                                "Artificial Intelligence (Al) is gaining a strong foothold in "
-                                                    "various niches, and blogging is no exception."
-                                                    " By making use of the best Al writing tools, you "
-                                                    "can create a long-form affiliate blog post in 10"
-                                                    " to 15 minutes (instead of spending hours writing "
-                                                    "it yourself) and generate traffic.",
+                                               AppStrings.artificialIntelligenceAI,
                                                 style: GoogleFonts.poppins(fontSize: 14, color: const Color(0xff484848)),
                                               ),
                                               const SizedBox(
                                                 height: 40,
                                               ),
                                               Text(
-                                                'Published: 06/06/2023',
+                                                AppStrings.published,
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500),
                                               )
@@ -158,7 +153,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                                 enableScrollInput: true,
                                 delayAfterScrollInput: const Duration(seconds: 1),
                                 child: Text(
-                                  'Artificial Intelligence Gains a Foot Hold In Writing',
+                                   AppStrings.artificialIntelligence,
                                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
                                 ),
                               ),
