@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../controller/vendor_controllers/add_product_controller.dart';
 import '../../../widgets/dimension_screen.dart';
+import '../../../widgets/vendor_common_textfield.dart';
 
 class AddProductImageAndVirtualFile extends StatefulWidget {
   const AddProductImageAndVirtualFile({super.key});
@@ -199,6 +200,22 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                     })
                               ],
                             ),
+                            8.spaceY,
+                            VendorCommonTextfield(
+                                controller: controller.languageController,
+                                //key: controller.stockController.getKey,
+                                keyboardType: TextInputType.text,
+                                hintText: "Language",
+                                validator: (value) {
+                                  if (value!.trim().isEmpty) {
+                                    return "Language is required";
+                                  }
+                                /*  if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                                    return "Enter valid Language";
+                                  }*/
+                                  return null;
+                                }),
+                            8.spaceY,
                             if (controller.productFileType.value == "voice") ...[
                               4.spaceY,
                               GestureDetector(

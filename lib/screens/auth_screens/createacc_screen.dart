@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../model/common_modal.dart';
 import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
@@ -30,6 +31,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final TextEditingController _mobileNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _referralEmailController = TextEditingController();
+
   final Repositories repositories = Repositories();
   bool showValidation = false;
   bool? _isValue = false;
@@ -40,6 +43,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     map['email'] = _emailController.text.trim();
     map['phone'] = _mobileNumberController.text.trim();
     map['password'] = _passwordController.text.trim();
+    map['referral_email'] = _referralEmailController.text;
     repositories.postApi(url: ApiUrls.signInUrl, context: context, mapData: map).then((value) {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
@@ -48,7 +52,22 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       }
     });
   }
-
+  _makingPrivacyPolicy() async {
+    var url = Uri.parse('https://dev-dirise.eoxyslive.com/privacy-policy/');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url,mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  _termsCondition() async {
+    var url = Uri.parse('https://dev-dirise.eoxyslive.com/terms-and-conditions/');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url,mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   @override
   void dispose() {
     super.dispose();
@@ -156,6 +175,18 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 SizedBox(
                   height: size.height * .01,
                 ),
+                CommonTextField(
+                    controller: _referralEmailController,
+                    obSecure: false,
+                    // hintText: 'Name',
+                    hintText: 'Referral Email',
+                    validator: MultiValidator([
+                      //RequiredValidator(errorText: 'Referral email is required'),
+                      EmailValidator(errorText: 'Please enter valid Referral email'),
+                    ])),
+                SizedBox(
+                  height: size.height * .01,
+                ),
                 Row(
                   children: [
                     Transform.translate(
@@ -176,11 +207,31 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             });
                           }),
                     ),
-                    Expanded(
+                    GestureDetector(
+                      onTap: (){
+                        _makingPrivacyPolicy();
+                      },
                       child: Text(
-                       AppStrings.privacyPolicy,
+                       'Privacy Policy',
                         style:
                             GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
+                      ),
+                    ),
+                    SizedBox(width: size.width * .01,),
+                    Text(
+                      '&',
+                      style:
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
+                    ),
+                    SizedBox(width: size.width * .01,),
+                    GestureDetector(
+                      onTap: (){
+                        _termsCondition();
+                      },
+                      child: Text(
+                        'Terms and Conditions',
+                        style:
+                        GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
                       ),
                     ),
                   ],

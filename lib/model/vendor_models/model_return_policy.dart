@@ -29,13 +29,13 @@ class ModelReturnPolicy {
 }
 
 class ReturnPolicy {
-  int? id;
-  int? userId;
-  String? title;
-  String? days;
-  String? policyDiscreption;
-  String? createdAt;
-  String? updatedAt;
+  dynamic id;
+  dynamic userId;
+  dynamic title;
+  dynamic days;
+  dynamic policyDiscreption;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   ReturnPolicy(
       {this.id,

@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/profile_controller.dart';
+import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../model/bank_details/model_bank_list.dart';
 import '../../model/customer_profile/model_country_list.dart';
 import '../../model/vendor_models/model_plan_list.dart';
@@ -38,6 +39,9 @@ class VendorRegistrationScreen extends StatefulWidget {
 
 class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   PlanInfoData get planInfo => widget.selectedPlan;
+//  final vendorProfileController = Get.put(VendorProfileController());
+  final profileController = Get.put(ProfileController());
+
 
   final Repositories repositories = Repositories();
 
@@ -150,6 +154,17 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         // Home Adress
         if (homeAddress.checkEmpty) return;
         // Phone Number
+        if (phoneNumber.checkBothWithPhone) return;
+        // Email
+        if (emailAddress.checkBothWithEmail) return;
+       /* if (firstName.checkEmpty) return;
+        // Last Name
+        if (lastName.checkEmpty) return;
+        // Store Name
+        if (storeName.checkEmpty) return;
+        // Home Adress
+        if (homeAddress.checkEmpty) return;
+        // Phone Number
         if (ceoName.checkEmpty) return;
         // Email
         if (partnerCount.checkEmpty) return;
@@ -167,11 +182,22 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         // ibnNumber
         if (ibnNumber.checkEmpty) return;
         // accountHolderName
-        if (accountHolderName.checkEmpty) return;
+        if (accountHolderName.checkEmpty) return;*/
       }
       if (selectedPlan == PlansType.company) {
         // First Name
         if (firstName.checkEmpty) return;
+        // Last Name
+        if (lastName.checkEmpty) return;
+        // Store Name
+        if (storeName.checkEmpty) return;
+        // Home Adress
+        if (homeAddress.checkEmpty) return;
+        // Phone Number
+        if (phoneNumber.checkBothWithPhone) return;
+        // Email
+        if (emailAddress.checkBothWithEmail) return;
+       /* if (firstName.checkEmpty) return;
         // Last Name
         if (lastName.checkEmpty) return;
         // Store Name
@@ -196,19 +222,19 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         // ibnNumber
         if (ibnNumber.checkEmpty) return;
         // accountHolderName
-        if (accountHolderName.checkEmpty) return;
+        if (accountHolderName.checkEmpty) return;*/
       }
       return;
     }
     if (selectedPlan == PlansType.personal) {
       // Payment receipt certificate
-      if (paymentReceiptCertificate.path.isEmpty) {
+   /*   if (paymentReceiptCertificate.path.isEmpty) {
         showToast("Please Select Payment Receipt Certificate");
         paymentReceiptCertificateKey.currentContext!.navigate;
         return;
-      }
+      }*/
     }
-    if (selectedPlan == PlansType.company) {
+    /*if (selectedPlan == PlansType.company) {
       // Memorandum of Association
       if (memorandumAssociation.path.isEmpty) {
         showToast("Please Select Memorandum of Association");
@@ -250,7 +276,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         companyBankAccountKey.currentContext!.navigate;
         return;
       }
-    }
+    }*/
 
     /// Map Data
     /*{
@@ -293,7 +319,13 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     }
     if (selectedPlan == PlansType.personal) {
       map = {
-        'partners': partnerCount.text.trim(),
+        'first_name': firstName.text.trim(),
+        'last_name': lastName.text.trim(),
+        'email': emailAddress.text.trim(),
+        'phone': phoneNumber.text.trim(),
+        'store_name': storeName.text.trim(),
+        'home_address': homeAddress.text.trim(),
+        /*'partners': partnerCount.text.trim(),
         'first_name': firstName.text.trim(),
         'ceo_name': ceoName.text.trim(),
         'last_name': lastName.text.trim(),
@@ -304,13 +336,19 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         'account_number': accountNumber.text.trim(),
         'ibn_number': ibnNumber.text.trim(),
         'account_holder_name': accountHolderName.text.trim(),
-        'bank_name': bankId,
+        'bank_name': bankId,*/
       };
     }
     if (selectedPlan == PlansType.company) {
       // Business number
       map = {
         'first_name': firstName.text.trim(),
+        'last_name': lastName.text.trim(),
+        'email': emailAddress.text.trim(),
+        'phone': phoneNumber.text.trim(),
+        'store_name': storeName.text.trim(),
+        'home_address': homeAddress.text.trim(),
+        /*'first_name': firstName.text.trim(),
         'last_name': lastName.text.trim(),
         'email': emailAddress.text.trim(),
         'store_name': storeName.text.trim(),
@@ -322,7 +360,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
         'ibn_number': ibnNumber.text.trim(),
         'account_holder_name': accountHolderName.text.trim(),
         'bank_name': bankId,
-        'tax_number': taxNumber.text.trim(),
+        'tax_number': taxNumber.text.trim(),*/
       };
     }
 
@@ -506,6 +544,9 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
     // storeType = widget.selectedPlan.businessType.toString();
     getVendorCategories();
     getCountryList();
+    profileController.getDataProfile();
+    print('emnialllll eddressssss------'+ profileController.model.user!.email.toString());
+    emailAddress.text = profileController.model.user!.email.toString();
   }
 
   @override
@@ -515,7 +556,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       appBar: const CommonAppBar(
         titleText: "Vendor Registration",
       ),
-      body: SingleChildScrollView(
+      body:  SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Card(
@@ -699,10 +740,93 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           controller: homeAddress,
                           keyboardType: TextInputType.streetAddress,
                           key: homeAddress.getKey,
-                          hintText: "Home Address",
+                          hintText: "Address",
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter home address";
+                              return "Please enter address";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Phone Number
+                      VendorCommonTextfield(
+                          controller: phoneNumber,
+                          key: phoneNumber.getKey,
+                          hintText: "Phone Number",
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter store phone number";
+                            }
+                            if (value.trim().length < 10) {
+                              return "Please enter valid store phone number";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Email Address
+                      VendorCommonTextfield(
+                          controller: emailAddress,
+                          keyboardType: TextInputType.emailAddress,
+                          key: emailAddress.getKey,
+                          hintText: 'Email Address',
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter email address";
+                            }
+                            if (value.trim().invalidEmail) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          }),
+                    ],
+                    if (selectedPlan == PlansType.personal) ...[
+                      14.spaceY,
+                      // First Name
+                      VendorCommonTextfield(
+                          controller: firstName,
+                          key: firstName.getKey,
+                          hintText: "First Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter first name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Last Name
+                      VendorCommonTextfield(
+                          controller: lastName,
+                          key: lastName.getKey,
+                          hintText: "Last Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter last name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Store Name
+                      VendorCommonTextfield(
+                          controller: storeName,
+                          key: storeName.getKey,
+                          hintText: "Store Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter store name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Home Address
+                      VendorCommonTextfield(
+                          controller: homeAddress,
+                          keyboardType: TextInputType.streetAddress,
+                          key: homeAddress.getKey,
+                          hintText: "Address",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter address";
                             }
                             return null;
                           }),
@@ -738,11 +862,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             }
                             return null;
                           }),
-                    ],
-                    if (selectedPlan == PlansType.personal) ...[
-                      14.spaceY,
-                      // First Name
-                      VendorCommonTextfield(
+                      /*VendorCommonTextfield(
                           controller: firstName,
                           key: firstName.getKey,
                           hintText: "First Name",
@@ -808,10 +928,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           controller: homeAddress,
                           keyboardType: TextInputType.streetAddress,
                           key: homeAddress.getKey,
-                          hintText: "Home Address",
+                          hintText: "Address",
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter home address";
+                              return "Please enter address";
                             }
                             return null;
                           }),
@@ -856,11 +976,11 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         filePicked: (File g) {
                           paymentReceiptCertificate = g;
                         },
-                      ),
+                      ),*/
                     ],
                     if (selectedPlan == PlansType.company) ...[
                       14.spaceY,
-                      // First Name
+                     /* // First Name
                       VendorCommonTextfield(
                           controller: firstName,
                           key: firstName.getKey,
@@ -1040,7 +1160,86 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         filePicked: (File g) {
                           companyBankAccount = g;
                         },
-                      ),
+                      ),*/
+                      VendorCommonTextfield(
+                          controller: firstName,
+                          key: firstName.getKey,
+                          hintText: "First Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter first name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Last Name
+                      VendorCommonTextfield(
+                          controller: lastName,
+                          key: lastName.getKey,
+                          hintText: "Last Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter last name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Store Name
+                      VendorCommonTextfield(
+                          controller: storeName,
+                          key: storeName.getKey,
+                          hintText: "Store Name",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter store name";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Home Address
+                      VendorCommonTextfield(
+                          controller: homeAddress,
+                          keyboardType: TextInputType.streetAddress,
+                          key: homeAddress.getKey,
+                          hintText: "Address",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter address";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      //Phone Number
+                      VendorCommonTextfield(
+                          controller: phoneNumber,
+                          key: phoneNumber.getKey,
+                          hintText: "Phone Number",
+                          keyboardType: TextInputType.phone,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter store phone number";
+                            }
+                            if (value.trim().length < 10) {
+                              return "Please enter valid store phone number";
+                            }
+                            return null;
+                          }),
+                      14.spaceY,
+                      // Email Address
+                      VendorCommonTextfield(
+                          controller: emailAddress,
+                          keyboardType: TextInputType.emailAddress,
+                          key: emailAddress.getKey,
+                          hintText: "Email Address",
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter email address";
+                            }
+                            if (value.trim().invalidEmail) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          }),
                     ],
                     const SizedBox(
                       height: 25,

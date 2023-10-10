@@ -16,7 +16,7 @@ import '../../language/app_strings.dart';
 import '../../model/customer_profile/model_city_list.dart';
 import '../../model/customer_profile/model_state_list.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';
 
@@ -38,6 +38,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final TextEditingController referralEmailController = TextEditingController();
 
   updateProfile() {
     if (_formKey.currentState!.validate()) {
@@ -46,8 +47,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       map['last_name'] ="${firstNameController.text.trim()} ${lastNameController.text.trim()}".trim();
       map['name'] = lastNameController.text.trim();
       map['phone'] = phoneController.text.trim();
+      map['referral_email'] = referralEmailController.text.trim();
       map['country_id'] = profileController.selectedCountry!.id.toString();
       map['state_id'] = profileController.selectedState!.stateId.toString();
+
       map['city'] = profileController.selectedCity != null ?
       profileController.selectedCity!.stateId.toString() : "";
       map['street_name'] = addressController.text.trim();
@@ -161,6 +164,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     firstNameController.text = profileController.model.user!.firstName.toString();
     lastNameController.text = profileController.model.user!.lastName.toString();
     emailController.text = profileController.model.user!.email.toString();
+    referralEmailController.text = profileController.model.user!.referralEmail.toString();
     phoneController.text = profileController.model.user!.phone.toString();
     addressController.text = profileController.model.user!.street_name.toString();
     if(profileController.model.user!.country_id != null){
@@ -341,6 +345,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 },
               ),
               ...fieldWithName(
+                title: AppStrings.referralEmail,
+                hintText: AppStrings.referralEmail,
+                readOnly: true,
+                controller: referralEmailController,
+                validator: (v) {
+                  if (v!.trim().isEmpty) {
+                    return "Please enter your referral email";
+                  }
+                  if (v.trim().invalidEmail) {
+                    return "Please enter valid referral email";
+                  }
+                  return null;
+                },
+              ),
+              ...fieldWithName(
                 title: AppStrings.phoneNumber,
                 hintText: AppStrings.enterPhoneNumber,
                 controller: phoneController,
@@ -515,34 +534,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
+}
 
-  List<Widget> fieldWithName(
-      {required String title,
+List<Widget> fieldWithName(
+    {required String title,
       required String hintText,
       required TextEditingController controller,
       FormFieldValidator<String>? validator,
       bool? readOnly,
       VoidCallback? onTap,
       Widget? suffixIcon}) {
-    return [
-      Text(
-        title,
-        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
-      ),
-      const SizedBox(
-        height: 5,
-      ),
-      CommonTextField(
-        onTap: onTap,
-        hintText: hintText,
-        controller: controller,
-        validator: validator,
-        readOnly: readOnly ?? false,
-        suffixIcon: suffixIcon,
-      ),
-      const SizedBox(
-        height: 12,
-      ),
-    ];
-  }
+  return [
+    Text(
+      title,
+      style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+    ),
+    const SizedBox(
+      height: 5,
+    ),
+    CommonTextField(
+      onTap: onTap,
+      hintText: hintText,
+      controller: controller,
+      validator: validator,
+      readOnly: readOnly ?? false,
+      suffixIcon: suffixIcon,
+    ),
+    const SizedBox(
+      height: 12,
+    ),
+  ];
 }

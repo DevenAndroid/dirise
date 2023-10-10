@@ -48,6 +48,10 @@ class ModelVendorProductDetailsData {
   ProductAvailability? productAvailability;
   String? returnDays;
   List<VariantData>? variantData;
+  String? stockAlert;
+  String? taxApply;
+  String? language;
+  String? taxType;
 
   ModelVendorProductDetailsData(
       {this.catId,
@@ -74,10 +78,18 @@ class ModelVendorProductDetailsData {
       this.inStock,
       this.serviceTimeSloat,
       this.productAvailability,
+      this.stockAlert,
+      this.taxApply,
+      this.language,
+      this.taxType,
       this.returnDays});
 
   ModelVendorProductDetailsData.fromJson(Map<String, dynamic> json) {
     catId = json['cat_id'];
+    stockAlert = json['stock_alert'];
+    taxType = json['tax_type'];
+    taxApply = json['tax_apply'];
+    language = json['virtual_product_file_language'];
     time = json['time'];
     time_period = json['time_period'];
     weightUnit = json['weight_unit'];
@@ -119,6 +131,10 @@ class ModelVendorProductDetailsData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['cat_id'] = catId;
+    data['stock_alert'] = stockAlert;
+    data['tax_apply'] = taxApply;
+    data['virtual_product_file_language'] = language;
+    data['tax_type'] = taxType;
     data['time'] = time;
     data['time_period'] = time_period;
     data['brand_slug'] = brandSlug;

@@ -10,9 +10,10 @@ import 'package:lottie/lottie.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/wish_list_controller.dart';
 import '../../model/common_modal.dart';
+import '../../model/product_model/model_product_element.dart';
 import '../../model/trending_products_modal.dart';
 import '../../repository/repository.dart';
-import '../../utils/ApiConstant.dart';
+import '../../utils/api_constant.dart';
 import '../../widgets/cart_widget.dart';
 import '../product_details/product_widget.dart';
 
@@ -151,7 +152,7 @@ class _WishListScreenState extends State<WishListScreen> {
                                             height: 5,
                                           ),
                                           Text(
-                                            _wishListController.model.value.wishlist![index].pname.toString(),
+                                            _wishListController.model.value.wishlist![index].pName.toString(),
                                             style: GoogleFonts.poppins(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w500,
@@ -161,7 +162,7 @@ class _WishListScreenState extends State<WishListScreen> {
                                             height: 5,
                                           ),
                                           Text(
-                                            _wishListController.model.value.wishlist![index].pname.toString(),
+                                            _wishListController.model.value.wishlist![index].pName.toString(),
                                             style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                           ),
                                           const SizedBox(

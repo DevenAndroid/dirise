@@ -71,6 +71,7 @@ class User {
   dynamic state_id;
   dynamic country_id;
   dynamic city;
+  dynamic referralEmail;
   bool? isVendor;
   List<Roles>? roles;
 
@@ -124,6 +125,7 @@ class User {
       this.deletedAt,
       this.country_id,
       this.isVendor,
+      this.referralEmail,
       this.roles});
 
   User.fromJson(Map<String, dynamic> json) {
@@ -175,6 +177,7 @@ class User {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
+    referralEmail = json['referral_email'];
     isVendor = json['is_vendor'] ?? false;
     if (json['roles'] != null) {
       roles = <Roles>[];
@@ -228,6 +231,7 @@ class User {
     data['updated_at'] = updatedAt;
     data['deleted_at'] = deletedAt;
     data['is_vendor'] = isVendor;
+    data['referral_email'] = referralEmail;
     if (roles != null) {
       data['roles'] = roles!.map((v) => v.toJson()).toList();
     }

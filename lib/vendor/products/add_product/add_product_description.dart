@@ -20,7 +20,7 @@ class AddProductDescriptionScreen extends StatefulWidget {
 
 class _AddProductDescriptionScreenState extends State<AddProductDescriptionScreen> {
   final controller = Get.put(AddProductController());
-
+  String taxValue = 'Select Tax Type';
   List<String> productTypes = [
     "Simple Product",
     "Virtual Product",
@@ -32,6 +32,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
   void initState() {
     super.initState();
     controller.getProductCategoryLit();
+    controller.getTaxData();
   }
 
   showPolicyDialog() {
@@ -230,6 +231,116 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                         return null;
                       }),
                   18.spaceY,
+                  DropdownButtonFormField<String>(
+                    key: controller.taxKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    isExpanded: true,
+                    iconDisabledColor: const Color(0xff97949A),
+                    iconEnabledColor: const Color(0xff97949A),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                      enabled: true,
+                      filled: true,
+                      hintText: "Tax Apply",
+                      labelStyle: GoogleFonts.poppins(color: Colors.black),
+                      //labelText: "Tax Apply",
+                      fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                    ),
+                    value: controller.tax,
+                    validator: (gg) {
+                      if (controller.tax.isEmpty) {
+                        return "Please select tax ";
+                      }
+                      return null;
+                    },
+                    items: <String>['include', 'exclude']
+                        .map((label) =>
+                        DropdownMenuItem(
+                          value: label,
+                          child: Text(
+                            label
+                                .toString(),
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xff463B57),
+                            ),
+                          ),
+                        ))
+                        .toList(),
+                    onChanged: (value) {
+                      if (value == null) return;
+                      print('value....'+controller.tax);
+                      controller.tax = value;
+                      setState(() {
+
+                      });
+                    },
+                  ),
+                  controller.tax == 'include' ?
+                  18.spaceY :
+                  const SizedBox(),
+                  controller.tax == 'include' ?
+                  DropdownButtonFormField<dynamic>(
+                    // key: controller.weightUnitKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    isExpanded: true,
+                    iconDisabledColor: const Color(0xff97949A),
+                    iconEnabledColor: const Color(0xff97949A),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                      enabled: true,
+                      filled: true,
+                      hintText: "Tax (in %)",
+                      labelStyle: GoogleFonts.poppins(color: Colors.black),
+                      //labelText: "Tax Apply",
+                      fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: AppTheme.secondaryColor),
+                      ),
+                    ),
+                    value: controller.taxId,
+                  /*   validator: (gg) {
+                      if (controller.weightUnit.isEmpty) {
+                        return "Please select weight unit";
+                      }
+                      return null;
+                    },*/
+                    items: controller.taxData.value.tax?.toList()
+                        .map((label) =>
+                        DropdownMenuItem(
+                          value:  label.id.toString(),
+                          child: Text(
+                            label.title
+                                .toString()
+                                .capitalize!,
+                            style: GoogleFonts.poppins(
+                              color: const Color(0xff463B57),
+                            ),
+                          ),
+                        ))
+                        .toList(),
+                    onChanged: (value) {
+                      if (value == null) return;
+                      print(controller.taxId,);
+                      setState(() {
+                        controller.taxId = value;
+                      });
+                    },
+                  ) :
+                  const SizedBox(),
+                  18.spaceY,
                   VendorCommonTextfield(
                       controller: controller.stockController,
                       key: controller.stockController.getKey,
@@ -241,6 +352,21 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                         }
                         if ((num.tryParse(value.trim()) ?? 0) < 1) {
                           return "Enter valid stock quantity";
+                        }
+                        return null;
+                      }),
+                  18.spaceY,
+                  VendorCommonTextfield(
+                      controller: controller.stockAlertController,
+                      //key: controller.stockController.getKey,
+                      keyboardType: TextInputType.number,
+                      hintText: "Stock Alert",
+                      validator: (value) {
+                        if (value!.trim().isEmpty) {
+                          return "Stock alert is required";
+                        }
+                        if ((num.tryParse(value.trim()) ?? 0) < 1) {
+                          return "Enter valid stock alert";
                         }
                         return null;
                       }),

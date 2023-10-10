@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../../ApiRepo/tax_repository.dart';
 import '../../model/common_modal.dart';
 import '../../model/vendor_models/model_add_product_category.dart';
+import '../../model/vendor_models/model_add_tax.dart';
 import '../../model/vendor_models/model_attribute.dart';
 import '../../model/vendor_models/model_return_policy.dart';
 import '../../model/vendor_models/model_varient.dart';
@@ -53,8 +56,10 @@ class AddProductController extends GetxController {
   ];
 
   ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
+  Rx<ModelAddTax> taxData = ModelAddTax().obs;
   RxInt refreshCategory = 0.obs;
-
+  RxInt taxCategory = 0.obs;
+  RxBool isDataLoading = false.obs;
   getProductAttributes() {
     log("this is product modelAttributes.....       $modelAttributes");
     repositories.getApi(url: ApiUrls.getAttributeUrl).then((value) {
@@ -67,7 +72,14 @@ class AddProductController extends GetxController {
       throw Exception(e);
     });
   }
-
+  /*Future getProductTax() async {
+    taxCategory.value = -2;
+    await repositories.postApi(url: ApiUrls.taxDataUrl, showResponse: false, showMap: false).then((value) {
+      taxCategory = ModelAddProductCategory.fromJson(jsonDecode(value));
+      updateCategory();
+      refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }*/
   Future getProductCategoryLit() async {
     refreshCategory.value = -2;
     await repositories.postApi(url: ApiUrls.productCategoryListUrl, showResponse: false, showMap: false).then((value) {
@@ -76,16 +88,24 @@ class AddProductController extends GetxController {
       refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
-
+  Future getTaxData() async {
+    isDataLoading.value = false;
+    await taxDataList().then((value) {
+      isDataLoading.value = true;
+      taxData.value = value;
+    });
+  }
   final Repositories repositories = Repositories();
   final productListController = Get.put(ProductsController());
 
   RxInt refreshInt = 0.obs;
   bool apiLoaded = false;
   String productId = "";
-
+  String tax = 'exclude';
+  String? taxId;
   final GlobalKey slotKey = GlobalKey();
   final GlobalKey categoryKey = GlobalKey();
+  final GlobalKey taxKey = GlobalKey();
   final GlobalKey productAvailabilityKey = GlobalKey();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController startTime = TextEditingController();
@@ -98,11 +118,13 @@ class AddProductController extends GetxController {
   final TextEditingController purchasePriceController = TextEditingController();
   final TextEditingController sellingPriceController = TextEditingController();
   final TextEditingController stockController = TextEditingController();
+  final TextEditingController stockAlertController = TextEditingController();
   final TextEditingController shortDescriptionController = TextEditingController();
   final TextEditingController longDescriptionController = TextEditingController();
   final TextEditingController returnDaysController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
   // final TextEditingController weightUnitController = TextEditingController();
+  final TextEditingController languageController = TextEditingController();
   String weightUnit = "";
   final GlobalKey weightUnitKey = GlobalKey();
 
@@ -112,6 +134,7 @@ class AddProductController extends GetxController {
   File pdfFile = File("");
   File voiceFile = File("");
   List<File> galleryImages = [];
+  String selectedTax = "";
   String selectedCategory = "";
   String productType = "Simple Product";
   bool showValidations = false;
@@ -126,7 +149,7 @@ class AddProductController extends GetxController {
   ModelVendorProductDetails productDetails = ModelVendorProductDetails();
   List<ServiceTimeSloat> serviceTimeSloat = [];
   bool resetSlots = false;
-
+  String? getTaxType;
   // For Variation
   ModelAttributes modelAttributes = ModelAttributes();
   RxInt attributeRefresh = 0.obs;
@@ -157,6 +180,7 @@ class AddProductController extends GetxController {
     longDescriptionController.text = "";
     returnDaysController.text = "";
     weightController.text = "";
+    stockAlertController.text = "";
   }
 
   bool valuesAssigned = false;
@@ -205,7 +229,7 @@ class AddProductController extends GetxController {
   updateControllers() {
     if (productDetails.product == null) return;
     ModelVendorProductDetailsData item = productDetails.product!;
-
+    getTaxType = productDetails.product!.taxType;
     /// Description Part
     if (item.productType == "virtual_product") {
       productType = "Virtual Product";
@@ -223,15 +247,21 @@ class AddProductController extends GetxController {
     if(!gg.contains(weightUnit)){
       gg.add(weightUnit);
     }
+    tax = item.taxApply.toString();
+    taxId = item.taxType.toString();
+    //tax = (item.tax ?? '').toString();
     updateUI;
     skuController.text = item.skuId.toString();
     purchasePriceController.text = (item.pPrice ?? "").toString();
     sellingPriceController.text = item.sPrice.toString();
     stockController.text = item.inStock.toString();
+    stockAlertController.text = item.stockAlert.toString();
     shortDescriptionController.text = item.shortDescription.toString();
     longDescriptionController.text = item.longDescription.toString();
     productDurationValueController.text = (item.time ?? "").toString() == "0" ? "" : (item.time ?? "").toString();
     productDurationTypeValue = (item.time_period ?? "").toString();
+    languageController.text = item.language.toString();
+    log("short Description Controller${shortDescriptionController.text}");
     updateCategory();
     galleryImages.clear();
     for (var element in item.galleryImage!) {
@@ -349,6 +379,11 @@ class AddProductController extends GetxController {
       if (weightUnit.isEmpty) {
         if (weightUnitKey.currentContext != null) {
           Scrollable.ensureVisible(weightUnitKey.currentContext!,
+              alignment: .25, duration: const Duration(milliseconds: 600));
+          return;
+        }
+        if (taxKey.currentContext != null) {
+          Scrollable.ensureVisible(taxKey.currentContext!,
               alignment: .25, duration: const Duration(milliseconds: 600));
           return;
         }
@@ -515,7 +550,12 @@ class AddProductController extends GetxController {
         map["variant_value[${element.key}]"] = jsonEncode(kk);
       });
     }
-
+    if(taxId != null){
+      map["tax_type"] = taxId!;
+    }
+    map["virtual_product_file_language"] = languageController.text;
+    map["tax_apply"] = tax;
+    map["stock_alert"] = stockAlertController.text.trim();
     map["product_name"] = productNameController.text.trim();
     map["sku_id"] = skuController.text.trim();
     map["purchase_price"] = purchasePriceController.text.trim();

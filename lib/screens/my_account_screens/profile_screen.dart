@@ -143,6 +143,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         value: profileController.model.user!.email.toString(),
                       ),
                       ...profileCard(
+                        imagePath: "assets/svgs/referral_img.svg",
+                        title: AppStrings.referralEmail,
+                        value: profileController.model.user!.referralEmail.toString(),
+                      ),
+                      ...profileCard(
                         imagePath: "assets/svgs/location.svg",
                         title: AppStrings.streetAddress,
                         value: profileController.model.user!.street_name.toString(),

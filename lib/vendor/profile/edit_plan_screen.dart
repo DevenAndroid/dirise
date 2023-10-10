@@ -228,10 +228,12 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
               children: modelPlansList!.allPlans.asMap().entries.map((e) {
                 bool allowSelect = false;
                 bool showDiscount = true;
-                if(selectedPlan1 != null && selectedPlan1!.businessType.toString().toLowerCase() == e.value!.first.businessType.toString().toLowerCase()){
+                if (selectedPlan1 != null &&
+                    selectedPlan1!.businessType.toString().toLowerCase() ==
+                        e.value!.first.businessType.toString().toLowerCase()) {
                   showDiscount = false;
                 }
-                if(selectedPlan1 == null){
+                if (selectedPlan1 == null) {
                   showDiscount = false;
                 }
 
@@ -254,14 +256,44 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     children: [
+                      //const SizedBox(height: 10,),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 24),
-                        child: Text(
-                          e.value!.first.businessType.toString().capitalize!,
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                              color: allowSelect ? AppTheme.buttonColor : Colors.grey.shade400),
+                        child: Column(
+                          children: [
+                            allowSelect && modelPlansList!.plansDiscount != null && showDiscount
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: const Color(0xFF014E70),
+                                    ),
+                                    child: Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                        child: Text(
+                                          e.key == 1
+                                              ? "${modelPlansList!.plansDiscount!.companyDiscount} %Off"
+                                              : e.key == 2
+                                                  ? "${modelPlansList!.plansDiscount!.personalDiscount} %Off"
+                                                  : "",
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        )),
+                                  )
+                                : const SizedBox(),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              e.value!.first.businessType.toString().capitalize!,
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: allowSelect ? AppTheme.buttonColor : Colors.grey.shade400),
+                            ),
+                          ],
                         ),
                       ),
                       const Divider(
@@ -290,7 +322,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                                       ),
                                     ),
                                   ),
-                                  if (allowSelect && modelPlansList!.plansDiscount != null && showDiscount)
+                                  /*if (allowSelect && modelPlansList!.plansDiscount != null && showDiscount)
                                     Text(
                                       e.key == 1
                                           ? "${modelPlansList!.plansDiscount!.companyDiscount} %Off"
@@ -302,7 +334,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                       ),
-                                    ),
+                                    ),*/
                                 ],
                               ),
                             ),
@@ -341,9 +373,12 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                                                       flex: 3,
                                                       child: Text(
                                                         e1.value.label.toString().capitalize!,
-                                                        style: titleStyle.copyWith(
-                                                            color: allowSelect ? Colors.black : Colors.grey),
+                                                        style:
+                                                            titleStyle.copyWith(color: allowSelect ? Colors.black : Colors.grey),
                                                       )),
+                                                  const SizedBox(
+                                                    width: 4,
+                                                  ),
                                                   Expanded(
                                                       flex: 2,
                                                       child: Text(
@@ -351,8 +386,23 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                                                         style: titleStyle.copyWith(
                                                             fontWeight: FontWeight.w400,
                                                             fontSize: 14,
-                                                            color: allowSelect ? Colors.black : Colors.grey),
+                                                            color: allowSelect ? Colors.black : Colors.grey,
+                                                            decoration: allowSelect && modelPlansList!.plansDiscount != null && showDiscount ? TextDecoration.lineThrough :
+                                                        TextDecoration.none),
                                                       )),
+                                                  //e.value!.first.businessType.toString() == "company" && e.value!.first.businessType.toString() == "personal"
+                                                  allowSelect && modelPlansList!.plansDiscount != null && showDiscount
+                                                      ? Expanded(
+                                                          flex: 2,
+                                                          child: Text(
+                                                            "${e1.value.discountPlan} ${e1.value.currency}",
+                                                            style: titleStyle.copyWith(
+                                                              fontWeight: FontWeight.w400,
+                                                              fontSize: 14,
+                                                              color: allowSelect ? Colors.black : Colors.grey,
+                                                            ),
+                                                          ))
+                                                      : const SizedBox(),
                                                 ],
                                               ),
                                             ],

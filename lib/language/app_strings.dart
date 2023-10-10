@@ -48,6 +48,7 @@ class AppStrings{
     static String signUp = "Sign Up";
     static String associatedAccount = "Enter the email address associated with your account";
     static String email = "Email";
+    static String referralEmail = "Referral Email";
     static String sendOtp = "Send Otp";
     static String createAccount = "Create Account";
     static String confirmPassword = "Confirm Password";

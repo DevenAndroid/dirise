@@ -1,5 +1,6 @@
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/utils/styles.dart';
+import 'package:dirise/vendor/dashboard/status_widgets.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                           shrinkWrap: true,
                           slivers: [
                             const PlanWidget(),
+                            const StatusWidget(),
                             thisMonth(),
                             const DashBoardCharts(),
                             const SliverToBoxAdapter(

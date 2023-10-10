@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dirise/language/app_strings.dart';
-import 'package:dirise/utils/ApiConstant.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
 import 'package:flutter/gestures.dart';
@@ -9,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../model/login_model.dart';
 import '../../repository/repository.dart';
+import '../../utils/api_constant.dart';
 import '../../widgets/common_button.dart';
 import '../../bottomavbar.dart';
 import 'createacc_screen.dart';

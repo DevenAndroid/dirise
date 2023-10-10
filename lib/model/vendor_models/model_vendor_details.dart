@@ -87,7 +87,8 @@ class VendorUser {
   dynamic createdAt;
   dynamic updatedAt;
   dynamic deletedAt;
-  List<VenderCategory>? venderCategory;
+  dynamic vendorCategory;
+ // List<VenderCategory>? venderCategory;
   VendorProfile? vendorProfile;
 
   VendorUser(
@@ -155,7 +156,8 @@ class VendorUser {
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
-        this.venderCategory,
+        this.vendorCategory,
+        //this.venderCategory,
         this.vendorProfile});
 
   VendorUser.fromJson(Map<String, dynamic> json) {
@@ -223,12 +225,13 @@ class VendorUser {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
-    if (json['vender_category'] != null) {
+    vendorCategory = json['vendor_category'];
+  /*  if (json['vender_category'] != null) {
       venderCategory = <VenderCategory>[];
       json['vender_category'].forEach((v) {
         venderCategory!.add(VenderCategory.fromJson(v));
       });
-    }
+    }*/
     vendorProfile = json['vendor_profile'] != null
         ? VendorProfile.fromJson(json['vendor_profile'])
         : null;
@@ -300,10 +303,11 @@ class VendorUser {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['deleted_at'] = deletedAt;
-    if (venderCategory != null) {
+    data['vendor_category'] = vendorCategory;
+  /*  if (venderCategory != null) {
       data['vender_category'] =
           venderCategory!.map((v) => v.toJson()).toList();
-    }
+    }*/
     if (vendorProfile != null) {
       data['vendor_profile'] = vendorProfile!.toJson();
     }
@@ -311,7 +315,7 @@ class VendorUser {
   }
 }
 
-class VenderCategory {
+/*class VenderCategory {
   dynamic id;
   dynamic name;
   dynamic status;
@@ -360,7 +364,7 @@ class VenderCategory {
     }
     return data;
   }
-}
+}*/
 
 class Pivot {
   dynamic userId;
@@ -400,6 +404,7 @@ class VendorProfile {
   dynamic ceoName;
   dynamic homeAddress;
   dynamic partners;
+  dynamic partnersName;
   dynamic workAddress;
   dynamic ministyOfCommerce;
   dynamic originalCivilInformation;
@@ -410,6 +415,7 @@ class VendorProfile {
   dynamic label2;
   dynamic label3;
   dynamic createdAt;
+  dynamic idProof;
   dynamic updatedAt;
 
   VendorProfile(
@@ -441,6 +447,8 @@ class VendorProfile {
         this.label2,
         this.label3,
         this.createdAt,
+        this.partnersName,
+        this.idProof,
         this.updatedAt});
 
   VendorProfile.fromJson(Map<String, dynamic> json) {
@@ -473,6 +481,8 @@ class VendorProfile {
     label3 = json['label3'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    idProof = json['id_proof'];
+    partnersName = json['partner_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -501,6 +511,8 @@ class VendorProfile {
     data['label3'] = label3;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    data['id_proof'] = idProof;
+    data['partner_name'] = partnersName;
     return data;
   }
 }

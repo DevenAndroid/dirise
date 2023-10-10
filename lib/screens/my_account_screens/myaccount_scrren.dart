@@ -444,6 +444,44 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         thickness: 1,
                         color: Color(0x1A000000),
                       ),
+                      /*const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                         // Get.toNamed(AboutUsScreen.route);
+                        },
+                        child: Row(
+                          children: [
+                          Image.asset('assets/images/referral_email.png',height: 24,width: 24,),
+                            //  SvgPicture.asset(height: 24, 'assets/images/referral_email.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              AppStrings.referralEmail,
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),*/
+                     /* const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),*/
+                      const SizedBox(
+                        height: 5,
+                      ),
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {

@@ -35,8 +35,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
     controller.productDurationTypeValue = "";
     controller.valuesAssigned = false;
     controller.apiLoaded = false;
-    controller.getProductDetails();
+    controller.getProductDetails().then((value) {
+      setState(() {
+
+      });
+    });
     controller.getProductAttributes();
+    controller.getTaxData();
   }
 
   showDeleteDialog() {
@@ -110,6 +115,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ? RefreshIndicator(
                     onRefresh: () async {
                       await controller.getProductCategoryLit();
+                      await controller.getTaxData();
                       await controller.getProductAttributes();
                     },
                     child: SingleChildScrollView(
