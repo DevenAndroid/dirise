@@ -230,7 +230,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     /// Validations
     if (!_formKey.currentState!.validate()) {
       if (allSelectedCategory.isEmpty) {
-        categoryKey.currentContext!.navigate;
+        categoryKey.currentContext?.navigate;
       }
       if (selectedPlan == PlansType.advertisement) {
         // First Name
@@ -318,18 +318,18 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         return;
       }
       // Store Logo
-      if (storeLogo.path.isEmpty) {
-        showToast("Please Select Store Logo");
-        storeLogoKey.currentContext!.navigate;
-        return;
-      }
+      // if (storeLogo.path.isEmpty) {
+      //   showToast("Please Select Store Logo");
+      //   storeLogoKey.currentContext!.navigate;
+      //   return;
+      // }
 
       // Store Banner
-      if (storeBanner.path.isEmpty) {
-        showToast("Please Select Store Banner");
-        storeBannerKey.currentContext!.navigate;
-        return;
-      }
+      // if (storeBanner.path.isEmpty) {
+      //   showToast("Please Select Store Banner");
+      //   storeBannerKey.currentContext!.navigate;
+      //   return;
+      // }
     }
     if (selectedPlan == PlansType.personal) {
       // Payment receipt certificate
@@ -339,17 +339,17 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         return;
       }
       // store Logo
-      if (storeLogo.path.isEmpty) {
-        showToast("Please Select Store Logo");
-        storeLogoKey.currentContext!.navigate;
-        return;
-      }
-      // store Banner
-      if (storeBanner.path.isEmpty) {
-        showToast("Please Select Store Banner");
-        storeBannerKey.currentContext!.navigate;
-        return;
-      }
+      // if (storeLogo.path.isEmpty) {
+      //   showToast("Please Select Store Logo");
+      //   storeLogoKey.currentContext!.navigate;
+      //   return;
+      // }
+      // // store Banner
+      // if (storeBanner.path.isEmpty) {
+      //   showToast("Please Select Store Banner");
+      //   storeBannerKey.currentContext!.navigate;
+      //   return;
+      // }
     }
     if (selectedPlan == PlansType.company) {
       // Memorandum of Association
@@ -395,18 +395,18 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       }
 
       // Store Logo
-      if (storeLogo.path.isEmpty) {
-        showToast("Please Select Store Logo");
-        storeLogoKey.currentContext!.navigate;
-        return;
-      }
-
-      // Store Banner
-      if (storeBanner.path.isEmpty) {
-        showToast("Please Select Store Banner");
-        storeBannerKey.currentContext!.navigate;
-        return;
-      }
+      // if (storeLogo.path.isEmpty) {
+      //   showToast("Please Select Store Logo");
+      //   storeLogoKey.currentContext!.navigate;
+      //   return;
+      // }
+      //
+      // // Store Banner
+      // if (storeBanner.path.isEmpty) {
+      //   showToast("Please Select Store Banner");
+      //   storeBannerKey.currentContext!.navigate;
+      //   return;
+      // }
     }
 
     if (planUpdate && paymentMethod.isEmpty) {
@@ -512,7 +512,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     }
 
     map["vendor_type"] = selectedPlan.name;
-    map["country_id"] = selectedCountry!.id.toString();
+    map["store_phone"] = storePhone.text.trim();
+    // map["country_id"] = selectedCountry!.id.toString();
     map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
 
     /// Files upload map
@@ -580,7 +581,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   RxInt bankListValue = 0.obs;
 
   Future getBankList() async {
-    await repositories.getApi(url: ApiUrls.bankListUrl).then((value) {
+    await repositories.getApi(url: ApiUrls.bankListUrl,showResponse: false).then((value) {
       modelBankList = ModelBankList.fromJson(jsonDecode(value));
       bankListValue.value = DateTime.now().millisecondsSinceEpoch;
     });
@@ -592,7 +593,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
   void getVendorCategories() {
     vendorCategoryStatus.value = RxStatus.loading();
-    repositories.getApi(url: ApiUrls.vendorCategoryListUrl).then((value) {
+    repositories.getApi(url: ApiUrls.vendorCategoryListUrl,showResponse: false).then((value) {
       modelVendorCategory = ModelVendorCategory.fromJson(jsonDecode(value));
       vendorCategoryStatus.value = RxStatus.success();
 
@@ -602,7 +603,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       setState(() {});
     }).catchError((e) {
       vendorCategoryStatus.value = RxStatus.error();
-      throw Exception(e);
+      // throw Exception(e);
     });
   }
 
@@ -611,7 +612,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     super.initState();
     getBankList();
     getVendorCategories();
-    getCountryList();
+    // getCountryList();
   }
 
   showAddressSelectorDialog({
@@ -700,7 +701,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   }
 
   ModelCountryList? modelCountryList;
-  Country? selectedCountry;
+  // Country? selectedCountry;
 
   getCountryList() {
     if(modelCountryList != null)return;
@@ -709,7 +710,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       for (var element in modelCountryList!.country!) {
         log("message....     ${element.id.toString()}      ........      ${vendorInfo.country_id}");
         if(element.id.toString() == (vendorInfo.country_id ?? "")){
-          selectedCountry = element;
+          // selectedCountry = element;
           setState(() {});
           break;
         }
@@ -717,7 +718,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     });
   }
 
-  bool get insideKuwait => selectedCountry == null ? false : selectedCountry!.name.toString() == "Kuwait";
+  // bool get insideKuwait => selectedCountry == null ? false : selectedCountry!.name.toString() == "Kuwait";
 
   @override
   Widget build(BuildContext context) {
@@ -1014,7 +1015,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   title: "Store Logo",
                                   file: storeLogo,
                                   validation:
-                                  checkValidation(showValidation.value, storeLogo.path.isEmpty),
+                                  false,
                                   filePicked: (File g) {
                                     storeLogo = g;
                                   },
@@ -1025,7 +1026,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   title: "Store Banner",
                                   file: storeBanner,
                                   validation:
-                                  checkValidation(showValidation.value, storeBanner.path.isEmpty),
+                                  false,
                                   filePicked: (File g) {
                                     storeBanner = g;
                                   },
@@ -1256,7 +1257,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   title: "Store Logo",
                                   file: storeLogo,
                                   validation:
-                                  checkValidation(showValidation.value, storeLogo.path.isEmpty),
+                                  false,
                                   filePicked: (File g) {
                                     storeLogo = g;
                                   },
@@ -1267,7 +1268,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   title: "Store Banner",
                                   file: storeBanner,
                                   validation:
-                                  checkValidation(showValidation.value, storeBanner.path.isEmpty),
+                                  false,
                                   filePicked: (File g) {
                                     storeBanner = g;
                                   },
@@ -1473,6 +1474,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   controller: storePhone,
                                   //key: storeName.getKey,
                                   hintText: "Store Phone",
+                                   keyboardType: TextInputType.number,
                                    validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store phone";
@@ -1562,7 +1564,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   title: "Store Logo",
                                   file: storeLogo,
                                   validation:
-                                  checkValidation(showValidation.value, storeLogo.path.isEmpty),
+                                  false,
                                   filePicked: (File g) {
                                     storeLogo = g;
                                   },
@@ -1573,7 +1575,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   title: "Store Banner",
                                   file: storeBanner,
                                   validation:
-                                  checkValidation(showValidation.value, storeBanner.path.isEmpty),
+                                  false,
                                   filePicked: (File g) {
                                     storeBanner = g;
                                   },
@@ -1751,71 +1753,71 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     return [
       14.spaceY,
       //Bank List
-      insideKuwait ?
-      Obx(() {
-        if (bankListValue.value > 0) {}
-        resolveError();
-        return DropdownButtonFormField<String?>(
-          isExpanded: true,
-          value: bankLoaded
-              ? bankId.isNotEmpty
-              ? bankId
-              : null
-              : null,
-          style: const TextStyle(color: Colors.red),
-          decoration: InputDecoration(
-            hintText: "Please select bank",
-            labelText: "Please select bank",
-            filled: true,
-            fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-            labelStyle: GoogleFonts.poppins(
-              color: Colors.black,
-              fontSize: 14,
-            ),
-            contentPadding: const EdgeInsets.all(15),
-            focusedErrorBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: AppTheme.secondaryColor)),
-            errorBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: AppTheme.secondaryColor)),
-            focusedBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                borderSide: BorderSide(color: AppTheme.secondaryColor)),
-            disabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor),
-            ),
-            enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(color: AppTheme.secondaryColor),
-            ),
-          ),
-          icon: const Icon(Icons.keyboard_arrow_down),
-          items: bankLoaded
-              ? modelBankList!.data!.banks!
-              .map((e) => DropdownMenuItem(
-            value: e.id.toString(),
-            child: Text(
-              e.name.toString(),
-              style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
-            ),
-          ))
-              .toList()
-              : [],
-          validator: (value) {
-            if (bankId.isEmpty) {
-              return "Please select bank";
-            }
-            return null;
-          },
-          onChanged: (newValue) {
-            if (newValue == null) return;
-            bankId = newValue;
-            setState(() {});
-          },
-        );
-      }) :
+      // insideKuwait ?
+      // Obx(() {
+      //   if (bankListValue.value > 0) {}
+      //   resolveError();
+      //   return DropdownButtonFormField<String?>(
+      //     isExpanded: true,
+      //     value: bankLoaded
+      //         ? bankId.isNotEmpty
+      //         ? bankId
+      //         : null
+      //         : null,
+      //     style: const TextStyle(color: Colors.red),
+      //     decoration: InputDecoration(
+      //       hintText: "Please select bank",
+      //       labelText: "Please select bank",
+      //       filled: true,
+      //       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+      //       labelStyle: GoogleFonts.poppins(
+      //         color: Colors.black,
+      //         fontSize: 14,
+      //       ),
+      //       contentPadding: const EdgeInsets.all(15),
+      //       focusedErrorBorder: const OutlineInputBorder(
+      //           borderRadius: BorderRadius.all(Radius.circular(8)),
+      //           borderSide: BorderSide(color: AppTheme.secondaryColor)),
+      //       errorBorder: const OutlineInputBorder(
+      //           borderRadius: BorderRadius.all(Radius.circular(8)),
+      //           borderSide: BorderSide(color: AppTheme.secondaryColor)),
+      //       focusedBorder: const OutlineInputBorder(
+      //           borderRadius: BorderRadius.all(Radius.circular(8)),
+      //           borderSide: BorderSide(color: AppTheme.secondaryColor)),
+      //       disabledBorder: const OutlineInputBorder(
+      //         borderRadius: BorderRadius.all(Radius.circular(8)),
+      //         borderSide: BorderSide(color: AppTheme.secondaryColor),
+      //       ),
+      //       enabledBorder: const OutlineInputBorder(
+      //         borderRadius: BorderRadius.all(Radius.circular(8)),
+      //         borderSide: BorderSide(color: AppTheme.secondaryColor),
+      //       ),
+      //     ),
+      //     icon: const Icon(Icons.keyboard_arrow_down),
+      //     items: bankLoaded
+      //         ? modelBankList!.data!.banks!
+      //         .map((e) => DropdownMenuItem(
+      //       value: e.id.toString(),
+      //       child: Text(
+      //         e.name.toString(),
+      //         style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+      //       ),
+      //     ))
+      //         .toList()
+      //         : [],
+      //     validator: (value) {
+      //       if (bankId.isEmpty) {
+      //         return "Please select bank";
+      //       }
+      //       return null;
+      //     },
+      //     onChanged: (newValue) {
+      //       if (newValue == null) return;
+      //       bankId = newValue;
+      //       setState(() {});
+      //     },
+      //   );
+      // }) :
       VendorCommonTextfield(
           controller: TextEditingController(text: bankId),
           hintText: "Bank Name",

@@ -234,7 +234,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text:  AppStrings.alreadyAccount,
+                        text:  AppStrings.noAccount,
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       TextSpan(

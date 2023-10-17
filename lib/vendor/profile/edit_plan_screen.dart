@@ -265,18 +265,17 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                                 ? Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30),
-                                      color: const Color(0xFF014E70),
                                     ),
                                     child: Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                                         child: Text(
                                           e.key == 1
-                                              ? "${modelPlansList!.plansDiscount!.companyDiscount} %Off"
+                                              ? "${modelPlansList!.plansDiscount!.companyDiscount}% Off"
                                               : e.key == 2
-                                                  ? "${modelPlansList!.plansDiscount!.personalDiscount} %Off"
+                                                  ? "${modelPlansList!.plansDiscount!.personalDiscount}% Off"
                                                   : "",
                                           style: GoogleFonts.poppins(
-                                            color: Colors.white,
+                                            color: AppTheme.buttonColor,
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
                                           ),

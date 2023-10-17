@@ -83,42 +83,42 @@ class _PlanWidgetState extends State<PlanWidget> {
                                   height: 10,
                                 ),
                               ],
-                              if ((paymentDone == false && profileComplete)) ...[
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(VendorProfileScreen.route);
-                                  },
-                                  behavior: HitTestBehavior.translucent,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Profile Form: ",
-                                        style: normalStyle,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          "Pending",
-                                          style: titleStyle.copyWith(color: Colors.redAccent),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: IconButton(
-                                            onPressed: () {
-                                              Get.toNamed(VendorProfileScreen.route);
-                                            },
-                                            icon: const Icon(
-                                              Icons.arrow_forward_ios_rounded,
-                                              size: 18,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                              // if ((paymentDone == false && profileComplete)) ...[
+                              //   GestureDetector(
+                              //     onTap: () {
+                              //       Get.toNamed(VendorProfileScreen.route);
+                              //     },
+                              //     behavior: HitTestBehavior.translucent,
+                              //     child: Row(
+                              //       children: [
+                              //         Text(
+                              //           "Profile Form: ",
+                              //           style: normalStyle,
+                              //         ),
+                              //         Expanded(
+                              //           child: Text(
+                              //             "Pending",
+                              //             style: titleStyle.copyWith(color: Colors.redAccent),
+                              //           ),
+                              //         ),
+                              //         Expanded(
+                              //           child: Align(
+                              //             alignment: Alignment.centerRight,
+                              //             child: IconButton(
+                              //               onPressed: () {
+                              //                 Get.toNamed(VendorProfileScreen.route);
+                              //               },
+                              //               icon: const Icon(
+                              //                 Icons.arrow_forward_ios_rounded,
+                              //                 size: 18,
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ],
                               if (vendorProfileController.model.user!.planStartDate != null) ...[
                                 const Text("Plan Start Date"),
                                 Text(

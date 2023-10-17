@@ -44,7 +44,8 @@ class AppStrings{
     static String signIn = "Sign In";
     static String forgotPassword = "Forgot Password";
     static String signInWith = "Or Sign in with";
-    static String alreadyAccount = "Already have an Account?";
+    static String alreadyAccount = "Already have an Account? ";
+    static String noAccount = "Don't have an Account? ";
     static String signUp = "Sign Up";
     static String associatedAccount = "Enter the email address associated with your account";
     static String email = "Email";
