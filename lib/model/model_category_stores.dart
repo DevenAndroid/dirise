@@ -1,4 +1,5 @@
 import 'package:dirise/model/product_model/model_product_element.dart';
+import 'package:dirise/model/vendor_models/model_vendor_orders.dart';
 
 class ModelCategoryStores {
   bool? status;
@@ -6,11 +7,12 @@ class ModelCategoryStores {
   User? user;
   dynamic categoryName;
   dynamic totalPage;
+  SocialLinks? socialLinks;
   List<ProductElement>? product = [];
   List<PromotionData>? promotionData = [];
 
   ModelCategoryStores(
-      {this.status, this.message, this.user, this.categoryName, this.promotionData, this.totalPage, this.product});
+      {this.status, this.message, this.user, this.categoryName, this.promotionData, this.totalPage, this.product,this.socialLinks});
 
   ModelCategoryStores.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -34,6 +36,9 @@ class ModelCategoryStores {
     if (json['bronzeData'] != null) {
       promotionData!.add(PromotionData.fromJson(json['bronzeData']));
     }
+    socialLinks = json['social_links'] != null
+        ? SocialLinks.fromJson(json['social_links'])
+        : null;
     // if (json['promotion_data'] != null) {
     //   promotionData = <PromotionData>[];
     //   json['promotion_data'].forEach((v) { promotionData!.add(PromotionData.fromJson(v)); });
@@ -54,23 +59,35 @@ class ModelCategoryStores {
     if (product != null) {
       data['product'] = product!.map((v) => v.toJson()).toList();
     }
+    if (socialLinks != null) {
+      data['social_links'] = this.socialLinks!.toJson();
+    }
     return data;
   }
 }
 
 class User {
   dynamic currentPage;
+  dynamic day;
+  dynamic start;
+  dynamic end;
   List<VendorStoreData>? data = [];
   List<Links>? links;
-
+  List<VendorAvailability>? vendorAvailability;
   User({
     this.currentPage,
     this.data,
     this.links,
+    this.vendorAvailability,
+    this.day,this.start,this.end
+
   });
 
   User.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
+    day = json['day'] ?? "";
+    start = json['start'] ?? "";
+    end = json['end'] ?? "";
     if (json['data'] != null) {
       data = <VendorStoreData>[];
       json['data'].forEach((v) {
@@ -85,17 +102,76 @@ class User {
         links!.add(Links.fromJson(v));
       });
     }
+    if (json['vendor_availability'] != null) {
+      vendorAvailability = <VendorAvailability>[];
+      json['vendor_availability'].forEach((v) {
+        vendorAvailability!.add(new VendorAvailability.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['current_page'] = currentPage;
+    data['day'] = day;
+    data['start'] = start;
+    data['end'] = end;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     if (links != null) {
       data['links'] = links!.map((v) => v.toJson()).toList();
     }
+    if (this.vendorAvailability != null) {
+      data['vendor_availability'] =
+          this.vendorAvailability!.map((v) => v.toJson()).toList();
+    }
+    return data;
+
+  }
+}
+
+class VendorAvailability {
+  int? id;
+  int? userId;
+  int? weekDay;
+  String? startTime;
+  String? endTime;
+  int? status;
+  String? createdAt;
+  String? updatedAt;
+
+  VendorAvailability(
+      {this.id,
+        this.userId,
+        this.weekDay,
+        this.startTime,
+        this.endTime,
+        this.status,
+        this.createdAt,
+        this.updatedAt});
+
+  VendorAvailability.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    weekDay = json['week_day'];
+    startTime = json['start_time'];
+    endTime = json['end_time'];
+    status = json['status'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['week_day'] = this.weekDay;
+    data['start_time'] = this.startTime;
+    data['end_time'] = this.endTime;
+    data['status'] = this.status;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }
@@ -108,8 +184,11 @@ class VendorStoreData {
   dynamic email;
   dynamic storePhone;
   dynamic description;
+  dynamic day;
+  dynamic start;
+  dynamic end;
 
-  VendorStoreData({this.id, this.storeLogo, this.storeImage, this.storeName, this.email, this.storePhone, this.description});
+  VendorStoreData({this.id, this.storeLogo, this.storeImage, this.storeName, this.email, this.storePhone, this.description,this.day,this.start,this.end});
 
   VendorStoreData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -119,6 +198,9 @@ class VendorStoreData {
     email = json['email'] ?? "";
     storePhone = json['store_phone'] ?? "";
     description = json['description'] ?? "";
+    day = json['day'] ?? "";
+    start = json['start'] ?? "";
+    end = json['end'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -130,28 +212,58 @@ class VendorStoreData {
     data['email'] = email;
     data['store_phone'] = storePhone;
     data['description'] = description;
+    data['day'] = day;
+    data['start'] = start;
+    data['end'] = end;
     return data;
   }
 }
 
-class Links {
-  dynamic url;
-  dynamic label;
-  bool? active;
+class SocialLinks {
+  dynamic instagram;
+  dynamic facebook;
+  dynamic youtube;
+  dynamic twitter;
+  dynamic pinterest;
+  dynamic linkedin;
+  dynamic snapchat;
+  dynamic tiktok;
+  dynamic threads;
 
-  Links({this.url, this.label, this.active});
+  SocialLinks(
+      {this.instagram,
+        this.facebook,
+        this.youtube,
+        this.twitter,
+        this.pinterest,
+        this.linkedin,
+        this.snapchat,
+        this.tiktok,
+        this.threads});
 
-  Links.fromJson(Map<String, dynamic> json) {
-    url = json['url'];
-    label = json['label'];
-    active = json['active'];
+  SocialLinks.fromJson(Map<String, dynamic> json) {
+    instagram = json['instagram'];
+    facebook = json['facebook'];
+    youtube = json['youtube'];
+    twitter = json['twitter'];
+    pinterest = json['pinterest'];
+    linkedin = json['linkedin'];
+    snapchat = json['snapchat'];
+    tiktok = json['tiktok'];
+    threads = json['threads'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['url'] = url;
-    data['label'] = label;
-    data['active'] = active;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['instagram'] = instagram;
+    data['facebook'] = facebook;
+    data['youtube'] = youtube;
+    data['twitter'] = twitter;
+    data['pinterest'] = pinterest;
+    data['linkedin'] = linkedin;
+    data['snapchat'] = snapchat;
+    data['tiktok'] = tiktok;
+    data['threads'] = threads;
     return data;
   }
 }

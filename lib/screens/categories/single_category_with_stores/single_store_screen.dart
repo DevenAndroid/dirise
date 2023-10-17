@@ -12,9 +12,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../model/model_category_stores.dart';
 import '../../../model/model_store_products.dart';
 import '../../../model/product_model/model_product_element.dart';
+import '../../../model/social_links_model.dart';
 import '../../../model/vendor_models/model_single_vendor.dart';
 import '../../../repository/repository.dart';
 import '../../../utils/api_constant.dart';
@@ -24,7 +26,7 @@ import '../../check_out/add_bag_screen.dart';
 import '../../product_details/product_widget.dart';
 
 class SingleStoreScreen extends StatefulWidget {
-  const SingleStoreScreen({super.key, required this.storeDetails});
+  const SingleStoreScreen({super.key, required this.storeDetails,});
   final VendorStoreData storeDetails;
 
   @override
@@ -35,10 +37,17 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   final Repositories repositories = Repositories();
   int paginationPage = 1;
   VendorStoreData gg = VendorStoreData();
-
+  SocialLinksModel ee = SocialLinksModel();
+  ModelCategoryStores ss = ModelCategoryStores();
+  SocialLinksModel get socialLinksData => ee;
   VendorStoreData get storeInfo => gg;
+  ModelCategoryStores get allStoreInfo => ss;
   String get vendorId => widget.storeDetails.id.toString();
 
+ /* void onShare(code) async {
+    final box = context.findRenderObject() as RenderBox?;
+    await Share.share(code, subject: "link", sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);
+  }*/
   bool allLoaded = false;
   bool paginationLoading = false;
 
@@ -73,12 +82,54 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
       setState(() {});
     });
   }
+  _makingPhoneCall(call) async {
+    var url = Uri.parse(call);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
+  _instagramLink() async {
+    var url = Uri.parse(socialLinksData.socialLinks!.instagram.toString());
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url,mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  linkedinLink() async {
+    var url = Uri.parse(allStoreInfo.socialLinks!.linkedin.toString());
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url,mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  youTubeLink() async {
+    var url = Uri.parse(allStoreInfo.socialLinks!.youtube.toString());
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url,mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  facebookLink() async {
+    var url = Uri.parse(allStoreInfo.socialLinks!.facebook.toString());
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url,mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   getVendorInfo() {
     if (widget.storeDetails.storeName == null || true) {
       repositories.getApi(url: ApiUrls.getVendorInfoUrl + vendorId).then((value) {
         ModelSingleVendor response = ModelSingleVendor.fromJson(jsonDecode(value));
         gg = VendorStoreData.fromJson(response.user!.toJson());
+        ee = SocialLinksModel.fromJson(response.user!.toJson());
+        ss = ModelCategoryStores.fromJson(response.user!.toJson());
         setState(() {});
       });
     }
@@ -87,7 +138,9 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   @override
   void initState() {
     super.initState();
+   // print('insta urll -------'+allStoreInfo.socialLinks!.instagram.toString());
     gg = widget.storeDetails;
+    //ee = widget.socialLink;
     getVendorInfo();
     getCategoryStores(page: paginationPage);
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
@@ -105,7 +158,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:  PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: CommonAppBar(
           titleText: AppStrings.generalLibraries,
@@ -148,155 +201,285 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                 ),
               ),
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16).copyWith(top: 10),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16).copyWith(top: 10),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 84,
-                            width: 104,
-                            child: Image(
-                              image: NetworkImage(storeInfo.storeImage.toString()),
-                              fit: BoxFit.contain,
-                              errorBuilder: (_, __, ___) => const Icon(
-                                Icons.error_outline,
-                                color: Colors.red,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 84,
+                                width: 104,
+                                child: Image(
+                                  image: NetworkImage(storeInfo.storeImage.toString()),
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (_, __, ___) => const Icon(
+                                    Icons.error_outline,
+                                    color: Colors.red,
+                                  ),
+                                ),
                               ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      storeInfo.storeName.toString().capitalize!,
+                                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5, bottom: 5),
+                                      child: Text(
+                                        '${allStoreInfo.product ?? '0'} Items'.toString(),
+                                        maxLines: 1,
+                                        style: GoogleFonts.poppins(
+                                            color: const Color(0xFF014E70), fontSize: 14, fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      children: [
+                                        GestureDetector(onTap: (){
+                                         // onShare('instagram');
+                                          //_instagramLink();
+                                        },
+                                          child: CircleAvatar(
+                                              radius: 16,
+                                              backgroundColor: const Color(0xFF014E70),
+                                              child: SvgPicture.asset(
+                                                'assets/svgs/insta_img.svg',
+                                                width: 15,
+                                                height: 15,
+                                              )),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){
+                                           // onShare('linkedin');
+                                            // linkedinLink();
+                                          },
+                                          child: CircleAvatar(
+                                              radius: 16,
+                                              backgroundColor: const Color(0xFF014E70),
+                                              child: SvgPicture.asset(
+                                                'assets/svgs/linkedin_img.svg',
+                                                width: 15,
+                                                height: 15,
+                                              )),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){
+                                           // onShare('youtube');
+                                            // youTubeLink();
+                                          },
+                                          child: CircleAvatar(
+                                              radius: 16,
+                                              backgroundColor: const Color(0xFF014E70),
+                                              child: SvgPicture.asset(
+                                                'assets/svgs/youtube_img.svg',
+                                                width: 15,
+                                                height: 15,
+                                              )),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){
+                                          //  onShare('facebook');
+                                            //facebookLink();
+                                          },
+                                          child: CircleAvatar(
+                                              radius: 16,
+                                              backgroundColor: const Color(0xFF014E70),
+                                              child: SvgPicture.asset(
+                                                'assets/svgs/facebook_img.svg',
+                                                width: 15,
+                                                height: 15,
+                                              )),
+                                        )
+                                      ],
+                                    )
+                                    /* Text(
+                                      storeInfo.description.toString(),
+                                      style: GoogleFonts.poppins(
+                                          color:  Colors.grey.shade800, fontSize: 14, fontWeight: FontWeight.w500),
+                                    )*/
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 10,),
+                          /*  if (storeInfo.description.toString().trim().isNotEmpty) ...[
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              storeInfo.description.toString(),
+                              style: normalStyle.copyWith(color: AppTheme.buttonColor),
+                            )
+                          ],*/
+                          GestureDetector(
+                            onTap: (){
+                           //   if (allStoreInfo.socialLinks != null)
+                              print('innsta url--------'+ socialLinksData.socialLinks!.instagram.toString(),);
+                            },
+                            child: Text(
+                              'Brief',
+                              style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                             ),
                           ),
                           const SizedBox(
-                            width: 10,
+                            height: 10,
                           ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                          Text(
+                            storeInfo.description.toString(),
+                            style: GoogleFonts.poppins(color: const Color(0xFF014E70), fontSize: 14, fontWeight: FontWeight.w500),
+                          ),
+
+                          if (storeInfo.email.toString().trim().isNotEmpty || storeInfo.storePhone.toString().trim().isNotEmpty) ...[
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Row(
                               children: [
-                                Text(
-                                  storeInfo.storeName.toString().capitalize!,
-                                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 5, bottom: 5),
-                                  child: Text(
-                                    storeInfo.description.toString(),
-                                    maxLines: 1,
-                                    style: GoogleFonts.poppins(
-                                        color: const Color(0xff8F8F8F), fontSize: 13, fontWeight: FontWeight.w500),
+                                if (storeInfo.email.toString().trim().isNotEmpty)
+                                  Expanded(
+                                    child: MaterialButton(
+                                      onPressed: () async {
+                                        await Clipboard.setData(ClipboardData(text: storeInfo.email.toString().trim()));
+                                        final snackBar = SnackBar(
+                                          content: Text(
+                                            "Email copied",
+                                            style: normalStyle,
+                                          ),
+                                          action: SnackBarAction(
+                                              label: "Send Mail",
+                                              onPressed: () {
+                                                Helpers.launchEmail(email: storeInfo.email.toString().trim());
+                                              }),
+                                          backgroundColor: AppTheme.buttonColor,
+                                        );
+                                        if (!mounted) return;
+                                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                      },
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                      child: Row(
+                                        //  crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            "@",
+                                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              "${storeInfo.email}",
+                                              style: normalStyle.copyWith(
+                                                color: const Color(0xFF7D7D7D),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  ("1457 items -- Static"),
-                                  style: GoogleFonts.poppins(
-                                      color: const Color(0xff014E70), fontSize: 17, fontWeight: FontWeight.w500),
-                                )
+                                if (storeInfo.storePhone.toString().trim().isNotEmpty)
+                                  Expanded(
+                                    child: MaterialButton(
+                                      onPressed: () async {
+                                        await Clipboard.setData(ClipboardData(text: storeInfo.storePhone.toString().trim()));
+                                        final snackBar = SnackBar(
+                                          content: Text(
+                                            "Phone no. copied",
+                                            style: normalStyle,
+                                          ),
+                                          action: SnackBarAction(
+                                              label: "Make Call",
+                                              onPressed: () {
+                                                Helpers.makeCall(phoneNumber: storeInfo.storePhone.toString().trim());
+                                              }),
+                                          backgroundColor: AppTheme.buttonColor,
+                                        );
+                                        if (!mounted) return;
+                                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                      },
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SvgPicture.asset("assets/svgs/phone_call.svg"),
+                                          Text(
+                                            "+${storeInfo.storePhone}",
+                                            style: normalStyle.copyWith(
+                                              color: const Color(0xFF7D7D7D),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                               ],
                             ),
-                          )
+                            const SizedBox(height: 10,),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 18),
+                              child: Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: (){
+                                      print(storeInfo.day.toString());
+                                    },
+                                    child: SvgPicture.asset(
+                                      'assets/svgs/watch_icon.svg',
+                                      width: 20,
+                                      height: 20,
+                                    ),
+                                  ),
+                                  Text(storeInfo.day.toString(),style: normalStyle.copyWith(
+                                    color:  Colors.black,
+                                  ),),
+                                  Text(storeInfo.start.toString(),style: normalStyle.copyWith(
+                                    color:  const Color(0xFF7D7D7D),
+                                  ),),
+                                  Text(storeInfo.end.toString(),style: normalStyle.copyWith(
+                                    color:  const Color(0xFF7D7D7D),
+                                  ),)
+                                ],
+                              ),
+                            )
+                          ],
                         ],
                       ),
-                      if (storeInfo.description.toString().trim().isNotEmpty) ...[
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          storeInfo.description.toString(),
-                          style: normalStyle.copyWith(color: AppTheme.buttonColor),
-                        )
-                      ],
-                      if (storeInfo.email.toString().trim().isNotEmpty ||
-                          storeInfo.storePhone.toString().trim().isNotEmpty) ...[
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Row(
-                          children: [
-                            if (storeInfo.email.toString().trim().isNotEmpty)
-                              Expanded(
-                                child: MaterialButton(
-                                  onPressed: () async {
-                                    await Clipboard.setData(ClipboardData(text: storeInfo.email.toString().trim()));
-                                    final snackBar = SnackBar(
-                                      content: Text(
-                                        "Email copied",
-                                        style: normalStyle,
-                                      ),
-                                      action: SnackBarAction(
-                                          label: "Send Mail",
-                                          onPressed: () {
-                                            Helpers.launchEmail(email: storeInfo.email.toString().trim());
-                                          }),
-                                      backgroundColor: AppTheme.buttonColor,
-                                    );
-                                    if(!mounted)return;
-                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                  },
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        "@",
-                                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        " ${storeInfo.email}",
-                                        style: normalStyle.copyWith(
-                                          color: Colors.grey.shade800,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            if (storeInfo.storePhone.toString().trim().isNotEmpty)
-                              Expanded(
-                                child: MaterialButton(
-                                  onPressed: () async {
-                                    await Clipboard.setData(ClipboardData(text: storeInfo.storePhone.toString().trim()));
-                                    final snackBar = SnackBar(
-                                      content: Text(
-                                        "Phone no. copied",
-                                        style: normalStyle,
-                                      ),
-                                      action: SnackBarAction(
-                                          label: "Make Call",
-                                          onPressed: () {
-                                            Helpers.makeCall(phoneNumber: storeInfo.storePhone.toString().trim());
-                                          }),
-                                      backgroundColor: AppTheme.buttonColor,
-                                    );
-                                    if(!mounted)return;
-                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                  },
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset("assets/svgs/phone_call.svg"),
-                                      Text(
-                                        " ${storeInfo.storePhone}",
-                                        style: normalStyle.copyWith(
-                                          color: Colors.grey.shade800,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                          ],
-                        )
-                      ],
-                    ],
-                  ),
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: Color(0xFFD9D9D9),
+                    )
+                  ],
                 ),
               ),
             ],
-            SliverAppBar(
+            /*SliverAppBar(
               primary: false,
               pinned: true,
               backgroundColor: Colors.white,
@@ -320,8 +503,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                         padding: const EdgeInsets.only(left: 8, right: 10),
                         child: Text(
                           "${storeInfo.storeName.toString()} ${AppStrings.type}",
-                          style:
-                              GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                          style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                         ),
                       ),
                       const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
@@ -329,7 +511,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                   ),
                 ),
               ),
-            ),
+            ),*/
             const SliverToBoxAdapter(
               child: SizedBox(
                 height: 20,
@@ -407,8 +589,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
                         AppStrings.fiftyOff,
-                        style:
-                            GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                       ),
                     ),
                     const SizedBox(
@@ -551,8 +732,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                               Get.offNamed(BagsScreen.route);
                             },
                             child: Container(
-                              decoration:
-                                  BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
+                              decoration: BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
                                 "Add to Bag",

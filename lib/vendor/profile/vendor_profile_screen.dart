@@ -108,6 +108,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   final TextEditingController homeAddress = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController emailAddress = TextEditingController();
+  final TextEditingController description = TextEditingController();
+
 
   final TextEditingController accountNumber = TextEditingController();
   final TextEditingController ibnNumber = TextEditingController();
@@ -119,8 +121,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   final TextEditingController partnersName = TextEditingController();
   File paymentReceiptCertificate = File("");
   File idProof = File("");
+  File storeBanner = File("");
+  File storeLogo = File("");
+
   final GlobalKey paymentReceiptCertificateKey = GlobalKey();
   final GlobalKey idProofKey = GlobalKey();
+  final GlobalKey storeLogoKey = GlobalKey();
+  final GlobalKey storeBannerKey = GlobalKey();
 
   /// Vendor 3 Fields
   final TextEditingController companyName = TextEditingController();
@@ -197,6 +204,9 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       workAddress.text = (vendorInfo.vendorProfile!.workAddress ?? "").toString();
       workEmail.text = (vendorInfo.vendorProfile!.workEmail ?? "").toString();
       idProof = File((vendorInfo.vendorProfile!.idProof ?? "").toString());
+      storeLogo = File((vendorInfo.storeLogo ?? "").toString());
+      storeBanner = File((vendorInfo.bannerProfile ?? "").toString());
+      description.text = (vendorInfo.storeBannerDesccription ?? "").toString();
       // businessNumber.text = (vendorInfo.vendorProfile. ?? "").toString();
       taxNumber.text = (vendorInfo.vendorProfile!.taxNumber ?? "").toString();
       memorandumAssociation = File((vendorInfo.vendorProfile!.memorandumOfAssociation ?? "").toString());
@@ -301,10 +311,23 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       return;
     }
     if (selectedPlan == PlansType.advertisement) {
-      // Payment receipt certificate
+      // Id Proof
       if (idProof.path.isEmpty) {
         showToast("Please Select Id Proof");
         idProofKey.currentContext!.navigate;
+        return;
+      }
+      // Store Logo
+      if (storeLogo.path.isEmpty) {
+        showToast("Please Select Store Logo");
+        storeLogoKey.currentContext!.navigate;
+        return;
+      }
+
+      // Store Banner
+      if (storeBanner.path.isEmpty) {
+        showToast("Please Select Store Banner");
+        storeBannerKey.currentContext!.navigate;
         return;
       }
     }
@@ -313,6 +336,18 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       if (paymentReceiptCertificate.path.isEmpty) {
         showToast("Please Select Payment Receipt Certificate");
         paymentReceiptCertificateKey.currentContext!.navigate;
+        return;
+      }
+      // store Logo
+      if (storeLogo.path.isEmpty) {
+        showToast("Please Select Store Logo");
+        storeLogoKey.currentContext!.navigate;
+        return;
+      }
+      // store Banner
+      if (storeBanner.path.isEmpty) {
+        showToast("Please Select Store Banner");
+        storeBannerKey.currentContext!.navigate;
         return;
       }
     }
@@ -356,6 +391,20 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       if (companyBankAccount.path.isEmpty) {
         showToast("Please Select Company bank account");
         companyBankAccountKey.currentContext!.navigate;
+        return;
+      }
+
+      // Store Logo
+      if (storeLogo.path.isEmpty) {
+        showToast("Please Select Store Logo");
+        storeLogoKey.currentContext!.navigate;
+        return;
+      }
+
+      // Store Banner
+      if (storeBanner.path.isEmpty) {
+        showToast("Please Select Store Banner");
+        storeBannerKey.currentContext!.navigate;
         return;
       }
     }
@@ -404,7 +453,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         'home_address': homeAddress.text.trim(),
         'label1': additionalNotes.text.trim(),
         'store_url': storeUrl.text.trim(),
-        'vendor_wallet': vendorWallet.text.trim(),
+        'store_banner_desccription': description.text.trim(),
         'label2': additionalNotes2.text.trim(),
       };
     }
@@ -431,7 +480,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         'bank_name': bankId,
         'partner_name': partnersName.text.trim(),
         'store_url': storeUrl.text.trim(),
-        'vendor_wallet': vendorWallet.text.trim(),
+        'store_banner_desccription': description.text.trim(),
         'label1': additionalNotes.text.trim(),
         'label2': additionalNotes2.text.trim(),
       };
@@ -456,7 +505,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         'store_phone': storePhone.text.trim(),
         'label1': additionalNotes.text.trim(),
         'store_url': storeUrl.text.trim(),
-        'vendor_wallet': vendorWallet.text.trim(),
+        'store_banner_desccription': description.text.trim(),
         'label2': additionalNotes2.text.trim(),
 
       };
@@ -471,9 +520,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
     if (selectedPlan == PlansType.advertisement) {
       images["id_proof"] = idProof;
+      images["store_logo"] = storeLogo;
+      images["banner_profile"] = storeBanner;
     }
     if (selectedPlan == PlansType.personal) {
       images["payment_certificate"] = paymentReceiptCertificate;
+      images["store_logo"] = storeLogo;
+      images["banner_profile"] = storeBanner;
     }
 
     if (selectedPlan == PlansType.company) {
@@ -489,6 +542,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       images["ministy_of_commerce"] = ministryCommerce;
       images["original_civil_information"] = originalCivilInformation;
       images["company_bank_account"] = companyBankAccount;
+      images["store_logo"] = storeLogo;
+      images["banner_profile"] = storeBanner;
     }
     repositories
         .multiPartApi(
@@ -805,8 +860,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                         }))
                                     .toList(),
                               ),*/
-                              8.spaceY,
-                              if (allSelectedCategory.isNotEmpty) 12.spaceY,
+                              //8.spaceY,
+                             /* if (allSelectedCategory.isNotEmpty) 12.spaceY,
                               // // Country Picker
                               VendorCommonTextfield(
                                   controller:
@@ -844,7 +899,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                       return "Please select Country";
                                     }
                                     return null;
-                                  }),
+                                  }),*/
                               14.spaceY,
                               if (selectedPlan == PlansType.advertisement) ...[
                                 // 14.spaceY,
@@ -954,6 +1009,40 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 const SizedBox(height: 20,),
                                 const Text('Optional Fields',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
                                 const SizedBox(height: 20,),
+                                ImageWidget(
+                                  // key: paymentReceiptCertificateKey,
+                                  title: "Store Logo",
+                                  file: storeLogo,
+                                  validation:
+                                  checkValidation(showValidation.value, storeLogo.path.isEmpty),
+                                  filePicked: (File g) {
+                                    storeLogo = g;
+                                  },
+                                ),
+                                const SizedBox(height: 10,),
+                                ImageWidget(
+                                  // key: paymentReceiptCertificateKey,
+                                  title: "Store Banner",
+                                  file: storeBanner,
+                                  validation:
+                                  checkValidation(showValidation.value, storeBanner.path.isEmpty),
+                                  filePicked: (File g) {
+                                    storeBanner = g;
+                                  },
+                                ),
+                                const SizedBox(height: 10,),
+                                VendorCommonTextfield(
+                                  controller: description,
+                                  //key: storeName.getKey,
+                                  hintText: "Description",
+                                  /* validator: (value) {
+                                      if (value!.trim().isEmpty) {
+                                        return "Please enter store name";
+                                      }
+                                      return null;
+                                    }*/
+                                ),
+                                const SizedBox(height: 10,),
                                 VendorCommonTextfield(
                                   controller: storeName,
                                   //key: storeName.getKey,
@@ -973,18 +1062,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   /*validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store Url";
-                                      }
-                                      return null;
-                                    }*/
-                                ),
-                                const SizedBox(height: 10,),
-                                VendorCommonTextfield(
-                                  controller: vendorWallet,
-                                  //key: storeName.getKey,
-                                  hintText: "Vendor Wallet",
-                                  /* validator: (value) {
-                                      if (value!.trim().isEmpty) {
-                                        return "Please enter Vendor Wallet";
                                       }
                                       return null;
                                     }*/
@@ -1174,10 +1251,32 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 const SizedBox(height: 20,),
                                 const Text('Optional Fields',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
                                 const SizedBox(height: 20,),
+                                ImageWidget(
+                                  // key: paymentReceiptCertificateKey,
+                                  title: "Store Logo",
+                                  file: storeLogo,
+                                  validation:
+                                  checkValidation(showValidation.value, storeLogo.path.isEmpty),
+                                  filePicked: (File g) {
+                                    storeLogo = g;
+                                  },
+                                ),
+                                const SizedBox(height: 10,),
+                                ImageWidget(
+                                  // key: paymentReceiptCertificateKey,
+                                  title: "Store Banner",
+                                  file: storeBanner,
+                                  validation:
+                                  checkValidation(showValidation.value, storeBanner.path.isEmpty),
+                                  filePicked: (File g) {
+                                    storeBanner = g;
+                                  },
+                                ),
+                                const SizedBox(height: 10,),
                                 VendorCommonTextfield(
-                                  controller: storeName2,
+                                  controller: description,
                                   //key: storeName.getKey,
-                                  hintText: "Store Name",
+                                  hintText: "Description",
                                   /* validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store name";
@@ -1193,18 +1292,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   /*validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store Url";
-                                      }
-                                      return null;
-                                    }*/
-                                ),
-                                const SizedBox(height: 10,),
-                                VendorCommonTextfield(
-                                  controller: vendorWallet,
-                                  //key: storeName.getKey,
-                                  hintText: "Vendor Wallet",
-                                  /* validator: (value) {
-                                      if (value!.trim().isEmpty) {
-                                        return "Please enter Vendor Wallet";
                                       }
                                       return null;
                                     }*/
@@ -1249,7 +1336,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                               if (selectedPlan == PlansType.company) ...[
                                 // 14.spaceY,
                                 // First Name
-                                VendorCommonTextfield(
+                               /* VendorCommonTextfield(
                                     controller: firstName,
                                     key: firstName.getKey,
                                     hintText: "Company Name",
@@ -1258,7 +1345,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                         return "Please enter company name";
                                       }
                                       return null;
-                                    }),
+                                    }),*/
                               //  14.spaceY,
                                 // Last Name
                               /*  VendorCommonTextfield(
@@ -1271,7 +1358,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                       }
                                       return null;
                                     }),*/
-                                14.spaceY,
+                               // 14.spaceY,
                                 // Store Name
                                 VendorCommonTextfield(
                                     controller: storeName,
@@ -1470,17 +1557,39 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 const SizedBox(height: 10,),
                                 const Text('Optional Fields',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
                                 const SizedBox(height: 20,),
+                                ImageWidget(
+                                  // key: paymentReceiptCertificateKey,
+                                  title: "Store Logo",
+                                  file: storeLogo,
+                                  validation:
+                                  checkValidation(showValidation.value, storeLogo.path.isEmpty),
+                                  filePicked: (File g) {
+                                    storeLogo = g;
+                                  },
+                                ),
+                                const SizedBox(height: 10,),
+                                ImageWidget(
+                                  // key: paymentReceiptCertificateKey,
+                                  title: "Store Banner",
+                                  file: storeBanner,
+                                  validation:
+                                  checkValidation(showValidation.value, storeBanner.path.isEmpty),
+                                  filePicked: (File g) {
+                                    storeBanner = g;
+                                  },
+                                ),
+                                const SizedBox(height: 10,),
                                 VendorCommonTextfield(
-                                    controller: storeName2,
-                                    //key: storeName.getKey,
-                                    hintText: "Store Name",
-                                   /* validator: (value) {
+                                  controller: description,
+                                  //key: storeName.getKey,
+                                  hintText: "Description",
+                                  /* validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store name";
                                       }
                                       return null;
                                     }*/
-                                    ),
+                                ),
                                 const SizedBox(height: 10,),
                                 VendorCommonTextfield(
                                     controller: storeUrl,
@@ -1489,18 +1598,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     /*validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store Url";
-                                      }
-                                      return null;
-                                    }*/
-                                    ),
-                                const SizedBox(height: 10,),
-                                VendorCommonTextfield(
-                                    controller: vendorWallet,
-                                    //key: storeName.getKey,
-                                    hintText: "Vendor Wallet",
-                                   /* validator: (value) {
-                                      if (value!.trim().isEmpty) {
-                                        return "Please enter Vendor Wallet";
                                       }
                                       return null;
                                     }*/
