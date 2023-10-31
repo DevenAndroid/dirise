@@ -394,12 +394,12 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                         keyboardType: TextInputType.number,
                         hintText: "Weight",
                         validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return "Product weight is required";
-                          }
-                          if (double.tryParse(value.trim()) == null) {
-                            return "Please enter valid weight";
-                          }
+                          // if (value!.trim().isEmpty) {
+                          //   return "Product weight is required";
+                          // }
+                          // if (double.tryParse(value.trim()) == null) {
+                          //   return "Please enter valid weight";
+                          // }
                           // if ((num.tryParse(value.trim()) ?? 0) < 1) {
                           //   return "Enter valid return days";
                           // }
@@ -431,9 +431,9 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       ),
                       value: controller.weightUnit.isEmpty ? null : controller.weightUnit,
                       validator: (gg) {
-                        if (controller.weightUnit.isEmpty) {
-                          return "Please select weight unit";
-                        }
+                        // if (controller.weightUnit.isEmpty) {
+                        //   return "Please select weight unit";
+                        // }
                         return null;
                       },
                       items: controller.gg

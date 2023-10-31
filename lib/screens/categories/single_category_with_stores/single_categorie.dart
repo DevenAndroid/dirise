@@ -12,6 +12,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../model/model_category_list.dart';
 import '../../../model/model_category_stores.dart';
 import '../../../model/product_model/model_product_element.dart';
 import '../../../model/vendor_models/model_category_list.dart';
@@ -62,13 +63,15 @@ class _SingleCategoriesState extends State<SingleCategories> {
   }
 
   RxInt refreshInt = 0.obs;
+
   Map<String, String> selectedIds = {};
 
-  ModelCategoryList? modelCategoryList;
+  ModelSingleCategoryList? modelCategoryList;
 
-  getCategoryFilter(){
-    repositories.postApi(url: ApiUrls.categoryFilterUrl+categoryID).then((value) {
-      modelCategoryList = ModelCategoryList.fromJson(jsonDecode(value));
+  Future getCategoryFilter() async {
+    // if (modelCategoryList != null) return;
+    await repositories.getApi(url: ApiUrls.categoryListUrl + categoryID, showResponse: true).then((value) {
+      modelCategoryList = ModelSingleCategoryList.fromJson(jsonDecode(value));
       setState(() {});
     });
   }
@@ -91,28 +94,83 @@ class _SingleCategoriesState extends State<SingleCategories> {
     } else {
       url = "category_id=$categoryID&pagination=4&page=$page";
     }
-    // if(selectedIds.isNotEmpty){
-    //   url = "$url&child_id=${selectedIds.entries.map((e) => e.value).toList().join(",")}";
-    // }
     paginationLoading = true;
     refreshInt.value = DateTime.now().millisecondsSinceEpoch;
-    await repositories.getApi(url: "${ApiUrls.getCategoryStoresUrl}$url").then((value) {
-      modelCategoryStores ??= [];
-      paginationLoading = false;
-      refreshInt.value = DateTime.now().millisecondsSinceEpoch;
-      final response = ModelCategoryStores.fromJson(jsonDecode(value));
-      if (response.user!.data!.isNotEmpty &&
-          !modelCategoryStores!
-              .map((e) => e.user!.currentPage.toString())
-              .toList()
-              .contains(response.user!.currentPage.toString())) {
-        modelCategoryStores!.add(response);
-        paginationPage++;
-      } else {
-        allLoaded = true;
-      }
-      setState(() {});
-    });
+    if(modelCategoryList == null) {
+      await repositories.getApi(url: "${ApiUrls.getCategoryStoresUrl}$url", showResponse: true).then((value) {
+        modelCategoryStores ??= [];
+        paginationLoading = false;
+        refreshInt.value = DateTime
+            .now()
+            .millisecondsSinceEpoch;
+        final response = ModelCategoryStores.fromJson(jsonDecode(value));
+        if (response.user!.data!.isNotEmpty &&
+            !modelCategoryStores!
+                .map((e) => e.user!.currentPage.toString())
+                .toList()
+                .contains(response.user!.currentPage.toString())) {
+          modelCategoryStores!.add(response);
+          paginationPage++;
+        } else {
+          allLoaded = true;
+        }
+        setState(() {});
+      });
+      return;
+    }
+
+    if(modelCategoryList!.selectedVendorSubCategory != null ||
+        modelCategoryList!.data!.map((e) => e.selectedCategory != null).toList().contains(true)) {
+      String kk =  modelCategoryList!.data!.where((element) => element.selectedCategory != null).map((e) => e.selectedCategory!.id.toString()).toList().join(",");
+      await repositories.postApi(url: ApiUrls.categoryFilterUrl,
+          mapData: {
+            'category_id': categoryID,
+            if(kk.isNotEmpty)
+            'child_id': kk,
+            if(modelCategoryList!.selectedVendorSubCategory != null)
+            'sub_category_id': modelCategoryList!.selectedVendorSubCategory!.id.toString(),
+            'pagination': '4',
+            'page': page.toString()
+          }).then((value) {
+        modelCategoryStores ??= [];
+        paginationLoading = false;
+        refreshInt.value = DateTime
+            .now()
+            .millisecondsSinceEpoch;
+        final response = ModelCategoryStores.fromJson(jsonDecode(value));
+        if (response.user!.data!.isNotEmpty &&
+            !modelCategoryStores!
+                .map((e) => e.user!.currentPage.toString())
+                .toList()
+                .contains(response.user!.currentPage.toString())) {
+          modelCategoryStores!.add(response);
+          paginationPage++;
+        } else {
+          allLoaded = true;
+        }
+        setState(() {});
+      });
+    } else {
+      await repositories.getApi(url: "${ApiUrls.getCategoryStoresUrl}$url", showResponse: true).then((value) {
+        modelCategoryStores ??= [];
+        paginationLoading = false;
+        refreshInt.value = DateTime
+            .now()
+            .millisecondsSinceEpoch;
+        final response = ModelCategoryStores.fromJson(jsonDecode(value));
+        if (response.user!.data!.isNotEmpty &&
+            !modelCategoryStores!
+                .map((e) => e.user!.currentPage.toString())
+                .toList()
+                .contains(response.user!.currentPage.toString())) {
+          modelCategoryStores!.add(response);
+          paginationPage++;
+        } else {
+          allLoaded = true;
+        }
+        setState(() {});
+      });
+    }
   }
 
   final ScrollController _scrollController = ScrollController();
@@ -138,7 +196,8 @@ class _SingleCategoriesState extends State<SingleCategories> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await getCategoryStores(page: paginationPage, resetAll: true);
+          // await getCategoryFilter();
+          // await getCategoryStores(page: paginationPage, resetAll: true);
         },
         child: CustomScrollView(
           shrinkWrap: true,
@@ -179,41 +238,115 @@ class _SingleCategoriesState extends State<SingleCategories> {
               leadingWidth: 16,
               title: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: modelCategoryList != null ?
-                Row(
-                  children: modelCategoryList!.data!.map((e) => Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: PopupMenuButton(
-                      child: Container(
-                        height: 36,
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xff014E70)),
-                            color: const Color(0xffEBF1F4),
-                            borderRadius: BorderRadius.circular(22)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8, right: 10),
-                              child: Text(
-                                e.title.toString(),
-                                style:
-                                GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
-                              ),
-                            ),
-                            const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
-                          ],
+                child: modelCategoryList != null
+                    ? Row(
+                      children: [
+                        if(modelCategoryList!.vendorSubCategory!.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: StatefulBuilder(
+                              builder: (c, newState) {
+                                return PopupMenuButton(
+                                  child: Container(
+                                    height: 36,
+                                    constraints: BoxConstraints(
+                                        maxWidth: context.getSize.width*.75
+                                    ),
+                                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: const Color(0xff014E70)),
+                                        color: const Color(0xffEBF1F4),
+                                        borderRadius: BorderRadius.circular(22)),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 8, right: 10),
+                                            child: Text(
+                                              modelCategoryList!.selectedVendorSubCategory != null ?
+                                              modelCategoryList!.selectedVendorSubCategory!.name.toString() :
+                                              "Type",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                                            ),
+                                          ),
+                                        ),
+                                        const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
+                                      ],
+                                    ),
+                                  ),
+                                  itemBuilder: (c) {
+                                    return modelCategoryList!.vendorSubCategory!.map((ee) => PopupMenuItem(
+                                      child: Text(ee.name.toString()),
+                                      onTap: (){
+                                        modelCategoryList!.selectedVendorSubCategory = ee;
+                                        getCategoryStores(page: 1,resetAll: true);
+                                        newState((){});
+                                      },
+                                    ))
+                                        .toList();
+                                  },
+                                );
+                              }
+                          ),
                         ),
-                      ),
-                      itemBuilder: (c){
-                        return e.childCategory!.map((ee) => PopupMenuItem(child: Text(ee.title.toString()))).toList();
-                      },
-                    ),
-                  )).toList(),
-                ) : SizedBox(),
+                        Row(
+                            children: modelCategoryList!.data!
+                                .map((e) => Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: StatefulBuilder(
+                                        builder: (c, newState) {
+                                          return PopupMenuButton(
+                                            child: Container(
+                                              height: 36,
+                                              constraints: BoxConstraints(
+                                                maxWidth: context.getSize.width*.75
+                                              ),
+                                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(color: const Color(0xff014E70)),
+                                                  color: const Color(0xffEBF1F4),
+                                                  borderRadius: BorderRadius.circular(22)),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(left: 8, right: 10),
+                                                      child: Text(
+                                                        e.selectedCategory != null ? e.selectedCategory!.title.toString() :e.title.toString(),
+                                                        style: GoogleFonts.poppins(
+                                                            fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
+                                                ],
+                                              ),
+                                            ),
+                                            itemBuilder: (c) {
+                                              return e.childCategory!
+                                                  .map((ee) => PopupMenuItem(
+                                                  child: Text(ee.title.toString()),
+                                                onTap: (){
+                                                  e.selectedCategory = ee;
+                                                  getCategoryStores(page: 1,resetAll: true);
+                                                  newState((){});
+                                                },
+                                              ))
+                                                  .toList();
+                                            },
+                                          );
+                                        }
+                                      ),
+                                    ))
+                                .toList(),
+                          ),
+                      ],
+                    )
+                    : const SizedBox(),
               ),
-
             ),
             if (modelCategoryStores != null)
               for (var i = 0; i < modelCategoryStores!.length; i++) ...list(i)
@@ -222,11 +355,8 @@ class _SingleCategoriesState extends State<SingleCategories> {
                 child: LoadingAnimation(),
               ),
             if (modelCategoryStores != null && modelCategoryStores!.isEmpty)
-               SliverToBoxAdapter(
-                child: Center(
-                  child: Text
-                    (AppStrings.notHaveAnyProduct)
-                ),
+              SliverToBoxAdapter(
+                child: Center(child: Text(AppStrings.notHaveAnyProduct)),
               ),
             SliverToBoxAdapter(
               child: Obx(() {
@@ -336,10 +466,10 @@ class _SingleCategoriesState extends State<SingleCategories> {
                       context: context);
                   return;
                 }
-                if(kk.promotionType == "store"){
+                if (kk.promotionType == "store") {
                   Get.to(() => SingleStoreScreen(
-                    storeDetails: VendorStoreData(id: kk.productStoreId.toString()),
-                  ));
+                        storeDetails: VendorStoreData(id: kk.productStoreId.toString()),
+                      ));
                   return;
                 }
               },

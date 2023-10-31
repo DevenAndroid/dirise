@@ -33,7 +33,7 @@ class Repositories {
     // bool? showLoader = false,
     bool? showMap = false,
     Function(int status, String response)? withStatus,
-    bool? showResponse = true,
+    bool? showResponse = false,
     Map<String, dynamic>? mapData,
   }) async {
     OverlayEntry loader = Helpers.overlayLoader(context);

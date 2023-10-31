@@ -13,6 +13,7 @@ import '../../controller/vendor_controllers/vendor_profile_controller.dart';
 import '../../model/bank_details/model_bank_list.dart';
 import '../../model/common_modal.dart';
 import '../../model/customer_profile/model_country_list.dart';
+import '../../model/model_category_list.dart';
 import '../../model/vendor_models/model_payment_method.dart';
 import '../../model/vendor_models/model_plan_list.dart';
 import '../../model/vendor_models/model_vendor_details.dart';
@@ -105,6 +106,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   final TextEditingController additionalNotes2 = TextEditingController();
   final TextEditingController storeName2 = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
+  final TextEditingController subCategory = TextEditingController();
   final TextEditingController homeAddress = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController emailAddress = TextEditingController();
@@ -182,6 +184,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     homeAddress.text = vendorInfo.address ?? "";
     phoneNumber.text = vendorInfo.phone ?? "";
     emailAddress.text = vendorInfo.email ?? "";
+    getCategoryFilter();
     if (vendorInfo.vendorProfile != null) {
       businessNumber.text = vendorInfo.vendorProfile!.businessNumber ?? "";
       homeAddress.text = vendorInfo.vendorProfile!.home_address ?? "";
@@ -718,7 +721,16 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     });
   }
 
-  // bool get insideKuwait => selectedCountry == null ? false : selectedCountry!.name.toString() == "Kuwait";
+  ModelSingleCategoryList? modelCategoryList;
+  VendorSubCategory? selectedVendorSubCategory;
+
+  Future getCategoryFilter() async {
+    // if (modelCategoryList != null) return;
+    await repositories.getApi(url: ApiUrls.categoryListUrl + vendorInfo.categoryId.toString(), showResponse: true).then((value) {
+      modelCategoryList = ModelSingleCategoryList.fromJson(jsonDecode(value));
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -848,7 +860,58 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     return null;
                                   }*/
                                   ),
-                              //10.spaceY,
+                              16.spaceY,
+                              DropdownButtonFormField<dynamic>(
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                iconSize: 30,
+                                iconDisabledColor: const Color(0xff97949A),
+                                iconEnabledColor: const Color(0xff97949A),
+                                value: selectedVendorSubCategory,
+                                style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  filled: true,
+                                  fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                                  contentPadding:
+                                  const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
+                                  focusedErrorBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                  errorBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                  disabledBorder: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                    borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                  ),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                                    borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                  ),
+                                ),
+                                items: modelCategoryList != null ? modelCategoryList!.vendorSubCategory!
+                                    .map(
+                                        (e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
+                                    .toList() : [],
+                                hint: const Text('Category'),
+                                onChanged: (value) {
+                                  // selectedCategory = value;
+                                  if (value == null) return;
+                                  allSelectedCategory.clear();
+                                  allSelectedCategory[value.toString()] = modelVendorCategory.usphone!.firstWhere((element) => element.id.toString() == value.toString());
+                                  setState(() {});
+                                },
+                                validator: (value) {
+                                  if (allSelectedCategory.isEmpty) {
+                                    return "Please select Category";
+                                  }
+                                  return null;
+                                },
+                              ),
+                              10.spaceY,
                              /* Wrap(
                                 runSpacing: 0,
                                 spacing: 8,

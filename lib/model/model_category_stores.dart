@@ -60,7 +60,7 @@ class ModelCategoryStores {
       data['product'] = product!.map((v) => v.toJson()).toList();
     }
     if (socialLinks != null) {
-      data['social_links'] = this.socialLinks!.toJson();
+      data['social_links'] = socialLinks!.toJson();
     }
     return data;
   }
@@ -105,7 +105,7 @@ class User {
     if (json['vendor_availability'] != null) {
       vendorAvailability = <VendorAvailability>[];
       json['vendor_availability'].forEach((v) {
-        vendorAvailability!.add(new VendorAvailability.fromJson(v));
+        vendorAvailability!.add(VendorAvailability.fromJson(v));
       });
     }
   }
@@ -122,9 +122,9 @@ class User {
     if (links != null) {
       data['links'] = links!.map((v) => v.toJson()).toList();
     }
-    if (this.vendorAvailability != null) {
+    if (vendorAvailability != null) {
       data['vendor_availability'] =
-          this.vendorAvailability!.map((v) => v.toJson()).toList();
+          vendorAvailability!.map((v) => v.toJson()).toList();
     }
     return data;
 
@@ -163,15 +163,15 @@ class VendorAvailability {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['week_day'] = this.weekDay;
-    data['start_time'] = this.startTime;
-    data['end_time'] = this.endTime;
-    data['status'] = this.status;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['week_day'] = weekDay;
+    data['start_time'] = startTime;
+    data['end_time'] = endTime;
+    data['status'] = status;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -254,7 +254,7 @@ class SocialLinks {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['instagram'] = instagram;
     data['facebook'] = facebook;
     data['youtube'] = youtube;
