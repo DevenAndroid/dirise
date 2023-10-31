@@ -722,6 +722,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(storeBanner.path);
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
       appBar: AppBar(

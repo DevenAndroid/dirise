@@ -1,6 +1,6 @@
 class ModelVendorProductDetails {
   bool? status;
-  String? message;
+  dynamic message;
   ModelVendorProductDetailsData? product;
 
   ModelVendorProductDetails({this.status, this.message, this.product});
@@ -23,35 +23,35 @@ class ModelVendorProductDetails {
 }
 
 class ModelVendorProductDetailsData {
-  int? catId;
-  String? brandSlug;
-  String? slug;
-  String? pName;
+  dynamic catId;
+  dynamic brandSlug;
+  dynamic slug;
+  dynamic pName;
   dynamic skuId;
   dynamic time;
   dynamic time_period;
   dynamic bookingProductType;
-  int? pPrice;
-  int? sPrice;
-  String? productType;
-  String? shortDescription;
-  String? longDescription;
-  String? featuredImage;
+  dynamic pPrice;
+  dynamic sPrice;
+  dynamic productType;
+  dynamic shortDescription;
+  dynamic longDescription;
+  dynamic featuredImage;
   List<String>? galleryImage = [];
   List<String>? galleryTempData = [];
-  String? virtualProductFile;
+  dynamic virtualProductFile;
   dynamic virtualProductFileType;
   dynamic weight;
   dynamic weightUnit;
-  String? inStock;
+  dynamic inStock;
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
-  String? returnDays;
+  dynamic returnDays;
   List<VariantData>? variantData;
-  String? stockAlert;
-  String? taxApply;
-  String? language;
-  String? taxType;
+  dynamic stockAlert;
+  dynamic taxApply;
+  dynamic language;
+  dynamic taxType;
 
   ModelVendorProductDetailsData(
       {this.catId,
@@ -169,8 +169,8 @@ class ModelVendorProductDetailsData {
 }
 
 class ServiceTimeSloat {
-  String? timeSloat;
-  String? timeSloatEnd;
+  dynamic timeSloat;
+  dynamic timeSloatEnd;
 
   ServiceTimeSloat({this.timeSloat, this.timeSloatEnd});
 
@@ -188,10 +188,10 @@ class ServiceTimeSloat {
 }
 
 class ProductAvailability {
-  int? qty;
-  String? type;
-  String? fromDate;
-  String? toDate;
+  dynamic qty;
+  dynamic type;
+  dynamic fromDate;
+  dynamic toDate;
 
   ProductAvailability({this.qty, this.type, this.fromDate, this.toDate});
 
@@ -215,13 +215,13 @@ class ProductAvailability {
 
 
 class VariantData {
-  int? parentId;
-  int? pId;
+  dynamic parentId;
+  dynamic pId;
   Map<String, dynamic> variantValue = {};
-  String? variantSku;
-  String? variantPrice;
-  int? variantStock;
-  String? variantImages;
+  dynamic variantSku;
+  dynamic variantPrice;
+  dynamic variantStock;
+  dynamic variantImages;
 
   VariantData(
       {this.parentId,

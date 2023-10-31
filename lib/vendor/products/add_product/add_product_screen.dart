@@ -28,6 +28,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   void initState() {
     super.initState();
+    controller.getProductsCategoryList();
     controller.productType = "Simple Product";
     controller.getReturnPolicyData();
     controller.resetValues();
@@ -36,9 +37,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     controller.valuesAssigned = false;
     controller.apiLoaded = false;
     controller.getProductDetails().then((value) {
-      setState(() {
-
-      });
+      setState(() {});
     });
     controller.getProductAttributes();
     controller.getTaxData();
@@ -114,7 +113,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             return controller.apiLoaded
                 ? RefreshIndicator(
                     onRefresh: () async {
-                      await controller.getProductCategoryLit();
+                      await controller.getProductsCategoryList();
                       await controller.getTaxData();
                       await controller.getProductAttributes();
                     },
@@ -141,12 +140,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     backgroundColor: AppTheme.buttonColor,
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
-                                    textStyle:
-                                        GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
+                                    textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                                 child: Text(
                                   controller.productId.isEmpty ? "Create" : "Update",
-                                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                      color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
                                 )),
                             10.spaceY,
                           ])),

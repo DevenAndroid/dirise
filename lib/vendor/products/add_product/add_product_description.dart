@@ -10,6 +10,7 @@ import '../../../controller/vendor_controllers/add_product_controller.dart';
 import '../../../widgets/common_colour.dart';
 import '../../../widgets/dimension_screen.dart';
 import '../../../widgets/vendor_common_textfield.dart';
+import 'edit_categories.dart';
 
 class AddProductDescriptionScreen extends StatefulWidget {
   const AddProductDescriptionScreen({super.key});
@@ -31,7 +32,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
   @override
   void initState() {
     super.initState();
-    controller.getProductCategoryLit();
+    // controller.getProductCategoryLit();
     controller.getTaxData();
   }
 
@@ -163,7 +164,9 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       setState(() {});
                     },
                   ),
-                  18.spaceY,
+                  10.spaceY,
+                  const EditCategoriesScreen(),
+                  10.spaceY,
                   VendorCommonTextfield(
                       controller: controller.productNameController,
                       key: controller.productNameController.getKey,
@@ -531,60 +534,60 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       ],
                     ),
                   ),
-                  18.spaceY,
-                  Obx(() {
-                    if (controller.refreshCategory.value > 0) {}
-                    return DropdownButtonFormField<String>(
-                      key: controller.categoryKey,
-                      icon: controller.refreshCategory.value == -2
-                          ? const CupertinoActivityIndicator()
-                          : const Icon(Icons.keyboard_arrow_down),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      isExpanded: true,
-                      iconDisabledColor: const Color(0xff97949A),
-                      iconEnabledColor: const Color(0xff97949A),
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: AppTheme.secondaryColor),
-                        ),
-                        enabled: true,
-                        filled: true,
-                        hintText: "Category",
-                        labelStyle: GoogleFonts.poppins(color: Colors.black),
-                        labelText: "Category",
-                        fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          borderSide: BorderSide(color: AppTheme.secondaryColor),
-                        ),
-                      ),
-                      value: controller.selectedCategory.isEmpty ? null : controller.selectedCategory,
-                      validator: (gg) {
-                        if (controller.selectedCategory.isEmpty) {
-                          return "Please select product category";
-                        }
-                        return null;
-                      },
-                      items: controller.productCategory.data!
-                          .map((label) =>
-                          DropdownMenuItem(
-                            value: label.id.toString(),
-                            child: Text(
-                              label.title.toString(),
-                              style: GoogleFonts.poppins(
-                                color: const Color(0xff463B57),
-                              ),
-                            ),
-                          ))
-                          .toList(),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        controller.selectedCategory = value;
-                      },
-                    );
-                  }),
+                  // 18.spaceY,
+                  // Obx(() {
+                  //   if (controller.refreshCategory.value > 0) {}
+                  //   return DropdownButtonFormField<String>(
+                  //     key: controller.categoryKey,
+                  //     icon: controller.refreshCategory.value == -2
+                  //         ? const CupertinoActivityIndicator()
+                  //         : const Icon(Icons.keyboard_arrow_down),
+                  //     autovalidateMode: AutovalidateMode.onUserInteraction,
+                  //     isExpanded: true,
+                  //     iconDisabledColor: const Color(0xff97949A),
+                  //     iconEnabledColor: const Color(0xff97949A),
+                  //     decoration: InputDecoration(
+                  //       border: const OutlineInputBorder(
+                  //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                  //         borderSide: BorderSide(color: AppTheme.secondaryColor),
+                  //       ),
+                  //       enabled: true,
+                  //       filled: true,
+                  //       hintText: "Category",
+                  //       labelStyle: GoogleFonts.poppins(color: Colors.black),
+                  //       labelText: "Category",
+                  //       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                  //       contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                  //       enabledBorder: const OutlineInputBorder(
+                  //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                  //         borderSide: BorderSide(color: AppTheme.secondaryColor),
+                  //       ),
+                  //     ),
+                  //     value: controller.selectedCategory.isEmpty ? null : controller.selectedCategory,
+                  //     validator: (gg) {
+                  //       if (controller.selectedCategory.isEmpty) {
+                  //         return "Please select product category";
+                  //       }
+                  //       return null;
+                  //     },
+                  //     items: controller.productCategory.data!
+                  //         .map((label) =>
+                  //         DropdownMenuItem(
+                  //           value: label.id.toString(),
+                  //           child: Text(
+                  //             label.title.toString(),
+                  //             style: GoogleFonts.poppins(
+                  //               color: const Color(0xff463B57),
+                  //             ),
+                  //           ),
+                  //         ))
+                  //         .toList(),
+                  //     onChanged: (value) {
+                  //       if (value == null) return;
+                  //       controller.selectedCategory = value;
+                  //     },
+                  //   );
+                  // }),
                   18.spaceY,
                   VendorCommonTextfield(
                       controller: controller.shortDescriptionController,

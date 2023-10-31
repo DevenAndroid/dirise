@@ -11,6 +11,7 @@ import '../../model/common_modal.dart';
 import '../../model/vendor_models/model_add_product_category.dart';
 import '../../model/vendor_models/model_add_tax.dart';
 import '../../model/vendor_models/model_attribute.dart';
+import '../../model/vendor_models/model_category_list.dart';
 import '../../model/vendor_models/model_return_policy.dart';
 import '../../model/vendor_models/model_varient.dart';
 import '../../model/vendor_models/model_vendor_product_details.dart';
@@ -23,6 +24,55 @@ import 'products_controller.dart';
 
 class AddProductController extends GetxController {
   // Gram Kilogram Pound
+  ModelCategoryList? modelCategoryList;
+  RxInt categoryLoadingInt = 0.obs;
+
+  Future getProductsCategoryList() async {
+    if(modelCategoryList != null){
+      updateCategories();
+      return;
+    }
+    await repositories.getApi(url: ApiUrls.productCategoriesListUrl).then((value){
+      modelCategoryList = ModelCategoryList.fromJson(jsonDecode(value));
+      categoryLoadingInt.value = DateTime.now().millisecondsSinceEpoch;
+      updateCategories();
+    });
+  }
+
+  updateCategories(){
+    if(modelCategoryList == null)return;
+    if(productDetails.product == null)return;
+    if(productDetails.product!.catId == null)return;
+    List<String> kk = productDetails.product!.catId.toString().split(",");
+    modelCategoryList!.data ??= [];
+    for (var element in modelCategoryList!.data!) {
+      element.childCategory ??= [];
+      for (var e in element.childCategory!) {
+        if(kk.contains(e.id.toString())){
+          e.selected = true;
+        } else {
+          e.selected = false;
+        }
+      }
+    }
+  }
+
+  List<String> get categoryIds {
+    if(modelCategoryList == null){
+      return [];
+    }
+    List<String> cats = [];
+    for (var element in modelCategoryList!.data!) {
+      element.childCategory ??= [];
+      for (var e in element.childCategory!) {
+        if(e.selected){
+          cats.add(e.id.toString());
+        }
+      }
+    }
+    return cats;
+  }
+
 
   List<String> gg = [
     "Gram",
@@ -55,7 +105,7 @@ class AddProductController extends GetxController {
     "Months"
   ];
 
-  ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
+  // ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
   Rx<ModelAddTax> taxData = ModelAddTax().obs;
   RxInt refreshCategory = 0.obs;
   RxInt taxCategory = 0.obs;
@@ -80,14 +130,14 @@ class AddProductController extends GetxController {
       refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
     });
   }*/
-  Future getProductCategoryLit() async {
-    refreshCategory.value = -2;
-    await repositories.postApi(url: ApiUrls.productCategoryListUrl, showResponse: false, showMap: false).then((value) {
-      productCategory = ModelAddProductCategory.fromJson(jsonDecode(value));
-      updateCategory();
-      refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
-    });
-  }
+  // Future getProductCategoryLit() async {
+  //   refreshCategory.value = -2;
+  //   await repositories.postApi(url: ApiUrls.productCategoryListUrl, showResponse: false, showMap: false).then((value) {
+  //     productCategory = ModelAddProductCategory.fromJson(jsonDecode(value));
+  //     updateCategory();
+  //     refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
+  //   });
+  // }
   Future getTaxData() async {
     isDataLoading.value = false;
     await taxDataList().then((value) {
@@ -135,7 +185,7 @@ class AddProductController extends GetxController {
   File voiceFile = File("");
   List<File> galleryImages = [];
   String selectedTax = "";
-  String selectedCategory = "";
+  // String selectedCategory = "";
   String productType = "Simple Product";
   bool showValidations = false;
   DateTime? selectedStartDateTime;
@@ -262,8 +312,8 @@ class AddProductController extends GetxController {
     productDurationTypeValue = (item.time_period ?? "").toString();
     languageController.text = item.language.toString();
     log("short Description Controller${shortDescriptionController.text}");
-    updateCategory();
-    galleryImages.clear();
+    // updateCategory();
+    // galleryImages.clear();
     for (var element in item.galleryImage!) {
       galleryImages.add(File(element));
     }
@@ -320,14 +370,14 @@ class AddProductController extends GetxController {
     }
   }
 
-  updateCategory() {
-    if (productDetails.product != null && productCategory.data != null && productCategory.data!.isNotEmpty) {
-      if (productCategory.data!.map((e) => e.id.toString()).contains(productDetails.product!.catId.toString())) {
-        selectedCategory = productDetails.product!.catId.toString();
-        refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
-      }
-    }
-  }
+  // updateCategory() {
+  //   if (productDetails.product != null && productCategory.data != null && productCategory.data!.isNotEmpty) {
+  //     if (productCategory.data!.map((e) => e.id.toString()).contains(productDetails.product!.catId.toString())) {
+  //       selectedCategory = productDetails.product!.catId.toString();
+  //       refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
+  //     }
+  //   }
+  // }
 
   String convertToTime(String gg) {
     return "${gg.split(":")[0]}:${gg.split(":")[1]}";
@@ -360,7 +410,9 @@ class AddProductController extends GetxController {
       timeslots = serviceTimeSloat
           .map((e) => "${convertToTime(e.timeSloat.toString())},${convertToTime(e.timeSloatEnd.toString())}")
           .toList();
-    } else if (slots.isNotEmpty) {
+    }
+    else
+      if (slots.isNotEmpty) {
       timeslots = slots.entries
           .where((element) => element.value == true)
           .map((e) =>
@@ -388,13 +440,13 @@ class AddProductController extends GetxController {
           return;
         }
       }
-      if (selectedCategory.isEmpty) {
-        if (categoryKey.currentContext != null) {
-          Scrollable.ensureVisible(categoryKey.currentContext!,
-              alignment: .25, duration: const Duration(milliseconds: 600));
-          return;
-        }
-      }
+      // if (selectedCategory.isEmpty) {
+      //   if (categoryKey.currentContext != null) {
+      //     Scrollable.ensureVisible(categoryKey.currentContext!,
+      //         alignment: .25, duration: const Duration(milliseconds: 600));
+      //     return;
+      //   }
+      // }
       if (shortDescriptionController.checkEmpty) return;
       if (longDescriptionController.checkEmpty) return;
 
@@ -564,7 +616,7 @@ class AddProductController extends GetxController {
     if(selectedReturnPolicy != null) {
       map["return_policy_desc"] = selectedReturnPolicy!.id.toString();
     }
-    map["category_id"] = selectedCategory;
+    // map["category_id"] = selectedCategory;
     map["short_description"] = shortDescriptionController.text.trim();
     map["long_description"] = longDescriptionController.text.trim();
     if (productId.isNotEmpty) {
@@ -592,6 +644,7 @@ class AddProductController extends GetxController {
       imageMap["gallery_image[$key]"] = value;
     });
 
+    map["category_id"] = categoryIds.join(",");
     map["galleryTempData"] = galleryImages
         .where((element) => element.path.checkHTTP.isNotEmpty)
         .map((e) => e.path.checkHTTP)
@@ -644,6 +697,7 @@ class AddProductController extends GetxController {
         productDetails = ModelVendorProductDetails.fromJson(jsonDecode(value));
         apiLoaded = true;
         updateControllers();
+        updateCategories();
         updateUI;
       }).catchError((e) {
         throw Exception(e);

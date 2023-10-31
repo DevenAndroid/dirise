@@ -17,7 +17,7 @@ class ModelCategoryStores {
   ModelCategoryStores.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    user = json['user'] != null ? User.fromJson(json['user']) : User(data: []);
+    user = json['user'] != null ? User.fromJson(json['user']) : User(data:  []);
     categoryName = json['category_name'];
     totalPage = json['total_page'];
     if (json['product'] != null) {

@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../model/model_category_stores.dart';
 import '../../../model/product_model/model_product_element.dart';
+import '../../../model/vendor_models/model_category_list.dart';
 import '../../../model/vendor_models/vendor_category_model.dart';
 import '../../../utils/api_constant.dart';
 import '../../../widgets/cart_widget.dart';
@@ -43,6 +44,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
   @override
   void initState() {
     super.initState();
+    getCategoryFilter();
     getCategoryStores(
       page: paginationPage,
     );
@@ -60,6 +62,16 @@ class _SingleCategoriesState extends State<SingleCategories> {
   }
 
   RxInt refreshInt = 0.obs;
+  Map<String, String> selectedIds = {};
+
+  ModelCategoryList? modelCategoryList;
+
+  getCategoryFilter(){
+    repositories.postApi(url: ApiUrls.categoryFilterUrl+categoryID).then((value) {
+      modelCategoryList = ModelCategoryList.fromJson(jsonDecode(value));
+      setState(() {});
+    });
+  }
 
   Future getCategoryStores({required int page, String? search, bool? resetAll}) async {
     if (resetAll == true) {
@@ -79,6 +91,9 @@ class _SingleCategoriesState extends State<SingleCategories> {
     } else {
       url = "category_id=$categoryID&pagination=4&page=$page";
     }
+    // if(selectedIds.isNotEmpty){
+    //   url = "$url&child_id=${selectedIds.entries.map((e) => e.value).toList().join(",")}";
+    // }
     paginationLoading = true;
     refreshInt.value = DateTime.now().millisecondsSinceEpoch;
     await repositories.getApi(url: "${ApiUrls.getCategoryStoresUrl}$url").then((value) {
@@ -162,31 +177,43 @@ class _SingleCategoriesState extends State<SingleCategories> {
               leading: const SizedBox.shrink(),
               titleSpacing: 0,
               leadingWidth: 16,
-              title: InkWell(
-                onTap: () {},
-                child: Container(
-                  height: 36,
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xff014E70)),
-                      color: const Color(0xffEBF1F4),
-                      borderRadius: BorderRadius.circular(22)),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 10),
-                        child: Text(
-                          "${mainCategory.name.toString()} ${AppStrings.type}",
-                          style:
-                              GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+              title: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: modelCategoryList != null ?
+                Row(
+                  children: modelCategoryList!.data!.map((e) => Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: PopupMenuButton(
+                      child: Container(
+                        height: 36,
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff014E70)),
+                            color: const Color(0xffEBF1F4),
+                            borderRadius: BorderRadius.circular(22)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 10),
+                              child: Text(
+                                e.title.toString(),
+                                style:
+                                GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
+                              ),
+                            ),
+                            const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
+                          ],
                         ),
                       ),
-                      const Icon(Icons.keyboard_arrow_down_outlined, color: Color(0xff014E70))
-                    ],
-                  ),
-                ),
+                      itemBuilder: (c){
+                        return e.childCategory!.map((ee) => PopupMenuItem(child: Text(ee.title.toString()))).toList();
+                      },
+                    ),
+                  )).toList(),
+                ) : SizedBox(),
               ),
+
             ),
             if (modelCategoryStores != null)
               for (var i = 0; i < modelCategoryStores!.length; i++) ...list(i)
