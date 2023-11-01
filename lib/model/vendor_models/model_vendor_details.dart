@@ -88,8 +88,9 @@ class VendorUser {
   dynamic updatedAt;
   dynamic deletedAt;
   dynamic vendorCategory;
- // List<VenderCategory>? venderCategory;
+ List<VenderCategory>? venderCategory = [];
   VendorProfile? vendorProfile;
+  VendorSub? vendorSub;
 
   VendorUser(
       {this.id,
@@ -117,6 +118,7 @@ class VendorUser {
         this.shippingStreet2,
         this.description,
         this.categoryId,
+        this.vendorSub,
         this.bio,
         this.socialId,
         this.apiToken,
@@ -157,7 +159,7 @@ class VendorUser {
         this.updatedAt,
         this.deletedAt,
         this.vendorCategory,
-        //this.venderCategory,
+        this.venderCategory,
         this.vendorProfile});
 
   VendorUser.fromJson(Map<String, dynamic> json) {
@@ -226,14 +228,22 @@ class VendorUser {
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
     vendorCategory = json['vendor_category'];
-  /*  if (json['vender_category'] != null) {
-      venderCategory = <VenderCategory>[];
-      json['vender_category'].forEach((v) {
-        venderCategory!.add(VenderCategory.fromJson(v));
-      });
-    }*/
+    try {
+      if (json['vender_category'] != null) {
+        venderCategory = <VenderCategory>[];
+        json['vender_category'].forEach((v) {
+          venderCategory!.add(VenderCategory.fromJson(v));
+        });
+      }
+      venderCategory ??= [];
+    } catch(e){
+      venderCategory ??= [];
+    }
     vendorProfile = json['vendor_profile'] != null
         ? VendorProfile.fromJson(json['vendor_profile'])
+        : null;
+    vendorSub = json['vendor_sub'] != null
+        ? VendorSub.fromJson(json['vendor_sub'])
         : null;
   }
 
@@ -304,10 +314,10 @@ class VendorUser {
     data['updated_at'] = updatedAt;
     data['deleted_at'] = deletedAt;
     data['vendor_category'] = vendorCategory;
-  /*  if (venderCategory != null) {
+    if (venderCategory != null) {
       data['vender_category'] =
           venderCategory!.map((v) => v.toJson()).toList();
-    }*/
+    }
     if (vendorProfile != null) {
       data['vendor_profile'] = vendorProfile!.toJson();
     }
@@ -315,7 +325,7 @@ class VendorUser {
   }
 }
 
-/*class VenderCategory {
+class VenderCategory {
   dynamic id;
   dynamic name;
   dynamic status;
@@ -364,7 +374,7 @@ class VendorUser {
     }
     return data;
   }
-}*/
+}
 
 class Pivot {
   dynamic userId;
@@ -513,6 +523,39 @@ class VendorProfile {
     data['updated_at'] = updatedAt;
     data['id_proof'] = idProof;
     data['partner_name'] = partnersName;
+    return data;
+  }
+}
+
+class VendorSub {
+  int? id;
+  int? vendorId;
+  int? subCategoryId;
+  String? createdAt;
+  String? updatedAt;
+
+  VendorSub(
+      {this.id,
+        this.vendorId,
+        this.subCategoryId,
+        this.createdAt,
+        this.updatedAt});
+
+  VendorSub.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    vendorId = json['vendor_id'];
+    subCategoryId = json['sub_category_id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['vendor_id'] = this.vendorId;
+    data['sub_category_id'] = this.subCategoryId;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

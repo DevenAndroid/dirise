@@ -194,7 +194,7 @@ class VendorStoreData {
     id = json['id'];
     storeLogo = json['store_logo'] ?? "";
     storeImage = json['store_image'] ?? "";
-    storeName = json['store_name'] ?? "Store $id";
+    storeName = json['store_name'] ?? "Store Id: $id";
     email = json['email'] ?? "";
     storePhone = json['store_phone'] ?? "";
     description = json['description'] ?? "";

@@ -163,7 +163,11 @@ class ProductElement {
     longDescription = json["long_description"];
     arabLongDescription = json["arab_long_description"];
     featuredImage = json["featured_image"];
-    galleryImage = json["gallery_image"] == null ? [] : List<String>.from(json["gallery_image"]!.map((x) => x));
+    try {
+      galleryImage = json["gallery_image"] == null ? [] : List<String>.from(json["gallery_image"]!.map((x) => x));
+    } catch(e){
+      galleryImage = [];
+    }
     inStock = json["in_stock"];
     stockAlert = json["stock_alert"];
     shippingType = json["shipping_type"];

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../ApiRepo/tax_repository.dart';
 import '../../model/common_modal.dart';
-import '../../model/vendor_models/model_add_product_category.dart';
 import '../../model/vendor_models/model_add_tax.dart';
 import '../../model/vendor_models/model_attribute.dart';
 import '../../model/vendor_models/model_category_list.dart';
@@ -87,7 +85,6 @@ class AddProductController extends GetxController {
   getReturnPolicyData(){
     repositories.getApi(url: ApiUrls.returnPolicyUrl).then((value) {
       modelReturnPolicy = ModelReturnPolicy.fromJson(jsonDecode(value));
-      // if()
       returnPolicyLoaded.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
@@ -122,6 +119,7 @@ class AddProductController extends GetxController {
       throw Exception(e);
     });
   }
+
   /*Future getProductTax() async {
     taxCategory.value = -2;
     await repositories.postApi(url: ApiUrls.taxDataUrl, showResponse: false, showMap: false).then((value) {
@@ -130,6 +128,7 @@ class AddProductController extends GetxController {
       refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
     });
   }*/
+
   // Future getProductCategoryLit() async {
   //   refreshCategory.value = -2;
   //   await repositories.postApi(url: ApiUrls.productCategoryListUrl, showResponse: false, showMap: false).then((value) {
@@ -138,6 +137,7 @@ class AddProductController extends GetxController {
   //     refreshCategory.value = DateTime.now().millisecondsSinceEpoch;
   //   });
   // }
+
   Future getTaxData() async {
     isDataLoading.value = false;
     await taxDataList().then((value) {

@@ -123,6 +123,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
         modelCategoryList!.data!.map((e) => e.selectedCategory != null).toList().contains(true)) {
       String kk =  modelCategoryList!.data!.where((element) => element.selectedCategory != null).map((e) => e.selectedCategory!.id.toString()).toList().join(",");
       await repositories.postApi(url: ApiUrls.categoryFilterUrl,
+          showResponse: true,
           mapData: {
             'category_id': categoryID,
             if(kk.isNotEmpty)
