@@ -39,12 +39,6 @@ class ModelCategoryStores {
     socialLinks = json['social_links'] != null
         ? SocialLinks.fromJson(json['social_links'])
         : null;
-    // if (json['promotion_data'] != null) {
-    //   promotionData = <PromotionData>[];
-    //   json['promotion_data'].forEach((v) { promotionData!.add(PromotionData.fromJson(v)); });
-    // } else {
-    //   promotionData = [];
-    // }
   }
 
   Map<String, dynamic> toJson() {

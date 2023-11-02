@@ -528,11 +528,11 @@ class VendorProfile {
 }
 
 class VendorSub {
-  int? id;
-  int? vendorId;
-  int? subCategoryId;
-  String? createdAt;
-  String? updatedAt;
+  dynamic id;
+  dynamic vendorId;
+  dynamic subCategoryId;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   VendorSub(
       {this.id,

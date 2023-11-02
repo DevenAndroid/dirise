@@ -165,16 +165,62 @@ class ChildCategory {
     return data;
   }
 }
-
 class VendorSubCategory {
   int? id;
   String? name;
   int? parentId;
   String? description;
+  List<SubChildCategory>? childCategory = [];
+  SubChildCategory? selectedSubChildCategory;
 
-  VendorSubCategory({this.id, this.name, this.parentId, this.description});
+  VendorSubCategory(
+      {this.id,
+        this.name,
+        this.parentId,
+        this.description,
+        this.childCategory});
 
   VendorSubCategory.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    parentId = json['parent_id'];
+    description = json['description'];
+    try {
+      if (json['child_category'] != null) {
+        childCategory = <SubChildCategory>[];
+        json['child_category'].forEach((v) {
+          childCategory!.add(SubChildCategory.fromJson(v));
+        });
+      }
+    } catch(e){
+      childCategory ??= [];
+    }
+    childCategory ??= [];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['parent_id'] = parentId;
+    data['description'] = description;
+    if (childCategory != null) {
+      data['child_category'] =
+          childCategory!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class SubChildCategory {
+  int? id;
+  String? name;
+  int? parentId;
+  String? description;
+
+  SubChildCategory({this.id, this.name, this.parentId, this.description});
+
+  SubChildCategory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     parentId = json['parent_id'];

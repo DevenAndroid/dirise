@@ -512,8 +512,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
     map["vendor_type"] = selectedPlan.name;
     map["store_phone"] = storePhone.text.trim();
-    if (selectedVendorSubCategory != null) {
-      map["sub_category_id"] = selectedVendorSubCategory!.id.toString();
+    if (modelCategoryList != null) {
+      map["sub_category_id"] = modelCategoryList!.vendorSubCategory!.map((e) => e.selectedSubChildCategory!.id.toString()).toList().join(",");
     }
     // map["country_id"] = selectedCountry!.id.toString();
     map["category_id"] = allSelectedCategory.entries.map((e) => e.key).toList().join(",");
@@ -721,7 +721,6 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   }
 
   ModelSingleCategoryList? modelCategoryList;
-  VendorSubCategory? selectedVendorSubCategory;
 
   bool editable = true;
 
@@ -733,12 +732,24 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       modelCategoryList = ModelSingleCategoryList.fromJson(jsonDecode(value));
       if (vendorInfo.vendorSub != null && modelCategoryList!.vendorSubCategory!.isNotEmpty) {
         for (var element in modelCategoryList!.vendorSubCategory!) {
-          if (vendorInfo.vendorSub!.subCategoryId.toString() == element.id.toString()) {
-            selectedVendorSubCategory = element;
+          for (var element1 in element.childCategory!) {
+            if(vendorInfo.vendorSub!.subCategoryId.toString().split(",").contains(element1.id.toString())){
+              element.selectedSubChildCategory = element1;
+              print(vendorInfo.vendorSub!.subCategoryId.toString().split(","));
+              print(element1.id.toString());
+              print(element1.name);
             editable = false;
-            setState(() {});
-            break;
+              break;
+            }
           }
+            setState(() {});
+          // if(vendorInfo.vendorSub!.subCategoryId.toString().split(",").contains(element.id.toString())){
+          //
+          // }
+          // if (vendorInfo.vendorSub!.subCategoryId.toString() == element.id.toString()) {
+          //   setState(() {});
+          //   break;
+          // }
         }
       }
       setState(() {});
@@ -876,61 +887,63 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     return null;
                                   }*/
                               ),
-                              16.spaceY,
-                              IgnorePointer(
-                                ignoring: !editable,
-                                child: DropdownButtonFormField<dynamic>(
-                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                  iconSize: 30,
-                                  iconDisabledColor: const Color(0xff97949A),
-                                  iconEnabledColor: const Color(0xff97949A),
-                                  value: selectedVendorSubCategory,
-                                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    filled: true,
-                                    fillColor: const Color(0xffE2E2E2).withOpacity(.35),
-                                    contentPadding:
-                                        const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
-                                    focusedErrorBorder: const OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                    errorBorder: const OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        borderSide: BorderSide(color: Color(0xffE2E2E2))),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                    disabledBorder: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                                      borderSide: BorderSide(color: AppTheme.secondaryColor),
-                                    ),
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                                      borderSide: BorderSide(color: AppTheme.secondaryColor),
-                                    ),
-                                  ),
-                                  items: modelCategoryList != null
-                                      ? modelCategoryList!.vendorSubCategory!
-                                          .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
-                                          .toList()
-                                      : [],
-                                  hint: const Text('Category'),
-                                  onChanged: (value) {
-                                    selectedVendorSubCategory = value;
-                                    setState(() {});
-                                  },
-                                  validator: (value) {
-                                    if (modelCategoryList != null &&
-                                        modelCategoryList!.vendorSubCategory!.isNotEmpty &&
-                                        selectedVendorSubCategory == null) {
-                                      return "Please select sub category";
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              10.spaceY,
+                              if(modelCategoryList != null)
+                              ...modelCategoryList!.vendorSubCategory!.map((e) => Column(
+                                    children: [
+                                      16.spaceY,
+                                      IgnorePointer(
+                                        ignoring: !editable,
+                                        child: DropdownButtonFormField<dynamic>(
+                                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                                          iconSize: 30,
+                                          iconDisabledColor: const Color(0xff97949A),
+                                          iconEnabledColor: const Color(0xff97949A),
+                                          value: e.selectedSubChildCategory,
+                                          style: GoogleFonts.poppins(color: Colors.black, fontSize: 16),
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            filled: true,
+                                            fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(horizontal: 15, vertical: 10).copyWith(right: 8),
+                                            focusedErrorBorder: const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                            errorBorder: const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                borderSide: BorderSide(color: Color(0xffE2E2E2))),
+                                            focusedBorder: const OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                                borderSide: BorderSide(color: AppTheme.secondaryColor)),
+                                            disabledBorder: const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                                              borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                            ),
+                                            enabledBorder: const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                                              borderSide: BorderSide(color: AppTheme.secondaryColor),
+                                            ),
+                                          ),
+                                          items: e.childCategory
+                                                  !.map((e) =>
+                                                      DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
+                                                  .toList(),
+                                          hint: Text('Select ${e.name} Category'),
+                                          onChanged: (value) {
+                                            e.selectedSubChildCategory = value;
+                                            setState(() {});
+                                          },
+                                          validator: (value) {
+                                            if (e.selectedSubChildCategory == null) {
+                                              return "Please select sub category";
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                              4.spaceY,
                               /* Wrap(
                                 runSpacing: 0,
                                 spacing: 8,
