@@ -14,20 +14,20 @@ import 'variant_product/varient_product.dart';
 import 'vertual_product_and_image.dart';
 
 class AddProductScreen extends StatefulWidget {
-  static String route = "/AddProductScreen";
-
-  const AddProductScreen({Key? key}) : super(key: key);
+final String? productId;
+  const AddProductScreen({Key? key, this.productId}) : super(key: key);
 
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  final controller = Get.put(AddProductController());
+  final controller = Get.put(AddProductController(),permanent: true);
 
   @override
   void initState() {
     super.initState();
+    controller.productId = "";
     controller.getProductsCategoryList();
     controller.productType = "Simple Product";
     controller.getReturnPolicyData();
@@ -36,7 +36,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     controller.productDurationTypeValue = "";
     controller.valuesAssigned = false;
     controller.apiLoaded = false;
-    controller.getProductDetails().then((value) {
+    controller.getProductDetails(idd: widget.productId).then((value) {
       setState(() {});
     });
     controller.getProductAttributes();

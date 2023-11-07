@@ -54,7 +54,7 @@ class MyRouters {
     GetPage(name: ReturnPolicyScreen.route, page: () => const ReturnPolicyScreen()),
     GetPage(name: PublicSpeakerScreen.route, page: () => const PublicSpeakerScreen()),
     GetPage(name: EditProfileScreen.route, page: () => const EditProfileScreen()),
-    GetPage(name: AddProductScreen.route, page: () => const AddProductScreen()),
+    // GetPage(name: AddProductScreen.route, page: () => const AddProductScreen()),
     GetPage(name: NewPasswordScreen.route, page: () => const NewPasswordScreen()),
     GetPage(name: TermConditionScreen.route, page: () => const TermConditionScreen()),
     GetPage(name: EventCalendarScreen.route, page: () => const EventCalendarScreen()),

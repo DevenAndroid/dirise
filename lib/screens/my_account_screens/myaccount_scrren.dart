@@ -487,106 +487,104 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         onTap: () {
                           showModalBottomSheet<void>(
                               context: context,
+                              isScrollControlled: true,
                               builder: (BuildContext context) {
                                 return Container(
-                                    height: 330,
                                     decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                                     child: Obx(() {
-                                      return Center(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(color: const Color(0xffDCDCDC)),
-                                                      borderRadius: BorderRadius.circular(15)),
-                                                  child: RadioListTile(
-                                                    title: const Text('Arabic'),
-                                                    activeColor: const Color(0xff014E70),
-                                                    value: "Engleză",
-                                                    groupValue: selectedLAnguage.value,
-                                                    onChanged: (value) {
-                                                      locale = const Locale('ro', 'Ro');
-                                                      Get.updateLocale(locale);
-                                                      selectedLAnguage.value = value!;
-                                                      updateLanguage("Engleză");
-                                                      setState(() {});
-                                                    },
-                                                  )),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Padding(
+                                      return Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: const Color(0xffDCDCDC)),
+                                                    borderRadius: BorderRadius.circular(15)),
+                                                child: RadioListTile(
+                                                  title: const Text('Arabic'),
+                                                  activeColor: const Color(0xff014E70),
+                                                  value: "Engleză",
+                                                  groupValue: selectedLAnguage.value,
+                                                  onChanged: (value) {
+                                                    locale = const Locale('ro', 'Ro');
+                                                    Get.updateLocale(locale);
+                                                    selectedLAnguage.value = value!;
+                                                    updateLanguage("Engleză");
+                                                    setState(() {});
+                                                  },
+                                                )),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 20, right: 20),
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: const Color(0xffDCDCDC)),
+                                                    borderRadius: BorderRadius.circular(15)),
+                                                child: RadioListTile(
+                                                  title: const Text('English'),
+                                                  activeColor: const Color(0xff014E70),
+                                                  value: "English",
+                                                  groupValue: selectedLAnguage.value,
+                                                  onChanged: (value) {
+                                                    locale = const Locale('en', 'US');
+                                                    Get.updateLocale(locale);
+                                                    selectedLAnguage.value = value!;
+                                                    updateLanguage("english");
+                                                    setState(() {});
+                                                  },
+                                                )),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Padding(
                                               padding: const EdgeInsets.only(left: 20, right: 20),
                                               child: Container(
                                                   decoration: BoxDecoration(
                                                       border: Border.all(color: const Color(0xffDCDCDC)),
                                                       borderRadius: BorderRadius.circular(15)),
                                                   child: RadioListTile(
-                                                    title: const Text('English'),
+                                                    title: const Text('Several languages'),
                                                     activeColor: const Color(0xff014E70),
-                                                    value: "English",
-                                                    groupValue: selectedLAnguage.value,
+                                                    value: "Several languages",
+                                                    groupValue: language.value,
                                                     onChanged: (value) {
-                                                      locale = const Locale('en', 'US');
-                                                      Get.updateLocale(locale);
-                                                      selectedLAnguage.value = value!;
-                                                      updateLanguage("english");
-                                                      setState(() {});
+                                                      setState(() {
+                                                        language.value = value!;
+                                                      });
                                                     },
-                                                  )),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Padding(
-                                                padding: const EdgeInsets.only(left: 20, right: 20),
-                                                child: Container(
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(color: const Color(0xffDCDCDC)),
-                                                        borderRadius: BorderRadius.circular(15)),
-                                                    child: RadioListTile(
-                                                      title: const Text('Several languages'),
-                                                      activeColor: const Color(0xff014E70),
-                                                      value: "Several languages",
-                                                      groupValue: language.value,
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          language.value = value!;
-                                                        });
-                                                      },
-                                                    ))),
-                                            SizedBox(
-                                              height: size.height * .08,
-                                            ),
-                                            Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(left: 20, right: 20),
-                                                child: Container(
-                                                  height: 56,
-                                                  width: MediaQuery.sizeOf(context).width,
-                                                  color: const Color(0xff014E70),
-                                                  child: Center(
-                                                    child: Text(
-                                                      'Apply',
-                                                      style: GoogleFonts.poppins(
-                                                          fontSize: 18,
-                                                          fontWeight: FontWeight.w500,
-                                                          color: Colors.white),
-                                                    ),
+                                                  ))),
+                                          SizedBox(
+                                            height: size.height * .08,
+                                          ),
+                                          Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 20, right: 20),
+                                              child: Container(
+                                                height: 56,
+                                                width: MediaQuery.sizeOf(context).width,
+                                                color: const Color(0xff014E70),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Apply',
+                                                    style: GoogleFonts.poppins(
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w500,
+                                                        color: Colors.white),
                                                   ),
                                                 ),
                                               ),
-                                            )
-                                          ],
-                                        ),
+                                            ),
+                                          )
+                                        ],
                                       );
                                     }));
                               });

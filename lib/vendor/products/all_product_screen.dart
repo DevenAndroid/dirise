@@ -127,7 +127,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(AddProductScreen.route);
+                        Get.to(()=> const AddProductScreen());
                       },
                       child: Container(
                         height: AddSize.size20 * 2.5,
@@ -208,8 +208,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Get.toNamed(AddProductScreen.route,
-                                                      arguments: (item.id ?? "").toString());
+                                                  Get.to(()=> AddProductScreen(productId: (item.id ?? "").toString(),));
                                                 },
                                                 child: Container(
                                                     height: AddSize.size25,
@@ -292,7 +291,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                   ])),
                             ),
                             const SizedBox(
-                              height: 13,
+                              height: 14,
                             )
                           ],
                         );

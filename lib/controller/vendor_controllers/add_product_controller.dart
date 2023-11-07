@@ -26,27 +26,27 @@ class AddProductController extends GetxController {
   RxInt categoryLoadingInt = 0.obs;
 
   Future getProductsCategoryList() async {
-    if(modelCategoryList != null){
+    if (modelCategoryList != null) {
       updateCategories();
       return;
     }
-    await repositories.getApi(url: ApiUrls.productCategoriesListUrl).then((value){
+    await repositories.getApi(url: ApiUrls.productCategoriesListUrl).then((value) {
       modelCategoryList = ModelCategoryList.fromJson(jsonDecode(value));
       categoryLoadingInt.value = DateTime.now().millisecondsSinceEpoch;
       updateCategories();
     });
   }
 
-  updateCategories(){
-    if(modelCategoryList == null)return;
-    if(productDetails.product == null)return;
-    if(productDetails.product!.catId == null)return;
+  updateCategories() {
+    if (modelCategoryList == null) return;
+    if (productDetails.product == null) return;
+    if (productDetails.product!.catId == null) return;
     List<String> kk = productDetails.product!.catId.toString().split(",");
     modelCategoryList!.data ??= [];
     for (var element in modelCategoryList!.data!) {
       element.childCategory ??= [];
       for (var e in element.childCategory!) {
-        if(kk.contains(e.id.toString())){
+        if (kk.contains(e.id.toString())) {
           e.selected = true;
         } else {
           e.selected = false;
@@ -56,21 +56,20 @@ class AddProductController extends GetxController {
   }
 
   List<String> get categoryIds {
-    if(modelCategoryList == null){
+    if (modelCategoryList == null) {
       return [];
     }
     List<String> cats = [];
     for (var element in modelCategoryList!.data!) {
       element.childCategory ??= [];
       for (var e in element.childCategory!) {
-        if(e.selected){
+        if (e.selected) {
           cats.add(e.id.toString());
         }
       }
     }
     return cats;
   }
-
 
   List<String> gg = [
     "Gram",
@@ -82,7 +81,7 @@ class AddProductController extends GetxController {
   ModelReturnPolicy? modelReturnPolicy;
   ReturnPolicy? selectedReturnPolicy;
 
-  getReturnPolicyData(){
+  getReturnPolicyData() {
     repositories.getApi(url: ApiUrls.returnPolicyUrl).then((value) {
       modelReturnPolicy = ModelReturnPolicy.fromJson(jsonDecode(value));
       returnPolicyLoaded.value = DateTime.now().millisecondsSinceEpoch;
@@ -95,12 +94,7 @@ class AddProductController extends GetxController {
 
   List<String> productDuration = [];
 
-  List<String> productDurationType = [
-    "None",
-    "Hours",
-    "Days",
-    "Months"
-  ];
+  List<String> productDurationType = ["None", "Hours", "Days", "Months"];
 
   // ModelAddProductCategory productCategory = ModelAddProductCategory(data: []);
   Rx<ModelAddTax> taxData = ModelAddTax().obs;
@@ -115,7 +109,7 @@ class AddProductController extends GetxController {
       log("this is product modelAttributes.....       ${modelAttributes.data!.map((e) => e.id.toString())}");
       // updateVariants();
       attributeRefresh.value = DateTime.now().millisecondsSinceEpoch;
-    }).catchError((e){
+    }).catchError((e) {
       throw Exception(e);
     });
   }
@@ -145,6 +139,7 @@ class AddProductController extends GetxController {
       taxData.value = value;
     });
   }
+
   final Repositories repositories = Repositories();
   final productListController = Get.put(ProductsController());
 
@@ -210,12 +205,12 @@ class AddProductController extends GetxController {
   final GlobalKey createAttributeButton = GlobalKey();
   List<AddMultipleItems> addMultipleItems = [];
 
-  filterClearAttributes(){
+  filterClearAttributes() {
     addMultipleItems.removeWhere((element) => !element.live);
     variation.value = DateTime.now().millisecondsSinceEpoch;
   }
 
-  resetValues(){
+  resetValues() {
     startTime.text = "";
     endTime.text = "";
     serviceDuration.text = "";
@@ -235,20 +230,18 @@ class AddProductController extends GetxController {
 
   bool valuesAssigned = false;
 
-  updateVariants(){
+  updateVariants() {
     if (productDetails.product == null) return;
-    if(valuesAssigned)return;
+    if (valuesAssigned) return;
     ModelVendorProductDetailsData item = productDetails.product!;
-    if(productId.isNotEmpty && item.productType == "variants"){
+    if (productId.isNotEmpty && item.productType == "variants") {
       productType = "Variants Product";
     }
     if (modelAttributes.data != null && modelAttributes.data!.isNotEmpty) {
-
       for (var element in item.variantData!) {
-
         Map<String, GetAttrvalues> kk = {};
         for (var i in element.variantValue.entries) {
-          if(modelAttributes.attributeMap[i.value.toString()] != null) {
+          if (modelAttributes.attributeMap[i.value.toString()] != null) {
             kk[i.key] = modelAttributes.attributeMap[i.value.toString()]!;
           }
         }
@@ -271,19 +264,21 @@ class AddProductController extends GetxController {
       // }
       // attributeList = attributeList.toSet().toList();
       variation.value = DateTime.now().millisecondsSinceEpoch;
-
     }
-
   }
 
   updateControllers() {
+    print("object........................................111");
     if (productDetails.product == null) return;
+    print("object........................................222");
     ModelVendorProductDetailsData item = productDetails.product!;
     getTaxType = productDetails.product!.taxType;
+
     /// Description Part
     if (item.productType == "virtual_product") {
       productType = "Virtual Product";
     }
+
     updateVariants();
 
     if (item.productType == "booking") {
@@ -294,7 +289,7 @@ class AddProductController extends GetxController {
     productNameController.text = item.pName.toString();
     weightController.text = (item.weight ?? "").toString();
     weightUnit = (item.weightUnit ?? "").toString();
-    if(!gg.contains(weightUnit)){
+    if (!gg.contains(weightUnit)) {
       gg.add(weightUnit);
     }
     tax = item.taxApply.toString();
@@ -311,6 +306,7 @@ class AddProductController extends GetxController {
     productDurationValueController.text = (item.time ?? "").toString() == "0" ? "" : (item.time ?? "").toString();
     productDurationTypeValue = (item.time_period ?? "").toString();
     languageController.text = item.language.toString();
+    print("object........................................333");
     log("short Description Controller${shortDescriptionController.text}");
     // updateCategory();
     // galleryImages.clear();
@@ -347,6 +343,7 @@ class AddProductController extends GetxController {
         updateEndDateTime();
       }
     }
+    print("object........................................444");
     updateUI;
   }
 
@@ -362,8 +359,7 @@ class AddProductController extends GetxController {
 
   updateEndDateTime() {
     try {
-      selectedEndDateTIme =
-          DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.toDate.toString());
+      selectedEndDateTIme = DateFormat("yyyy-MM-dd").parse(productDetails.product!.productAvailability!.toDate.toString());
       endDate.text = DateFormat("dd-MMM-yyyy").format(selectedEndDateTIme!);
     } catch (e) {
       throw Exception(e);
@@ -383,16 +379,13 @@ class AddProductController extends GetxController {
     return "${gg.split(":")[0]}:${gg.split(":")[1]}";
   }
 
-  deleteProduct(BuildContext context){
-    repositories.postApi(url: ApiUrls.deleteProductUrl,
-    context: context,
-    mapData: {
+  deleteProduct(BuildContext context) {
+    repositories.postApi(url: ApiUrls.deleteProductUrl, context: context, mapData: {
       'product_id': productId.toString(),
-    }
-    ).then((value) {
+    }).then((value) {
       ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(modelCommonResponse.message.toString());
-      if(modelCommonResponse.status == true){
+      if (modelCommonResponse.status == true) {
         productListController.getProductList();
         Get.back();
         Get.back();
@@ -410,13 +403,11 @@ class AddProductController extends GetxController {
       timeslots = serviceTimeSloat
           .map((e) => "${convertToTime(e.timeSloat.toString())},${convertToTime(e.timeSloatEnd.toString())}")
           .toList();
-    }
-    else
-      if (slots.isNotEmpty) {
+    } else if (slots.isNotEmpty) {
       timeslots = slots.entries
           .where((element) => element.value == true)
-          .map((e) =>
-              "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
+          .map(
+              (e) => "${timeFormatWithoutAMPM.format(e.key.keys.first)},${timeFormatWithoutAMPM.format(e.key.values.first)}")
           .toList();
     }
 
@@ -435,8 +426,7 @@ class AddProductController extends GetxController {
           return;
         }
         if (taxKey.currentContext != null) {
-          Scrollable.ensureVisible(taxKey.currentContext!,
-              alignment: .25, duration: const Duration(milliseconds: 600));
+          Scrollable.ensureVisible(taxKey.currentContext!, alignment: .25, duration: const Duration(milliseconds: 600));
           return;
         }
       }
@@ -456,9 +446,9 @@ class AddProductController extends GetxController {
           return;
         }
         for (var element in addMultipleItems) {
-          if(element.variantImages.path.isEmpty){
+          if (element.variantImages.path.isEmpty) {
             element.variantImageKey.currentContext!.navigate;
-            showToast("Select Variant Image",center: true);
+            showToast("Select Variant Image", center: true);
             return;
           }
           if (element.variantSku.checkEmpty) return;
@@ -485,42 +475,45 @@ class AddProductController extends GetxController {
     if (productType == "Variants Product") {
       // print("testing...    ${}")
       if (!attributeList
-          .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
-          .toList()
-          .contains(true) && addMultipleItems.isEmpty) {
-        showToast("Please select at least 1 variant",gravity: ToastGravity.CENTER);
+              .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
+              .toList()
+              .contains(true) &&
+          addMultipleItems.isEmpty) {
+        showToast("Please select at least 1 variant", gravity: ToastGravity.CENTER);
         attributeEmptyListKey.currentContext!.navigate;
         return;
       }
-      if(attributeList
-          .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
-          .toList()
-          .contains(true) && addMultipleItems.isEmpty){
+      if (attributeList
+              .map((e) => e.getAttrvalues!.map((e2) => e2.selectedVariant).toList().contains(true))
+              .toList()
+              .contains(true) &&
+          addMultipleItems.isEmpty) {
         createAttributeButton.currentContext!.navigate.then((value) {
           filterClearAttributes();
-          combinations(
-              attributeList.map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList()).toList()
-          ).forEach((element) {
+          combinations(attributeList
+                  .map((e) => e.getAttrvalues!.where((element) => element.selectedVariant == true).toList())
+                  .toList())
+              .forEach((element) {
             log(element.map((e) => e.aboveParentSlug).toList().toString());
             Map<String, GetAttrvalues> tempMap = {};
             for (var element1 in element) {
               tempMap[element1.aboveParentSlug] = element1;
             }
             addMultipleItems.add(AddMultipleItems(
-                attributes: tempMap,
+              attributes: tempMap,
             ));
           });
           Future.delayed(const Duration(milliseconds: 200)).then((value) {
-            showToast("Fill available fields properly.",gravity: ToastGravity.CENTER);
+            showToast("Fill available fields properly.", gravity: ToastGravity.CENTER);
           });
           variation.value = DateTime.now().millisecondsSinceEpoch;
         });
         return;
       }
       for (var element in addMultipleItems) {
-        if(element.variantImages.path.isEmpty){
+        if (element.variantImages.path.isEmpty) {
           element.variantImageKey.currentContext!.navigate;
-          showToast("Select Variant Image",center: true);
+          showToast("Select Variant Image", center: true);
           return;
         }
         if (element.variantSku.checkEmpty) return;
@@ -552,8 +545,6 @@ class AddProductController extends GetxController {
       return showToast("Please select product images");
     }
 
-
-
     // return;
     Map<String, String> map = {};
     // single,variants,booking,virtual_product
@@ -561,10 +552,10 @@ class AddProductController extends GetxController {
     map["weight"] = weightController.text.trim();
     map["weight_unit"] = weightUnit;
 
-    if(productDurationValueController.text.isNotEmpty) {
+    if (productDurationValueController.text.isNotEmpty) {
       map["time"] = productDurationValueController.text.trim();
     }
-    if(productDurationTypeValue.isNotEmpty && productDurationTypeValue != "none") {
+    if (productDurationTypeValue.isNotEmpty && productDurationTypeValue != "none") {
       map["time_period"] = productDurationTypeValue;
     }
 
@@ -602,7 +593,7 @@ class AddProductController extends GetxController {
         map["variant_value[${element.key}]"] = jsonEncode(kk);
       });
     }
-    if(taxId != null){
+    if (taxId != null) {
       map["tax_type"] = taxId!;
     }
     map["virtual_product_file_language"] = languageController.text;
@@ -613,7 +604,7 @@ class AddProductController extends GetxController {
     map["purchase_price"] = purchasePriceController.text.trim();
     map["selling_price"] = sellingPriceController.text.trim();
     map["stock"] = stockController.text.trim();
-    if(selectedReturnPolicy != null) {
+    if (selectedReturnPolicy != null) {
       map["return_policy_desc"] = selectedReturnPolicy!.id.toString();
     }
     // map["category_id"] = selectedCategory;
@@ -631,13 +622,12 @@ class AddProductController extends GetxController {
 
     if (productType == "Variants Product") {
       addMultipleItems.asMap().entries.forEach((element) {
-        if(element.value.variantImages.path.checkHTTP.isEmpty) {
+        if (element.value.variantImages.path.checkHTTP.isEmpty) {
           imageMap["variant_images[${element.key}]"] = element.value.variantImages;
         } else {
           map["variant_images[${element.key}]"] = element.value.variantImages.path;
         }
       });
-
     }
 
     galleryImages.asMap().forEach((key, value) {
@@ -645,11 +635,8 @@ class AddProductController extends GetxController {
     });
 
     map["category_id"] = categoryIds.join(",");
-    map["galleryTempData"] = galleryImages
-        .where((element) => element.path.checkHTTP.isNotEmpty)
-        .map((e) => e.path.checkHTTP)
-        .toList()
-        .join(",");
+    map["galleryTempData"] =
+        galleryImages.where((element) => element.path.checkHTTP.isNotEmpty).map((e) => e.path.checkHTTP).toList().join(",");
 
     imageMap.removeWhere((key, value) => value.path.checkHTTP.isNotEmpty);
     map.removeWhere((key, value) => value.isEmpty);
@@ -670,8 +657,7 @@ class AddProductController extends GetxController {
                   payload: "payload",
                   maxProgress: 100,
                   progress: ((bytes / totalBytes) * 100).toInt(),
-                  progressId: 770
-              );
+                  progressId: 770);
             })
         .then((value) {
       NotificationService().hideAllNotifications();
@@ -686,9 +672,12 @@ class AddProductController extends GetxController {
     });
   }
 
-  Future getProductDetails() async {
-    if (Get.arguments != null) {
-      productId = Get.arguments;
+  Future getProductDetails({String? idd}) async {
+    productDetails = ModelVendorProductDetails();
+    if (idd != null) {
+      productId = idd;
+    } else {
+      productId = "";
     }
     if (productId.isEmpty) {
       apiLoaded = true;
@@ -699,8 +688,6 @@ class AddProductController extends GetxController {
         updateControllers();
         updateCategories();
         updateUI;
-      }).catchError((e) {
-        throw Exception(e);
       });
     }
   }
@@ -735,10 +722,8 @@ class AddProductController extends GetxController {
     super.onInit();
     productDuration.clear();
     productDuration.add("none");
-    for(var i = 0; i < 100; i++){
-      productDuration.add((i+1).toString());
+    for (var i = 0; i < 100; i++) {
+      productDuration.add((i + 1).toString());
     }
   }
-
-
 }
