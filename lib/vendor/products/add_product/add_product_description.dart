@@ -20,7 +20,7 @@ class AddProductDescriptionScreen extends StatefulWidget {
 }
 
 class _AddProductDescriptionScreenState extends State<AddProductDescriptionScreen> {
-  final controller = Get.put(AddProductController());
+  final controller = Get.put(AddProductController(),permanent: true);
   String taxValue = 'Select Tax Type';
   List<String> productTypes = [
     "Simple Product",
@@ -32,7 +32,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
   @override
   void initState() {
     super.initState();
-    // controller.getProductCategoryLit();
+    controller.getProductsCategoryList();
     controller.getTaxData();
   }
 

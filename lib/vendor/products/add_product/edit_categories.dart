@@ -14,8 +14,14 @@ class EditCategoriesScreen extends StatefulWidget {
 }
 
 class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
-  final controller = Get.put(AddProductController());
+  final controller = Get.put(AddProductController(),permanent: true);
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.getProductsCategoryList();
+  }
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -37,6 +43,7 @@ class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
                       height: 4,
                     ),
                     DropdownButtonFormField<int>(
+                      isExpanded: true,
                       icon: const Icon(Icons.keyboard_arrow_down),
                       iconDisabledColor: const Color(0xff97949A),
                       iconEnabledColor: const Color(0xff97949A),
@@ -70,6 +77,7 @@ class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
                                 value: ee.key,
                                 child: Text(
                                   ee.value.title.toString(),
+                                  overflow: TextOverflow.ellipsis,
                                   style: GoogleFonts.poppins(
                                     color: const Color(0xff463B57),
                                   ),

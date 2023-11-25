@@ -26,10 +26,10 @@ class AddProductController extends GetxController {
   RxInt categoryLoadingInt = 0.obs;
 
   Future getProductsCategoryList() async {
-    if (modelCategoryList != null) {
-      updateCategories();
-      return;
-    }
+    // if (modelCategoryList != null) {
+    //   updateCategories();
+    //   return;
+    // }
     await repositories.getApi(url: ApiUrls.productCategoriesListUrl).then((value) {
       modelCategoryList = ModelCategoryList.fromJson(jsonDecode(value));
       categoryLoadingInt.value = DateTime.now().millisecondsSinceEpoch;
