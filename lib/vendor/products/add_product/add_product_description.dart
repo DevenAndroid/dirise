@@ -313,7 +313,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                         borderSide: BorderSide(color: AppTheme.secondaryColor),
                       ),
                     ),
-                    value: controller.taxId,
+                    // value: controller.taxId,
                   /*   validator: (gg) {
                       if (controller.weightUnit.isEmpty) {
                         return "Please select weight unit";

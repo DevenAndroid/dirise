@@ -349,15 +349,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 hintText: AppStrings.referralEmail,
                 readOnly: true,
                 controller: referralEmailController,
-                validator: (v) {
-                  if (v!.trim().isEmpty) {
-                    return "Please enter your referral email";
-                  }
-                  if (v.trim().invalidEmail) {
-                    return "Please enter valid referral email";
-                  }
-                  return null;
-                },
+                // validator: (v) {
+                //   if (v!.trim().isEmpty) {
+                //     return "Please enter your referral email";
+                //   }
+                //   if (v.trim().invalidEmail) {
+                //     return "Please enter valid referral email";
+                //   }
+                //   return null;
+                // },
               ),
               ...fieldWithName(
                 title: AppStrings.phoneNumber,

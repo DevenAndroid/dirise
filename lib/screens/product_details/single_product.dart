@@ -293,7 +293,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${productDetails.discountPercentage} Off",
+                                      "${productDetails.discountPercentage} ${'%'} Off",
                                       style: GoogleFonts.poppins(
                                           fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                                     ),

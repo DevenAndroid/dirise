@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void initState() {
     super.initState();
     controller.productId = "";
+    controller.galleryImages.clear();
+    controller.productImage = File("");
+    controller.pdfFile = File("");
+    controller.languageController.clear();
     controller.getProductsCategoryList();
     controller.productType = "Simple Product";
     controller.getReturnPolicyData();
@@ -67,6 +73,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           );
         });
   }
+
 
   @override
   Widget build(BuildContext context) {

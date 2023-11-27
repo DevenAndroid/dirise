@@ -248,6 +248,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                           child: StatefulBuilder(
                               builder: (c, newState) {
                                 return PopupMenuButton(
+                                  position: PopupMenuPosition.under,
                                   child: Container(
                                     height: 36,
                                     constraints: BoxConstraints(
@@ -299,6 +300,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                       child: StatefulBuilder(
                                         builder: (c, newState) {
                                           return PopupMenuButton(
+                                            position: PopupMenuPosition.under,
                                             child: Container(
                                               height: 36,
                                               constraints: BoxConstraints(

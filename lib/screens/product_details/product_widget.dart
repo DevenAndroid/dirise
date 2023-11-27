@@ -115,7 +115,7 @@ class _ProductUIState extends State<ProductUI> {
                   height: 10,
                 ),
                 Text(
-                  "${widget.productElement.discountPercentage ?? ((((widget.productElement.pPrice.toString().toNum - widget.productElement.sPrice.toString().toNum) / widget.productElement.pPrice.toString().toNum) * 100).toStringAsFixed(2))} Off",
+                  "${widget.productElement.discountPercentage ?? ((((widget.productElement.pPrice.toString().toNum - widget.productElement.sPrice.toString().toNum) / widget.productElement.pPrice.toString().toNum) * 100).toStringAsFixed(2))}${'%'} Off",
                   style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                 ),
                 const SizedBox(

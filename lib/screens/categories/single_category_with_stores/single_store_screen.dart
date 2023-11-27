@@ -522,9 +522,9 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                   ? SliverGrid.builder(
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10, childAspectRatio: .74),
-                      itemCount: max(modelProductsList.data!.length, 100000),
+                      itemCount: modelProductsList.data!.length,
                       itemBuilder: (BuildContext context, int index) {
-                        final item = modelProductsList.data![0];
+                        final item = modelProductsList.data![index];
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: ProductUI(
