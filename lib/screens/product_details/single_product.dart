@@ -527,7 +527,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Flexible(
+                        Expanded(
                           child: Row(
                             children: [
                               GestureDetector(
@@ -547,17 +547,17 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                   )),
                                 ),
                               ),
-                              const SizedBox(
-                                width: 10,
+                               SizedBox(
+                                width: size.width*.015,
                               ),
                               Obx(() {
                                 return Text(
                                   productQuantity.value.toString(),
-                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 20),
+                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
                                 );
                               }),
-                              const SizedBox(
-                                width: 10,
+                              SizedBox(
+                                width: size.width*.015,
                               ),
                               GestureDetector(
                                 onTap: () {
@@ -581,7 +581,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                             ],
                           ),
                         ),
-                        Flexible(
+                        Expanded(
                           child: ElevatedButton(
                             onPressed: () {
                               directBuyProduct();
@@ -599,7 +599,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                             ),
                           ),
                         ),
-                        Flexible(
+                        Expanded(
                           child: ElevatedButton(
                             onPressed: () {
                               addToCartProduct();
