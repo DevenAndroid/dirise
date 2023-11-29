@@ -68,7 +68,7 @@ class _CategoryItemsState extends State<CategoryItems> {
                         height: 10,
                       ),
                       Text(
-                       AppStrings.more,
+                       AppStrings.more.tr,
                         style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: AppTheme.buttonColor),
                       )
                     ],

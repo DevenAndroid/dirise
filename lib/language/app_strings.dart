@@ -17,6 +17,7 @@ class AppStrings{
   static String whatAreYouLooking = "What are you  looking for ... we back you !";
   static String myFavourite = "My Favourite";
     static String myProfile = "Profile";
+    static String guestUser = "Guest User";
     static String eBooks = "E Books";
     static String orders = "Orders";
     static String calendar = "My Calender";

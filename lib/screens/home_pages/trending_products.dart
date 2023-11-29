@@ -30,7 +30,7 @@ class _TrendingProductsState extends State<TrendingProducts> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppStrings.trendingProducts,
+                        AppStrings.trendingProducts.tr,
                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       InkWell(

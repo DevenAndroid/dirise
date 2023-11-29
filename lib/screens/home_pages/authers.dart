@@ -30,7 +30,7 @@ class _AuthorScreenState extends State<AuthorScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppStrings.shopByAuthor,
+                        AppStrings.shopByAuthor.tr,
                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       Container(

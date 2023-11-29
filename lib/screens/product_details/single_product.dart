@@ -403,7 +403,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                             Align(
                               alignment: Alignment.center,
                               child: Text(
-                                'Description',
+                                'Description'.tr,
                                 style: GoogleFonts.poppins(
                                   shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                                   color: Colors.transparent,
@@ -430,7 +430,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                               if (modelSingleProduct.product != null &&
                                   modelSingleProduct.product!.serviceTimeSloat != null) ...[
                                 Text(
-                                  "Select Date",
+                                  "Select Date".tr,
                                   style: normalStyle,
                                 ),
                                 const SizedBox(
@@ -445,7 +445,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                                       modelSingleProduct.product!.productAvailability!.toDate)
                                                   .toString())
                                               .isAfter(gg)) {
-                                            showToast("This date is not available");
+                                            showToast("This date is not available".tr);
                                             return;
                                           }
                                           selectedDate.text = dateFormat.format(gg);
@@ -461,7 +461,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                   autovalidateMode: AutovalidateMode.onUserInteraction,
                                   validator: (value) {
                                     if (value!.trim().isEmpty) {
-                                      return "Please select date";
+                                      return "Please select date".tr;
                                     }
                                     return null;
                                   },

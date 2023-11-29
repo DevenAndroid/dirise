@@ -46,7 +46,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
       title: Text(
-        titleText!,
+        titleText!.tr,
         style: GoogleFonts.poppins(color: textColor ?? Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
       ),
       actions: [...actions ?? []],

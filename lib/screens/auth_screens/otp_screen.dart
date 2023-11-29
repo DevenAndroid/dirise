@@ -35,11 +35,11 @@ class _OtpScreenState extends State<OtpScreen> {
 
   verifyOtp() {
     if (_otpController.text.trim().isEmpty) {
-      showToast("Please enter OTP");
+      showToast("Please enter OTP".tr);
       return;
     }
     if (_otpController.text.trim().length < 4) {
-      showToast("Enter complete OTP");
+      showToast("Enter complete OTP".tr);
       return;
     }
     Map<String, dynamic> map = {};
@@ -70,7 +70,7 @@ class _OtpScreenState extends State<OtpScreen> {
       // showToast(response.message.toString());
       if (response.status == true) {
         setTimer();
-        showToast("OTP sent successfully");
+        showToast("OTP sent successfully".tr);
       }
     });
   }
@@ -160,14 +160,14 @@ class _OtpScreenState extends State<OtpScreen> {
                       height: 13,
                     ),
                     Text(
-                      AppStrings.otpVerification,
+                      AppStrings.otpVerification.tr,
                       style: GoogleFonts.poppins(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.white),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                     Text(
-                      AppStrings.resendOTP,
+                      AppStrings.resendOTP.tr,
                       style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
                     )
                   ],
@@ -196,7 +196,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             height: size.height * .05,
                           ),
                           Text(
-                            AppStrings.notReceive,
+                            AppStrings.notReceive.tr,
                             style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 17),
                           ),
                           SizedBox(
@@ -211,7 +211,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                   await forgotPasswordRepo().then((value) {
                                     if (value.status == true) {
                                       setTimer();
-                                      showToast("OTP sent successfully");
+                                      showToast("OTP sent successfully".tr);
                                     }
                                   });
                                 }
@@ -253,7 +253,7 @@ class _OtpScreenState extends State<OtpScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Verify OTP',
+                'Verify OTP'.tr,
                 style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ),

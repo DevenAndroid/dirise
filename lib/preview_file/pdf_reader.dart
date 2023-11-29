@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../model/order_models/model_single_order_response.dart';
@@ -134,7 +135,7 @@ class _PDFOpenerState extends State<PDFOpener> {
                     vertical = !vertical;
                     setState(() {});
                   },
-                  child: Text(vertical ? "Page View" : "Vertical View"))
+                  child: Text(vertical ? "Page View".tr : "Vertical View".tr))
             ];
           })
         ],

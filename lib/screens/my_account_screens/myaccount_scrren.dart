@@ -56,12 +56,12 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   checkLanguage() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("app_language") == null ||
-        sharedPreferences.getString("app_language") == "english") {
+        sharedPreferences.getString("app_language") == "English") {
       Get.updateLocale(const Locale('en', 'US'));
       selectedLAnguage.value = "English";
-    } else {
-      Get.updateLocale(const Locale('ro', 'Ro'));
-      selectedLAnguage.value = "Engleză";
+    } else{
+      Get.updateLocale(const Locale('ar', 'Ar'));
+      selectedLAnguage.value = 'عربي';
     }
   }
 
@@ -182,7 +182,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               ? profileController.apiLoaded && profileController.model.user != null
                                   ? profileController.model.user!.name ?? ""
                                   : ""
-                              : "Guest User",
+                              : AppStrings.guestUser.tr,
                           style: GoogleFonts.poppins(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
                         ),
                         4.spaceY,
@@ -252,7 +252,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             ),
                             Expanded(
                               child: Text(
-                                AppStrings.myProfile,
+                                AppStrings.myProfile.tr,
                                 style: GoogleFonts.poppins(
                                     color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                               ),
@@ -283,7 +283,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                            AppStrings.eBooks,
+                            AppStrings.eBooks.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -320,7 +320,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.orders,
+                              AppStrings.orders.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -354,7 +354,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.calendar,
+                              AppStrings.calendar.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -388,7 +388,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.faq,
+                              AppStrings.faq.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -420,7 +420,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.pdfReader,
+                              AppStrings.pdfReader.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -506,15 +506,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                     border: Border.all(color: const Color(0xffDCDCDC)),
                                                     borderRadius: BorderRadius.circular(15)),
                                                 child: RadioListTile(
-                                                  title: const Text('Arabic'),
+                                                  title: const Text('English'),
                                                   activeColor: const Color(0xff014E70),
-                                                  value: "Engleză",
+                                                  value: "English",
                                                   groupValue: selectedLAnguage.value,
                                                   onChanged: (value) {
-                                                    locale = const Locale('ro', 'Ro');
-                                                    Get.updateLocale(locale);
+                                                    locale = const Locale('en', 'US');
                                                     selectedLAnguage.value = value!;
-                                                    updateLanguage("Engleză");
+                                                    updateLanguage("English");
                                                     setState(() {});
                                                   },
                                                 )),
@@ -528,57 +527,64 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                 decoration: BoxDecoration(
                                                     border: Border.all(color: const Color(0xffDCDCDC)),
                                                     borderRadius: BorderRadius.circular(15)),
-                                                child: RadioListTile(
-                                                  title: const Text('English'),
+                                                child:    RadioListTile(
+                                                  title: const Text('Arabic'),
                                                   activeColor: const Color(0xff014E70),
-                                                  value: "English",
+                                                  value: "عربي",
                                                   groupValue: selectedLAnguage.value,
                                                   onChanged: (value) {
-                                                    locale = const Locale('en', 'US');
-                                                    Get.updateLocale(locale);
+                                                    locale=const Locale('ar','AR');
                                                     selectedLAnguage.value = value!;
-                                                    updateLanguage("english");
+                                                    updateLanguage("عربي");
                                                     setState(() {});
                                                   },
                                                 )),
                                           ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Padding(
-                                              padding: const EdgeInsets.only(left: 20, right: 20),
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(color: const Color(0xffDCDCDC)),
-                                                      borderRadius: BorderRadius.circular(15)),
-                                                  child: RadioListTile(
-                                                    title: const Text('Several languages'),
-                                                    activeColor: const Color(0xff014E70),
-                                                    value: "Several languages",
-                                                    groupValue: language.value,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        language.value = value!;
-                                                      });
-                                                    },
-                                                  ))),
+
+                                          // const SizedBox(
+                                          //   height: 10,
+                                          // ),
+                                          // Padding(
+                                          //     padding: const EdgeInsets.only(left: 20, right: 20),
+                                          //     child: Container(
+                                          //         decoration: BoxDecoration(
+                                          //             border: Border.all(color: const Color(0xffDCDCDC)),
+                                          //             borderRadius: BorderRadius.circular(15)),
+                                          //         child: RadioListTile(
+                                          //           title: const Text('Several languages'),
+                                          //           activeColor: const Color(0xff014E70),
+                                          //           value: "Several languages",
+                                          //           groupValue: language.value,
+                                          //           onChanged: (value) {
+                                          //             print(selectedLAnguage.value.toString());
+                                          //             setState(() {
+                                          //               language.value = value!;
+                                          //             });
+                                          //           },
+                                          //         ))),
                                           SizedBox(
                                             height: size.height * .08,
                                           ),
-                                          Center(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 20, right: 20),
-                                              child: Container(
-                                                height: 56,
-                                                width: MediaQuery.sizeOf(context).width,
-                                                color: const Color(0xff014E70),
-                                                child: Center(
-                                                  child: Text(
-                                                    'Apply',
-                                                    style: GoogleFonts.poppins(
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight.w500,
-                                                        color: Colors.white),
+                                          InkWell(
+                                            onTap: () {
+                                              Get.updateLocale(locale);
+                                               Get.back();
+                                            },
+                                            child: Center(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 20, right: 20),
+                                                child: Container(
+                                                  height: 56,
+                                                  width: MediaQuery.sizeOf(context).width,
+                                                  color: const Color(0xff014E70),
+                                                  child: Center(
+                                                    child: Text(
+                                                      'Apply',
+                                                      style: GoogleFonts.poppins(
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: Colors.white),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -596,7 +602,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.language,
+                              AppStrings.language.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -630,7 +636,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.aboutUs,
+                              AppStrings.aboutUs.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -664,7 +670,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.termsCondition,
+                              AppStrings.termsCondition.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -698,7 +704,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.returnPolicy,
+                              AppStrings.returnPolicy.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -744,7 +750,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              profileController.userLoggedIn ? AppStrings.signOut : AppStrings.login,
+                              profileController.userLoggedIn ? AppStrings.signOut.tr : AppStrings.login.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -804,7 +810,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             ),
             Expanded(
               child: Text(
-                AppStrings.vendorPartner,
+                AppStrings.vendorPartner.tr,
                 style: GoogleFonts.poppins(color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ),

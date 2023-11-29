@@ -57,7 +57,7 @@ class _WishListScreenState extends State<WishListScreen> {
         title: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Text(
-            AppStrings.myFavourite,
+            AppStrings.myFavourite.tr,
             style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
           ),
         ),
@@ -89,7 +89,7 @@ class _WishListScreenState extends State<WishListScreen> {
                               Lottie.asset("assets/loti/wishlist.json"),
                               Center(
                                 child: Text(
-                                  AppStrings.whishlistEmpty,
+                                  AppStrings.whishlistEmpty.tr,
                                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 22),
                                 ),
                               ),

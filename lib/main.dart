@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'language/local_string.dart';
 import 'utils/notification_service.dart';
 
 Future<void> main() async {
@@ -44,7 +45,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Dirise',
-      locale: const Locale('en', 'US'),
+      translations: LocaleString(),
+      locale: const Locale('en','US'),
       theme: ThemeData(
           fontFamily: GoogleFonts.poppins().fontFamily,
           useMaterial3: true,

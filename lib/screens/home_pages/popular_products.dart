@@ -29,7 +29,7 @@ class _PopularProductsState extends State<PopularProducts> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppStrings.popularProducts,
+                        AppStrings.popularProducts.tr,
                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
                       InkWell(

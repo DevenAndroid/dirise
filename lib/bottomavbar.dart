@@ -49,7 +49,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
     allowExitApp = true;
     stopTimer();
-    showToast("Press again to exit app", gravity: ToastGravity.CENTER);
+    showToast("Press again to exit app".tr, gravity: ToastGravity.CENTER);
     _timer = Timer(const Duration(seconds: 2), () {
       allowExitApp = false;
     });
@@ -143,7 +143,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                               FittedBox(
                                 child: Text(
-                                  AppStrings.home,
+                                  AppStrings.home.tr,
                                   style: GoogleFonts.poppins(
                                       color: bottomController.pageIndex.value == 0
                                           ? AppTheme.buttonColor
@@ -181,7 +181,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                 ),
                               ),
                               Text(
-                                AppStrings.categories,
+                                AppStrings.categories.tr,
                                 style: GoogleFonts.poppins(
                                     color: bottomController.pageIndex.value == 1
                                         ? AppTheme.buttonColor
@@ -218,7 +218,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                 ),
                               ),
                               Text(
-                                AppStrings.favorite,
+                                AppStrings.favorite.tr,
                                 style: GoogleFonts.poppins(
                                     color: bottomController.pageIndex.value == 2
                                         ? AppTheme.buttonColor
@@ -255,7 +255,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                 ),
                               ),
                               Text(
-                                AppStrings.profile,
+                                AppStrings.profile.tr,
                                 style: GoogleFonts.poppins(
                                     color: bottomController.pageIndex.value == 3
                                         ? AppTheme.buttonColor

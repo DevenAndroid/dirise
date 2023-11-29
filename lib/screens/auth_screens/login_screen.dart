@@ -72,17 +72,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 CommonTextField(
                   controller: emailController,
                   obSecure: false,
-                  hintText: AppStrings.phoneNumber,
+                  hintText: AppStrings.phoneNumber.tr,
                   validator: (value) {
                     if (value!.trim().isEmpty) {
-                      return "Please enter your email";
+                      return "Please enter your email".tr;
                     } else if (value.trim().contains('+') || value.trim().contains(' ')) {
                       return "Email is invalid";
                     } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(value.trim())) {
                       return null;
                     } else {
-                      return 'Please type a valid email address';
+                      return 'Please type a valid email address'.tr;
                     }
                   },
                 ),
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     hintText: AppStrings.password,
                     validator: (value) {
-                      if (value!.trim().isEmpty) return AppStrings.passwordRequired;
+                      if (value!.trim().isEmpty) return AppStrings.passwordRequired.tr;
                       return null;
                     },
                   );
@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 35,
                 ),
                 CustomOutlineButton(
-                  title: AppStrings.signIn,
+                  title: AppStrings.signIn.tr,
                   onPressed: () {
                     loginUserApi();
                   },
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Get.toNamed(ForgetPasswordScreen.route);
                       },
                       child: Text(
-                        AppStrings.forgotPassword,
+                        AppStrings.forgotPassword.tr,
                         style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                       ),
                     ),
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     InkWell(
                       onTap: () {},
                       child: Text(
-                        AppStrings.signInWith,
+                        AppStrings.signInWith.tr,
                         style: GoogleFonts.poppins(color: AppTheme.buttonColor),
                       ),
                     ),
@@ -234,11 +234,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text:  AppStrings.noAccount,
+                        text:  AppStrings.noAccount.tr,
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       TextSpan(
-                        text: AppStrings.signUp,
+                        text: AppStrings.signUp.tr,
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600, color: AppTheme.buttonColor, decoration: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()

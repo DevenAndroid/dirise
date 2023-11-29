@@ -65,7 +65,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-               AppStrings.forgotPassword,
+               AppStrings.forgotPassword.tr,
                 style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
               ),
             ],
@@ -80,7 +80,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
                     child: Text(
-                      AppStrings.associatedAccount,
+                      AppStrings.associatedAccount.tr,
                       style: GoogleFonts.poppins(color: AppTheme.buttonColor, fontSize: 18),
                       textAlign: TextAlign.center,
                     ),
@@ -95,12 +95,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         EmailValidator(errorText: AppStrings.validEmail),
                       ]),
                       obSecure: false,
-                      hintText: AppStrings.email),
+                      hintText: AppStrings.email.tr),
                   SizedBox(
                     height: size.height * .03,
                   ),
                   CustomOutlineButton(
-                    title: AppStrings.sendOtp,
+                    title: AppStrings.sendOtp.tr,
                     onPressed: () {
                       if (!formKey.currentState!.validate()) return;
                       forgotPasswordRepo(email: emailController.text, context: context).then((value) {

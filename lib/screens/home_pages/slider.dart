@@ -73,7 +73,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                           child: Row(
                             children: [
                               Text(
-                                AppStrings.newsAndTrend,
+                                AppStrings.newsAndTrend.tr,
                                 style: GoogleFonts.poppins(
                                   color: AppTheme.buttonColor,
                                   fontWeight: FontWeight.w500,
@@ -118,7 +118,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                                                 height: 20,
                                               ),
                                               Text(
-                                                AppStrings.artificialIntelligence,
+                                                AppStrings.artificialIntelligence.tr,
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 16, fontWeight: FontWeight.w600, color: AppTheme.buttonColor),
                                               ),
@@ -126,14 +126,14 @@ class _SliderWidgetState extends State<SliderWidget> {
                                                 height: 20,
                                               ),
                                               Text(
-                                               AppStrings.artificialIntelligenceAI,
+                                               AppStrings.artificialIntelligenceAI.tr,
                                                 style: GoogleFonts.poppins(fontSize: 14, color: const Color(0xff484848)),
                                               ),
                                               const SizedBox(
                                                 height: 40,
                                               ),
                                               Text(
-                                                AppStrings.published,
+                                                AppStrings.published.tr,
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 15, color: Colors.black, fontWeight: FontWeight.w500),
                                               )
@@ -153,7 +153,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                                 enableScrollInput: true,
                                 delayAfterScrollInput: const Duration(seconds: 1),
                                 child: Text(
-                                   AppStrings.artificialIntelligence,
+                                   AppStrings.artificialIntelligence.tr,
                                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
                                 ),
                               ),

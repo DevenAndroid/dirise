@@ -89,14 +89,14 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         },
                         icon: hide1.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
                       ),
-                      hintText: 'New Password',
+                      hintText: 'New Password'.tr,
                       validator: MultiValidator([
-                        RequiredValidator(errorText: 'Please enter your password'),
+                        RequiredValidator(errorText: 'Please enter your password'.tr),
                         MinLengthValidator(8,
-                            errorText: 'Password must be at least 8 characters, with 1 special character & 1 numerical'),
+                            errorText: 'Password must be at least 8 characters, with 1 special character & 1 numerical'.tr),
                         // MaxLengthValidator(16, errorText: "Password maximum length is 16"),
                         PatternValidator(r"(?=.*\W)(?=.*?[#?!@()$%^&*-_])(?=.*[0-9])",
-                            errorText: "Password must be at least 8 characters, with 1 special character & 1 numerical"),
+                            errorText: "Password must be at least 8 characters, with 1 special character & 1 numerical".tr),
                       ]),
                     );
                   }),
@@ -116,9 +116,9 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                       hintText: AppStrings.newPassword,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return 'Conform password is required ';
+                          return 'Conform password is required '.tr;
                         } else if (value.trim() != passwordController.text.trim()) {
-                          return 'Conform password not matching';
+                          return 'Conform password not matching'.tr;
                         } else {
                           return null;
                         }

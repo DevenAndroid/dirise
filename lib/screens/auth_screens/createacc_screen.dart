@@ -95,7 +95,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-           AppStrings.createAccount,
+           AppStrings.createAccount.tr,
               style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
             ),
           ],
@@ -119,10 +119,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     controller: _emailController,
                     obSecure: false,
                     // hintText: 'Name',
-                    hintText: AppStrings.email,
+                    hintText: AppStrings.email.tr,
                     validator: MultiValidator([
-                      RequiredValidator(errorText: 'Email is required'),
-                      EmailValidator(errorText: 'Please enter valid email address'),
+                      RequiredValidator(errorText: 'Email is required'.tr),
+                      EmailValidator(errorText: 'Please enter valid email address'.tr),
                     ])),
                 SizedBox(
                   height: size.height * .01,
@@ -130,7 +130,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 Obx(() {
                   return CommonTextField(
                     controller: _passwordController,
-                    hintText: AppStrings.password,
+                    hintText: AppStrings.password.tr,
                     obSecure: hide.value,
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -139,12 +139,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       icon: hide.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
                     ),
                     validator: MultiValidator([
-                      RequiredValidator(errorText: 'Please enter your password'),
+                      RequiredValidator(errorText: 'Please enter your password'.tr),
                       MinLengthValidator(8,
-                          errorText: 'Password must be at least 8 characters, with 1 special character & 1 numerical'),
+                          errorText: 'Password must be at least 8 characters, with 1 special character & 1 numerical'.tr),
                       // MaxLengthValidator(16, errorText: "Password maximum length is 16"),
                       PatternValidator(r"(?=.*\W)(?=.*?[#?!@()$%^&*-_])(?=.*[0-9])",
-                          errorText: "Password must be at least 8 characters, with 1 special character & 1 numerical"),
+                          errorText: "Password must be at least 8 characters, with 1 special character & 1 numerical".tr),
                     ]),
                   );
                 }),
@@ -160,13 +160,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       },
                       icon: hide1.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
                     ),
-                    hintText: AppStrings.confirmPassword,
+                    hintText: AppStrings.confirmPassword.tr,
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return AppStrings.enterConfirmPassword;
+                        return AppStrings.enterConfirmPassword.tr;
                       }
                       if (value.trim() != _passwordController.text.trim()) {
-                        return AppStrings.enterReType;
+                        return AppStrings.enterReType.tr;
                       }
                       return null;
                     },
@@ -179,10 +179,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     controller: _referralEmailController,
                     obSecure: false,
                     // hintText: 'Name',
-                    hintText: 'Referral Email',
+                    hintText: 'Referral Email'.tr,
                     validator: MultiValidator([
                       //RequiredValidator(errorText: 'Referral email is required'),
-                      EmailValidator(errorText: 'Please enter valid Referral email'),
+                      EmailValidator(errorText: 'Please enter valid Referral email'.tr),
                     ])),
                 SizedBox(
                   height: size.height * .01,
@@ -212,7 +212,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         _makingPrivacyPolicy();
                       },
                       child: Text(
-                       'Privacy Policy',
+                       'Privacy Policy'.tr,
                         style:
                             GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
                       ),
@@ -229,7 +229,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         _termsCondition();
                       },
                       child: Text(
-                        'Terms and Conditions',
+                        'Terms and Conditions'.tr,
                         style:
                         GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
                       ),
@@ -256,11 +256,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: AppStrings.alreadyAccount,
+                        text: AppStrings.alreadyAccount.tr,
                         style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       TextSpan(
-                        text: AppStrings.login,
+                        text: AppStrings.login.tr,
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600, color: AppTheme.buttonColor, decoration: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()

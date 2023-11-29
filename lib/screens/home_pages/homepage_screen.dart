@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                                       borderSide: BorderSide(color: AppTheme.buttonColor)),
                                   fillColor: Colors.white,
                                   contentPadding: const EdgeInsets.all(15),
-                                  hintText: AppStrings.searchFieldText,
+                                  hintText: AppStrings.searchFieldText.tr,
                                   hintStyle:
                                       GoogleFonts.poppins(color: AppTheme.buttonColor, fontWeight: FontWeight.w400)),
                             ),
