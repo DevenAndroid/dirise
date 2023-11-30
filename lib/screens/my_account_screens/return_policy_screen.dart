@@ -52,7 +52,7 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
-                    AppStrings.returnPolicy,
+                    AppStrings.returnPolicy.tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                   )
                 ],

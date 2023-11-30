@@ -82,8 +82,8 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 5, top: 15),
                               child: Text(
-                                "Your order has been confirmed\n"
-                                "Order Id: #${singleOrder.order!.id.toString()}",
+                                "${'Your order has been confirmed'.tr}\n"
+                                "${'Order Id'.tr}: #${singleOrder.order!.id.toString()}",
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
                               ),
@@ -94,7 +94,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "Order Details",
+                                "Order Details".tr,
                                 style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
                               ),
                             ),
@@ -150,7 +150,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                                         height: 5,
                                       ),
                                       Text(
-                                        '${orderItems.quantity} piece',
+                                        '${orderItems.quantity} ${'piece'.tr}',
                                         style: GoogleFonts.poppins(color: const Color(0xff858484)),
                                       ),
                                       const SizedBox(
@@ -176,7 +176,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      "Total",
+                                      "Total".tr,
                                       style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, height: 1.8),
                                     ),
                                   ),
@@ -190,7 +190,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                                 height: 50,
                               ),
                               Text(
-                                "Thank you for using DIRISE.",
+                                "Thank you for using DIRISE.".tr,
                                 style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, height: 1.8),
                               ),
                             ],
@@ -222,7 +222,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                     alignment: Alignment.bottomCenter,
                     child: Align(
                         alignment: Alignment.center,
-                        child: Text("Home",
+                        child: Text("Home".tr,
                             style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                   ),
                 ),

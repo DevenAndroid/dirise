@@ -52,7 +52,7 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
-                   AppStrings.faq,
+                   AppStrings.faq.tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                   )
                 ],

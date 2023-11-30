@@ -113,7 +113,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         },
                         icon: hide2.value ? const Icon(Icons.visibility) : const Icon(Icons.close),
                       ),
-                      hintText: AppStrings.newPassword,
+                      hintText: AppStrings.newPassword.tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
                           return 'Conform password is required '.tr;
@@ -129,7 +129,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     height: size.height * .03,
                   ),
                   CustomOutlineButton(
-                    title: AppStrings.continuee,
+                    title: AppStrings.continuee.tr,
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         changePasswordRepo(password: passwordController.text, email: email, context: context).then((value) {

@@ -57,19 +57,19 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          ("English Play Group"),
+                          ("English Play Group").tr,
                           style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 5, bottom: 5),
                           child: Text(
-                            ("Education Summer Camp"),
+                            ("Education Summer Camp").tr,
                             style: GoogleFonts.poppins(
                                 color: Colors.grey.withOpacity(.7), fontSize: 12, fontWeight: FontWeight.w500),
                           ),
                         ),
                         Text(
-                          ("24 items"),
+                          ("24 ${'items'.tr}"),
                           style:
                               GoogleFonts.poppins(color: const Color(0xff014E70), fontSize: 18, fontWeight: FontWeight.w500),
                         )
@@ -82,14 +82,14 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                 height: 25,
               ),
               Text(
-                ("Brief"),
+                ("Brief").tr,
                 style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
-                ("to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher's Synopsis"),
+                ("to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher's Synopsis").tr,
                 style: GoogleFonts.poppins(
                     color: const Color(0xff014E70), fontSize: 14, fontWeight: FontWeight.w500, height: 1.6),
               ),
@@ -143,7 +143,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                 height: 15,
               ),
               Text(
-                'Courses',
+                'Courses'.tr,
                 style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
               ),
               const SizedBox(
@@ -169,7 +169,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                ("EPG Tiny Tots"),
+                                ("EPG Tiny Tots").tr,
                                 style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w500),
                               ),
                               const SizedBox(
@@ -178,8 +178,8 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                               RichText(
                                 text: TextSpan(
                                   children: <TextSpan>[
-                                    TextSpan(text: 'Duration :', style: GoogleFonts.poppins(color: Colors.black)),
-                                    TextSpan(text: ' 6 month', style: GoogleFonts.poppins(color: AppTheme.buttonColor)),
+                                    TextSpan(text: '${'Duration'.tr} :', style: GoogleFonts.poppins(color: Colors.black)),
+                                    TextSpan(text: ' 6 ${'month'.tr}', style: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                                   ],
                                 ),
                               ),
@@ -189,7 +189,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                               RichText(
                                 text: TextSpan(
                                   children: <TextSpan>[
-                                    TextSpan(text: 'Cost : ', style: GoogleFonts.poppins(color: Colors.black)),
+                                    TextSpan(text: '${'Cost'.tr} : ', style: GoogleFonts.poppins(color: Colors.black)),
                                     TextSpan(text: ' 1200 KD', style: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                                   ],
                                 ),
@@ -215,7 +215,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                 thickness: .5,
               ),
               Text(
-                'Products',
+                'Products'.tr,
                 style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
               ),
               const SizedBox(
@@ -249,14 +249,14 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                               height: 5,
                             ),
                             Text(
-                              'Roco NoteBook',
+                              'Roco NoteBook'.tr,
                               style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14),
                             ),
                             const SizedBox(
                               height: 5,
                             ),
                             Text(
-                              '1 piece',
+                              '1 ${'piece'.tr}',
                               style: GoogleFonts.poppins(color: const Color(0xff858484)),
                             ),
                             const SizedBox(
@@ -322,7 +322,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        'Ecstasy 165 days ',
+                        'Ecstasy 165 days '.tr,
                         style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                     ),
@@ -332,7 +332,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        '1 piece',
+                        '1 ${'piece'.tr}',
                         style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
                       ),
                     ),
@@ -365,7 +365,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                             ],
                           ),
                           Text(
-                            'Add to list',
+                            'Add to list'.tr,
                             style: GoogleFonts.poppins(
                               shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                               color: Colors.transparent,
@@ -383,7 +383,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Description',
+                        'Description'.tr,
                         style: GoogleFonts.poppins(
                           shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                           color: Colors.transparent,
@@ -399,7 +399,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging',
+                        'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging'.tr,
                         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400, height: 1.7),
                       ),
                     ),
@@ -460,7 +460,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                   BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
-                                "Add to Bag",
+                                "Add to Bag".tr,
                                 style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
                             ),
@@ -518,7 +518,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        'Ecstasy 165 days ',
+                        'Ecstasy 165 days '.tr,
                         style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                     ),
@@ -528,7 +528,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        '1 piece',
+                        '1 ${'piece'.tr}',
                         style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
                       ),
                     ),
@@ -563,7 +563,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                           // Image(height: 40,image: AssetImage('assets/images/pdf.png')),
                           // SizedBox(height: 10,),
                           Text(
-                            'Add to list',
+                            'Add to list'.tr,
                             style: GoogleFonts.poppins(
                               shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                               color: Colors.transparent,
@@ -581,7 +581,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Description',
+                        'Description'.tr,
                         style: GoogleFonts.poppins(
                           shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                           color: Colors.transparent,
@@ -597,7 +597,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging',
+                        'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging'.tr,
                         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400, height: 1.7),
                       ),
                     ),
@@ -658,7 +658,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                   BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
-                                "Add to Bag",
+                                "Add to Bag".tr,
                                 style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
                             ),

@@ -129,37 +129,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(height: 18),
                       ...profileCard(
                         imagePath: "assets/svgs/profile.svg",
-                        title: AppStrings.firstName,
+                        title: AppStrings.firstName.tr,
                         value: profileController.model.user!.firstName.toString(),
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/profile.svg",
-                        title: AppStrings.lastName,
+                        title: AppStrings.lastName.tr,
                         value: profileController.model.user!.lastName.toString(),
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/email.svg",
-                        title: AppStrings.email,
+                        title: AppStrings.email.tr,
                         value: profileController.model.user!.email.toString(),
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/referral_img.svg",
-                        title: AppStrings.referralEmail,
+                        title: AppStrings.referralEmail.tr,
                         value: profileController.model.user!.referralEmail.toString(),
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/location.svg",
-                        title: AppStrings.streetAddress,
+                        title: AppStrings.streetAddress.tr,
                         value: profileController.model.user!.street_name.toString(),
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/city.svg",
-                        title: AppStrings.stateCity,
+                        title: AppStrings.stateCity.tr,
                         value: "${profileController.model.user!.state_name}, ${profileController.model.user!.city_name}",
                       ),
                       ...profileCard(
                         imagePath: "assets/svgs/country.svg",
-                        title: AppStrings.country,
+                        title: AppStrings.country.tr,
                         value: profileController.model.user!.country_name.toString(),
                       ),
                       SizedBox(
@@ -176,7 +176,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Get.toNamed(EditProfileScreen.route);
                           },
                           child: Text(
-                           AppStrings.editProfile,
+                           AppStrings.editProfile.tr,
                             style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
                           ),
                         ),

@@ -45,7 +45,7 @@ class _VendorPlansScreenState extends State<VendorPlansScreen> {
       length: 3,
       child: Scaffold(
         appBar: CommonAppBar(
-          titleText: 'Plans',
+          titleText: 'Plans'.tr,
           bottom: modelPlansList != null
               ? PreferredSize(
                   preferredSize: Size(context.getSize.width, kToolbarHeight + 50),
@@ -96,7 +96,7 @@ class _VendorPlansScreenState extends State<VendorPlansScreen> {
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 15),
                                     child: Text(
-                                      'PLANS',
+                                      'PLANS'.tr,
                                       style: GoogleFonts.poppins(
                                         color: const Color(0xFF111727),
                                         fontSize: 18,
@@ -164,7 +164,7 @@ class _VendorPlansScreenState extends State<VendorPlansScreen> {
           child: ElevatedButton(
             onPressed: (){
               if(selectedPlan == null){
-                showToast("Please select any plan");
+                showToast("Please select any plan".tr);
                 return;
               }
               Get.to(() => VendorRegistrationScreen(
@@ -181,7 +181,7 @@ class _VendorPlansScreenState extends State<VendorPlansScreen> {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Text("Proceed",style: titleStyle.copyWith(color: Colors.white),),
+              child: Text("Proceed".tr,style: titleStyle.copyWith(color: Colors.white),),
             ),
           ),
         ),

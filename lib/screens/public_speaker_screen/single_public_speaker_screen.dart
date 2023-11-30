@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../app_bar/common_app_bar.dart';
@@ -30,10 +31,10 @@ class _PublicSpeakerCategoryScreenState extends State<PublicSpeakerCategoryScree
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(60),
+        appBar:  PreferredSize(
+          preferredSize: const Size.fromHeight(60),
           child: CommonAppBar(
-            titleText: 'Public Speaker',
+            titleText: 'Public Speaker'.tr,
           ),
         ),
         backgroundColor: Colors.white,
@@ -68,19 +69,19 @@ class _PublicSpeakerCategoryScreenState extends State<PublicSpeakerCategoryScree
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  ("Sara Luies"),
+                                  ("Sara Luies").tr,
                                   style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5, bottom: 5),
                                   child: Text(
-                                    ("Books, Stationary and Electronics"),
+                                    ("Books, Stationary and Electronics").tr,
                                     style: GoogleFonts.poppins(
                                         color: Colors.grey.withOpacity(.7), fontSize: 12, fontWeight: FontWeight.w500),
                                   ),
                                 ),
                                 Text(
-                                  ("1457 items"),
+                                  ("1457 ${"items".tr}"),
                                   style: GoogleFonts.poppins(
                                       color: const Color(0xff014E70), fontSize: 18, fontWeight: FontWeight.w500),
                                 )
@@ -93,14 +94,14 @@ class _PublicSpeakerCategoryScreenState extends State<PublicSpeakerCategoryScree
                         height: 25,
                       ),
                       Text(
-                        ("Brief"),
+                        ("Brief").tr,
                         style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        ("to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher's Synopsis"),
+                        ("to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher's Synopsis").tr,
                         style: GoogleFonts.poppins(
                             color: const Color(0xff014E70), fontSize: 14, fontWeight: FontWeight.w500, height: 1.6),
                       ),
@@ -129,7 +130,7 @@ class _PublicSpeakerCategoryScreenState extends State<PublicSpeakerCategoryScree
                             border: OutlineInputBorder(
                                 borderSide: const BorderSide(color: Color(0xffE4E0E0)),
                                 borderRadius: BorderRadius.circular(8.0)),
-                            hintText: "Select Date and time",
+                            hintText: "Select Date and time".tr,
                             hintStyle: GoogleFonts.poppins(color: const Color(0xff4B4B4B), fontSize: 16)),
                       ),
                       const SizedBox(
@@ -141,7 +142,7 @@ class _PublicSpeakerCategoryScreenState extends State<PublicSpeakerCategoryScree
                         color: const Color(0xff014E70),
                         child: Center(
                           child: Text(
-                            'Apply',
+                            'Apply'.tr,
                             style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
                           ),
                         ),

@@ -97,8 +97,8 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CommonAppBar(
-          titleText: "Search",
+        appBar:  CommonAppBar(
+          titleText: "Search".tr,
           backGroundColor: AppTheme.buttonColor,
           textColor: Colors.white,
         ),
@@ -147,7 +147,7 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                                       borderSide: BorderSide(color: AppTheme.buttonColor)),
                                   fillColor: Colors.white,
                                   contentPadding: const EdgeInsets.all(15),
-                                  hintText: 'What are you looking for?',
+                                  hintText: 'What are you looking for?'.tr,
                                   hintStyle:
                                       GoogleFonts.poppins(color: AppTheme.buttonColor, fontWeight: FontWeight.w400)),
                             ),

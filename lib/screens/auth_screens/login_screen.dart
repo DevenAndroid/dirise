@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       icon: hide.value ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
                     ),
-                    hintText: AppStrings.password,
+                    hintText: AppStrings.password.tr,
                     validator: (value) {
                       if (value!.trim().isEmpty) return AppStrings.passwordRequired.tr;
                       return null;

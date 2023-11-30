@@ -135,7 +135,7 @@ class _SingleCategoryScreenState extends State<SingleCategoryScreen> with Single
                             style:
                                 GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: AppTheme.buttonColor),
                           ),
-                          Text('Language', style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500)),
+                          Text('Language'.tr, style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500)),
                         ],
                       ),
                     ),

@@ -63,7 +63,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
           children: [
             // const SizedBox(height: 10,),
             Text(
-              "Hi, ${vendorProfileController.model.user!
+              "${'Hi'.tr}, ${vendorProfileController.model.user!
                   .firstName
                   .toString()
                   .checkNullable} ${vendorProfileController.model.user!

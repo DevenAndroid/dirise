@@ -41,7 +41,7 @@ class _PlanWidgetState extends State<PlanWidget> {
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Active Plan"),
+                           Text("Active Plan".tr),
                           Text(
                             vendorProfileController.model.user!.vendorType.toString().capitalize!,
                             style: titleStyle,
@@ -67,12 +67,12 @@ class _PlanWidgetState extends State<PlanWidget> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        "Subscription Payment: ",
+                                        "${'Subscription Payment'.tr}: ",
                                         style: normalStyle,
                                       ),
                                       Expanded(
                                         child: Text(
-                                          "Pending",
+                                          "Pending".tr,
                                           style: titleStyle.copyWith(color: Colors.redAccent),
                                         ).convertToShimmerRed,
                                       )
@@ -120,7 +120,7 @@ class _PlanWidgetState extends State<PlanWidget> {
                               //   ),
                               // ],
                               if (vendorProfileController.model.user!.planStartDate != null) ...[
-                                const Text("Plan Start Date"),
+                                 Text("Plan Start Date".tr),
                                 Text(
                                   vendorProfileController.model.user!.planStartDate.toString().capitalize!,
                                   style: titleStyle,
@@ -130,7 +130,7 @@ class _PlanWidgetState extends State<PlanWidget> {
                                 ),
                               ],
                               if (vendorProfileController.model.user!.planExpireDate != null) ...[
-                                const Text("Plan Expiry Date"),
+                                 Text("Plan Expiry Date".tr),
                                 Text(
                                   vendorProfileController.model.user!.planExpireDate.toString().capitalize!,
                                   style: titleStyle,
@@ -144,7 +144,7 @@ class _PlanWidgetState extends State<PlanWidget> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 8),
                                   child: Text(
-                                    "Plan Info Not Available",
+                                    "Plan Info Not Available".tr,
                                     style: normalStyle,
                                   ),
                                 ),
@@ -171,7 +171,7 @@ class _PlanWidgetState extends State<PlanWidget> {
                                         ),
                                         child: FittedBox(
                                           child: Text(
-                                            AppStrings.renewPlan,
+                                            AppStrings.renewPlan.tr,
                                             style: titleStyle.copyWith(
                                                 color: paymentDone ? Colors.redAccent : const Color(0xffECB403),
                                                 fontSize: 18),

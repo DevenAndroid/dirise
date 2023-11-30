@@ -159,10 +159,10 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
+        preferredSize: const Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: AppStrings.generalLibraries,
-          actions: [
+          titleText: AppStrings.generalLibraries.tr,
+          actions: const [
             CartBagCard(isBlackTheme: true),
           ],
         ),
@@ -239,7 +239,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 5, bottom: 5),
                                       child: Text(
-                                        '${allStoreInfo.product ?? '0'} Items'.toString(),
+                                        '${allStoreInfo.product ?? '0'} ${AppStrings.items.tr}'.toString(),
                                         maxLines: 1,
                                         style: GoogleFonts.poppins(
                                             color: const Color(0xFF014E70), fontSize: 14, fontWeight: FontWeight.w600),
@@ -342,7 +342,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                               print('innsta url--------'+ socialLinksData.socialLinks!.instagram.toString(),);
                             },
                             child: Text(
-                              'Brief',
+                              'Brief'.tr,
                               style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                             ),
                           ),
@@ -367,11 +367,11 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                         await Clipboard.setData(ClipboardData(text: storeInfo.email.toString().trim()));
                                         final snackBar = SnackBar(
                                           content: Text(
-                                            "Email copied",
+                                            "Email copied".tr,
                                             style: normalStyle,
                                           ),
                                           action: SnackBarAction(
-                                              label: "Send Mail",
+                                              label: "Send Mail".tr,
                                               onPressed: () {
                                                 Helpers.launchEmail(email: storeInfo.email.toString().trim());
                                               }),
@@ -410,11 +410,11 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                         await Clipboard.setData(ClipboardData(text: storeInfo.storePhone.toString().trim()));
                                         final snackBar = SnackBar(
                                           content: Text(
-                                            "Phone no. copied",
+                                            "Phone no. copied".tr,
                                             style: normalStyle,
                                           ),
                                           action: SnackBarAction(
-                                              label: "Make Call",
+                                              label: "Make Call".tr,
                                               onPressed: () {
                                                 Helpers.makeCall(phoneNumber: storeInfo.storePhone.toString().trim());
                                               }),
@@ -588,7 +588,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        AppStrings.fiftyOff,
+                        AppStrings.fiftyOff.tr,
                         style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
                       ),
                     ),
@@ -598,7 +598,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        'Ecstasy 165 days ',
+                        'Ecstasy 165 days '.tr,
                         style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                     ),
@@ -608,7 +608,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        '1 piece',
+                        '1 piece'.tr,
                         style: GoogleFonts.poppins(color: const Color(0xff858484), fontSize: 16),
                       ),
                     ),
@@ -641,7 +641,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                             ],
                           ),
                           Text(
-                            'Add to list',
+                            'Add to list'.tr,
                             style: GoogleFonts.poppins(
                               shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                               color: Colors.transparent,
@@ -659,7 +659,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Description',
+                        'Description'.tr,
                         style: GoogleFonts.poppins(
                           shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                           color: Colors.transparent,
@@ -675,7 +675,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging',
+                        'to the rich father and the poor father; What the rich teach and the poor and middle class do not teach their children about to the Publisher s Synopsis: This book will shatter the myth that you need a big income to get rich... -Challenging'.tr,
                         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400, height: 1.7),
                       ),
                     ),
@@ -735,7 +735,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                               decoration: BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
-                                "Add to Bag",
+                                "Add to Bag".tr,
                                 style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
                             ),

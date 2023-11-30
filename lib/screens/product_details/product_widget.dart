@@ -130,7 +130,7 @@ class _ProductUIState extends State<ProductUI> {
                   height: 3,
                 ),
                 Text(
-                  '${widget.productElement.inStock.toString()} pieces',
+                  '${widget.productElement.inStock.toString()} ${'pieces'.tr}',
                   style: GoogleFonts.poppins(color: Colors.grey.shade700, fontSize: 15,fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(

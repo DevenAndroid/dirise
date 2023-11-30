@@ -52,7 +52,7 @@ class _TermConditionScreenState extends State<TermConditionScreen> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
-                   AppStrings.termsCondition,
+                   AppStrings.termsCondition.tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                   )
                 ],

@@ -31,7 +31,7 @@ class _PublicSpeakerScreenState extends State<PublicSpeakerScreen> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     Text(
-                      'Public Speaker',
+                      'Public Speaker'.tr,
                       style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
                     )
                   ],
@@ -68,7 +68,7 @@ class _PublicSpeakerScreenState extends State<PublicSpeakerScreen> {
                             borderSide: BorderSide(color: AppTheme.buttonColor)),
                         fillColor: Colors.white,
                         contentPadding: const EdgeInsets.symmetric(horizontal: 60),
-                        hintText: 'Search Public Speaker',
+                        hintText: 'Search Public Speaker'.tr,
                         hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                   ),
                 ),
@@ -116,14 +116,14 @@ class _PublicSpeakerScreenState extends State<PublicSpeakerScreen> {
                               height: 5,
                             ),
                             Text(
-                              'Jarir Library ',
+                              'Jarir Library '.tr,
                               style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18),
                             ),
                             const SizedBox(
                               height: 5,
                             ),
                             Text(
-                              '1457 Items',
+                              '1457 ${'Items'.tr}',
                               style: GoogleFonts.poppins(
                                   fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                             )

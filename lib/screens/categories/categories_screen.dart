@@ -25,11 +25,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
+      appBar:  PreferredSize(
+        preferredSize: const Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: 'Categories',
-          actions: [
+          titleText: 'Categories'.tr,
+          actions: const [
             CartBagCard(isBlackTheme: true),
           ],
         ),

@@ -63,7 +63,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Checkout",
+              "Checkout".tr,
               style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
             ),
           ],
@@ -90,7 +90,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        Text("Add delivery instructions",
+                        Text("Add delivery instructions".tr,
                             style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                         const SizedBox(
                           height: 10,
@@ -99,7 +99,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           style: GoogleFonts.poppins(),
                           controller: deliveryInstructions,
                           decoration: InputDecoration.collapsed(
-                              hintText: "Add delivery instructions to help us with the delivery",
+                              hintText: "Add delivery instructions to help us with the delivery".tr,
                               hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14)),
                         ),
                         const SizedBox(
@@ -120,14 +120,14 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Your Order", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                  Text("Your Order".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                   const SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Subtotal (${directOrderResponse.quantity} items)",
+                      Text("${'Subtotal'.tr} (${directOrderResponse.quantity} ${'items'.tr})",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
                       Text("KWD ${directOrderResponse.subtotal.toString()}",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
@@ -139,7 +139,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Shipping",
+                      Text("Shipping".tr,
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
                       Text("KWD ${directOrderResponse.shipping.toString()}",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
@@ -151,7 +151,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Total", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                      Text("Total".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                       Text("KWD ${directOrderResponse.total.toString()}",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                     ],
@@ -170,7 +170,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
             if (context1 != null) {
               Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
             }
-            showToast("Please select delivery options");
+            showToast("Please select delivery options".tr);
             return;
           }
           if (deliveryOption.value == "delivery" && selectedAddress.id == null) {
@@ -178,7 +178,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
             if (context1 != null) {
               Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
             }
-            showToast("Select delivery address to complete order");
+            showToast("Select delivery address to complete order".tr);
             return;
           }
           cartController.dialogOpened = false;
@@ -200,7 +200,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
           alignment: Alignment.bottomCenter,
           child: Align(
               alignment: Alignment.center,
-              child: Text("Complete Payment",
+              child: Text("Complete Payment".tr,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white))),
         ),
       ),
@@ -218,7 +218,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 15),
-                Text("Payment", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                Text("Payment".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                 const SizedBox(
                   height: 15,
                 ),
@@ -258,7 +258,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             Icons.credit_card,
                             color: Color(0xffAFB1B1),
                           ),
-                          Text("Credit Card", style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12)),
+                          Text("Credit Card".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12)),
                         ],
                       ),
                     )
@@ -296,7 +296,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                       children: [
                         Expanded(
                             child:
-                                Text("Delivery to", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+                                Text("Delivery to".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
                         Radio<String>(
                             value: "delivery",
                             groupValue: deliveryOption.value,
@@ -334,7 +334,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               child: selectedAddress.id != null
                                   ? Text(selectedAddress.getShortAddress,
                                       style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
-                                  : Text("Select Address ",
+                                  : Text("Select Address ".tr,
                                       style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
                             ),
                           ),
@@ -354,13 +354,13 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             },
                             child: Align(
                                 alignment: Alignment.topRight,
-                                child: Text("Change Address",
+                                child: Text("Change Address".tr,
                                     style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
                     ],
                     Row(
                       children: [
                         Expanded(
-                            child: Text("Pick Up", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+                            child: Text("Pick Up".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
                         Radio<String>(
                             value: "pickup",
                             groupValue: deliveryOption.value,
@@ -419,58 +419,58 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                     children: [
                       ...commonField(
                           textController: titleController,
-                          title: "Title*",
-                          hintText: "Title",
+                          title: "${'Title'.tr}*",
+                          hintText: "Title".tr,
                           keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter address title";
+                              return "Please enter address title".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: firstNameController,
-                          title: "First Name*",
-                          hintText: "First Name",
+                          title: "${'First Name'.tr}*",
+                          hintText: "First Name".tr,
                           keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter first name";
+                              return "Please enter first name".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: lastNameController,
-                          title: "Last Name*",
-                          hintText: "Last Name",
+                          title: "${'Last Name'.tr}*",
+                          hintText: "Last Name".tr,
                           keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter Last name";
+                              return "Please enter Last name".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: phoneController,
-                          title: "Phone*",
-                          hintText: "Enter your phone number",
+                          title: "${'Phone'.tr}*",
+                          hintText: "Enter your phone number".tr,
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter phone number";
+                              return "Please enter phone number".tr;
                             }
                             if (value.trim().length > 15) {
-                              return "Please enter valid phone number";
+                              return "Please enter valid phone number".tr;
                             }
                             if (value.trim().length < 8) {
-                              return "Please enter valid phone number";
+                              return "Please enter valid phone number".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: alternatePhoneController,
-                          title: "Alternate Phone*",
-                          hintText: "Enter your alternate phone number",
+                          title: "${'Alternate Phone'.tr}*",
+                          hintText: "Enter your alternate phone number".tr,
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             // if(value!.trim().isEmpty){
@@ -486,19 +486,19 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           }),
                       ...commonField(
                           textController: addressController,
-                          title: "Address*",
-                          hintText: "Enter your delivery address",
+                          title: "${'Address'.tr}*",
+                          hintText: "Enter your delivery address".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter delivery address";
+                              return "Please enter delivery address".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: address2Controller,
-                          title: "Address 2",
-                          hintText: "Enter your delivery address",
+                          title: "${'Address'.tr} 2",
+                          hintText: "Enter your delivery address".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             // if(value!.trim().isEmpty){
@@ -508,8 +508,8 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           }),
                       ...commonField(
                           textController: landmarkController,
-                          title: "Landmark",
-                          hintText: "Enter your nearby landmark",
+                          title: "Landmark".tr,
+                          hintText: "Enter your nearby landmark".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             // if(value!.trim().isEmpty){
@@ -519,45 +519,45 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           }),
                       ...commonField(
                           textController: cityController,
-                          title: "City*",
-                          hintText: "Enter your city",
+                          title: "${'City'}*",
+                          hintText: "Enter your city".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter City*";
+                              return "${'Please enter City'.tr}*";
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: zipCodeController,
-                          title: "Zip-Code*",
-                          hintText: "Enter location Zip-Code",
+                          title: "${'Zip-Code'.tr}*",
+                          hintText: "Enter location Zip-Code".tr,
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter Zip-Code*";
+                              return "${'Please enter Zip-Code'.tr}*";
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: stateController,
-                          title: "State*",
-                          hintText: "Enter your state",
+                          title: "${'State'.tr}*",
+                          hintText: "Enter your state".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter state*";
+                              return "${'Please enter state'.tr}*";
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: countryController,
-                          title: "Country*",
-                          hintText: "Enter your country",
+                          title: "${'Country'.tr}*",
+                          hintText: "Enter your country".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter country*";
+                              return "${'Please enter country'.tr}*";
                             }
                             return null;
                           }),
@@ -591,7 +591,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           alignment: Alignment.bottomCenter,
                           child: Align(
                               alignment: Alignment.center,
-                              child: Text("Save",
+                              child: Text("Save".tr,
                                   style:
                                       GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                         ),
@@ -666,7 +666,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                       // bottomSheet();
                     },
                     obSecure: false,
-                    hintText: '+ Add Address',
+                    hintText: '+ ${'Add Address'.tr}',
                   ),
                   Expanded(
                     child: Obx(() {
@@ -681,7 +681,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    "Shipping Address",
+                                    "Shipping Address".tr,
                                     style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                   ),
                                 ),
@@ -695,7 +695,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                       size: 20,
                                     ),
                                     label: Text(
-                                      "Add New",
+                                      "Add New".tr,
                                       style: GoogleFonts.poppins(fontSize: 15),
                                     ))
                               ],
@@ -765,7 +765,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                                       bottomSheet(addressData: address);
                                                     },
                                                     child: Text(
-                                                      'Edit',
+                                                      'Edit'.tr,
                                                       style: GoogleFonts.poppins(
                                                           shadows: [
                                                             const Shadow(color: Color(0xff014E70), offset: Offset(0, -4))
@@ -788,7 +788,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                 ))
                               : SliverToBoxAdapter(
                                   child: Text(
-                                    "No Shipping Address Added!",
+                                    "No Shipping Address Added!".tr,
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
                                   ),
@@ -845,72 +845,72 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                     children: [
                       ...commonField(
                           textController: titleController,
-                          title: "Title*",
-                          hintText: "Title",
+                          title: "${'Title'.tr}*",
+                          hintText: "Title".tr,
                           keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter address title";
+                              return "Please enter address title".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: emailController,
-                          title: "Email Address*",
-                          hintText: "Email Address",
+                          title: "${'Email Address'.tr}*",
+                          hintText: "Email Address".tr,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter email address";
+                              return "Please enter email address".tr;
                             }
                             if (value.trim().invalidEmail) {
-                              return "Please enter valid email address";
+                              return "Please enter valid email address".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: firstNameController,
-                          title: "First Name*",
-                          hintText: "First Name",
+                          title: "${'First Name'.tr}*",
+                          hintText: "First Name".tr,
                           keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter first name";
+                              return "Please enter first name".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: lastNameController,
-                          title: "Last Name*",
-                          hintText: "Last Name",
+                          title: "${'Last Name'.tr}*",
+                          hintText: "Last Name".tr,
                           keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter Last name";
+                              return "Please enter Last name".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: phoneController,
-                          title: "Phone*",
-                          hintText: "Enter your phone number",
+                          title: "${'Phone'.tr}*",
+                          hintText: "Enter your phone number".tr,
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter phone number";
+                              return "Please enter phone number".tr;
                             }
                             if (value.trim().length > 15) {
-                              return "Please enter valid phone number";
+                              return "Please enter valid phone number".tr;
                             }
                             if (value.trim().length < 8) {
-                              return "Please enter valid phone number";
+                              return "Please enter valid phone number".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: alternatePhoneController,
-                          title: "Alternate Phone*",
-                          hintText: "Enter your alternate phone number",
+                          title: "${'Alternate Phone'.tr}*",
+                          hintText: "Enter your alternate phone number".tr,
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             // if(value!.trim().isEmpty){
@@ -926,19 +926,19 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           }),
                       ...commonField(
                           textController: addressController,
-                          title: "Address*",
-                          hintText: "Enter your delivery address",
+                          title: "${'Address'.tr}*",
+                          hintText: "Enter your delivery address".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter delivery address";
+                              return "Please enter delivery address".tr;
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: address2Controller,
-                          title: "Address 2",
-                          hintText: "Enter your delivery address",
+                          title: "${'Address'.tr} 2",
+                          hintText: "Enter your delivery address".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             // if(value!.trim().isEmpty){
@@ -948,8 +948,8 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           }),
                       ...commonField(
                           textController: landmarkController,
-                          title: "Landmark",
-                          hintText: "Enter your nearby landmark",
+                          title: "Landmark".tr,
+                          hintText: "Enter your nearby landmark".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             // if(value!.trim().isEmpty){
@@ -959,45 +959,45 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           }),
                       ...commonField(
                           textController: cityController,
-                          title: "City*",
+                          title: "${'City'.tr}*",
                           hintText: "Enter your city",
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter City*";
+                              return "${'Please enter City'.tr}*";
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: zipCodeController,
-                          title: "Zip-Code*",
-                          hintText: "Enter location Zip-Code",
+                          title: "${'Zip-Code'.tr}*",
+                          hintText: "Enter location Zip-Code".tr,
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter Zip-Code*";
+                              return "${'Please enter Zip-Code'.tr}*";
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: stateController,
-                          title: "State*",
-                          hintText: "Enter your state",
+                          title: "${'State'.tr}*",
+                          hintText: "Enter your state".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter state*";
+                              return "${'Please enter state'.tr}*";
                             }
                             return null;
                           }),
                       ...commonField(
                           textController: countryController,
-                          title: "Country*",
-                          hintText: "Enter your country",
+                          title: "${'Country'.tr}*",
+                          hintText: "Enter your country".tr,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter country*";
+                              return "${'Please enter country'.tr}*";
                             }
                             return null;
                           }),
@@ -1049,7 +1049,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           alignment: Alignment.bottomCenter,
                           child: Align(
                               alignment: Alignment.center,
-                              child: Text("Save",
+                              child: Text("Save".tr,
                                   style:
                                       GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                         ),

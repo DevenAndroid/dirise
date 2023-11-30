@@ -166,7 +166,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 10, bottom: 30),
                                       child: Text(
-                                        AppStrings.salesNotAvailable,
+                                        AppStrings.salesNotAvailable.tr,
                                         style: normalStyle,
                                         textAlign: TextAlign.center,
                                       ),
@@ -184,18 +184,18 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
   }
 
   SliverToBoxAdapter thisMonth() {
-    return const SliverToBoxAdapter(
+    return  SliverToBoxAdapter(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 18,
           ),
           Text(
-            "This Month Report",
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF292F45)),
+            "This Month Report".tr,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Color(0xFF292F45)),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
         ],

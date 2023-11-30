@@ -90,7 +90,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
                   Get.to(() => const VendorDashBoardScreen());
                 },
                 child: Text(
-                  "Skip",
+                  "Skip".tr,
                   style: titleStyle,
                 ))
           ],

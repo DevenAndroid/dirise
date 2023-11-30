@@ -477,14 +477,14 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                                     enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-                                    hintText: "Select Date",
+                                    hintText: "Select Date".tr,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 12,
                                 ),
                                 Text(
-                                  "Available Slot",
+                                  "Available Slot".tr,
                                   style: normalStyle,
                                 ),
                                 Wrap(
@@ -509,7 +509,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                 ),
                                 if (showValidation && selectedSlot.isEmpty)
                                   Text(
-                                    "Please select available slots",
+                                    "Please select available slots".tr,
                                     style:
                                         normalStyle.copyWith(color: Theme.of(context).colorScheme.error, fontSize: 13),
                                   ),
@@ -564,7 +564,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                   if ((productDetails.inStock.toString().convertToNum ?? 0) > productQuantity.value) {
                                     productQuantity.value++;
                                   } else {
-                                    showToast("Cannot add more");
+                                    showToast("Cannot add more".tr);
                                   }
                                 },
                                 child: CircleAvatar(
@@ -592,7 +592,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                             ),
                             child: FittedBox(
                               child: Text(
-                                "Buy Now",
+                                "Buy Now".tr,
                                 style:
                                     GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
@@ -610,7 +610,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                             ),
                             child: FittedBox(
                               child: Text(
-                                "Add to Bag",
+                                "Add to Bag".tr,
                                 style:
                                     GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),

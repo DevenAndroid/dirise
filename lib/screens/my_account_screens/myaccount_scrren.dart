@@ -122,8 +122,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           builder: (context) {
             return CupertinoAlertDialog(
               title: Text(
-                "To register as vendor partner need to "
-                "create an account first.",
+                "${'To register as vendor partner need to '.tr}"
+                "${'create an account first.'.tr}",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16),
               ),
@@ -135,7 +135,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         LoginScreen.route,
                       );
                     },
-                    child: const Text("Create Account"))
+                    child:  Text("Create Account".tr))
               ],
             );
           });

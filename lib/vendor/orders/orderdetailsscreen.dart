@@ -61,7 +61,7 @@ class _OrderDetailsState extends State<OrderDetails> {
         appBar: AppBar(
           elevation: 0,
           title: Text(
-            'Delivery Details',
+            'Delivery Details'.tr,
             style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
@@ -122,7 +122,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Order ID: ${order.id.toString()}',
+                                              '${'Order ID'.tr}: ${order.id.toString()}',
                                               style: GoogleFonts.poppins(
                                                   fontWeight: FontWeight.w600, fontSize: 15, color: AppTheme.buttonColor),
                                             ),
@@ -177,7 +177,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                             ),
                                                             addHeight(5),
                                                             Text(
-                                                              '${e.quantity.toString()} piece',
+                                                              '${e.quantity.toString()} ${'piece'.tr}',
                                                               style: GoogleFonts.poppins(
                                                                   color: const Color(0xFF6A8289),
                                                                   fontWeight: FontWeight.w500,
@@ -207,7 +207,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                           height: 20,
                         ),
                         Text(
-                          'Customer Detail',
+                          'Customer Detail'.tr,
                           style:
                               GoogleFonts.poppins(color: const Color(0xff303C5E), fontSize: 18, fontWeight: FontWeight.w700),
                         ),
@@ -248,7 +248,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Customer Name",
+                                                    "Customer Name".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: const Color(0xff486769),
                                                         fontWeight: FontWeight.w300,

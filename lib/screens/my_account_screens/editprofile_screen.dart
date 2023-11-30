@@ -202,7 +202,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppStrings.editProfile,
+          AppStrings.editProfile.tr,
           style: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
         ),
         centerTitle: true,
@@ -313,7 +313,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 controller: firstNameController,
                 validator: (v) {
                   if (v!.trim().isEmpty) {
-                    return "Please enter your first name";
+                    return "Please enter your first name".tr;
                   }
                   return null;
                 },
@@ -336,10 +336,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 controller: emailController,
                 validator: (v) {
                   if (v!.trim().isEmpty) {
-                    return "Please enter your email address";
+                    return "Please enter your email address".tr;
                   }
                   if (v.trim().invalidEmail) {
-                    return "Please enter valid email address";
+                    return "Please enter valid email address".tr;
                   }
                   return null;
                 },
@@ -525,7 +525,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                AppStrings.save,
+                AppStrings.save.tr,
                 style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ),

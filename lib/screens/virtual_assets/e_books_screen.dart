@@ -83,7 +83,7 @@ class _EBookListScreenState extends State<EBookListScreen> {
             ),
           );
         }) :
-    Center(child: Text(AppStrings.notHaveAnyBooks,style: normalStyle,),) :
+    Center(child: Text(AppStrings.notHaveAnyBooks.tr,style: normalStyle,),) :
     const LoadingAnimation();
   }
 }

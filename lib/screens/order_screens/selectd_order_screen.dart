@@ -59,7 +59,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Order Details",
+              "Order Details".tr,
               style: GoogleFonts.poppins(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
@@ -81,7 +81,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Text(
-                          "Order #${singleOrder.order!.orderId}",
+                          "${'Order'.tr} #${singleOrder.order!.orderId}",
                           style: GoogleFonts.poppins(
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
@@ -156,7 +156,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                       height: 4,
                                     ),
                                     Text(
-                                      '${item.quantity.toString()} piece',
+                                      '${item.quantity.toString()} ${'piece'.tr}',
                                       style: GoogleFonts.poppins(
                                           color: const Color(0xff858484)),
                                     ),
@@ -182,7 +182,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                                 // }
                                               },
                                               child: Text(
-                                                "View",
+                                                "View".tr,
                                                 style: normalStyle,
                                               )),
                                         ],
@@ -203,7 +203,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                             children: [
                                               Expanded(
                                                   child: Text(
-                                                "Booking Details",
+                                                "Booking Details".tr,
                                                 style: normalStyle,
                                               )),
                                               Obx(() {
@@ -236,7 +236,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                                   children: [
                                                     Expanded(
                                                         child: Text(
-                                                      "Date: ${item.selectedSlotDate}",
+                                                      "${'Date'.tr}: ${item.selectedSlotDate}",
                                                       style: normalStyle,
                                                     )),
                                                   ],
@@ -245,7 +245,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                                   children: [
                                                     Expanded(
                                                         child: Text(
-                                                      "Time: ${item.selectedSlotStart} - ${item.selectedSlotEnd}",
+                                                      "${'Time'.tr}: ${item.selectedSlotStart} - ${item.selectedSlotEnd}",
                                                       style: normalStyle,
                                                     )),
                                                   ],
@@ -278,7 +278,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Order Date",
+                                  "Order Date".tr,
                                   style: GoogleFonts.poppins(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
@@ -300,7 +300,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Status",
+                                  "Status".tr,
                                   style: GoogleFonts.poppins(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
@@ -324,7 +324,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Payment",
+                                  "Payment".tr,
                                   style: GoogleFonts.poppins(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
@@ -346,7 +346,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Deliver",
+                                  "Deliver".tr,
                                   style: GoogleFonts.poppins(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,

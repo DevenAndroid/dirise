@@ -52,7 +52,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
           ),
           titleSpacing: 0,
           title: Text(
-            AppStrings.order,
+            AppStrings.order.tr,
             style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
           ),
         ),
@@ -117,7 +117,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                             borderRadius: BorderRadius.circular(22)),
                                         padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                                         child: Text(
-                                          AppStrings.view,
+                                          AppStrings.view.tr,
                                           style: GoogleFonts.poppins(
                                               fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                         ),
@@ -158,7 +158,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                   )
                 : Center(
                     child: Text(
-                      AppStrings.notOrdered,
+                      AppStrings.notOrdered.tr,
                       style: normalStyle,
                     ),
                   )

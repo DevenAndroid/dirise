@@ -34,7 +34,7 @@ class _BagsScreenState extends State<BagsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey.shade50,
-        appBar: customAppBar(title: "Bag"),
+        appBar: customAppBar(title: "Bag".tr),
         body: RefreshIndicator(
           onRefresh: () async {
             await cartController.getCart();
@@ -68,7 +68,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                       Padding(
                                         padding: const EdgeInsets.only(bottom: 16),
                                         child: Text(
-                                          "Sold By ${product.storeName}",
+                                          "${'Sold By'.tr} ${product.storeName}",
                                           style: titleStyle,
                                         ),
                                       ),
@@ -211,10 +211,10 @@ class _BagsScreenState extends State<BagsScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Center(
+                           Center(
                             child: Text(
-                              "Bag is empty\n"
-                              "Checkout products to added them in bag",
+                              "${'Bag is empty'.tr}\n"
+                              "Checkout products to added them in bag".tr,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -223,7 +223,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                 onPressed: () {
                                   Get.back();
                                 },
-                                child: const Text("Browse")),
+                                child:  Text("Browse".tr)),
                           ),
                         ],
                       )
@@ -268,7 +268,7 @@ class _BagsScreenState extends State<BagsScreen> {
                               ),
                               Row(
                                 children: [
-                                  Text("Checkout",
+                                  Text("Checkout".tr,
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
                                   const SizedBox(
@@ -307,7 +307,7 @@ class _BagsScreenState extends State<BagsScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            title,
+            title.tr,
             style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
           ),
         ],

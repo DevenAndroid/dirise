@@ -133,7 +133,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Add New Event',
+                    'Add New Event'.tr,
                     textAlign: TextAlign.center,
                     style: titleStyle,
                   ),
@@ -145,29 +145,29 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return "Please Enter Title";
+                        return "Please Enter Title".tr;
                       }
                       return null;
                     },
                     textCapitalization: TextCapitalization.words,
-                    decoration: const InputDecoration(
-                      labelText: 'Title',
-                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                    decoration:  InputDecoration(
+                      labelText: 'Title'.tr,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                       border: InputBorder.none,
-                      focusedErrorBorder: OutlineInputBorder(
+                      focusedErrorBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                      errorBorder: OutlineInputBorder(
+                      errorBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                      disabledBorder: OutlineInputBorder(
+                      disabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: AppTheme.secondaryColor),
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: AppTheme.secondaryColor),
                       ),
@@ -183,28 +183,28 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                     maxLines: null,
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return "Please Enter Description";
+                        return "Please Enter Description".tr;
                       }
                       return null;
                     },
-                    decoration: const InputDecoration(
-                      labelText: 'Description',
-                      contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                    decoration:  InputDecoration(
+                      labelText: 'Description'.tr,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                       border: InputBorder.none,
-                      focusedErrorBorder: OutlineInputBorder(
+                      focusedErrorBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                      errorBorder: OutlineInputBorder(
+                      errorBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                           borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                      disabledBorder: OutlineInputBorder(
+                      disabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: AppTheme.secondaryColor),
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                         borderSide: BorderSide(color: AppTheme.secondaryColor),
                       ),
@@ -219,7 +219,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                         child: TextButton(
                           onPressed: () => Navigator.pop(context),
                           child: Text(
-                            'Cancel',
+                            'Cancel'.tr,
                             style: titleStyle,
                           ),
                         ),
@@ -230,7 +230,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                       Expanded(
                         child: TextButton(
                           child: Text(
-                            'Save',
+                            'Save'.tr,
                             style: titleStyle,
                           ),
                           onPressed: () {
@@ -261,7 +261,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xffEBF1F4),
         title: Text(
-          AppStrings.calendar,
+          AppStrings.calendar.tr,
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 18),
         ),
         leading: IconButton(
@@ -276,7 +276,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: Text(
-                AppStrings.createEvent,
+                AppStrings.createEvent.tr,
                 style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
@@ -316,7 +316,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Text(
-                AppStrings.myEvent,
+                AppStrings.myEvent.tr,
                 style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
@@ -333,7 +333,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                         deleteEvent(id: myEvents.id.toString());
                       },
                       child: Text(
-                      AppStrings.delete,
+                      AppStrings.delete.tr,
                         style:
                             GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 17, color: AppTheme.buttonColor),
                       ),
@@ -371,10 +371,10 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                       ),
                     ),
                     title: Padding(
-                      padding:  EdgeInsets.only(bottom: 4),
-                      child: Text(AppStrings.eventTitle +myEvents.title!),
+                      padding:  const EdgeInsets.only(bottom: 4),
+                      child: Text(AppStrings.eventTitle.tr +myEvents.title!),
                     ),
-                    subtitle: Text(AppStrings.description +myEvents.description!),
+                    subtitle: Text(AppStrings.description.tr +myEvents.description!),
                   ),
                 ),
               ),
@@ -382,7 +382,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
             if (_listOfDayEvents(_selectedDate!).isEmpty)
                Center(
                 heightFactor: 4,
-                child: Text(AppStrings.noEvent),
+                child: Text(AppStrings.noEvent.tr),
               ),
             const SizedBox(
               height: 80,
@@ -392,7 +392,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showAddEventDialog(),
-        label:  Text(AppStrings.addEvent),
+        label:  Text(AppStrings.addEvent.tr),
       ),
     );
   }

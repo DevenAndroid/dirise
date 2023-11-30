@@ -553,8 +553,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
-      appBar: const CommonAppBar(
-        titleText: "Vendor Registration",
+      appBar:  CommonAppBar(
+        titleText: "Vendor Registration".tr,
       ),
       body:  SingleChildScrollView(
         child: Form(
@@ -622,7 +622,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         items: modelVendorCategory.usphone!
                             .map((e) => DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
                             .toList(),
-                        hint: const Text('Category'),
+                        hint:  Text('Category'.tr),
                         onChanged: (value) {
                           // selectedCategory = value;
                           if (value == null) return;
@@ -632,7 +632,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         },
                         validator: (value) {
                           if (allSelectedCategory.isEmpty) {
-                            return "Please select Category";
+                            return "Please select Category".tr;
                           }
                           return null;
                         },
@@ -663,7 +663,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                     VendorCommonTextfield(
                         controller: TextEditingController(text: selectedCountry != null ? selectedCountry!.name : ""),
                         // key: firstName.getKey,
-                        hintText: "Select Country",
+                        hintText: "Select Country".tr,
                         // prefix: selectedCountry != null
                         //     ? SizedBox(
                         //   width: 50,
@@ -692,7 +692,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                         },
                         validator: (value) {
                           if (selectedCountry == null) {
-                            return "Please select Country";
+                            return "Please select Country".tr;
                           }
                           return null;
                         }),
@@ -703,10 +703,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: firstName,
                           key: firstName.getKey,
-                          hintText: "First Name",
+                          hintText: "First Name".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter first name";
+                              return "Please enter first name".tr;
                             }
                             return null;
                           }),
@@ -715,10 +715,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: lastName,
                           key: lastName.getKey,
-                          hintText: "Last Name",
+                          hintText: "Last Name".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter last name";
+                              return "Please enter last name".tr;
                             }
                             return null;
                           }),
@@ -727,10 +727,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: storeName,
                           key: storeName.getKey,
-                          hintText: "Store Name",
+                          hintText: "Store Name".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter store name";
+                              return "Please enter store name".tr;
                             }
                             return null;
                           }),
@@ -740,10 +740,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           controller: homeAddress,
                           keyboardType: TextInputType.streetAddress,
                           key: homeAddress.getKey,
-                          hintText: "Address",
+                          hintText: "Address".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter address";
+                              return "Please enter address".tr;
                             }
                             return null;
                           }),
@@ -752,14 +752,14 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: phoneNumber,
                           key: phoneNumber.getKey,
-                          hintText: "Phone Number",
+                          hintText: "Phone Number".tr,
                           keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter store phone number";
+                              return "Please enter store phone number".tr;
                             }
                             if (value.trim().length < 10) {
-                              return "Please enter valid store phone number";
+                              return "Please enter valid store phone number".tr;
                             }
                             return null;
                           }),
@@ -769,13 +769,13 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           controller: emailAddress,
                           keyboardType: TextInputType.emailAddress,
                           key: emailAddress.getKey,
-                          hintText: 'Email Address',
+                          hintText: 'Email Address'.tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter email address";
+                              return "Please enter email address".tr;
                             }
                             if (value.trim().invalidEmail) {
-                              return "Please enter valid email address";
+                              return "Please enter valid email address".tr;
                             }
                             return null;
                           }),
@@ -786,10 +786,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: firstName,
                           key: firstName.getKey,
-                          hintText: "First Name",
+                          hintText: "First Name".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter first name";
+                              return "Please enter first name".tr;
                             }
                             return null;
                           }),
@@ -798,10 +798,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: lastName,
                           key: lastName.getKey,
-                          hintText: "Last Name",
+                          hintText: "Last Name".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter last name";
+                              return "Please enter last name".tr;
                             }
                             return null;
                           }),
@@ -813,7 +813,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           hintText: "Store Name",
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter store name";
+                              return "Please enter store name".tr;
                             }
                             return null;
                           }),
@@ -823,10 +823,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           controller: homeAddress,
                           keyboardType: TextInputType.streetAddress,
                           key: homeAddress.getKey,
-                          hintText: "Address",
+                          hintText: "Address".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter address";
+                              return "Please enter address".tr;
                             }
                             return null;
                           }),
@@ -835,14 +835,14 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: phoneNumber,
                           key: phoneNumber.getKey,
-                          hintText: "Phone Number",
+                          hintText: "Phone Number".tr,
                           keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter store phone number";
+                              return "Please enter store phone number".tr;
                             }
                             if (value.trim().length < 10) {
-                              return "Please enter valid store phone number";
+                              return "Please enter valid store phone number".tr;
                             }
                             return null;
                           }),
@@ -852,13 +852,13 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           controller: emailAddress,
                           keyboardType: TextInputType.emailAddress,
                           key: emailAddress.getKey,
-                          hintText: "Email Address",
+                          hintText: "Email Address".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter email address";
+                              return "Please enter email address".tr;
                             }
                             if (value.trim().invalidEmail) {
-                              return "Please enter valid email address";
+                              return "Please enter valid email address".tr;
                             }
                             return null;
                           }),
@@ -1164,10 +1164,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: firstName,
                           key: firstName.getKey,
-                          hintText: "First Name",
+                          hintText: "First Name".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter first name";
+                              return "Please enter first name".tr;
                             }
                             return null;
                           }),
@@ -1176,10 +1176,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: lastName,
                           key: lastName.getKey,
-                          hintText: "Last Name",
+                          hintText: "Last Name".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter last name";
+                              return "Please enter last name".tr;
                             }
                             return null;
                           }),
@@ -1188,10 +1188,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: storeName,
                           key: storeName.getKey,
-                          hintText: "Store Name",
+                          hintText: "Store Name".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter store name";
+                              return "Please enter store name".tr;
                             }
                             return null;
                           }),
@@ -1201,10 +1201,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           controller: homeAddress,
                           keyboardType: TextInputType.streetAddress,
                           key: homeAddress.getKey,
-                          hintText: "Address",
+                          hintText: "Address".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter address";
+                              return "Please enter address".tr;
                             }
                             return null;
                           }),
@@ -1213,14 +1213,14 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                       VendorCommonTextfield(
                           controller: phoneNumber,
                           key: phoneNumber.getKey,
-                          hintText: "Phone Number",
+                          hintText: "Phone Number".tr,
                           keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter store phone number";
+                              return "Please enter store phone number".tr;
                             }
                             if (value.trim().length < 10) {
-                              return "Please enter valid store phone number";
+                              return "Please enter valid store phone number".tr;
                             }
                             return null;
                           }),
@@ -1230,13 +1230,13 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                           controller: emailAddress,
                           keyboardType: TextInputType.emailAddress,
                           key: emailAddress.getKey,
-                          hintText: "Email Address",
+                          hintText: "Email Address".tr,
                           validator: (value) {
                             if (value!.trim().isEmpty) {
-                              return "Please enter email address";
+                              return "Please enter email address".tr;
                             }
                             if (value.trim().invalidEmail) {
-                              return "Please enter valid email address";
+                              return "Please enter valid email address".tr;
                             }
                             return null;
                           }),
@@ -1255,7 +1255,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
                             textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                         child: Text(
-                          "Submit",
+                          "Submit".tr,
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall!
@@ -1302,7 +1302,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                   children: [
                     Expanded(
                         child: Text(
-                      "Validity",
+                      "Validity".tr,
                       style: titleStyle,
                     )),
                     Text("${planInfo.label}"),
@@ -1344,8 +1344,8 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
               : null,
           style: const TextStyle(color: Colors.red),
           decoration: InputDecoration(
-            hintText: "Please select bank",
-            labelText: "Please select bank",
+            hintText: "Please select bank".tr,
+            labelText: "Please select bank".tr,
             filled: true,
             fillColor: const Color(0xffE2E2E2).withOpacity(.35),
             labelStyle: GoogleFonts.poppins(
@@ -1385,7 +1385,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
               : [],
           validator: (value) {
             if (bankId.isEmpty) {
-              return "Please select bank";
+              return "Please select bank".tr;
             }
             return null;
           },
@@ -1398,13 +1398,13 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       }) :
       VendorCommonTextfield(
           controller: TextEditingController(text: bankId),
-          hintText: "Bank Name",
+          hintText: "Bank Name".tr,
           onChanged: (value){
             bankId = value;
           },
           validator: (value) {
             if (bankId.trim().isEmpty) {
-              return "Please enter bank name";
+              return "Please enter bank name".tr;
             }
             return null;
           }),
@@ -1414,10 +1414,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
           controller: accountNumber,
           key: accountNumber.getKey,
           keyboardType: TextInputType.number,
-          hintText: "Account Number",
+          hintText: "Account Number".tr,
           validator: (value) {
             if (value!.trim().isEmpty) {
-              return "Please enter account number";
+              return "Please enter account number".tr;
             }
             return null;
           }),
@@ -1427,10 +1427,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
           controller: ibnNumber,
           keyboardType: TextInputType.number,
           key: ibnNumber.getKey,
-          hintText: "IBM Number",
+          hintText: "IBM Number".tr,
           validator: (value) {
             if (value!.trim().isEmpty) {
-              return "Please enter IBM number";
+              return "Please enter IBM number".tr;
             }
             return null;
           }),
@@ -1439,10 +1439,10 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
       VendorCommonTextfield(
           controller: accountHolderName,
           key: accountHolderName.getKey,
-          hintText: "Account Holder Name",
+          hintText: "Account Holder Name".tr,
           validator: (value) {
             if (value!.trim().isEmpty) {
-              return "Please enter account holder name";
+              return "Please enter account holder name".tr;
             }
             return null;
           }),

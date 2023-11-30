@@ -189,7 +189,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: mainCategory.name.toString(),
+          titleText: mainCategory.name.toString().tr,
           actions: const [
             CartBagCard(isBlackTheme: true),
           ],
@@ -441,7 +441,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                     ),
                                   ),
                                   Text(
-                                    ("1457 ${AppStrings.items}"),
+                                    ("1457 ${AppStrings.items.tr}"),
                                     style: GoogleFonts.poppins(
                                         color: const Color(0xff014E70), fontSize: 16, fontWeight: FontWeight.w600),
                                   )
@@ -504,7 +504,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: Text(
-                  AppStrings.relatedProduct,
+                  AppStrings.relatedProduct.tr,
                   style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               ),

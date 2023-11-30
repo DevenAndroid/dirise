@@ -100,7 +100,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
-        title: Text('Set Store Time',
+        title: Text('Set Store Time'.tr,
             style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
@@ -196,7 +196,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                       ),
                       Expanded(
                         child: Text(
-                          "To",
+                          "To".tr,
                           style: GoogleFonts.poppins(
                               color: Colors.grey.shade900, fontSize: 14, fontWeight: FontWeight.w400),
                         ),
@@ -255,7 +255,7 @@ class _SetTimeScreenState extends State<SetTimeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Text(
-                    "Save",
+                    "Save".tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
                   ),
                 ))

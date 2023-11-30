@@ -47,7 +47,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   applyCouponCode() {
     if (couponController.text.trim().isEmpty) {
-      showToast("Please enter coupon code");
+      showToast("Please enter coupon code".tr);
       return;
     }
     cartController.refreshInt.value = -2;
@@ -109,7 +109,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Checkout",
+              "Checkout".tr,
               style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
             ),
           ],
@@ -138,7 +138,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             if (context1 != null) {
               Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
             }
-            showToast("Please select delivery options");
+            showToast("Please select delivery options".tr);
             return;
           }
           if (cartController.deliveryOption.value == "delivery" && cartController.selectedAddress.id == null) {
@@ -146,12 +146,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             if (context1 != null) {
               Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
             }
-            showToast("Select delivery address to complete order");
+            showToast("Select delivery address to complete order".tr);
             return;
           }
           cartController.dialogOpened = false;
           if (paymentMethod1.isEmpty) {
-            showToast("Please select payment Method");
+            showToast("Please select payment Method".tr);
             return;
           }
           cartController.placeOrder(
@@ -176,7 +176,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           alignment: Alignment.bottomCenter,
           child: Align(
               alignment: Alignment.center,
-              child: Text("Complete Payment",
+              child: Text("Complete Payment".tr,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white))),
         ),
       ),
@@ -190,7 +190,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Your Order", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+          Text("Your Order".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
           const SizedBox(
             height: 10,
           ),
@@ -215,7 +215,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Coupon Applied: $appliedCode",
+                          Text("${'Coupon Applied'.tr}: $appliedCode",
                               style:
                                   GoogleFonts.poppins(fontWeight: FontWeight.w400, color: CupertinoColors.activeGreen)),
                           Text("KWD $couponApplied",
@@ -236,7 +236,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Total", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+              Text("Total".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
               Text("KWD ${cartController.cartModel.total.toString().toNum - (couponApplied.convertToNum ?? 0)}",
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
             ],
@@ -262,7 +262,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Text("Have a coupon code?", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                Text("Have a coupon code?".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -272,7 +272,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           style: GoogleFonts.poppins(),
                           controller: couponController,
                           decoration: InputDecoration.collapsed(
-                            hintText: "Enter Code",
+                            hintText: "Enter Code".tr,
                             hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14),
                           )),
                     ),
@@ -293,7 +293,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                         padding: const EdgeInsets.fromLTRB(22, 9, 22, 9),
                         child: Text(
-                          "Apply",
+                          "Apply".tr,
                           style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white),
                         ),
                       ),
@@ -337,7 +337,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: Text(
-                      "Sold By ${product.storeName}",
+                      "${'Sold By'.tr} ${product.storeName}",
                       style: titleStyle,
                     ),
                   ),
@@ -486,7 +486,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Text("Add delivery instructions",
+                Text("Add delivery instructions".tr,
                     style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                 const SizedBox(
                   height: 10,
@@ -495,7 +495,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   style: GoogleFonts.poppins(),
                   controller: deliveryInstructions,
                   decoration: InputDecoration.collapsed(
-                      hintText: "Add delivery instructions to help us with the delivery",
+                      hintText: "Add delivery instructions to help us with the delivery".tr,
                       hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14)),
                 ),
                 const SizedBox(
@@ -523,7 +523,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 15),
-                Text("Payment", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                Text("Payment".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                 const SizedBox(
                   height: 15,
                 ),
@@ -536,9 +536,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         enabled: true,
                         filled: true,
-                        hintText: "Select Payment Method",
+                        hintText: "Select Payment Method".tr,
                         labelStyle: GoogleFonts.poppins(color: Colors.black),
-                        labelText: "Select Payment Method",
+                        labelText: "Select Payment Method".tr,
                         fillColor: const Color(0xffE2E2E2).withOpacity(.35),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                         enabledBorder: const OutlineInputBorder(

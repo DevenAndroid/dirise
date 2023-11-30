@@ -30,11 +30,11 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
 
   verifyOtp() {
     if (_otpController.text.trim().isEmpty) {
-      showToast("Please enter OTP");
+      showToast("Please enter OTP".tr);
       return;
     }
     if (_otpController.text.trim().length < 4) {
-      showToast("Enter complete OTP");
+      showToast("Enter complete OTP".tr);
       return;
     }
     Map<String, dynamic> map = {};
@@ -134,14 +134,14 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
                       height: 13,
                     ),
                     Text(
-                      'OTP Verification',
+                      'OTP Verification'.tr,
                       style: GoogleFonts.poppins(fontSize: 23, fontWeight: FontWeight.w700, color: Colors.white),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
                     Text(
-                      'Enter the otp sent to your email',
+                      'Enter the otp sent to your email'.tr,
                       style: GoogleFonts.poppins(fontSize: 16, color: Colors.white),
                     )
                   ],
@@ -170,7 +170,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
                             height: size.height * .05,
                           ),
                           Text(
-                            "Didn't you receive the OTP?",
+                            "Didn't you receive the OTP?".tr,
                             style: GoogleFonts.poppins(color: const Color(0xff3D4260), fontSize: 17),
                           ),
                           SizedBox(
@@ -218,7 +218,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Verify OTP',
+                'Verify OTP'.tr,
                 style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ),

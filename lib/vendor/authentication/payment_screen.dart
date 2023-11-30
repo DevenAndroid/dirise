@@ -42,7 +42,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             onNavigationRequest: (NavigationRequest request) {
               log("Navigation Request....      ${request.url}");
               if (request.url.contains(navigationBackUrl)) {
-                showToast("Payment Successfully");
+                showToast("Payment Successfully".tr);
                 if(widget.onSuccess == null) {
                   Get.back();
                   Get.back();
@@ -58,7 +58,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 return NavigationDecision.prevent;
               }
               if (request.url.contains(failureUrl)) {
-                showToast("Payment Failed");
+                showToast("Payment Failed".tr);
                 Get.back();
                 return NavigationDecision.prevent;
               }
@@ -93,8 +93,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
         return false;
       },
       child: Scaffold(
-        appBar: const CommonAppBar(
-          titleText: "Payment",
+        appBar:  CommonAppBar(
+          titleText: "Payment".tr,
           backGroundColor: Colors.transparent,
         ),
         body: webLoaded

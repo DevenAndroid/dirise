@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dirise/utils/api_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/helper.dart';
 import '../../widgets/dimension_screen.dart';
@@ -50,7 +51,7 @@ class _ImageWidgetState extends State<ImageWidget> {
       int sizeInBytes = value.lengthSync();
       double sizeInMb = sizeInBytes / (1024 * 1024);
       if (sizeInMb > 10){
-        showToast("Document must be smaller then 10 Mb");
+        showToast("Document must be smaller then 10 Mb".tr);
         return;
       }
       widget.filePicked(value);

@@ -1,6 +1,7 @@
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BucketScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _BucketScreenState extends State<BucketScreen> {
               )),
           Center(
             child: Text(
-              AppStrings.bagEmpty,
+              AppStrings.bagEmpty.tr,
               style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 20),
             ),
           ),
@@ -41,7 +42,7 @@ class _BucketScreenState extends State<BucketScreen> {
                 padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 35, vertical: 13)),
               ),
               child: Text(
-                AppStrings.shopNow,
+                AppStrings.shopNow.tr,
                 style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
               ))
         ],
