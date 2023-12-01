@@ -55,7 +55,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         builder: (context1) {
           return AlertDialog(
             title: Text(
-              "Are you sure you want to delete this product?",
+              "Are you sure you want to delete this product?".tr,
               style: titleStyle,
             ),
             actions: [
@@ -63,12 +63,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   onPressed: () {
                     Get.back();
                   },
-                  child: const Text("Cancel")),
+                  child:  Text("Cancel".tr)),
               ElevatedButton(
                   onPressed: () {
                     controller.deleteProduct(context);
                   },
-                  child: const Text("Delete")),
+                  child: Text("Delete".tr)),
             ],
           );
         });
@@ -99,7 +99,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
             ),
             title: Text(
-              controller.productId.isEmpty ? "Add Product" : "Edit Product",
+              controller.productId.isEmpty ? "Add Product".tr : "Edit Product".tr,
               style: GoogleFonts.raleway(fontSize: 18, fontWeight: FontWeight.w700, color: const Color(0xff303C5E)),
             ),
             actions: [
@@ -110,7 +110,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         onTap: () {
                           showDeleteDialog();
                         },
-                        child: const Text("Delete Product")),
+                        child:  Text("Delete Product".tr)),
                   ];
                 })
             ],
@@ -149,7 +149,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
                                     textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                                 child: Text(
-                                  controller.productId.isEmpty ? "Create" : "Update",
+                                  controller.productId.isEmpty ? "Create".tr : "Update".tr,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall!

@@ -205,7 +205,7 @@ class _PlanWidgetState extends State<PlanWidget> {
                                           ),
                                           child: FittedBox(
                                             child: Text(
-                                              AppStrings.upgradePlan,
+                                              AppStrings.upgradePlan.tr,
                                               style: titleStyle.copyWith(color: const Color(0xff13BFA6), fontSize: 18),
                                             ),
                                           )),

@@ -69,7 +69,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Withdrawal money',
+            'Withdrawal money'.tr,
             style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
@@ -216,13 +216,13 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                       ElevatedButton(
                                           onPressed: () {
                                             if(addMoneyController.text.isEmpty){
-                                              showToast("Please enter amount");
+                                              showToast("Please enter amount".tr);
                                               return;
                                             }
                                             if(addMoneyController.text.toNum < modelWithdrawalList!.data!.earnedBalance.toString().toNum){
                                               withDrawRequest(addMoneyController.text);
                                             } else{
-                                              showToast("Entered amount is greater then balance");
+                                              showToast("Entered amount is greater then balance".tr);
                                             }
                                           },
                                           style: ElevatedButton.styleFrom(

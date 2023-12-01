@@ -82,7 +82,7 @@ class _AppBarScreenState extends State<AppBarScreen> {
                 children: [
                   Flexible(
                     child: Text(
-                      "Store Time :",
+                      "${'Store Time'.tr} :",
                       style:
                       GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff737A8A)),
                     ),

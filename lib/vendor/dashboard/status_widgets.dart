@@ -42,7 +42,7 @@ class _StatusWidgetState extends State<StatusWidget> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("Vendor Publish Status"),
+                            Text("Vendor Publish Status".tr),
                             const SizedBox(
                               height: 5,
                             ),

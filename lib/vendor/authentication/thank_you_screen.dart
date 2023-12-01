@@ -32,7 +32,7 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
 
   getPaymentUrl() {
     if (paymentMethod.isEmpty) {
-      showToast("Please select payment method");
+      showToast("Please select payment method".tr);
       return;
     }
     repositories.postApi(url: ApiUrls.createPaymentUrl, context: context, mapData: {
@@ -163,9 +163,9 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
                             ),
                             enabled: true,
                             filled: true,
-                            hintText: "Select Payment Method",
+                            hintText: "Select Payment Method".tr,
                             labelStyle: GoogleFonts.poppins(color: Colors.black),
-                            labelText: "Select Payment Method",
+                            labelText: "Select Payment Method".tr,
                             fillColor: const Color(0xffE2E2E2).withOpacity(.35),
                             contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                             enabledBorder: const OutlineInputBorder(

@@ -60,7 +60,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               elevation: 0,
                               color: Colors.white,
                               child: Text(
-                                "Take picture",
+                                "Take picture".tr,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
@@ -95,7 +95,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                               elevation: 0,
                               color: Colors.white,
                               child: Text(
-                                "Choose From Gallery",
+                                "Choose From Gallery".tr,
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall!
@@ -156,7 +156,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                           children: [
                             Flexible(
                               child: Text(
-                                'Image Gallery',
+                                'Image Gallery'.tr,
                                 style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -181,7 +181,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                           showImagesBottomSheet();
                         },
                         child: Text(
-                          'Choose From Gallery ${controller.galleryImages.isNotEmpty ? "${controller.galleryImages.length}/5" : ""}',
+                          '${'Choose From Gallery'} ${controller.galleryImages.isNotEmpty ? "${controller.galleryImages.length}/5" : ""}',
                           style: GoogleFonts.poppins(
                             fontSize: 14,
                             color: AppTheme.buttonColor,

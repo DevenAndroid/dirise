@@ -86,11 +86,11 @@ class _EditCategoriesScreenState extends State<EditCategoriesScreen> {
                           .toList(),
                       validator: (value) {
                         if (!e.childCategory!.map((k) => k.selected).toList().contains(true)) {
-                          return "Please select any one category";
+                          return "Please select any one category".tr;
                         }
                         return null;
                       },
-                      hint: const Text('Select Category'),
+                      hint:  Text('Select Category'.tr),
                       onChanged: (value) {
                         e.childCategory![value!].selected = true;
                         setState(() {});

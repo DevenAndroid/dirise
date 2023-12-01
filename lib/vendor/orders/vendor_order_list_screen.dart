@@ -142,7 +142,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                               ),
                               // addWidth(20),
                               Text(
-                                'Orders List',
+                                'Orders List'.tr,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
                                   fontSize: 18,

@@ -61,7 +61,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
   getPaymentUrl() {
     if (paymentMethod.isEmpty) {
-      showToast("Please select payment method");
+      showToast("Please select payment method".tr);
       return;
     }
     repositories.postApi(url: ApiUrls.createPaymentUrl, context: context, mapData: {
@@ -313,7 +313,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     if (selectedPlan == PlansType.advertisement) {
       // Id Proof
       if (idProof.path.isEmpty) {
-        showToast("Please Select Id Proof");
+        showToast("Please Select Id Proof".tr);
         idProofKey.currentContext!.navigate;
         return;
       }
@@ -334,7 +334,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     if (selectedPlan == PlansType.personal) {
       // Payment receipt certificate
       if (paymentReceiptCertificate.path.isEmpty) {
-        showToast("Please Select Payment Receipt Certificate");
+        showToast("Please Select Payment Receipt Certificate".tr);
         paymentReceiptCertificateKey.currentContext!.navigate;
         return;
       }
@@ -354,42 +354,42 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     if (selectedPlan == PlansType.company) {
       // Memorandum of Association
       if (memorandumAssociation.path.isEmpty) {
-        showToast("Please Select Memorandum of Association");
+        showToast("Please Select Memorandum of Association".tr);
         memorandumAssociationKey.currentContext!.navigate;
         return;
       }
 
       // Commercial license
       if (commercialLicense.path.isEmpty) {
-        showToast("Please Select Commercial license");
+        showToast("Please Select Commercial license".tr);
         commercialLicenseKey.currentContext!.navigate;
         return;
       }
 
       // Signature approval
       if (signatureApproval.path.isEmpty) {
-        showToast("Please Select Signature approval");
+        showToast("Please Select Signature approval".tr);
         signatureApprovalKey.currentContext!.navigate;
         return;
       }
 
       // Extract from the Ministry of Commerce
       if (ministryCommerce.path.isEmpty) {
-        showToast("Please Select Extract from the Ministry of Commerce");
+        showToast("Please Select Extract from the Ministry of Commerce".tr);
         ministryCommerceKey.currentContext!.navigate;
         return;
       }
 
       // Original civil information
       if (originalCivilInformation.path.isEmpty) {
-        showToast("Please Select Original civil information");
+        showToast("Please Select Original civil information".tr);
         originalCivilInformationKey.currentContext!.navigate;
         return;
       }
 
       // Company bank account
       if (companyBankAccount.path.isEmpty) {
-        showToast("Please Select Company bank account");
+        showToast("Please Select Company bank account".tr);
         companyBankAccountKey.currentContext!.navigate;
         return;
       }
@@ -410,7 +410,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     }
 
     if (planUpdate && paymentMethod.isEmpty) {
-      showToast("Please select payment method");
+      showToast("Please select payment method".tr);
       return;
     }
 
@@ -761,7 +761,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     return Scaffold(
       backgroundColor: const Color(0xffF4F4F4),
       appBar: AppBar(
-        title: Text('Vendor Profile',
+        title: Text('Vendor Profile'.tr,
             style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
@@ -805,9 +805,9 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                           children: [
                             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                               // planCard(),
-                              const Text(
-                                'Required Fields',
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                               Text(
+                                'Required Fields'.tr,
+                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                               ),
                               16.spaceY,
                               /* Obx(() {
@@ -878,7 +878,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                               VendorCommonTextfield(
                                 controller: categoryController,
                                 //key: firstName.getKey,
-                                hintText: "Category",
+                                hintText: "Category".tr,
                                 enabled: false,
                                 /*validator: (value) {
                                     if (value!.trim().isEmpty) {
@@ -928,14 +928,14 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                                   !.map((e) =>
                                                       DropdownMenuItem(value: e, child: Text(e.name.toString().capitalize!)))
                                                   .toList(),
-                                          hint: Text('Select ${e.name} Category'),
+                                          hint: Text('${'Select'.tr } ${e.name} ${'Category'.tr}'),
                                           onChanged: (value) {
                                             e.selectedSubChildCategory = value;
                                             setState(() {});
                                           },
                                           validator: (value) {
                                             if (e.selectedSubChildCategory == null) {
-                                              return "Please select sub category";
+                                              return "Please select sub category".tr;
                                             }
                                             return null;
                                           },
@@ -1004,10 +1004,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: firstName,
                                     key: firstName.getKey,
-                                    hintText: "First Name",
+                                    hintText: "First Name".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter first name";
+                                        return "Please enter first name".tr;
                                       }
                                       return null;
                                     }),
@@ -1016,10 +1016,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: lastName,
                                     key: lastName.getKey,
-                                    hintText: "Last Name",
+                                    hintText: "Last Name".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter last name";
+                                        return "Please enter last name".tr;
                                       }
                                       return null;
                                     }),
@@ -1041,10 +1041,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: homeAddress,
                                     keyboardType: TextInputType.streetAddress,
                                     key: homeAddress.getKey,
-                                    hintText: "Home Address",
+                                    hintText: "Home Address".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter home address";
+                                        return "Please enter home address".tr;
                                       }
                                       return null;
                                     }),
@@ -1053,14 +1053,14 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: phoneNumber,
                                     key: phoneNumber.getKey,
-                                    hintText: "Phone Number",
+                                    hintText: "Phone Number".tr,
                                     keyboardType: TextInputType.phone,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter store phone number";
+                                        return "Please enter store phone number".tr;
                                       }
                                       if (value.trim().length < 10) {
-                                        return "Please enter valid store phone number";
+                                        return "Please enter valid store phone number".tr;
                                       }
                                       return null;
                                     }),
@@ -1070,13 +1070,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: emailAddress,
                                     keyboardType: TextInputType.emailAddress,
                                     key: emailAddress.getKey,
-                                    hintText: "Email Address",
+                                    hintText: "Email Address".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter email address";
+                                        return "Please enter email address".tr;
                                       }
                                       if (value.trim().invalidEmail) {
-                                        return "Please enter valid email address";
+                                        return "Please enter valid email address".tr;
                                       }
                                       return null;
                                     }),
@@ -1086,10 +1086,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: additionalNotes,
                                     //key: storeName.getKey,
-                                    hintText: "Additional Notes",
+                                    hintText: "Additional Notes".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter Additional Notes";
+                                        return "Please enter Additional Notes".tr;
                                       }
                                       return null;
                                     }),
@@ -1098,7 +1098,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 ),
                                 ImageWidget(
                                   // key: paymentReceiptCertificateKey,
-                                  title: "Id Proof",
+                                  title: "Id Proof".tr,
                                   file: idProof,
                                   validation: checkValidation(showValidation.value, idProof.path.isEmpty),
                                   filePicked: (File g) {
@@ -1108,16 +1108,16 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                const Text(
-                                  'Optional Fields',
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                                 Text(
+                                  'Optional Fields'.tr,
+                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
                                 ImageWidget(
                                   // key: paymentReceiptCertificateKey,
-                                  title: "Store Logo",
+                                  title: "Store Logo".tr,
                                   file: storeLogo,
                                   validation: false,
                                   filePicked: (File g) {
@@ -1129,7 +1129,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 ),
                                 ImageWidget(
                                   // key: paymentReceiptCertificateKey,
-                                  title: "Store Banner",
+                                  title: "Store Banner".tr,
                                   file: storeBanner,
                                   validation: false,
                                   filePicked: (File g) {
@@ -1142,7 +1142,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: description,
                                   //key: storeName.getKey,
-                                  hintText: "Description",
+                                  hintText: "Description".tr,
                                   /* validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store name";
@@ -1156,7 +1156,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: storeName,
                                   //key: storeName.getKey,
-                                  hintText: "Store Name",
+                                  hintText: "Store Name".tr,
                                   /* validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store name";
@@ -1170,7 +1170,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: storeUrl,
                                   //key: storeName.getKey,
-                                  hintText: "Store Url",
+                                  hintText: "Store Url".tr,
                                   /*validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store Url";
@@ -1209,7 +1209,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: additionalNotes2,
                                   //key: storeName.getKey,
-                                  hintText: "Additional Notes",
+                                  hintText: "Additional Notes".tr,
                                   /*  validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter Additional Notes";
@@ -1224,10 +1224,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: firstName,
                                     key: firstName.getKey,
-                                    hintText: "First Name",
+                                    hintText: "First Name".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter first name";
+                                        return "Please enter first name".tr;
                                       }
                                       return null;
                                     }),
@@ -1236,10 +1236,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: lastName,
                                     key: lastName.getKey,
-                                    hintText: "Last Name",
+                                    hintText: "Last Name".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter last name";
+                                        return "Please enter last name".tr;
                                       }
                                       return null;
                                     }),
@@ -1248,10 +1248,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: storeName,
                                     key: storeName.getKey,
-                                    hintText: "Store Name",
+                                    hintText: "Store Name".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter store name";
+                                        return "Please enter store name".tr;
                                       }
                                       return null;
                                     }),
@@ -1261,10 +1261,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: ceoName,
                                     keyboardType: TextInputType.name,
                                     key: ceoName.getKey,
-                                    hintText: "Ceo Name",
+                                    hintText: "Ceo Name".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter ceo name";
+                                        return "Please enter ceo name".tr;
                                       }
                                       return null;
                                     }),
@@ -1274,10 +1274,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: partnerCount,
                                     keyboardType: TextInputType.number,
                                     key: partnerCount.getKey,
-                                    hintText: "#Partners",
+                                    hintText: "#Partners".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter your partners";
+                                        return "Please enter your partners".tr;
                                       }
                                       return null;
                                     }),
@@ -1286,10 +1286,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: partnersName,
                                     keyboardType: TextInputType.text,
                                     // key: partnerCount.getKey,
-                                    hintText: "Partner's Name",
+                                    hintText: "Partner's Name".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter your partner's name";
+                                        return "Please enter your partner's name".tr;
                                       }
                                       return null;
                                     }),
@@ -1299,10 +1299,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: homeAddress,
                                     keyboardType: TextInputType.streetAddress,
                                     key: homeAddress.getKey,
-                                    hintText: "Home Address",
+                                    hintText: "Home Address".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter home address";
+                                        return "Please enter home address".tr;
                                       }
                                       return null;
                                     }),
@@ -1311,14 +1311,14 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: phoneNumber,
                                     key: phoneNumber.getKey,
-                                    hintText: "Phone Number",
+                                    hintText: "Phone Number".tr,
                                     keyboardType: TextInputType.phone,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter  phone number";
+                                        return "Please enter  phone number".tr;
                                       }
                                       if (value.trim().length < 10) {
-                                        return "Please enter valid  phone number";
+                                        return "Please enter valid  phone number".tr;
                                       }
                                       return null;
                                     }),
@@ -1328,13 +1328,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: emailAddress,
                                     keyboardType: TextInputType.emailAddress,
                                     key: emailAddress.getKey,
-                                    hintText: "Email Address",
+                                    hintText: "Email Address".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter email address";
+                                        return "Please enter email address".tr;
                                       }
                                       if (value.trim().invalidEmail) {
-                                        return "Please enter valid email address";
+                                        return "Please enter valid email address".tr;
                                       }
                                       return null;
                                     }),
@@ -1345,10 +1345,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: additionalNotes,
                                     //key: storeName.getKey,
-                                    hintText: "Additional Notes",
+                                    hintText: "Additional Notes".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter additional notes";
+                                        return "Please enter additional notes".tr;
                                       }
                                       return null;
                                     }),
@@ -1357,7 +1357,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 ),
                                 ImageWidget(
                                   key: paymentReceiptCertificateKey,
-                                  title: "Payment Receipt Certificate",
+                                  title: "Payment Receipt Certificate".tr,
                                   file: paymentReceiptCertificate,
                                   validation: checkValidation(showValidation.value, paymentReceiptCertificate.path.isEmpty),
                                   filePicked: (File g) {
@@ -1367,8 +1367,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                const Text(
-                                  'Optional Fields',
+                                 Text(
+                                  'Optional Fields'.tr,
                                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                                 ),
                                 const SizedBox(
@@ -1376,7 +1376,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 ),
                                 ImageWidget(
                                   // key: paymentReceiptCertificateKey,
-                                  title: "Store Logo",
+                                  title: "Store Logo".tr,
                                   file: storeLogo,
                                   validation: false,
                                   filePicked: (File g) {
@@ -1388,7 +1388,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 ),
                                 ImageWidget(
                                   // key: paymentReceiptCertificateKey,
-                                  title: "Store Banner",
+                                  title: "Store Banner".tr,
                                   file: storeBanner,
                                   validation: false,
                                   filePicked: (File g) {
@@ -1401,7 +1401,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: description,
                                   //key: storeName.getKey,
-                                  hintText: "Description",
+                                  hintText: "Description".tr,
                                   /* validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store name";
@@ -1415,7 +1415,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: storeUrl,
                                   //key: storeName.getKey,
-                                  hintText: "Store Url",
+                                  hintText: "Store Url".tr,
                                   /*validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store Url";
@@ -1453,7 +1453,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: additionalNotes2,
                                   //key: storeName.getKey,
-                                  hintText: "Additional Notes",
+                                  hintText: "Additional Notes".tr,
                                   /*  validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter Additional Notes";
@@ -1492,10 +1492,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: storeName,
                                     key: storeName.getKey,
-                                    hintText: "Store Name",
+                                    hintText: "Store Name".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter store name";
+                                        return "Please enter store name".tr;
                                       }
                                       return null;
                                     }),
@@ -1505,10 +1505,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: companyName,
                                     keyboardType: TextInputType.name,
                                     key: companyName.getKey,
-                                    hintText: "Company Name",
+                                    hintText: "Company Name".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter company name";
+                                        return "Please enter company name".tr;
                                       }
                                       return null;
                                     }),
@@ -1518,10 +1518,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: workAddress,
                                     keyboardType: TextInputType.streetAddress,
                                     key: workAddress.getKey,
-                                    hintText: "Work Address",
+                                    hintText: "Work Address".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter work address";
+                                        return "Please enter work address".tr;
                                       }
                                       return null;
                                     }),
@@ -1531,10 +1531,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: businessNumber,
                                     key: businessNumber.getKey,
                                     keyboardType: TextInputType.number,
-                                    hintText: "Business Number",
+                                    hintText: "Business Number".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter business number";
+                                        return "Please enter business number".tr;
                                       }
                                       return null;
                                     }),
@@ -1544,13 +1544,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     controller: emailAddress,
                                     keyboardType: TextInputType.emailAddress,
                                     key: emailAddress.getKey,
-                                    hintText: "Email Address",
+                                    hintText: "Email Address".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter email address";
+                                        return "Please enter email address".tr;
                                       }
                                       if (value.trim().invalidEmail) {
-                                        return "Please enter valid email address";
+                                        return "Please enter valid email address".tr;
                                       }
                                       return null;
                                     }),
@@ -1558,14 +1558,14 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: phoneNumber,
                                     key: phoneNumber.getKey,
-                                    hintText: "Phone Number",
+                                    hintText: "Phone Number".tr,
                                     keyboardType: TextInputType.phone,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter  phone number";
+                                        return "Please enter  phone number".tr;
                                       }
                                       if (value.trim().length < 10) {
-                                        return "Please enter valid  phone number";
+                                        return "Please enter valid  phone number".tr;
                                       }
                                       return null;
                                     }),
@@ -1601,11 +1601,11 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: storePhone,
                                     //key: storeName.getKey,
-                                    hintText: "Store Phone",
+                                    hintText: "Store Phone".tr,
                                     keyboardType: TextInputType.number,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter store phone";
+                                        return "Please enter store phone".tr;
                                       }
                                       return null;
                                     }),
@@ -1616,10 +1616,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                     controller: additionalNotes2,
                                     //key: storeName.getKey,
-                                    hintText: "Additional Notes",
+                                    hintText: "Additional Notes".tr,
                                     validator: (value) {
                                       if (value!.trim().isEmpty) {
-                                        return "Please enter additional notes";
+                                        return "Please enter additional notes".tr;
                                       }
                                       return null;
                                     }),
@@ -1631,7 +1631,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 // companyBankAccount
                                 ImageWidget(
                                   key: memorandumAssociationKey,
-                                  title: "Memorandum of Association",
+                                  title: "Memorandum of Association".tr,
                                   file: memorandumAssociation,
                                   validation: checkValidation(showValidation.value, memorandumAssociation.path.isEmpty),
                                   filePicked: (File g) {
@@ -1639,7 +1639,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   },
                                 ),
                                 ImageWidget(
-                                  title: "Commercial license",
+                                  title: "Commercial license".tr,
                                   file: commercialLicense,
                                   key: commercialLicenseKey,
                                   validation: checkValidation(showValidation.value, commercialLicense.path.isEmpty),
@@ -1648,7 +1648,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   },
                                 ),
                                 ImageWidget(
-                                  title: "Signature approval",
+                                  title: "Signature approval".tr,
                                   file: signatureApproval,
                                   key: signatureApprovalKey,
                                   validation: checkValidation(showValidation.value, signatureApproval.path.isEmpty),
@@ -1657,7 +1657,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   },
                                 ),
                                 ImageWidget(
-                                  title: "Extract from the Ministry of Commerce",
+                                  title: "Extract from the Ministry of Commerce".tr,
                                   file: ministryCommerce,
                                   key: ministryCommerceKey,
                                   validation: checkValidation(showValidation.value, ministryCommerce.path.isEmpty),
@@ -1666,7 +1666,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   },
                                 ),
                                 ImageWidget(
-                                  title: "Original civil information",
+                                  title: "Original civil information".tr,
                                   file: originalCivilInformation,
                                   key: originalCivilInformationKey,
                                   validation: checkValidation(showValidation.value, originalCivilInformation.path.isEmpty),
@@ -1675,7 +1675,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   },
                                 ),
                                 ImageWidget(
-                                  title: "Company bank account",
+                                  title: "Company bank account".tr,
                                   file: companyBankAccount,
                                   key: companyBankAccountKey,
                                   validation: checkValidation(showValidation.value, companyBankAccount.path.isEmpty),
@@ -1686,16 +1686,16 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                const Text(
-                                  'Optional Fields',
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                                 Text(
+                                  'Optional Fields'.tr,
+                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
                                 ImageWidget(
                                   // key: paymentReceiptCertificateKey,
-                                  title: "Store Logo",
+                                  title: "Store Logo".tr,
                                   file: storeLogo,
                                   validation: false,
                                   filePicked: (File g) {
@@ -1707,7 +1707,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 ),
                                 ImageWidget(
                                   // key: paymentReceiptCertificateKey,
-                                  title: "Store Banner",
+                                  title: "Store Banner".tr,
                                   file: storeBanner,
                                   validation: false,
                                   filePicked: (File g) {
@@ -1720,7 +1720,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: description,
                                   //key: storeName.getKey,
-                                  hintText: "Description",
+                                  hintText: "Description".tr,
                                   /* validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store name";
@@ -1734,7 +1734,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: storeUrl,
                                   //key: storeName.getKey,
-                                  hintText: "Store Url",
+                                  hintText: "Store Url".tr,
                                   /*validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter store Url";
@@ -1748,7 +1748,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: taxNumber,
                                   //key: storeName.getKey,
-                                  hintText: "Tax Number",
+                                  hintText: "Tax Number".tr,
                                   /* validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter Tax Number";
@@ -1763,7 +1763,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                   controller: workEmail,
                                   keyboardType: TextInputType.emailAddress,
                                   key: workEmail.getKey,
-                                  hintText: "Work Email",
+                                  hintText: "Work Email".tr,
                                   /*  validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter work email";
@@ -1792,7 +1792,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 VendorCommonTextfield(
                                   controller: additionalNotes,
                                   //key: storeName.getKey,
-                                  hintText: "Additional Notes",
+                                  hintText: "Additional Notes".tr,
                                   /*  validator: (value) {
                                       if (value!.trim().isEmpty) {
                                         return "Please enter Additional Notes";
@@ -1813,9 +1813,9 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                       ),
                                       enabled: true,
                                       filled: true,
-                                      hintText: "Select Payment Method",
+                                      hintText: "Select Payment Method".tr,
                                       labelStyle: GoogleFonts.poppins(color: Colors.black),
-                                      labelText: "Select Payment Method",
+                                      labelText: "Select Payment Method".tr,
                                       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                                       enabledBorder: const OutlineInputBorder(
@@ -1825,7 +1825,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     ),
                                     validator: (value) {
                                       if (paymentMethod.isEmpty) {
-                                        return "Please select payment method";
+                                        return "Please select payment method".tr;
                                       }
                                       return null;
                                     },
@@ -1858,7 +1858,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
                                       textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                                   child: Text(
-                                    "Submit",
+                                    "Submit".tr,
                                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                         color: Colors.white, fontWeight: FontWeight.w500, fontSize: AddSize.font18),
                                   )),
@@ -1959,13 +1959,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       // }) :
       VendorCommonTextfield(
           controller: TextEditingController(text: bankId),
-          hintText: "Bank Name",
+          hintText: "Bank Name".tr,
           onChanged: (value) {
             bankId = value;
           },
           validator: (value) {
             if (bankId.trim().isEmpty) {
-              return "Please enter bank name";
+              return "Please enter bank name".tr;
             }
             return null;
           }),
@@ -1974,11 +1974,11 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       VendorCommonTextfield(
           controller: accountNumber,
           key: accountNumber.getKey,
-          hintText: "Account Number",
+          hintText: "Account Number".tr,
           keyboardType: TextInputType.number,
           validator: (value) {
             if (value!.trim().isEmpty) {
-              return "Please enter account number";
+              return "Please enter account number".tr;
             }
             return null;
           }),
@@ -1987,10 +1987,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       VendorCommonTextfield(
           controller: ibnNumber,
           key: ibnNumber.getKey,
-          hintText: "IBAN Number",
+          hintText: "IBAN Number".tr,
           validator: (value) {
             if (value!.trim().isEmpty) {
-              return "Please enter IBAN number";
+              return "Please enter IBAN number".tr;
             }
             return null;
           }),
@@ -1999,10 +1999,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       VendorCommonTextfield(
           controller: accountHolderName,
           key: accountHolderName.getKey,
-          hintText: "Account Holder Name",
+          hintText: "Account Holder Name".tr,
           validator: (value) {
             if (value!.trim().isEmpty) {
-              return "Please enter account holder name";
+              return "Please enter account holder name".tr;
             }
             return null;
           }),
@@ -2040,7 +2040,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                   children: [
                     Expanded(
                         child: Text(
-                      "Validity",
+                      "Validity".tr,
                       style: titleStyle,
                     )),
                     Text("${planInfo.label}"),

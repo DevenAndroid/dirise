@@ -96,7 +96,7 @@ class _ImageWidgetState extends State<ImageWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Select ${widget.title}",
+                        "${'Select'} ${widget.title}",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             color: validation ? Theme.of(context).colorScheme.error : const Color(0xff463B57),

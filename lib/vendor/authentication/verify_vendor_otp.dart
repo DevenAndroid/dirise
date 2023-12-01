@@ -184,7 +184,7 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
                             },
                             child: Obx(() {
                               return Text(
-                                ' Resend OTP\n'
+                                '${'Resend OTP'.tr}\n'
                                 '${timerInt.value > 0 ? "In ${timerInt.value > 9 ? timerInt.value : "0${timerInt.value}"}" : ""}',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(

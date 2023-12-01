@@ -52,7 +52,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("Select Return Policy",style: titleStyle,),
+                Text("Select Return Policy".tr,style: titleStyle,),
                 StatefulBuilder(
                   builder: (context, newState) {
                     return Container(
@@ -86,7 +86,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("${item.days} Days",style: titleStyle,),
+                                Text("${item.days} ${'Days'}",style: titleStyle,),
                                 Text(item.policyDiscreption.toString(),style: normalStyle,),
                               ],
                             ),
@@ -156,7 +156,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                           ),
                         ))
                         .toList(),
-                    hint: const Text('Rating'),
+                    hint:  Text('Rating'.tr),
                     onChanged: (value) {
                       if (value == null) return;
                       controller.productType = value;
@@ -170,10 +170,10 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   VendorCommonTextfield(
                       controller: controller.productNameController,
                       key: controller.productNameController.getKey,
-                      hintText: "Enter Product Name",
+                      hintText: "Enter Product Name".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "Product name is required";
+                          return "Product name is required".tr;
                         }
                         return null;
                       }),
@@ -181,10 +181,10 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   VendorCommonTextfield(
                       controller: controller.skuController,
                       key: controller.skuController.getKey,
-                      hintText: "Enter SKU",
+                      hintText: "Enter SKU".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "SKU is required";
+                          return "SKU is required".tr;
                         }
                         return null;
                       }),
@@ -208,13 +208,13 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       controller: controller.purchasePriceController,
                       key: controller.purchasePriceController.getKey,
                       keyboardType: TextInputType.number,
-                      hintText: "Purchase Price",
+                      hintText: "Purchase Price".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "Purchase price is required";
+                          return "Purchase price is required".tr;
                         }
                         if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                          return "Enter valid purchased price";
+                          return "Enter valid purchased price".tr;
                         }
                         return null;
                       }),
@@ -223,13 +223,13 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       controller: controller.sellingPriceController,
                       key: controller.sellingPriceController.getKey,
                       keyboardType: TextInputType.number,
-                      hintText: "Selling Price",
+                      hintText: "Selling Price".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "Selling price is required";
+                          return "Selling price is required".tr;
                         }
                         if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                          return "Enter valid selling price";
+                          return "Enter valid selling price".tr;
                         }
                         return null;
                       }),
@@ -247,7 +247,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       ),
                       enabled: true,
                       filled: true,
-                      hintText: "Tax Apply",
+                      hintText: "Tax Apply".tr,
                       labelStyle: GoogleFonts.poppins(color: Colors.black),
                       //labelText: "Tax Apply",
                       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
@@ -260,7 +260,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                     value: controller.tax,
                     validator: (gg) {
                       if (controller.tax.isEmpty) {
-                        return "Please select tax ";
+                        return "Please select tax ".tr;
                       }
                       return null;
                     },
@@ -303,7 +303,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       ),
                       enabled: true,
                       filled: true,
-                      hintText: "Tax (in %)",
+                      hintText: "Tax (in %)".tr,
                       labelStyle: GoogleFonts.poppins(color: Colors.black),
                       //labelText: "Tax Apply",
                       fillColor: const Color(0xffE2E2E2).withOpacity(.35),
@@ -348,13 +348,13 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       controller: controller.stockController,
                       key: controller.stockController.getKey,
                       keyboardType: TextInputType.number,
-                      hintText: "Stock Quantity",
+                      hintText: "Stock Quantity".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "Stock quantity is required";
+                          return "Stock quantity is required".tr;
                         }
                         if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                          return "Enter valid stock quantity";
+                          return "Enter valid stock quantity".tr;
                         }
                         return null;
                       }),
@@ -363,13 +363,13 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       controller: controller.stockAlertController,
                       //key: controller.stockController.getKey,
                       keyboardType: TextInputType.number,
-                      hintText: "Stock Alert",
+                      hintText: "Stock Alert".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "Stock alert is required";
+                          return "Stock alert is required".tr;
                         }
                         if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                          return "Enter valid stock alert";
+                          return "Enter valid stock alert".tr;
                         }
                         return null;
                       }),
@@ -382,7 +382,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       onTap: () {
                         showPolicyDialog();
                       },
-                      hintText: "Return Days",
+                      hintText: "Return Days".tr,
                       validator: (value) {
                         return null;
                       }),
@@ -392,7 +392,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                         controller: controller.weightController,
                         key: controller.weightController.getKey,
                         keyboardType: TextInputType.number,
-                        hintText: "Weight",
+                        hintText: "Weight".tr,
                         validator: (value) {
                           // if (value!.trim().isEmpty) {
                           //   return "Product weight is required";
@@ -419,9 +419,9 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                         ),
                         enabled: true,
                         filled: true,
-                        hintText: "Weight Unit",
+                        hintText: "Weight Unit".tr,
                         labelStyle: GoogleFonts.poppins(color: Colors.black),
-                        labelText: "Weight Unit",
+                        labelText: "Weight Unit".tr,
                         fillColor: const Color(0xffE2E2E2).withOpacity(.35),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                         enabledBorder: const OutlineInputBorder(
@@ -466,8 +466,8 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                               controller: controller.productDurationValueController,
                               key: controller.productDurationValueController.getKey,
                               keyboardType: TextInputType.number,
-                              hintText: "Preparation Time",
-                              labelText: "Preparation Time",
+                              hintText: "Preparation Time".tr,
+                              labelText: "Preparation Time".tr,
                               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                               validator: (value) {
                                 return null;
@@ -494,7 +494,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                               filled: true,
                               errorMaxLines: 2,
                               labelStyle: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
-                              labelText: "Preparation Duration",
+                              labelText: "Preparation Duration".tr,
                               fillColor: const Color(0xffE2E2E2).withOpacity(.35),
                               contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                               enabledBorder: const OutlineInputBorder(
@@ -507,7 +507,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                                   .trim()
                                   .isNotEmpty &&
                                   controller.productDurationTypeValue.isEmpty) {
-                                return "Please select preparation duration";
+                                return "Please select preparation duration".tr;
                               }
                               return null;
                             },
@@ -592,10 +592,10 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   VendorCommonTextfield(
                       controller: controller.shortDescriptionController,
                       key: controller.shortDescriptionController.getKey,
-                      hintText: "Short Description",
+                      hintText: "Short Description".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "Short description is required";
+                          return "Short description is required".tr;
                         }
                         return null;
                       }),
@@ -605,10 +605,10 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       key: controller.longDescriptionController.getKey,
                       maxLength: 5000,
                       isMulti: true,
-                      hintText: "Long Description",
+                      hintText: "Long Description".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "Long description is required";
+                          return "Long description is required".tr;
                         }
                         return null;
                       }),

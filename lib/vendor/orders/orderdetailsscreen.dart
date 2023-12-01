@@ -289,7 +289,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Customer Number",
+                                                    "Customer Number".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: const Color(0xff486769),
                                                         fontWeight: FontWeight.w300,
@@ -333,7 +333,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Customer Address",
+                                                    "Customer Address".tr,
                                                     style: GoogleFonts.poppins(
                                                         color: const Color(0xff486769),
                                                         fontWeight: FontWeight.w300,
@@ -401,7 +401,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Coupon Code:',
+                                            'Coupon Code:'.tr,
                                             style: GoogleFonts.poppins(
                                               color: const Color(0xFF293044),
                                               fontSize: 15,
@@ -428,7 +428,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          'Subtotal:',
+                                          'Subtotal:'.tr,
                                           style: GoogleFonts.poppins(
                                             color: const Color(0xFF293044),
                                             fontSize: 15,
@@ -454,7 +454,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          'Total:',
+                                          'Total:'.tr,
                                           style: GoogleFonts.poppins(
                                             color: const Color(0xFF293044),
                                             fontSize: 15,
@@ -491,7 +491,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AddSize.size10)),
                                 textStyle: GoogleFonts.poppins(fontSize: AddSize.font20, fontWeight: FontWeight.w600)),
                             child: Text(
-                              "Mark Delivered",
+                              "Mark Delivered".tr,
                               style: GoogleFonts.poppins(
                                   color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16,
                               ),

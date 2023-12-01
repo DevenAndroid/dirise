@@ -57,7 +57,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
     return Scaffold(
         backgroundColor: const Color(0xffF4F4F4),
         appBar: AppBar(
-          title: Text('All Product',
+          title: Text('All Product'.tr,
               style: GoogleFonts.poppins(
                 fontSize: 17,
                 fontWeight: FontWeight.w600,
@@ -116,7 +116,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                               fillColor: Colors.white,
                               contentPadding:
                                   EdgeInsets.symmetric(horizontal: AddSize.padding20, vertical: AddSize.padding10),
-                              hintText: 'Search Products',
+                              hintText: 'Search Products'.tr,
                               hintStyle: GoogleFonts.poppins(
                                   fontSize: AddSize.font16, color: Colors.black, fontWeight: FontWeight.w400)),
                         ),
@@ -169,8 +169,8 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                           return shimmerLoader(index);
                         }
                         if (productController.model.product!.isEmpty) {
-                          return const Center(
-                            child: Text("No Product Added"),
+                          return  Center(
+                            child: Text("No Product Added".tr),
                           );
                         }
                         final item = productController.model.product![index];
@@ -202,7 +202,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  item.pname ?? "Product ${item.id}",
+                                                  item.pname ?? "${'Product'.tr} ${item.id}",
                                                   style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                                                 ),
                                               ),
@@ -234,7 +234,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                             height: 3,
                                           ),
                                           Text(
-                                            'QTY: ${item.inStock} piece',
+                                            '${'QTY'}: ${item.inStock} ${'piece'}',
                                             style: normalStyle,
                                           ),
                                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -333,7 +333,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Testate Book',
+                          'Testate Book'.tr,
                           style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
                         ).convertToShimmerWithContainer,
                       ),
@@ -356,14 +356,14 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                   ),
                   3.spaceY,
                   Text(
-                    'History Logic',
+                    'History Logic'.tr,
                     style: GoogleFonts.poppins(
                       color: const Color(0xff676E73),
                       fontSize: 14,
                     ),
                   ).convertToShimmerWithContainer,
                   4.spaceY,
-                  Text('5 piece',
+                  Text('5 ${'piece'}',
                       style: GoogleFonts.poppins(
                         color: const Color(0xff676E73),
                         fontSize: 14,

@@ -65,7 +65,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
 
   getPaymentUrl() {
     if (paymentMethod.isEmpty) {
-      showToast("Please select payment method");
+      showToast("Please select payment method".tr);
       return;
     }
     repositories.postApi(url: ApiUrls.createPaymentUrl, context: context, mapData: {
@@ -114,7 +114,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                     height: 20,
                   ),
                   Text(
-                    "Select Payment Option",
+                    "Select Payment Option".tr,
                     style: titleStyle,
                   ),
                   const SizedBox(
@@ -131,9 +131,9 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                             ),
                             enabled: true,
                             filled: true,
-                            hintText: "Select Payment Method",
+                            hintText: "Select Payment Method".tr,
                             labelStyle: GoogleFonts.poppins(color: Colors.black),
-                            labelText: "Select Payment Method",
+                            labelText: "Select Payment Method".tr,
                             fillColor: const Color(0xffE2E2E2).withOpacity(.35),
                             contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
                             enabledBorder: const OutlineInputBorder(
@@ -143,7 +143,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                           ),
                           validator: (value) {
                             if (paymentMethod.isEmpty) {
-                              return "Please select payment method";
+                              return "Please select payment method".tr;
                             }
                             return null;
                           },
@@ -183,7 +183,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: Text(
-                          "Make Payment",
+                          "Make Payment".tr,
                           style: titleStyle.copyWith(color: Colors.white),
                         ),
                       ),
@@ -200,7 +200,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
-        titleText: 'Plans',
+        titleText: 'Plans'.tr,
         bottom: modelPlansList != null
             ? PreferredSize(
                 preferredSize: Size(context.getSize.width, kToolbarHeight + 50),
@@ -270,9 +270,9 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                                         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                                         child: Text(
                                           e.key == 1
-                                              ? "${modelPlansList!.plansDiscount!.companyDiscount}% Off"
+                                              ? "${modelPlansList!.plansDiscount!.companyDiscount}% ${'Off'}"
                                               : e.key == 2
-                                                  ? "${modelPlansList!.plansDiscount!.personalDiscount}% Off"
+                                                  ? "${modelPlansList!.plansDiscount!.personalDiscount}% ${'Off'}"
                                                   : "",
                                           style: GoogleFonts.poppins(
                                             color: AppTheme.buttonColor,
@@ -313,7 +313,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      'PLANS',
+                                      'PLANS'.tr,
                                       style: GoogleFonts.poppins(
                                         color: const Color(0xFF111727),
                                         fontSize: 18,
@@ -424,7 +424,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
         child: ElevatedButton(
           onPressed: () {
             if (selectedPlan == null) {
-              showToast("Please select any plan");
+              showToast("Please select any plan".tr);
               return;
             }
             showPaymentOption();
@@ -436,7 +436,7 @@ class _EditVendorPlanState extends State<EditVendorPlan> with SingleTickerProvid
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Text(
-              "Update",
+              "Update".tr,
               style: titleStyle.copyWith(color: Colors.white),
             ),
           ),

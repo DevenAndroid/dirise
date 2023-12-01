@@ -77,7 +77,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Bank Details',
+        title: Text('Bank Details'.tr,
             style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
@@ -133,24 +133,24 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                                 isExpanded: true,
                                 value: bankId.isEmpty ? null : bankId,
                                 style: const TextStyle(color: Colors.red),
-                                decoration: const InputDecoration(
-                                  hintText: "Please select bank",
+                                decoration:  InputDecoration(
+                                  hintText: "Please select bank".tr,
                                   // labelText: "Please select bank",
-                                  contentPadding: EdgeInsets.all(15),
-                                  focusedErrorBorder: OutlineInputBorder(
+                                  contentPadding: const EdgeInsets.all(15),
+                                  focusedErrorBorder: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                  errorBorder: OutlineInputBorder(
+                                  errorBorder: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: const OutlineInputBorder(
                                       borderRadius: BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(color: AppTheme.secondaryColor)),
-                                  disabledBorder: OutlineInputBorder(
+                                  disabledBorder: const OutlineInputBorder(
                                     borderRadius: BorderRadius.all(Radius.circular(8)),
                                     borderSide: BorderSide(color: AppTheme.secondaryColor),
                                   ),
-                                  enabledBorder: OutlineInputBorder(
+                                  enabledBorder: const OutlineInputBorder(
                                     borderRadius: BorderRadius.all(Radius.circular(8)),
                                     borderSide: BorderSide(color: AppTheme.secondaryColor),
                                   ),
@@ -168,7 +168,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                                     .toList(),
                                 validator: (value) {
                                   if (bankId.isEmpty) {
-                                    return "Please select bank";
+                                    return "Please select bank".tr;
                                   }
                                   return null;
                                 },
@@ -188,7 +188,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                                 controller: accountNumber,
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
-                                    return "Please enter account number";
+                                    return "Please enter account number".tr;
                                   }
                                   return null;
                                 },
@@ -202,11 +202,11 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                                 controller: accountHolderName,
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
-                                    return "Please enter account holder name";
+                                    return "Please enter account holder name".tr;
                                   }
                                   return null;
                                 },
-                                hintText: 'Account Holder Name',
+                                hintText: 'Account Holder Name'.tr,
                                 onTap: () {},
                               ),
                               const SizedBox(
@@ -216,11 +216,11 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                                 controller: bicSwiftCode,
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
-                                    return "Please enter IFSC code";
+                                    return "Please enter IFSC code".tr;
                                   }
                                   return null;
                                 },
-                                hintText: 'IFSC Code',
+                                hintText: 'IFSC Code'.tr,
                                 onTap: () {},
                               ),
                               const SizedBox(
@@ -230,7 +230,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
                                 onPressed: () {
                                   updateBankDetails();
                                 },
-                                title: "Add Account",
+                                title: "Add Account".tr,
                               ),
                             ],
                           ),

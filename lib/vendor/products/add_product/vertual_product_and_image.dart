@@ -38,7 +38,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                     children: [
                       Flexible(
                         child: Text(
-                          "Upload Image",
+                          "Upload Image".tr,
                           style:
                               GoogleFonts.poppins(fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
                         ),
@@ -71,7 +71,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                     children: [
                                       Flexible(
                                         child: Text(
-                                          "Upload Digital Reader",
+                                          "Upload Digital Reader".tr,
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
                                         ),
@@ -149,7 +149,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                                 height: 15,
                                               ),
                                               Text(
-                                                "Upload PDF File",
+                                                "Upload PDF File".tr,
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w300,
                                                     color: const Color(0xff463B57),
@@ -172,7 +172,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                     children: [
                                       Flexible(
                                         child: Text(
-                                          "Upload Voice",
+                                          "Upload Voice".tr,
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w500, color: const Color(0xff2F2F2F), fontSize: 18),
                                         ),
@@ -205,10 +205,10 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                 controller: controller.languageController,
                                 //key: controller.stockController.getKey,
                                 keyboardType: TextInputType.text,
-                                hintText: "Language",
+                                hintText: "Language".tr,
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
-                                    return "Language is required";
+                                    return "Language is required".tr;
                                   }
                                 /*  if ((num.tryParse(value.trim()) ?? 0) < 1) {
                                     return "Enter valid Language";
@@ -264,7 +264,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                                                 height: 15,
                                               ),
                                               Text(
-                                                "Upload Voice",
+                                                "Upload Voice".tr,
                                                 style: GoogleFonts.poppins(
                                                     fontWeight: FontWeight.w300,
                                                     color: const Color(0xff463B57),
@@ -333,7 +333,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                       height: 15,
                     ),
                     Text(
-                      "Upload Product image",
+                      "Upload Product image".tr,
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w300, color: const Color(0xff463B57), fontSize: AddSize.font14),
                     ),
