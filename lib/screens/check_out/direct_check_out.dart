@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dirise/utils/helper.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,10 @@ import '../../controller/cart_controller.dart';
 import '../../controller/profile_controller.dart';
 import '../../model/model_address_list.dart';
 import '../../model/order_models/model_direct_order_details.dart';
+import '../../model/vendor_models/model_payment_method.dart';
+import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
+import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';
 import '../../widgets/loading_animation.dart';
 
@@ -26,6 +31,15 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
   AddressData selectedAddress = AddressData();
   final GlobalKey addressKey = GlobalKey();
 
+  ModelPaymentMethods? methods;
+  getPaymentGateWays() {
+    Repositories().getApi(url: ApiUrls.paymentMethodsUrl).then((value) {
+      methods = ModelPaymentMethods.fromJson(jsonDecode(value));
+      setState(() {});
+    });
+  }
+
+  String paymentMethod1 = "";
   RxBool showValidation = false.obs;
   RxString deliveryOption = "".obs;
   RxString paymentOption = "".obs;
@@ -36,6 +50,8 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
   @override
   void initState() {
     super.initState();
+
+    getPaymentGateWays();
     if (Get.arguments != null) {
       directOrderResponse = Get.arguments;
     }
@@ -185,7 +201,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
           cartController.placeOrder(
               context: context,
               currencyCode: "usd",
-              paymentMethod: "",
+              paymentMethod: paymentMethod1,
               deliveryOption: deliveryOption.value,
               productID: directOrderResponse.prodcutData!.id.toString(),
               subTotalPrice: directOrderResponse.subtotal.toString(),
@@ -222,48 +238,85 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      width: size.width * .3,
-                      height: size.height * .08,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
-                      alignment: Alignment.center,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "assets/images/knet.png",
-                            width: 50,
-                            height: 55,
-                          )
-                        ],
+                // Row(
+                //   children: [
+                //     Container(
+                //       width: size.width * .3,
+                //       height: size.height * .08,
+                //       decoration: BoxDecoration(
+                //           border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
+                //       alignment: Alignment.center,
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.center,
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Image.asset(
+                //             "assets/images/knet.png",
+                //             width: 50,
+                //             height: 55,
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //     const SizedBox(
+                //       width: 15,
+                //     ),
+                //     Container(
+                //       width: size.width * .3,
+                //       height: size.height * .08,
+                //       decoration: BoxDecoration(
+                //           border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
+                //       alignment: Alignment.center,
+                //       child: Column(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           const Icon(
+                //             Icons.credit_card,
+                //             color: Color(0xffAFB1B1),
+                //           ),
+                //           Text("Credit Card".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12)),
+                //         ],
+                //       ),
+                //     )
+                //   ],
+                // ),
+                if (methods != null && methods!.data != null)
+                  DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
+                        enabled: true,
+                        filled: true,
+                        hintText: "Select Payment Method".tr,
+                        labelStyle: GoogleFonts.poppins(color: Colors.black),
+                        labelText: "Select Payment Method".tr,
+                        fillColor: const Color(0xffE2E2E2).withOpacity(.35),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          borderSide: BorderSide(color: AppTheme.secondaryColor),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Container(
-                      width: size.width * .3,
-                      height: size.height * .08,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xffAFB1B1)), borderRadius: BorderRadius.circular(12)),
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.credit_card,
-                            color: Color(0xffAFB1B1),
-                          ),
-                          Text("Credit Card".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12)),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                      isExpanded: true,
+                      items: methods!.data!
+                          .map((e) => DropdownMenuItem(
+                          value: e.paymentMethodId.toString(),
+                          child: Row(
+                            children: [
+                              Expanded(child: Text(e.paymentMethodEn.toString())),
+                              SizedBox(width: 35, height: 35, child: Image.network(e.imageUrl.toString()))
+                            ],
+                          )))
+                          .toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        paymentMethod1 = value;
+                        setState(() {});
+                      })
+                else
+                  const LoadingAnimation(),
                 const SizedBox(
                   height: 20,
                 ),

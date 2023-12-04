@@ -10,7 +10,7 @@ class ModelPlaceOrderResponse {
     status = json['status'];
     URL = json['URL'];
     message = json['message'];
-    order_id = json['order_id'];
+    order_id = json['Order_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -18,7 +18,7 @@ class ModelPlaceOrderResponse {
     data['status'] = status;
     data['message'] = message;
     data['URL'] = URL;
-    data['order_id'] = order_id;
+    data['Order_id'] = order_id;
     return data;
   }
 }
