@@ -21,6 +21,7 @@ class AppStrings{
     static String eBooks = "E Books";
     static String orders = "Orders";
     static String calendar = "My Calender";
+    static String publishPostScreen = "Publish Post";
     static String faq = "Faq's";
     static String pdfReader = "Digital Pdf Reader";
     static String vendorPartner = "Vendor partner";

@@ -7,6 +7,7 @@ import 'package:dirise/screens/my_account_screens/profile_screen.dart';
 import 'package:dirise/screens/my_account_screens/return_policy_screen.dart';
 import 'package:dirise/screens/my_account_screens/termsconditions_screen.dart';
 import 'package:get/get.dart';
+import '../posts/posts_ui.dart';
 import '../screens/auth_screens/createacc_screen.dart';
 import '../screens/auth_screens/otp_screen.dart';
 import '../screens/calender.dart';
@@ -58,6 +59,7 @@ class MyRouters {
     GetPage(name: NewPasswordScreen.route, page: () => const NewPasswordScreen()),
     GetPage(name: TermConditionScreen.route, page: () => const TermConditionScreen()),
     GetPage(name: EventCalendarScreen.route, page: () => const EventCalendarScreen()),
+    GetPage(name: PublishPostScreen.route, page: () => const PublishPostScreen()),
     GetPage(name: VirtualAssetsScreen.route, page: () => const VirtualAssetsScreen()),
     GetPage(name: WithdrawMoney.route, page: () => const WithdrawMoney()),
     GetPage(name: VendorDashBoardScreen.route, page: () => const VendorDashBoardScreen()),
