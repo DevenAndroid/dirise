@@ -55,6 +55,8 @@ dependencies:
   flutter_exif_rotation: ^0.5.1
   webview_flutter: ^4.2.4
   url_launcher: ^6.1.14
+  freshchat_sdk: ^0.10.10
+  better_player_plus: ^1.0.5
 
 
 dev_dependencies:

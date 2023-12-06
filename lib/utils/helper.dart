@@ -43,9 +43,27 @@ class NewHelper {
   }
 
   Future<File?> addFilePicker({List<String>? allowedExtensions}) async {
+
     try {
       final item = await FilePicker.platform.pickFiles(
         type: allowedExtensions != null ? FileType.custom : FileType.any,
+        allowedExtensions: allowedExtensions,
+      );
+      if (item == null) {
+        return null;
+      } else {
+        return File(item.files.first.path!);
+      }
+    } on PlatformException catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<File?> addVideoPicker({List<String>? allowedExtensions}) async {
+
+    try {
+      final item = await FilePicker.platform.pickFiles(
+        type: allowedExtensions != null ? FileType.video : FileType.video,
         allowedExtensions: allowedExtensions,
       );
       if (item == null) {

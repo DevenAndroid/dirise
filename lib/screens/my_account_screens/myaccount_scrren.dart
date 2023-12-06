@@ -2,15 +2,20 @@ import 'dart:io';
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/auth_screens/login_screen.dart';
 import 'package:dirise/utils/helper.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:freshchat_sdk/freshchat_sdk.dart';
+import 'package:freshchat_sdk/freshchat_user.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/profile_controller.dart';
+import '../../freshchat.dart';
 import '../../posts/posts_ui.dart';
 import '../../vendor/authentication/vendor_plans_screen.dart';
 import '../../vendor/dashboard/dashboard_screen.dart';
@@ -43,11 +48,6 @@ enum SingingCharacter { lafayette, jefferson }
 class _MyAccountScreenState extends State<MyAccountScreen> {
   RxString selectedLAnguage = "English".obs;
 
-  @override
-  void initState() {
-    super.initState();
-    checkLanguage();
-  }
 
   updateLanguage(String gg) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -144,6 +144,75 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     }
   }
 
+  void notifyRestoreId(var event) async {
+    FreshchatUser user = await Freshchat.getUser;
+    String? restoreId = user.getRestoreId();
+    if (restoreId != null) {
+      Clipboard.setData(new ClipboardData(text: restoreId));
+      // showToast("Restore ID copied: $restoreId");
+    }
+  }
+
+
+
+  void registerFcmToken() async {
+    if (Platform.isAndroid) {
+      String? token = await FirebaseMessaging.instance.getToken();
+      print("FCM Token is generated $token");
+      Freshchat.setPushRegistrationToken(token!);
+    }
+  }
+  String APP_ID = "2f141a1a-4a9b-4836-80a6-f61f3c5bd005",
+      APP_KEY = "37ac9520-8432-4f0a-8e64-3f2f84c9379d",
+      DOMAIN = "msdk.freshchat.com";
+  void initState() {
+    super.initState();
+    checkLanguage();
+    Freshchat.init(APP_ID, APP_KEY, DOMAIN);
+    /**
+     * This is the Firebase push notification server key for this sample app.
+     * Please save this in your Freshchat account to test push notifications in Sample app.
+     *
+     * Server key: Please refer support documentation for the server key of this sample app.
+     *
+     * Note: This is the push notification server key for sample app. You need to use your own server key for testing in your application
+     */
+    var restoreStream = Freshchat.onRestoreIdGenerated;
+    var restoreStreamSubsctiption = restoreStream.listen((event) {
+      print("Restore ID Generated: $event");
+      notifyRestoreId(event);
+    });
+
+    var unreadCountStream = Freshchat.onMessageCountUpdate;
+    unreadCountStream.listen((event) {
+      print("Have unread messages: $event");
+    });
+
+    var userInteractionStream = Freshchat.onUserInteraction;
+    userInteractionStream.listen((event) {
+      print("User interaction for Freshchat SDK");
+    });
+
+    if (Platform.isAndroid) {
+      registerFcmToken();
+      FirebaseMessaging.instance.onTokenRefresh
+          .listen(Freshchat.setPushRegistrationToken);
+
+      Freshchat.setNotificationConfig(notificationInterceptionEnabled: true);
+      var notificationInterceptStream = Freshchat.onNotificationIntercept;
+      notificationInterceptStream.listen((event) {
+        print("Freshchat Notification Intercept detected");
+        Freshchat.openFreshchatDeeplink(event["url"]);
+      });
+
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        var data = message.data;
+        handleFreshchatNotification(data);
+        print("Notification Content: $data");
+      });
+      FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -380,16 +449,57 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
-                          Get.toNamed(PublishPostScreen.route);
+                          setState(() {
+
+                          });
+                          Freshchat.showConversations();
                         },
                         child: Row(
                           children: [
-                            Image.asset(height: 25, 'assets/icons/calendar.png'),
+                            Image.asset(height: 25, 'assets/icons/chat.png'),
                             const SizedBox(
                               width: 20,
                             ),
                             Text(
-                              'Publish Post',
+                              'chat',
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Get.toNamed(PublishPostScreen.route);
+                        },
+                        child: Row(
+                          children: [
+                            Image.asset(height: 24, 'assets/icons/send_icon.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              'Publish Post'.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),

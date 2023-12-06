@@ -79,6 +79,9 @@ class ApiUrls {
   static const String productCategoriesListUrl = "${baseUrl}categries";
   static const String categoryListUrl = "${baseUrl}categories-list?category_id=";
   static const String categoryFilterUrl = "${baseUrl}category-filter";
+  static const String faqListUrl = "${baseUrl}faq-list";
+  static const String getPublishUrl = "${baseUrl}all-news";
+  static const String createPostUrl = "${baseUrl}create-news";
 
 
 

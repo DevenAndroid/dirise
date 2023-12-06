@@ -412,11 +412,13 @@ class LocaleString extends Translations {
           'Please enter your partners' : 'Please enter your partners',
           'Please enter ceo name' : 'Please enter ceo name',
           'Ceo Name' : 'Ceo Name',
+          'Publish Post' : 'Publish Post',
         },
 
 
 
         'ar_AR': {
+          'Publish Post' : 'شارك المنشور',
           'Ceo Name' : 'اسم الرئيس التنفيذي',
           'Please enter ceo name' : 'الرجاء إدخال اسم الرئيس التنفيذي',
           'Please enter your partners' : 'الرجاء إدخال شركائك',

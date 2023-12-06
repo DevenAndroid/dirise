@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:dirise/language/app_strings.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../model/aboutus_model.dart';
+import '../../model/faq_model.dart';
 import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
 
@@ -20,22 +22,29 @@ class FrequentlyAskedQuestionsScreen extends StatefulWidget {
 
 class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestionsScreen> {
   bool senderExpansion = true;
-  Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
-  Future aboutUsData() async {
-    Map<String, dynamic> map = {};
-    map["id"] = 11;
-    repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
-      aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
+  // Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
+  Rx<FaqModel> faqModel = FaqModel().obs;
+  // Future aboutUsData() async {
+  //   Map<String, dynamic> map = {};
+  //   map["id"] = 11;
+  //   repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
+  //     aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
+  //   });
+  // }
+  Future getFaqData() async {
+
+    repositories.getApi(url: ApiUrls.faqListUrl).then((value) {
+      faqModel.value = FaqModel.fromJson(jsonDecode(value));
     });
   }
 
   final Repositories repositories = Repositories();
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    aboutUsData();
+    // aboutUsData();
+    getFaqData();
   }
 
   @override
@@ -59,14 +68,60 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
               ),
             )),
         body: Obx(() {
-          return aboutusModal.value.status == true
+          return faqModel.value.status == true
               ? SingleChildScrollView(
-                  child: Html(data: aboutusModal.value.data!.content!),
+                  child: ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                     shrinkWrap: true,
+                      itemCount: faqModel.value.faq!.length,
+                      padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 10),
+                      itemBuilder: (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 15),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: const Color(0xFFDCDCDC),
+                                  width: 1
+                                ),
+                                borderRadius: BorderRadius.circular(8), ),
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                  unselectedWidgetColor: Colors.white,
+                                  colorScheme: const ColorScheme.light(
+                                    primary: Colors.black,
+                                  ),
+                                  dividerColor: Colors.transparent,
+                                ),
+                                child: ExpansionTile(
+                                  childrenPadding: const EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                                  trailing: faqModel.value.faq![index].isOpen == true ? const Icon(Icons.remove) :const Icon(Icons.add),
+                                  title: Text(faqModel.value.faq![index].question.toString(),
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600
+                                    ),
+                                  ),
+                                  children: [
+                                      Html(data: faqModel.value.faq![index].answer.toString()),
+                                  ],
+                                  onExpansionChanged: (value){
+                                    setState(() {
+                                      faqModel.value.faq![index].isOpen = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                  ),
                 )
-              : const Center(
-                  child: CircularProgressIndicator(
-                  color: Colors.grey,
-                ));
+              : const LoadingAnimation();
         }));
   }
 }
