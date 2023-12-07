@@ -1,3 +1,4 @@
+import 'package:dirise/widgets/common_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:freshchat_sdk/freshchat_sdk.dart';
@@ -16,7 +17,7 @@ class Chat extends StatelessWidget {
     return MaterialApp(
       title: 'Freshchat Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xff014E70),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Freshchat Flutter Demo'),

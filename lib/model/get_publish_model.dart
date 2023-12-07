@@ -36,6 +36,8 @@ class Data {
   String? fileType;
   String? createdAt;
   String? updatedAt;
+  int? likeCount;
+  bool? isLike;
 
   Data(
       {this.id,
@@ -45,7 +47,9 @@ class Data {
         this.file,
         this.fileType,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.likeCount,
+        this.isLike});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -57,6 +61,8 @@ class Data {
     fileType = json['file_type'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    likeCount = json['like_count'];
+    isLike = json['is_like'];
   }
 
   Map<String, dynamic> toJson() {
@@ -71,6 +77,8 @@ class Data {
     data['file_type'] = this.fileType;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['like_count'] = this.likeCount;
+    data['is_like'] = this.isLike;
     return data;
   }
 }
