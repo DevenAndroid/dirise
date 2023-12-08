@@ -127,7 +127,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
         },
         child: Obx(() {
           return getPublishModel.value.status == true
-              ? SingleChildScrollView(
+              ? Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
                   child: Column(
                     children: [
@@ -256,196 +256,198 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 30,
                       ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: getPublishModel.value.data!.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          var item = getPublishModel.value.data![index];
-                          String inputDateString = item.createdAt.toString();
-                          DateTime dateTime = DateTime.parse(inputDateString);
-                          String formattedDate =
-                              "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
-                          return Column(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF5F5F5F).withOpacity(0.4),
-                                    offset: const Offset(0.0, 0.2),
-                                    blurRadius: 2,
-                                  ),
-                                ]),
-                                padding: const EdgeInsets.all(15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.circular(100),
-                                              child: CachedNetworkImage(
-                                                imageUrl: item.userId!.profileImage.toString(),
-                                                height: 45,
-                                                width: 45,
-                                                fit: BoxFit.cover,
-                                                errorWidget: (context, url, error) =>
-                                                    Image.asset('assets/images/post_img.png'),
+                      Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          itemCount: getPublishModel.value.data!.length,
+                          itemBuilder: (context, index) {
+                            var item = getPublishModel.value.data![index];
+                            String inputDateString = item.createdAt.toString();
+                            DateTime dateTime = DateTime.parse(inputDateString);
+                            String formattedDate =
+                                "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+                            return Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF5F5F5F).withOpacity(0.4),
+                                      offset: const Offset(0.0, 0.2),
+                                      blurRadius: 2,
+                                    ),
+                                  ]),
+                                  padding: const EdgeInsets.all(15),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(100),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: item.userId!.profileImage.toString(),
+                                                  height: 45,
+                                                  width: 45,
+                                                  fit: BoxFit.cover,
+                                                  errorWidget: (context, url, error) =>
+                                                      Image.asset('assets/images/post_img.png'),
+                                                ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 15,
-                                            ),
-                                            Text(
-                                              item.userId!.name.toString(),
-                                              style: GoogleFonts.poppins(
-                                                  color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          formattedDate.toString(),
-                                          style: GoogleFonts.poppins(
-                                              color: const Color(0xFF5B5B5B), fontWeight: FontWeight.w500, fontSize: 12),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 18,
-                                    ),
-                                    Text(
-                                      item.discription ?? '',
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xFF5B5B5B),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 13,
-                                        letterSpacing: 0.24,
+                                              const SizedBox(
+                                                width: 15,
+                                              ),
+                                              Text(
+                                                item.userId!.name.toString(),
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            formattedDate.toString(),
+                                            style: GoogleFonts.poppins(
+                                                color: const Color(0xFF5B5B5B), fontWeight: FontWeight.w500, fontSize: 12),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    item.fileType!.contains('image')
-                                        ? SizedBox(
-                                            width: double.maxFinite,
-                                            height: 300,
-                                            child: CachedNetworkImage(
-                                              imageUrl: item.file.toString(),
-                                              fit: BoxFit.contain,
-                                              errorWidget: (context, url, error) => Image.asset(
-                                                'assets/images/Rectangle 39892.png',
-                                                fit: BoxFit.fitWidth,
+                                      const SizedBox(
+                                        height: 18,
+                                      ),
+                                      Text(
+                                        item.discription ?? '',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF5B5B5B),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 13,
+                                          letterSpacing: 0.24,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      item.fileType!.contains('image')
+                                          ? SizedBox(
+                                              width: double.maxFinite,
+                                              height: 300,
+                                              child: CachedNetworkImage(
+                                                imageUrl: item.file.toString(),
+                                                fit: BoxFit.contain,
+                                                errorWidget: (context, url, error) => Image.asset(
+                                                  'assets/images/Rectangle 39892.png',
+                                                  fit: BoxFit.fitWidth,
+                                                ),
                                               ),
-                                            ),
-                                          )
-                                        : item.fileType == 'directory'
-                                            ? const SizedBox()
-                                            : item.fileType == ''
-                                                ? const SizedBox()
-                                                : AspectRatio(
-                                                    aspectRatio: 16 / 9,
-                                                    child:  PostVideoPlayer(
-                                                      fileUrl: item.file.toString() ,
+                                            )
+                                          : item.fileType == 'directory'
+                                              ? const SizedBox()
+                                              : item.fileType == ''
+                                                  ? const SizedBox()
+                                                  : AspectRatio(
+                                                      aspectRatio: 16 / 9,
+                                                      child:  PostVideoPlayer(
+                                                        fileUrl: item.file.toString() ,
+                                                      ),
+                                                    ),
+                                      item.fileType == 'directory'
+                                          ? Container(
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(40),
+                                                color: Colors.white,
+                                              ),
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  InkWell(
+                                                      onTap: () {
+                                                        addRemoveLike(item.id.toString());
+                                                      },
+                                                      child: item.isLike == true
+                                                          ? const Icon(
+                                                              Icons.favorite,
+                                                              color: Colors.red,
+                                                            )
+                                                          : const Icon(
+                                                              Icons.favorite_border,
+                                                              color: Color(0xFF014E70),
+                                                            )),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    item.likeCount.toString(),
+                                                    style: GoogleFonts.poppins(
+                                                      color: const Color(0xFF014E70),
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 13,
+                                                      letterSpacing: 0.24,
                                                     ),
                                                   ),
-                                    item.fileType == 'directory'
-                                        ? Container(
-                                            width: 100,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(40),
-                                              color: Colors.white,
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                InkWell(
-                                                    onTap: () {
-                                                      addRemoveLike(item.id.toString());
-                                                    },
-                                                    child: item.isLike == true
-                                                        ? const Icon(
-                                                            Icons.favorite,
-                                                            color: Colors.red,
-                                                          )
-                                                        : const Icon(
-                                                            Icons.favorite_border,
-                                                            color: Color(0xFF014E70),
-                                                          )),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  item.likeCount.toString(),
-                                                  style: GoogleFonts.poppins(
-                                                    color: const Color(0xFF014E70),
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 13,
-                                                    letterSpacing: 0.24,
+                                                ],
+                                              ),
+                                            )
+                                          : Container(
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(40),
+                                                color: Colors.white,
+                                              ),
+                                              padding: const EdgeInsets.only(top: 20),
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  InkWell(
+                                                      onTap: () {
+                                                        addRemoveLike(item.id.toString());
+                                                      },
+                                                      child: item.isLike == true
+                                                          ? const Icon(
+                                                              Icons.favorite,
+                                                              color: Colors.red,
+                                                            )
+                                                          : const Icon(
+                                                              Icons.favorite_border,
+                                                              color: Color(0xFF014E70),
+                                                            )),
+                                                  const SizedBox(
+                                                    width: 10,
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        : Container(
-                                            width: 100,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(40),
-                                              color: Colors.white,
-                                            ),
-                                            padding: const EdgeInsets.only(top: 20),
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                InkWell(
-                                                    onTap: () {
-                                                      addRemoveLike(item.id.toString());
-                                                    },
-                                                    child: item.isLike == true
-                                                        ? const Icon(
-                                                            Icons.favorite,
-                                                            color: Colors.red,
-                                                          )
-                                                        : const Icon(
-                                                            Icons.favorite_border,
-                                                            color: Color(0xFF014E70),
-                                                          )),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  item.likeCount.toString() ?? '0',
-                                                  style: GoogleFonts.poppins(
-                                                    color: const Color(0xFF014E70),
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 13,
-                                                    letterSpacing: 0.24,
+                                                  Text(
+                                                    item.likeCount.toString() ?? '0',
+                                                    style: GoogleFonts.poppins(
+                                                      color: const Color(0xFF014E70),
+                                                      fontWeight: FontWeight.w500,
+                                                      fontSize: 13,
+                                                      letterSpacing: 0.24,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                  ],
+                                                ],
+                                              ),
+                                            )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              )
-                            ],
-                          );
-                        },
+                                const SizedBox(
+                                  height: 15,
+                                )
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

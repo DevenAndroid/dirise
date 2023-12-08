@@ -27,12 +27,26 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       backgroundColor: Colors.white,
       appBar:  PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: CommonAppBar(
-          titleText: 'Categories'.tr,
+        child: AppBar(
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 0),
+            child: Text(
+                'Categories'.tr,
+              style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+          ),
           actions: const [
             CartBagCard(isBlackTheme: true),
           ],
         ),
+        // CommonAppBar(
+        //   titleText: 'Categories'.tr,
+        //   actions: const [
+        //     CartBagCard(isBlackTheme: true),
+        //   ],
+        // ),
       ),
       body: Obx(() {
         if (homeController.updateCate.value > 0) {}
