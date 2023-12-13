@@ -188,8 +188,18 @@ class _SingleCategoriesState extends State<SingleCategories> {
       backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child: CommonAppBar(
-          titleText: mainCategory.name.toString().tr,
+        child: AppBar(
+          leading:  IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Image.asset(
+              'assets/icons/backicon.png',
+              height: 25,
+              width: 25,
+            ),
+          ),
+          title: Text(mainCategory.name.toString().tr),
           actions: const [
             CartBagCard(isBlackTheme: true),
           ],
@@ -441,7 +451,8 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                     ),
                                   ),
                                   Text(
-                                    ("1457 ${AppStrings.items.tr}"),
+                                    // ("${modelCategoryStores![i].product.toString()} ${AppStrings.items.tr}"),
+                                      AppStrings.items.tr,
                                     style: GoogleFonts.poppins(
                                         color: const Color(0xff014E70), fontSize: 16, fontWeight: FontWeight.w600),
                                   )

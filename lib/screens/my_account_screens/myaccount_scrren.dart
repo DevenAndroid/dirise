@@ -545,38 +545,38 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        color: Color(0x1A000000),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {},
-                        child: Row(
-                          children: [
-                            Image.asset(height: 25, 'assets/images/digitalreader.png'),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              AppStrings.pdfReader.tr,
-                              style: GoogleFonts.poppins(
-                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.arrow_forward_ios,
-                              size: 15,
-                            ),
-                          ],
-                        ),
-                      ),
+                      // const SizedBox(
+                      //   height: 5,
+                      // ),
+                      // const Divider(
+                      //   thickness: 1,
+                      //   color: Color(0x1A000000),
+                      // ),
+                      // const SizedBox(
+                      //   height: 5,
+                      // ),
+                      // GestureDetector(
+                      //   behavior: HitTestBehavior.translucent,
+                      //   onTap: () {},
+                      //   child: Row(
+                      //     children: [
+                      //       Image.asset(height: 25, 'assets/images/digitalreader.png'),
+                      //       const SizedBox(
+                      //         width: 20,
+                      //       ),
+                      //       Text(
+                      //         AppStrings.pdfReader.tr,
+                      //         style: GoogleFonts.poppins(
+                      //             color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                      //       ),
+                      //       const Spacer(),
+                      //       const Icon(
+                      //         Icons.arrow_forward_ios,
+                      //         size: 15,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 5,
                       ),

@@ -140,10 +140,11 @@ class NewHelper {
             onPressed: () {
               // pickImage(
               //     ImageSource.gallery);
+              Get.back();
               NewHelper().addImagePicker(imageSource: ImageSource.gallery).then((value) async {
                 if (value == null) return;
                 gotImage(await FlutterExifRotation.rotateImage(path: value.path));
-                Get.back();
+
               });
             },
           ),
@@ -178,6 +179,20 @@ class Helpers {
   Helpers.of(BuildContext context) {
     context = context;
   }
+
+  static Future addImagePicker({ImageSource imageSource = ImageSource.gallery, int imageQuality = 100}) async {
+    try {
+      final item = await ImagePicker().pickImage(source: imageSource, imageQuality: imageQuality);
+      if (item == null) {
+        return null;
+      } else {
+        return File(item.path);
+      }
+    } on PlatformException catch (e) {
+      throw Exception(e);
+    }
+  }
+
 
   static launchEmail({required String email}) async {
     final Uri params = Uri(

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../model/aboutus_model.dart';
 import '../../model/faq_model.dart';
@@ -45,6 +46,14 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
     super.initState();
     // aboutUsData();
     getFaqData();
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -106,7 +115,12 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
                                     ),
                                   ),
                                   children: [
-                                      Html(data: faqModel.value.faq![index].answer.toString()),
+                                    Html(
+                                      data: faqModel.value.faq![index].answer.toString(),
+                                      onLinkTap: (url, attributes, element) {
+                                        launchURL(url!);
+                                      },
+                                    ),
                                   ],
                                   onExpansionChanged: (value){
                                     setState(() {

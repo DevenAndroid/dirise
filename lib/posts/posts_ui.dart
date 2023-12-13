@@ -1,13 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 import 'package:better_player_plus/better_player_plus.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/posts/post_ui_player.dart';
 import 'package:dirise/widgets/loading_animation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
+import 'package:full_screen_image/full_screen_image.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import '../controller/profile_controller.dart';
 import '../language/app_strings.dart';
 import '../model/create_news_model.dart';
@@ -17,6 +23,8 @@ import '../utils/api_constant.dart';
 import '../utils/helper.dart';
 import '../widgets/common_colour.dart';
 import '../widgets/dimension_screen.dart';
+import 'package:image_cropper/image_cropper.dart';
+
 
 class PublishPostScreen extends StatefulWidget {
   const PublishPostScreen({super.key});
@@ -41,7 +49,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
   File pickedFile = File("");
   final formKey = GlobalKey<FormState>();
   String postId = '';
-  final profileController = Get.put(ProfileController());
+   final profileController = Get.put(ProfileController());
 
   createPost() {
     Map<String, String> map = {};
@@ -59,9 +67,12 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
           CreateNewsModel response = CreateNewsModel.fromJson(jsonDecode(value));
           showToast(response.message.toString());
           if (response.status == true) {
+            getPublishPostData();
+            FocusScope.of(context).unfocus();
+
             postController.clear();
             pickedFile = File('');
-            getPublishPostData();
+
             showToast(response.message.toString());
           } else {
             showToast(response.message.toString());
@@ -91,370 +102,489 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
     });
   }
 
+
+  void _showActionSheet(BuildContext context) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text(
+          'Select Picture from',
+          style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
+        ),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Helpers.addImagePicker(imageSource: ImageSource.camera, imageQuality: 75).then((value) async {
+                CroppedFile? croppedFile = await ImageCropper().cropImage(
+                  sourcePath: value.path,
+                  aspectRatioPresets: [
+                    // CropAspectRatioPreset.square,
+                    // CropAspectRatioPreset.ratio3x2,
+                    // CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.ratio4x3,
+                    // CropAspectRatioPreset.ratio16x9
+                  ],
+                  uiSettings: [
+                    AndroidUiSettings(
+                        toolbarTitle: 'Cropper',
+                        toolbarColor: Colors.deepOrange,
+                        toolbarWidgetColor: Colors.white,
+                        initAspectRatio: CropAspectRatioPreset.ratio4x3,
+                        lockAspectRatio: true),
+                    IOSUiSettings(
+                      title: 'Cropper',
+                    ),
+                    WebUiSettings(
+                      context: context,
+                    ),
+                  ],
+                );
+                if (croppedFile != null) {
+                  pickedFile = File(croppedFile.path);
+                  setState(() {});
+                }
+
+                Get.back();
+              });
+            },
+            child: const Text("Camera"),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Helpers.addImagePicker(imageSource: ImageSource.gallery, imageQuality: 75).then((value) async {
+                CroppedFile? croppedFile = await ImageCropper().cropImage(
+                  sourcePath: value.path,
+                  aspectRatioPresets: [
+                    // CropAspectRatioPreset.square,
+                    // CropAspectRatioPreset.ratio3x2,
+                    // CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.ratio4x3,
+                    // CropAspectRatioPreset.ratio16x9
+                  ],
+
+                  uiSettings: [
+                    AndroidUiSettings(
+                        toolbarTitle: 'Cropper',
+                        toolbarColor: Colors.deepOrange,
+                        toolbarWidgetColor: Colors.white,
+                        initAspectRatio: CropAspectRatioPreset.ratio4x3,
+                        lockAspectRatio: true),
+                    IOSUiSettings(
+                      title: 'Cropper',
+                    ),
+                    WebUiSettings(
+                      context: context,
+                    ),
+                  ],
+                );
+                if (croppedFile != null) {
+                  pickedFile = File(croppedFile.path);
+                  setState(() {});
+                }
+
+                Get.back();
+              });
+            },
+            child: const Text('Gallery'),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // aboutUsData();
+    profileController.userLoggedIn;
     getPublishPostData();
   }
 
   TextEditingController postController = TextEditingController();
-
+  ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppStrings.publishPostScreen,
-          style: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
-        ),
-        centerTitle: true,
-        backgroundColor: AppTheme.buttonColor,
-        leading: InkWell(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
+    return MediaQuery(
+      data: MediaQueryData.fromWindow(window).copyWith(
+          gestureSettings: const DeviceGestureSettings(touchSlop: kTouchSlop)),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            AppStrings.publishPostScreen,
+            style: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
+          ),
+          centerTitle: true,
+          backgroundColor: AppTheme.buttonColor,
+          leading: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () {
-          return getPublishPostData();
-        },
-        child: Obx(() {
-          return getPublishModel.value.status == true
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF5F5F5F).withOpacity(0.4),
-                            offset: const Offset(0.0, 0.2),
-                            blurRadius: 2,
-                          ),
-                        ]),
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextFormField(
-                              controller: postController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please Post Something';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'What’s Happening?',
-                                border: InputBorder.none,
-                                hintStyle: GoogleFonts.poppins(
-                                    color: const Color(0xFF5B5B5B), fontWeight: FontWeight.w500, fontSize: 16),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/images/link-2.png',
-                                      width: 28,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    GestureDetector(
-                                        onTap: () {
-                                          NewHelper.showImagePickerSheet(
-                                              gotImage: (File gg) {
-                                                pickedFile = gg;
-                                                setState(() {});
-                                              },
-                                              context: context);
-                                          print(pickedFile.path.toString());
-                                        },
-                                        child: Image.asset(
-                                          'assets/images/gallery.png',
-                                          width: 25,
-                                        )),
-                                    const SizedBox(
-                                      width: 12,
-                                    ),
-                                    GestureDetector(
-                                        onTap: () {
-                                          NewHelper().addVideoPicker().then((value) {
-                                            if (value == null) return;
-                                            pickedFile = value;
-                                            setState(() {});
-                                            print(pickedFile.path.toString());
-                                          });
-                                        },
-                                        child: Image.asset(
-                                          'assets/images/play-cricle.png',
-                                          width: 27,
-                                        )),
-                                  ],
+        body: RefreshIndicator(
+          onRefresh: () {
+            return getPublishPostData();
+          },
+          child: Obx(() {
+            return getPublishModel.value.status == true
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                    child: Column(
+                      children: [
+                    profileController.userLoggedIn == true ? Column(
+                      children: [
+                        Container(
+                              decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF5F5F5F).withOpacity(0.4),
+                                  offset: const Offset(0.0, 0.2),
+                                  blurRadius: 2,
                                 ),
-                                GestureDetector(
-                                  behavior: HitTestBehavior.translucent,
-                                  onTap: () {
-                                    createPost();
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.buttonColor,
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-                                    child: const Text(
-                                      'Publish Post ',
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                              ]),
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextFormField(
+                                    controller: postController,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please Post Something';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: 'What’s Happening?',
+                                      border: InputBorder.none,
+                                      hintStyle: GoogleFonts.poppins(
+                                          color: const Color(0xFF5B5B5B), fontWeight: FontWeight.w500, fontSize: 16),
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            pickedFile.path == ""
-                                ? const SizedBox()
-                                : Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: AddSize.padding16),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/link-2.png',
+                                            width: 28,
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          GestureDetector(
+                                              onTap: () {
+                                                // NewHelper.showImagePickerSheet(
+                                                //     gotImage: (File gg) {
+                                                //       pickedFile = gg;
+                                                //       setState(() {});
+                                                //     },
+                                                //     context: context);
+                                                _showActionSheet(context);
+                                              },
+                                              child: Image.asset(
+                                                'assets/images/gallery.png',
+                                                width: 25,
+                                              )),
+                                          const SizedBox(
+                                            width: 12,
+                                          ),
+                                          GestureDetector(
+                                              onTap: () {
+                                                NewHelper().addVideoPicker().then((value) {
+                                                  if (value == null) return;
+                                                  pickedFile = value;
+                                                  print('path is.... ${pickedFile.path.toString()}');
+                                                  setState(() {});
+                                                });
+                                              },
+                                              child: Image.asset(
+                                                'assets/images/play-cricle.png',
+                                                width: 27,
+                                              )),
+                                        ],
+                                      ),
+                                      GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        onTap: () {
+                                          createPost();
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: AppTheme.buttonColor,
+                                            borderRadius: BorderRadius.circular(40),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                                          child: const Text(
+                                            'Publish Post ',
+                                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  pickedFile.path == ""
+                                      ? const SizedBox()
+                                      :   Container(
                                     width: AddSize.screenWidth,
                                     height: 160,
                                     alignment: Alignment.center,
                                     child: Image.file(
                                       pickedFile,
-                                      fit: BoxFit.contain,
+                                      fit: BoxFit.cover,
+                                      width: AddSize.screenWidth,
                                       errorBuilder: (_, __, ___) => SizedBox(
-                                          width: double.maxFinite,
-                                          child: AspectRatio(
-                                            aspectRatio: 16 / 9,
-                                            child: BetterPlayer.file(
-                                              pickedFile.path,
-                                              betterPlayerConfiguration: const BetterPlayerConfiguration(
-                                                autoPlay: false,
-                                                aspectRatio: 16 / 9,
-                                              ),
+                                        width: double.maxFinite,
+                                        child: AspectRatio(
+                                          aspectRatio: 16 / 9,
+                                          child:
+                                          // PostVideoPlayerFile(fileUrl: pickedFile.path)
+                                          BetterPlayer.file(
+                                            pickedFile.path,
+                                            betterPlayerConfiguration: const BetterPlayerConfiguration(
+                                              autoPlay: false,
+                                              aspectRatio: 16 / 9,
                                             ),
-                                          )),
-                                    ),
-                                  )
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
-                          itemCount: getPublishModel.value.data!.length,
-                          itemBuilder: (context, index) {
-                            var item = getPublishModel.value.data![index];
-                            String inputDateString = item.createdAt.toString();
-                            DateTime dateTime = DateTime.parse(inputDateString);
-                            String formattedDate =
-                                "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
-                            return Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0xFF5F5F5F).withOpacity(0.4),
-                                      offset: const Offset(0.0, 0.2),
-                                      blurRadius: 2,
-                                    ),
-                                  ]),
-                                  padding: const EdgeInsets.all(15),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius: BorderRadius.circular(100),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: item.userId!.profileImage.toString(),
-                                                  height: 45,
-                                                  width: 45,
-                                                  fit: BoxFit.cover,
-                                                  errorWidget: (context, url, error) =>
-                                                      Image.asset('assets/images/post_img.png'),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 15,
-                                              ),
-                                              Text(
-                                                item.userId!.name.toString(),
-                                                style: GoogleFonts.poppins(
-                                                    color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
-                                              )
-                                            ],
                                           ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            formattedDate.toString(),
-                                            style: GoogleFonts.poppins(
-                                                color: const Color(0xFF5B5B5B), fontWeight: FontWeight.w500, fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 18,
-                                      ),
-                                      Text(
-                                        item.discription ?? '',
-                                        style: GoogleFonts.poppins(
-                                          color: const Color(0xFF5B5B5B),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 13,
-                                          letterSpacing: 0.24,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 15,
+                                    )
+                                  ),
+
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                ],
+                              ),
+                            ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                      ],
+                    ) : const SizedBox(),
+
+                        Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            controller: _scrollController,
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            itemCount: getPublishModel.value.data!.length,
+                            itemBuilder: (context, index) {
+                              var item = getPublishModel.value.data![index];
+                              String inputDateString = item.createdAt.toString();
+                              DateTime dateTime = DateTime.parse(inputDateString);
+                              String  formattedDate =
+                                  "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}";
+                              return Column(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0xFF5F5F5F).withOpacity(0.4),
+                                        offset: const Offset(0.0, 0.2),
+                                        blurRadius: 2,
                                       ),
-                                      item.fileType!.contains('image')
-                                          ? SizedBox(
-                                              width: double.maxFinite,
-                                              height: 300,
-                                              child: CachedNetworkImage(
-                                                imageUrl: item.file.toString(),
-                                                fit: BoxFit.contain,
-                                                errorWidget: (context, url, error) => Image.asset(
-                                                  'assets/images/Rectangle 39892.png',
-                                                  fit: BoxFit.fitWidth,
+                                    ]),
+                                    padding: const EdgeInsets.all(15),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(100),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: item.userId!.profileImage.toString(),
+                                                    height: 45,
+                                                    width: 45,
+                                                    fit: BoxFit.cover,
+                                                    errorWidget: (context, url, error) =>
+                                                        Image.asset('assets/images/post_img.png'),
+                                                  ),
                                                 ),
-                                              ),
+                                                const SizedBox(
+                                                  width: 15,
+                                                ),
+                                                Text(
+                                                  item.userId!.name.toString(),
+                                                  style: GoogleFonts.poppins(
+                                                      color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              formattedDate.toString(),
+                                              style: GoogleFonts.poppins(
+                                                  color: const Color(0xFF5B5B5B), fontWeight: FontWeight.w500, fontSize: 12),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 18,
+                                        ),
+                                        Text(
+                                          item.discription ?? '',
+                                          style: GoogleFonts.poppins(
+                                            color: const Color(0xFF5B5B5B),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 13,
+                                            letterSpacing: 0.24,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        item.fileType!.contains('image')
+                                            ? FullScreenWidget(
+                                              disposeLevel: DisposeLevel.Medium,
+                                              child: SizedBox(
+                                                  width: double.maxFinite,
+                                                  height: 170,
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: item.file.toString(),
+                                                    fit: BoxFit.cover,
+                                                    width: AddSize.screenWidth,
+                                                    errorWidget: (context, url, error) => Image.asset(
+                                                      'assets/images/Rectangle 39892.png',
+                                                      fit: BoxFit.fitWidth,
+                                                    ),
+                                                  ),
+                                                ),
                                             )
-                                          : item.fileType == 'directory'
-                                              ? const SizedBox()
-                                              : item.fileType == ''
-                                                  ? const SizedBox()
-                                                  : AspectRatio(
-                                                      aspectRatio: 16 / 9,
-                                                      child:  PostVideoPlayer(
-                                                        fileUrl: item.file.toString() ,
+                                            : item.fileType == 'directory'
+                                                ? const SizedBox()
+                                                : item.fileType == ''
+                                                    ? const SizedBox()
+                                                    : AspectRatio(
+                                                        aspectRatio: 16 / 9,
+                                                        child:  PostVideoPlayer(
+                                                          fileUrl: item.file.toString() ,
+                                                        ),
+                                                      ),
+                                        item.fileType == 'directory'
+                                            ? Container(
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(40),
+                                                  color: Colors.white,
+                                                ),
+                                                child: Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    InkWell(
+                                                        onTap: () {
+                                                          profileController.userLoggedIn == true ? addRemoveLike(item.id.toString()) : showToast('Login YourSelf First');
+                                                        },
+                                                        child: item.isLike == true
+                                                            ? const Icon(
+                                                                Icons.favorite,
+                                                                color: Colors.red,
+                                                              )
+                                                            : const Icon(
+                                                                Icons.favorite_border,
+                                                                color: Color(0xFF014E70),
+                                                              )),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text(
+                                                      item.likeCount.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                        color: const Color(0xFF014E70),
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 13,
+                                                        letterSpacing: 0.24,
                                                       ),
                                                     ),
-                                      item.fileType == 'directory'
-                                          ? Container(
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(40),
-                                                color: Colors.white,
-                                              ),
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        addRemoveLike(item.id.toString());
-                                                      },
-                                                      child: item.isLike == true
-                                                          ? const Icon(
-                                                              Icons.favorite,
-                                                              color: Colors.red,
-                                                            )
-                                                          : const Icon(
-                                                              Icons.favorite_border,
-                                                              color: Color(0xFF014E70),
-                                                            )),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    item.likeCount.toString(),
-                                                    style: GoogleFonts.poppins(
-                                                      color: const Color(0xFF014E70),
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 13,
-                                                      letterSpacing: 0.24,
+                                                  ],
+                                                ),
+                                              )
+                                            : Container(
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(40),
+                                                  color: Colors.white,
+                                                ),
+                                                padding: const EdgeInsets.only(top: 20),
+                                                child: Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    InkWell(
+                                                        onTap: () {
+                                                          profileController.userLoggedIn == true ? addRemoveLike(item.id.toString()) : showToast('Login YourSelf First');
+                                                        },
+                                                        child: item.isLike == true
+                                                            ? const Icon(
+                                                                Icons.favorite,
+                                                                color: Colors.red,
+                                                              )
+                                                            : const Icon(
+                                                                Icons.favorite_border,
+                                                                color: Color(0xFF014E70),
+                                                              )),
+                                                    const SizedBox(
+                                                      width: 10,
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          : Container(
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(40),
-                                                color: Colors.white,
-                                              ),
-                                              padding: const EdgeInsets.only(top: 20),
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        addRemoveLike(item.id.toString());
-                                                      },
-                                                      child: item.isLike == true
-                                                          ? const Icon(
-                                                              Icons.favorite,
-                                                              color: Colors.red,
-                                                            )
-                                                          : const Icon(
-                                                              Icons.favorite_border,
-                                                              color: Color(0xFF014E70),
-                                                            )),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    item.likeCount.toString() ?? '0',
-                                                    style: GoogleFonts.poppins(
-                                                      color: const Color(0xFF014E70),
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 13,
-                                                      letterSpacing: 0.24,
+                                                    Text(
+                                                      item.likeCount.toString() ?? '0',
+                                                      style: GoogleFonts.poppins(
+                                                        color: const Color(0xFF014E70),
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 13,
+                                                        letterSpacing: 0.24,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                    ],
+                                                  ],
+                                                ),
+                                              )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                )
-                              ],
-                            );
-                          },
+                                  const SizedBox(
+                                    height: 15,
+                                  )
+                                ],
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                )
-              : const LoadingAnimation();
-        }),
+                      ],
+                    ),
+                  )
+                : const LoadingAnimation();
+          }),
+        ),
       ),
     );
   }
+
 }

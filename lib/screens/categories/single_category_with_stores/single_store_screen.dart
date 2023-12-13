@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../model/model_category_stores.dart';
 import '../../../model/model_store_products.dart';
@@ -99,6 +100,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
       throw 'Could not launch $url';
     }
   }
+  String productCount= '';
+
   linkedinLink() async {
     var url = Uri.parse(allStoreInfo.socialLinks!.linkedin.toString());
     if (await canLaunchUrl(url)) {
@@ -127,6 +130,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
     if (widget.storeDetails.storeName == null || true) {
       repositories.getApi(url: ApiUrls.getVendorInfoUrl + vendorId).then((value) {
         ModelSingleVendor response = ModelSingleVendor.fromJson(jsonDecode(value));
+        productCount = response.productCount.toString();
         gg = VendorStoreData.fromJson(response.user!.toJson());
         ee = SocialLinksModel.fromJson(response.user!.toJson());
         ss = ModelCategoryStores.fromJson(response.user!.toJson());
@@ -134,7 +138,6 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
       });
     }
   }
-
   @override
   void initState() {
     super.initState();
@@ -239,7 +242,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 5, bottom: 5),
                                       child: Text(
-                                        '${allStoreInfo.product ?? '0'} ${AppStrings.items.tr}'.toString(),
+                                        '${productCount.toString() ?? '0'} ${AppStrings.items.tr}'.toString(),
                                         maxLines: 1,
                                         style: GoogleFonts.poppins(
                                             color: const Color(0xFF014E70), fontSize: 14, fontWeight: FontWeight.w600),
@@ -441,13 +444,14 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                               ],
                             ),
                             const SizedBox(height: 10,),
+                            if (storeInfo.day != null || storeInfo.start  != null || storeInfo.end  != null)
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 18),
+                              padding: const EdgeInsets.symmetric(horizontal: 17),
                               child: Row(
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      print(storeInfo.day.toString());
+
                                     },
                                     child: SvgPicture.asset(
                                       'assets/svgs/watch_icon.svg',
@@ -455,15 +459,18 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                       height: 20,
                                     ),
                                   ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
                                   Text(storeInfo.day.toString(),style: normalStyle.copyWith(
-                                    color:  Colors.black,
-                                  ),),
-                                  Text(storeInfo.start.toString(),style: normalStyle.copyWith(
                                     color:  const Color(0xFF7D7D7D),
                                   ),),
-                                  Text(storeInfo.end.toString(),style: normalStyle.copyWith(
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  storeInfo.start != null ? Text('${storeInfo.start.toString()} - ${storeInfo.end.toString()}',style: normalStyle.copyWith(
                                     color:  const Color(0xFF7D7D7D),
-                                  ),)
+                                  ),) : const SizedBox(),
                                 ],
                               ),
                             )

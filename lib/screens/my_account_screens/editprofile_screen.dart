@@ -44,8 +44,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (_formKey.currentState!.validate()) {
       Map map = <String, String>{};
       map['first_name'] = firstNameController.text.trim();
-      map['last_name'] ="${firstNameController.text.trim()} ${lastNameController.text.trim()}".trim();
-      map['name'] = lastNameController.text.trim();
+      map['last_name'] = lastNameController.text.trim();
+      map['name'] = "${firstNameController.text.trim()} ${lastNameController.text.trim()}".trim();
       map['phone'] = phoneController.text.trim();
       map['referral_email'] = referralEmailController.text.trim();
       map['country_id'] = profileController.selectedCountry!.id.toString();
@@ -363,15 +363,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 title: AppStrings.phoneNumber,
                 hintText: AppStrings.enterPhoneNumber,
                 controller: phoneController,
-                validator: (v) {
-                  if (v!.trim().isEmpty) {
-                    return AppStrings.pleaseenterphonenumber;
-                  }
-                  if (v.trim().length < 10) {
-                    return AppStrings.pleaseentervalidphonenumber;
-                  }
-                  return null;
-                },
+                // validator: (v) {
+                //   if (v!.trim().isEmpty) {
+                //     return AppStrings.pleaseenterphonenumber;
+                //   }
+                //   if (v.trim().length < 10) {
+                //     return AppStrings.pleaseentervalidphonenumber;
+                //   }
+                //   return null;
+                // },
               ),
               ...fieldWithName(
                 title: AppStrings.country,
@@ -397,12 +397,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       selectedAddressId: ((profileController.selectedCountry ?? Country()).id ?? "").toString());
                 },
                 controller: TextEditingController(text: (profileController.selectedCountry ?? Country()).name ?? ""),
-                validator: (v) {
-                  if (v!.trim().isEmpty) {
-                    return AppStrings.pleaseselectcountry;
-                  }
-                  return null;
-                },
+                // validator: (v) {
+                //   if (v!.trim().isEmpty) {
+                //     return AppStrings.pleaseselectcountry;
+                //   }
+                //   return null;
+                // },
               ),
               ...fieldWithName(
                 title: AppStrings.state,
@@ -445,12 +445,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   }
                   return const CupertinoActivityIndicator();
                 }),
-                validator: (v) {
-                  if (v!.trim().isEmpty) {
-                    return AppStrings.pleaseselectstate;
-                  }
-                  return null;
-                },
+                // validator: (v) {
+                //   if (v!.trim().isEmpty) {
+                //     return AppStrings.pleaseselectstate;
+                //   }
+                //   return null;
+                // },
               ),
               if(profileController.modelCityList != null && profileController.modelCityList!.city!.isNotEmpty)
               ...fieldWithName(
@@ -485,24 +485,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   }
                   return const CupertinoActivityIndicator();
                 }),
-                validator: (v) {
-                  if (v!.trim().isEmpty) {
-                    return AppStrings.pleaseselectstate;
-                  }
-                  return null;
-                },
+                // validator: (v) {
+                //   if (v!.trim().isEmpty) {
+                //     return AppStrings.pleaseselectstate;
+                //   }
+                //   return null;
+                // },
               ),
 
               ...fieldWithName(
                 title: AppStrings.streetAddress,
                 hintText: AppStrings.enterstreetAddress,
                 controller: addressController,
-                validator: (v) {
-                  if (v!.trim().isEmpty) {
-                    return AppStrings.pleaseenteraddress;
-                  }
-                  return null;
-                },
+                // validator: (v) {
+                //   if (v!.trim().isEmpty) {
+                //     return AppStrings.pleaseenteraddress;
+                //   }
+                //   return null;
+                // },
               ),
             ]),
           ),
