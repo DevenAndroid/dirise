@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/repository/repository.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,8 +33,8 @@ class _OtpScreenState extends State<OtpScreen> {
   late bool check;
   String email = "";
   Map<String, dynamic> tempMap = {};
-
-  verifyOtp() {
+  String token = '';
+  verifyOtp() async {
     if (_otpController.text.trim().isEmpty) {
       showToast("Please enter OTP".tr);
       return;
@@ -45,8 +46,10 @@ class _OtpScreenState extends State<OtpScreen> {
     Map<String, dynamic> map = {};
     map['email'] = email;
     map['otp'] = _otpController.text.trim();
-    repositories.postApi(url: ApiUrls.verifyOtpEmail, context: context, mapData: map).then((value) {
+    map['fcm_token'] = token.toString();
+    repositories.postApi(url: ApiUrls.verifyOtpEmail, context: context, mapData: map).then((value) async {
       LoginModal response = LoginModal.fromJson(jsonDecode(value));
+      token = (await FirebaseMessaging.instance.getToken())!;
       showToast(response.message);
       if (response.status == true) {
         if (check == true) {
