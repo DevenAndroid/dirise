@@ -69,7 +69,11 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
           if (response.status == true) {
             getPublishPostData();
             FocusScope.of(context).unfocus();
-
+            _scrollController.animateTo(
+              0.0,
+              duration: Duration(seconds: 1),
+              curve: Curves.easeInOut,
+            );
             postController.clear();
             pickedFile = File('');
 
@@ -380,11 +384,10 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                         ),
                       ],
                     ) : const SizedBox(),
-
                         Expanded(
                           child: ListView.builder(
                             shrinkWrap: true,
-                            controller: _scrollController,
+                            controller: _scrollController  ,
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             itemCount: getPublishModel.value.data!.length,
                             itemBuilder: (context, index) {
