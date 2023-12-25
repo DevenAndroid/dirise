@@ -44,8 +44,7 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                             child: MaterialButton(
                               onPressed: () {
                                 Get.back();
-                                NewHelper()
-                                    .addImagePicker(
+                                NewHelper().addImagePicker(
                                   imageSource: ImageSource.camera,
                                 )
                                     .then((value) {

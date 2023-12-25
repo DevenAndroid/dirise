@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -100,6 +101,7 @@ class NewHelper {
         return null;
       } else {
         return await FlutterExifRotation.rotateImage(path: item.path);
+
       }
     } on PlatformException catch (e) {
       throw Exception(e);
@@ -140,22 +142,87 @@ class NewHelper {
             onPressed: () {
               // pickImage(
               //     ImageSource.gallery);
-              Get.back();
-              NewHelper().addImagePicker(imageSource: ImageSource.gallery).then((value) async {
-                if (value == null) return;
-                gotImage(await FlutterExifRotation.rotateImage(path: value.path));
+
+              NewHelper().addImagePicker(imageSource: ImageSource.gallery).then((v) async {
+                if(v == null)return;
+                final item =await FlutterExifRotation.rotateImage(path: v.path);
+                CroppedFile? croppedFile = await ImageCropper().cropImage(
+                  sourcePath: item.path,
+                  aspectRatioPresets: [
+                    // CropAspectRatioPreset.square,
+                    // CropAspectRatioPreset.ratio3x2,
+                    // CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.ratio4x3,
+                    // CropAspectRatioPreset.ratio16x9
+                  ],
+                  uiSettings: [
+                    AndroidUiSettings(
+                        toolbarTitle: 'Cropper',
+                        toolbarColor: Colors.deepOrange,
+                        toolbarWidgetColor: Colors.white,
+                        initAspectRatio: CropAspectRatioPreset.ratio4x3,
+                        lockAspectRatio: true),
+                    IOSUiSettings(
+                      title: 'Cropper',
+                    ),
+                    WebUiSettings(
+                      context: context,
+                    ),
+                  ],
+                );
+                if (croppedFile != null) {
+                  gotImage(await FlutterExifRotation.rotateImage(path: v.path));
+                  Get.back();
+                }
+
 
               });
+
             },
           ),
           CupertinoActionSheetAction(
             child: const Text('Camera'),
             onPressed: () {
-              NewHelper().addImagePicker(imageSource: ImageSource.camera).then((value) async {
-                if (value == null) return;
-                gotImage(await FlutterExifRotation.rotateImage(path: value.path));
-                Get.back();
-              });
+
+              NewHelper().addImagePicker(imageSource: ImageSource.camera).then((v) async {
+              if(v == null)return;
+              final item =await FlutterExifRotation.rotateImage(path: v.path);
+              CroppedFile? croppedFile = await ImageCropper().cropImage(
+                sourcePath: item.path,
+                aspectRatioPresets: [
+                  // CropAspectRatioPreset.square,
+                  // CropAspectRatioPreset.ratio3x2,
+                  // CropAspectRatioPreset.original,
+                  CropAspectRatioPreset.ratio4x3,
+                  // CropAspectRatioPreset.ratio16x9
+                ],
+                uiSettings: [
+                  AndroidUiSettings(
+                      toolbarTitle: 'Cropper',
+                      toolbarColor: Colors.deepOrange,
+                      toolbarWidgetColor: Colors.white,
+                      initAspectRatio: CropAspectRatioPreset.ratio4x3,
+                      lockAspectRatio: true),
+                  IOSUiSettings(
+                    title: 'Cropper',
+                  ),
+                  WebUiSettings(
+                    context: context,
+                  ),
+                ],
+              );
+              if (croppedFile != null) {
+                gotImage(await FlutterExifRotation.rotateImage(path: v.path));
+              }
+
+
+            });
+
+              // NewHelper().addImagePicker(imageSource: ImageSource.camera).then((value) async {
+              //   if (value == null) return;
+              //   gotImage(await FlutterExifRotation.rotateImage(path: value.path));
+              //   Get.back();
+              // });
             },
           ),
           if (removeOption == true)

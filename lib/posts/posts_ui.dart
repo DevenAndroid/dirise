@@ -9,7 +9,6 @@ import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -107,7 +106,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
   }
 
 
-  void _showActionSheet(BuildContext context) {
+  void showActionSheet(BuildContext context) {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
@@ -299,7 +298,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                                                 //       setState(() {});
                                                 //     },
                                                 //     context: context);
-                                                _showActionSheet(context);
+                                                showActionSheet(context);
                                               },
                                               child: Image.asset(
                                                 'assets/images/gallery.png',
