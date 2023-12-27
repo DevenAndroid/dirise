@@ -35,6 +35,10 @@ class User {
   dynamic start;
   dynamic day;
   dynamic end;
+  dynamic storeLogoApp;
+  dynamic storeLogoWeb;
+  dynamic bannerProfileApp;
+  dynamic bannerProfileWeb;
 
   User(
       {this.id,
@@ -46,7 +50,10 @@ class User {
         this.day,
         this.start,
         this.end,
-        this.description});
+        this.description,
+        this.bannerProfileApp,
+        this.bannerProfileWeb,this.storeLogoApp,this.storeLogoWeb
+      });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -59,6 +66,10 @@ class User {
     day = json['day'];
     start = json['start'];
     end = json['end'];
+    storeLogoApp = json['store_logo_app'] ?? "";
+    storeLogoWeb = json['store_logo_web'] ?? "";
+    bannerProfileApp = json['banner_profile_app'];
+    bannerProfileWeb = json['banner_profile_web'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -70,6 +81,10 @@ class User {
     data['email'] = email;
     data['store_phone'] = storePhone;
     data['day'] = this.day;
+    data['store_logo_app'] = storeLogoApp;
+    data['store_logo_web'] = storeLogoWeb;
+    data['banner_profile_app'] = bannerProfileApp;
+    data['banner_profile_web'] = bannerProfileWeb;
     data['start'] = this.start;
     data['end'] = this.end;
     data['description'] = description;

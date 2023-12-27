@@ -174,6 +174,7 @@ class VendorStoreData {
   dynamic id;
   dynamic storeLogo;
   dynamic storeImage;
+  dynamic storeLogoApp;
   dynamic storeName;
   dynamic email;
   dynamic storePhone;
@@ -182,7 +183,7 @@ class VendorStoreData {
   dynamic start;
   dynamic end;
 
-  VendorStoreData({this.id, this.storeLogo, this.storeImage, this.storeName, this.email, this.storePhone, this.description,this.day,this.start,this.end});
+  VendorStoreData({this.id, this.storeLogo, this.storeImage, this.storeName, this.email, this.storePhone, this.description,this.day,this.start,this.end,this.storeLogoApp});
 
   VendorStoreData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -195,6 +196,7 @@ class VendorStoreData {
     day = json['day'] ?? "";
     start = json['start'] ?? "";
     end = json['end'] ?? "";
+    storeLogoApp = json['store_logo_app'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -208,6 +210,7 @@ class VendorStoreData {
     data['description'] = description;
     data['day'] = day;
     data['start'] = start;
+    data['store_logo_app'] = this.storeLogoApp;
     data['end'] = end;
     return data;
   }

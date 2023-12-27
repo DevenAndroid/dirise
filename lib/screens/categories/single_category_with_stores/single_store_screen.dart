@@ -101,6 +101,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
     }
   }
   String productCount= '';
+  String bannerString = '';
+  String storeLogo = '';
 
   linkedinLink() async {
     var url = Uri.parse(allStoreInfo.socialLinks!.linkedin.toString());
@@ -131,6 +133,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
       repositories.getApi(url: ApiUrls.getVendorInfoUrl + vendorId).then((value) {
         ModelSingleVendor response = ModelSingleVendor.fromJson(jsonDecode(value));
         productCount = response.productCount.toString();
+        bannerString = response.user!.bannerProfileApp.toString();
+        storeLogo = response.user!.storeLogoApp.toString();
         gg = VendorStoreData.fromJson(response.user!.toJson());
         ee = SocialLinksModel.fromJson(response.user!.toJson());
         ss = ModelCategoryStores.fromJson(response.user!.toJson());
@@ -183,22 +187,24 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                   padding: const EdgeInsets.all(16).copyWith(top: 10),
                   child: Column(
                     children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: SizedBox(
-                              width: double.maxFinite,
-                              height: context.getSize.width * .4,
-                              child: Hero(
-                                tag: storeInfo.storeLogo.toString(),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  surfaceTintColor: Colors.transparent,
-                                  child: CachedNetworkImage(
-                                    imageUrl: storeInfo.storeLogo.toString(),
-                                    errorWidget: (_, __, ___) => const Icon(Icons.error_outline),
-                                  ),
+                      SizedBox(
+                          width: Get.width,
+                          height: context.getSize.width * .5,
+                          child: Hero(
+                            tag: bannerString.toString(),
+                            child: Material(
+                              color: Colors.transparent,
+                              surfaceTintColor: Colors.transparent,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.cover,
+                                  imageUrl: bannerString.toString(),
+                                  errorWidget: (_, __, ___) => const Icon(Icons.error_outline),
                                 ),
-                              ))),
+                              ),
+                            ),
+                          )),
                     ],
                   ),
                 ),
@@ -218,17 +224,20 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                               SizedBox(
                                 height: 84,
                                 width: 104,
-                                child: Image(
-                                  image: NetworkImage(storeInfo.storeImage.toString()),
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) => const Icon(
-                                    Icons.error_outline,
-                                    color: Colors.red,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: CachedNetworkImage(
+                                    imageUrl: storeLogo.toString(),
+                                    fit: BoxFit.cover,
+                                    errorWidget: (_, __, ___) => const Icon(
+                                      Icons.error_outline_outlined,
+                                      color: Colors.red,
+                                    ),
                                   ),
                                 ),
                               ),
                               const SizedBox(
-                                width: 10,
+                                width: 20,
                               ),
                               Expanded(
                                 child: Column(

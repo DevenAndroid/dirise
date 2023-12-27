@@ -418,7 +418,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                   color: Colors.transparent,
                                   surfaceTintColor: Colors.transparent,
                                   child: CachedNetworkImage(
-                                    imageUrl: store.storeLogo.toString(),
+                                    imageUrl: store.storeLogoApp.toString(),
                                     fit: BoxFit.cover,
                                     errorWidget: (_, __, ___) => const Icon(
                                       Icons.error_outline_outlined,
@@ -494,7 +494,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
                       height: context.getSize.width * .4,
                       width: double.maxFinite,
                       child: CachedNetworkImage(
-                        imageUrl: modelCategoryStores![i]
+                           imageUrl: modelCategoryStores![i]
                             .promotionData![min(i % 3, modelCategoryStores![i].promotionData!.length - 1)]
                             .banner
                             .toString(),
