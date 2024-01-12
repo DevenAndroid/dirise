@@ -3,6 +3,7 @@ import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/home_pages/homepage_screen.dart';
 import 'package:dirise/screens/wishlist/whishlist_screen.dart';
 import 'package:dirise/utils/api_constant.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -74,6 +75,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging.instance.getToken().then((value) {
+      print(value);
+    });
     return WillPopScope(
       onWillPop: () async {
         if (bottomController.pageIndex.value != 0) {

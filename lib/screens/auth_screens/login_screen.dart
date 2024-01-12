@@ -30,16 +30,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   final Repositories repositories = Repositories();
   RxBool hide = true.obs;
-  String token = '';
-  loginUserApi()  {
+  loginUserApi()  async {
     if (loginFormKey.currentState!.validate()) {
+      String? token = await FirebaseMessaging.instance.getToken();
       Map<String, dynamic> map = {};
       map['email'] = emailController.text.trim();
       map['password'] = passwordController.text.trim();
       map['fcm_token'] = token.toString();
       repositories.postApi(url: ApiUrls.loginUrl, context: context, mapData: map).then((value) async {
         LoginModal response = LoginModal.fromJson(jsonDecode(value));
-        token = (await FirebaseMessaging.instance.getToken())!;
         repositories.saveLoginDetails(jsonEncode(response));
         showToast(response.message.toString());
         if (response.status == true) {

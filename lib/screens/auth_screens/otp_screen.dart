@@ -33,8 +33,8 @@ class _OtpScreenState extends State<OtpScreen> {
   late bool check;
   String email = "";
   Map<String, dynamic> tempMap = {};
-  String token = '';
   verifyOtp() async {
+    String? token = await FirebaseMessaging.instance.getToken();
     if (_otpController.text.trim().isEmpty) {
       showToast("Please enter OTP".tr);
       return;
@@ -49,7 +49,6 @@ class _OtpScreenState extends State<OtpScreen> {
     map['fcm_token'] = token.toString();
     repositories.postApi(url: ApiUrls.verifyOtpEmail, context: context, mapData: map).then((value) async {
       LoginModal response = LoginModal.fromJson(jsonDecode(value));
-      token = (await FirebaseMessaging.instance.getToken())!;
       showToast(response.message);
       if (response.status == true) {
         if (check == true) {
