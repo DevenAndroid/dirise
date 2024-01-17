@@ -137,6 +137,7 @@ class SellersData {
   dynamic selectedSloatStart;
   dynamic selectedSloatEnd;
   dynamic selectedSloatDate;
+  dynamic isShipping;
   dynamic qty;
   bool? inCart;
   bool? inWishlist;
@@ -175,6 +176,7 @@ class SellersData {
         this.bestSaller,
         this.featured,
         this.taxApply,
+        this.isShipping,
         this.taxType,
         this.shortDescription,
         this.arabShortDescription,
@@ -246,6 +248,7 @@ class SellersData {
     skuId = json['sku_id'];
     pPrice = json['p_price'];
     sPrice = json['s_price'];
+    isShipping = json['is_shipping'];
     commission = json['commission'];
     bestSaller = json['best_saller'];
     featured = json['featured'];
@@ -344,6 +347,7 @@ class SellersData {
     data['featured_image'] = featuredImage;
     data['gallery_image'] = galleryImage;
     data['virtual_product_file'] = virtualProductFile;
+    data['is_shipping'] = isShipping;
     data['virtual_product_file_type'] = virtualProductFileType;
     data['virtual_product_file_language'] = virtualProductFileLanguage;
     data['in_stock'] = inStock;

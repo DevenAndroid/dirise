@@ -103,6 +103,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   String productCount= '';
   String bannerString = '';
   String storeLogo = '';
+  String categoryName = Get.arguments;
 
   linkedinLink() async {
     var url = Uri.parse(allStoreInfo.socialLinks!.linkedin.toString());
@@ -168,7 +169,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: AppStrings.generalLibraries.tr,
+          titleText: categoryName.toString(),
           actions: const [
             CartBagCard(isBlackTheme: true),
           ],
