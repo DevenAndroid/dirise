@@ -29,6 +29,7 @@ import '../calender.dart';
 import '../order_screens/my_orders_screen.dart';
 import '../virtual_assets/virtual_assets_screen.dart';
 import 'about_us_screen.dart';
+import 'contact_us_screen.dart';
 import 'faqs_screen.dart';
 import 'profile_screen.dart';
 import 'return_policy_screen.dart';
@@ -499,7 +500,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              'Publish Post'.tr,
+                              'News Feed'.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -589,7 +590,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         thickness: 1,
                         color: Color(0x1A000000),
                       ),
-                      /*const SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       GestureDetector(
@@ -599,7 +600,42 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         },
                         child: Row(
                           children: [
-                          Image.asset('assets/images/referral_email.png',height: 24,width: 24,),
+                          SvgPicture.asset('assets/images/address.svg',height: 24,width: 24,color: Colors.black,),
+                            //  SvgPicture.asset(height: 24, 'assets/images/referral_email.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              AppStrings.address,
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                         // Get.toNamed(AboutUsScreen.route);
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(Icons.credit_card_outlined),
                             //  SvgPicture.asset(height: 24, 'assets/images/referral_email.png'),
                             const SizedBox(
                               width: 20,
@@ -619,11 +655,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       ),
                       const SizedBox(
                         height: 5,
-                      ),*/
-                     /* const Divider(
+                      ),
+                      const Divider(
                         thickness: 1,
                         color: Color(0x1A000000),
-                      ),*/
+                      ),
                       const SizedBox(
                         height: 5,
                       ),
@@ -793,10 +829,46 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           ],
                         ),
                       ),
+
                       const SizedBox(
                         height: 5,
                       ),
                       const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                         Get.to(()=> const ContactUsScreen());
+                        },
+                        child: Row(
+                          children: [
+                          SvgPicture.asset('assets/icons/contactUs.svg',height: 24,width: 24,),
+                            //  SvgPicture.asset(height: 24, 'assets/images/referral_email.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              AppStrings.contactUs,
+                              style: GoogleFonts.poppins(
+                                  color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                       const Divider(
                         thickness: 1,
                         color: Color(0x1A000000),
                       ),
