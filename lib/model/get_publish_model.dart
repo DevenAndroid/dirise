@@ -1,6 +1,6 @@
 class GetPublishPostModel {
   bool? status;
-  String? message;
+  dynamic message;
   List<Data>? data;
 
   GetPublishPostModel({this.status, this.message, this.data});
@@ -28,15 +28,15 @@ class GetPublishPostModel {
 }
 
 class Data {
-  int? id;
+  dynamic id;
   UserId? userId;
-  String? title;
-  String? discription;
-  String? file;
-  String? fileType;
-  String? createdAt;
-  String? updatedAt;
-  int? likeCount;
+  dynamic title;
+  dynamic discription;
+  dynamic file;
+  dynamic fileType;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic likeCount;
   bool? isLike;
 
   Data(
@@ -84,9 +84,9 @@ class Data {
 }
 
 class UserId {
-  String? name;
-  String? profileImage;
-  String? email;
+  dynamic name;
+  dynamic profileImage;
+  dynamic email;
 
   UserId({this.name, this.profileImage, this.email});
 

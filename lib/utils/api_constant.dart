@@ -46,6 +46,7 @@ class ApiUrls {
   static const String myProductsListUrl = "${baseUrl}my-product-list";
   static const String getProductDetailsUrl = "${baseUrl}edit-product/";
   static const String aboutUsUrl = "${baseUrl}page-data";
+  static const String contactUsUrl = "${baseUrl}get-in-touch";
   static const String editVendorDetailsUrl = "${baseUrl}edit-vendor-details";
   static const String updateProductStatusUrl = "${baseUrl}update-product-status";
   static const String vendorDashBoardUrl = "${baseUrl}vendor-dashboard";

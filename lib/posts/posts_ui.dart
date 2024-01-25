@@ -39,7 +39,12 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
 
   Future getPublishPostData() async {
     repositories.getApi(url: ApiUrls.getPublishUrl).then((value) {
-      getPublishModel.value = GetPublishPostModel.fromJson(jsonDecode(value));
+      GetPublishPostModel response = GetPublishPostModel.fromJson(jsonDecode(value));
+      if(response.status == true){
+        showToast(response.message.toString());
+      }else{
+        showToast(response.message.toString());
+      }
     });
   }
 

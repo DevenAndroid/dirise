@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dirise/language/app_strings.dart';
+import 'package:dirise/model/common_modal.dart';
 import 'package:dirise/widgets/common_button.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/customsize.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import '../../model/aboutus_model.dart';
+import '../../model/model_common.dart';
 import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
 import '../../widgets/common_textfield.dart';
@@ -23,23 +25,34 @@ class ContactUsScreen extends StatefulWidget {
 }
 
 class _ContactUsScreenState extends State<ContactUsScreen> {
-  // Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
-  // Future aboutUsData() async {
-  //   Map<String, dynamic> map = {};
-  //   map["id"] = 12;
-  //   repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
-  //     aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
-  //   });
-  // }
-  //
-  // final Repositories repositories = Repositories();
-  //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   aboutUsData();
-  // }
+
+  Rx<CommonModel> contactusModal = CommonModel().obs;
+  Future contactUsData() async {
+    Map<String, dynamic> map = {};
+    map["name"] = nameController.text.trim().toString();
+    map["email"] = emailController.text.trim().toString();
+    map["phone"] = phoneController.text.trim().toString();
+    map["company"] = companyController.text.trim().toString();
+    map["message"] = messageController.text.trim().toString();
+    map["platform"] = 'app';
+    repositories.postApi(url: ApiUrls.contactUsUrl, mapData: map,context: context).then((value) {
+       CommonModel response = CommonModel.fromJson(jsonDecode(value));
+      if(response.status == true ){
+        nameController.text = '';
+        emailController.text = '';
+        phoneController.text = '';
+        companyController.text = '';
+        messageController.text = '';
+        showToast(response.message.toString(),center: true);
+      }
+      else{
+        showToast(response.message.toString(),center: true);
+      }
+    });
+  }
+
+  final Repositories repositories = Repositories();
+
 
    TextEditingController nameController = TextEditingController();
    TextEditingController emailController = TextEditingController();
@@ -109,39 +122,45 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     addHeight(7),
                     CommonTextField(
                       hintText: 'Your Email',
-                      controller: nameController,
+                      controller: emailController,
                     ),
                     addHeight(7),
                     CommonTextField(
                       hintText: 'Phone Number',
-                      controller: nameController,
+                      controller: phoneController,
+                      keyboardType: TextInputType.phone,
                     ),
                     addHeight(7),
                     CommonTextField(
                       hintText: 'Company',
-                      controller: nameController,
+                      controller: companyController,
                     ),
                     addHeight(7),
                     CommonTextField(
                       hintText: 'Message',
-                      controller: nameController,
+                      controller: messageController,
                       isMulti: true,
                     ),
                     addHeight(10),
-                    Container(
-                       width: Get.width/2.5,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: AppTheme.buttonColor
+                    InkWell(
+                      onTap: ()async{
+                      await contactUsData();
+                      },
+                      child: Container(
+                         width: Get.width/2.5,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: AppTheme.buttonColor
+                          ),
+                        child: Center(
+                          child: Text('Send Message',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(color: const Color(0xFFFFFFFF), fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
                         ),
-                      child: Center(
-                        child: Text('Send Message',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(color: const Color(0xFFFFFFFF), fontSize: 16, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                        )
+                          ),
+                    )
                   ],
                 ),
               ),
