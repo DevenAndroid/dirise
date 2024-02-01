@@ -199,6 +199,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
           }
           cartController.dialogOpened = false;
           cartController.placeOrder(
+              idd: cartController.shippingId,
               context: context,
               currencyCode: "usd",
               paymentMethod: paymentMethod1,

@@ -25,7 +25,7 @@ class CartController extends GetxController {
   bool apiLoaded = false;
   ModelUserAddressList addressListModel = ModelUserAddressList();
   bool addressLoaded = false;
-
+  String shippingId = "";
   AddressData selectedAddress = AddressData();
   final GlobalKey addressKey = GlobalKey();
   RxString deliveryOption = "".obs;
@@ -65,6 +65,7 @@ class CartController extends GetxController {
     required String deliveryOption,
     required String paymentMethod,
     String? couponCode,
+    required String idd,
     String? shippingPrice,
     String? productID,
     String? quantity,
@@ -91,7 +92,7 @@ class CartController extends GetxController {
       'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
       'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
       "shipping": [
-        {"store_id": 13, "store_name": "vendor", "title": "Normal Shipping", "ship_price": "2"}
+        {"store_id": 13, "store_name": "vendor", "title": "Normal Shipping", "ship_price": "2" , "shipping_type_id": shippingId.toString()}
       ],
       "cart_id": ["2"],
       if (address != null) "shipping_address": address,
@@ -199,7 +200,7 @@ class CartController extends GetxController {
                           deliveryOption: deliveryOption,
                           productID: productID,
                           purchaseType: purchaseType,
-                          address: address);
+                          address: address, idd: '');
                     },
                     child: Obx(() => Text(
                           countDown.value != 0 ? "Resend OTP in ${countDown.value}s" : AppStrings.resendOtp,
@@ -250,7 +251,7 @@ class CartController extends GetxController {
                                 deliveryOption: deliveryOption,
                                 address: address,
                                 purchaseType: purchaseType,
-                                otp: otpController.text.trim());
+                                otp: otpController.text.trim(), idd: shippingId);
                           },
                           child: Text(
                             "Submit",

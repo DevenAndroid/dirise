@@ -8,6 +8,7 @@ import '../widgets/common_colour.dart';
 
 class ApiUrls {
   static const String baseUrl = 'https://dirise.eoxyslive.com/api/';
+  // static const String baseUrl = 'https://backend.diriseapp.com/api/';
   static const String signInUrl = "${baseUrl}register";
   static const String loginUrl = "${baseUrl}login";
   static const String verifyOtpEmail = "${baseUrl}verify-otp-email";

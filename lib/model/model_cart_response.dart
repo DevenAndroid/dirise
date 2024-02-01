@@ -1,5 +1,6 @@
 import 'package:dirise/utils/helper.dart';
-
+import 'package:collection/collection.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 class ModelCartResponse {
   bool? status;
   dynamic message;
@@ -8,7 +9,10 @@ class ModelCartResponse {
   dynamic total;
   dynamic discount;
   Cart? cart;
-  String get totalProducts => cart!.getAllProducts.map((e) => e.map((e1) => e1.qty.toString().toNum).toList().getTotal).toList().getTotal.toString();
+ // String get totalProducts2 => cart!.getAllProducts.map((e) => e.map((e1) => e1.products!.map((e2) => e2.qty).toString().toNum).toList().getTotal).toList().getTotal.toString();
+  String? totalProducts;
+
+
 
   ModelCartResponse(
       {this.status,
@@ -26,7 +30,16 @@ class ModelCartResponse {
     shipping = json['shipping'];
     total = json['total'];
     discount = json['discount'];
-    cart = json['cart'] != null && json['cart'].toString() != "[]" ? Cart.fromJson(json['cart']) : Cart(cartItems: {});
+    cart = json['cart'] != null && json['cart'].toString() != "[]" ? Cart.fromJson(json['cart']) : Cart(carsShowroom: {});
+    // cart = json['cart'] != null ? Cart.fromJson(json['cart']) : null;
+
+    int a = 0;
+    for(var item in cart!.carsShowroom!.entries.map((e) => e.value.products!)){
+      for(var item1 in item ){
+        a = a + int.parse(item1.qty.toString());
+      }
+    }
+    cart != null ? totalProducts = a.toString() : totalProducts = '0';
   }
 
   Map<String, dynamic> toJson() {
@@ -37,40 +50,72 @@ class ModelCartResponse {
     data['shipping'] = shipping;
     data['total'] = total;
     data['discount'] = discount;
-    if (cart != null) {
-      data['cart'] = cart!.toJson();
-    }
+    // if (cart != null) {
+    //   data['cart'] = cart!.toJson();
+    // }
     return data;
   }
 }
 
 class Cart {
-  Map<String, List<SellersData>>? cartItems;
+  Map<String, StoreData>? carsShowroom = {};
 
-  List<List<SellersData>> getAllProducts = [];
-
-  Cart({this.cartItems});
+  Cart({this.carsShowroom});
 
   Cart.fromJson(Map<String, dynamic> json) {
     for (var element in json.entries) {
-      List<SellersData> tempList = [];
-      element.value.forEach((e){
-        tempList.add(SellersData.fromJson(e, storeName1: element.key));
-      });
-      cartItems ??= {};
-      cartItems![element.key] = tempList;
+      carsShowroom![element.key] = StoreData.fromJson(element.value);
     }
-    getAllProducts = cartItems!.entries.map((e) => e.value).toList();
+    // carsShowroom = json['cars showroom'] != null
+    //     ? StoreData.fromJson(json['cars showroom'])
+    //     : null;
+  }
+
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = <String, dynamic>{};
+  //   if (carsShowroom != null) {
+  //     data['cars showroom'] = carsShowroom!.toJson();
+  //   }
+  //   return data;
+  // }
+}
+
+class StoreData {
+  List<Products>? products;
+  List<ShippingTypes>? shippingTypes;
+  RxString shippingOption = "pickup".obs;
+
+  StoreData({this.products, this.shippingTypes});
+
+  StoreData.fromJson(Map<String, dynamic> json) {
+    if (json['products'] != null) {
+      products = <Products>[];
+      json['products'].forEach((v) {
+        products!.add(Products.fromJson(v));
+      });
+    }
+    if (json['shipping_types'] != null) {
+      shippingTypes = <ShippingTypes>[];
+      json['shipping_types'].forEach((v) {
+        shippingTypes!.add(ShippingTypes.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    if (products != null) {
+      data['products'] = products!.map((v) => v.toJson()).toList();
+    }
+    if (shippingTypes != null) {
+      data['shipping_types'] =
+          shippingTypes!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
 
-class SellersData {
-  String storeName = "";
+class Products {
   dynamic id;
   dynamic vendorId;
   dynamic catId;
@@ -78,12 +123,11 @@ class SellersData {
   dynamic catId3;
   dynamic brandSlug;
   dynamic slug;
-  
-  dynamic pName;
-  dynamic addToCart;
+  dynamic pname;
   dynamic prodectImage;
   dynamic prodectName;
   dynamic prodectSku;
+  dynamic views;
   dynamic code;
   dynamic bookingProductType;
   dynamic prodectPrice;
@@ -111,9 +155,13 @@ class SellersData {
   dynamic virtualProductFile;
   dynamic virtualProductFileType;
   dynamic virtualProductFileLanguage;
+  dynamic featureImageApp;
+  dynamic featureImageWeb;
   dynamic inStock;
   dynamic weight;
   dynamic weightUnit;
+  dynamic time;
+  dynamic timePeriod;
   dynamic stockAlert;
   dynamic shippingType;
   dynamic shippingCharge;
@@ -128,6 +176,7 @@ class SellersData {
   dynamic createdAt;
   dynamic updatedAt;
   dynamic topHunderd;
+  dynamic limitedTimeDeal;
   dynamic returnDays;
   dynamic isPublish;
   dynamic inOffer;
@@ -137,16 +186,17 @@ class SellersData {
   dynamic selectedSloatStart;
   dynamic selectedSloatEnd;
   dynamic selectedSloatDate;
-  dynamic isShipping;
   dynamic qty;
+  bool? isShipping;
   bool? inCart;
   bool? inWishlist;
   dynamic currencySign;
   dynamic currencyCode;
-  List<void>? attributes;
-  List<void>? variants;
+  List<dynamic>? variantsComb;
+  List<dynamic>? attributes;
+  List<dynamic>? variants;
 
-  SellersData(
+  Products(
       {this.id,
         this.vendorId,
         this.catId,
@@ -154,11 +204,11 @@ class SellersData {
         this.catId3,
         this.brandSlug,
         this.slug,
-        this.pName,
-    this.addToCart,
+        this.pname,
         this.prodectImage,
         this.prodectName,
         this.prodectSku,
+        this.views,
         this.code,
         this.bookingProductType,
         this.prodectPrice,
@@ -176,7 +226,6 @@ class SellersData {
         this.bestSaller,
         this.featured,
         this.taxApply,
-        this.isShipping,
         this.taxType,
         this.shortDescription,
         this.arabShortDescription,
@@ -187,9 +236,13 @@ class SellersData {
         this.virtualProductFile,
         this.virtualProductFileType,
         this.virtualProductFileLanguage,
+        this.featureImageApp,
+        this.featureImageWeb,
         this.inStock,
         this.weight,
         this.weightUnit,
+        this.time,
+        this.timePeriod,
         this.stockAlert,
         this.shippingType,
         this.shippingCharge,
@@ -204,6 +257,7 @@ class SellersData {
         this.createdAt,
         this.updatedAt,
         this.topHunderd,
+        this.limitedTimeDeal,
         this.returnDays,
         this.isPublish,
         this.inOffer,
@@ -214,15 +268,16 @@ class SellersData {
         this.selectedSloatEnd,
         this.selectedSloatDate,
         this.qty,
+        this.isShipping,
         this.inCart,
         this.inWishlist,
         this.currencySign,
         this.currencyCode,
+        this.variantsComb,
         this.attributes,
         this.variants});
 
-  SellersData.fromJson(Map<String, dynamic> json, {required String? storeName1}) {
-    storeName =storeName1 ?? "";
+  Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     vendorId = json['vendor_id'];
     catId = json['cat_id'];
@@ -230,11 +285,11 @@ class SellersData {
     catId3 = json['cat_id_3'];
     brandSlug = json['brand_slug'];
     slug = json['slug'];
-    pName = json['pname'];
-    addToCart = json['add_to_cart'];
+    pname = json['pname'];
     prodectImage = json['prodect_image'];
     prodectName = json['prodect_name'];
     prodectSku = json['prodect_sku'];
+    views = json['views'];
     code = json['code'];
     bookingProductType = json['booking_product_type'];
     prodectPrice = json['prodect_price'];
@@ -248,7 +303,6 @@ class SellersData {
     skuId = json['sku_id'];
     pPrice = json['p_price'];
     sPrice = json['s_price'];
-    isShipping = json['is_shipping'];
     commission = json['commission'];
     bestSaller = json['best_saller'];
     featured = json['featured'];
@@ -263,9 +317,13 @@ class SellersData {
     virtualProductFile = json['virtual_product_file'];
     virtualProductFileType = json['virtual_product_file_type'];
     virtualProductFileLanguage = json['virtual_product_file_language'];
+    featureImageApp = json['feature_image_app'];
+    featureImageWeb = json['feature_image_web'];
     inStock = json['in_stock'];
     weight = json['weight'];
     weightUnit = json['weight_unit'];
+    time = json['time'];
+    timePeriod = json['time_period'];
     stockAlert = json['stock_alert'];
     shippingType = json['shipping_type'];
     shippingCharge = json['shipping_charge'];
@@ -280,6 +338,7 @@ class SellersData {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     topHunderd = json['top_hunderd'];
+    limitedTimeDeal = json['limited_time_deal'];
     returnDays = json['return_days'];
     isPublish = json['is_publish'];
     inOffer = json['in_offer'];
@@ -290,20 +349,27 @@ class SellersData {
     selectedSloatEnd = json['selected_sloat_end'];
     selectedSloatDate = json['selected_sloat_date'];
     qty = json['qty'];
+    isShipping = json['is_shipping'];
     inCart = json['in_cart'];
     inWishlist = json['in_wishlist'];
     currencySign = json['currency_sign'];
     currencyCode = json['currency_code'];
+    // if (json['variants_comb'] != null) {
+    //   variantsComb = <Null>[];
+    //   json['variants_comb'].forEach((v) {
+    //     variantsComb!.add(new Null.fromJson(v));
+    //   });
+    // }
     // if (json['attributes'] != null) {
     //   attributes = <Null>[];
     //   json['attributes'].forEach((v) {
-    //     attributes!.add(Null.fromJson(v));
+    //     attributes!.add(new Null.fromJson(v));
     //   });
     // }
     // if (json['variants'] != null) {
     //   variants = <Null>[];
     //   json['variants'].forEach((v) {
-    //     variants!.add(Null.fromJson(v));
+    //     variants!.add(new Null.fromJson(v));
     //   });
     // }
   }
@@ -317,11 +383,11 @@ class SellersData {
     data['cat_id_3'] = catId3;
     data['brand_slug'] = brandSlug;
     data['slug'] = slug;
-    data['pname'] = pName;
-    data['add_to_cart'] = addToCart;
+    data['pname'] = pname;
     data['prodect_image'] = prodectImage;
     data['prodect_name'] = prodectName;
     data['prodect_sku'] = prodectSku;
+    data['views'] = views;
     data['code'] = code;
     data['booking_product_type'] = bookingProductType;
     data['prodect_price'] = prodectPrice;
@@ -347,12 +413,15 @@ class SellersData {
     data['featured_image'] = featuredImage;
     data['gallery_image'] = galleryImage;
     data['virtual_product_file'] = virtualProductFile;
-    data['is_shipping'] = isShipping;
     data['virtual_product_file_type'] = virtualProductFileType;
     data['virtual_product_file_language'] = virtualProductFileLanguage;
+    data['feature_image_app'] = featureImageApp;
+    data['feature_image_web'] = featureImageWeb;
     data['in_stock'] = inStock;
     data['weight'] = weight;
     data['weight_unit'] = weightUnit;
+    data['time'] = time;
+    data['time_period'] = timePeriod;
     data['stock_alert'] = stockAlert;
     data['shipping_type'] = shippingType;
     data['shipping_charge'] = shippingCharge;
@@ -367,6 +436,7 @@ class SellersData {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['top_hunderd'] = topHunderd;
+    data['limited_time_deal'] = limitedTimeDeal;
     data['return_days'] = returnDays;
     data['is_publish'] = isPublish;
     data['in_offer'] = inOffer;
@@ -377,16 +447,44 @@ class SellersData {
     data['selected_sloat_end'] = selectedSloatEnd;
     data['selected_sloat_date'] = selectedSloatDate;
     data['qty'] = qty;
+    data['is_shipping'] = isShipping;
     data['in_cart'] = inCart;
     data['in_wishlist'] = inWishlist;
     data['currency_sign'] = currencySign;
     data['currency_code'] = currencyCode;
-    // if (attributes != null) {
-    //   data['attributes'] = attributes!.map((v) => v.toJson()).toList();
+    // if (this.variantsComb != null) {
+    //   data['variants_comb'] =
+    //       this.variantsComb!.map((v) => v.toJson()).toList();
     // }
-    // if (variants != null) {
-    //   data['variants'] = variants!.map((v) => v.toJson()).toList();
+    // if (this.attributes != null) {
+    //   data['attributes'] = this.attributes!.map((v) => v.toJson()).toList();
     // }
+    // if (this.variants != null) {
+    //   data['variants'] = this.variants!.map((v) => v.toJson()).toList();
+    // }
+    return data;
+  }
+}
+
+class ShippingTypes {
+  dynamic id;
+  dynamic name;
+  dynamic value;
+
+
+  ShippingTypes({this.id, this.name, this.value});
+
+  ShippingTypes.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['value'] = value;
     return data;
   }
 }
