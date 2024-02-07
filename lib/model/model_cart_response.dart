@@ -83,7 +83,9 @@ class Cart {
 class StoreData {
   List<Products>? products;
   List<ShippingTypes>? shippingTypes;
-  RxString shippingOption = "pickup".obs;
+  List<ShippingTypes>? selectedContacts;
+  RxString shippingOption = "".obs;
+  RxInt shippingId = 0.obs;
 
   StoreData({this.products, this.shippingTypes});
 
@@ -470,6 +472,7 @@ class ShippingTypes {
   dynamic id;
   dynamic name;
   dynamic value;
+  bool check = false;
 
 
   ShippingTypes({this.id, this.name, this.value});

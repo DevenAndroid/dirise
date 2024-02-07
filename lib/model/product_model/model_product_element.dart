@@ -60,6 +60,8 @@ class ProductElement {
   dynamic minBidPrice;
   dynamic stepPrice;
   dynamic currentBid;
+  dynamic featureImageApp;
+  bool? isShipping;
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
   // List<Attributes>? attributes;
@@ -73,6 +75,7 @@ class ProductElement {
     this.catId2,
     this.catId3,
     this.brandSlug,
+    this.isShipping,
     this.slug,
     this.pName,
     this.addToCart,
@@ -112,6 +115,7 @@ class ProductElement {
     this.updatedAt,
     this.topHunderd,
     this.returnDays,
+    this.featureImageApp,
     this.isPublish,
     this.inOffer,
     this.forAuction,
@@ -145,6 +149,7 @@ class ProductElement {
     addToCart = json["add_to_cart"];
     addToCart = json["add_to_cart"];
     arabPname = json["arab_pname"];
+    featureImageApp = json['feature_image_app'];
     virtualProductFile = json['virtual_product_file'];
     virtualProductFileType = json['virtual_product_file_type'];
     productType = json["product_type"];
@@ -162,6 +167,7 @@ class ProductElement {
     arabShortDescription = json["arab_short_description"];
     longDescription = json["long_description"];
     arabLongDescription = json["arab_long_description"];
+    isShipping = json['is_shipping'];
     featuredImage = json["featured_image"];
     try {
       galleryImage = json["gallery_image"] == null ? [] : List<String>.from(json["gallery_image"]!.map((x) => x));
@@ -234,6 +240,8 @@ class ProductElement {
     "brand_slug": brandSlug,
     "slug": slug,
     "pname": pName,
+     'is_shipping' : isShipping,
+    'feature_image_app' : featureImageApp,
     if (serviceTimeSloat != null) 'serviceTimeSloat': serviceTimeSloat!.map((v) => v.toJson()).toList(),
     if (productAvailability != null) 'productAvailability': productAvailability!.toJson(),
     "add_to_cart": addToCart,

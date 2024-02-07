@@ -78,6 +78,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   void initState() {
     super.initState();
     getPaymentGateWays();
+    cartController.shippingId = '';
     profileController.checkUserLoggedIn().then((value) {
       if (value == false) return;
       cartController.getAddress();
@@ -156,17 +157,31 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             showToast("Please select payment Method".tr);
             return;
           }
+
+          for (var item in cartController.cartModel.cart!.carsShowroom!.entries) {
+            if (item.value.shippingOption.isEmpty) {
+              showToast("Please select shipping Method".tr);
+              return;
+            }
+          }
+          cartController.shippingList.clear();
+          for (var item in cartController.cartModel.cart!.carsShowroom!.entries) {
+             cartController.shippingList.add(item.value.shippingId.value);
+          }
+
+            print('dadasd${cartController.shippingList.join(',')}');
+
           cartController.placeOrder(
-              context: context,
-              currencyCode: "usd",
-              paymentMethod: paymentMethod1,
-              deliveryOption: cartController.deliveryOption.value,
-              subTotalPrice: cartController.cartModel.subtotal.toString(),
-              totalPrice: cartController.cartModel.total.toString(),
-              couponCode: couponApplied.isNotEmpty ? appliedCode : null,
-              purchaseType: PurchaseType.cart,
-              address: cartController.selectedAddress.toJson(),
-              idd:  cartController.shippingId.toString(),
+            context: context,
+            currencyCode: "usd",
+            paymentMethod: paymentMethod1,
+            deliveryOption: cartController.deliveryOption.value,
+            subTotalPrice: cartController.cartModel.subtotal.toString(),
+            totalPrice: cartController.cartModel.total.toString(),
+            couponCode: couponApplied.isNotEmpty ? appliedCode : null,
+            purchaseType: PurchaseType.cart,
+            address: cartController.selectedAddress.toJson(),
+            idd: cartController.shippingList.join(','),
           );
         },
         style: ElevatedButton.styleFrom(
@@ -500,50 +515,54 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ),
                             ),
                           if (cartController.deliveryOption.value == "delivery")
-                          Container(
-                            color: Colors.white,
-                            child: ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: e.value.shippingTypes!.length,
-                              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15).copyWith(top: 0),
-                              itemBuilder: (context, ii) {
-                                ShippingTypes product = e.value.shippingTypes![ii];
-                                return Obx(() {
-                                  return Column(
-                                    children: [
-                                      10.spaceY,
-                                      ii == 0 ? 0.spaceY : const Divider(
-                                        color: Color(0xFFD9D9D9),
-                                        thickness: 0.8,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Radio(
-                                            value: product.id.toString(),
-                                            groupValue: e.value.shippingOption.value,
-                                            visualDensity: const VisualDensity(horizontal: -4.0),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                e.value.shippingOption.value = value.toString();
-                                                cartController.shippingId =  e.value.shippingOption.value;
-                                                log(e.value.shippingOption.value);
-                                                log(cartController.shippingId);
-                                              });
-                                            },
-                                          ),
-                                          20.spaceX,
-                                          Text(product.name.toString(),
-                                              style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16)),
-                                        ],
-                                      ),
-                                    ],
-                                  );
-                                });
-                                // : 0.spaceY,;
-                              },
+                            Container(
+                              color: Colors.white,
+                              child: ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: e.value.shippingTypes!.length,
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15).copyWith(top: 0),
+                                itemBuilder: (context, ii) {
+                                  ShippingTypes product = e.value.shippingTypes![ii];
+                                  return Obx(() {
+                                    return Column(
+                                      children: [
+                                        10.spaceY,
+                                        ii == 0
+                                            ? 0.spaceY
+                                            : const Divider(
+                                                color: Color(0xFFD9D9D9),
+                                                thickness: 0.8,
+                                              ),
+
+                                        Row(
+                                          children: [
+                                            Radio(
+                                              value: product.id.toString(),
+                                              groupValue: e.value.shippingOption.value,
+                                              visualDensity: const VisualDensity(horizontal: -4.0),
+                                              fillColor: e.value.shippingOption.value.isEmpty
+                                                  ? MaterialStateProperty.all(Colors.red)
+                                                  : null,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  e.value.shippingOption.value = value.toString();
+                                                  e.value.shippingId.value =  e.value.shippingTypes![ii].id;
+                                                });
+                                              },
+                                            ),
+                                            20.spaceX,
+                                            Text(product.name.toString().capitalize!.replaceAll('_', ' '),
+                                                style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16)),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  });
+                                  // : 0.spaceY,;
+                                },
+                              ),
                             ),
-                          ),
                         ],
                       ))
                   .toList(),

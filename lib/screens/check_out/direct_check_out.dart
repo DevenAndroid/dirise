@@ -1,17 +1,22 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dirise/utils/helper.dart';
+import 'package:dirise/widgets/customsize.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/profile_controller.dart';
 import '../../model/model_address_list.dart';
+import '../../model/model_cart_response.dart';
 import '../../model/order_models/model_direct_order_details.dart';
 import '../../model/vendor_models/model_payment_method.dart';
 import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
+import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';
 import '../../widgets/loading_animation.dart';
@@ -94,6 +99,225 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
               height: 30,
             ),
             paymentMethod(size),
+            Column(
+              children: [
+                Obx(() {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15).copyWith(top: 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                              Text(
+                                "${'Sold By'.tr} ${directOrderResponse.prodcutData!.slug.toString()}",
+                                style: titleStyle,
+                              ),
+                            addHeight(20),
+                            IntrinsicHeight(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 75,
+                                    height: 75,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.network(
+                                        directOrderResponse.prodcutData!.featureImageApp.toString(),
+                                        fit: BoxFit.contain,
+                                        errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          directOrderResponse.prodcutData!.pName.toString(),
+                                          style: titleStyle.copyWith(fontWeight: FontWeight.w400),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
+                                        Text(
+                                          '\$${directOrderResponse.prodcutData!.pPrice.toString()}',
+                                          style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        IntrinsicHeight(
+                                          child: Row(
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {
+                                                    if (directOrderResponse.returnData!.quantity.toNum > 1) {
+                                                      cartController.updateCartQuantity(
+                                                          context: context,
+                                                          productId: directOrderResponse.prodcutData!.id.toString(),
+                                                          quantity: (directOrderResponse.returnData!.quantity.toNum - 1).toString());
+                                                    } else {
+                                                      cartController.removeItemFromCart(
+                                                          productId: directOrderResponse.prodcutData!.id.toString(), context: context);
+                                                    }
+                                                  },
+                                                  style: IconButton.styleFrom(
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(2)),
+                                                    backgroundColor: AppTheme.buttonColor,
+                                                  ),
+                                                  constraints: const BoxConstraints(minHeight: 0),
+                                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                                                  visualDensity: VisualDensity.compact,
+                                                  icon: const Icon(
+                                                    Icons.remove,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  )),
+                                              5.spaceX,
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(2),
+                                                    // color: Colors.grey,
+                                                    border: Border.all(color: Colors.grey.shade800)),
+                                                margin: const EdgeInsets.symmetric(vertical: 6),
+                                                padding: const EdgeInsets.symmetric(horizontal: 15),
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  directOrderResponse.returnData!.quantity.toString(),
+                                                  style: normalStyle,
+                                                ),
+                                              ),
+                                              5.spaceX,
+                                              IconButton(
+                                                  onPressed: () {
+                                                    if (directOrderResponse.returnData!.quantity.toString().toNum <
+                                                        directOrderResponse.prodcutData!.stockAlert.toString().toNum) {
+                                                      cartController.updateCartQuantity(
+                                                          context: context,
+                                                          productId:   directOrderResponse.prodcutData!.id.toString(),
+                                                          quantity: (directOrderResponse.returnData!.quantity.toString().toNum + 1).toString());
+                                                    }
+                                                  },
+                                                  style: IconButton.styleFrom(
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(2)),
+                                                    backgroundColor: AppTheme.buttonColor,
+                                                  ),
+                                                  constraints: const BoxConstraints(minHeight: 0),
+                                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                                                  visualDensity: VisualDensity.compact,
+                                                  icon: const Icon(
+                                                    Icons.add,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  )),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        cartController.removeItemFromCart(
+                                            productId:   directOrderResponse.prodcutData!.id.toString(), context: context);
+                                      },
+                                      visualDensity: VisualDensity.compact,
+                                      icon: SvgPicture.asset(
+                                        "assets/svgs/delete.svg",
+                                        height: 18,
+                                        width: 18,
+                                      ))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      10.spaceY,
+                      if (deliveryOption.value == "delivery")
+                     directOrderResponse.prodcutData!.isShipping == true ? Column(
+                        children: [
+
+                            Container(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Image.asset('assets/images/shipping_icon.png', height: 32, width: 32),
+                                    20.spaceX,
+                                    Text("Shipping Method".tr,
+                                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: Colors.white,
+                              child: ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount:    directOrderResponse.shippingType!.length,
+                                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15).copyWith(top: 0),
+                                itemBuilder: (context, ii) {
+                                  var product = directOrderResponse.shippingType![ii];
+                                  return Obx(() {
+                                    return Column(
+                                      children: [
+                                        10.spaceY,
+                                        ii == 0 ? 0.spaceY : const Divider(
+                                          color: Color(0xFFD9D9D9),
+                                          thickness: 0.8,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Radio(
+                                              value: product.id.toString(),
+                                              groupValue: directOrderResponse.shippingOption.value,
+                                              visualDensity: const VisualDensity(horizontal: -4.0),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  directOrderResponse.shippingOption.value = value.toString();
+                                                  cartController.shippingId =  directOrderResponse.shippingOption.value;
+                                                  log( directOrderResponse.shippingOption.value);
+                                                  log(cartController.shippingId);
+                                                });
+                                              },
+                                            ),
+                                            20.spaceX,
+                                            Text(product.name.toString().capitalize!.replaceAll('_', ' '),
+                                                style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16)),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  });
+                                  // : 0.spaceY,;
+                                },
+                              ),
+                            ),
+                        ],
+                      ): 
+                      const Text('No Shipping Found For This Product'),
+                    ],
+                  );
+                })
+              ],
+            ),
             Column(
               children: [
                 Container(
