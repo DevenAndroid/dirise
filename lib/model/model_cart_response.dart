@@ -85,7 +85,10 @@ class StoreData {
   List<ShippingTypes>? shippingTypes;
   List<ShippingTypes>? selectedContacts;
   RxString shippingOption = "".obs;
+  RxString shippingVendorName = "".obs;
+  RxString vendorPrice = "".obs;
   RxInt shippingId = 0.obs;
+  RxInt vendorId = 0.obs;
 
   StoreData({this.products, this.shippingTypes});
 
@@ -472,15 +475,17 @@ class ShippingTypes {
   dynamic id;
   dynamic name;
   dynamic value;
+  dynamic vendorId;
   bool check = false;
 
 
-  ShippingTypes({this.id, this.name, this.value});
+  ShippingTypes({this.id, this.name, this.value,this.vendorId});
 
   ShippingTypes.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     value = json['value'];
+    vendorId = json['vendor_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -488,6 +493,7 @@ class ShippingTypes {
     data['id'] = id;
     data['name'] = name;
     data['value'] = value;
+    data['vendor_id'] = vendorId;
     return data;
   }
 }

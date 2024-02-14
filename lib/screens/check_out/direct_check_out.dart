@@ -289,12 +289,18 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                               value: product.id.toString(),
                                               groupValue: directOrderResponse.shippingOption.value,
                                               visualDensity: const VisualDensity(horizontal: -4.0),
+                                              fillColor: directOrderResponse.shippingOption.value.isEmpty
+                                                ? MaterialStateProperty.all(Colors.red)
+                                                : null,
+
                                               onChanged: (value) {
                                                 setState(() {
                                                   directOrderResponse.shippingOption.value = value.toString();
-                                                  cartController.shippingId =  directOrderResponse.shippingOption.value;
-                                                  log( directOrderResponse.shippingOption.value);
-                                                  log(cartController.shippingId);
+                                                  cartController.shippingList.clear();
+                                                  if (value != null) {
+                                                    cartController.shippingList.add(int.parse(value));
+                                                  }
+                                                  print('obj ${ cartController.shippingList}');
                                                 });
                                               },
                                             ),
@@ -302,7 +308,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                             Text(product.name.toString().capitalize!.replaceAll('_', ' '),
                                                 style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16)),
                                           ],
-                                        ),
+                                        ), 
                                       ],
                                     );
                                   });
@@ -421,9 +427,12 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
             showToast("Select delivery address to complete order".tr);
             return;
           }
+          if(directOrderResponse.shippingOption.value.isEmpty){
+            showToast("Please select shipping Method".tr);
+          }
           cartController.dialogOpened = false;
           cartController.placeOrder(
-              idd: cartController.shippingId,
+              idd: cartController.shippingList.join(','),
               context: context,
               currencyCode: "usd",
               paymentMethod: paymentMethod1,

@@ -167,9 +167,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           cartController.shippingList.clear();
           for (var item in cartController.cartModel.cart!.carsShowroom!.entries) {
              cartController.shippingList.add(item.value.shippingId.value);
+             cartController.shippingVendorId.add(item.value.vendorId.value);
+             cartController.shippingVendorName.add(item.value.shippingVendorName.value);
+             cartController.shippingPriceList.add(item.value.vendorPrice.value.toString());
           }
 
             print('dadasd${cartController.shippingList.join(',')}');
+            print('dadasd${cartController.shippingVendorId.join(',')}');
 
           cartController.placeOrder(
             context: context,
@@ -548,6 +552,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                 setState(() {
                                                   e.value.shippingOption.value = value.toString();
                                                   e.value.shippingId.value =  e.value.shippingTypes![ii].id;
+                                                  e.value.vendorId.value =  e.value.shippingTypes![ii].vendorId;
+                                                  e.value.shippingVendorName.value =  e.value.shippingTypes![ii].name.toString();
+                                                  e.value.vendorPrice.value =  e.value.shippingTypes![ii].value.toString();
                                                 });
                                               },
                                             ),

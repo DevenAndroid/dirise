@@ -74,6 +74,7 @@ class ShippingType {
   String? value;
   int? vendorId;
 
+
   ShippingType({this.id, this.name, this.value, this.vendorId});
 
   ShippingType.fromJson(Map<String, dynamic> json) {

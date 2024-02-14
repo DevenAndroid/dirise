@@ -29,13 +29,16 @@ class CartController extends GetxController {
   AddressData selectedAddress = AddressData();
   final GlobalKey addressKey = GlobalKey();
   RxString deliveryOption = "".obs;
-
   RxBool showValidation = false.obs;
   RxBool showValidationShipping = false.obs;
 
   RxInt countDown = 30.obs;
   Timer? _timer;
   List<int> shippingList = [];
+  List<int> shippingVendorId = [];
+  List<String> shippingVendorName = [];
+  List<String> shippingPriceList = [];
+  String storeId= '';
   startTimer() {
     stopTimer();
     countDown.value = 30;
@@ -93,7 +96,7 @@ class CartController extends GetxController {
       'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
       'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
       "shipping": [
-        {"store_id": 13, "store_name": "vendor", "title": "Normal Shipping", "ship_price": "2" , "shipping_type_id": shippingList.join(',')}
+        {"store_id": shippingVendorId.join(','), "store_name": "vendor", "title": shippingVendorName.join(','), "ship_price": shippingPriceList.join(',') , "shipping_type_id": shippingList.join( ',')}
       ],
       "cart_id": ["2"],
       if (address != null) "shipping_address": address,
