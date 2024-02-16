@@ -110,10 +110,10 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                              Text(
-                                "${'Sold By'.tr} ${directOrderResponse.prodcutData!.slug.toString()}",
-                                style: titleStyle,
-                              ),
+                            Text(
+                              "${'Sold By'.tr} ${directOrderResponse.prodcutData!.slug.toString()}",
+                              style: titleStyle,
+                            ),
                             addHeight(20),
                             IntrinsicHeight(
                               child: Row(
@@ -248,9 +248,10 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                       ),
                       10.spaceY,
                       if (deliveryOption.value == "delivery")
-                     directOrderResponse.prodcutData!.isShipping == true ? Column(
-                        children: [
-
+                        directOrderResponse.prodcutData!.isShipping == true &&
+                            directOrderResponse.prodcutData!.localShipping == true ?
+                        Column(
+                          children: [
                             Container(
                               color: Colors.white,
                               child: Padding(
@@ -289,18 +290,12 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                               value: product.id.toString(),
                                               groupValue: directOrderResponse.shippingOption.value,
                                               visualDensity: const VisualDensity(horizontal: -4.0),
-                                              fillColor: directOrderResponse.shippingOption.value.isEmpty
-                                                ? MaterialStateProperty.all(Colors.red)
-                                                : null,
-
                                               onChanged: (value) {
                                                 setState(() {
                                                   directOrderResponse.shippingOption.value = value.toString();
-                                                  cartController.shippingList.clear();
-                                                  if (value != null) {
-                                                    cartController.shippingList.add(int.parse(value));
-                                                  }
-                                                  print('obj ${ cartController.shippingList}');
+                                                  cartController.shippingId =  directOrderResponse.shippingOption.value;
+                                                  log( directOrderResponse.shippingOption.value);
+                                                  log(cartController.shippingId);
                                                 });
                                               },
                                             ),
@@ -308,7 +303,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                             Text(product.name.toString().capitalize!.replaceAll('_', ' '),
                                                 style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16)),
                                           ],
-                                        ), 
+                                        ),
                                       ],
                                     );
                                   });
@@ -316,9 +311,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                 },
                               ),
                             ),
-                        ],
-                      ): 
-                      const Text('No Shipping Found For This Product'),
+                          ],
+                        ):
+                        const Text('No Shipping Found For This Product'),
                     ],
                   );
                 })
@@ -427,12 +422,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
             showToast("Select delivery address to complete order".tr);
             return;
           }
-          if(directOrderResponse.shippingOption.value.isEmpty){
-            showToast("Please select shipping Method".tr);
-          }
           cartController.dialogOpened = false;
           cartController.placeOrder(
-              idd: cartController.shippingList.join(','),
+              idd: cartController.shippingId,
               context: context,
               currencyCode: "usd",
               paymentMethod: paymentMethod1,
@@ -577,94 +569,94 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
           if (cartController.refreshInt.value > 0) {}
           return cartController.addressLoaded || profileController.userLoggedIn == false
               ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                            child:
-                                Text("Delivery to".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
-                        Radio<String>(
-                            value: "delivery",
-                            groupValue: deliveryOption.value,
-                            visualDensity: VisualDensity.compact,
-                            fillColor: deliveryOption.value.isEmpty && showValidation.value
-                                ? MaterialStateProperty.all(Colors.red)
-                                : null,
-                            onChanged: (value) {
-                              deliveryOption.value = value!;
-                            })
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    if (deliveryOption.value == "delivery") ...[
-                      Material(
-                        child: InkWell(
-                          onTap: () {
-                            if (userLoggedIn) {
-                              bottomSheetChangeAddress();
-                            } else {
-                              addAddressWithoutLogin(addressData: selectedAddress);
-                            }
-                          },
-                          child: DottedBorder(
-                            color: const Color(0xff014E70),
-                            strokeWidth: 1.2,
-                            dashPattern: const [6, 3, 0, 3],
-                            child: Container(
-                              // height: 50,
-                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                              width: size.width,
-                              alignment: Alignment.center,
-                              child: selectedAddress.id != null
-                                  ? Text(selectedAddress.getShortAddress,
-                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
-                                  : Text("Select Address ".tr,
-                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
-                            ),
-                          ),
-                        ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                      child:
+                      Text("Delivery to".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+                  Radio<String>(
+                      value: "delivery",
+                      groupValue: deliveryOption.value,
+                      visualDensity: VisualDensity.compact,
+                      fillColor: deliveryOption.value.isEmpty && showValidation.value
+                          ? MaterialStateProperty.all(Colors.red)
+                          : null,
+                      onChanged: (value) {
+                        deliveryOption.value = value!;
+                      })
+                ],
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              if (deliveryOption.value == "delivery") ...[
+                Material(
+                  child: InkWell(
+                    onTap: () {
+                      if (userLoggedIn) {
+                        bottomSheetChangeAddress();
+                      } else {
+                        addAddressWithoutLogin(addressData: selectedAddress);
+                      }
+                    },
+                    child: DottedBorder(
+                      color: const Color(0xff014E70),
+                      strokeWidth: 1.2,
+                      dashPattern: const [6, 3, 0, 3],
+                      child: Container(
+                        // height: 50,
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                        width: size.width,
+                        alignment: Alignment.center,
+                        child: selectedAddress.id != null
+                            ? Text(selectedAddress.getShortAddress,
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
+                            : Text("Select Address ".tr,
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      if (selectedAddress.id != null)
-                        InkWell(
-                            onTap: () {
-                              if (userLoggedIn) {
-                                bottomSheetChangeAddress();
-                              } else {
-                                addAddressWithoutLogin(addressData: selectedAddress);
-                              }
-                            },
-                            child: Align(
-                                alignment: Alignment.topRight,
-                                child: Text("Change Address".tr,
-                                    style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
-                    ],
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text("Pick Up".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
-                        Radio<String>(
-                            value: "pickup",
-                            groupValue: deliveryOption.value,
-                            visualDensity: VisualDensity.compact,
-                            fillColor: deliveryOption.value.isEmpty && showValidation.value
-                                ? MaterialStateProperty.all(Colors.red)
-                                : null,
-                            onChanged: (value) {
-                              deliveryOption.value = value!;
-                            })
-                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                )
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                if (selectedAddress.id != null)
+                  InkWell(
+                      onTap: () {
+                        if (userLoggedIn) {
+                          bottomSheetChangeAddress();
+                        } else {
+                          addAddressWithoutLogin(addressData: selectedAddress);
+                        }
+                      },
+                      child: Align(
+                          alignment: Alignment.topRight,
+                          child: Text("Change Address".tr,
+                              style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
+              ],
+              Row(
+                children: [
+                  Expanded(
+                      child: Text("Pick Up".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+                  Radio<String>(
+                      value: "pickup",
+                      groupValue: deliveryOption.value,
+                      visualDensity: VisualDensity.compact,
+                      fillColor: deliveryOption.value.isEmpty && showValidation.value
+                          ? MaterialStateProperty.all(Colors.red)
+                          : null,
+                      onChanged: (value) {
+                        deliveryOption.value = value!;
+                      })
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          )
               : const LoadingAnimation();
         }),
       ),
@@ -880,7 +872,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               alignment: Alignment.center,
                               child: Text("Save".tr,
                                   style:
-                                      GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
+                                  GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
@@ -991,95 +983,95 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           const SliverPadding(padding: EdgeInsets.only(top: 4)),
                           shippingAddress.isNotEmpty
                               ? SliverList(
-                                  delegate: SliverChildBuilderDelegate(
-                                  childCount: shippingAddress.length,
-                                  (context, index) {
-                                    final address = shippingAddress[index];
-                                    return GestureDetector(
-                                      behavior: HitTestBehavior.translucent,
-                                      onTap: () {
-                                        selectedAddress = address;
-                                        Get.back();
-                                        setState(() {});
-                                      },
-                                      child: Container(
-                                        width: size.width,
-                                        margin: const EdgeInsets.only(bottom: 15),
-                                        padding: const EdgeInsets.all(15),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            border: Border.all(color: const Color(0xffDCDCDC))),
-                                        child: IntrinsicHeight(
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              const Icon(Icons.location_on_rounded),
-                                              const SizedBox(
-                                                width: 10,
+                              delegate: SliverChildBuilderDelegate(
+                                childCount: shippingAddress.length,
+                                    (context, index) {
+                                  final address = shippingAddress[index];
+                                  return GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: () {
+                                      selectedAddress = address;
+                                      Get.back();
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      width: size.width,
+                                      margin: const EdgeInsets.only(bottom: 15),
+                                      padding: const EdgeInsets.all(15),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          border: Border.all(color: const Color(0xffDCDCDC))),
+                                      child: IntrinsicHeight(
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Icon(Icons.location_on_rounded),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                address.getCompleteAddressInFormat,
+                                                style: GoogleFonts.poppins(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15,
+                                                    color: const Color(0xff585858)),
                                               ),
-                                              Expanded(
-                                                child: Text(
-                                                  address.getCompleteAddressInFormat,
-                                                  style: GoogleFonts.poppins(
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 15,
-                                                      color: const Color(0xff585858)),
+                                            ),
+                                            Column(
+                                              children: [
+                                                Flexible(
+                                                  child: IconButton(
+                                                      onPressed: () {
+                                                        cartController
+                                                            .deleteAddress(
+                                                          context: context,
+                                                          id: address.id.toString(),
+                                                        )
+                                                            .then((value) {
+                                                          if (value == true) {
+                                                            cartController.addressListModel.address!.shipping!.removeWhere(
+                                                                    (element) =>
+                                                                element.id.toString() == address.id.toString());
+                                                            cartController.updateUI();
+                                                          }
+                                                        });
+                                                      },
+                                                      icon: const Icon(Icons.delete)),
                                                 ),
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Flexible(
-                                                    child: IconButton(
-                                                        onPressed: () {
-                                                          cartController
-                                                              .deleteAddress(
-                                                            context: context,
-                                                            id: address.id.toString(),
-                                                          )
-                                                              .then((value) {
-                                                            if (value == true) {
-                                                              cartController.addressListModel.address!.shipping!.removeWhere(
-                                                                  (element) =>
-                                                                      element.id.toString() == address.id.toString());
-                                                              cartController.updateUI();
-                                                            }
-                                                          });
-                                                        },
-                                                        icon: const Icon(Icons.delete)),
+                                                InkWell(
+                                                  onTap: () {
+                                                    bottomSheet(addressData: address);
+                                                  },
+                                                  child: Text(
+                                                    'Edit'.tr,
+                                                    style: GoogleFonts.poppins(
+                                                        shadows: [
+                                                          const Shadow(color: Color(0xff014E70), offset: Offset(0, -4))
+                                                        ],
+                                                        color: Colors.transparent,
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.w500,
+                                                        decoration: TextDecoration.underline,
+                                                        decorationColor: const Color(0xff014E70)),
                                                   ),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      bottomSheet(addressData: address);
-                                                    },
-                                                    child: Text(
-                                                      'Edit'.tr,
-                                                      style: GoogleFonts.poppins(
-                                                          shadows: [
-                                                            const Shadow(color: Color(0xff014E70), offset: Offset(0, -4))
-                                                          ],
-                                                          color: Colors.transparent,
-                                                          fontSize: 16,
-                                                          fontWeight: FontWeight.w500,
-                                                          decoration: TextDecoration.underline,
-                                                          decorationColor: const Color(0xff014E70)),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
                                         ),
                                       ),
-                                    );
-                                  },
-                                ))
+                                    ),
+                                  );
+                                },
+                              ))
                               : SliverToBoxAdapter(
-                                  child: Text(
-                                    "No Shipping Address Added!".tr,
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
-                                  ),
-                                ),
+                            child: Text(
+                              "No Shipping Address Added!".tr,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
+                            ),
+                          ),
                           SliverToBoxAdapter(
                             child: SizedBox(
                               height: MediaQuery.of(context).viewInsets.bottom,
@@ -1338,7 +1330,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               alignment: Alignment.center,
                               child: Text("Save".tr,
                                   style:
-                                      GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
+                                  GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).viewInsets.bottom),

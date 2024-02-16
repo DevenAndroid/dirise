@@ -9,7 +9,7 @@ class ModelCartResponse {
   dynamic total;
   dynamic discount;
   Cart? cart;
- // String get totalProducts2 => cart!.getAllProducts.map((e) => e.map((e1) => e1.products!.map((e2) => e2.qty).toString().toNum).toList().getTotal).toList().getTotal.toString();
+  // String get totalProducts2 => cart!.getAllProducts.map((e) => e.map((e1) => e1.products!.map((e2) => e2.qty).toString().toNum).toList().getTotal).toList().getTotal.toString();
   String? totalProducts;
 
 
@@ -71,13 +71,13 @@ class Cart {
     //     : null;
   }
 
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = <String, dynamic>{};
-  //   if (carsShowroom != null) {
-  //     data['cars showroom'] = carsShowroom!.toJson();
-  //   }
-  //   return data;
-  // }
+// Map<String, dynamic> toJson() {
+//   final Map<String, dynamic> data = <String, dynamic>{};
+//   if (carsShowroom != null) {
+//     data['cars showroom'] = carsShowroom!.toJson();
+//   }
+//   return data;
+// }
 }
 
 class StoreData {
@@ -85,9 +85,9 @@ class StoreData {
   List<ShippingTypes>? shippingTypes;
   List<ShippingTypes>? selectedContacts;
   RxString shippingOption = "".obs;
+  RxInt shippingId = 0.obs;
   RxString shippingVendorName = "".obs;
   RxString vendorPrice = "".obs;
-  RxInt shippingId = 0.obs;
   RxInt vendorId = 0.obs;
 
   StoreData({this.products, this.shippingTypes});
@@ -193,6 +193,7 @@ class Products {
   dynamic selectedSloatDate;
   dynamic qty;
   bool? isShipping;
+  bool? localShipping;
   bool? inCart;
   bool? inWishlist;
   dynamic currencySign;
@@ -279,6 +280,7 @@ class Products {
         this.currencySign,
         this.currencyCode,
         this.variantsComb,
+        this.localShipping,
         this.attributes,
         this.variants});
 
@@ -359,6 +361,7 @@ class Products {
     inWishlist = json['in_wishlist'];
     currencySign = json['currency_sign'];
     currencyCode = json['currency_code'];
+    localShipping = json['local_shipping'];
     // if (json['variants_comb'] != null) {
     //   variantsComb = <Null>[];
     //   json['variants_comb'].forEach((v) {
@@ -457,6 +460,7 @@ class Products {
     data['in_wishlist'] = inWishlist;
     data['currency_sign'] = currencySign;
     data['currency_code'] = currencyCode;
+    data['local_shipping'] = localShipping;
     // if (this.variantsComb != null) {
     //   data['variants_comb'] =
     //       this.variantsComb!.map((v) => v.toJson()).toList();

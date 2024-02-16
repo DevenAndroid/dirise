@@ -1,14 +1,22 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../model/login_model.dart';
+import '../../model/social_login_model.dart';
 import '../../repository/repository.dart';
+import '../../repository/social_login.dart';
+import '../../routers/my_routers.dart';
 import '../../utils/api_constant.dart';
 import '../../widgets/common_button.dart';
 import '../../bottomavbar.dart';
@@ -25,6 +33,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final loginFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -174,6 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    if(Platform.isIOS)
                     InkWell(
                       onTap: () {},
                       child: Container(
@@ -196,6 +206,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 20,
                     ),
                     InkWell(
+                      onTap: (){
+                        signInWithGoogle();
+                      },
                       child: Container(
                         height: 62,
                         width: 62,
@@ -210,23 +223,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    // const SizedBox(
-                    //   width: 20,
-                    // ),
-                    // InkWell(
-                    //   child: Container(
-                    //     height: 62,
-                    //     width: 62,
-                    //     decoration:
-                    //         BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
-                    //     child: Center(
-                    //       child: Image.asset(
-                    //         'assets/icons/facebook.png',
-                    //         height: 27,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    InkWell(
+                      child: Container(
+                        height: 62,
+                        width: 62,
+                        decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
+                        child: Center(
+                          child: Image.asset(
+                            'assets/icons/facebook.png',
+                            height: 27,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -257,5 +270,40 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+  signInWithGoogle() async {
+    await GoogleSignIn().signOut();
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+    print("Token---------${googleAuth.accessToken}");
+    final value = await FirebaseAuth.instance.signInWithCredential(credential);
+    log('tokkeeeem${value.credential!.accessToken!}');
+    Map<String, dynamic> map = {};
+    map['provider'] =  "google";
+    map['access_token'] = value.credential!.accessToken!;
+    repositories.postApi(url: ApiUrls.socialLoginUrl, context: context, mapData: map).then((value) async {
+      LoginModal response = LoginModal.fromJson(jsonDecode(value));
+      repositories.saveLoginDetails(jsonEncode(response));
+      if (response.status == true) {
+        showToast(response.message.toString());
+        Get.offAllNamed(BottomNavbar.route);
+      } else {
+        showToast(response.message.toString());
+      }
+    });
+    // socialLogin(provider: "google", token: value.credential!.accessToken!, context: context).then((value) async {
+    //   if (value.status == true) {
+    //     SharedPreferences pref = await SharedPreferences.getInstance();
+    //     pref.setString('login_user', jsonEncode(value));
+    //     showToast(value.message);
+    //     Get.offAllNamed(BottomNavbar.route);
+    //   } else {
+    //     showToast(value.message);
+    //   }
+    // });
   }
 }

@@ -85,6 +85,7 @@ class ApiUrls {
   static const String getPublishUrl = "${baseUrl}all-news";
   static const String createPostUrl = "${baseUrl}create-news";
   static const String addRemoveLike = "${baseUrl}add-remove-like";
+  static const String socialLoginUrl = "${baseUrl}social";
 
 
 

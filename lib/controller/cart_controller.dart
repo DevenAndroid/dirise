@@ -28,10 +28,13 @@ class CartController extends GetxController {
   String shippingId = "";
   AddressData selectedAddress = AddressData();
   final GlobalKey addressKey = GlobalKey();
-  RxString deliveryOption = "".obs;
+  RxString deliveryOption1 = "".obs;
   RxBool showValidation = false.obs;
   RxBool showValidationShipping = false.obs;
-
+  final TextEditingController billingFirstName = TextEditingController();
+  final TextEditingController billingLastName = TextEditingController();
+  final TextEditingController billingEmail = TextEditingController();
+  final TextEditingController billingPhone = TextEditingController();
   RxInt countDown = 30.obs;
   Timer? _timer;
   List<int> shippingList = [];
@@ -39,6 +42,8 @@ class CartController extends GetxController {
   List<String> shippingVendorName = [];
   List<String> shippingPriceList = [];
   String storeId= '';
+  String storeIdShipping= '';
+  String storeNameShipping= '';
   startTimer() {
     stopTimer();
     countDown.value = 30;
@@ -96,11 +101,17 @@ class CartController extends GetxController {
       'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
       'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
       "shipping": [
-        {"store_id": shippingVendorId.join(','), "store_name": "vendor", "title": shippingVendorName.join(','), "ship_price": shippingPriceList.join(',') , "shipping_type_id": shippingList.join( ',')}
+        {"store_id": storeIdShipping.toString(), "store_name": storeNameShipping.toString(), "title": 'free_shipping_over', "ship_price": '10' , "shipping_type_id": shippingList.isNotEmpty ? shippingList.join(',') : ''}
       ],
       "cart_id": ["2"],
-      if (address != null) "shipping_address": address,
-      if (address != null) "billing_address": address
+      'billing_address' : {
+        'first_name' : billingFirstName.text.toString(),
+        'last_name' :  billingLastName.text.toString(),
+        'phone' : billingPhone.text.toString(),
+        'email' : billingEmail.text.toString(),
+      },
+      if (address != null && deliveryOption1.value == "delivery") "shipping_address": address,
+      // if (address != null) "billing_address": address
     };
     repositories.postApi(url: ApiUrls.placeOrderUrl, context: context, mapData: gg).then((value) {
       // ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));

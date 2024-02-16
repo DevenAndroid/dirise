@@ -207,33 +207,18 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             });
                           }),
                     ),
-                    GestureDetector(
-                      onTap: (){
-                        _makingPrivacyPolicy();
-                      },
-                      child: Text(
-                       'Privacy Policy'.tr,
-                        style:
-                            GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
-                      ),
-                    ),
-                    SizedBox(width: size.width * .01,),
-                    Text(
-                      '&',
-                      style:
-                      GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
-                    ),
-                    SizedBox(width: size.width * .01,),
-                    GestureDetector(
-                      onTap: (){
-                        _termsCondition();
-                      },
-                      child: Text(
-                        'Terms and Conditions'.tr,
-                        style:
-                        GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
-                      ),
-                    ),
+                     Expanded(
+                         child: GestureDetector(
+                           onTap: (){
+                             _termsCondition();
+                           },
+                           child: Text(
+                             'Privacy Policy & Terms and Conditions'.tr,
+                             style:
+                             GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
+                           ),
+                         )
+                     )
                   ],
                 ),
                 SizedBox(

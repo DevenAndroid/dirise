@@ -44,6 +44,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   VendorStoreData get storeInfo => gg;
   ModelCategoryStores get allStoreInfo => ss;
   String get vendorId => widget.storeDetails.id.toString();
+  String get vendorName => widget.storeDetails.storeName.toString();
 
  /* void onShare(code) async {
     final box = context.findRenderObject() as RenderBox?;
@@ -103,7 +104,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   String productCount= '';
   String bannerString = '';
   String storeLogo = '';
-  String categoryName = Get.arguments;
+  // String categoryName = Get.arguments;
+
 
   linkedinLink() async {
     var url = Uri.parse(allStoreInfo.socialLinks!.linkedin.toString());
@@ -166,11 +168,11 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: categoryName.toString(),
-          actions: const [
+          titleText: 'Authors',
+          actions: [
             CartBagCard(isBlackTheme: true),
           ],
         ),

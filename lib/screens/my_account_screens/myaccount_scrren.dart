@@ -350,7 +350,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
-                          Get.toNamed(VirtualAssetsScreen.route);
+                          if (profileController.userLoggedIn) {
+                            Get.toNamed(VirtualAssetsScreen.route);
+                          } else {
+                            Get.toNamed(LoginScreen.route);
+                          }
                         },
                         child: Row(
                           children: [
@@ -1291,14 +1295,25 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             return null;
                           }),
                       ...commonField(
-                          textController: landmarkController,
-                          title: "Landmark",
-                          hintText: "Enter your nearby landmark",
+                          textController: countryController,
+                          title: "Country*",
+                          hintText: "Enter your country",
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
-                            // if(value!.trim().isEmpty){
-                            //   return "Please enter delivery address";
-                            // }
+                            if (value!.trim().isEmpty) {
+                              return "Please enter country*";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: stateController,
+                          title: "State*",
+                          hintText: "Enter your state",
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter state*";
+                            }
                             return null;
                           }),
                       ...commonField(
@@ -1324,25 +1339,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             return null;
                           }),
                       ...commonField(
-                          textController: stateController,
-                          title: "State*",
-                          hintText: "Enter your state",
+                          textController: landmarkController,
+                          title: "Landmark",
+                          hintText: "Enter your nearby landmark",
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Please enter state*";
-                            }
-                            return null;
-                          }),
-                      ...commonField(
-                          textController: countryController,
-                          title: "Country*",
-                          hintText: "Enter your country",
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Please enter country*";
-                            }
+                            // if(value!.trim().isEmpty){
+                            //   return "Please enter delivery address";
+                            // }
                             return null;
                           }),
                       const SizedBox(

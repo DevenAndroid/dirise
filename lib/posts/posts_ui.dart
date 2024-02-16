@@ -39,12 +39,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
 
   Future getPublishPostData() async {
     repositories.getApi(url: ApiUrls.getPublishUrl).then((value) {
-      GetPublishPostModel response = GetPublishPostModel.fromJson(jsonDecode(value));
-      if(response.status == true){
-        showToast(response.message.toString());
-      }else{
-        showToast(response.message.toString());
-      }
+      getPublishModel.value = GetPublishPostModel.fromJson(jsonDecode(value));
     });
   }
 
@@ -391,7 +386,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                         Expanded(
                           child: ListView.builder(
                             shrinkWrap: true,
-                            controller: _scrollController  ,
+                            controller: _scrollController,
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             itemCount: getPublishModel.value.data!.length,
                             itemBuilder: (context, index) {
@@ -418,30 +413,34 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Row(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius: BorderRadius.circular(100),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: item.userId!.profileImage.toString(),
-                                                    height: 45,
-                                                    width: 45,
-                                                    fit: BoxFit.cover,
-                                                    errorWidget: (context, url, error) =>
-                                                        Image.asset('assets/images/post_img.png'),
+                                            Expanded(
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius: BorderRadius.circular(100),
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: item.userId!.profileImage.toString(),
+                                                      height: 45,
+                                                      width: 45,
+                                                      fit: BoxFit.cover,
+                                                      errorWidget: (context, url, error) =>
+                                                          Image.asset('assets/images/post_img.png'),
+                                                    ),
                                                   ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 15,
-                                                ),
-                                                Text(
-                                                  item.userId!.name.toString(),
-                                                  style: GoogleFonts.poppins(
-                                                      color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
-                                                )
-                                              ],
+                                                  const SizedBox(
+                                                    width: 15,
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      item.userId!.name == '' ? item.userId!.email.toString() : item.userId!.name.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                          color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                             const SizedBox(
                                               width: 10,

@@ -62,6 +62,7 @@ class ProductElement {
   dynamic currentBid;
   dynamic featureImageApp;
   bool? isShipping;
+  bool? localShipping;
   List<ServiceTimeSloat>? serviceTimeSloat;
   ProductAvailability? productAvailability;
   // List<Attributes>? attributes;
@@ -76,6 +77,7 @@ class ProductElement {
     this.catId3,
     this.brandSlug,
     this.isShipping,
+    this.localShipping,
     this.slug,
     this.pName,
     this.addToCart,
@@ -169,6 +171,7 @@ class ProductElement {
     arabLongDescription = json["arab_long_description"];
     isShipping = json['is_shipping'];
     featuredImage = json["featured_image"];
+    localShipping = json['local_shipping'];
     try {
       galleryImage = json["gallery_image"] == null ? [] : List<String>.from(json["gallery_image"]!.map((x) => x));
     } catch(e){
@@ -240,7 +243,7 @@ class ProductElement {
     "brand_slug": brandSlug,
     "slug": slug,
     "pname": pName,
-     'is_shipping' : isShipping,
+    'is_shipping' : isShipping,
     'feature_image_app' : featureImageApp,
     if (serviceTimeSloat != null) 'serviceTimeSloat': serviceTimeSloat!.map((v) => v.toJson()).toList(),
     if (productAvailability != null) 'productAvailability': productAvailability!.toJson(),
@@ -296,6 +299,7 @@ class ProductElement {
     "current_bid": currentBid,
     "variants": variants == null ? [] : List<dynamic>.from(variants!.map((x) => x)),
     "bid_status": bidStatus,
+    'local_shipping' : localShipping,
   };
 }
 

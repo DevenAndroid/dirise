@@ -54,20 +54,20 @@ class _AddressScreenState extends State<AddressScreen> {
                                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
                           Radio<String>(
                               value: "delivery",
-                              groupValue: cartController.deliveryOption.value,
+                              groupValue: cartController.deliveryOption1.value,
                               visualDensity: VisualDensity.compact,
-                              fillColor: cartController.deliveryOption.value.isEmpty && cartController.showValidation.value
+                              fillColor: cartController.deliveryOption1.value.isEmpty && cartController.showValidation.value
                                   ? MaterialStateProperty.all(Colors.red)
                                   : null,
                               onChanged: (value) {
-                                cartController.deliveryOption.value = value!;
+                                cartController.deliveryOption1.value = value!;
                               })
                         ],
                       ),
                       const SizedBox(
                         height: 5,
                       ),
-                      if (cartController.deliveryOption.value == "delivery") ...[
+                      if (cartController.deliveryOption1.value == "delivery") ...[
                         Material(
                           child: InkWell(
                             onTap: () {
@@ -118,13 +118,13 @@ class _AddressScreenState extends State<AddressScreen> {
                               child: Text("Pick Up", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
                           Radio<String>(
                               value: "pickup",
-                              groupValue: cartController.deliveryOption.value,
+                              groupValue: cartController.deliveryOption1.value,
                               visualDensity: VisualDensity.compact,
-                              fillColor: cartController.deliveryOption.value.isEmpty && cartController.showValidation.value
+                              fillColor: cartController.deliveryOption1.value.isEmpty && cartController.showValidation.value
                                   ? MaterialStateProperty.all(Colors.red)
                                   : null,
                               onChanged: (value) {
-                                cartController.deliveryOption.value = value!;
+                                cartController.deliveryOption1.value = value!;
                               })
                         ],
                       ),
@@ -278,14 +278,25 @@ class _AddressScreenState extends State<AddressScreen> {
                             return null;
                           }),
                       ...commonField(
-                          textController: landmarkController,
-                          title: "Landmark",
-                          hintText: "Enter your nearby landmark",
+                          textController: countryController,
+                          title: "Country*",
+                          hintText: "Enter your country",
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
-                            // if(value!.trim().isEmpty){
-                            //   return "Please enter delivery address";
-                            // }
+                            if (value!.trim().isEmpty) {
+                              return "Please enter country*";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: stateController,
+                          title: "State*",
+                          hintText: "Enter your state",
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter state*";
+                            }
                             return null;
                           }),
                       ...commonField(
@@ -311,25 +322,14 @@ class _AddressScreenState extends State<AddressScreen> {
                             return null;
                           }),
                       ...commonField(
-                          textController: stateController,
-                          title: "State*",
-                          hintText: "Enter your state",
+                          textController: landmarkController,
+                          title: "Landmark",
+                          hintText: "Enter your nearby landmark",
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Please enter state*";
-                            }
-                            return null;
-                          }),
-                      ...commonField(
-                          textController: countryController,
-                          title: "Country*",
-                          hintText: "Enter your country",
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Please enter country*";
-                            }
+                            // if(value!.trim().isEmpty){
+                            //   return "Please enter delivery address";
+                            // }
                             return null;
                           }),
                       const SizedBox(
@@ -596,7 +596,7 @@ List<Widget> commonField({
     ),
     Text(
       title,
-      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: const Color(0xff585858)),
+      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, color: const Color(0xff585858)),
     ),
     const SizedBox(
       height: 8,
