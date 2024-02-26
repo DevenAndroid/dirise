@@ -474,6 +474,8 @@ class _AddressScreenState extends State<AddressScreen> {
                                       behavior: HitTestBehavior.translucent,
                                       onTap: () {
                                         cartController.selectedAddress = address;
+                                        cartController.countryName.value = address.country.toString();
+                                        print('codeee isss${cartController.countryName.toString()}');
                                         Get.back();
                                         setState(() {});
                                       },

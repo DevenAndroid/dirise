@@ -70,6 +70,23 @@ class _OtpScreenState extends State<OtpScreen> {
     await repositories.postApi(url: ApiUrls.signInUrl, context: context, mapData: tempMap).then((value) {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       // showToast(response.message.toString());
+      log(response.toString());
+      if (response.status == true) {
+        setTimer();
+        showToast("OTP sent successfully".tr);
+      }
+    });
+  }
+  Future resendApi() async {
+    Map<String, dynamic> map = {};
+    map['email'] = email.toString();
+    // map['name'] = _nameController.text.trim();
+    // map['phone'] = _mobileNumberController.text.trim();
+    // map['password'] = _passwordController.text.trim();
+    await repositories.postApi(url: ApiUrls.resendOtpUrl, context: context, mapData: map).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      // showToast(response.message.toString());
+      log(response.otp.toString());
       if (response.status == true) {
         setTimer();
         showToast("OTP sent successfully".tr);
@@ -208,7 +225,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             onTap: () async {
                               if (timerInt.value == 0) {
                                 if (check) {
-                                  registerApi();
+                                  resendApi();
                                 } else {
                                   await forgotPasswordRepo().then((value) {
                                     if (value.status == true) {

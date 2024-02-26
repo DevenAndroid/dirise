@@ -305,12 +305,18 @@ class _MyHomePageState extends State<MyHomePage> {
           });
     }
 
-     String APP_ID = "582cb772-77e7-4903-a46e-5eb59f6f74f0",
-        APP_KEY = "1da483f8-ed29-4998-b74d-8469a609875f",
-        DOMAIN = "msdk.eu.freshchat.com";
+     String APP_ID = "83a33165-1124-4e35-90f5-947c57f0ada6",
+        APP_KEY = "f09bf7f2-bd19-4a81-a5e5-b2cc1f1a621a",
+        DOMAIN = "msdk.freshchat.com";
     void initState() {
       super.initState();
-      Freshchat.init(APP_ID, APP_KEY, DOMAIN);
+      Freshchat.init(APP_ID, APP_KEY, DOMAIN,
+          teamMemberInfoVisible:true,
+          cameraCaptureEnabled:true,
+          gallerySelectionEnabled:true,
+          responseExpectationEnabled:true,
+          showNotificationBanneriOS:true,
+      );
       /**
        * This is the Firebase push notification server key for this sample app.
        * Please save this in your Freshchat account to test push notifications in Sample app.

@@ -53,15 +53,15 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     });
   }
   _makingPrivacyPolicy() async {
-    var url = Uri.parse('https://dev-dirise.eoxyslive.com/privacy-policy/');
+    var url = Uri.parse('https://diriseapp.com/en/privacy-policy/');
     if (await canLaunchUrl(url)) {
-      await launchUrl(url,mode: LaunchMode.externalApplication);
+      await   (url,mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not launch $url';
     }
   }
   _termsCondition() async {
-    var url = Uri.parse('https://dev-dirise.eoxyslive.com/terms-and-conditions/');
+    var url = Uri.parse('https://diriseapp.com/en/terms-and-conditions/');
     if (await canLaunchUrl(url)) {
       await launchUrl(url,mode: LaunchMode.externalApplication);
     } else {
@@ -207,18 +207,33 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             });
                           }),
                     ),
-                     Expanded(
-                         child: GestureDetector(
-                           onTap: (){
-                             _termsCondition();
-                           },
-                           child: Text(
-                             'Privacy Policy & Terms and Conditions'.tr,
-                             style:
-                             GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
-                           ),
-                         )
-                     )
+                    GestureDetector(
+                      onTap: (){
+                        _makingPrivacyPolicy();
+                      },
+                      child: Text(
+                        'Privacy Policy'.tr,
+                        style:
+                        GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
+                      ),
+                    ),
+                    SizedBox(width: size.width * .01,),
+                    Text(
+                      '&',
+                      style:
+                      GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
+                    ),
+                    SizedBox(width: size.width * .01,),
+                    GestureDetector(
+                      onTap: (){
+                        _termsCondition();
+                      },
+                      child: Text(
+                        'Terms and Conditions'.tr,
+                        style:
+                        GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 15, color: const Color(0xff808384)),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(

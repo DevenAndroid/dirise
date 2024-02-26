@@ -8,6 +8,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../controller/vendor_controllers/add_product_controller.dart';
 import '../../controller/vendor_controllers/products_controller.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/dimension_screen.dart';
@@ -25,6 +26,7 @@ class VendorProductScreen extends StatefulWidget {
 class _VendorProductScreenState extends State<VendorProductScreen> {
   final productController = Get.put(ProductsController());
 
+  final controller = Get.put(AddProductController(),permanent: true);
   final Repositories repositories = Repositories();
 
   Timer? timer;
@@ -223,7 +225,47 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                                         size: AddSize.size15,
                                                       ),
                                                     )),
-                                              )
+                                              ),
+                                              10.spaceX,
+                                              GestureDetector(
+                                                onTap: () {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context1) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                            "Are you sure you want to delete this product?".tr,
+                                                            style: titleStyle,
+                                                          ),
+                                                          actions: [
+                                                            ElevatedButton(
+                                                                onPressed: () {
+                                                                  Get.back();
+                                                                },
+                                                                child:  Text("Cancel".tr)),
+                                                            ElevatedButton(
+                                                                onPressed: () {
+                                                                  controller.deleteProductForAll(context);
+                                                                },
+                                                                child: Text("Delete".tr)),
+                                                          ],
+                                                        );
+                                                      });
+                                                },
+                                                child: Container(
+                                                    height: AddSize.size25,
+                                                    width: AddSize.size25,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(40),
+                                                        border: Border.all(color: Colors.red)),
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.delete,
+                                                        color: Colors.red,
+                                                        size: AddSize.size15,
+                                                      ),
+                                                    )),
+                                              ),
                                             ],
                                           ),
                                           Text(
@@ -240,7 +282,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                                             Expanded(
                                               child: Text(
-                                                "\$${item.sPrice ?? "0"}",
+                                                "KWD ${item.sPrice ?? "0"}",
                                                 style: GoogleFonts.poppins(
                                                   color: AppTheme.buttonColor,
                                                   fontWeight: FontWeight.w500,
@@ -371,7 +413,7 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                   4.spaceY,
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                     Text(
-                      'USD 6.350',
+                      'KWD 6.350',
                       style: GoogleFonts.poppins(
                         color: AppTheme.buttonColor,
                         fontWeight: FontWeight.w500,

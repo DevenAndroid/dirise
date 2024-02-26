@@ -392,6 +392,18 @@ class AddProductController extends GetxController {
       }
     });
   }
+  deleteProductForAll(BuildContext context) {
+    repositories.postApi(url: ApiUrls.deleteProductUrl, context: context, mapData: {
+      'product_id': productId.toString(),
+    }).then((value) {
+      ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
+      showToast(modelCommonResponse.message.toString());
+      if (modelCommonResponse.status == true) {
+        productListController.getProductList();
+
+      }
+    });
+  }
 
   addProduct({required BuildContext context}) {
     if (showValidations == false) {

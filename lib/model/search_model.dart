@@ -1,126 +1,58 @@
-import 'package:dirise/utils/helper.dart';
-import 'package:collection/collection.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-class ModelCartResponse {
-  bool? status;
+class ModelSearch {
+  dynamic status;
   dynamic message;
-  dynamic subtotal;
-  dynamic shipping;
-  dynamic total;
-  dynamic discount;
-  Cart? cart;
-  // String get totalProducts2 => cart!.getAllProducts.map((e) => e.map((e1) => e1.products!.map((e2) => e2.qty).toString().toNum).toList().getTotal).toList().getTotal.toString();
-  String? totalProducts;
+  Data? data;
 
+  ModelSearch({this.status, this.message, this.data});
 
-
-  ModelCartResponse(
-      {this.status,
-        this.message,
-        this.subtotal,
-        this.shipping,
-        this.total,
-        this.discount,
-        this.cart});
-
-  ModelCartResponse.fromJson(Map<String, dynamic> json) {
+  ModelSearch.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    subtotal = json['subtotal'];
-    shipping = json['shipping'];
-    total = json['total'];
-    discount = json['discount'];
-    cart = json['cart'] != null && json['cart'].toString() != "[]" ? Cart.fromJson(json['cart']) : Cart(carsShowroom: {});
-    // cart = json['cart'] != null ? Cart.fromJson(json['cart']) : null;
-
-    int a = 0;
-    for(var item in cart!.carsShowroom!.entries.map((e) => e.value.products!)){
-      for(var item1 in item ){
-        a = a + int.parse(item1.qty.toString());
-      }
-    }
-    cart != null ? totalProducts = a.toString() : totalProducts = '0';
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = status;
     data['message'] = message;
-    data['subtotal'] = subtotal;
-    data['shipping'] = shipping;
-    data['total'] = total;
-    data['discount'] = discount;
-    // if (cart != null) {
-    //   data['cart'] = cart!.toJson();
-    // }
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
     return data;
   }
 }
 
-class Cart {
-  Map<String, StoreData>? carsShowroom = {};
+class Data {
+  List<Items>? items;
+  Pagination? pagination;
 
-  Cart({this.carsShowroom});
+  Data({this.items, this.pagination});
 
-  Cart.fromJson(Map<String, dynamic> json) {
-    for (var element in json.entries) {
-      carsShowroom![element.key] = StoreData.fromJson(element.value);
-    }
-    // carsShowroom = json['cars showroom'] != null
-    //     ? StoreData.fromJson(json['cars showroom'])
-    //     : null;
-  }
-
-// Map<String, dynamic> toJson() {
-//   final Map<String, dynamic> data = <String, dynamic>{};
-//   if (carsShowroom != null) {
-//     data['cars showroom'] = carsShowroom!.toJson();
-//   }
-//   return data;
-// }
-}
-
-class StoreData {
-  List<Products>? products;
-  List<ShippingTypes>? shippingTypes;
-  List<ShippingTypes>? selectedContacts;
-  RxString shippingOption = "".obs;
-  RxInt shippingId = 0.obs;
-  RxString shippingVendorName = "".obs;
-  RxString vendorPrice = "".obs;
-  RxInt vendorId = 0.obs;
-
-  StoreData({this.products, this.shippingTypes});
-
-  StoreData.fromJson(Map<String, dynamic> json) {
-    if (json['products'] != null) {
-      products = <Products>[];
-      json['products'].forEach((v) {
-        products!.add(Products.fromJson(v));
+  Data.fromJson(Map<String, dynamic> json) {
+    if (json['items'] != null) {
+      items = <Items>[];
+      json['items'].forEach((v) {
+        items!.add(Items.fromJson(v));
       });
     }
-    if (json['shipping_types'] != null) {
-      shippingTypes = <ShippingTypes>[];
-      json['shipping_types'].forEach((v) {
-        shippingTypes!.add(ShippingTypes.fromJson(v));
-      });
-    }
+    pagination = json['pagination'] != null
+        ? Pagination.fromJson(json['pagination'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (products != null) {
-      data['products'] = products!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (items != null) {
+      data['items'] = items!.map((v) => v.toJson()).toList();
     }
-    if (shippingTypes != null) {
-      data['shipping_types'] =
-          shippingTypes!.map((v) => v.toJson()).toList();
+    if (pagination != null) {
+      data['pagination'] = pagination!.toJson();
     }
     return data;
   }
 }
 
-class Products {
+class Items {
   dynamic id;
   dynamic vendorId;
   dynamic catId;
@@ -168,6 +100,7 @@ class Products {
   dynamic time;
   dynamic timePeriod;
   dynamic stockAlert;
+  dynamic discountPercentage;
   dynamic shippingType;
   dynamic shippingCharge;
   dynamic avgRating;
@@ -187,29 +120,15 @@ class Products {
   dynamic inOffer;
   dynamic forAuction;
   dynamic returnPolicyDesc;
-  dynamic cartId;
-  dynamic selectedSloatStart;
-  dynamic selectedSloatEnd;
-  dynamic selectedSloatDate;
-  dynamic qty;
-  bool? isShipping;
-  bool? localShipping;
-  bool? inCart;
-  bool? inWishlist;
-  dynamic currencySign;
-  dynamic currencyCode;
-  List<dynamic>? variantsComb;
-  List<dynamic>? attributes;
-  List<dynamic>? variants;
-  dynamic vendorCountryId;
 
-  Products(
+  Items(
       {this.id,
         this.vendorId,
         this.catId,
         this.catId2,
         this.catId3,
         this.brandSlug,
+        this.discountPercentage,
         this.slug,
         this.pname,
         this.prodectImage,
@@ -269,24 +188,9 @@ class Products {
         this.isPublish,
         this.inOffer,
         this.forAuction,
-        this.returnPolicyDesc,
-        this.cartId,
-        this.selectedSloatStart,
-        this.selectedSloatEnd,
-        this.selectedSloatDate,
-        this.qty,
-        this.isShipping,
-        this.inCart,
-        this.inWishlist,
-        this.currencySign,
-        this.currencyCode,
-        this.variantsComb,
-        this.localShipping,
-        this.attributes,
-        this.vendorCountryId,
-        this.variants});
+        this.returnPolicyDesc});
 
-  Products.fromJson(Map<String, dynamic> json) {
+  Items.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     vendorId = json['vendor_id'];
     catId = json['cat_id'];
@@ -300,6 +204,7 @@ class Products {
     prodectSku = json['prodect_sku'];
     views = json['views'];
     code = json['code'];
+    discountPercentage = json['discount_percentage'];
     bookingProductType = json['booking_product_type'];
     prodectPrice = json['prodect_price'];
     prodectMinQty = json['prodect_min_qty'];
@@ -353,40 +258,10 @@ class Products {
     inOffer = json['in_offer'];
     forAuction = json['for_auction'];
     returnPolicyDesc = json['return_policy_desc'];
-    cartId = json['cart_id'];
-    selectedSloatStart = json['selected_sloat_start'];
-    selectedSloatEnd = json['selected_sloat_end'];
-    selectedSloatDate = json['selected_sloat_date'];
-    qty = json['qty'];
-    isShipping = json['is_shipping'];
-    inCart = json['in_cart'];
-    inWishlist = json['in_wishlist'];
-    currencySign = json['currency_sign'];
-    currencyCode = json['currency_code'];
-    localShipping = json['local_shipping'];
-    vendorCountryId = json['vendor_country_id'];
-    // if (json['variants_comb'] != null) {
-    //   variantsComb = <Null>[];
-    //   json['variants_comb'].forEach((v) {
-    //     variantsComb!.add(new Null.fromJson(v));
-    //   });
-    // }
-    // if (json['attributes'] != null) {
-    //   attributes = <Null>[];
-    //   json['attributes'].forEach((v) {
-    //     attributes!.add(new Null.fromJson(v));
-    //   });
-    // }
-    // if (json['variants'] != null) {
-    //   variants = <Null>[];
-    //   json['variants'].forEach((v) {
-    //     variants!.add(new Null.fromJson(v));
-    //   });
-    // }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = id;
     data['vendor_id'] = vendorId;
     data['cat_id'] = catId;
@@ -394,6 +269,7 @@ class Products {
     data['cat_id_3'] = catId3;
     data['brand_slug'] = brandSlug;
     data['slug'] = slug;
+    data['discount_percentage'] = discountPercentage;
     data['pname'] = pname;
     data['prodect_image'] = prodectImage;
     data['prodect_name'] = prodectName;
@@ -453,55 +329,43 @@ class Products {
     data['in_offer'] = inOffer;
     data['for_auction'] = forAuction;
     data['return_policy_desc'] = returnPolicyDesc;
-    data['cart_id'] = cartId;
-    data['selected_sloat_start'] = selectedSloatStart;
-    data['selected_sloat_end'] = selectedSloatEnd;
-    data['selected_sloat_date'] = selectedSloatDate;
-    data['qty'] = qty;
-    data['is_shipping'] = isShipping;
-    data['in_cart'] = inCart;
-    data['in_wishlist'] = inWishlist;
-    data['currency_sign'] = currencySign;
-    data['currency_code'] = currencyCode;
-    data['local_shipping'] = localShipping;
-    data['vendor_country_id'] = vendorCountryId;
-    // if (this.variantsComb != null) {
-    //   data['variants_comb'] =
-    //       this.variantsComb!.map((v) => v.toJson()).toList();
-    // }
-    // if (this.attributes != null) {
-    //   data['attributes'] = this.attributes!.map((v) => v.toJson()).toList();
-    // }
-    // if (this.variants != null) {
-    //   data['variants'] = this.variants!.map((v) => v.toJson()).toList();
-    // }
     return data;
   }
 }
 
-class ShippingTypes {
-  dynamic id;
-  dynamic name;
-  dynamic value;
-  dynamic vendorId;
-  bool check = false;
+class Pagination {
+  dynamic total;
+  dynamic perPage;
+  dynamic currentPage;
+  dynamic lastPage;
+  dynamic from;
+  dynamic to;
 
+  Pagination(
+      {this.total,
+        this.perPage,
+        this.currentPage,
+        this.lastPage,
+        this.from,
+        this.to});
 
-  ShippingTypes({this.id, this.name, this.value,this.vendorId});
-
-  ShippingTypes.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    value = json['value'];
-    vendorId = json['vendor_id'];
+  Pagination.fromJson(Map<String, dynamic> json) {
+    total = json['total'];
+    perPage = json['per_page'];
+    currentPage = json['current_page'];
+    lastPage = json['last_page'];
+    from = json['from'];
+    to = json['to'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['value'] = value;
-    data['vendor_id'] = vendorId;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['total'] = total;
+    data['per_page'] = perPage;
+    data['current_page'] = currentPage;
+    data['last_page'] = lastPage;
+    data['from'] = from;
+    data['to'] = to;
     return data;
   }
 }

@@ -188,14 +188,14 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     IconColumnRowWidget(
                       iconData: 'assets/icons/Icon ionic-ios-mail.svg',
                       title: 'Support email',
-                      subtitle: 'support@dirise.com',
+                      subtitle: 'Support@dirisecompany.com',
                     ),
                     addHeight(30),
-                    IconColumnRowWidget(
-                      iconData: 'assets/images/address.svg',
-                      title: 'Office Address',
-                      subtitle: 'Lorem ipsum dolor sit amet adipiscing elit, sed do.',
-                    ),
+                    // IconColumnRowWidget(
+                    //   iconData: 'assets/images/address.svg',
+                    //   title: 'Office Address',
+                    //   subtitle: 'Lorem ipsum dolor sit amet adipiscing elit, sed do.',
+                    // ),
                   ],
                 ),
               ),

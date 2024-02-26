@@ -168,13 +168,19 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       Freshchat.setPushRegistrationToken(token!);
     }
   }
-  String APP_ID = "2f141a1a-4a9b-4836-80a6-f61f3c5bd005",
-      APP_KEY = "37ac9520-8432-4f0a-8e64-3f2f84c9379d",
+  String APP_ID = "83a33165-1124-4e35-90f5-947c57f0ada6",
+      APP_KEY = "f09bf7f2-bd19-4a81-a5e5-b2cc1f1a621a",
       DOMAIN = "msdk.freshchat.com";
   void initState() {
     super.initState();
     checkLanguage();
-    Freshchat.init(APP_ID, APP_KEY, DOMAIN);
+    Freshchat.init(APP_ID, APP_KEY, DOMAIN,
+      teamMemberInfoVisible:true,
+      cameraCaptureEnabled:true,
+      gallerySelectionEnabled:true,
+      responseExpectationEnabled:true,
+      showNotificationBanneriOS:true,
+    );
     /**
      * This is the Firebase push notification server key for this sample app.
      * Please save this in your Freshchat account to test push notifications in Sample app.

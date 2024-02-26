@@ -106,7 +106,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                                     height: 6,
                                                   ),
                                                   Text(
-                                                    '\$${product.sPrice}',
+                                                    'KWD ${product.sPrice}',
                                                     style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
                                                   ),
                                                   const SizedBox(
@@ -371,19 +371,30 @@ class _BagsScreenState extends State<BagsScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                           Center(
+                          Image.asset('assets/images/cart_img.png',width: 173,height: 200,),
+                          Center(
                             child: Text(
-                              "${'Bag is empty'.tr}\n"
+                              "${'Your cart is currently empty'.tr}\n"
                               "Checkout products to added them in bag".tr,
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          Center(
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: AppTheme.buttonColor
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: TextButton(
                                 onPressed: () {
                                   Get.back();
                                 },
-                                child:  Text("Browse".tr)),
+                                child:  Text("Return To Shop".tr,style: const TextStyle(
+                                  color: Colors.white
+                                ),)),
                           ),
                         ],
                       )
@@ -421,7 +432,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Text("USD ${cartController.cartModel.subtotal}",
+                                  Text("KWD ${cartController.cartModel.subtotal}",
                                       style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white)),
                                 ],

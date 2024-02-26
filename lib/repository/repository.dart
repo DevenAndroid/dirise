@@ -1,4 +1,4 @@
-import 'dart:async';
+   import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -260,6 +260,7 @@ class Repositories {
     if (preferences.getString(userInfo) != null) {
       model = LoginModal.fromJson(jsonDecode(preferences.getString(userInfo)!));
     }
+
     try {
       final Map<String, String> headers = {
         HttpHeaders.contentTypeHeader: 'application/json',

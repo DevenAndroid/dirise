@@ -12,6 +12,7 @@ class ModelDirectOrderResponse {
   List<ShippingType>? shippingType;
   RxString shippingOption = "".obs;
   int quantity = 1;
+  dynamic vendorCountryId;
   ReturnData? returnData;
   ProductElement? prodcutData;
 
@@ -22,6 +23,7 @@ class ModelDirectOrderResponse {
       this.shipping,
       this.total,
       this.discount,
+      this.vendorCountryId,
       this.returnData,
       this.shippingType,
       this.prodcutData});
@@ -34,6 +36,7 @@ class ModelDirectOrderResponse {
     total = json['total'];
     discount = json['discount'];
     shipping = json['shipping'];
+    vendorCountryId = json['vendor_country_id'];
     // if (json['shipping_types'] != null) {
     //   shippingType = <ShippingType>[];
     //   json['shipping_types'].forEach((v) {
@@ -56,6 +59,7 @@ class ModelDirectOrderResponse {
     data['shipping'] = shipping;
     data['total'] = total;
     data['discount'] = discount;
+    data['vendor_country_id'] = vendorCountryId;
     if (shippingType != null) {
       data['shipping_type'] = shippingType!.map((v) => v.toJson()).toList();
     }

@@ -187,7 +187,6 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
       }
     });
   }
-
   List<String> imagesList = [];
   RxInt currentIndex = 0.obs;
   Variants? selectedVariant;
@@ -317,7 +316,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                     Row(
                                       children: [
                                         Text(
-                                          'USD ${productDetails.sPrice.toString()}',
+                                          'KWD ${productDetails.sPrice.toString()}',
                                           style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500),
                                         ),
                                         const SizedBox(
@@ -325,7 +324,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            'USD ${productDetails.pPrice.toString()}',
+                                            'KWD ${productDetails.pPrice.toString()}',
                                             style: GoogleFonts.poppins(
                                                 decoration: TextDecoration.lineThrough,
                                                 color: const Color(0xff858484),

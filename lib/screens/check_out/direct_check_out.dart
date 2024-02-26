@@ -43,7 +43,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
       setState(() {});
     });
   }
-
+  final _formKey = GlobalKey<FormState>();
   String paymentMethod1 = "";
   RxBool showValidation = false.obs;
   RxString deliveryOption = "".obs;
@@ -151,7 +151,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                           height: 6,
                                         ),
                                         Text(
-                                          '\$${directOrderResponse.prodcutData!.pPrice.toString()}',
+                                          'KWD ${directOrderResponse.prodcutData!.pPrice.toString()}',
                                           style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
                                         ),
                                         const SizedBox(
@@ -247,9 +247,8 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                         ),
                       ),
                       10.spaceY,
-                      if (deliveryOption.value == "delivery")
-                        directOrderResponse.prodcutData!.isShipping == true &&
-                            directOrderResponse.prodcutData!.localShipping == true ?
+                      if (deliveryOption.value == "delivery" &&  directOrderResponse.prodcutData!.isShipping == true
+                      && directOrderResponse.vendorCountryId == '117' && cartController.countryName.value == 'Kuwait')
                         Column(
                           children: [
                             Container(
@@ -312,46 +311,95 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               ),
                             ),
                           ],
-                        ):
-                        const Text('No Shipping Found For This Product'),
+                        )
                     ],
                   );
                 })
               ],
             ),
+            20.spaceY,
             Column(
               children: [
-                Container(
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Text("Add delivery instructions".tr,
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          style: GoogleFonts.poppins(),
-                          controller: deliveryInstructions,
-                          decoration: InputDecoration.collapsed(
-                              hintText: "Add delivery instructions to help us with the delivery".tr,
-                              hintStyle: GoogleFonts.poppins(color: const Color(0xff949495), fontSize: 14)),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
+                Form(
+                  key: _formKey,
+                  child: Container(
+                    decoration: const BoxDecoration(color: Colors.white),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            'Billing Address',
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.black),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          ...commonField(
+                              textController: cartController.billingFirstName,
+                              title: "First Name *",
+                              hintText: "Enter your first name",
+                              keyboardType: TextInputType.text,
+                              validator: (value) {
+                                if (value!.trim().isEmpty) {
+                                  return "Please enter first name";
+                                }
+                                return null;
+                              }),
+                          ...commonField(
+                              textController: cartController.billingLastName,
+                              title: "Last Name *",
+                              hintText: "Enter your last name",
+                              keyboardType: TextInputType.text,
+                              validator: (value) {
+                                if (value!.trim().isEmpty) {
+                                  return "Please enter last name";
+                                }
+                                return null;
+                              }),
+                          ...commonField(
+                            textController: cartController.billingEmail,
+                            title: "Email *",
+                            hintText: "Enter your Email",
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (value!.trim().isEmpty) {
+                                return "Please enter your email".tr;
+                              } else if (value.trim().contains('+') || value.trim().contains(' ')) {
+                                return "Email is invalid";
+                              } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(value.trim())) {
+                                return null;
+                              } else {
+                                return 'Please type a valid email address'.tr;
+                              }
+                            },
+                          ),
+                          ...commonField(
+                              textController: cartController.billingPhone,
+                              title: "Phone Number *",
+                              hintText: "Enter your phone number",
+                              keyboardType: TextInputType.phone,
+                              validator: (value) {
+                                if (value!.trim().isEmpty) {
+                                  return "Please enter phone number";
+                                }
+                                return null;
+                              }),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 15,
                 ),
               ],
             ),
@@ -405,36 +453,38 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
       ),
       bottomNavigationBar: InkWell(
         onTap: () {
-          showValidation.value = true;
-          if (deliveryOption.value.isEmpty) {
-            BuildContext? context1 = addressKey.currentContext;
-            if (context1 != null) {
-              Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
+          if(_formKey.currentState!.validate()){
+            showValidation.value = true;
+            if (deliveryOption.value.isEmpty) {
+              BuildContext? context1 = addressKey.currentContext;
+              if (context1 != null) {
+                Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
+              }
+              showToast("Please select delivery options".tr);
+              return;
             }
-            showToast("Please select delivery options".tr);
-            return;
-          }
-          if (deliveryOption.value == "delivery" && selectedAddress.id == null) {
-            BuildContext? context1 = addressKey.currentContext;
-            if (context1 != null) {
-              Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
+            if (deliveryOption.value == "delivery" && selectedAddress.id == null) {
+              BuildContext? context1 = addressKey.currentContext;
+              if (context1 != null) {
+                Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
+              }
+              showToast("Select delivery address to complete order".tr);
+              return;
             }
-            showToast("Select delivery address to complete order".tr);
-            return;
+            cartController.dialogOpened = false;
+            cartController.placeOrder(
+                idd: cartController.shippingId,
+                context: context,
+                currencyCode: "usd",
+                paymentMethod: paymentMethod1,
+                deliveryOption: deliveryOption.value,
+                productID: directOrderResponse.prodcutData!.id.toString(),
+                subTotalPrice: directOrderResponse.subtotal.toString(),
+                totalPrice: directOrderResponse.total.toString(),
+                quantity: directOrderResponse.quantity.toString(),
+                purchaseType: PurchaseType.buy,
+                address: selectedAddress.toJson());
           }
-          cartController.dialogOpened = false;
-          cartController.placeOrder(
-              idd: cartController.shippingId,
-              context: context,
-              currencyCode: "usd",
-              paymentMethod: paymentMethod1,
-              deliveryOption: deliveryOption.value,
-              productID: directOrderResponse.prodcutData!.id.toString(),
-              subTotalPrice: directOrderResponse.subtotal.toString(),
-              totalPrice: directOrderResponse.total.toString(),
-              quantity: directOrderResponse.quantity.toString(),
-              purchaseType: PurchaseType.buy,
-              address: selectedAddress.toJson());
         },
         child: Container(
           decoration: const BoxDecoration(color: Color(0xff014E70)),
@@ -797,6 +847,28 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             return null;
                           }),
                       ...commonField(
+                          textController: countryController,
+                          title: "${'Country'.tr}*",
+                          hintText: "Enter your country".tr,
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "${'Please enter country'.tr}*";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: stateController,
+                          title: "${'State'.tr}*",
+                          hintText: "Enter your state".tr,
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "${'Please enter state'.tr}*";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
                           textController: cityController,
                           title: "${'City'}*",
                           hintText: "Enter your city".tr,
@@ -818,28 +890,6 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             }
                             return null;
                           }),
-                      ...commonField(
-                          textController: stateController,
-                          title: "${'State'.tr}*",
-                          hintText: "Enter your state".tr,
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "${'Please enter state'.tr}*";
-                            }
-                            return null;
-                          }),
-                      ...commonField(
-                          textController: countryController,
-                          title: "${'Country'.tr}*",
-                          hintText: "Enter your country".tr,
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "${'Please enter country'.tr}*";
-                            }
-                            return null;
-                          }),
                       const SizedBox(
                         height: 16,
                       ),
@@ -853,6 +903,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                 title: titleController.text.trim(),
                                 lastName: lastNameController.text.trim(),
                                 state: stateController.text.trim(),
+                                countryName: '',
                                 country: countryController.text.trim(),
                                 city: cityController.text.trim(),
                                 address2: address2Controller.text.trim(),

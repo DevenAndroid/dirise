@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dirise/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,9 +29,8 @@ class EditAddressSheet extends StatefulWidget {
 
 class _EditAddressSheetState extends State<EditAddressSheet> {
   final cartController = Get.put(CartController());
-  
-  AddressData get addressData=> widget.addressData;
 
+  AddressData get addressData => widget.addressData;
 
   ModelCountryList? modelCountryList;
   Country? selectedCountry;
@@ -42,8 +42,8 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
   City? selectedCity;
   final Repositories repositories = Repositories();
   RxInt stateRefresh = 2.obs;
-  Future getStateList({required String countryId,bool? reset}) async {
-    if(reset == true) {
+  Future getStateList({required String countryId, bool? reset}) async {
+    if (reset == true) {
       modelStateList = null;
       selectedState = null;
       modelCityList = null;
@@ -54,14 +54,14 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
     await repositories.postApi(url: ApiUrls.allStatesUrl, mapData: map).then((value) {
       modelStateList = ModelStateList.fromJson(jsonDecode(value));
       stateRefresh.value = DateTime.now().millisecondsSinceEpoch;
-    }).catchError((e){
+    }).catchError((e) {
       stateRefresh.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
 
   RxInt cityRefresh = 2.obs;
-  Future getCityList({required String stateId,bool? reset}) async {
-    if(reset == true) {
+  Future getCityList({required String stateId, bool? reset}) async {
+    if (reset == true) {
       modelCityList = null;
       selectedCity = null;
     }
@@ -70,11 +70,11 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
     await repositories.postApi(url: ApiUrls.allCityUrl, mapData: map).then((value) {
       modelCityList = ModelCityList.fromJson(jsonDecode(value));
       cityRefresh.value = DateTime.now().millisecondsSinceEpoch;
-    }).catchError((e){
+    }).catchError((e) {
       cityRefresh.value = DateTime.now().millisecondsSinceEpoch;
     });
   }
-  
+
   Size get size => MediaQuery.of(context).size;
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
@@ -85,10 +85,10 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
   late TextEditingController zipCodeController;
   late TextEditingController landmarkController;
   late TextEditingController titleController;
+  TextEditingController countryController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
-
-
 
   showAddressSelectorDialog({
     required List<CommonAddressRelatedClass> addressList,
@@ -107,7 +107,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
               child: StatefulBuilder(builder: (context, newState) {
                 String gg = searchController.text.trim().toLowerCase();
                 List<CommonAddressRelatedClass> filteredList =
-                addressList.where((element) => element.title.toString().toLowerCase().contains(gg)).toList();
+                    addressList.where((element) => element.title.toString().toLowerCase().contains(gg)).toList();
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -142,29 +142,29 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                                 },
                                 leading: filteredList[index].flagUrl != null
                                     ? SizedBox(
-                                    width: 30,
-                                    height: 30,
-                                    child: filteredList[index].flagUrl.toString().contains("svg")
-                                        ? SvgPicture.network(
-                                      filteredList[index].flagUrl.toString(),
-                                    )
-                                        : Image.network(
-                                      filteredList[index].flagUrl.toString(),
-                                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-                                    ))
+                                        width: 30,
+                                        height: 30,
+                                        child: filteredList[index].flagUrl.toString().contains("svg")
+                                            ? SvgPicture.network(
+                                                filteredList[index].flagUrl.toString(),
+                                              )
+                                            : Image.network(
+                                                filteredList[index].flagUrl.toString(),
+                                                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                              ))
                                     : null,
                                 visualDensity: VisualDensity.compact,
                                 title: Text(filteredList[index].title),
                                 trailing: selectedAddressId == filteredList[index].addressId
                                     ? const Icon(
-                                  Icons.check,
-                                  color: Colors.purple,
-                                )
+                                        Icons.check,
+                                        color: Colors.purple,
+                                      )
                                     : Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  size: 18,
-                                  color: Colors.grey.shade800,
-                                ),
+                                        Icons.arrow_forward_ios_rounded,
+                                        size: 18,
+                                        color: Colors.grey.shade800,
+                                      ),
                               );
                             }))
                   ],
@@ -175,9 +175,8 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
         });
   }
 
-
   getCountryList() {
-    if(modelCountryList != null)return;
+    if (modelCountryList != null) return;
     repositories.getApi(url: ApiUrls.allCountriesUrl).then((value) {
       modelCountryList = ModelCountryList.fromString(value);
     });
@@ -196,10 +195,14 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
     zipCodeController = TextEditingController(text: addressData.zipCode ?? "");
     landmarkController = TextEditingController(text: addressData.landmark ?? "");
     titleController = TextEditingController(text: addressData.type ?? "");
+    countryController = TextEditingController(text: addressData.country ?? "");
+    countryController = TextEditingController(text: addressData.country ?? "");
+    stateController = TextEditingController(text: addressData.state ?? "");
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    print('data........${addressData.toJson().toString()}');
     return Padding(
       padding: const EdgeInsets.all(20),
       child: SizedBox(
@@ -331,12 +334,15 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     showAddressSelectorDialog(
                         addressList: modelCountryList!.country!
                             .map((e) => CommonAddressRelatedClass(
-                            title: e.name.toString(), addressId: e.id.toString(), flagUrl: e.icon.toString()))
+                                title: e.name.toString(), addressId: e.id.toString(), flagUrl: e.icon.toString()))
                             .toList(),
                         selectedAddressIdPicked: (String gg) {
                           String previous = ((selectedCountry ?? Country()).id ?? "").toString();
-                          selectedCountry = modelCountryList!.country!
-                              .firstWhere((element) => element.id.toString() == gg);
+                          selectedCountry = modelCountryList!.country!.firstWhere((element) => element.id.toString() == gg);
+                          cartController.countryCode = gg.toString();
+                          cartController.countryName.value = selectedCountry!.name.toString();
+                          print('countrrtr ${cartController.countryName.toString()}');
+                          print('countrrtr ${cartController.countryCode.toString()}');
                           if (previous != selectedCountry!.id.toString()) {
                             getStateList(countryId: gg, reset: true).then((value) {
                               setState(() {});
@@ -346,7 +352,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                         },
                         selectedAddressId: ((selectedCountry ?? Country()).id ?? "").toString());
                   },
-                  controller: TextEditingController(text: (selectedCountry ?? Country()).name ?? ""),
+                  controller: TextEditingController(text: (selectedCountry ?? Country()).name ?? countryController.text),
                   validator: (v) {
                     if (v!.trim().isEmpty) {
                       return "Please select country";
@@ -357,28 +363,25 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                 ...fieldWithName(
                   title: 'State',
                   hintText: 'Select State',
-                  controller:
-                  TextEditingController(text: (selectedState ?? CountryState()).stateName ?? ""),
+                  controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ?? ""),
                   readOnly: true,
                   onTap: () {
                     if (modelStateList == null && stateRefresh.value > 0) {
                       showToast("Select Country First");
                       return;
                     }
-                    if(stateRefresh.value < 0){
+                    if (stateRefresh.value < 0) {
                       return;
                     }
-                    if(modelStateList!.state!.isEmpty)return;
+                    if (modelStateList!.state!.isEmpty) return;
                     showAddressSelectorDialog(
                         addressList: modelStateList!.state!
                             .map((e) =>
-                            CommonAddressRelatedClass(title: e.stateName.toString(), addressId: e.stateId.toString()))
+                                CommonAddressRelatedClass(title: e.stateName.toString(), addressId: e.stateId.toString()))
                             .toList(),
                         selectedAddressIdPicked: (String gg) {
-                          String previous =
-                          ((selectedState ?? CountryState()).stateId ?? "").toString();
-                          selectedState = modelStateList!.state!
-                              .firstWhere((element) => element.stateId.toString() == gg);
+                          String previous = ((selectedState ?? CountryState()).stateId ?? "").toString();
+                          selectedState = modelStateList!.state!.firstWhere((element) => element.stateId.toString() == gg);
                           if (previous != selectedState!.stateId.toString()) {
                             getCityList(stateId: gg, reset: true).then((value) {
                               setState(() {});
@@ -386,8 +389,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                             setState(() {});
                           }
                         },
-                        selectedAddressId:
-                        ((selectedState ?? CountryState()).stateId ?? "").toString());
+                        selectedAddressId: ((selectedState ?? CountryState()).stateId ?? "").toString());
                   },
                   suffixIcon: Obx(() {
                     if (stateRefresh.value > 0) {
@@ -402,7 +404,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     return null;
                   },
                 ),
-                if(modelCityList != null && modelCityList!.city!.isNotEmpty)
+                if (modelCityList != null && modelCityList!.city!.isNotEmpty)
                   ...fieldWithName(
                     title: 'City',
                     hintText: 'Select City',
@@ -412,22 +414,20 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                         showToast("Select State First");
                         return;
                       }
-                      if(cityRefresh.value < 0){
+                      if (cityRefresh.value < 0) {
                         return;
                       }
-                      if(modelCityList!.city!.isEmpty)return;
+                      if (modelCityList!.city!.isEmpty) return;
                       showAddressSelectorDialog(
                           addressList: modelCityList!.city!
                               .map((e) =>
-                              CommonAddressRelatedClass(title: e.cityName.toString(), addressId: e.cityId.toString()))
+                                  CommonAddressRelatedClass(title: e.cityName.toString(), addressId: e.cityId.toString()))
                               .toList(),
                           selectedAddressIdPicked: (String gg) {
-                            selectedCity = modelCityList!.city!
-                                .firstWhere((element) => element.cityId.toString() == gg);
+                            selectedCity = modelCityList!.city!.firstWhere((element) => element.cityId.toString() == gg);
                             setState(() {});
                           },
-                          selectedAddressId:
-                          ((selectedCity ?? City()).cityId ?? "").toString());
+                          selectedAddressId: ((selectedCity ?? City()).cityId ?? "").toString());
                     },
                     suffixIcon: Obx(() {
                       if (cityRefresh.value > 0) {
@@ -458,7 +458,8 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                 //     textController: stateController,
                 //     title: "State*",
                 //     hintText: "Enter your state",
-                //     keyboardType: TextInputType.streetAddress,
+                //     keyboardType: TextInputType.
+                //     streetAddress,
                 //     validator: (value) {
                 //       if (value!.trim().isEmpty) {
                 //         return "Please enter state*";
@@ -488,8 +489,9 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                           firstName: firstNameController.text.trim(),
                           title: titleController.text.trim(),
                           lastName: lastNameController.text.trim(),
-                          state: "stateController.text.trim()",
-                          country: "countryController.text.trim()",
+                          countryName: cartController.countryName.toString(),
+                          state: stateController.text.trim(),
+                          country: cartController.countryCode.toString(),
                           city: "cityController.text.trim()",
                           address2: address2Controller.text.trim(),
                           address: addressController.text.trim(),
@@ -507,8 +509,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     child: Align(
                         alignment: Alignment.center,
                         child: Text("Save",
-                            style:
-                            GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 19, color: Colors.white))),
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).viewInsets.bottom),

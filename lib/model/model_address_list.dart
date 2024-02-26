@@ -130,7 +130,7 @@ class AddressData {
     gg.add(getOutput(address));
     // gg.add(getOutput(address2));
     // gg.add(getOutput(landmark));
-    gg.add(("${getOutput(city)} ${getOutput(zipCode)}").toString().trim());
+    gg.add(("${getOutput(city)} ${getOutput(id)}").toString().trim());
     // gg.add(getOutput(state));
     // gg.add(getOutput(country));
     gg.removeWhere((element) => element.isEmpty);

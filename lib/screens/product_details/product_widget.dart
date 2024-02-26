@@ -140,12 +140,12 @@ class _ProductUIState extends State<ProductUI> {
                   children: [
                     Expanded(
                       child: Text(
-                        'USD ${widget.productElement.sPrice.toString()}',
+                        'KWD ${widget.productElement.sPrice.toString()}',
                         style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                     ),
                     Text(
-                      'USD ${widget.productElement.pPrice.toString()}',
+                      'KWD ${widget.productElement.pPrice.toString()}',
                       style: GoogleFonts.poppins(
                           decoration: TextDecoration.lineThrough,
                           color: const Color(0xff858484),

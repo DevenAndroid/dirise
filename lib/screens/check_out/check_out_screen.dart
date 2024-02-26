@@ -411,7 +411,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           height: 6,
                                         ),
                                         Text(
-                                          '\$${product.sPrice}',
+                                          'KWD ${product.sPrice}',
                                           style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
                                         ),
                                         const SizedBox(
@@ -509,7 +509,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     },
                   ),
                   10.spaceY,
-                  if (cartController.deliveryOption1.value == "delivery" &&  e.value.products!.any((e) => e.localShipping == true && e.isShipping == true))
+                  if (cartController.deliveryOption1.value == "delivery" &&  e.value.products!.any((e) => e.vendorCountryId == '117' && e.isShipping == true) && cartController.countryName == 'Kuwait')
                     Container(
                       color: Colors.white,
                       child: Padding(
@@ -525,7 +525,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                       ),
                     ),
-                  if (cartController.deliveryOption1.value == "delivery" &&  e.value.products!.any((e) => e.localShipping == true && e.isShipping == true))
+                  if (cartController.deliveryOption1.value == "delivery" && e.value.products!.any((e) => e.vendorCountryId == '117' && e.isShipping == true) &&  cartController.countryName.value == 'Kuwait')
                     Container(
                       color: Colors.white,
                       child: ListView.builder(
@@ -566,8 +566,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       },
                                     ),
                                     20.spaceX,
-                                    Text(product.name.toString().capitalize!.replaceAll('_', ' '),
-                                        style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16)),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(product.name.toString().capitalize!.replaceAll('_', ' '),
+                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
+                                        3.spaceY,
+                                        Text('\$${product.value.toString()}',
+                                            style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16,color: const Color(0xFF03a827))),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ],

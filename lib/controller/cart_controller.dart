@@ -20,6 +20,8 @@ enum PurchaseType { buy, cart }
 
 class CartController extends GetxController {
   RxInt refreshInt = 0.obs;
+  String countryCode = '';
+  RxString countryName = ''.obs;
   final Repositories repositories = Repositories();
   ModelCartResponse cartModel = ModelCartResponse();
   bool apiLoaded = false;
@@ -326,6 +328,7 @@ class CartController extends GetxController {
       {required String firstName,
       required String lastName,
       required String phone,
+      required String countryName,
       required String alternatePhone,
       required String address,
       required String address2,
@@ -351,6 +354,7 @@ class CartController extends GetxController {
       'landmark': landmark,
       'title': title,
       'country_id': country,
+      'country' : countryName,
       'state_id': state,
       'city_id': city
     };

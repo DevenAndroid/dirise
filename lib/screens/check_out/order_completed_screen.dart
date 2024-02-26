@@ -142,7 +142,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                                         height: 5,
                                       ),
                                       Text(
-                                        'USD ${orderItems.productPrice}',
+                                        'KWD ${orderItems.productPrice}',
                                         style: GoogleFonts.poppins(
                                             fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                       ),
@@ -181,7 +181,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                                     ),
                                   ),
                                   Text(
-                                    "${singleOrder.order!.orderMeta!.totalPrice} USD",
+                                    "${singleOrder.order!.orderMeta!.totalPrice} KWD",
                                     style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, height: 1.8),
                                   ),
                                 ],

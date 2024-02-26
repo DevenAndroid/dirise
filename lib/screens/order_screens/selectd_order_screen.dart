@@ -134,7 +134,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                       height: 4,
                                     ),
                                     Text(
-                                      'USD ${item.productPrice}',
+                                      'KWD ${item.productPrice}',
                                       style: GoogleFonts.poppins(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,

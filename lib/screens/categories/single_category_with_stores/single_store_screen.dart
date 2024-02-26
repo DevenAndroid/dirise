@@ -232,10 +232,9 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                   child: CachedNetworkImage(
                                     imageUrl: storeLogo.toString(),
                                     fit: BoxFit.cover,
-                                    errorWidget: (_, __, ___) => const Icon(
-                                      Icons.error_outline_outlined,
-                                      color: Colors.red,
-                                    ),
+                                    errorWidget: (_, __, ___) => Image.asset(
+                                      'assets/images/new_logo.png'
+                                    )
                                   ),
                                 ),
                               ),
@@ -642,7 +641,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                           Row(
                             children: [
                               Text(
-                                'USD 6.350',
+                                'KWD 6.350',
                                 style: GoogleFonts.poppins(
                                     fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                               ),
@@ -650,7 +649,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                 width: 10,
                               ),
                               Text(
-                                'USD 12.700',
+                                'KWD 12.700',
                                 style: GoogleFonts.poppins(
                                     decoration: TextDecoration.lineThrough,
                                     fontSize: 16,

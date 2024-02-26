@@ -1,6 +1,6 @@
 class HomeModal {
   bool? status;
-  String? message;
+  dynamic message;
   Home? home;
 
   HomeModal({this.status, this.message, this.home});
@@ -23,11 +23,11 @@ class HomeModal {
 }
 
 class Home {
-  String? content;
+  dynamic content;
   List<Slider>? slider;
-  String? bannerImg;
-  String? saleBannerAltTag;
-  String? saleBannerUrl;
+  dynamic bannerImg;
+  dynamic saleBannerAltTag;
+  dynamic saleBannerUrl;
 
   Home({this.content, this.slider, this.bannerImg, this.saleBannerAltTag, this.saleBannerUrl});
 
@@ -58,10 +58,10 @@ class Home {
 }
 
 class Slider {
-  String? image;
-  String? bannerMobile;
-  String? url;
-  String? sliderAlt;
+  dynamic image;
+  dynamic bannerMobile;
+  dynamic url;
+  dynamic sliderAlt;
 
   Slider({this.image, this.bannerMobile, this.url, this.sliderAlt});
 

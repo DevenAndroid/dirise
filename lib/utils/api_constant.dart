@@ -11,6 +11,7 @@ class ApiUrls {
   static const String baseUrl = 'https://backend.diriseapp.com/api/';
   static const String signInUrl = "${baseUrl}register";
   static const String loginUrl = "${baseUrl}login";
+  static const String resendOtpUrl = "${baseUrl}resend-otp";
   static const String verifyOtpEmail = "${baseUrl}verify-otp-email";
   static const String forgotPasswordUrl = "${baseUrl}forget-password";
   static const String changePasswordUrl = "${baseUrl}change-password";
