@@ -87,7 +87,7 @@ class _AudioFilesListScreenState extends State<AudioFilesListScreen> {
                 })
             : Center(
                 child: Text(
-                  AppStrings.notHaveAnyBooks.tr,
+                  AppStrings.notHaveAnyVoice.tr,
                   style: normalStyle,
                 ),
               )

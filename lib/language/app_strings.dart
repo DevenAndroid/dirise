@@ -41,6 +41,7 @@ class AppStrings{
     static String searchEBook = "Search E Book";
     static String voice = "Voice";
     static String notHaveAnyBooks = "You don't have any book in your collection";
+    static String notHaveAnyVoice = "You don't have any voice in your collection";
     static String phoneNumber = "Email or Phone number";
     static String password = "Password";
     static String signIn = "Sign In";
