@@ -61,6 +61,7 @@ class ProductElement {
   dynamic stepPrice;
   dynamic currentBid;
   dynamic featureImageApp;
+  dynamic beforePurchase;
   bool? isShipping;
   bool? localShipping;
   List<ServiceTimeSloat>? serviceTimeSloat;
@@ -94,6 +95,7 @@ class ProductElement {
     this.bestSaller,
     this.featured,
     this.taxApply,
+    this.beforePurchase,
     this.taxType,
     this.shortDescription,
     this.arabShortDescription,
@@ -171,6 +173,7 @@ class ProductElement {
     arabLongDescription = json["arab_long_description"];
     isShipping = json['is_shipping'];
     featuredImage = json["featured_image"];
+    beforePurchase = json['before_purchase'];
     localShipping = json['local_shipping'];
     try {
       galleryImage = json["gallery_image"] == null ? [] : List<String>.from(json["gallery_image"]!.map((x) => x));
@@ -256,6 +259,7 @@ class ProductElement {
     "p_price": pPrice,
     "s_price": sPrice,
     "commission": commission,
+    'before_purchase' : beforePurchase,
     "new": productNew,
     "best_saller": bestSaller,
     "featured": featured,

@@ -242,7 +242,10 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                   child: CachedNetworkImage(
                                     fit: BoxFit.cover,
                                     imageUrl: bannerString.toString(),
-                                    errorWidget: (_, __, ___) => const Icon(Icons.error_outline),
+                                      errorWidget: (_, __, ___) =>
+                                          Image.asset(
+                                              'assets/images/new_logo.png'
+                                          )
                                   ),
                                 ),
                               ),

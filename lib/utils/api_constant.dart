@@ -88,6 +88,8 @@ class ApiUrls {
   static const String addRemoveLike = "${baseUrl}add-remove-like";
   static const String socialLoginUrl = "${baseUrl}social";
   static const String filterByPriceUrl = "${baseUrl}filter-by-price";
+  static const String addReviewUrl = "${baseUrl}review";
+  static const String getReviewUrl = "${baseUrl}review-list?product_id=";
 
 
 

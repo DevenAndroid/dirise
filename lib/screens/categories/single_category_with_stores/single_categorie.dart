@@ -231,7 +231,10 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                 surfaceTintColor: Colors.transparent,
                                 child: CachedNetworkImage(
                                   imageUrl: mainCategory.bannerProfile.toString(),
-                                  errorWidget: (_, __, ___) => const Icon(Icons.error_outline),
+                                    errorWidget: (_, __, ___) =>
+                                        Image.asset(
+                                            'assets/images/new_logo.png'
+                                        )
                                 ),
                               ),
                             ))),
@@ -418,10 +421,10 @@ class _SingleCategoriesState extends State<SingleCategories> {
                                   child: CachedNetworkImage(
                                     imageUrl: store.storeLogoApp.toString(),
                                     fit: BoxFit.cover,
-                                    errorWidget: (_, __, ___) => const Icon(
-                                      Icons.error_outline_outlined,
-                                      color: Colors.red,
-                                    ),
+                                      errorWidget: (_, __, ___) =>
+                                          Image.asset(
+                                              'assets/images/new_logo.png'
+                                          )
                                   ),
                                 ),
                               ),
