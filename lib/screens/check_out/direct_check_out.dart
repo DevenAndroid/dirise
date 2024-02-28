@@ -4,12 +4,16 @@ import 'dart:developer';
 import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/customsize.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/profile_controller.dart';
+import '../../model/customer_profile/model_city_list.dart';
+import '../../model/customer_profile/model_country_list.dart';
+import '../../model/customer_profile/model_state_list.dart';
 import '../../model/model_address_list.dart';
 import '../../model/model_cart_response.dart';
 import '../../model/order_models/model_direct_order_details.dart';
@@ -20,6 +24,7 @@ import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';
 import '../../widgets/loading_animation.dart';
+import '../my_account_screens/editprofile_screen.dart';
 
 class DirectCheckOutScreen extends StatefulWidget {
   static String route = "/DirectCheckOutScreen";
@@ -51,11 +56,56 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
 
   bool get userLoggedIn => profileController.userLoggedIn;
   ModelDirectOrderResponse directOrderResponse = ModelDirectOrderResponse();
+  ModelStateList? modelStateList;
+  CountryState? selectedState;
 
+  ModelCityList? modelCityList;
+  City? selectedCity;
+  final Repositories repositories = Repositories();
+  RxInt stateRefresh = 2.obs;
+  getCountryList() {
+    if (modelCountryList != null) return;
+    repositories.getApi(url: ApiUrls.allCountriesUrl).then((value) {
+      modelCountryList = ModelCountryList.fromString(value);
+    });
+  }
+  Future getStateList({required String countryId, bool? reset}) async {
+    if (reset == true) {
+      modelStateList = null;
+      selectedState = null;
+      modelCityList = null;
+      selectedCity = null;
+    }
+    stateRefresh.value = -5;
+    final map = {'country_id': countryId};
+    await repositories.postApi(url: ApiUrls.allStatesUrl, mapData: map).then((value) {
+      modelStateList = ModelStateList.fromJson(jsonDecode(value));
+      stateRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    }).catchError((e) {
+      stateRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }
+  ModelCountryList? modelCountryList;
+  Country? selectedCountry;
+  RxInt cityRefresh = 2.obs;
+  Future getCityList({required String stateId, bool? reset}) async {
+    if (reset == true) {
+      modelCityList = null;
+      selectedCity = null;
+    }
+    cityRefresh.value = -5;
+    final map = {'state_id': stateId};
+    await repositories.postApi(url: ApiUrls.allCityUrl, mapData: map).then((value) {
+      modelCityList = ModelCityList.fromJson(jsonDecode(value));
+      cityRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    }).catchError((e) {
+      cityRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }
   @override
   void initState() {
     super.initState();
-
+    getCountryList();
     getPaymentGateWays();
     if (Get.arguments != null) {
       directOrderResponse = Get.arguments;
@@ -318,6 +368,91 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
               ],
             ),
             20.spaceY,
+            //   Column(
+            //   children: [
+            //     Form(
+            //       key: _formKey,
+            //       child: Container(
+            //         decoration: const BoxDecoration(color: Colors.white),
+            //         child: Padding(
+            //           padding: const EdgeInsets.symmetric(horizontal: 20),
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               const SizedBox(
+            //                 height: 15,
+            //               ),
+            //               Text(
+            //                 'Billing Address',
+            //                 style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.black),
+            //               ),
+            //               const SizedBox(
+            //                 height: 15,
+            //               ),
+            //               ...commonField(
+            //                   textController: cartController.billingFirstName,
+            //                   title: "First Name *",
+            //                   hintText: "Enter your first name",
+            //                   keyboardType: TextInputType.text,
+            //                   validator: (value) {
+            //                     if (value!.trim().isEmpty) {
+            //                       return "Please enter first name";
+            //                     }
+            //                     return null;
+            //                   }),
+            //               ...commonField(
+            //                   textController: cartController.billingLastName,
+            //                   title: "Last Name *",
+            //                   hintText: "Enter your last name",
+            //                   keyboardType: TextInputType.text,
+            //                   validator: (value) {
+            //                     if (value!.trim().isEmpty) {
+            //                       return "Please enter last name";
+            //                     }
+            //                     return null;
+            //                   }),
+            //               ...commonField(
+            //                 textController: cartController.billingEmail,
+            //                 title: "Email *",
+            //                 hintText: "Enter your Email",
+            //                 keyboardType: TextInputType.text,
+            //                 validator: (value) {
+            //                   if (value!.trim().isEmpty) {
+            //                     return "Please enter your email".tr;
+            //                   } else if (value.trim().contains('+') || value.trim().contains(' ')) {
+            //                     return "Email is invalid";
+            //                   } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            //                       .hasMatch(value.trim())) {
+            //                     return null;
+            //                   } else {
+            //                     return 'Please type a valid email address'.tr;
+            //                   }
+            //                 },
+            //               ),
+            //               ...commonField(
+            //                   textController: cartController.billingPhone,
+            //                   title: "Phone Number *",
+            //                   hintText: "Enter your phone number",
+            //                   keyboardType: TextInputType.phone,
+            //                   validator: (value) {
+            //                     if (value!.trim().isEmpty) {
+            //                       return "Please enter phone number";
+            //                     }
+            //                     return null;
+            //                   }),
+            //               const SizedBox(
+            //                 height: 20,
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //     const SizedBox(
+            //       height: 15,
+            //     ),
+            //   ],
+            // ),
             Column(
               children: [
                 Form(
@@ -339,8 +474,60 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           const SizedBox(
                             height: 15,
                           ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Same As Shipping Address',
+                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.black),
+                              ),
+                              10.spaceX,
+                              Transform.translate(
+                                offset: const Offset(-6, 0),
+                                child: Checkbox(
+                                    visualDensity: const VisualDensity(horizontal: -1, vertical: -3),
+                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    value: cartController.isDelivery.value,
+                                    side: BorderSide(
+                                      color: showValidation.value == false ? AppTheme.buttonColor : Colors.red,
+                                    ),
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        cartController.isDelivery.value = value!;
+                                        if (cartController.isDelivery.value == true && selectedAddress.id != null) {
+                                          cartController.addressDeliFirstName.text = selectedAddress.getFirstName;
+                                          cartController.addressDeliLastName.text = selectedAddress.getLastName;
+                                          cartController.addressDeliEmail.text = selectedAddress.getEmail;
+                                          cartController.addressDeliPhone.text = selectedAddress.getPhone;
+                                          cartController.addressDeliAlternate.text = selectedAddress.getAlternate;
+                                          cartController.addressDeliAddress.text = selectedAddress.getAddress;
+                                          cartController.addressDeliZipCode.text = selectedAddress.getZipCode;
+                                        } else if (cartController.isDelivery.value == true && selectedAddress.id == null) {
+                                          showToast("Please Select Address".tr);
+                                          cartController.isDelivery.value = false;
+                                        }else{
+                                          cartController.addressDeliFirstName.text = '';
+                                          cartController.addressDeliLastName.text = '';
+                                          cartController.addressDeliEmail.text = '';
+                                          cartController.addressDeliPhone.text = '';
+                                          cartController.addressDeliAlternate.text = '';
+                                          cartController.addressDeliAddress.text = '';
+                                          cartController.addressDeliZipCode.text = '';
+                                        }
+                                      });
+                                    }),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
                           ...commonField(
-                              textController: cartController.billingFirstName,
+                              textController: cartController.addressDeliFirstName,
                               title: "First Name *",
                               hintText: "Enter your first name",
                               keyboardType: TextInputType.text,
@@ -349,9 +536,10 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                   return "Please enter first name";
                                 }
                                 return null;
-                              }),
+                              }
+                          ),
                           ...commonField(
-                              textController: cartController.billingLastName,
+                              textController: cartController.addressDeliLastName,
                               title: "Last Name *",
                               hintText: "Enter your last name",
                               keyboardType: TextInputType.text,
@@ -360,9 +548,10 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                   return "Please enter last name";
                                 }
                                 return null;
-                              }),
+                              }
+                          ),
                           ...commonField(
-                            textController: cartController.billingEmail,
+                            textController: cartController.addressDeliEmail,
                             title: "Email *",
                             hintText: "Enter your Email",
                             keyboardType: TextInputType.text,
@@ -380,7 +569,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             },
                           ),
                           ...commonField(
-                              textController: cartController.billingPhone,
+                              textController: cartController.addressDeliPhone,
                               title: "Phone Number *",
                               hintText: "Enter your phone number",
                               keyboardType: TextInputType.phone,
@@ -389,7 +578,166 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                   return "Please enter phone number";
                                 }
                                 return null;
+                              }
+                          ),
+                          ...commonField(
+                              textController: cartController.addressDeliAlternate,
+                              title: "Alternate Phone Number *",
+                              hintText: "Enter your alternate phone number",
+                              keyboardType: TextInputType.phone,
+                              validator: (value) {
+                                return null;
+                              }
+                          ),
+                          ...fieldWithName(
+                            title: 'Country/Region',
+                            hintText: 'Select Country',
+                            readOnly: true,
+                            onTap: () {
+                              showAddressSelectorDialog(
+                                  addressList: modelCountryList!.country!
+                                      .map((e) => CommonAddressRelatedClass(
+                                      title: e.name.toString(), addressId: e.id.toString(), flagUrl: e.icon.toString()))
+                                      .toList(),
+                                  selectedAddressIdPicked: (String gg) {
+                                    String previous = ((selectedCountry ?? Country()).id ?? "").toString();
+                                    selectedCountry = modelCountryList!.country!.firstWhere((element) => element.id.toString() == gg);
+                                    cartController.countryCode = gg.toString();
+                                    cartController.countryName.value = selectedCountry!.name.toString();
+                                    print('countrrtr ${cartController.countryName.toString()}');
+                                    print('countrrtr ${cartController.countryCode.toString()}');
+                                    if (previous != selectedCountry!.id.toString()) {
+                                      getStateList(countryId: gg, reset: true).then((value) {
+                                        setState(() {});
+                                      });
+                                      setState(() {});
+                                    }
+                                  },
+                                  selectedAddressId: ((selectedCountry ?? Country()).id ?? "").toString());
+                            },
+                            controller: TextEditingController(text: (selectedCountry ?? Country()).name ?? cartController.addressCountryController.text),
+                            validator: (v) {
+                              if (v!.trim().isEmpty) {
+                                return "Please select country";
+                              }
+                              return null;
+                            },
+                          ),
+                          ...fieldWithName(
+                            title: 'State',
+                            hintText: 'Select State',
+                            controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ?? ""),
+                            readOnly: true,
+                            onTap: () {
+                              if (modelStateList == null && stateRefresh.value > 0) {
+                                showToast("Select Country First");
+                                return;
+                              }
+                              if (stateRefresh.value < 0) {
+                                return;
+                              }
+                              if (modelStateList!.state!.isEmpty) return;
+                              showAddressSelectorDialog(
+                                  addressList: modelStateList!.state!
+                                      .map((e) =>
+                                      CommonAddressRelatedClass(title: e.stateName.toString(), addressId: e.stateId.toString()))
+                                      .toList(),
+                                  selectedAddressIdPicked: (String gg) {
+                                    String previous = ((selectedState ?? CountryState()).stateId ?? "").toString();
+                                    selectedState = modelStateList!.state!.firstWhere((element) => element.stateId.toString() == gg);
+                                    if (previous != selectedState!.stateId.toString()) {
+                                      getCityList(stateId: gg, reset: true).then((value) {
+                                        setState(() {});
+                                      });
+                                      setState(() {});
+                                    }
+                                  },
+                                  selectedAddressId: ((selectedState ?? CountryState()).stateId ?? "").toString());
+                            },
+                            suffixIcon: Obx(() {
+                              if (stateRefresh.value > 0) {
+                                return const Icon(Icons.keyboard_arrow_down_rounded);
+                              }
+                              return const CupertinoActivityIndicator();
+                            }),
+                            validator: (v) {
+                              if (v!.trim().isEmpty) {
+                                return "Please select state";
+                              }
+                              return null;
+                            },
+                          ),
+                          if (modelCityList != null && modelCityList!.city!.isNotEmpty)
+                            ...fieldWithName(
+                              title: 'City',
+                              hintText: 'Select City',
+                              controller: TextEditingController(text: (selectedCity ?? City()).cityName ?? ""),
+                              onTap: () {
+                                if (modelCityList == null && cityRefresh.value > 0) {
+                                  showToast("Select State First");
+                                  return;
+                                }
+                                if (cityRefresh.value < 0) {
+                                  return;
+                                }
+                                if (modelCityList!.city!.isEmpty) return;
+                                showAddressSelectorDialog(
+                                    addressList: modelCityList!.city!
+                                        .map((e) =>
+                                        CommonAddressRelatedClass(title: e.cityName.toString(), addressId: e.cityId.toString()))
+                                        .toList(),
+                                    selectedAddressIdPicked: (String gg) {
+                                      selectedCity = modelCityList!.city!.firstWhere((element) => element.cityId.toString() == gg);
+                                      setState(() {});
+                                    },
+                                    selectedAddressId: ((selectedCity ?? City()).cityId ?? "").toString());
+                              },
+                              suffixIcon: Obx(() {
+                                if (cityRefresh.value > 0) {
+                                  return const Icon(Icons.keyboard_arrow_down_rounded);
+                                }
+                                return const CupertinoActivityIndicator();
                               }),
+                              validator: (v) {
+                                if (v!.trim().isEmpty) {
+                                  return "Please select state";
+                                }
+                                return null;
+                              },
+                            ),
+                          ...commonField(
+                              textController: cartController.addressDeliAddress,
+                              title: "Address *",
+                              hintText: "Enter your address",
+                              keyboardType: TextInputType.text,
+                              validator: (value) {
+                                if (value!.trim().isEmpty) {
+                                  return "Please enter your address";
+                                }
+                                return null;
+                              }
+                          ),
+                          ...commonField(
+                              textController: cartController.addressDeliOtherInstruction,
+                              title: "Other instruction *",
+                              hintText: "Enter other instruction",
+                              keyboardType: TextInputType.text,
+                              validator: (value) {
+                                return null;
+                              }
+                          ),
+                          ...commonField(
+                              textController: cartController.addressDeliZipCode,
+                              title: "Zip Code *",
+                              hintText: "Enter your phone number",
+                              keyboardType: TextInputType.phone,
+                              validator: (value) {
+                                if (value!.trim().isEmpty) {
+                                  return "Please enter phone number";
+                                }
+                                return null;
+                              }
+                          ),
                           const SizedBox(
                             height: 20,
                           ),
@@ -498,7 +846,90 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
       ),
     );
   }
-
+  showAddressSelectorDialog({
+    required List<CommonAddressRelatedClass> addressList,
+    required String selectedAddressId,
+    required Function(String selectedId) selectedAddressIdPicked,
+  }) {
+    FocusManager.instance.primaryFocus!.unfocus();
+    final TextEditingController searchController = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            insetPadding: const EdgeInsets.all(18),
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: StatefulBuilder(builder: (context, newState) {
+                String gg = searchController.text.trim().toLowerCase();
+                List<CommonAddressRelatedClass> filteredList =
+                addressList.where((element) => element.title.toString().toLowerCase().contains(gg)).toList();
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextFormField(
+                      controller: searchController,
+                      onChanged: (gg) {
+                        newState(() {});
+                      },
+                      autofocus: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: AppTheme.buttonColor, width: 1.2)),
+                          enabled: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: AppTheme.buttonColor, width: 1.2)),
+                          suffixIcon: const Icon(Icons.search),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12)),
+                    ),
+                    Flexible(
+                        child: ListView.builder(
+                            itemCount: filteredList.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                // dense: true,
+                                onTap: () {
+                                  selectedAddressIdPicked(filteredList[index].addressId);
+                                  FocusManager.instance.primaryFocus!.unfocus();
+                                  Get.back();
+                                },
+                                leading: filteredList[index].flagUrl != null
+                                    ? SizedBox(
+                                    width: 30,
+                                    height: 30,
+                                    child: filteredList[index].flagUrl.toString().contains("svg")
+                                        ? SvgPicture.network(
+                                      filteredList[index].flagUrl.toString(),
+                                    )
+                                        : Image.network(
+                                      filteredList[index].flagUrl.toString(),
+                                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                    ))
+                                    : null,
+                                visualDensity: VisualDensity.compact,
+                                title: Text(filteredList[index].title),
+                                trailing: selectedAddressId == filteredList[index].addressId
+                                    ? const Icon(
+                                  Icons.check,
+                                  color: Colors.purple,
+                                )
+                                    : Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  size: 18,
+                                  color: Colors.grey.shade800,
+                                ),
+                              );
+                            }))
+                  ],
+                );
+              }),
+            ),
+          );
+        });
+  }
   Column paymentMethod(Size size) {
     return Column(
       children: [
@@ -686,22 +1117,22 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           child: Text("Change Address".tr,
                               style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
               ],
-              Row(
-                children: [
-                  Expanded(
-                      child: Text("Pick Up".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
-                  Radio<String>(
-                      value: "pickup",
-                      groupValue: deliveryOption.value,
-                      visualDensity: VisualDensity.compact,
-                      fillColor: deliveryOption.value.isEmpty && showValidation.value
-                          ? MaterialStateProperty.all(Colors.red)
-                          : null,
-                      onChanged: (value) {
-                        deliveryOption.value = value!;
-                      })
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //         child: Text("Pick Up".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+              //     Radio<String>(
+              //         value: "pickup",
+              //         groupValue: deliveryOption.value,
+              //         visualDensity: VisualDensity.compact,
+              //         fillColor: deliveryOption.value.isEmpty && showValidation.value
+              //             ? MaterialStateProperty.all(Colors.red)
+              //             : null,
+              //         onChanged: (value) {
+              //           deliveryOption.value = value!;
+              //         })
+              //   ],
+              // ),
               const SizedBox(
                 height: 10,
               ),
@@ -716,6 +1147,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
   Future bottomSheet({required AddressData addressData}) {
     Size size = MediaQuery.of(context).size;
     final TextEditingController firstNameController = TextEditingController(text: addressData.firstName ?? "");
+    final TextEditingController emailController = TextEditingController(text: addressData.email ?? "");
     final TextEditingController lastNameController = TextEditingController(text: addressData.lastName ?? "");
     final TextEditingController phoneController = TextEditingController(text: addressData.phone ?? "");
     final TextEditingController alternatePhoneController = TextEditingController(text: addressData.alternatePhone ?? "");
@@ -899,6 +1331,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           if (formKey.currentState!.validate()) {
                             cartController.updateAddressApi(
                                 context: context,
+                                email: emailController.text.trim(),
                                 firstName: firstNameController.text.trim(),
                                 title: titleController.text.trim(),
                                 lastName: lastNameController.text.trim(),
@@ -1042,6 +1475,15 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                     behavior: HitTestBehavior.translucent,
                                     onTap: () {
                                       selectedAddress = address;
+                                      if(cartController.isDelivery.value == true){
+                                        cartController.addressDeliFirstName.text = selectedAddress.getFirstName;
+                                        cartController.addressDeliLastName.text = selectedAddress.getLastName;
+                                        cartController.addressDeliEmail.text = selectedAddress.getEmail;
+                                        cartController.addressDeliPhone.text = selectedAddress.getPhone;
+                                        cartController.addressDeliAlternate.text = selectedAddress.getAlternate;
+                                        cartController.addressDeliAddress.text = selectedAddress.getAddress;
+                                        cartController.addressDeliZipCode.text = selectedAddress.getZipCode;
+                                      }
                                       Get.back();
                                       setState(() {});
                                     },

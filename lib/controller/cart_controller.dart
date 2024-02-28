@@ -33,6 +33,17 @@ class CartController extends GetxController {
   RxString deliveryOption1 = "".obs;
   RxBool showValidation = false.obs;
   RxBool showValidationShipping = false.obs;
+  final TextEditingController addressDeliFirstName = TextEditingController();
+  final TextEditingController addressDeliLastName = TextEditingController();
+  final TextEditingController addressDeliEmail = TextEditingController();
+  final TextEditingController addressDeliPhone = TextEditingController();
+  final TextEditingController addressDeliAlternate = TextEditingController();
+  final TextEditingController addressDeliAddress = TextEditingController();
+  final TextEditingController addressDeliOtherInstruction = TextEditingController();
+  final TextEditingController addressDeliZipCode = TextEditingController();
+  final TextEditingController addressCountryController = TextEditingController();
+  RxBool isDelivery = false.obs;
+
   final TextEditingController billingFirstName = TextEditingController();
   final TextEditingController billingLastName = TextEditingController();
   final TextEditingController billingEmail = TextEditingController();
@@ -327,6 +338,7 @@ class CartController extends GetxController {
   updateAddressApi(
       {required String firstName,
       required String lastName,
+      required String email,
       required String phone,
       required String countryName,
       required String alternatePhone,
@@ -347,6 +359,7 @@ class CartController extends GetxController {
       'last_name': lastName,
       'phone': phone,
       'alternate_phone': alternatePhone,
+      'email' : email,
       'address_type': 'shipping',
       'address': address,
       'address2': address2,

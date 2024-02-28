@@ -139,6 +139,62 @@ class AddressData {
     }
     return gg.join(", ");
   }
+  String get getFirstName {
+    List<String> gg = [];
+    gg.add((getOutput(firstName)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
+  String get getLastName {
+    List<String> gg = [];
+    gg.add((getOutput(lastName)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
+  String get getEmail {
+    List<String> gg = [];
+    gg.add((getOutput(email)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
+  String get getPhone {
+    List<String> gg = [];
+    gg.add((getOutput(phone)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
+  String get getAlternate {
+    List<String> gg = [];
+    gg.add((getOutput(alternatePhone)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
+  String get getAddress {
+    List<String> gg = [];
+    gg.add((getOutput(address)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
+  String get getZipCode {
+    List<String> gg = [];
+    gg.add((getOutput(zipCode)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
 
   String getOutput(kk) {
     return (kk != null ? kk.toString() : "").toString().capitalizeFirst!;

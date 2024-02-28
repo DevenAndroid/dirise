@@ -458,7 +458,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'CUSTOMER REVIEWS (${modelGetReview.value.reviewCount.toString()})'.tr,
+                          'CUSTOMER REVIEWS (${modelGetReview.value.reviewCount != null ? modelGetReview.value.reviewCount.toString() : '0'})'.tr,
                           style: GoogleFonts.poppins(
                             shadows: [const Shadow(color: Colors.black, offset: Offset(0, -4))],
                             color: Colors.transparent,
@@ -727,6 +727,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                       child: ElevatedButton(
                         onPressed: () {
                           directBuyProduct();
+                          Get.back();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.buttonColor,

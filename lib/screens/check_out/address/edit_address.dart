@@ -79,6 +79,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
   late TextEditingController phoneController;
+  late TextEditingController emailController;
   late TextEditingController alternatePhoneController;
   late TextEditingController addressController;
   late TextEditingController address2Controller;
@@ -189,6 +190,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
     firstNameController = TextEditingController(text: addressData.firstName ?? "");
     lastNameController = TextEditingController(text: addressData.lastName ?? "");
     phoneController = TextEditingController(text: addressData.phone ?? "");
+    emailController = TextEditingController(text: addressData.email ?? "");
     alternatePhoneController = TextEditingController(text: addressData.alternatePhone ?? "");
     addressController = TextEditingController(text: addressData.address ?? "");
     address2Controller = TextEditingController(text: addressData.address2 ?? "");
@@ -247,6 +249,24 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                       }
                       return null;
                     }),
+                ...commonField(
+                    textController: emailController,
+                    title: "Email*",
+                    hintText: "Enter your email",
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                    if (value!.trim().isEmpty) {
+                      return "Please enter your email".tr;
+                    } else if (value.trim().contains('+') || value.trim().contains(' ')) {
+                      return "Email is invalid";
+                    } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value.trim())) {
+                      return null;
+                    } else {
+                      return 'Please type a valid email address'.tr;
+                    }
+                  },
+                    ),
                 ...commonField(
                     textController: phoneController,
                     title: "Phone*",
@@ -499,6 +519,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                           landmark: landmarkController.text.trim(),
                           phone: phoneController.text.trim(),
                           zipCode: zipCodeController.text.trim(),
+                          email: emailController.text.trim(),
                           id: addressData.id);
                     }
                   },

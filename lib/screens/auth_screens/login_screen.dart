@@ -223,23 +223,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    InkWell(
-                      child: Container(
-                        height: 62,
-                        width: 62,
-                        decoration:
-                            BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/icons/facebook.png',
-                            height: 27,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // const SizedBox(
+                    //   width: 20,
+                    // ),
+                    // InkWell(
+                    //   child: Container(
+                    //     height: 62,
+                    //     width: 62,
+                    //     decoration:
+                    //         BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
+                    //     child: Center(
+                    //       child: Image.asset(
+                    //         'assets/icons/facebook.png',
+                    //         height: 27,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 SizedBox(

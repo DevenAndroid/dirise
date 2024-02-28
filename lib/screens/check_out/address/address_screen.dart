@@ -96,7 +96,7 @@ class _AddressScreenState extends State<AddressScreen> {
                           ),
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 5,
                         ),
                         if (cartController.selectedAddress.id != null)
                           InkWell(
@@ -112,22 +112,22 @@ class _AddressScreenState extends State<AddressScreen> {
                                   child: Text("Change Address",
                                       style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
                       ],
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Text("Pick Up", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
-                          Radio<String>(
-                              value: "pickup",
-                              groupValue: cartController.deliveryOption1.value,
-                              visualDensity: VisualDensity.compact,
-                              fillColor: cartController.deliveryOption1.value.isEmpty && cartController.showValidation.value
-                                  ? MaterialStateProperty.all(Colors.red)
-                                  : null,
-                              onChanged: (value) {
-                                cartController.deliveryOption1.value = value!;
-                              })
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Expanded(
+                      //         child: Text("Pick Up", style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+                      //     Radio<String>(
+                      //         value: "pickup",
+                      //         groupValue: cartController.deliveryOption1.value,
+                      //         visualDensity: VisualDensity.compact,
+                      //         fillColor: cartController.deliveryOption1.value.isEmpty && cartController.showValidation.value
+                      //             ? MaterialStateProperty.all(Colors.red)
+                      //             : null,
+                      //         onChanged: (value) {
+                      //           cartController.deliveryOption1.value = value!;
+                      //         })
+                      //   ],
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -475,6 +475,15 @@ class _AddressScreenState extends State<AddressScreen> {
                                       onTap: () {
                                         cartController.selectedAddress = address;
                                         cartController.countryName.value = address.country.toString();
+                                        if(cartController.isDelivery.value == true){
+                                          cartController.addressDeliFirstName.text = cartController.selectedAddress.getFirstName;
+                                          cartController.addressDeliLastName.text = cartController.selectedAddress.getLastName;
+                                          cartController.addressDeliEmail.text = cartController.selectedAddress.getEmail;
+                                          cartController.addressDeliPhone.text = cartController.selectedAddress.getPhone;
+                                          cartController.addressDeliAlternate.text = cartController.selectedAddress.getAlternate;
+                                          cartController.addressDeliAddress.text = cartController.selectedAddress.getAddress;
+                                          cartController.addressDeliZipCode.text = cartController.selectedAddress.getZipCode;
+                                        }
                                         print('codeee isss${cartController.countryName.toString()}');
                                         Get.back();
                                         setState(() {});
