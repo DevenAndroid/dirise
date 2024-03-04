@@ -187,7 +187,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        "\$${(e.productPrice.toString().toNum * e.quantity.toString().toNum).toStringAsFixed(2)}",
+                                                        "kwd${(e.productPrice.toString().toNum * e.quantity.toString().toNum).toStringAsFixed(2)}",
                                                         style: GoogleFonts.poppins(
                                                             color: AppTheme.primaryColor,
                                                             fontWeight: FontWeight.w600,
@@ -437,7 +437,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         ),
                                       ),
                                       Text(
-                                        "\$${order.orderMeta!.subtotalPrice}",
+                                        "kwd${order.orderMeta!.subtotalPrice}",
                                         style: GoogleFonts.poppins(
                                           color: const Color(0xFF797F90),
                                           fontSize: 14,
@@ -463,7 +463,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                         ),
                                       ),
                                       Text(
-                                        "\$${order.orderMeta!.totalPrice}",
+                                        "kwd${order.orderMeta!.totalPrice}",
                                         style: GoogleFonts.poppins(
                                           color: const Color(0xFF797F90),
                                           fontSize: 14,

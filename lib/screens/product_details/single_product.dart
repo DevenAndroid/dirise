@@ -226,6 +226,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
     });
   }
 
+  RxBool alreadyReview = false.obs;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery
@@ -413,7 +414,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                           Expanded(child: Text(e.comb
                                               .toString()
                                               .capitalize!)),
-                                          Text("\$${e.price}"),
+                                          Text("kwd ${e.price}"),
                                           const SizedBox(width: 4,)
                                         ],
                                       ))).toList(),
@@ -505,7 +506,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                           },) : const SizedBox();
                       }),
                       20.spaceY,
-                      productDetails.beforePurchase == true ? Column(
+                       productDetails.beforePurchase == true && productDetails.alreadyReview == false && alreadyReview.value == false? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -517,10 +518,15 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                             ),
                           ),
                           15.spaceY,
-                          CommonTextField(
-                            hintText: 'Write a review',
-                            controller: reviewController,
-                            isMulti: true,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0).copyWith(
+                              bottom: MediaQuery.of(context).viewInsets.bottom + 01.0,
+                            ),
+                            child: CommonTextField(
+                              hintText: 'Write a review',
+                              controller: reviewController,
+                              isMulti: true,
+                            ),
                           ),
                           15.spaceY,
                           ElevatedButton(
@@ -532,6 +538,10 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                                 modelAddReview = ModelAddReview.fromJson(jsonDecode(value));
                                 if (modelAddReview.status == true) {
                                   showToast(modelAddReview.message.toString());
+                                  setState(() {
+                                    alreadyReview.value = true;
+                                  });
+                                  getPublishPostData();
                                   reviewController.text = '';
                                 } else {
                                   showToast(modelAddReview.message.toString());
@@ -727,7 +737,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                       child: ElevatedButton(
                         onPressed: () {
                           directBuyProduct();
-                          Get.back();
+                          // Get.back();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.buttonColor,

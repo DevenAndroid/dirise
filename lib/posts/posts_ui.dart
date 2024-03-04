@@ -9,6 +9,7 @@ import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -202,8 +203,6 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
     );
   }
 
-
-
   @override
   void initState() {
     super.initState();
@@ -259,17 +258,30 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                               children: [
                                 TextFormField(
                                   controller: postController,
+                                    maxLength: 5000,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(5000)
+                                  ],
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'Please Post Something';
                                     }
                                     return null;
                                   },
+                                  onChanged: (value){
+                                    if(value.length == 5000){
+                                      showToastCenter('Maximum characters allowed only 5000');
+                                    }
+                                    setState(() {
+                                      postController.text = value;
+                                    });
+                                  },
                                   decoration: InputDecoration(
                                     hintText: 'What’s Happening?',
                                     border: InputBorder.none,
                                     hintStyle: GoogleFonts.poppins(
                                         color: const Color(0xFF5B5B5B), fontWeight: FontWeight.w500, fontSize: 16),
+                                    // counterText: '${postController.text.length} / 5000',
                                   ),
                                 ),
                                 const SizedBox(
@@ -280,13 +292,13 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                                   children: [
                                     Row(
                                       children: [
-                                        Image.asset(
-                                          'assets/images/link-2.png',
-                                          width: 28,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
+                                        // Image.asset(
+                                        //   'assets/images/link-2.png',
+                                        //   width: 28,
+                                        // ),
+                                        // const SizedBox(
+                                        //   width: 10,
+                                        // ),
                                         GestureDetector(
                                             onTap: () {
                                               // NewHelper.showImagePickerSheet(
@@ -452,13 +464,48 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                                       const SizedBox(
                                         height: 18,
                                       ),
-                                      Text(
-                                        item.discription ?? '',
-                                        style: GoogleFonts.poppins(
-                                          color: const Color(0xFF5B5B5B),
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 13,
-                                          letterSpacing: 0.24,
+                                      // Text(
+                                      //   item.discription ?? '',
+                                      //   style: GoogleFonts.poppins(
+                                      //     color: const Color(0xFF5B5B5B),
+                                      //     fontWeight: FontWeight.w500,
+                                      //     fontSize: 13,
+                                      //     letterSpacing: 0.24,
+                                      //   ),
+                                      // ),
+                                      RichText(
+                                        text: TextSpan(
+                                          text: '',
+                                          style: DefaultTextStyle.of(context).style,
+                                          children: [
+                                            TextSpan(
+                                              text: item.isOpen
+                                                  ? item.discription ?? ''
+                                                  : (item.discription.length > 100
+                                                  ? item.discription.substring(0, 100) + "..."
+                                                  : item.discription),
+                                              style: GoogleFonts.poppins(
+                                                color: const Color(0xFF5B5B5B),
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 13,
+                                                letterSpacing: 0.24,
+                                              ),
+                                            ),
+                                            if (item.discription.length > 100)
+                                              WidgetSpan(
+                                                child: InkWell(
+                                                  onTap: (){
+                                                    setState(() {
+                                                      item.isOpen = !item.isOpen;
+                                                    });
+                                                  },
+                                                  child: Text(
+                                                    item.isOpen ? "Show less" : "Show more",
+                                                    style:  GoogleFonts.poppins(color: AppTheme.buttonColor,fontWeight: FontWeight.w600,fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
                                         ),
                                       ),
                                       const SizedBox(

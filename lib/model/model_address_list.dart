@@ -84,6 +84,7 @@ class AddressData {
   dynamic landmark;
   dynamic createdAt;
   dynamic updatedAt;
+  dynamic countryId;
 
   AddressData(
       {this.id,
@@ -92,6 +93,7 @@ class AddressData {
       this.lastName,
       this.email,
       this.companyName,
+      this.countryId,
       this.orderId,
       this.phone,
       this.alternatePhone,
@@ -187,9 +189,41 @@ class AddressData {
     }
     return gg.join(", ");
   }
+  String get getCountry {
+    List<String> gg = [];
+    gg.add((getOutput(country)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
+  String get getState {
+    List<String> gg = [];
+    gg.add((getOutput(state)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
+  String get getCity {
+    List<String> gg = [];
+    gg.add((getOutput(city)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
   String get getZipCode {
     List<String> gg = [];
     gg.add((getOutput(zipCode)).toString().trim());
+    if (kDebugMode) {
+      print(gg);
+    }
+    return gg.join(", ");
+  }
+  String get getCountryId {
+    List<String> gg = [];
+    gg.add((getOutput(countryId)).toString().trim());
     if (kDebugMode) {
       print(gg);
     }
@@ -222,6 +256,7 @@ class AddressData {
     landmark = json['landmark'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    countryId = json['country_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -247,6 +282,7 @@ class AddressData {
     data['landmark'] = landmark;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    data['country_id'] = countryId;
     return data;
   }
 }

@@ -37,8 +37,8 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
     }
     repositories.postApi(url: ApiUrls.createPaymentUrl, context: context, mapData: {
       'plan_id': widget.planInfoData.id.toString(),
-      'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
-      'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
+      'callback_url': 'https://diriseapp.com/home/$navigationBackUrl',
+      'failure_url': 'https://diriseapp.com/home/$failureUrl',
       'payment_method': paymentMethod,
     }).then((value) {
       ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));

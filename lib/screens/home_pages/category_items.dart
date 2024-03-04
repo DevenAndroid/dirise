@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/language/app_strings.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,7 @@ class _CategoryItemsState extends State<CategoryItems> {
           ? GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: homeController.vendorCategory.usphone!.length + 1,
+              itemCount: min(homeController.vendorCategory.usphone!.length + 1,12),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 100,
@@ -38,30 +40,35 @@ class _CategoryItemsState extends State<CategoryItems> {
                 mainAxisSpacing: 16,
               ),
               itemBuilder: (BuildContext context, int index) {
-                if (index == homeController.vendorCategory.usphone!.length) {
+                if (index ==  min(homeController.vendorCategory.usphone!.length + 1,12)-1) {
                   return Column(
                     children: [
-                      InkWell(
-                        onTap: () {
-                          bottomController.pageIndex.value = 1;
-                        },
-                        child: Container(
-                            height: 70,
-                            decoration:
-                                BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xffF0F0F0)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(18),
-                              child: Container(
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                                child: const Icon(
-                                  Icons.arrow_forward,
-                                  color: AppTheme.buttonColor,
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            bottomController.pageIndex.value = 1;
+                          },
+                          child: Container(
+                              height: 70,
+                              decoration:
+                                  BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xffF0F0F0)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(18),
+                                child: Container(
+                                  // height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                                  child: const Icon(
+                                    Icons.arrow_forward,
+                                    color: AppTheme.buttonColor,
+                                  ),
                                 ),
-                              ),
-                            )),
+                              )),
+                        ),
                       ),
                       // ignore: prefer_const_constructors
                       SizedBox(

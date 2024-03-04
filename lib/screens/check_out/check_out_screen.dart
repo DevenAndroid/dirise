@@ -13,6 +13,7 @@ import '../../controller/profile_controller.dart';
 import '../../model/customer_profile/model_city_list.dart';
 import '../../model/customer_profile/model_country_list.dart';
 import '../../model/customer_profile/model_state_list.dart';
+import '../../model/model_address_list.dart';
 import '../../model/model_cart_response.dart';
 import '../../model/vendor_models/model_payment_method.dart';
 import '../../repository/repository.dart';
@@ -113,7 +114,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     super.initState();
     getCountryList();
     getPaymentGateWays();
+    cartController.selectedAddress = AddressData();
     cartController.shippingId = '';
+    cartController.addressCountryController = TextEditingController(text: cartController.selectedAddress.getCountry ?? "");
+    cartController.addressStateController = TextEditingController(text: cartController.selectedAddress.getState ?? "");
+    cartController.addressCityController = TextEditingController(text: cartController.selectedAddress.getCity ?? "");
+    cartController.deliveryOption1.value = '';
+    cartController.isDelivery.value = false;
+    cartController.addressDeliFirstName.text = '';
+    cartController.addressDeliLastName.text = '';
+    cartController.addressDeliEmail.text = '';
+    cartController.addressDeliPhone.text = '';
+    cartController.addressDeliAlternate.text = '';
+    cartController.addressDeliAddress.text = '';
+    cartController.addressDeliZipCode.text = '';
     profileController.checkUserLoggedIn().then((value) {
       if (value == false) return;
       cartController.getAddress();
@@ -194,10 +208,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       }),
       bottomNavigationBar: ElevatedButton(
         onPressed: () {
-          if (_formKey.currentState!.validate()) {
+          if ( cartController.selectedAddress.id != null) {
             cartController.showValidation.value = true;
             showValidation.value = true;
-            if (cartController.deliveryOption1.value.isEmpty) {
+
+            // this condition for pick and delivery both
+            // if (cartController.deliveryOption1.value.isEmpty)
+            if (cartController.deliveryOption1.value == 'delivery') {
               BuildContext? context1 = cartController.addressKey.currentContext;
               if (context1 != null) {
                 Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
@@ -218,16 +235,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               showToast("Please select payment Method".tr);
               return;
             }
-            if (cartController.deliveryOption1.value == "delivery") {
+            // if (cartController.deliveryOption1.value == "delivery") {
               for (var item in cartController.cartModel.cart!.carsShowroom!.entries) {
                 var showroom = item.value;
                 if (item.value.shippingOption.isEmpty &&
-                    showroom.products!.any((product) => product.localShipping == true)) {
+                    showroom.products!.any((product) => product.isShipping == true && product.vendorCountryId == '117') && cartController.countryName.value == 'Kuwait') {
                   showToast("Please select shipping Method".tr);
                   return;
                 }
               }
-            }
+            // }
             cartController.shippingList.clear();
             cartController.shippingVendorId.clear();
             cartController.shippingVendorName.clear();
@@ -241,9 +258,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
             cartController.placeOrder(
               context: context,
-              currencyCode: "usd",
+              currencyCode: "kwd",
               paymentMethod: paymentMethod1,
-              deliveryOption: cartController.deliveryOption1.value,
+              // deliveryOption: cartController.deliveryOption1.value,
+              deliveryOption: 'delivery',
               subTotalPrice: cartController.cartModel.subtotal.toString(),
               totalPrice: cartController.cartModel.total.toString(),
               couponCode: couponApplied.isNotEmpty ? appliedCode : null,
@@ -251,6 +269,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               address: cartController.selectedAddress.toJson(),
               idd: cartController.shippingList.join(','),
             );
+          }else{
+            showToast('Please Choose Address');
           }
         },
         style: ElevatedButton.styleFrom(
@@ -453,7 +473,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           child: Image.network(
                                             product.featuredImage.toString(),
                                             fit: BoxFit.contain,
-                                            errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                            errorBuilder: (_, __, ___) =>  Image.asset(
+                                                'assets/images/new_logo.png'
+                                            )
                                           ),
                                         ),
                                       ),
@@ -582,8 +604,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         },
                       ),
                       10.spaceY,
-                      if (cartController.deliveryOption1.value == "delivery" && e.value.products!.any((e) =>
-                      e.vendorCountryId == '117' && e.isShipping == true) && cartController.countryName == 'Kuwait')
+                      if ( e.value.products!.any((e) =>
+                      e.vendorCountryId == '117' && e.isShipping == true) && cartController.countryName.value == 'Kuwait')
                         Container(
                           color: Colors.white,
                           child: Padding(
@@ -599,7 +621,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                           ),
                         ),
-                      if (cartController.deliveryOption1.value == "delivery" && e.value.products!.any((e) =>
+                      if ( e.value.products!.any((e) =>
                       e.vendorCountryId == '117' && e.isShipping == true) && cartController.countryName.value == 'Kuwait')
                         Container(
                           color: Colors.white,
@@ -650,7 +672,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                 .replaceAll('_', ' '),
                                                 style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
                                             3.spaceY,
-                                            Text('\$${product.value.toString()}',
+                                            Text('kwd ${product.value.toString()}',
                                                 style: GoogleFonts.poppins(fontWeight: FontWeight.w400,
                                                     fontSize: 16,
                                                     color: const Color(0xFF03a827))),
@@ -1029,9 +1051,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       hintText: "Enter your first name",
                       keyboardType: TextInputType.text,
                       validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Please enter first name";
-                        }
+                        // if (value!.trim().isEmpty) {
+                        //   return "Please enter first name";
+                        // }
                         return null;
                       }
                   ),
@@ -1041,9 +1063,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       hintText: "Enter your last name",
                       keyboardType: TextInputType.text,
                       validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Please enter last name";
-                        }
+                        // if (value!.trim().isEmpty) {
+                        //   return "Please enter last name";
+                        // }
                         return null;
                       }
                   ),
@@ -1053,16 +1075,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     hintText: "Enter your Email",
                     keyboardType: TextInputType.text,
                     validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Please enter your email".tr;
-                      } else if (value.trim().contains('+') || value.trim().contains(' ')) {
-                        return "Email is invalid";
-                      } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(value.trim())) {
-                        return null;
-                      } else {
-                        return 'Please type a valid email address'.tr;
-                      }
+                      // if (value!.trim().isEmpty) {
+                      //   return "Please enter your email".tr;
+                      // } 
+                      // else if (value.trim().contains('+') || value.trim().contains(' ')) {
+                      //   return "Email is invalid";
+                      // } 
+                      // else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      //     .hasMatch(value.trim())) {
+                      //   return null;
+                      // } else {
+                      //   return 'Please type a valid email address'.tr;
+                      // }
+                      return null;
                     },
                   ),
                   ...commonField(
@@ -1071,15 +1096,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       hintText: "Enter your phone number",
                       keyboardType: TextInputType.phone,
                       validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Please enter phone number";
-                        }
-                        if (value.trim().length > 15) {
-                          return "Please enter valid phone number";
-                        }
-                        if (value.trim().length < 8) {
-                          return "Please enter valid phone number";
-                        }
+                        // if (value!.trim().isEmpty) {
+                        //   return "Please enter phone number";
+                        // }
+                        // if (value.trim().length > 15) {
+                        //   return "Please enter valid phone number";
+                        // }
+                        // if (value.trim().length < 8) {
+                        //   return "Please enter valid phone number";
+                        // }
                         return null;
                       }),
                   const SizedBox(
@@ -1136,8 +1161,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             value: cartController.isDelivery.value,
-                            side: BorderSide(
-                              color: showValidation.value == false ? AppTheme.buttonColor : Colors.red,
+                            // side: BorderSide(
+                            //   color: showValidation.value == false ? AppTheme.buttonColor : Colors.red,
+                            // ),
+                            side: const BorderSide(
+                              color:  AppTheme.buttonColor,
                             ),
                             onChanged: (bool? value) {
                               setState(() {
@@ -1149,6 +1177,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   cartController.addressDeliPhone.text = cartController.selectedAddress.getPhone;
                                   cartController.addressDeliAlternate.text = cartController.selectedAddress.getAlternate;
                                   cartController.addressDeliAddress.text = cartController.selectedAddress.getAddress;
+                                  cartController.addressCountryController.text = cartController.selectedAddress.getCountry;
+                                  cartController.addressStateController.text = cartController.selectedAddress.getState;
+                                  cartController.addressCityController.text = cartController.selectedAddress.getCity;
                                   cartController.addressDeliZipCode.text = cartController.selectedAddress.getZipCode;
                                 } else if (cartController.isDelivery.value == true && cartController.selectedAddress.id == null) {
                                   showToast("Please Select Address".tr);
@@ -1176,9 +1207,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       hintText: "Enter your first name",
                       keyboardType: TextInputType.text,
                       validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Please enter first name";
-                        }
+                        // if (value!.trim().isEmpty) {
+                        //   return "Please enter first name";
+                        // }
                         return null;
                       }
                   ),
@@ -1188,9 +1219,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       hintText: "Enter your last name",
                       keyboardType: TextInputType.text,
                       validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Please enter last name";
-                        }
+                        // if (value!.trim().isEmpty) {
+                        //   return "Please enter last name";
+                        // }
                         return null;
                       }
                   ),
@@ -1200,16 +1231,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     hintText: "Enter your Email",
                     keyboardType: TextInputType.text,
                     validator: (value) {
-                      if (value!.trim().isEmpty) {
-                        return "Please enter your email".tr;
-                      } else if (value.trim().contains('+') || value.trim().contains(' ')) {
-                        return "Email is invalid";
-                      } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(value.trim())) {
-                        return null;
-                      } else {
-                        return 'Please type a valid email address'.tr;
-                      }
+                      // if (value!.trim().isEmpty) {
+                      //   return "Please enter your email".tr;
+                      // } else if (value.trim().contains('+') || value.trim().contains(' ')) {
+                      //   return "Email is invalid";
+                      // } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      //     .hasMatch(value.trim())) {
+                      //   return null;
+                      // } else {
+                      //   return 'Please type a valid email address'.tr;
+                      // }
+                      return null;
                     },
                   ),
                   ...commonField(
@@ -1218,9 +1250,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       hintText: "Enter your phone number",
                       keyboardType: TextInputType.phone,
                       validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Please enter phone number";
-                        }
+                        // if (value!.trim().isEmpty) {
+                        //   return "Please enter phone number";
+                        // }
                         return null;
                       }
                   ),
@@ -1270,7 +1302,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ...fieldWithName(
                     title: 'State',
                     hintText: 'Select State',
-                    controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ?? ""),
+                    controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ?? cartController.addressStateController.text),
                     readOnly: true,
                     onTap: () {
                       if (modelStateList == null && stateRefresh.value > 0) {
@@ -1311,11 +1343,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       return null;
                     },
                   ),
-                  if (modelCityList != null && modelCityList!.city!.isNotEmpty)
+                  // if (modelCityList != null && modelCityList!.city!.isNotEmpty)
                     ...fieldWithName(
                       title: 'City',
                       hintText: 'Select City',
-                      controller: TextEditingController(text: (selectedCity ?? City()).cityName ?? ""),
+                      readOnly: true,
+                      controller: TextEditingController(text: (selectedCity ?? City()).cityName ?? cartController.addressCityController.text),
                       onTap: () {
                         if (modelCityList == null && cityRefresh.value > 0) {
                           showToast("Select State First");
@@ -1355,30 +1388,30 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       hintText: "Enter your address",
                       keyboardType: TextInputType.text,
                       validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Please enter your address";
-                        }
+                        // if (value!.trim().isEmpty) {
+                        //   return "Please enter your address";
+                        // }
                         return null;
                       }
                   ),
-                  ...commonField(
-                      textController: cartController.addressDeliOtherInstruction,
-                      title: "Other instruction *",
-                      hintText: "Enter other instruction",
-                      keyboardType: TextInputType.text,
-                      validator: (value) {
-                        return null;
-                      }
-                  ),
+                  // ...commonField(
+                  //     textController: cartController.addressDeliOtherInstruction,
+                  //     title: "Other instruction *",
+                  //     hintText: "Enter other instruction",
+                  //     keyboardType: TextInputType.text,
+                  //     validator: (value) {
+                  //       return null;
+                  //     }
+                  // ),
                   ...commonField(
                       textController: cartController.addressDeliZipCode,
                       title: "Zip Code *",
                       hintText: "Enter your phone number",
                       keyboardType: TextInputType.phone,
                       validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return "Please enter phone number";
-                        }
+                        // if (value!.trim().isEmpty) {
+                        //   return "Please enter phone number";
+                        // }
                         return null;
                       }
                   ),

@@ -47,71 +47,93 @@ class _AddressScreenState extends State<AddressScreen> {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Text("Delivery to",
-                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
-                          Radio<String>(
-                              value: "delivery",
-                              groupValue: cartController.deliveryOption1.value,
-                              visualDensity: VisualDensity.compact,
-                              fillColor: cartController.deliveryOption1.value.isEmpty && cartController.showValidation.value
-                                  ? MaterialStateProperty.all(Colors.red)
-                                  : null,
-                              onChanged: (value) {
-                                cartController.deliveryOption1.value = value!;
-                              })
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Expanded(
+                      //         child: Text("Delivery to",
+                      //             style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+                      //     // Radio<String>(
+                      //     //     value: "delivery",
+                      //     //     groupValue: cartController.deliveryOption1.value,
+                      //     //     visualDensity: VisualDensity.compact,
+                      //     //     fillColor: cartController.deliveryOption1.value.isEmpty && cartController.showValidation.value
+                      //     //         ? MaterialStateProperty.all(Colors.red)
+                      //     //         : null,
+                      //     //     onChanged: (value) {
+                      //     //       cartController.deliveryOption1.value = value!;
+                      //     //     })
+                      //
+                      //     Radio<String>(
+                      //       value: "delivery",
+                      //       groupValue: cartController.deliveryOption1.value.isNotEmpty
+                      //           ? cartController.deliveryOption1.value
+                      //           : "delivery",
+                      //
+                      //       visualDensity: VisualDensity.compact,
+                      //       // fillColor: cartController.deliveryOption1.value.isEmpty &&
+                      //       //     cartController.showValidation.value
+                      //       //     ? MaterialStateProperty.all(Colors.red)
+                      //       //     : null,
+                      //       onChanged: (value) {
+                      //         cartController.deliveryOption1.value = value!;
+                      //       },
+                      //     )
+                      //
+                      //   ],
+                      // ),
+
                       const SizedBox(
-                        height: 5,
+                        height: 20,
                       ),
-                      if (cartController.deliveryOption1.value == "delivery") ...[
-                        Material(
-                          child: InkWell(
-                            onTap: () {
-                              if (userLoggedIn) {
-                                bottomSheetChangeAddress();
-                              } else {
-                                addAddressWithoutLogin(addressData: cartController.selectedAddress);
-                              }
-                            },
-                            child: DottedBorder(
-                              color: const Color(0xff014E70),
-                              strokeWidth: 1.2,
-                              dashPattern: const [6, 3, 0, 3],
-                              child: Container(
-                                // height: 50,
-                                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                                width: context.getSize.width,
-                                alignment: Alignment.center,
-                                child: cartController.selectedAddress.id != null
-                                    ? Text(cartController.selectedAddress.getShortAddress,
-                                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
-                                    : Text("Select Address ",
-                                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        if (cartController.selectedAddress.id != null)
-                          InkWell(
-                              onTap: () {
-                                if (userLoggedIn) {
-                                  bottomSheetChangeAddress();
-                                } else {
-                                  addAddressWithoutLogin(addressData: cartController.selectedAddress);
-                                }
-                              },
-                              child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: Text("Change Address",
-                                      style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
-                      ],
+                      // if (cartController.deliveryOption1.value == "delivery") ...[
+                      //   Material(
+                      //     child: InkWell(
+                      //       onTap: () {
+                      //         if (userLoggedIn) {
+                      //           bottomSheetChangeAddress();
+                      //         } else {
+                      //           addAddressWithoutLogin(addressData: cartController.selectedAddress);
+                      //         }
+                      //       },
+                      //       child: DottedBorder(
+                      //         color: const Color(0xff014E70),
+                      //         strokeWidth: 1.2,
+                      //         dashPattern: const [6, 3, 0, 3],
+                      //         child: Container(
+                      //           // height: 50,
+                      //           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                      //           width: context.getSize.width,
+                      //           alignment: Alignment.center,
+                      //           child: cartController.selectedAddress.id != null
+                      //               ? Text(cartController.selectedAddress.getShortAddress,
+                      //                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
+                      //               : Text("Select Address ",
+                      //                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      //   const SizedBox(
+                      //     height: 5,
+                      //   ),
+                      //   if (cartController.selectedAddress.id != null)
+                      //     InkWell(
+                      //         onTap: () {
+                      //           if (userLoggedIn) {
+                      //             bottomSheetChangeAddress();
+                      //           } else {
+                      //             addAddressWithoutLogin(addressData: cartController.selectedAddress);
+                      //           }
+                      //         },
+                      //         child: Align(
+                      //             alignment: Alignment.topRight,
+                      //             child: Text("Change Address",
+                      //                 style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
+                      // ],
+
+
+
+
                       // Row(
                       //   children: [
                       //     Expanded(
@@ -128,6 +150,50 @@ class _AddressScreenState extends State<AddressScreen> {
                       //         })
                       //   ],
                       // ),
+                      Material(
+                        child: InkWell(
+                          onTap: () {
+                            if (userLoggedIn) {
+                              bottomSheetChangeAddress();
+                            } else {
+                              addAddressWithoutLogin(addressData: cartController.selectedAddress);
+                            }
+                          },
+                          child: DottedBorder(
+                            color: const Color(0xff014E70),
+                            strokeWidth: 1.2,
+                            dashPattern: const [6, 3, 0, 3],
+                            child: Container(
+                              // height: 50,
+                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                              width: context.getSize.width,
+                              alignment: Alignment.center,
+                              child: cartController.selectedAddress.id != null
+                                  ? Text(cartController.selectedAddress.getShortAddress,
+                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
+                                  : Text("Choose Address ",
+                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      if (cartController.selectedAddress.id != null)
+                        InkWell(
+                            onTap: () {
+                              if (userLoggedIn) {
+                                bottomSheetChangeAddress();
+                              } else {
+                                addAddressWithoutLogin(addressData: cartController.selectedAddress);
+                              }
+                            },
+                            child: Align(
+                                alignment: Alignment.topRight,
+                                child: Text("Change Address",
+                                    style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
+
                       const SizedBox(
                         height: 10,
                       ),
@@ -483,6 +549,9 @@ class _AddressScreenState extends State<AddressScreen> {
                                           cartController.addressDeliAlternate.text = cartController.selectedAddress.getAlternate;
                                           cartController.addressDeliAddress.text = cartController.selectedAddress.getAddress;
                                           cartController.addressDeliZipCode.text = cartController.selectedAddress.getZipCode;
+                                          cartController.addressCountryController.text = cartController.selectedAddress.getCountry;
+                                          cartController.addressStateController.text = cartController.selectedAddress.getState;
+                                          cartController.addressCityController.text = cartController.selectedAddress.getCity;
                                         }
                                         print('codeee isss${cartController.countryName.toString()}');
                                         Get.back();

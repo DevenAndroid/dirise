@@ -130,7 +130,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                               fontWeight: FontWeight.w400, fontSize: 16, color: Colors.black),
                                         ),
                                         Text(
-                                          "\$${modelWithdrawalList!.data!.earnedBalance.toString()}",
+                                          "kwd${modelWithdrawalList!.data!.earnedBalance.toString()}",
                                           style: GoogleFonts.poppins(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 31,
@@ -196,7 +196,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                           cursorColor: const Color(0xFF7ED957),
                                           // validator: validateMoney,
                                           decoration: const InputDecoration(
-                                            hintText: "+1000\$",
+                                            hintText: "+1000kwd",
                                             suffixIcon: Icon(Icons.attach_money_rounded),
                                             prefixIcon: Icon(Icons.add,color: Colors.transparent,),
                                           )),
@@ -326,7 +326,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
                                                 Expanded(
                                                   flex: 2,
                                                   child: Text(
-                                                    "\$${item.amount.toString()}",
+                                                    "kwd${item.amount.toString()}",
                                                     style: GoogleFonts.poppins(
                                                         height: 1.5, fontWeight: FontWeight.w600, fontSize: 12),
                                                   ),
@@ -391,7 +391,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30), side: BorderSide(color: Colors.grey.shade300)),
-      label: Text("+$title\$",
+      label: Text("+$title kwd",
           style: GoogleFonts.poppins(color: const Color(0xFF262F33), fontSize: 14, fontWeight: FontWeight.w500)),
       selected: false,
       onSelected: (value) {

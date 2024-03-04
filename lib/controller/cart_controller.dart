@@ -21,7 +21,11 @@ enum PurchaseType { buy, cart }
 class CartController extends GetxController {
   RxInt refreshInt = 0.obs;
   String countryCode = '';
+  String stateCode = '';
+  String cityCode = '';
   RxString countryName = ''.obs;
+  RxString stateName = ''.obs;
+  RxString cityName = ''.obs;
   final Repositories repositories = Repositories();
   ModelCartResponse cartModel = ModelCartResponse();
   bool apiLoaded = false;
@@ -30,7 +34,7 @@ class CartController extends GetxController {
   String shippingId = "";
   AddressData selectedAddress = AddressData();
   final GlobalKey addressKey = GlobalKey();
-  RxString deliveryOption1 = "".obs;
+  RxString deliveryOption1 = "delivery".obs;
   RxBool showValidation = false.obs;
   RxBool showValidationShipping = false.obs;
   final TextEditingController addressDeliFirstName = TextEditingController();
@@ -41,7 +45,9 @@ class CartController extends GetxController {
   final TextEditingController addressDeliAddress = TextEditingController();
   final TextEditingController addressDeliOtherInstruction = TextEditingController();
   final TextEditingController addressDeliZipCode = TextEditingController();
-  final TextEditingController addressCountryController = TextEditingController();
+  TextEditingController addressCountryController = TextEditingController();
+  TextEditingController addressStateController = TextEditingController();
+  TextEditingController addressCityController = TextEditingController();
   RxBool isDelivery = false.obs;
 
   final TextEditingController billingFirstName = TextEditingController();
@@ -110,11 +116,11 @@ class CartController extends GetxController {
       "currency_code": currencyCode,
       "refund_amount_in": "bank",
       "shipping_method": "online",
-      "currency_sign": "\$",
+      "currency_sign": "kwd",
       'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
       'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
       "shipping": [
-        {"store_id": storeIdShipping.toString(), "store_name": storeNameShipping.toString(), "title": 'free_shipping_over', "ship_price": '10' , "shipping_type_id": shippingList.isNotEmpty ? shippingList.join(',') : ''}
+        {"store_id": storeIdShipping!= '' ? storeIdShipping.toString() : '0', "store_name": storeNameShipping.toString(), "title": 'free_shipping_over', "ship_price": '10' , "shipping_type_id": shippingList.isNotEmpty ? shippingList.join(',') : ''}
       ],
       "cart_id": ["2"],
       'billing_address' : {
@@ -123,8 +129,9 @@ class CartController extends GetxController {
         'phone' : billingPhone.text.toString(),
         'email' : billingEmail.text.toString(),
       },
-      if (address != null && deliveryOption1.value == "delivery") "shipping_address": address,
-      // if (address != null) "billing_address": address
+      // if (address != null && deliveryOption1.value == "delivery") "shipping_address": address,
+      if (address != null) "billing_address": address,
+      if (address != null) "shipping_address": address
     };
     repositories.postApi(url: ApiUrls.placeOrderUrl, context: context, mapData: gg).then((value) {
       // ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
@@ -347,6 +354,8 @@ class CartController extends GetxController {
       required String city,
       required String country,
       required String state,
+      required String stateId,
+      required String cityId,
       required String zipCode,
       required String landmark,
       required String title,
@@ -368,8 +377,10 @@ class CartController extends GetxController {
       'title': title,
       'country_id': country,
       'country' : countryName,
-      'state_id': state,
-      'city_id': city
+      'state_id': stateId,
+      'city_id': cityId,
+      'state': state,
+      'city': city,
     };
 
     // Map<String, dynamic> map = {};

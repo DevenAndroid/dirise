@@ -47,6 +47,7 @@ class _OtpScreenState extends State<OtpScreen> {
     map['email'] = email;
     map['otp'] = _otpController.text.trim();
     map['fcm_token'] = token.toString();
+    map['key'] = 'forget';
     repositories.postApi(url: ApiUrls.verifyOtpEmail, context: context, mapData: map).then((value) async {
       LoginModal response = LoginModal.fromJson(jsonDecode(value));
       showToast(response.message);
@@ -80,6 +81,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Future resendApi() async {
     Map<String, dynamic> map = {};
     map['email'] = email.toString();
+    map['key'] = 'forget';
     // map['name'] = _nameController.text.trim();
     // map['phone'] = _mobileNumberController.text.trim();
     // map['password'] = _passwordController.text.trim();

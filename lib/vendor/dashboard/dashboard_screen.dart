@@ -140,7 +140,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
                                                   Expanded(
                                                     flex: 2,
                                                     child: Text(
-                                                      "\$${order.totalPrice}",
+                                                      "kwd${order.totalPrice}",
                                                       textAlign: TextAlign.end,
                                                       style: GoogleFonts.poppins(
                                                           height: 1.5,

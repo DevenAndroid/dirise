@@ -347,7 +347,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                       fontSize: 18),
                                 ),
                                 Text(
-                                  "${singleOrder.order!.orderMeta!.totalPrice.toString()} ${singleOrder.order!.orderMeta!.currencySign.toString()}",
+                                  "${singleOrder.order!.orderMeta!.totalPrice.toString()} ${singleOrder.order!.orderMeta!.currencySign.toString() == '\$' ? 'kwd' : 'kwd'}",
                                   style: GoogleFonts.poppins(
                                       color: const Color(0xff9B9B9B),
                                       fontWeight: FontWeight.w500,
@@ -369,7 +369,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                       fontSize: 18),
                                 ),
                                 Text(
-                                  "Static 2 KWD",
+                                  "2 KWD",
                                   style: GoogleFonts.poppins(
                                       color: const Color(0xff9B9B9B),
                                       fontWeight: FontWeight.w500,

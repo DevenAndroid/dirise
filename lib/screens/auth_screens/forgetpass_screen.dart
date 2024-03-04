@@ -106,7 +106,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       forgotPasswordRepo(email: emailController.text, context: context).then((value) {
                         if (value.status == true) {
                           showToast(value.message.toString());
-
                           var map = <String, dynamic>{};
                           map['email'] = emailController.text.trim();
                           Get.toNamed(OtpScreen.route, arguments: [emailController.text, false, map]);

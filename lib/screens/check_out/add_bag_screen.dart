@@ -85,7 +85,9 @@ class _BagsScreenState extends State<BagsScreen> {
                                                 child: Image.network(
                                                   product.featuredImage.toString(),
                                                   fit: BoxFit.contain,
-                                                  errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                                  errorBuilder: (_, __, ___) =>  Image.asset(
+                                                      'assets/images/new_logo.png'
+                                                  ),
                                                 ),
                                               ),
                                             ),

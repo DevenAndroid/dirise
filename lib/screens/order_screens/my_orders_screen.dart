@@ -95,8 +95,12 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+                                          // Text(
+                                          //   "${order.totalPrice.toString()} ${order.currencyCode.toString().toUpperCase()}",
+                                          //   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 17),
+                                          // ),
                                           Text(
-                                            "${order.totalPrice.toString()} ${order.currencyCode.toString().toUpperCase()}",
+                                            order.productName.toString(),
                                             style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 17),
                                           ),
                                           Text(

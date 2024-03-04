@@ -176,7 +176,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
 
                                           return Text(
                                             vendorProfileController.model.user != null
-                                                ? "\$${vendorProfileController.model.user!.earnedBalance.toString()}"
+                                                ? "kwd${vendorProfileController.model.user!.earnedBalance.toString()}"
                                                 : "",
                                             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                                 fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),

@@ -31,6 +31,7 @@ class ApiUrls {
   static const String editAddressUrl = "${baseUrl}edit-address";
   static const String placeOrderUrl = "${baseUrl}add-order";
   static const String myOrdersListUrl = "${baseUrl}orders";
+  static const String customerDashboardUrl = "${baseUrl}customer-dashboard";
   static const String orderDetailsUrl = "${baseUrl}order-details";
   static const String addToWishListUrl = "${baseUrl}add-to-wishlist";
   static const String removeFromWishListUrl = "${baseUrl}delete-from-wishlist";
@@ -90,6 +91,7 @@ class ApiUrls {
   static const String filterByPriceUrl = "${baseUrl}filter-by-price";
   static const String addReviewUrl = "${baseUrl}review";
   static const String getReviewUrl = "${baseUrl}review-list?product_id=";
+  static const String getContactUsUrl = "${baseUrl}contact-us";
 
 
 
@@ -101,6 +103,17 @@ showToast(message, {ToastGravity? gravity, bool? center}) {
       msg: message.toString().capitalize!,
       toastLength: Toast.LENGTH_LONG,
       gravity: center == true ? ToastGravity.CENTER :  gravity ?? ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 4,
+      backgroundColor: AppTheme.buttonColor,
+      textColor: const Color(0xffffffff),
+      fontSize: 15);
+}
+showToastCenter(message, {ToastGravity? gravity, bool? center}) {
+  Fluttertoast.cancel();
+  Fluttertoast.showToast(
+      msg: message.toString().capitalize!,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: center == true ? ToastGravity.CENTER :  gravity ?? ToastGravity.CENTER,
       timeInSecForIosWeb: 4,
       backgroundColor: AppTheme.buttonColor,
       textColor: const Color(0xffffffff),

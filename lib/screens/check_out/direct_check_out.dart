@@ -106,6 +106,19 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
   void initState() {
     super.initState();
     getCountryList();
+    cartController.addressCountryController = TextEditingController(text: selectedAddress.getCountry ?? "");
+    cartController.addressStateController = TextEditingController(text: selectedAddress.getState ?? "");
+    cartController.addressCityController = TextEditingController(text: selectedAddress.getCity ?? "");
+    cartController.shippingId = '';
+    cartController.deliveryOption1.value = '';
+    cartController.isDelivery.value = false;
+    cartController.addressDeliFirstName.text = '';
+    cartController.addressDeliLastName.text = '';
+    cartController.addressDeliEmail.text = '';
+    cartController.addressDeliPhone.text = '';
+    cartController.addressDeliAlternate.text = '';
+    cartController.addressDeliAddress.text = '';
+    cartController.addressDeliZipCode.text = '';
     getPaymentGateWays();
     if (Get.arguments != null) {
       directOrderResponse = Get.arguments;
@@ -151,220 +164,235 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
             paymentMethod(size),
             Column(
               children: [
-                Obx(() {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15).copyWith(top: 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${'Sold By'.tr} ${directOrderResponse.prodcutData!.slug.toString()}",
-                              style: titleStyle,
-                            ),
-                            addHeight(20),
-                            IntrinsicHeight(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 75,
-                                    height: 75,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Image.network(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15).copyWith(top: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${'Sold By'.tr} ${directOrderResponse.prodcutData!.slug.toString()}",
+                            style: titleStyle,
+                          ),
+                          addHeight(20),
+                          IntrinsicHeight(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 75,
+                                  height: 75,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.network(
                                         directOrderResponse.prodcutData!.featureImageApp.toString(),
                                         fit: BoxFit.contain,
-                                        errorBuilder: (_, __, ___) => const SizedBox.shrink(),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 16,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          directOrderResponse.prodcutData!.pName.toString(),
-                                          style: titleStyle.copyWith(fontWeight: FontWeight.w400),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        const SizedBox(
-                                          height: 6,
-                                        ),
-                                        Text(
-                                          'KWD ${directOrderResponse.prodcutData!.pPrice.toString()}',
-                                          style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
-                                        ),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        IntrinsicHeight(
-                                          child: Row(
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    if (directOrderResponse.returnData!.quantity.toNum > 1) {
-                                                      cartController.updateCartQuantity(
-                                                          context: context,
-                                                          productId: directOrderResponse.prodcutData!.id.toString(),
-                                                          quantity: (directOrderResponse.returnData!.quantity.toNum - 1).toString());
-                                                    } else {
-                                                      cartController.removeItemFromCart(
-                                                          productId: directOrderResponse.prodcutData!.id.toString(), context: context);
-                                                    }
-                                                  },
-                                                  style: IconButton.styleFrom(
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(2)),
-                                                    backgroundColor: AppTheme.buttonColor,
-                                                  ),
-                                                  constraints: const BoxConstraints(minHeight: 0),
-                                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                                                  visualDensity: VisualDensity.compact,
-                                                  icon: const Icon(
-                                                    Icons.remove,
-                                                    color: Colors.white,
-                                                    size: 20,
-                                                  )),
-                                              5.spaceX,
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(2),
-                                                    // color: Colors.grey,
-                                                    border: Border.all(color: Colors.grey.shade800)),
-                                                margin: const EdgeInsets.symmetric(vertical: 6),
-                                                padding: const EdgeInsets.symmetric(horizontal: 15),
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  directOrderResponse.returnData!.quantity.toString(),
-                                                  style: normalStyle,
-                                                ),
-                                              ),
-                                              5.spaceX,
-                                              IconButton(
-                                                  onPressed: () {
-                                                    if (directOrderResponse.returnData!.quantity.toString().toNum <
-                                                        directOrderResponse.prodcutData!.stockAlert.toString().toNum) {
-                                                      cartController.updateCartQuantity(
-                                                          context: context,
-                                                          productId:   directOrderResponse.prodcutData!.id.toString(),
-                                                          quantity: (directOrderResponse.returnData!.quantity.toString().toNum + 1).toString());
-                                                    }
-                                                  },
-                                                  style: IconButton.styleFrom(
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(2)),
-                                                    backgroundColor: AppTheme.buttonColor,
-                                                  ),
-                                                  constraints: const BoxConstraints(minHeight: 0),
-                                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                                                  visualDensity: VisualDensity.compact,
-                                                  icon: const Icon(
-                                                    Icons.add,
-                                                    color: Colors.white,
-                                                    size: 20,
-                                                  )),
-                                            ],
-                                          ),
+                                        errorBuilder: (_, __, ___) =>  Image.asset(
+                                            'assets/images/new_logo.png'
                                         )
-                                      ],
                                     ),
                                   ),
-                                  IconButton(
-                                      onPressed: () {
-                                        cartController.removeItemFromCart(
-                                            productId:   directOrderResponse.prodcutData!.id.toString(), context: context);
-                                      },
-                                      visualDensity: VisualDensity.compact,
-                                      icon: SvgPicture.asset(
-                                        "assets/svgs/delete.svg",
-                                        height: 18,
-                                        width: 18,
-                                      ))
+                                ),
+                                const SizedBox(
+                                  width: 16,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        directOrderResponse.prodcutData!.pName.toString(),
+                                        style: titleStyle.copyWith(fontWeight: FontWeight.w400),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                      const SizedBox(
+                                        height: 6,
+                                      ),
+                                      Text(
+                                        'KWD ${directOrderResponse.prodcutData!.pPrice.toString()}',
+                                        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
+                                      ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      IntrinsicHeight(
+                                        child: Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  if (directOrderResponse.returnData!.quantity.toNum > 1) {
+                                                    cartController.updateCartQuantity(
+                                                        context: context,
+                                                        productId: directOrderResponse.prodcutData!.id.toString(),
+                                                        quantity: (directOrderResponse.returnData!.quantity.toNum - 1).toString());
+                                                  } else {
+                                                    cartController.removeItemFromCart(
+                                                        productId: directOrderResponse.prodcutData!.id.toString(), context: context);
+                                                  }
+                                                },
+                                                style: IconButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(2)),
+                                                  backgroundColor: AppTheme.buttonColor,
+                                                ),
+                                                constraints: const BoxConstraints(minHeight: 0),
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                                                visualDensity: VisualDensity.compact,
+                                                icon: const Icon(
+                                                  Icons.remove,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                )),
+                                            5.spaceX,
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(2),
+                                                  // color: Colors.grey,
+                                                  border: Border.all(color: Colors.grey.shade800)),
+                                              margin: const EdgeInsets.symmetric(vertical: 6),
+                                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                directOrderResponse.returnData!.quantity.toString(),
+                                                style: normalStyle,
+                                              ),
+                                            ),
+                                            5.spaceX,
+                                            IconButton(
+                                                onPressed: () {
+                                                  if (directOrderResponse.returnData!.quantity.toString().toNum <
+                                                      directOrderResponse.prodcutData!.stockAlert.toString().toNum) {
+                                                    cartController.updateCartQuantity(
+                                                        context: context,
+                                                        productId:   directOrderResponse.prodcutData!.id.toString(),
+                                                        quantity: (directOrderResponse.returnData!.quantity.toString().toNum + 1).toString());
+                                                  }
+                                                },
+                                                style: IconButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(2)),
+                                                  backgroundColor: AppTheme.buttonColor,
+                                                ),
+                                                constraints: const BoxConstraints(minHeight: 0),
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                                                visualDensity: VisualDensity.compact,
+                                                icon: const Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                )),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      cartController.removeItemFromCart(
+                                          productId:   directOrderResponse.prodcutData!.id.toString(), context: context);
+                                    },
+                                    visualDensity: VisualDensity.compact,
+                                    icon: SvgPicture.asset(
+                                      "assets/svgs/delete.svg",
+                                      height: 18,
+                                      width: 18,
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    10.spaceY,
+                    if ( selectedAddress.id != null && directOrderResponse.prodcutData!.isShipping == true
+                        && directOrderResponse.vendorCountryId == '117' && cartController.countryName.value == 'Kuwait')
+                      Column(
+                        children: [
+                          Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/images/shipping_icon.png', height: 32, width: 32),
+                                  20.spaceX,
+                                  Text("Shipping Method".tr,
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      10.spaceY,
-                      if (deliveryOption.value == "delivery" &&  directOrderResponse.prodcutData!.isShipping == true
-                      && directOrderResponse.vendorCountryId == '117' && cartController.countryName.value == 'Kuwait')
-                        Column(
-                          children: [
-                            Container(
-                              color: Colors.white,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/images/shipping_icon.png', height: 32, width: 32),
-                                    20.spaceX,
-                                    Text("Shipping Method".tr,
-                                        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                                  ],
-                                ),
-                              ),
+                          ),
+                          Container(
+                            color: Colors.white,
+                            child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount:    directOrderResponse.shippingType!.length,
+                              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15).copyWith(top: 0),
+                              itemBuilder: (context, ii) {
+                                var product = directOrderResponse.shippingType![ii];
+                                return Obx(() {
+                                  return Column(
+                                    children: [
+                                      10.spaceY,
+                                      ii == 0 ? 0.spaceY : const Divider(
+                                        color: Color(0xFFD9D9D9),
+                                        thickness: 0.8,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Radio(
+                                            value: product.id.toString(),
+                                            groupValue: directOrderResponse.shippingOption.value,
+                                            visualDensity: const VisualDensity(horizontal: -4.0),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                directOrderResponse.shippingOption.value = value.toString();
+                                                cartController.shippingId =  directOrderResponse.shippingOption.value;
+                                                log( directOrderResponse.shippingOption.value);
+                                                log(cartController.shippingId);
+                                              });
+                                            },
+                                          ),
+                                          20.spaceX,
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(product.name
+                                                  .toString()
+                                                  .capitalize!
+                                                  .replaceAll('_', ' '),
+                                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
+                                              3.spaceY,
+                                              Text('kwd ${product.value.toString()}',
+                                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w400,
+                                                      fontSize: 16,
+                                                      color: const Color(0xFF03a827))),
+                                            ],
+                                          ),
+                                          // Text(product.name.toString().capitalize!.replaceAll('_', ' '),
+                                          //     style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16)),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                });
+                                // : 0.spaceY,;
+                              },
                             ),
-                            Container(
-                              color: Colors.white,
-                              child: ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount:    directOrderResponse.shippingType!.length,
-                                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15).copyWith(top: 0),
-                                itemBuilder: (context, ii) {
-                                  var product = directOrderResponse.shippingType![ii];
-                                  return Obx(() {
-                                    return Column(
-                                      children: [
-                                        10.spaceY,
-                                        ii == 0 ? 0.spaceY : const Divider(
-                                          color: Color(0xFFD9D9D9),
-                                          thickness: 0.8,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Radio(
-                                              value: product.id.toString(),
-                                              groupValue: directOrderResponse.shippingOption.value,
-                                              visualDensity: const VisualDensity(horizontal: -4.0),
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  directOrderResponse.shippingOption.value = value.toString();
-                                                  cartController.shippingId =  directOrderResponse.shippingOption.value;
-                                                  log( directOrderResponse.shippingOption.value);
-                                                  log(cartController.shippingId);
-                                                });
-                                              },
-                                            ),
-                                            20.spaceX,
-                                            Text(product.name.toString().capitalize!.replaceAll('_', ' '),
-                                                style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16)),
-                                          ],
-                                        ),
-                                      ],
-                                    );
-                                  });
-                                  // : 0.spaceY,;
-                                },
-                              ),
-                            ),
-                          ],
-                        )
-                    ],
-                  );
-                })
+                          ),
+                        ],
+                      )
+                  ],
+                )
               ],
             ),
             20.spaceY,
@@ -492,8 +520,11 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     value: cartController.isDelivery.value,
-                                    side: BorderSide(
-                                      color: showValidation.value == false ? AppTheme.buttonColor : Colors.red,
+                                    // side: BorderSide(
+                                    //   color: showValidation.value == false ? AppTheme.buttonColor : Colors.red,
+                                    // ),
+                                    side: const BorderSide(
+                                      color: AppTheme.buttonColor,
                                     ),
                                     onChanged: (bool? value) {
                                       setState(() {
@@ -506,6 +537,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                           cartController.addressDeliAlternate.text = selectedAddress.getAlternate;
                                           cartController.addressDeliAddress.text = selectedAddress.getAddress;
                                           cartController.addressDeliZipCode.text = selectedAddress.getZipCode;
+                                          cartController.addressCountryController.text = selectedAddress.getCountry;
+                                          cartController.addressStateController.text = selectedAddress.getState;
+                                          cartController.addressCityController.text = selectedAddress.getCity;
                                         } else if (cartController.isDelivery.value == true && selectedAddress.id == null) {
                                           showToast("Please Select Address".tr);
                                           cartController.isDelivery.value = false;
@@ -532,9 +566,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               hintText: "Enter your first name",
                               keyboardType: TextInputType.text,
                               validator: (value) {
-                                if (value!.trim().isEmpty) {
-                                  return "Please enter first name";
-                                }
+                                // if (value!.trim().isEmpty) {
+                                //   return "Please enter first name";
+                                // }
                                 return null;
                               }
                           ),
@@ -544,9 +578,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               hintText: "Enter your last name",
                               keyboardType: TextInputType.text,
                               validator: (value) {
-                                if (value!.trim().isEmpty) {
-                                  return "Please enter last name";
-                                }
+                                // if (value!.trim().isEmpty) {
+                                //   return "Please enter last name";
+                                // }
                                 return null;
                               }
                           ),
@@ -556,16 +590,19 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             hintText: "Enter your Email",
                             keyboardType: TextInputType.text,
                             validator: (value) {
-                              if (value!.trim().isEmpty) {
-                                return "Please enter your email".tr;
-                              } else if (value.trim().contains('+') || value.trim().contains(' ')) {
-                                return "Email is invalid";
-                              } else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value.trim())) {
-                                return null;
-                              } else {
-                                return 'Please type a valid email address'.tr;
-                              }
+                              // if (value!.trim().isEmpty) {
+                              //   return "Please enter your email".tr;
+                              // }
+                              // else if (value.trim().contains('+') || value.trim().contains(' ')) {
+                              //   return "Email is invalid";
+                              // }
+                              // else if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              //     .hasMatch(value.trim())) {
+                              //   return null;
+                              // } else {
+                              //   return 'Please type a valid email address'.tr;
+                              // }
+                              return null;
                             },
                           ),
                           ...commonField(
@@ -574,9 +611,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               hintText: "Enter your phone number",
                               keyboardType: TextInputType.phone,
                               validator: (value) {
-                                if (value!.trim().isEmpty) {
-                                  return "Please enter phone number";
-                                }
+                                // if (value!.trim().isEmpty) {
+                                //   return "Please enter phone number";
+                                // }
                                 return null;
                               }
                           ),
@@ -626,7 +663,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           ...fieldWithName(
                             title: 'State',
                             hintText: 'Select State',
-                            controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ?? ""),
+                            controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ??  cartController.addressStateController.text),
                             readOnly: true,
                             onTap: () {
                               if (modelStateList == null && stateRefresh.value > 0) {
@@ -667,11 +704,12 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               return null;
                             },
                           ),
-                          if (modelCityList != null && modelCityList!.city!.isNotEmpty)
+                          // if (modelCityList != null && modelCityList!.city!.isNotEmpty)
                             ...fieldWithName(
+                              readOnly: true,
                               title: 'City',
                               hintText: 'Select City',
-                              controller: TextEditingController(text: (selectedCity ?? City()).cityName ?? ""),
+                              controller: TextEditingController(text: (selectedCity ?? City()).cityName ??  cartController.addressCityController.text),
                               onTap: () {
                                 if (modelCityList == null && cityRefresh.value > 0) {
                                   showToast("Select State First");
@@ -688,6 +726,8 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                         .toList(),
                                     selectedAddressIdPicked: (String gg) {
                                       selectedCity = modelCityList!.city!.firstWhere((element) => element.cityId.toString() == gg);
+                                      cartController.cityCode = gg.toString();
+                                      cartController.cityName.value = selectedCity!.cityName.toString();
                                       setState(() {});
                                     },
                                     selectedAddressId: ((selectedCity ?? City()).cityId ?? "").toString());
@@ -711,30 +751,30 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               hintText: "Enter your address",
                               keyboardType: TextInputType.text,
                               validator: (value) {
-                                if (value!.trim().isEmpty) {
-                                  return "Please enter your address";
-                                }
+                                // if (value!.trim().isEmpty) {
+                                //   return "Please enter your address";
+                                // }
                                 return null;
                               }
                           ),
-                          ...commonField(
-                              textController: cartController.addressDeliOtherInstruction,
-                              title: "Other instruction *",
-                              hintText: "Enter other instruction",
-                              keyboardType: TextInputType.text,
-                              validator: (value) {
-                                return null;
-                              }
-                          ),
+                          // ...commonField(
+                          //     textController: cartController.addressDeliOtherInstruction,
+                          //     title: "Other instruction *",
+                          //     hintText: "Enter other instruction",
+                          //     keyboardType: TextInputType.text,
+                          //     validator: (value) {
+                          //       return null;
+                          //     }
+                          // ),
                           ...commonField(
                               textController: cartController.addressDeliZipCode,
                               title: "Zip Code *",
                               hintText: "Enter your phone number",
                               keyboardType: TextInputType.phone,
                               validator: (value) {
-                                if (value!.trim().isEmpty) {
-                                  return "Please enter phone number";
-                                }
+                                // if (value!.trim().isEmpty) {
+                                //   return "Please enter phone number";
+                                // }
                                 return null;
                               }
                           ),
@@ -801,9 +841,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
       ),
       bottomNavigationBar: InkWell(
         onTap: () {
-          if(_formKey.currentState!.validate()){
+          if(selectedAddress.id != null){
             showValidation.value = true;
-            if (deliveryOption.value.isEmpty) {
+            if (cartController.deliveryOption1.value == 'delivery') {
               BuildContext? context1 = addressKey.currentContext;
               if (context1 != null) {
                 Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
@@ -811,7 +851,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
               showToast("Please select delivery options".tr);
               return;
             }
-            if (deliveryOption.value == "delivery" && selectedAddress.id == null) {
+            if (selectedAddress.id == null) {
               BuildContext? context1 = addressKey.currentContext;
               if (context1 != null) {
                 Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
@@ -823,15 +863,18 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
             cartController.placeOrder(
                 idd: cartController.shippingId,
                 context: context,
-                currencyCode: "usd",
+                currencyCode: "kwd",
                 paymentMethod: paymentMethod1,
-                deliveryOption: deliveryOption.value,
+                // deliveryOption: deliveryOption.value,
+                deliveryOption: 'delivery',
                 productID: directOrderResponse.prodcutData!.id.toString(),
                 subTotalPrice: directOrderResponse.subtotal.toString(),
                 totalPrice: directOrderResponse.total.toString(),
                 quantity: directOrderResponse.quantity.toString(),
                 purchaseType: PurchaseType.buy,
                 address: selectedAddress.toJson());
+          }else{
+            showToast('Please Choose Address');
           }
         },
         child: Container(
@@ -1052,29 +1095,109 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
               ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                      child:
-                      Text("Delivery to".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
-                  Radio<String>(
-                      value: "delivery",
-                      groupValue: deliveryOption.value,
-                      visualDensity: VisualDensity.compact,
-                      fillColor: deliveryOption.value.isEmpty && showValidation.value
-                          ? MaterialStateProperty.all(Colors.red)
-                          : null,
-                      onChanged: (value) {
-                        deliveryOption.value = value!;
-                      })
-                ],
+              // Row(
+              //   children: [
+              //     Expanded(
+              //         child:
+              //         Text("Delivery to".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18))),
+              //     Radio<String>(
+              //       value: "delivery",
+              //       groupValue: cartController.deliveryOption1.value.isNotEmpty
+              //           ? cartController.deliveryOption1.value
+              //           : "delivery",
+              //       visualDensity: VisualDensity.compact,
+              //       // fillColor: cartController.deliveryOption1.value.isEmpty &&
+              //       //     cartController.showValidation.value
+              //       //     ? MaterialStateProperty.all(Colors.red)
+              //       //     : null,
+              //       onChanged: (value) {
+              //         cartController.deliveryOption1.value = value!;
+              //       },
+              //     )
+              //
+              //   ],
+              // ),
+              const SizedBox(
+                height: 15,
+              ),
+              // if (deliveryOption.value == "delivery") ...[
+              //   Material(
+              //     child: InkWell(
+              //       onTap: () {
+              //         if (userLoggedIn) {
+              //           bottomSheetChangeAddress();
+              //         } else {
+              //           addAddressWithoutLogin(addressData: selectedAddress);
+              //         }
+              //       },
+              //       child: DottedBorder(
+              //         color: const Color(0xff014E70),
+              //         strokeWidth: 1.2,
+              //         dashPattern: const [6, 3, 0, 3],
+              //         child: Container(
+              //           // height: 50,
+              //           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              //           width: size.width,
+              //           alignment: Alignment.center,
+              //           child: selectedAddress.id != null
+              //               ? Text(selectedAddress.getShortAddress,
+              //               style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
+              //               : Text("Select Address ".tr,
+              //               style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              //   const SizedBox(
+              //     height: 15,
+              //   ),
+              //   if (selectedAddress.id != null)
+              //     InkWell(
+              //         onTap: () {
+              //           if (userLoggedIn) {
+              //             bottomSheetChangeAddress();
+              //           } else {
+              //             addAddressWithoutLogin(addressData: selectedAddress);
+              //           }
+              //         },
+              //         child: Align(
+              //             alignment: Alignment.topRight,
+              //             child: Text("Change Address".tr,
+              //                 style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
+              // ],
+
+              Material(
+                child: InkWell(
+                  onTap: () {
+                    if (userLoggedIn) {
+                      bottomSheetChangeAddress();
+                    } else {
+                      addAddressWithoutLogin(addressData: selectedAddress);
+                    }
+                  },
+                  child: DottedBorder(
+                    color: const Color(0xff014E70),
+                    strokeWidth: 1.2,
+                    dashPattern: const [6, 3, 0, 3],
+                    child: Container(
+                      // height: 50,
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                      width: size.width,
+                      alignment: Alignment.center,
+                      child: selectedAddress.id != null
+                          ? Text(selectedAddress.getShortAddress,
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
+                          : Text("Choose Address".tr,
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
-                height: 5,
+                height: 15,
               ),
-              if (deliveryOption.value == "delivery") ...[
-                Material(
-                  child: InkWell(
+              if (selectedAddress.id != null)
+                InkWell(
                     onTap: () {
                       if (userLoggedIn) {
                         bottomSheetChangeAddress();
@@ -1082,41 +1205,13 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                         addAddressWithoutLogin(addressData: selectedAddress);
                       }
                     },
-                    child: DottedBorder(
-                      color: const Color(0xff014E70),
-                      strokeWidth: 1.2,
-                      dashPattern: const [6, 3, 0, 3],
-                      child: Container(
-                        // height: 50,
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                        width: size.width,
-                        alignment: Alignment.center,
-                        child: selectedAddress.id != null
-                            ? Text(selectedAddress.getShortAddress,
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
-                            : Text("Select Address ".tr,
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                if (selectedAddress.id != null)
-                  InkWell(
-                      onTap: () {
-                        if (userLoggedIn) {
-                          bottomSheetChangeAddress();
-                        } else {
-                          addAddressWithoutLogin(addressData: selectedAddress);
-                        }
-                      },
-                      child: Align(
-                          alignment: Alignment.topRight,
-                          child: Text("Change Address".tr,
-                              style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
-              ],
+                    child: Align(
+                        alignment: Alignment.topRight,
+                        child: Text("Change Address".tr,
+                            style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)))),
+
+
+
               // Row(
               //   children: [
               //     Expanded(
@@ -1212,6 +1307,20 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             return null;
                           }),
                       ...commonField(
+                          textController: emailController,
+                          title: "Email Address*",
+                          hintText: "Email Address",
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter email address";
+                            }
+                            if (value.trim().invalidEmail) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
                           textController: phoneController,
                           title: "${'Phone'.tr}*",
                           hintText: "Enter your phone number".tr,
@@ -1278,39 +1387,131 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             // }
                             return null;
                           }),
-                      ...commonField(
-                          textController: countryController,
-                          title: "${'Country'.tr}*",
-                          hintText: "Enter your country".tr,
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "${'Please enter country'.tr}*";
+                      ...fieldWithName(
+                        title: 'Country/Region',
+                        hintText: 'Select Country',
+                        readOnly: true,
+                        onTap: () {
+                          showAddressSelectorDialog(
+                              addressList: modelCountryList!.country!
+                                  .map((e) => CommonAddressRelatedClass(
+                                  title: e.name.toString(), addressId: e.id.toString(), flagUrl: e.icon.toString()))
+                                  .toList(),
+                              selectedAddressIdPicked: (String gg) {
+                                String previous = ((selectedCountry ?? Country()).id ?? "").toString();
+                                selectedCountry = modelCountryList!.country!.firstWhere((element) => element.id.toString() == gg);
+                                cartController.countryCode = gg.toString();
+                                cartController.countryName.value = selectedCountry!.name.toString();
+                                print('countrrtr ${cartController.countryName.toString()}');
+                                print('countrrtr ${cartController.countryCode.toString()}');
+                                if (previous != selectedCountry!.id.toString()) {
+                                  getStateList(countryId: gg, reset: true).then((value) {
+                                    setState(() {});
+                                  });
+                                  setState(() {});
+                                }
+                              },
+                              selectedAddressId: ((selectedCountry ?? Country()).id ?? "").toString());
+                        },
+                        controller: TextEditingController(text: (selectedCountry ?? Country()).name ?? countryController.text),
+                        validator: (v) {
+                          if (v!.trim().isEmpty) {
+                            return "Please select country";
+                          }
+                          return null;
+                        },
+                      ),
+                      ...fieldWithName(
+                        title: 'State',
+                        hintText: 'Select State',
+                        controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ??  stateController.text),
+                        readOnly: true,
+                        onTap: () {
+                          if (modelStateList == null && stateRefresh.value > 0) {
+                            showToast("Select Country First");
+                            return;
+                          }
+                          if (stateRefresh.value < 0) {
+                            return;
+                          }
+                          if (modelStateList!.state!.isEmpty) return;
+                          showAddressSelectorDialog(
+                              addressList: modelStateList!.state!
+                                  .map((e) =>
+                                  CommonAddressRelatedClass(title: e.stateName.toString(), addressId: e.stateId.toString()))
+                                  .toList(),
+                              selectedAddressIdPicked: (String gg) {
+                                String previous = ((selectedState ?? CountryState()).stateId ?? "").toString();
+                                selectedState = modelStateList!.state!.firstWhere((element) => element.stateId.toString() == gg);
+                                cartController.stateCode = gg.toString();
+                                cartController.stateName.value = selectedState!.stateName.toString();
+                                print('state ${cartController.stateCode.toString()}');
+                                print('stateNameee ${cartController.stateName.toString()}');
+                                if (previous != selectedState!.stateId.toString()) {
+                                  getCityList(stateId: gg, reset: true).then((value) {
+                                    setState(() {});
+                                  });
+                                  setState(() {});
+                                }
+                              },
+                              selectedAddressId: ((selectedState ?? CountryState()).stateId ?? "").toString());
+                        },
+                        suffixIcon: Obx(() {
+                          if (stateRefresh.value > 0) {
+                            return const Icon(Icons.keyboard_arrow_down_rounded);
+                          }
+                          return const CupertinoActivityIndicator();
+                        }),
+                        validator: (v) {
+                          if (v!.trim().isEmpty) {
+                            return "Please select state";
+                          }
+                          return null;
+                        },
+                      ),
+                      // if (modelCityList != null && modelCityList!.city!.isNotEmpty)
+                        ...fieldWithName(
+                          readOnly: true,
+                          title: 'City',
+                          hintText: 'Select City',
+                          controller: TextEditingController(text: (selectedCity ?? City()).cityName ?? cityController.text),
+                          onTap: () {
+                            if (modelCityList == null && cityRefresh.value > 0) {
+                              showToast("Select State First");
+                              return;
+                            }
+                            if (cityRefresh.value < 0) {
+                              return;
+                            }
+                            if (modelCityList!.city!.isEmpty) return;
+                            showAddressSelectorDialog(
+                                addressList: modelCityList!.city!
+                                    .map((e) =>
+                                    CommonAddressRelatedClass(title: e.cityName.toString(), addressId: e.cityId.toString()))
+                                    .toList(),
+                                selectedAddressIdPicked: (String gg) {
+                                  selectedCity = modelCityList!.city!.firstWhere((element) => element.cityId.toString() == gg);
+                                  cartController.cityCode = gg.toString();
+                                  cartController.cityName.value = selectedCity!.cityName.toString();
+                                  print('state ${cartController.cityName.toString()}');
+                                  print('stateNameee ${cartController.cityCode.toString()}');
+                                  setState(() {});
+                                },
+                                selectedAddressId: ((selectedCity ?? City()).cityId ?? "").toString());
+                          },
+                          suffixIcon: Obx(() {
+                            if (cityRefresh.value > 0) {
+                              return const Icon(Icons.keyboard_arrow_down_rounded);
+                            }
+                            return const CupertinoActivityIndicator();
+                          }),
+                          validator: (v) {
+                            if (v!.trim().isEmpty) {
+                              return "Please select state";
                             }
                             return null;
-                          }),
-                      ...commonField(
-                          textController: stateController,
-                          title: "${'State'.tr}*",
-                          hintText: "Enter your state".tr,
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "${'Please enter state'.tr}*";
-                            }
-                            return null;
-                          }),
-                      ...commonField(
-                          textController: cityController,
-                          title: "${'City'}*",
-                          hintText: "Enter your city".tr,
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "${'Please enter City'.tr}*";
-                            }
-                            return null;
-                          }),
+                          },
+                        ),
                       ...commonField(
                           textController: zipCodeController,
                           title: "${'Zip-Code'.tr}*",
@@ -1335,10 +1536,12 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                 firstName: firstNameController.text.trim(),
                                 title: titleController.text.trim(),
                                 lastName: lastNameController.text.trim(),
-                                state: stateController.text.trim(),
-                                countryName: '',
-                                country: countryController.text.trim(),
-                                city: cityController.text.trim(),
+                                state: cartController.stateName.toString(),
+                                countryName: cartController.countryName.toString(),
+                                stateId: cartController.stateCode.toString(),
+                                cityId: cartController.cityCode.toString(),
+                                country: cartController.countryCode.toString(),
+                                city: cartController.cityName.toString(),
                                 address2: address2Controller.text.trim(),
                                 address: addressController.text.trim(),
                                 alternatePhone: alternatePhoneController.text.trim(),
@@ -1368,7 +1571,35 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
           );
         });
   }
-
+  List<Widget> fieldWithName(
+      {required String title,
+        required String hintText,
+        required TextEditingController controller,
+        FormFieldValidator<String>? validator,
+        bool? readOnly,
+        VoidCallback? onTap,
+        Widget? suffixIcon}) {
+    return [
+      Text(
+        title,
+        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+      ),
+      const SizedBox(
+        height: 5,
+      ),
+      CommonTextField(
+        onTap: onTap,
+        hintText: hintText,
+        controller: controller,
+        validator: validator,
+        readOnly: readOnly ?? false,
+        suffixIcon: suffixIcon,
+      ),
+      const SizedBox(
+        height: 12,
+      ),
+    ];
+  }
   List<Widget> commonField({
     required TextEditingController textController,
     required String title,
@@ -1483,6 +1714,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                         cartController.addressDeliAlternate.text = selectedAddress.getAlternate;
                                         cartController.addressDeliAddress.text = selectedAddress.getAddress;
                                         cartController.addressDeliZipCode.text = selectedAddress.getZipCode;
+                                        cartController.addressCountryController.text = selectedAddress.getCountry;
+                                        cartController.addressStateController.text = selectedAddress.getState;
+                                        cartController.addressCityController.text = selectedAddress.getCity;
                                       }
                                       Get.back();
                                       setState(() {});
@@ -1663,6 +1897,20 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             return null;
                           }),
                       ...commonField(
+                          textController: emailController,
+                          title: "Email Address*",
+                          hintText: "Email Address",
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "Please enter email address";
+                            }
+                            if (value.trim().invalidEmail) {
+                              return "Please enter valid email address";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
                           textController: phoneController,
                           title: "${'Phone'.tr}*",
                           hintText: "Enter your phone number".tr,
@@ -1730,6 +1978,28 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             return null;
                           }),
                       ...commonField(
+                          textController: countryController,
+                          title: "${'Country'.tr}*",
+                          hintText: "Enter your country".tr,
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "${'Please enter country'.tr}*";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
+                          textController: stateController,
+                          title: "${'State'.tr}*",
+                          hintText: "Enter your state".tr,
+                          keyboardType: TextInputType.streetAddress,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return "${'Please enter state'.tr}*";
+                            }
+                            return null;
+                          }),
+                      ...commonField(
                           textController: cityController,
                           title: "${'City'.tr}*",
                           hintText: "Enter your city",
@@ -1748,28 +2018,6 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                           validator: (value) {
                             if (value!.trim().isEmpty) {
                               return "${'Please enter Zip-Code'.tr}*";
-                            }
-                            return null;
-                          }),
-                      ...commonField(
-                          textController: stateController,
-                          title: "${'State'.tr}*",
-                          hintText: "Enter your state".tr,
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "${'Please enter state'.tr}*";
-                            }
-                            return null;
-                          }),
-                      ...commonField(
-                          textController: countryController,
-                          title: "${'Country'.tr}*",
-                          hintText: "Enter your country".tr,
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "${'Please enter country'.tr}*";
                             }
                             return null;
                           }),

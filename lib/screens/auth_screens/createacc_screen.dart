@@ -55,7 +55,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   _makingPrivacyPolicy() async {
     var url = Uri.parse('https://diriseapp.com/en/privacy-policy/');
     if (await canLaunchUrl(url)) {
-      await   (url,mode: LaunchMode.externalApplication);
+      await launchUrl(url,mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not launch $url';
     }

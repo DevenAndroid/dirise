@@ -62,6 +62,7 @@ class ProductElement {
   dynamic currentBid;
   dynamic featureImageApp;
   dynamic beforePurchase;
+  dynamic alreadyReview;
   bool? isShipping;
   bool? localShipping;
   List<ServiceTimeSloat>? serviceTimeSloat;
@@ -74,6 +75,7 @@ class ProductElement {
     this.id,
     this.vendorId,
     this.catId,
+    this.alreadyReview,
     this.catId2,
     this.catId3,
     this.brandSlug,
@@ -162,6 +164,7 @@ class ProductElement {
     pPrice = json["p_price"];
     sPrice = json["s_price"];
     commission = json["commission"];
+    alreadyReview = json['already_review'];
     productNew = json["new"];
     bestSaller = json["best_saller"];
     featured = json["featured"];
@@ -261,6 +264,7 @@ class ProductElement {
     "commission": commission,
     'before_purchase' : beforePurchase,
     "new": productNew,
+   'already_review': alreadyReview,
     "best_saller": bestSaller,
     "featured": featured,
     "tax_apply": taxApply,

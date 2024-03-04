@@ -1,13 +1,10 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:dirise/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../controller/cart_controller.dart';
 import '../../../controller/profile_controller.dart';
 import '../../../model/customer_profile/model_city_list.dart';
@@ -88,6 +85,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
   late TextEditingController titleController;
   TextEditingController countryController = TextEditingController();
   TextEditingController stateController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -198,8 +196,8 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
     landmarkController = TextEditingController(text: addressData.landmark ?? "");
     titleController = TextEditingController(text: addressData.type ?? "");
     countryController = TextEditingController(text: addressData.country ?? "");
-    countryController = TextEditingController(text: addressData.country ?? "");
     stateController = TextEditingController(text: addressData.state ?? "");
+    cityController = TextEditingController(text: addressData.city ?? "");
   }
 
   @override
@@ -383,7 +381,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                 ...fieldWithName(
                   title: 'State',
                   hintText: 'Select State',
-                  controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ?? ""),
+                  controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ??  stateController.text),
                   readOnly: true,
                   onTap: () {
                     if (modelStateList == null && stateRefresh.value > 0) {
@@ -402,6 +400,10 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                         selectedAddressIdPicked: (String gg) {
                           String previous = ((selectedState ?? CountryState()).stateId ?? "").toString();
                           selectedState = modelStateList!.state!.firstWhere((element) => element.stateId.toString() == gg);
+                          cartController.stateCode = gg.toString();
+                          cartController.stateName.value = selectedState!.stateName.toString();
+                          print('state ${cartController.stateCode.toString()}');
+                          print('stateNameee ${cartController.stateName.toString()}');
                           if (previous != selectedState!.stateId.toString()) {
                             getCityList(stateId: gg, reset: true).then((value) {
                               setState(() {});
@@ -424,11 +426,12 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     return null;
                   },
                 ),
-                if (modelCityList != null && modelCityList!.city!.isNotEmpty)
+                // if (modelCityList != null && modelCityList!.city!.isNotEmpty)
                   ...fieldWithName(
+                    readOnly: true,
                     title: 'City',
                     hintText: 'Select City',
-                    controller: TextEditingController(text: (selectedCity ?? City()).cityName ?? ""),
+                    controller: TextEditingController(text: (selectedCity ?? City()).cityName ?? cityController.text),
                     onTap: () {
                       if (modelCityList == null && cityRefresh.value > 0) {
                         showToast("Select State First");
@@ -445,6 +448,10 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                               .toList(),
                           selectedAddressIdPicked: (String gg) {
                             selectedCity = modelCityList!.city!.firstWhere((element) => element.cityId.toString() == gg);
+                            cartController.cityCode = gg.toString();
+                            cartController.cityName.value = selectedCity!.cityName.toString();
+                            print('state ${cartController.cityName.toString()}');
+                            print('state Nameee ${cartController.cityCode.toString()}');
                             setState(() {});
                           },
                           selectedAddressId: ((selectedCity ?? City()).cityId ?? "").toString());
@@ -510,9 +517,9 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                           title: titleController.text.trim(),
                           lastName: lastNameController.text.trim(),
                           countryName: cartController.countryName.toString(),
-                          state: stateController.text.trim(),
+                          state: cartController.stateName.toString(),
                           country: cartController.countryCode.toString(),
-                          city: "cityController.text.trim()",
+                          city: cartController.cityName.toString(),
                           address2: address2Controller.text.trim(),
                           address: addressController.text.trim(),
                           alternatePhone: alternatePhoneController.text.trim(),
@@ -520,6 +527,8 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                           phone: phoneController.text.trim(),
                           zipCode: zipCodeController.text.trim(),
                           email: emailController.text.trim(),
+                          cityId: cartController.cityCode.toString(),
+                          stateId: cartController.stateCode.toString(),
                           id: addressData.id);
                     }
                   },

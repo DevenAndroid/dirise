@@ -40,7 +40,7 @@ class Data {
   UserId? userId;
   dynamic likeCount;
   bool? isLike;
-
+  bool isOpen = false;
   Data(
       {this.id,
         this.userIds,
