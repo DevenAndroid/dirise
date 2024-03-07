@@ -41,6 +41,7 @@ class SingleOrderData {
   dynamic couponCode;
   dynamic discountAmount;
   dynamic updatedAt;
+  dynamic deliveryCharges;
   dynamic createdDate;
   OrderMeta? orderMeta;
   dynamic expectedDate;
@@ -59,6 +60,7 @@ class SingleOrderData {
       this.shippingMethod,
       this.paymentMode,
       this.paymentStatus,
+      this.deliveryCharges,
       this.currencyCode,
       this.couponId,
       this.couponCode,
@@ -86,6 +88,7 @@ class SingleOrderData {
     couponId = json['coupon_id'];
     couponCode = json['coupon_code'];
     discountAmount = json['discount_amount'];
+    deliveryCharges = json['delivery_charges'];
     updatedAt = json['updated_at'];
     createdDate = json['created_date'];
     orderMeta = json['order_meta'] != null ? OrderMeta.fromJson(json['order_meta']) : null;
@@ -121,6 +124,7 @@ class SingleOrderData {
     data['discount_amount'] = discountAmount;
     data['updated_at'] = updatedAt;
     data['created_date'] = createdDate;
+    data['delivery_charges'] = deliveryCharges;
     if (orderMeta != null) {
       data['order_meta'] = orderMeta!.toJson();
     }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/model/common_modal.dart';
+import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/common_button.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/customsize.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../model/aboutus_model.dart';
 import '../../model/model_common.dart';
 import '../../model/model_contact_us.dart';
@@ -67,6 +69,14 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController companyController = TextEditingController();
   TextEditingController messageController = TextEditingController();
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   void initState() {
@@ -218,61 +228,37 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       addHeight(50),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                height: 62,
-                                width: 62,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.black,
-                                ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.apple,
-                                    color: Colors.white,
-                                    size: 35,
-                                  ),
-                                ),
-                              ),
+                          InkWell(
+                            onTap :() {
+                              launchURL(contactusEmailModal.value.data!.facebook.toString());
+                            },
+                            child: Image.asset(
+                              'assets/icons/facebook-withoutbg.png',
+                              height: 30,
                             ),
-                          const SizedBox(
-                            width: 20,
                           ),
+                          35.spaceX,
                           InkWell(
                             onTap: (){
-                             
+                              launchURL(contactusEmailModal.value.data!.twitter.toString());
                             },
-                            child: Container(
-                              height: 62,
-                              width: 62,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: const Color(0xffCACACA), width: 2)),
-                              child: Center(
-                                child: Image.asset(
-                                  'assets/icons/google.png',
-                                  height: 27,
-                                ),
-                              ),
+                            child: Image.asset(
+                              'assets/icons/twitter_bg.png',
+                              height: 30,
+                              color: Colors.white,
                             ),
                           ),
-                          const SizedBox(
-                            width: 20,
-                          ),
+                          35.spaceX,
                           InkWell(
-                            child: Container(
-                              height: 62,
-                              width: 62,
-                              decoration:
-                                  BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
-                              child: Center(
-                                child: Image.asset(
-                                  'assets/icons/facebook.png',
-                                  height: 27,
-                                ),
-                              ),
+                            onTap : (){
+                              launchURL(contactusEmailModal.value.data!.instagram.toString());
+                            },
+                            child: Image.asset(
+                              'assets/icons/insta-bg.png',
+                              height: 30,
+                              color: Colors.white,
                             ),
                           ),
                         ],

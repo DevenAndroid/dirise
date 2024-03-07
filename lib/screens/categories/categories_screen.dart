@@ -108,7 +108,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                           surfaceTintColor: Colors.transparent,
                                           child: CachedNetworkImage(
                                             imageUrl: item.bannerProfile.toString(),
-                                            height: 50,
+                                            height: 60,
                                           ),
                                         ),
                                       ),

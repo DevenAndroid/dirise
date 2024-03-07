@@ -69,7 +69,7 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Withdrawal money'.tr,
+            'Earnings'.tr,
             style: GoogleFonts.poppins(
               fontSize: 17,
               fontWeight: FontWeight.w600,
@@ -91,295 +91,300 @@ class _WithdrawMoneyState extends State<WithdrawMoney> {
         ),
         // appBar: backAppBar(title: "Withdrawal money".tr, context: context),
         body: modelWithdrawalList != null
-            ? Padding(
-                padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
-                child: Form(
-                  // key: _formKey,
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFF37C666).withOpacity(0.10),
-                              offset: const Offset(
-                                .1,
-                                .1,
-                              ),
-                              blurRadius: 20.0,
-                              spreadRadius: 1.0,
+            ? Column(
+              children: [
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
+                    child:   Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF37C666).withOpacity(0.10),
+                            offset: const Offset(
+                              .1,
+                              .1,
                             ),
-                          ],
-                        ),
-                        child: Card(
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                            color: Colors.white,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: AddSize.padding16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "My Balance".tr,
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w400, fontSize: 16, color: Colors.black),
-                                        ),
-                                        Text(
-                                          "kwd${modelWithdrawalList!.data!.earnedBalance.toString()}",
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 31,
-                                              color: const Color(0xFF262F33)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.buttonColor,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: const Icon(
-                                      Icons.account_balance_wallet_sharp,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )),
-                      ),
-                      SizedBox(
-                        height: AddSize.size5,
-                      ),
-                      if (modelWithdrawalList!.data!.earnedBalance.toString().toNum > 0) ...[
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF37C666).withOpacity(0.10),
-                                offset: const Offset(
-                                  .1,
-                                  .1,
-                                ),
-                                blurRadius: 20.0,
-                                spreadRadius: 1.0,
-                              ),
-                            ],
+                            blurRadius: 20.0,
+                            spreadRadius: 1.0,
                           ),
-                          child: Card(
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              color: Colors.white,
-                              child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
-                                  child: Column(
-                                    children: [
-                                      TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.digitsOnly
-                                          ],
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: AddSize.font24),
-                                          controller: addMoneyController,
-                                          cursorColor: const Color(0xFF7ED957),
-                                          // validator: validateMoney,
-                                          decoration: const InputDecoration(
-                                            hintText: "+1000kwd",
-                                            suffixIcon: Icon(Icons.attach_money_rounded),
-                                            prefixIcon: Icon(Icons.add,color: Colors.transparent,),
-                                          )),
-                                      SizedBox(
-                                        height: AddSize.size15,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: List.generate(
-                                          suggestionAmount.length,
-                                          (index) => chipList("${suggestionAmount[index]}"),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            if(addMoneyController.text.isEmpty){
-                                              showToast("Please enter amount".tr);
-                                              return;
-                                            }
-                                            if(addMoneyController.text.toNum < modelWithdrawalList!.data!.earnedBalance.toString().toNum){
-                                              withDrawRequest(addMoneyController.text);
-                                            } else{
-                                              showToast("Entered amount is greater then balance".tr);
-                                            }
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                              minimumSize: Size(double.maxFinite, AddSize.size50),
-                                              backgroundColor: AppTheme.buttonColor,
-                                              elevation: 0,
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                              textStyle: GoogleFonts.poppins(
-                                                  fontSize: AddSize.font20, fontWeight: FontWeight.w500)),
-                                          child: Text(
-                                            "Withdrawal".tr.toUpperCase(),
-                                            style: GoogleFonts.poppins(
-                                                color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
-                                          )),
-                                    ],
-                                  ))),
-                        ),
-                        SizedBox(
-                          height: AddSize.size10,
-                        ),
-                      ],
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFF37C666).withOpacity(0.10),
-                                  offset: const Offset(
-                                    .1,
-                                    .1,
-                                  ),
-                                  blurRadius: 20.0,
-                                  spreadRadius: 1.0,
-                                ),
-                              ],
-                              // color: AppTheme.backgroundcolor,
-                              borderRadius: BorderRadius.circular(20)),
+                        ],
+                      ),
+                      child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          color: Colors.white,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
-                            child: Column(
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: AddSize.padding16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        "Amount".tr,
-                                        style: GoogleFonts.poppins(
-                                            height: 1.5,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 12,
-                                            color: AppTheme.buttonColor),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 4,
-                                      child: Text(
-                                        "Date".tr,
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                            height: 1.5,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 12,
-                                            color: AppTheme.buttonColor),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        "Status".tr,
-                                        textAlign: TextAlign.end,
-                                        style: GoogleFonts.poppins(
-                                            height: 1.5,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 12,
-                                            color: AppTheme.buttonColor),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const Divider(),
                                 Expanded(
-                                  child: RefreshIndicator(
-                                    onRefresh: () async {
-                                      await getWithdrawalMoney();
-                                    },
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: modelWithdrawalList!.data!.withdrawalList!.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        final item = modelWithdrawalList!.data!.withdrawalList![index];
-                                        return Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  flex: 2,
-                                                  child: Text(
-                                                    "kwd${item.amount.toString()}",
-                                                    style: GoogleFonts.poppins(
-                                                        height: 1.5, fontWeight: FontWeight.w600, fontSize: 12),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 4,
-                                                  child: Text(
-                                                    item.date.toString(),
-                                                    textAlign: TextAlign.center,
-                                                    style: GoogleFonts.poppins(
-                                                        height: 1.5,
-                                                        color: const Color(0xFF8C9BB2),
-                                                        fontWeight: FontWeight.w300,
-                                                        fontSize: 11),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 3,
-                                                  child: Text(
-                                                    item.status.toString(),
-                                                    textAlign: TextAlign.end,
-                                                    style: GoogleFonts.poppins(
-                                                        height: 1.5,
-                                                        fontWeight: FontWeight.w600,
-                                                        fontSize: 12,
-                                                        color: item.status.toString().toLowerCase() == "approved" ? greenColor : item.status.toString().toLowerCase() == "rejected" ? rejectColor : yellowColor
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            index != 4 ? const Divider() : const SizedBox(),
-                                            // SizedBox(
-                                            //   height: AddSize.size5,
-                                            // ),
-                                          ],
-                                        );
-                                      },
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Earnings".tr,
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w400, fontSize: 16, color: Colors.black),
+                                      ),
+                                      Text(
+                                        "kwd${modelWithdrawalList!.data!.earnedBalance.toString()}",
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 31,
+                                            color: const Color(0xFF262F33)),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                    color: AppTheme.buttonColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: const Icon(
+                                    Icons.account_balance_wallet_sharp,
+                                    color: Colors.white,
+                                  ),
+                                )
                               ],
                             ),
-                          ),
-                        ),
-                      ),
-                    ],
+                          )),
+                    ),
+                    // child: Form(
+                    //   // key: _formKey,
+                    //   child: Column(
+                    //     children: [
+                    //
+                    //       SizedBox(
+                    //         height: AddSize.size5,
+                    //       ),
+                    //       if (modelWithdrawalList!.data!.earnedBalance.toString().toNum > 0) ...[
+                    //         Container(
+                    //           decoration: BoxDecoration(
+                    //             boxShadow: [
+                    //               BoxShadow(
+                    //                 color: const Color(0xFF37C666).withOpacity(0.10),
+                    //                 offset: const Offset(
+                    //                   .1,
+                    //                   .1,
+                    //                 ),
+                    //                 blurRadius: 20.0,
+                    //                 spreadRadius: 1.0,
+                    //               ),
+                    //             ],
+                    //           ),
+                    //           child: Card(
+                    //               elevation: 0,
+                    //               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    //               color: Colors.white,
+                    //               child: Padding(
+                    //                   padding:
+                    //                       EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding16),
+                    //                   child: Column(
+                    //                     children: [
+                    //                       TextFormField(
+                    //                           keyboardType: TextInputType.number,
+                    //                           inputFormatters: [
+                    //                             FilteringTextInputFormatter.digitsOnly
+                    //                           ],
+                    //                           textAlign: TextAlign.center,
+                    //                           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    //                               color: Colors.black,
+                    //                               fontWeight: FontWeight.w600,
+                    //                               fontSize: AddSize.font24),
+                    //                           controller: addMoneyController,
+                    //                           cursorColor: const Color(0xFF7ED957),
+                    //                           // validator: validateMoney,
+                    //                           decoration: const InputDecoration(
+                    //                             hintText: "+1000kwd",
+                    //                             suffixIcon: Icon(Icons.attach_money_rounded),
+                    //                             prefixIcon: Icon(Icons.add,color: Colors.transparent,),
+                    //                           )),
+                    //                       SizedBox(
+                    //                         height: AddSize.size15,
+                    //                       ),
+                    //                       Row(
+                    //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //                         children: List.generate(
+                    //                           suggestionAmount.length,
+                    //                           (index) => chipList("${suggestionAmount[index]}"),
+                    //                         ),
+                    //                       ),
+                    //                       const SizedBox(
+                    //                         height: 10,
+                    //                       ),
+                    //                       ElevatedButton(
+                    //                           onPressed: () {
+                    //                             if(addMoneyController.text.isEmpty){
+                    //                               showToast("Please enter amount".tr);
+                    //                               return;
+                    //                             }
+                    //                             if(addMoneyController.text.toNum < modelWithdrawalList!.data!.earnedBalance.toString().toNum){
+                    //                               withDrawRequest(addMoneyController.text);
+                    //                             } else{
+                    //                               showToast("Entered amount is greater then balance".tr);
+                    //                             }
+                    //                           },
+                    //                           style: ElevatedButton.styleFrom(
+                    //                               minimumSize: Size(double.maxFinite, AddSize.size50),
+                    //                               backgroundColor: AppTheme.buttonColor,
+                    //                               elevation: 0,
+                    //                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    //                               textStyle: GoogleFonts.poppins(
+                    //                                   fontSize: AddSize.font20, fontWeight: FontWeight.w500)),
+                    //                           child: Text(
+                    //                             "Withdrawal".tr.toUpperCase(),
+                    //                             style: GoogleFonts.poppins(
+                    //                                 color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+                    //                           )),
+                    //                     ],
+                    //                   ))),
+                    //         ),
+                    //         SizedBox(
+                    //           height: AddSize.size10,
+                    //         ),
+                    //       ],
+                    //       // Expanded(
+                    //       //   child: Container(
+                    //       //     decoration: BoxDecoration(
+                    //       //         color: Colors.white,
+                    //       //         boxShadow: [
+                    //       //           BoxShadow(
+                    //       //             color: const Color(0xFF37C666).withOpacity(0.10),
+                    //       //             offset: const Offset(
+                    //       //               .1,
+                    //       //               .1,
+                    //       //             ),
+                    //       //             blurRadius: 20.0,
+                    //       //             spreadRadius: 1.0,
+                    //       //           ),
+                    //       //         ],
+                    //       //         // color: AppTheme.backgroundcolor,
+                    //       //         borderRadius: BorderRadius.circular(20)),
+                    //       //     child: Padding(
+                    //       //       padding: EdgeInsets.symmetric(horizontal: AddSize.padding16, vertical: AddSize.padding10),
+                    //       //       child: Column(
+                    //       //         children: [
+                    //       //           Row(
+                    //       //             children: [
+                    //       //               Expanded(
+                    //       //                 flex: 2,
+                    //       //                 child: Text(
+                    //       //                   "Amount".tr,
+                    //       //                   style: GoogleFonts.poppins(
+                    //       //                       height: 1.5,
+                    //       //                       fontWeight: FontWeight.w600,
+                    //       //                       fontSize: 12,
+                    //       //                       color: AppTheme.buttonColor),
+                    //       //                 ),
+                    //       //               ),
+                    //       //               Expanded(
+                    //       //                 flex: 4,
+                    //       //                 child: Text(
+                    //       //                   "Date".tr,
+                    //       //                   textAlign: TextAlign.center,
+                    //       //                   style: GoogleFonts.poppins(
+                    //       //                       height: 1.5,
+                    //       //                       fontWeight: FontWeight.w600,
+                    //       //                       fontSize: 12,
+                    //       //                       color: AppTheme.buttonColor),
+                    //       //                 ),
+                    //       //               ),
+                    //       //               Expanded(
+                    //       //                 flex: 3,
+                    //       //                 child: Text(
+                    //       //                   "Status".tr,
+                    //       //                   textAlign: TextAlign.end,
+                    //       //                   style: GoogleFonts.poppins(
+                    //       //                       height: 1.5,
+                    //       //                       fontWeight: FontWeight.w600,
+                    //       //                       fontSize: 12,
+                    //       //                       color: AppTheme.buttonColor),
+                    //       //                 ),
+                    //       //               )
+                    //       //             ],
+                    //       //           ),
+                    //       //           const Divider(),
+                    //       //           Expanded(
+                    //       //             child: RefreshIndicator(
+                    //       //               onRefresh: () async {
+                    //       //                 await getWithdrawalMoney();
+                    //       //               },
+                    //       //               child: ListView.builder(
+                    //       //                 shrinkWrap: true,
+                    //       //                 itemCount: modelWithdrawalList!.data!.withdrawalList!.length,
+                    //       //                 itemBuilder: (BuildContext context, int index) {
+                    //       //                   final item = modelWithdrawalList!.data!.withdrawalList![index];
+                    //       //                   return Column(
+                    //       //                     children: [
+                    //       //                       const SizedBox(
+                    //       //                         height: 8,
+                    //       //                       ),
+                    //       //                       Row(
+                    //       //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       //                         children: [
+                    //       //                           Expanded(
+                    //       //                             flex: 2,
+                    //       //                             child: Text(
+                    //       //                               "kwd${item.amount.toString()}",
+                    //       //                               style: GoogleFonts.poppins(
+                    //       //                                   height: 1.5, fontWeight: FontWeight.w600, fontSize: 12),
+                    //       //                             ),
+                    //       //                           ),
+                    //       //                           Expanded(
+                    //       //                             flex: 4,
+                    //       //                             child: Text(
+                    //       //                               item.date.toString(),
+                    //       //                               textAlign: TextAlign.center,
+                    //       //                               style: GoogleFonts.poppins(
+                    //       //                                   height: 1.5,
+                    //       //                                   color: const Color(0xFF8C9BB2),
+                    //       //                                   fontWeight: FontWeight.w300,
+                    //       //                                   fontSize: 11),
+                    //       //                             ),
+                    //       //                           ),
+                    //       //                           Expanded(
+                    //       //                             flex: 3,
+                    //       //                             child: Text(
+                    //       //                               item.status.toString(),
+                    //       //                               textAlign: TextAlign.end,
+                    //       //                               style: GoogleFonts.poppins(
+                    //       //                                   height: 1.5,
+                    //       //                                   fontWeight: FontWeight.w600,
+                    //       //                                   fontSize: 12,
+                    //       //                                   color: item.status.toString().toLowerCase() == "approved" ? greenColor : item.status.toString().toLowerCase() == "rejected" ? rejectColor : yellowColor
+                    //       //                               ),
+                    //       //                             ),
+                    //       //                           )
+                    //       //                         ],
+                    //       //                       ),
+                    //       //                       const SizedBox(
+                    //       //                         height: 8,
+                    //       //                       ),
+                    //       //                       index != 4 ? const Divider() : const SizedBox(),
+                    //       //                       // SizedBox(
+                    //       //                       //   height: AddSize.size5,
+                    //       //                       // ),
+                    //       //                     ],
+                    //       //                   );
+                    //       //                 },
+                    //       //               ),
+                    //       //             ),
+                    //       //           ),
+                    //       //         ],
+                    //       //       ),
+                    //       //     ),
+                    //       //   ),
+                    //       // ),
+                    //     ],
+                    //   ),
+                    // ),
                   ),
-                ),
-              )
+              ],
+            )
             : const LoadingAnimation());
   }
 

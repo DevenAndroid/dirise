@@ -79,6 +79,8 @@ class AddressData {
   dynamic address2;
   dynamic city;
   dynamic country;
+  dynamic stateId;
+  dynamic cityId;
   dynamic state;
   dynamic zipCode;
   dynamic landmark;
@@ -108,6 +110,8 @@ class AddressData {
       this.zipCode,
       this.landmark,
       this.createdAt,
+      this.cityId,
+      this.stateId,
       this.updatedAt});
 
   String get getCompleteAddressInFormat {
@@ -257,6 +261,8 @@ class AddressData {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     countryId = json['country_id'];
+    stateId = json['state_id'];
+    cityId = json['city_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -283,6 +289,8 @@ class AddressData {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['country_id'] = countryId;
+    data['state_id'] = stateId;
+    data['city_id'] = cityId;
     return data;
   }
 }

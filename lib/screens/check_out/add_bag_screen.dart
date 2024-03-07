@@ -51,7 +51,7 @@ class _BagsScreenState extends State<BagsScreen> {
                                   (context, ii) {
                                     Products product = e.value.products![ii];
                                 return Container(
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     color: Colors.white,
                                   //   border: ii != product.length - 1
                                   //       ? const Border(bottom: BorderSide(color: Color(0xffD9D9D9)))

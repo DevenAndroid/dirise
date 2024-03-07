@@ -119,6 +119,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
     cartController.addressDeliAlternate.text = '';
     cartController.addressDeliAddress.text = '';
     cartController.addressDeliZipCode.text = '';
+    cartController.countryName.value = '';
     getPaymentGateWays();
     if (Get.arguments != null) {
       directOrderResponse = Get.arguments;
@@ -140,7 +141,10 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: (){
+            Get.back();
+            Get.back();
+          },
         ),
         titleSpacing: 0,
         title: Row(
@@ -551,6 +555,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                           cartController.addressDeliAlternate.text = '';
                                           cartController.addressDeliAddress.text = '';
                                           cartController.addressDeliZipCode.text = '';
+                                          cartController.addressCountryController.text = '';
+                                          cartController.addressStateController.text = '';
+                                          cartController.addressCityController.text = '';
                                         }
                                       });
                                     }),
@@ -1706,6 +1713,8 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                     behavior: HitTestBehavior.translucent,
                                     onTap: () {
                                       selectedAddress = address;
+                                      cartController.countryName.value = address.country.toString();
+                                      print('onTap is....${cartController.countryName.value}');
                                       if(cartController.isDelivery.value == true){
                                         cartController.addressDeliFirstName.text = selectedAddress.getFirstName;
                                         cartController.addressDeliLastName.text = selectedAddress.getLastName;

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../widgets/common_colour.dart';
+import '../orders/vendor_order_list_screen.dart';
 
 class LatestSalesAppBar extends StatefulWidget {
   const LatestSalesAppBar({super.key});
@@ -49,8 +50,7 @@ class _LatestSalesAppBarState extends State<LatestSalesAppBar> {
                 ),
                 TextButton(
                     onPressed: () {
-                      // Get.toNamed(VendorOrderList
-                      //     .vendorOrderList);
+                      Get.toNamed(VendorOrderList.route);
                     },
                     style: TextButton.styleFrom(
                         visualDensity: VisualDensity.compact, padding: const EdgeInsets.symmetric(horizontal: 10)),

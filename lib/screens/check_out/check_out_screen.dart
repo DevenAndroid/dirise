@@ -52,7 +52,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
   ModelStateList? modelStateList;
   CountryState? selectedState;
-
   ModelCityList? modelCityList;
   City? selectedCity;
   final Repositories repositories = Repositories();
@@ -115,6 +114,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     getCountryList();
     getPaymentGateWays();
     cartController.selectedAddress = AddressData();
+    cartController.countryName.value = '';
     cartController.shippingId = '';
     cartController.addressCountryController = TextEditingController(text: cartController.selectedAddress.getCountry ?? "");
     cartController.addressStateController = TextEditingController(text: cartController.selectedAddress.getState ?? "");
@@ -196,8 +196,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             // if(cartController.deliveryOption1.value != "delivery")
             //   pickupInstruction().toBoxAdapter,
             // if(cartController.deliveryOption1.value == "delivery")
-            deliveryInstruction().toBoxAdapter,
             products().toBoxAdapter,
+            deliveryInstruction().toBoxAdapter,
             couponCode().toBoxAdapter,
             const SizedBox(
               height: 30,
@@ -1192,6 +1192,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   cartController.addressDeliAlternate.text = '';
                                   cartController.addressDeliAddress.text = '';
                                   cartController.addressDeliZipCode.text = '';
+                                  cartController.addressCountryController.text = '';
+                                  cartController.addressStateController.text = '';
+                                  cartController.addressCityController.text = '';
                                 }
                               });
                             }),

@@ -369,7 +369,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                                       fontSize: 18),
                                 ),
                                 Text(
-                                  "2 KWD",
+                                  '${singleOrder.order!.deliveryCharges.toString()} kwd',
                                   style: GoogleFonts.poppins(
                                       color: const Color(0xff9B9B9B),
                                       fontWeight: FontWeight.w500,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dirise/repository/repository.dart';
+import 'package:dirise/utils/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -50,6 +51,9 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
     final map = {'country_id': countryId};
     await repositories.postApi(url: ApiUrls.allStatesUrl, mapData: map).then((value) {
       modelStateList = ModelStateList.fromJson(jsonDecode(value));
+      setState(() {
+
+      });
       stateRefresh.value = DateTime.now().millisecondsSinceEpoch;
     }).catchError((e) {
       stateRefresh.value = DateTime.now().millisecondsSinceEpoch;
@@ -57,6 +61,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
   }
 
   RxInt cityRefresh = 2.obs;
+  String stateIddd = '';
   Future getCityList({required String stateId, bool? reset}) async {
     if (reset == true) {
       modelCityList = null;
@@ -66,6 +71,9 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
     final map = {'state_id': stateId};
     await repositories.postApi(url: ApiUrls.allCityUrl, mapData: map).then((value) {
       modelCityList = ModelCityList.fromJson(jsonDecode(value));
+      setState(() {
+
+      });
       cityRefresh.value = DateTime.now().millisecondsSinceEpoch;
     }).catchError((e) {
       cityRefresh.value = DateTime.now().millisecondsSinceEpoch;
@@ -180,7 +188,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
       modelCountryList = ModelCountryList.fromString(value);
     });
   }
-
+   String countryIddd = '';
   @override
   void initState() {
     super.initState();
@@ -198,6 +206,10 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
     countryController = TextEditingController(text: addressData.country ?? "");
     stateController = TextEditingController(text: addressData.state ?? "");
     cityController = TextEditingController(text: addressData.city ?? "");
+    countryIddd = addressData.countryId.toString();
+    stateIddd = addressData.stateId.toString();
+    getStateList(countryId: countryIddd.toString());
+    getCityList(stateId: stateIddd.toString());
   }
 
   @override
@@ -343,7 +355,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                 //       }
                 //       return null;
                 //     }),
-
+                10.spaceY,
                 ...fieldWithName(
                   title: 'Country/Region',
                   hintText: 'Select Country',
@@ -362,7 +374,8 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                           print('countrrtr ${cartController.countryName.toString()}');
                           print('countrrtr ${cartController.countryCode.toString()}');
                           if (previous != selectedCountry!.id.toString()) {
-                            getStateList(countryId: gg, reset: true).then((value) {
+                            countryIddd = gg.toString();
+                            getStateList(countryId: countryIddd.toString(), reset: true).then((value) {
                               setState(() {});
                             });
                             setState(() {});
@@ -384,6 +397,10 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                   controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ??  stateController.text),
                   readOnly: true,
                   onTap: () {
+                    if(countryIddd == 'null'){
+                      showToast("Select Country First");
+                      return;
+                    }
                     if (modelStateList == null && stateRefresh.value > 0) {
                       showToast("Select Country First");
                       return;
@@ -405,7 +422,8 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                           print('state ${cartController.stateCode.toString()}');
                           print('stateNameee ${cartController.stateName.toString()}');
                           if (previous != selectedState!.stateId.toString()) {
-                            getCityList(stateId: gg, reset: true).then((value) {
+                            stateIddd = gg.toString();
+                            getCityList(stateId: stateIddd.toString(), reset: true).then((value) {
                               setState(() {});
                             });
                             setState(() {});
@@ -426,7 +444,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     return null;
                   },
                 ),
-                // if (modelCityList != null && modelCityList!.city!.isNotEmpty)
+                if (modelCityList != null && modelCityList!.city!.isNotEmpty)
                   ...fieldWithName(
                     readOnly: true,
                     title: 'City',

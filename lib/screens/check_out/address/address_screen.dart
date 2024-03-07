@@ -541,6 +541,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                       onTap: () {
                                         cartController.selectedAddress = address;
                                         cartController.countryName.value = address.country.toString();
+                                        print('onTap is....${cartController.countryName.value}');
                                         if(cartController.isDelivery.value == true){
                                           cartController.addressDeliFirstName.text = cartController.selectedAddress.getFirstName;
                                           cartController.addressDeliLastName.text = cartController.selectedAddress.getLastName;

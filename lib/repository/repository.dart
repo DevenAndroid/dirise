@@ -104,6 +104,7 @@ class Repositories {
       showToast("No Internet Access");
       throw Exception(e);
     } catch (e) {
+      log("API Response Url222........  $url");
       Helpers.hideLoader(loader);
       throw Exception(e);
     }
