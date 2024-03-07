@@ -117,8 +117,8 @@ class CartController extends GetxController {
       "refund_amount_in": "bank",
       "shipping_method": "online",
       "currency_sign": "kwd",
-      'callback_url': 'https://dirise.eoxyslive.com/home/$navigationBackUrl',
-      'failure_url': 'https://dirise.eoxyslive.com/home/$failureUrl',
+      'callback_url': 'https://diriseapp.com/home/$navigationBackUrl',
+      'failure_url': 'https://diriseapp.com/home/$failureUrl',
       "shipping": [
         {"store_id": storeIdShipping!= '' ? storeIdShipping.toString() : '0', "store_name": storeNameShipping.toString(), "title": 'free_shipping_over', "ship_price": '10' , "shipping_type_id": shippingList.isNotEmpty ? shippingList.join(',') : ''}
       ],

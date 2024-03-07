@@ -16,6 +16,7 @@ import '../../../utils/api_constant.dart';
 import '../../../widgets/common_colour.dart';
 import '../../../widgets/common_textfield.dart';
 import '../../../widgets/loading_animation.dart';
+import '../../auth_screens/login_screen.dart';
 import '../../my_account_screens/editprofile_screen.dart';
 import 'edit_address.dart';
 
@@ -156,7 +157,8 @@ class _AddressScreenState extends State<AddressScreen> {
                             if (userLoggedIn) {
                               bottomSheetChangeAddress();
                             } else {
-                              addAddressWithoutLogin(addressData: cartController.selectedAddress);
+                              // addAddressWithoutLogin(addressData: cartController.selectedAddress);
+                              Get.toNamed(LoginScreen.route,);
                             }
                           },
                           child: DottedBorder(
@@ -186,7 +188,10 @@ class _AddressScreenState extends State<AddressScreen> {
                               if (userLoggedIn) {
                                 bottomSheetChangeAddress();
                               } else {
-                                addAddressWithoutLogin(addressData: cartController.selectedAddress);
+                                // addAddressWithoutLogin(addressData: cartController.selectedAddress);
+                                Get.toNamed(
+                                  LoginScreen.route,
+                                );
                               }
                             },
                             child: Align(

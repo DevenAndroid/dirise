@@ -24,6 +24,7 @@ import '../../utils/styles.dart';
 import '../../widgets/common_colour.dart';
 import '../../widgets/common_textfield.dart';
 import '../../widgets/loading_animation.dart';
+import '../auth_screens/login_screen.dart';
 import '../my_account_screens/editprofile_screen.dart';
 
 class DirectCheckOutScreen extends StatefulWidget {
@@ -1179,7 +1180,10 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                     if (userLoggedIn) {
                       bottomSheetChangeAddress();
                     } else {
-                      addAddressWithoutLogin(addressData: selectedAddress);
+                      // addAddressWithoutLogin(addressData: selectedAddress);
+                      Get.toNamed(
+                        LoginScreen.route,
+                      );
                     }
                   },
                   child: DottedBorder(
@@ -1209,7 +1213,10 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                       if (userLoggedIn) {
                         bottomSheetChangeAddress();
                       } else {
-                        addAddressWithoutLogin(addressData: selectedAddress);
+                        // addAddressWithoutLogin(addressData: selectedAddress);
+                        Get.toNamed(
+                          LoginScreen.route,
+                        );
                       }
                     },
                     child: Align(
