@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/auth_screens/login_screen.dart';
@@ -17,7 +18,10 @@ import '../../controller/home_controller.dart';
 import '../../controller/profile_controller.dart';
 import '../../freshchat.dart';
 import '../../model/model_address_list.dart';
+import '../../model/model_user_delete.dart';
 import '../../posts/posts_ui.dart';
+import '../../repository/repository.dart';
+import '../../utils/api_constant.dart';
 import '../../vendor/authentication/vendor_plans_screen.dart';
 import '../../vendor/dashboard/dashboard_screen.dart';
 import '../../vendor/dashboard/store_open_time_screen.dart';
@@ -164,6 +168,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   void registerFcmToken() async {
     if (Platform.isAndroid) {
       String? token = await FirebaseMessaging.instance.getToken();
+      String? token1 = await FirebaseMessaging.instance.getToken();
       print("FCM Token is generated $token");
       Freshchat.setPushRegistrationToken(token!);
     }
@@ -225,6 +230,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
     }
   }
+
+  final Repositories repositories = Repositories();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -911,6 +918,78 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
                             const Spacer(),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0x1A000000),
+                      ),
+                      ListTile(
+                        onTap: () {
+
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Delete Account'),
+                              content: const Text('Do You Want To Delete Your Account'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Get.back(),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    if (profileController.userLoggedIn) {
+                                      Rx<UserDeleteModel> deleteModal = UserDeleteModel().obs;
+
+                                      Map<String, dynamic> map = {};
+
+                                      repositories.postApi(url: ApiUrls.deleteUser, mapData: map).then((value) {
+                                        deleteModal.value = UserDeleteModel.fromJson(jsonDecode(value));
+                                        if(  deleteModal.value.status == true){     Get.toNamed(LoginScreen.route);}
+
+                                      });
+
+
+
+                                    } else {
+                                      showToast("Login first");
+                                      // Get.toNamed(LoginScreen.route);
+                                    }
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+
+                        },
+                        dense: true,
+                        minLeadingWidth: 0,
+                        contentPadding: EdgeInsets.zero,
+                        minVerticalPadding: 0,
+                        visualDensity: const VisualDensity(vertical: -4, horizontal: -4),
+                        title: Row(
+                          children: [
+                            Image.asset(height: 25, 'assets/icons/drawerprofile.png'),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: Text(
+                                AppStrings.deleteAccount.tr,
+                                style: GoogleFonts.poppins(
+                                    color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                            ),
                             const Icon(
                               Icons.arrow_forward_ios,
                               size: 15,

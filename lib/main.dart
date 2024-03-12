@@ -12,6 +12,7 @@ import 'utils/notification_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   NotificationService().initializeNotification();
   runApp(const MyApp());

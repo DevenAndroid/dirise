@@ -29,14 +29,16 @@ class _SliderWidgetState extends State<SliderWidget> {
           ? Column(
               children: [
                 Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 18),
                     child: SizedBox(
-                      height: size.height * 0.22,
+                      height: size.height * 0.25,
                       child: Swiper(
+
                         autoplay: true,
+
                         outer: false,
                         autoplayDelay: 5000,
-                        autoplayDisableOnInteraction: true,
+                        autoplayDisableOnInteraction: false,
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             child: Padding(
@@ -53,7 +55,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                           );
                         },
                         itemCount: homeController.homeModal.value.home!.slider!.length,
-                        pagination: const SwiperPagination(),
+                        // pagination: const SwiperPagination(),
                         control: const SwiperControl(size: 0), // remove arrows
                       ),
                     )

@@ -6,6 +6,7 @@ import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,13 +40,22 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   final Repositories repositories = Repositories();
   RxBool hide = true.obs;
+  String? token = "";
   loginUserApi()  async {
     if (loginFormKey.currentState!.validate()) {
-      String? token = await FirebaseMessaging.instance.getToken();
+// if(Platform.isIOS){
+//   String? token = await FirebaseMessaging.instance.getAPNSToken();
+// }
+// if(Platform.isAndroid){
+//   String? token = await FirebaseMessaging.instance.getAPNSToken();
+// }
+      String? token1 = await FirebaseMessaging.instance.getAPNSToken();
+  String? token = await FirebaseMessaging.instance.getToken();
+
       Map<String, dynamic> map = {};
       map['email'] = emailController.text.trim();
       map['password'] = passwordController.text.trim();
-      map['fcm_token'] = token.toString();
+      map['fcm_token'] = kIsWeb ? token.toString() : (Platform.isAndroid ? token : token1);
       repositories.postApi(url: ApiUrls.loginUrl, context: context, mapData: map).then((value) async {
         LoginModal response = LoginModal.fromJson(jsonDecode(value));
         repositories.saveLoginDetails(jsonEncode(response));

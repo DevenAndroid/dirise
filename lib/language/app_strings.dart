@@ -3,7 +3,7 @@ class AppStrings{
 
   static String home = "Home";
   static String categories = "Categories";
-  static String favorite = "Favorite";
+  static String favorite = "Favourite";
   static String profile = "Profile";
   static String otpHasBeenSent = "OPT has been sent to your given email address.\nVerify email to place order.";
   static String doNotReceivedOtp = "Didn't you receive the OTP?";
@@ -17,6 +17,7 @@ class AppStrings{
   static String whatAreYouLooking = "What are you  looking for ... we back you !";
   static String myFavourite = "My Favourite";
     static String myProfile = "Account Details";
+    static String deleteAccount = "Delete Account";
     static String guestUser = "Guest User";
     static String eBooks = "Ebook";
     static String orders = "Orders";
