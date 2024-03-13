@@ -75,9 +75,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseMessaging.instance.getToken().then((value) {
-      print(value);
-    });
+    // FirebaseMessaging.instance.getToken().then((value) {
+    //   print(value);
+    // });
     return WillPopScope(
       onWillPop: () async {
         if (bottomController.pageIndex.value != 0) {

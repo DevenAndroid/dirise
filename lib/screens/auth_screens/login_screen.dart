@@ -42,6 +42,8 @@ class _LoginScreenState extends State<LoginScreen> {
   RxBool hide = true.obs;
   String? token = "";
   loginUserApi()  async {
+    String? token1 = await FirebaseMessaging.instance.getAPNSToken();
+    String? token = await FirebaseMessaging.instance.getToken();
     if (loginFormKey.currentState!.validate()) {
 // if(Platform.isIOS){
 //   String? token = await FirebaseMessaging.instance.getAPNSToken();
@@ -49,13 +51,12 @@ class _LoginScreenState extends State<LoginScreen> {
 // if(Platform.isAndroid){
 //   String? token = await FirebaseMessaging.instance.getAPNSToken();
 // }
-      String? token1 = await FirebaseMessaging.instance.getAPNSToken();
-  String? token = await FirebaseMessaging.instance.getToken();
+
 
       Map<String, dynamic> map = {};
       map['email'] = emailController.text.trim();
       map['password'] = passwordController.text.trim();
-      map['fcm_token'] = kIsWeb ? token.toString() : (Platform.isAndroid ? token : token1);
+      map['fcm_token'] = Platform.isAndroid?token:token1;
       repositories.postApi(url: ApiUrls.loginUrl, context: context, mapData: map).then((value) async {
         LoginModal response = LoginModal.fromJson(jsonDecode(value));
         repositories.saveLoginDetails(jsonEncode(response));

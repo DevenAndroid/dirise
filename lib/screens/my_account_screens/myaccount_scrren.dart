@@ -62,7 +62,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString("app_language", gg);
   }
-
+  Rx<UserDeleteModel> deleteModal = UserDeleteModel().obs;
   checkLanguage() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("app_language") == null ||
@@ -948,13 +948,19 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                 TextButton(
                                   onPressed: () {
                                     if (profileController.userLoggedIn) {
-                                      Rx<UserDeleteModel> deleteModal = UserDeleteModel().obs;
-
-                                      Map<String, dynamic> map = {};
-
-                                      repositories.postApi(url: ApiUrls.deleteUser, mapData: map).then((value) {
+                                      repositories.postApi(url: ApiUrls.deleteUser,context: context).then((value) async {
                                         deleteModal.value = UserDeleteModel.fromJson(jsonDecode(value));
-                                        if(  deleteModal.value.status == true){     Get.toNamed(LoginScreen.route);}
+                                        if(  deleteModal.value.status == true){
+                                          SharedPreferences shared = await SharedPreferences.getInstance();
+                                          await shared.clear();
+                                          setState(() {});
+                                          Get.toNamed(LoginScreen.route);
+                                          profileController.userLoggedIn = false;
+                                          profileController.updateUI();
+                                          profileController.getDataProfile();
+                                          cartController.getCart();
+                                          homeController.getAll();
+                                        }
 
                                       });
 
