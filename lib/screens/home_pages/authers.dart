@@ -33,26 +33,26 @@ class _AuthorScreenState extends State<AuthorScreen> {
                         AppStrings.shopByAuthor.tr,
                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                        child: InkWell(
-                          onTap: () {
-                            // index1 = index1 + 1;
-                            // setState(() {
-                            //   if (index1 == homeController.authorModal.value.data!.length - 1) {
-                            //     index1 = 0;
-                            //   }
-                            // });
-                            // scrollToItem2(index1);
-                          },
-                          child: const Icon(
-                            Icons.arrow_forward,
-                            color: AppTheme.buttonColor,
-                          ),
-                        ),
-                      )
+                      // Container(
+                      //   padding: const EdgeInsets.all(2),
+                      //   decoration: BoxDecoration(
+                      //       shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                      //   child: InkWell(
+                      //     onTap: () {
+                      //       // index1 = index1 + 1;
+                      //       // setState(() {
+                      //       //   if (index1 == homeController.authorModal.value.data!.length - 1) {
+                      //       //     index1 = 0;
+                      //       //   }
+                      //       // });
+                      //       // scrollToItem2(index1);
+                      //     },
+                      //     child: const Icon(
+                      //       Icons.arrow_forward,
+                      //       color: AppTheme.buttonColor,
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),

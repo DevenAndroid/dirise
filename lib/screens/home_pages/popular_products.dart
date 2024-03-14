@@ -32,26 +32,26 @@ class _PopularProductsState extends State<PopularProducts> {
                         AppStrings.popularProducts.tr,
                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
                       ),
-                      InkWell(
-                        onTap: () {
-                          // index1 = index1 + 1;
-                          // setState(() {
-                          //   if (index1 == homeController.popularProdModal.value.product!.product!.length - 1) {
-                          //     index1 = 0;
-                          //   }
-                          // });
-                          // scrollToItem1(index1);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
-                          child: const Icon(
-                            Icons.arrow_forward,
-                            color: AppTheme.buttonColor,
-                          ),
-                        ),
-                      )
+                      // InkWell(
+                      //   onTap: () {
+                      //     // index1 = index1 + 1;
+                      //     // setState(() {
+                      //     //   if (index1 == homeController.popularProdModal.value.product!.product!.length - 1) {
+                      //     //     index1 = 0;
+                      //     //   }
+                      //     // });
+                      //     // scrollToItem1(index1);
+                      //   },
+                      //   child: Container(
+                      //     padding: const EdgeInsets.all(2),
+                      //     decoration: BoxDecoration(
+                      //         shape: BoxShape.circle, border: Border.all(color: AppTheme.buttonColor, width: 1.2)),
+                      //     child: const Icon(
+                      //       Icons.arrow_forward,
+                      //       color: AppTheme.buttonColor,
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
