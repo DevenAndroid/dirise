@@ -31,7 +31,7 @@ class _VendorDashBoardScreenState extends State<VendorDashBoardScreen> {
   @override
   void initState() {
     super.initState();
-    vendorProfileController.getVendorDetails();
+    // vendorProfileController.getVendorDetails();
     controller.getVendorDashBoard();
   }
 

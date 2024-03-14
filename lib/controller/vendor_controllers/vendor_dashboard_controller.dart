@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dirise/repository/delete_user_repo.dart';
 import 'package:dirise/repository/repository.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,22 @@ class VendorDashboardController extends GetxController {
   RxInt refreshInt = 0.obs;
 
   void get updateUI => refreshInt.value = DateTime.now().millisecondsSinceEpoch;
-
+  // getVendorDashBoard() {
+  //   dashboardRepo().then((value) async {
+  //     modelVendorDashboard = value;
+  //     if (value.status == true) {
+  //       modelVendorDashboard.status = true;
+  //                modelVendorDashboard.dashboard ??= Dashboard();
+  //                   modelVendorDashboard.order ??= [];
+  //
+  //       // holder();
+  //     } else {
+  //       // statusOfLogout.value = RxStatus.error();
+  //     }
+  //
+  //     print('logout response${value.message.toString()}');
+  //   });
+  // }
   Future getVendorDashBoard() async {
     await repositories
         .postApi(
@@ -20,6 +36,7 @@ class VendorDashboardController extends GetxController {
             withStatus: (int status, String body) {
               modelVendorDashboard = ModelVendorDashboard.fromJson(jsonDecode(body));
               if (status == 200) {
+                print(body.toString());
                 modelVendorDashboard.status = true;
                 modelVendorDashboard.dashboard ??= Dashboard();
                 modelVendorDashboard.order ??= [];
