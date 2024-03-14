@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../controller/profile_controller.dart';
 import '../../model/login_model.dart';
 import '../../model/social_login_model.dart';
 import '../../repository/repository.dart';
@@ -39,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final Repositories repositories = Repositories();
+  final profileController = Get.put(ProfileController());
   RxBool hide = true.obs;
   String? token = "";
   loginUserApi()  async {
@@ -301,6 +303,7 @@ class _LoginScreenState extends State<LoginScreen> {
       repositories.saveLoginDetails(jsonEncode(response));
       if (response.status == true) {
         showToast(response.message.toString());
+        profileController.userLoggedIn = true;
         Get.offAllNamed(BottomNavbar.route);
       } else {
         showToast(response.message.toString());

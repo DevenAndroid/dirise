@@ -16,7 +16,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/profile_controller.dart';
-import '../../controller/vendor_controllers/vendor_dashboard_controller.dart';
 import '../../freshchat.dart';
 import '../../model/model_address_list.dart';
 import '../../model/model_user_delete.dart';
@@ -57,7 +56,7 @@ enum SingingCharacter { lafayette, jefferson }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
   RxString selectedLAnguage = "English".obs;
-  final controller = Get.put(VendorDashboardController());
+
 
   updateLanguage(String gg) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -1568,9 +1567,7 @@ List<Widget> vendorPartner() {
                                       Expanded(
                                         child: TextButton(
                                           onPressed: () {
-
-                                           // controller.getVendorDashBoard();
-                                  Get.toNamed(vendorRoutes[index]);
+                                            Get.toNamed(vendorRoutes[index]);
                                           },
                                           style: TextButton.styleFrom(
                                               visualDensity: const VisualDensity(vertical: -3, horizontal: -3),

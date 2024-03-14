@@ -33,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppStrings.myProfile1,
+          AppStrings.myProfile1.tr,
           style: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
         ),
         centerTitle: true,

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'controller/profile_controller.dart';
 import 'language/local_string.dart';
 import 'utils/notification_service.dart';
 
@@ -26,21 +27,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  updateLanguage() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString("app_language") == null ||
-        sharedPreferences.getString("app_language") == "english") {
-      Get.updateLocale(const Locale('en', 'US'));
-    } else {
-      Get.updateLocale(const Locale('ro', 'Ro'));
-    }
-  }
 
-  @override
-  void initState() {
-    super.initState();
-    updateLanguage();
-  }
+  // final profileController = Get.put(ProfileController());
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   profileController.checkLanguage();
+  // }
 
   @override
   Widget build(BuildContext context) {

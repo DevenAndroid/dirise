@@ -217,7 +217,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppStrings.publishPostScreen,
+          AppStrings.publishPostScreen.tr,
           style: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
         ),
         centerTitle: true,

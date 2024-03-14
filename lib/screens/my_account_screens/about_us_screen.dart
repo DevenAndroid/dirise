@@ -50,7 +50,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
-                    AppStrings.aboutUs,
+                    AppStrings.aboutUs.tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                   )
                 ],

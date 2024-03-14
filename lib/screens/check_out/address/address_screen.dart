@@ -173,7 +173,7 @@ class _AddressScreenState extends State<AddressScreen> {
                               child: cartController.selectedAddress.id != null
                                   ? Text(cartController.selectedAddress.getShortAddress,
                                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16))
-                                  : Text("Choose Address ",
+                                  : Text("Choose Address".tr,
                                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
                             ),
                           ),
@@ -681,7 +681,7 @@ List<Widget> commonField({
       height: 5,
     ),
     Text(
-      title,
+      title.tr,
       style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, color: const Color(0xff585858)),
     ),
     const SizedBox(
@@ -690,7 +690,7 @@ List<Widget> commonField({
     CommonTextField(
       controller: textController,
       obSecure: false,
-      hintText: hintText,
+      hintText: hintText.tr,
       validator: validator,
       keyboardType: keyboardType,
     ),

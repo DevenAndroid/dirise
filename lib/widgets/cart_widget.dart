@@ -28,7 +28,7 @@ class _CartBagCardState extends State<CartBagCard> {
           Get.toNamed(BagsScreen.route);
         },
         child: Padding(
-          padding: const EdgeInsets.only(right: 15, top: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
           child: Container(
             alignment: Alignment.center,
             height: 40,
