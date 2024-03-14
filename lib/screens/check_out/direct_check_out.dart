@@ -395,6 +395,92 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             ),
                           ),
                         ],
+                      ),
+                    if ( selectedAddress.id != null && directOrderResponse.prodcutData!.isShipping == true
+                        && directOrderResponse.vendorCountryId != '117' || cartController.countryName.value != 'Kuwait')
+                      Column(
+                        children: [
+                          Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/images/shipping_icon.png', height: 32, width: 32),
+                                  20.spaceX,
+                                  Text("Fedex Shipping Method".tr,
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            color: Colors.white,
+                            child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount:    directOrderResponse.fedexShipping!.length,
+                              padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15).copyWith(top: 0),
+                              itemBuilder: (context, ii) {
+                                var product = directOrderResponse.fedexShipping![ii].output!.rateReplyDetails![ii];
+                                return Obx(() {
+                                  return Column(
+                                    children: [
+                                      10.spaceY,
+                                      ii == 0 ? 0.spaceY : const Divider(
+                                        color: Color(0xFFD9D9D9),
+                                        thickness: 0.8,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Radio(
+                                            value: product.serviceType.toString(),
+                                            groupValue: directOrderResponse.fedexShippingOption.value,
+                                            visualDensity: const VisualDensity(horizontal: -4.0),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                directOrderResponse.fedexShippingOption.value = value.toString();
+                                                // cartController.shippingId =  directOrderResponse.shippingOption.value;
+                                                // log( directOrderResponse.shippingOption.value);
+                                                // log(cartController.shippingId);
+                                              });
+                                            },
+                                          ),
+                                          20.spaceX,
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(product.serviceName
+                                                  .toString()
+                                                  .capitalize!
+                                                  .replaceAll('_', ' '),
+                                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
+                                              3.spaceY,
+                                              Text('kwd ${product.ratedShipmentDetails![ii].totalNetCharge.toString()}',
+                                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w400,
+                                                      fontSize: 16,
+                                                      color: const Color(0xFF03a827))),
+                                              3.spaceY,
+                                              Text('${product.operationalDetail!.deliveryDay.toString()}  ${product.operationalDetail!.deliveryDate.toString()}',
+                                                  style: GoogleFonts.poppins(fontWeight: FontWeight.w400,
+                                                      fontSize: 15,
+                                                      fontStyle: FontStyle.italic,
+                                                      color: const Color(0xFF000000))),
+                                            ],
+                                          ),
+                                          // Text(product.name.toString().capitalize!.replaceAll('_', ' '),
+                                          //     style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 16)),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                });
+                                // : 0.spaceY,;
+                              },
+                            ),
+                          ),
+                        ],
                       )
                   ],
                 )
@@ -865,6 +951,10 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                 Scrollable.ensureVisible(context1, duration: const Duration(milliseconds: 650));
               }
               showToast("Select delivery address to complete order".tr);
+              return;
+            }
+            if (directOrderResponse.fedexShippingOption.isEmpty && cartController.countryName.value != 'Kuwait') {
+              showToast("Please select shipping Method".tr);
               return;
             }
             cartController.dialogOpened = false;

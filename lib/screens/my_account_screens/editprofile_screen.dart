@@ -645,7 +645,7 @@ List<Widget> fieldWithName(
       Widget? suffixIcon}) {
   return [
     Text(
-      title,
+      title.tr,
       style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
     ),
     const SizedBox(

@@ -372,7 +372,7 @@ class _SingleCategoriesState extends State<SingleCategories> {
               ),
             if (modelCategoryStores != null && modelCategoryStores!.isEmpty)
               SliverToBoxAdapter(
-                child: Center(child: Text(AppStrings.notHaveAnyProduct)),
+                child: Center(child: Text(AppStrings.notHaveAnyProduct.tr)),
               ),
             SliverToBoxAdapter(
               child: Obx(() {

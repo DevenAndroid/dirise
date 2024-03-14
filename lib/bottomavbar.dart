@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'controller/cart_controller.dart';
 import 'controller/homepage_controller.dart';
 import 'controller/profile_controller.dart';
@@ -36,6 +37,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const WishListScreen(),
     const MyAccountScreen(),
   ];
+
+
 
   bool allowExitApp = false;
 

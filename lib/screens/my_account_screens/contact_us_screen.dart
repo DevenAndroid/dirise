@@ -98,7 +98,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
-                    AppStrings.contactUs,
+                    AppStrings.contactUs.tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                   )
                 ],
@@ -124,7 +124,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('Drop us a Line',
+                    Text('Drop us a Line'.tr,
                       style: GoogleFonts.poppins(
                           color: AppTheme.buttonColor,
                           fontSize: 15,
@@ -132,7 +132,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                     ),
                     addHeight(5),
-                    Text('Get in touch with us',
+                    Text('Get in touch with us'.tr,
                       style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontSize: 17,
@@ -141,28 +141,28 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     ),
                     addHeight(20),
                     CommonTextField(
-                      hintText: 'Your Name',
+                      hintText: 'Your Name'.tr,
                       controller: nameController,
                     ),
                     addHeight(7),
                     CommonTextField(
-                      hintText: 'Your Email',
+                      hintText: 'Your Email'.tr,
                       controller: emailController,
                     ),
                     addHeight(7),
                     CommonTextField(
-                      hintText: 'Phone Number',
+                      hintText: 'Phone Number'.tr,
                       controller: phoneController,
                       keyboardType: TextInputType.phone,
                     ),
                     addHeight(7),
                     CommonTextField(
-                      hintText: 'Company',
+                      hintText: 'Company'.tr,
                       controller: companyController,
                     ),
                     addHeight(7),
                     CommonTextField(
-                      hintText: 'Message',
+                      hintText: 'Message'.tr,
                       controller: messageController,
                       isMulti: true,
                     ),
@@ -179,7 +179,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             color: AppTheme.buttonColor
                         ),
                         child: Center(
-                          child: Text('Send Message',
+                          child: Text('Send Message'.tr,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(color: const Color(0xFFFFFFFF),
                                 fontSize: 16,
@@ -210,19 +210,19 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     children: [
                       IconColumnRowWidget(
                         iconData: 'assets/icons/phone_icon.svg',
-                        title: 'Phone Number',
+                        title: 'Phone Number'.tr,
                         subtitle: contactusEmailModal.value.data!.helpNumber.toString(),
                       ),
                       addHeight(30),
                       IconColumnRowWidget(
                         iconData: 'assets/icons/Icon ionic-ios-mail.svg',
-                        title: 'Support email',
+                        title: 'Support email'.tr,
                         subtitle: contactusEmailModal.value.data!.supportEmail.toString(),
                       ),
                       addHeight(30),
                       IconColumnRowWidget(
                         iconData: 'assets/images/address.svg',
-                        title: 'Chatbot',
+                        title: 'Chatbot'.tr,
                         subtitle: '+965 9876 2557',
                       ),
                       addHeight(50),

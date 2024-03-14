@@ -239,7 +239,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     }),
                 ...commonField(
                     textController: firstNameController,
-                    title: "First Name*",
+                    title: "First Name *",
                     hintText: "First Name",
                     keyboardType: TextInputType.name,
                     validator: (value) {
@@ -250,7 +250,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     }),
                 ...commonField(
                     textController: lastNameController,
-                    title: "Last Name*",
+                    title: "Last Name *",
                     hintText: "Last Name",
                     keyboardType: TextInputType.name,
                     validator: (value) {
@@ -261,7 +261,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     }),
                 ...commonField(
                     textController: emailController,
-                    title: "Email*",
+                    title: "Email *",
                     hintText: "Enter your email",
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
@@ -279,7 +279,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     ),
                 ...commonField(
                     textController: phoneController,
-                    title: "Phone*",
+                    title: "Phone *",
                     hintText: "Enter your phone number",
                     keyboardType: TextInputType.number,
                     validator: (value) {
@@ -296,7 +296,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     }),
                 ...commonField(
                     textController: alternatePhoneController,
-                    title: "Alternate Phone",
+                    title: "Alternate Phone *",
                     hintText: "Enter your alternate phone number",
                     keyboardType: TextInputType.number,
                     validator: (value) {

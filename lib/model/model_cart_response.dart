@@ -2,7 +2,7 @@ import 'package:dirise/utils/helper.dart';
 import 'package:collection/collection.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 class ModelCartResponse {
-  bool? status;
+  dynamic status;
   dynamic message;
   dynamic subtotal;
   dynamic shipping;
@@ -10,7 +10,7 @@ class ModelCartResponse {
   dynamic discount;
   Cart? cart;
   // String get totalProducts2 => cart!.getAllProducts.map((e) => e.map((e1) => e1.products!.map((e2) => e2.qty).toString().toNum).toList().getTotal).toList().getTotal.toString();
-  String? totalProducts;
+  dynamic totalProducts;
 
 
 
@@ -83,6 +83,8 @@ class Cart {
 class StoreData {
   List<Products>? products;
   List<ShippingTypes>? shippingTypes;
+  FedexShipping? fedexShipping;
+  RxString fedexShippingOption = "".obs;
   List<ShippingTypes>? selectedContacts;
   RxString shippingOption = "".obs;
   RxInt shippingId = 0.obs;
@@ -105,6 +107,7 @@ class StoreData {
         shippingTypes!.add(ShippingTypes.fromJson(v));
       });
     }
+    fedexShipping = json['fedex_shipping'] != null ? FedexShipping.fromJson(json['fedex_shipping']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -116,10 +119,602 @@ class StoreData {
       data['shipping_types'] =
           shippingTypes!.map((v) => v.toJson()).toList();
     }
+    data['fedex_shipping'] = fedexShipping!.toJson();
     return data;
   }
 }
 
+class FedexShipping {
+  dynamic transactionId;
+  Output? output;
+
+  FedexShipping({this.transactionId, this.output});
+
+  FedexShipping.fromJson(Map<String, dynamic> json) {
+    transactionId = json['transactionId'];
+    output = json['output'] != null ? Output.fromJson(json['output']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['transactionId'] = transactionId;
+    if (output != null) {
+      data['output'] = output!.toJson();
+    }
+    return data;
+  }
+}
+
+class Output {
+  List<Alerts>? alerts;
+  List<RateReplyDetails>? rateReplyDetails;
+  dynamic quoteDate;
+  dynamic encoded;
+
+  Output({this.alerts, this.rateReplyDetails, this.quoteDate, this.encoded});
+
+  Output.fromJson(Map<String, dynamic> json) {
+    if (json['alerts'] != null) {
+      alerts = <Alerts>[];
+      json['alerts'].forEach((v) { alerts!.add(Alerts.fromJson(v)); });
+    }
+    if (json['rateReplyDetails'] != null) {
+      rateReplyDetails = <RateReplyDetails>[];
+      json['rateReplyDetails'].forEach((v) { rateReplyDetails!.add(RateReplyDetails.fromJson(v)); });
+    }
+    quoteDate = json['quoteDate'];
+    encoded = json['encoded'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    if (alerts != null) {
+      data['alerts'] = alerts!.map((v) => v.toJson()).toList();
+    }
+    if (rateReplyDetails != null) {
+      data['rateReplyDetails'] = rateReplyDetails!.map((v) => v.toJson()).toList();
+    }
+    data['quoteDate'] = quoteDate;
+    data['encoded'] = encoded;
+    return data;
+  }
+}
+class Alerts {
+  dynamic code;
+  dynamic message;
+  dynamic alertType;
+
+  Alerts({this.code, this.message, this.alertType});
+
+  Alerts.fromJson(Map<String, dynamic> json) {
+    code = json['code'];
+    message = json['message'];
+    alertType = json['alertType'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['code'] = code;
+    data['message'] = message;
+    data['alertType'] = alertType;
+    return data;
+  }
+}
+
+class RateReplyDetails {
+  dynamic serviceType;
+  dynamic serviceName;
+  dynamic packagingType;
+  Commit? commit;
+  List<CustomerMessages>? customerMessages;
+  List<RatedShipmentDetails>? ratedShipmentDetails;
+  OperationalDetail? operationalDetail;
+  dynamic signatureOptionType;
+  ServiceDescription? serviceDescription;
+  dynamic deliveryStation;
+
+  RateReplyDetails({this.serviceType, this.serviceName, this.packagingType, this.commit, this.customerMessages, this.ratedShipmentDetails, this.operationalDetail, this.signatureOptionType, this.serviceDescription, this.deliveryStation});
+
+  RateReplyDetails.fromJson(Map<String, dynamic> json) {
+    serviceType = json['serviceType'];
+    serviceName = json['serviceName'];
+    packagingType = json['packagingType'];
+    commit = json['commit'] != null ? Commit.fromJson(json['commit']) : null;
+    if (json['customerMessages'] != null) {
+      customerMessages = <CustomerMessages>[];
+      json['customerMessages'].forEach((v) { customerMessages!.add(CustomerMessages.fromJson(v)); });
+    }
+    if (json['ratedShipmentDetails'] != null) {
+      ratedShipmentDetails = <RatedShipmentDetails>[];
+      json['ratedShipmentDetails'].forEach((v) { ratedShipmentDetails!.add(RatedShipmentDetails.fromJson(v)); });
+    }
+    operationalDetail = json['operationalDetail'] != null ? OperationalDetail.fromJson(json['operationalDetail']) : null;
+    signatureOptionType = json['signatureOptionType'];
+    serviceDescription = json['serviceDescription'] != null ? ServiceDescription.fromJson(json['serviceDescription']) : null;
+    deliveryStation = json['deliveryStation'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['serviceType'] = serviceType;
+    data['serviceName'] = serviceName;
+    data['packagingType'] = packagingType;
+    if (commit != null) {
+      data['commit'] = commit!.toJson();
+    }
+    if (customerMessages != null) {
+      data['customerMessages'] = customerMessages!.map((v) => v.toJson()).toList();
+    }
+    if (ratedShipmentDetails != null) {
+      data['ratedShipmentDetails'] = ratedShipmentDetails!.map((v) => v.toJson()).toList();
+    }
+    if (operationalDetail != null) {
+      data['operationalDetail'] = operationalDetail!.toJson();
+    }
+    data['signatureOptionType'] = signatureOptionType;
+    if (serviceDescription != null) {
+      data['serviceDescription'] = serviceDescription!.toJson();
+    }
+    data['deliveryStation'] = deliveryStation;
+    return data;
+  }
+}
+
+class Commit {
+  dynamic label;
+  dynamic commitMessageDetails;
+  dynamic commodityName;
+  List<String>? deliveryMessages;
+  DerivedOriginDetail? derivedOriginDetail;
+  DerivedDestinationDetail? derivedDestinationDetail;
+  dynamic saturdayDelivery;
+
+  Commit({this.label, this.commitMessageDetails, this.commodityName, this.deliveryMessages, this.derivedOriginDetail, this.derivedDestinationDetail, this.saturdayDelivery});
+
+  Commit.fromJson(Map<String, dynamic> json) {
+    label = json['label'];
+    commitMessageDetails = json['commitMessageDetails'];
+    commodityName = json['commodityName'];
+    deliveryMessages = json['deliveryMessages'].cast<String>();
+    derivedOriginDetail = json['derivedOriginDetail'] != null ? DerivedOriginDetail.fromJson(json['derivedOriginDetail']) : null;
+    derivedDestinationDetail = json['derivedDestinationDetail'] != null ? DerivedDestinationDetail.fromJson(json['derivedDestinationDetail']) : null;
+    saturdayDelivery = json['saturdayDelivery'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['label'] = label;
+    data['commitMessageDetails'] = commitMessageDetails;
+    data['commodityName'] = commodityName;
+    data['deliveryMessages'] = deliveryMessages;
+    if (derivedOriginDetail != null) {
+      data['derivedOriginDetail'] = derivedOriginDetail!.toJson();
+    }
+    if (derivedDestinationDetail != null) {
+      data['derivedDestinationDetail'] = derivedDestinationDetail!.toJson();
+    }
+    data['saturdayDelivery'] = saturdayDelivery;
+    return data;
+  }
+}
+class DerivedOriginDetail {
+  dynamic countryCode;
+  dynamic postalCode;
+  dynamic serviceArea;
+  dynamic locationId;
+  dynamic locationNumber;
+
+  DerivedOriginDetail({this.countryCode, this.postalCode, this.serviceArea, this.locationId, this.locationNumber});
+
+  DerivedOriginDetail.fromJson(Map<String, dynamic> json) {
+    countryCode = json['countryCode'];
+    postalCode = json['postalCode'];
+    serviceArea = json['serviceArea'];
+    locationId = json['locationId'];
+    locationNumber = json['locationNumber'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['countryCode'] = countryCode;
+    data['postalCode'] = postalCode;
+    data['serviceArea'] = serviceArea;
+    data['locationId'] = locationId;
+    data['locationNumber'] = locationNumber;
+    return data;
+  }
+}
+
+class DerivedDestinationDetail {
+  dynamic countryCode;
+  dynamic stateOrProvinceCode;
+  dynamic postalCode;
+  dynamic serviceArea;
+  dynamic locationId;
+  dynamic locationNumber;
+  dynamic airportId;
+
+  DerivedDestinationDetail({this.countryCode, this.stateOrProvinceCode, this.postalCode, this.serviceArea, this.locationId, this.locationNumber, this.airportId});
+
+  DerivedDestinationDetail.fromJson(Map<String, dynamic> json) {
+    countryCode = json['countryCode'];
+    stateOrProvinceCode = json['stateOrProvinceCode'];
+    postalCode = json['postalCode'];
+    serviceArea = json['serviceArea'];
+    locationId = json['locationId'];
+    locationNumber = json['locationNumber'];
+    airportId = json['airportId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['countryCode'] = countryCode;
+    data['stateOrProvinceCode'] = stateOrProvinceCode;
+    data['postalCode'] = postalCode;
+    data['serviceArea'] = serviceArea;
+    data['locationId'] = locationId;
+    data['locationNumber'] = locationNumber;
+    data['airportId'] = airportId;
+    return data;
+  }
+}
+
+class CustomerMessages {
+  dynamic code;
+  dynamic message;
+
+  CustomerMessages({this.code, this.message});
+
+  CustomerMessages.fromJson(Map<String, dynamic> json) {
+    code = json['code'];
+    message = json['message'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['code'] = code;
+    data['message'] = message;
+    return data;
+  }
+}
+
+class RatedShipmentDetails {
+  dynamic rateType;
+  dynamic ratedWeightMethod;
+  dynamic totalDiscounts;
+  dynamic totalBaseCharge;
+  dynamic totalNetCharge;
+  dynamic totalVatCharge;
+  dynamic totalNetFedExCharge;
+  dynamic totalDutiesAndTaxes;
+  dynamic totalNetChargeWithDutiesAndTaxes;
+  dynamic totalDutiesTaxesAndFees;
+  dynamic totalAncillaryFeesAndTaxes;
+  ShipmentRateDetail? shipmentRateDetail;
+  dynamic currency;
+
+  RatedShipmentDetails({this.rateType, this.ratedWeightMethod, this.totalDiscounts, this.totalBaseCharge, this.totalNetCharge, this.totalVatCharge, this.totalNetFedExCharge, this.totalDutiesAndTaxes, this.totalNetChargeWithDutiesAndTaxes, this.totalDutiesTaxesAndFees, this.totalAncillaryFeesAndTaxes, this.shipmentRateDetail, this.currency});
+
+  RatedShipmentDetails.fromJson(Map<String, dynamic> json) {
+    rateType = json['rateType'];
+    ratedWeightMethod = json['ratedWeightMethod'];
+    totalDiscounts = json['totalDiscounts'];
+    totalBaseCharge = json['totalBaseCharge'];
+    totalNetCharge = json['totalNetCharge'];
+    totalVatCharge = json['totalVatCharge'];
+    totalNetFedExCharge = json['totalNetFedExCharge'];
+    totalDutiesAndTaxes = json['totalDutiesAndTaxes'];
+    totalNetChargeWithDutiesAndTaxes = json['totalNetChargeWithDutiesAndTaxes'];
+    totalDutiesTaxesAndFees = json['totalDutiesTaxesAndFees'];
+    totalAncillaryFeesAndTaxes = json['totalAncillaryFeesAndTaxes'];
+    shipmentRateDetail = json['shipmentRateDetail'] != null ? ShipmentRateDetail.fromJson(json['shipmentRateDetail']) : null;
+    currency = json['currency'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['rateType'] = rateType;
+    data['ratedWeightMethod'] = ratedWeightMethod;
+    data['totalDiscounts'] = totalDiscounts;
+    data['totalBaseCharge'] = totalBaseCharge;
+    data['totalNetCharge'] = totalNetCharge;
+    data['totalVatCharge'] = totalVatCharge;
+    data['totalNetFedExCharge'] = totalNetFedExCharge;
+    data['totalDutiesAndTaxes'] = totalDutiesAndTaxes;
+    data['totalNetChargeWithDutiesAndTaxes'] = totalNetChargeWithDutiesAndTaxes;
+    data['totalDutiesTaxesAndFees'] = totalDutiesTaxesAndFees;
+    data['totalAncillaryFeesAndTaxes'] = totalAncillaryFeesAndTaxes;
+    if (shipmentRateDetail != null) {
+      data['shipmentRateDetail'] = shipmentRateDetail!.toJson();
+    }
+    data['currency'] = currency;
+    return data;
+  }
+}
+
+class ShipmentRateDetail {
+  dynamic rateZone;
+  dynamic dimDivisor;
+  dynamic fuelSurchargePercent;
+  dynamic totalSurcharges;
+  dynamic totalFreightDiscount;
+  List<FreightDiscount>? freightDiscount;
+  List<SurCharges>? surCharges;
+  dynamic pricingCode;
+  CurrencyExchangeRate? currencyExchangeRate;
+  TotalBillingWeight? totalBillingWeight;
+  dynamic dimDivisorType;
+  dynamic currency;
+  dynamic rateScale;
+  TotalBillingWeight? totalRateScaleWeight;
+
+  ShipmentRateDetail({this.rateZone, this.dimDivisor, this.fuelSurchargePercent, this.totalSurcharges, this.totalFreightDiscount, this.freightDiscount, this.surCharges, this.pricingCode, this.currencyExchangeRate, this.totalBillingWeight, this.dimDivisorType, this.currency, this.rateScale, this.totalRateScaleWeight});
+
+  ShipmentRateDetail.fromJson(Map<String, dynamic> json) {
+    rateZone = json['rateZone'];
+    dimDivisor = json['dimDivisor'];
+    fuelSurchargePercent = json['fuelSurchargePercent'];
+    totalSurcharges = json['totalSurcharges'];
+    totalFreightDiscount = json['totalFreightDiscount'];
+    if (json['freightDiscount'] != null) {
+      freightDiscount = <FreightDiscount>[];
+      json['freightDiscount'].forEach((v) { freightDiscount!.add(FreightDiscount.fromJson(v)); });
+    }
+    if (json['surCharges'] != null) {
+      surCharges = <SurCharges>[];
+      json['surCharges'].forEach((v) { surCharges!.add(SurCharges.fromJson(v)); });
+    }
+    pricingCode = json['pricingCode'];
+    currencyExchangeRate = json['currencyExchangeRate'] != null ? CurrencyExchangeRate.fromJson(json['currencyExchangeRate']) : null;
+    totalBillingWeight = json['totalBillingWeight'] != null ? TotalBillingWeight.fromJson(json['totalBillingWeight']) : null;
+    dimDivisorType = json['dimDivisorType'];
+    currency = json['currency'];
+    rateScale = json['rateScale'];
+    totalRateScaleWeight = json['totalRateScaleWeight'] != null ? TotalBillingWeight.fromJson(json['totalRateScaleWeight']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['rateZone'] = rateZone;
+    data['dimDivisor'] = dimDivisor;
+    data['fuelSurchargePercent'] = fuelSurchargePercent;
+    data['totalSurcharges'] = totalSurcharges;
+    data['totalFreightDiscount'] = totalFreightDiscount;
+    if (freightDiscount != null) {
+      data['freightDiscount'] = freightDiscount!.map((v) => v.toJson()).toList();
+    }
+    if (surCharges != null) {
+      data['surCharges'] = surCharges!.map((v) => v.toJson()).toList();
+    }
+    data['pricingCode'] = pricingCode;
+    if (currencyExchangeRate != null) {
+      data['currencyExchangeRate'] = currencyExchangeRate!.toJson();
+    }
+    if (totalBillingWeight != null) {
+      data['totalBillingWeight'] = totalBillingWeight!.toJson();
+    }
+    data['dimDivisorType'] = dimDivisorType;
+    data['currency'] = currency;
+    data['rateScale'] = rateScale;
+    if (totalRateScaleWeight != null) {
+      data['totalRateScaleWeight'] = totalRateScaleWeight!.toJson();
+    }
+    return data;
+  }
+}
+
+class FreightDiscount {
+  dynamic type;
+  dynamic description;
+  dynamic amount;
+  dynamic percent;
+
+  FreightDiscount({this.type, this.description, this.amount, this.percent});
+
+  FreightDiscount.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    description = json['description'];
+    amount = json['amount'];
+    percent = json['percent'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['type'] = type;
+    data['description'] = description;
+    data['amount'] = amount;
+    data['percent'] = percent;
+    return data;
+  }
+}
+
+class SurCharges {
+  dynamic type;
+  dynamic description;
+  dynamic level;
+  dynamic amount;
+
+  SurCharges({this.type, this.description, this.level, this.amount});
+
+  SurCharges.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    description = json['description'];
+    level = json['level'];
+    amount = json['amount'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['type'] = type;
+    data['description'] = description;
+    data['level'] = level;
+    data['amount'] = amount;
+    return data;
+  }
+}
+
+class CurrencyExchangeRate {
+  dynamic fromCurrency;
+  dynamic intoCurrency;
+  dynamic rate;
+
+  CurrencyExchangeRate({this.fromCurrency, this.intoCurrency, this.rate});
+
+  CurrencyExchangeRate.fromJson(Map<String, dynamic> json) {
+    fromCurrency = json['fromCurrency'];
+    intoCurrency = json['intoCurrency'];
+    rate = json['rate'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['fromCurrency'] = fromCurrency;
+    data['intoCurrency'] = intoCurrency;
+    data['rate'] = rate;
+    return data;
+  }
+}
+
+class TotalBillingWeight {
+  dynamic units;
+  dynamic value;
+
+  TotalBillingWeight({this.units, this.value});
+
+  TotalBillingWeight.fromJson(Map<String, dynamic> json) {
+    units = json['units'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['units'] = units;
+    data['value'] = value;
+    return data;
+  }
+}
+
+class OperationalDetail {
+  List<String>? originLocationIds;
+  List<int>? originLocationNumbers;
+  List<String>? originServiceAreas;
+  List<String>? destinationLocationIds;
+  List<int>? destinationLocationNumbers;
+  List<String>? destinationServiceAreas;
+  List<String>? destinationLocationStateOrProvinceCodes;
+  dynamic ineligibleForMoneyBackGuarantee;
+  dynamic astraDescription;
+  List<String>? originPostalCodes;
+  List<String>? countryCodes;
+  dynamic deliveryDate;
+  dynamic deliveryDay;
+  dynamic airportId;
+  dynamic serviceCode;
+  dynamic destinationPostalCode;
+
+  OperationalDetail({this.originLocationIds, this.deliveryDate,this.deliveryDay,this.originLocationNumbers, this.originServiceAreas, this.destinationLocationIds, this.destinationLocationNumbers, this.destinationServiceAreas, this.destinationLocationStateOrProvinceCodes, this.ineligibleForMoneyBackGuarantee, this.astraDescription, this.originPostalCodes, this.countryCodes, this.airportId, this.serviceCode, this.destinationPostalCode});
+
+  OperationalDetail.fromJson(Map<String, dynamic> json) {
+    originLocationIds = json['originLocationIds'].cast<String>();
+    originLocationNumbers = json['originLocationNumbers'].cast<int>();
+    originServiceAreas = json['originServiceAreas'].cast<String>();
+    destinationLocationIds = json['destinationLocationIds'].cast<String>();
+    destinationLocationNumbers = json['destinationLocationNumbers'].cast<int>();
+    destinationServiceAreas = json['destinationServiceAreas'].cast<String>();
+    destinationLocationStateOrProvinceCodes = json['destinationLocationStateOrProvinceCodes'].cast<String>();
+    ineligibleForMoneyBackGuarantee = json['ineligibleForMoneyBackGuarantee'];
+    astraDescription = json['astraDescription'];
+    originPostalCodes = json['originPostalCodes'].cast<String>();
+    countryCodes = json['countryCodes'].cast<String>();
+    airportId = json['airportId'];
+    serviceCode = json['serviceCode'];
+    deliveryDate = json['deliveryDate'];
+    deliveryDay = json['deliveryDay'];
+    destinationPostalCode = json['destinationPostalCode'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['originLocationIds'] = originLocationIds;
+    data['originLocationNumbers'] = originLocationNumbers;
+    data['originServiceAreas'] = originServiceAreas;
+    data['destinationLocationIds'] = destinationLocationIds;
+    data['destinationLocationNumbers'] = destinationLocationNumbers;
+    data['destinationServiceAreas'] = destinationServiceAreas;
+    data['destinationLocationStateOrProvinceCodes'] = destinationLocationStateOrProvinceCodes;
+    data['ineligibleForMoneyBackGuarantee'] = ineligibleForMoneyBackGuarantee;
+    data['astraDescription'] = astraDescription;
+    data['originPostalCodes'] = originPostalCodes;
+    data['countryCodes'] = countryCodes;
+    data['deliveryDate'] = deliveryDate;
+    data['deliveryDay'] = deliveryDay;
+    data['airportId'] = airportId;
+    data['serviceCode'] = serviceCode;
+    data['destinationPostalCode'] = destinationPostalCode;
+    return data;
+  }
+}
+
+class ServiceDescription {
+  dynamic serviceId;
+  dynamic serviceType;
+  dynamic code;
+  List<Names>? names;
+  dynamic serviceCategory;
+  dynamic description;
+  dynamic astraDescription;
+
+  ServiceDescription({this.serviceId, this.serviceType, this.code, this.names, this.serviceCategory, this.description, this.astraDescription});
+
+  ServiceDescription.fromJson(Map<String, dynamic> json) {
+    serviceId = json['serviceId'];
+    serviceType = json['serviceType'];
+    code = json['code'];
+    if (json['names'] != null) {
+      names = <Names>[];
+      json['names'].forEach((v) { names!.add(Names.fromJson(v)); });
+    }
+    serviceCategory = json['serviceCategory'];
+    description = json['description'];
+    astraDescription = json['astraDescription'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['serviceId'] = serviceId;
+    data['serviceType'] = serviceType;
+    data['code'] = code;
+    if (names != null) {
+      data['names'] = names!.map((v) => v.toJson()).toList();
+    }
+    data['serviceCategory'] = serviceCategory;
+    data['description'] = description;
+    data['astraDescription'] = astraDescription;
+    return data;
+  }
+}
+
+class Names {
+  dynamic type;
+  dynamic encoding;
+  dynamic value;
+
+  Names({this.type, this.encoding, this.value});
+
+  Names.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    encoding = json['encoding'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['type'] = type;
+    data['encoding'] = encoding;
+    data['value'] = value;
+    return data;
+  }
+}
 class Products {
   dynamic id;
   dynamic vendorId;
@@ -192,10 +787,10 @@ class Products {
   dynamic selectedSloatEnd;
   dynamic selectedSloatDate;
   dynamic qty;
-  bool? isShipping;
-  bool? localShipping;
-  bool? inCart;
-  bool? inWishlist;
+  dynamic isShipping;
+  dynamic localShipping;
+  dynamic inCart;
+  dynamic inWishlist;
   dynamic currencySign;
   dynamic currencyCode;
   List<dynamic>? variantsComb;

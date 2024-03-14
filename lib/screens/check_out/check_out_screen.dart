@@ -239,7 +239,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               for (var item in cartController.cartModel.cart!.carsShowroom!.entries) {
                 var showroom = item.value;
                 if (item.value.shippingOption.isEmpty &&
-                    showroom.products!.any((product) => product.isShipping == true && product.vendorCountryId == '117') && cartController.countryName.value == 'Kuwait') {
+                    showroom.products!.any((product) => product.isShipping == true && product.vendorCountryId == '117' ) && cartController.countryName.value == 'Kuwait') {
+                  showToast("Please select shipping Method".tr);
+                  return;
+                }
+              }
+              for (var item in cartController.cartModel.cart!.carsShowroom!.entries) {
+                var showroom = item.value;
+                if (item.value.fedexShippingOption.isEmpty && cartController.countryName.value != 'Kuwait') {
                   showToast("Please select shipping Method".tr);
                   return;
                 }
@@ -687,9 +694,101 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             },
                           ),
                         ),
+
+
+                    //fedx
+                      if ( e.value.products!.any((e) =>
+                      e.vendorCountryId != '117'  && e.isShipping == true) || cartController.countryName.value != 'Kuwait')
+                        Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/images/shipping_icon.png', height: 32, width: 32),
+                                20.spaceX,
+                                Text("Fedex Shipping Method".tr,
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                      if (e.value.products!.any((e) =>
+                      e.vendorCountryId != '117'  && e.isShipping == true) || cartController.countryName.value != 'Kuwait')
+                        e.value.fedexShipping!.output !=null ? Container(
+                          color: Colors.white,
+                          child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: e.value.fedexShipping!.output!.rateReplyDetails!.length,
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15).copyWith(top: 0),
+                            itemBuilder: (context, ii) {
+                              RateReplyDetails product = e.value.fedexShipping!.output!.rateReplyDetails![ii];
+                              return Obx(() {
+                                return Column(
+                                  children: [
+                                    10.spaceY,
+                                    ii == 0
+                                        ? 0.spaceY
+                                        : const Divider(
+                                      color: Color(0xFFD9D9D9),
+                                      thickness: 0.8,
+                                    ),
+
+                                    Row(
+                                      children: [
+                                        Radio(
+                                          value: product.serviceType.toString(),
+                                          groupValue:  e.value.fedexShippingOption.value,
+                                          visualDensity: const VisualDensity(horizontal: -4.0),
+                                          fillColor: e.value.fedexShippingOption.value.isEmpty
+                                              ? MaterialStateProperty.all(Colors.red)
+                                              : null,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              e.value.fedexShippingOption.value = value.toString();
+                                              print(e.value.fedexShippingOption.value.toString());
+                                              // e.value.shippingId.value = e.value.shippingTypes![ii].id;
+                                              // e.value.vendorId.value = e.value.shippingTypes![ii].vendorId;
+                                              // e.value.shippingVendorName.value = e.value.shippingTypes![ii].name.toString();
+                                              // e.value.vendorPrice.value = e.value.shippingTypes![ii].value.toString();
+                                            });
+                                          },
+                                        ),
+                                        20.spaceX,
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(product.serviceName.toString()
+                                                .capitalize!
+                                                .replaceAll('_', ' '),
+                                                style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16)),
+                                            3.spaceY,
+                                            Text('kwd ${product.ratedShipmentDetails![ii].totalNetCharge.toString()}',
+                                                style: GoogleFonts.poppins(fontWeight: FontWeight.w400,
+                                                    fontSize: 16,
+                                                    color: const Color(0xFF03a827))),
+                                            3.spaceY,
+                                            Text('${product.operationalDetail!.deliveryDay.toString()}  ${product.operationalDetail!.deliveryDate.toString()}',
+                                                style: GoogleFonts.poppins(fontWeight: FontWeight.w400,
+                                                    fontSize: 15,
+                                                    fontStyle: FontStyle.italic,
+                                                    color: const Color(0xFF000000))),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              });
+                              // : 0.spaceY,;
+                            },
+                          ),
+                        ) : const LoadingAnimation(),
                     ],
-                  ))
-                  .toList(),
+                  )).toList(),
             ),
           );
           // CustomScrollView(
@@ -1047,8 +1146,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   ...commonField(
                       textController: cartController.billingFirstName,
-                      title: "First Name *",
-                      hintText: "Enter your first name",
+                      title: "First Name *".tr,
+                      hintText: "Enter your first name".tr,
                       keyboardType: TextInputType.text,
                       validator: (value) {
                         // if (value!.trim().isEmpty) {
@@ -1059,8 +1158,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   ...commonField(
                       textController: cartController.billingLastName,
-                      title: "Last Name *",
-                      hintText: "Enter your last name",
+                      title: "Last Name *".tr,
+                      hintText: "Enter your last name".tr,
                       keyboardType: TextInputType.text,
                       validator: (value) {
                         // if (value!.trim().isEmpty) {
@@ -1071,8 +1170,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   ...commonField(
                     textController: cartController.billingEmail,
-                    title: "Email *",
-                    hintText: "Enter your Email",
+                    title: "Email *".tr,
+                    hintText: "Enter your Email".tr,
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       // if (value!.trim().isEmpty) {
@@ -1092,8 +1191,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   ...commonField(
                       textController: cartController.billingPhone,
-                      title: "Phone Number *",
-                      hintText: "Enter your phone number",
+                      title: "Phone Number *".tr,
+                      hintText: "Enter your phone number".tr,
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         // if (value!.trim().isEmpty) {
@@ -1137,7 +1236,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     height: 15,
                   ),
                   Text(
-                    'Billing Address',
+                    'Billing Address'.tr,
                     style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: Colors.black),
                   ),
                   const SizedBox(
@@ -1148,7 +1247,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        'Same As Shipping Address',
+                        'Same As Shipping Address'.tr,
                         style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16, color: Colors.black),
                       ),
                       10.spaceX,
@@ -1206,8 +1305,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   ...commonField(
                       textController: cartController.addressDeliFirstName,
-                      title: "First Name *",
-                      hintText: "Enter your first name",
+                      title: "First Name *".tr,
+                      hintText: "Enter your first name".tr,
                       keyboardType: TextInputType.text,
                       validator: (value) {
                         // if (value!.trim().isEmpty) {
@@ -1593,7 +1692,7 @@ List<Widget> fieldWithName(
       Widget? suffixIcon}) {
   return [
     Text(
-      title,
+      title.tr,
       style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
     ),
     const SizedBox(
@@ -1601,7 +1700,7 @@ List<Widget> fieldWithName(
     ),
     CommonTextField(
       onTap: onTap,
-      hintText: hintText,
+      hintText: hintText.tr,
       controller: controller,
       validator: validator,
       readOnly: readOnly ?? false,

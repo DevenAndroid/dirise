@@ -24,6 +24,7 @@ class AppStrings{
     static String calendar = "My Calender";
     static String publishPostScreen = "Publish Post";
     static String faq = "Faq";
+    static String newsFeed = "News Feed";
     static String pdfReader = "Digital Pdf Reader";
     static String vendorPartner = "Switch To Vendor";
     static String language = "Language";
@@ -123,4 +124,11 @@ class AppStrings{
       static String enterFirstName = "Enter First Name";
       static String enterLastName = "Enter Last Name";
       static String enterEmail = "Enter Email";
+      static String chat = "chat";
+      static String wantDeleteAccount = "Do You Want To Delete Your Account";
+      static String ok = "Ok";
+      static String cancel = "Cancel";
+      static String loginFirst = "Login first";
+      static String arabic = 'Arabic';
+      static String english = 'English';
 }

@@ -1,5 +1,6 @@
 import 'package:dirise/language/app_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/common_colour.dart';
 import 'audio_files_list.dart';
@@ -42,7 +43,7 @@ class _VirtualAssetsScreenState extends State<VirtualAssetsScreen> with Automati
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     Text(
-                     AppStrings.eBooks,
+                     AppStrings.eBooks.tr,
                       style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
                     )
                   ],
@@ -77,7 +78,7 @@ class _VirtualAssetsScreenState extends State<VirtualAssetsScreen> with Automati
                             borderSide: BorderSide(color: AppTheme.buttonColor)),
                         fillColor: Colors.white,
                         contentPadding: const EdgeInsets.symmetric(horizontal: 60),
-                        hintText: AppStrings.searchEBook,
+                        hintText: AppStrings.searchEBook.tr,
                         hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                   ),
                 ),
@@ -107,10 +108,10 @@ class _VirtualAssetsScreenState extends State<VirtualAssetsScreen> with Automati
                 // unselectedLabelStyle: GoogleFonts.poppins(),
                 tabs:  [
                   Tab(
-                    text: AppStrings.eBooks,
+                    text: AppStrings.eBooks.tr,
                   ),
                   Tab(
-                    text: AppStrings.voice,
+                    text: AppStrings.voice.tr,
                   ),
                 ],
                 indicatorSize: TabBarIndicatorSize.tab,
