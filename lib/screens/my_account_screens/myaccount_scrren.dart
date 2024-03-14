@@ -55,7 +55,7 @@ class MyAccountScreen extends StatefulWidget {
 enum SingingCharacter { lafayette, jefferson }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
-
+  RxString selectedLAnguage = "English".obs;
 
 
   updateLanguage(String gg) async {
@@ -63,17 +63,17 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     sharedPreferences.setString("app_language", gg);
   }
   Rx<UserDeleteModel> deleteModal = UserDeleteModel().obs;
-  // checkLanguage() async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   if (sharedPreferences.getString("app_language") == null ||
-  //       sharedPreferences.getString("app_language") == "English") {
-  //     Get.updateLocale(const Locale('en', 'US'));
-  //     selectedLAnguage.value = "English";
-  //   } else{
-  //     Get.updateLocale(const Locale('ar', 'Ar'));
-  //     selectedLAnguage.value = 'عربي';
-  //   }
-  // }
+  checkLanguage() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString("app_language") == null ||
+        sharedPreferences.getString("app_language") == "English") {
+      Get.updateLocale(const Locale('en', 'US'));
+      selectedLAnguage.value = "English";
+    } else{
+      Get.updateLocale(const Locale('ar', 'Ar'));
+      selectedLAnguage.value = 'عربي';
+    }
+  }
 
   RxString language = "".obs;
   final RxBool _isValue = false.obs;
@@ -133,8 +133,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           builder: (context) {
             return CupertinoAlertDialog(
               title: Text(
-                "${'To register as vendor partner need to'.tr}"
-                "${' create an account first.'.tr}",
+                "${'To register as vendor partner need to '.tr}"
+                "${'create an account first.'.tr}",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 16),
               ),
@@ -178,7 +178,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
       DOMAIN = "msdk.freshchat.com";
   void initState() {
     super.initState();
-    profileController.checkLanguage();
+    checkLanguage();
     Freshchat.init(APP_ID, APP_KEY, DOMAIN,
       teamMemberInfoVisible:true,
       cameraCaptureEnabled:true,
@@ -484,7 +484,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.chat.tr,
+                              'chat',
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -522,7 +522,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.newsFeed.tr,
+                              'News Feed'.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -632,7 +632,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.address.tr,
+                              AppStrings.address,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -679,13 +679,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                     border: Border.all(color: const Color(0xffDCDCDC)),
                                                     borderRadius: BorderRadius.circular(15)),
                                                 child: RadioListTile(
-                                                  title:  Text(AppStrings.english.tr),
+                                                  title: const Text('English'),
                                                   activeColor: const Color(0xff014E70),
                                                   value: "English",
-                                                  groupValue: profileController.selectedLAnguage.value,
+                                                  groupValue: selectedLAnguage.value,
                                                   onChanged: (value) {
                                                     locale = const Locale('en', 'US');
-                                                    profileController.selectedLAnguage.value = value!;
+                                                    selectedLAnguage.value = value!;
                                                     updateLanguage("English");
                                                     setState(() {});
                                                   },
@@ -701,13 +701,13 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                     border: Border.all(color: const Color(0xffDCDCDC)),
                                                     borderRadius: BorderRadius.circular(15)),
                                                 child:    RadioListTile(
-                                                  title:  Text(AppStrings.arabic.tr),
+                                                  title: const Text('Arabic'),
                                                   activeColor: const Color(0xff014E70),
                                                   value: "عربي",
-                                                  groupValue: profileController.selectedLAnguage.value,
+                                                  groupValue: selectedLAnguage.value,
                                                   onChanged: (value) {
                                                     locale=const Locale('ar','AR');
-                                                    profileController.selectedLAnguage.value = value!;
+                                                    selectedLAnguage.value = value!;
                                                     updateLanguage("عربي");
                                                     setState(() {});
                                                   },
@@ -845,7 +845,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.contactUs.tr,
+                              AppStrings.contactUs,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -938,12 +938,12 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                           showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
-                              title:  Text(AppStrings.deleteAccount.tr),
-                              content:  Text(AppStrings.wantDeleteAccount.tr),
+                              title: const Text('Delete Account'),
+                              content: const Text('Do You Want To Delete Your Account'),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () => Get.back(),
-                                  child:  Text(AppStrings.cancel.tr),
+                                  child: const Text('Cancel'),
                                 ),
                                 TextButton(
                                   onPressed: () {
@@ -967,11 +967,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
 
 
                                     } else {
-                                      showToast(AppStrings.loginFirst.tr);
+                                      showToast("Login first");
                                       // Get.toNamed(LoginScreen.route);
                                     }
                                   },
-                                  child:  Text(AppStrings.ok.tr),
+                                  child: const Text('OK'),
                                 ),
                               ],
                             ),
@@ -1100,7 +1100,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   Expanded(
                     child: Obx(() {
                       if (cartController.refreshInt.value > 0) {}
-                      if( cartController.addressLoaded == true){}
                       List<AddressData> shippingAddress = cartController.addressListModel.address!.shipping ?? [];
 
                       return CustomScrollView(

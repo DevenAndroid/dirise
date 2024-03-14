@@ -106,7 +106,7 @@ class Repositories {
     } catch (e) {
       log("API Response Url222........  $url");
       Helpers.hideLoader(loader);
-      throw Exception(e);
+      // throw Exception(e);
     }
   }
 
