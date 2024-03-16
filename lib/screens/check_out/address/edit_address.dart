@@ -211,7 +211,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
     getStateList(countryId: countryIddd.toString());
     getCityList(stateId: stateIddd.toString());
   }
-
+  final profileController = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     print('data........${addressData.toJson().toString()}');
@@ -410,10 +410,9 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                     }
                     if (modelStateList!.state!.isEmpty) return;
                     showAddressSelectorDialog(
-                        addressList: modelStateList!.state!
-                            .map((e) =>
-                                CommonAddressRelatedClass(title: e.stateName.toString(), addressId: e.stateId.toString()))
-                            .toList(),
+                        addressList: profileController.selectedLAnguage.value == 'English' ?
+                        modelStateList!.state!.map((e) => CommonAddressRelatedClass(title: e.stateName.toString(), addressId: e.stateId.toString())).toList() :
+                        modelStateList!.state!.map((e) => CommonAddressRelatedClass(title: e.arabStateName.toString(), addressId: e.stateId.toString())).toList(),
                         selectedAddressIdPicked: (String gg) {
                           String previous = ((selectedState ?? CountryState()).stateId ?? "").toString();
                           selectedState = modelStateList!.state!.firstWhere((element) => element.stateId.toString() == gg);
@@ -460,10 +459,8 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                       }
                       if (modelCityList!.city!.isEmpty) return;
                       showAddressSelectorDialog(
-                          addressList: modelCityList!.city!
-                              .map((e) =>
-                                  CommonAddressRelatedClass(title: e.cityName.toString(), addressId: e.cityId.toString()))
-                              .toList(),
+                          addressList:  profileController.selectedLAnguage.value == 'English' ? modelCityList!.city!.map((e) => CommonAddressRelatedClass(title: e.cityName.toString(), addressId: e.cityId.toString())).toList() :
+                          modelCityList!.city!.map((e) => CommonAddressRelatedClass(title: e.arabCityName.toString(), addressId: e.cityId.toString())).toList(),
                           selectedAddressIdPicked: (String gg) {
                             selectedCity = modelCityList!.city!.firstWhere((element) => element.cityId.toString() == gg);
                             cartController.cityCode = gg.toString();

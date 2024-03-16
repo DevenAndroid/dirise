@@ -288,7 +288,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if(profileController.model.user!.city != null){
       profileController.selectedCity = City(
         cityId: profileController.model.user!.city.toString(),
-        cityName: profileController.model.user!.country_name.toString(),
+        cityName: profileController.model.user!.city_name.toString(),
       );
     }
     setState(() {});
@@ -459,7 +459,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // },
               ),
               ...fieldWithName(
-                title: AppStrings.phoneNumber,
+                title: AppStrings.phoneNumberr.tr,
                 hintText: AppStrings.enterPhoneNumber,
                 controller: phoneController,
                 // validator: (v) {
@@ -558,7 +558,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 controller: TextEditingController(text: (profileController.selectedCity ?? City()).cityName ?? ""),
                 onTap: () {
                   if (profileController.modelCityList == null && profileController.cityRefresh.value > 0) {
-                    showToast(AppStrings.selectStateFirst);
+                    showToast(AppStrings.selectStateFirst.tr);
                     return;
                   }
                   if(profileController.cityRefresh.value < 0){

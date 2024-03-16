@@ -146,7 +146,7 @@ class AddProductController extends GetxController {
   RxInt refreshInt = 0.obs;
   bool apiLoaded = false;
   String productId = "";
-  String tax = 'exclude';
+  String tax = 'Without tax';
   String? taxId;
   final GlobalKey slotKey = GlobalKey();
   final GlobalKey categoryKey = GlobalKey();

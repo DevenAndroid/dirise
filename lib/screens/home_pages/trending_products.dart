@@ -56,22 +56,25 @@ class _TrendingProductsState extends State<TrendingProducts> {
                     ],
                   ),
                 ),
-                Container(
-                  height: 220,
-                  margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                  child: ListView.builder(
-                      itemCount: homeController.trendingModel.value.product!.product!.length,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = homeController.trendingModel.value.product!.product![index];
-                        return ProductUI(
-                          productElement: item,
-                          onLiked: (value) {
-                            homeController.trendingModel.value.product!.product![index].inWishlist = value;
-                          },
-                        ).animate(delay: 50.ms).fade(duration: 400.ms);
-                      }),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    height: 220,
+                    margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+                    child: ListView.builder(
+                        itemCount: homeController.trendingModel.value.product!.product!.length,
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          final item = homeController.trendingModel.value.product!.product![index];
+                          return ProductUI(
+                            productElement: item,
+                            onLiked: (value) {
+                              homeController.trendingModel.value.product!.product![index].inWishlist = value;
+                            },
+                          ).animate(delay: 50.ms).fade(duration: 400.ms);
+                        }),
+                  ),
                 ),
               ],
             )

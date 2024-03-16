@@ -154,7 +154,9 @@ class _VendorOTPVerificationState extends State<VendorOTPVerification> {
                   bottom: 0,
                   child: Container(
                     decoration: const BoxDecoration(
-                        color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(100))),
+                        color: Colors.white,
+                        // borderRadius: BorderRadius.only(topLeft: Radius.circular(100))
+                      ),
                     child: Padding(
                       padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
                       child: Column(

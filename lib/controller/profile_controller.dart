@@ -18,7 +18,7 @@ class ProfileController extends GetxController {
   final ImagePicker picker = ImagePicker();
   RxInt refreshInt = 0.obs;
   bool userLoggedIn = false;
-
+  RxString selectedLAnguage = "English".obs;
   ModelCountryList? modelCountryList;
   Country? selectedCountry;
 
@@ -35,7 +35,6 @@ class ProfileController extends GetxController {
     });
   }
 
-  RxString selectedLAnguage = "English".obs;
   checkLanguage() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("app_language") == null ||

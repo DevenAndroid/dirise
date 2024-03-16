@@ -25,14 +25,15 @@ class _AuthorScreenState extends State<AuthorScreen> {
           ? Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      homeController.authorModal.value.data!.isNotEmpty ?
                       Text(
                         AppStrings.shopByAuthor.tr,
                         style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
+                      ) : const SizedBox.shrink(),
                       // Container(
                       //   padding: const EdgeInsets.all(2),
                       //   decoration: BoxDecoration(

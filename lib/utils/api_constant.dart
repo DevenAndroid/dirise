@@ -86,7 +86,7 @@ class ApiUrls {
   static const String categoryFilterUrl = "${baseUrl}category-filter";
   static const String faqListUrl = "${baseUrl}faq-list";
   static const String getPublishUrl = "${baseUrl}all-news";
-  static const String getNewsTrendsUrl = "${baseUrl}all-news";
+  static const String getNewsTrendsUrl = "${baseUrl}news-trends";
   static const String createPostUrl = "${baseUrl}create-news";
   static const String addRemoveLike = "${baseUrl}add-remove-like";
   static const String socialLoginUrl = "${baseUrl}social";

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/screens/auth_screens/login_screen.dart';
 import 'package:dirise/utils/helper.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class MyAccountScreen extends StatefulWidget {
 enum SingingCharacter { lafayette, jefferson }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
-  RxString selectedLAnguage = "English".obs;
+
 
 
   updateLanguage(String gg) async {
@@ -68,10 +69,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     if (sharedPreferences.getString("app_language") == null ||
         sharedPreferences.getString("app_language") == "English") {
       Get.updateLocale(const Locale('en', 'US'));
-      selectedLAnguage.value = "English";
+      profileController.selectedLAnguage.value = "English";
     } else{
       Get.updateLocale(const Locale('ar', 'Ar'));
-      selectedLAnguage.value = 'عربي';
+      profileController.selectedLAnguage.value = 'عربي';
     }
   }
 
@@ -682,10 +683,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                   title: const Text('English'),
                                                   activeColor: const Color(0xff014E70),
                                                   value: "English",
-                                                  groupValue: selectedLAnguage.value,
+                                                  groupValue: profileController.selectedLAnguage.value,
                                                   onChanged: (value) {
                                                     locale = const Locale('en', 'US');
-                                                    selectedLAnguage.value = value!;
+                                                    profileController.selectedLAnguage.value = value!;
                                                     updateLanguage("English");
                                                     setState(() {});
                                                   },
@@ -704,10 +705,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                   title: const Text('Arabic'),
                                                   activeColor: const Color(0xff014E70),
                                                   value: "عربي",
-                                                  groupValue: selectedLAnguage.value,
+                                                  groupValue: profileController.selectedLAnguage.value,
                                                   onChanged: (value) {
                                                     locale=const Locale('ar','AR');
-                                                    selectedLAnguage.value = value!;
+                                                    profileController.selectedLAnguage.value = value!;
                                                     updateLanguage("عربي");
                                                     setState(() {});
                                                   },
@@ -932,7 +933,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         thickness: 1,
                         color: Color(0x1A000000),
                       ),
-                      ListTile(
+                      profileController.userLoggedIn ?  ListTile(
                         onTap: () {
 
                           showDialog<String>(
@@ -1002,14 +1003,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(
+                      ) : const SizedBox.shrink(),
+                      profileController.userLoggedIn ?  const SizedBox(
                         height: 5,
-                      ),
-                      const Divider(
+                      ) : const SizedBox.shrink(),
+                      profileController.userLoggedIn ?  const Divider(
                         thickness: 1,
                         color: Color(0x1A000000),
-                      ),
+                      ) : const SizedBox.shrink(),
                       const SizedBox(
                         height: 5,
                       ),
@@ -1075,7 +1076,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             child: SizedBox(
               width: size.width,
               height: size.height * .88,
-              child: Column(
+              child:   cartController.addressListModel.status == true ?
+              Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1232,7 +1234,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     }),
                   ),
                 ],
-              ),
+              ) : const LoadingAnimation(),
             ),
           );
         });

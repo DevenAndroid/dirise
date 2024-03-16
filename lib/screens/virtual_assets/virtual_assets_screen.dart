@@ -78,7 +78,7 @@ class _VirtualAssetsScreenState extends State<VirtualAssetsScreen> with Automati
                             borderSide: BorderSide(color: AppTheme.buttonColor)),
                         fillColor: Colors.white,
                         contentPadding: const EdgeInsets.symmetric(horizontal: 60),
-                        hintText: AppStrings.searchEBook.tr,
+                        hintText: AppStrings.search.tr,
                         hintStyle: GoogleFonts.poppins(color: AppTheme.buttonColor)),
                   ),
                 ),

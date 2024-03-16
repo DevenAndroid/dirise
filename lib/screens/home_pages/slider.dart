@@ -6,14 +6,17 @@ import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:full_screen_image/full_screen_image.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import '../../controller/home_controller.dart';
 import '../../model/model_news_trend.dart';
+import '../../posts/post_ui_player.dart';
 import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
 import '../../widgets/common_colour.dart';
+import '../../widgets/dimension_screen.dart';
 import '../../widgets/loading_animation.dart';
 
 class SliderWidget extends StatefulWidget {
@@ -54,26 +57,22 @@ class _SliderWidgetState extends State<SliderWidget> {
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 18),
               child: SizedBox(
-                height: size.height * 0.25,
+                height: size.height * 0.29,
                 child: Swiper(
-
                   autoplay: true,
-
                   outer: false,
                   autoplayDelay: 5000,
                   autoplayDisableOnInteraction: false,
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: CachedNetworkImage(
-                              imageUrl: homeController.homeModal.value.home!.slider![index].bannerMobile.toString(),
-                              fit: BoxFit.fill,
-                              placeholder: (context, url) => const SizedBox(),
-                              errorWidget: (context, url, error) => const SizedBox()),
-                        ),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: CachedNetworkImage(
+                            imageUrl: homeController.homeModal.value.home!.slider![index].bannerMobile.toString(),
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const SizedBox(),
+                            errorWidget: (context, url, error) => const SizedBox()),
                       ),
                     );
                   },
@@ -134,7 +133,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                                   return SizedBox(
                                     height: context.getSize.height * .7,
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top: 10, right: 18, left: 18),
+                                      padding: const EdgeInsets.only(top: 30, right: 18, left: 18),
                                       child: Obx(() {
                                         return getNewsTrendModel.value.data != null ?
                                         ListView.builder(
@@ -147,24 +146,104 @@ class _SliderWidgetState extends State<SliderWidget> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
+                                                Container(
+                                                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                                                    BoxShadow(
+                                                      color: const Color(0xFF5F5F5F).withOpacity(0.4),
+                                                      offset: const Offset(0.0, 0.2),
+                                                      blurRadius: 2,
+                                                    ),
+                                                  ]),
+                                                  padding: const EdgeInsets.all(15),
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Row(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                              children: [
+                                                                ClipRRect(
+                                                                  borderRadius: BorderRadius.circular(100),
+                                                                  child: CachedNetworkImage(
+                                                                    imageUrl: item.userIds!.profileImage.toString(),
+                                                                    height: 45,
+                                                                    width: 45,
+                                                                    fit: BoxFit.cover,
+                                                                    errorWidget: (context, url, error) =>
+                                                                        Image.asset('assets/images/post_img.png'),
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  width: 15,
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    item.userIds!.name == '' ? item.userIds!.email.toString() : item.userIds!.name.toString(),
+                                                                    style: GoogleFonts.poppins(
+                                                                        color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 18,
+                                                      ),
+                                                      Text(
+                                                        item.discription ?? '',
+                                                        style: GoogleFonts.poppins(
+                                                          color: const Color(0xFF5B5B5B),
+                                                          fontWeight: FontWeight.w500,
+                                                          fontSize: 13,
+                                                          letterSpacing: 0.24,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 15,
+                                                      ),
+                                                      item.fileType!.contains('image')
+                                                          ? FullScreenWidget(
+                                                        disposeLevel: DisposeLevel.Medium,
+                                                        child: SizedBox(
+                                                          width: double.maxFinite,
+                                                          height: 170,
+                                                          child: CachedNetworkImage(
+                                                            imageUrl: item.file.toString(),
+                                                            fit: BoxFit.cover,
+                                                            width: AddSize.screenWidth,
+                                                            errorWidget: (context, url, error) => Image.asset(
+                                                              'assets/images/Rectangle 39892.png',
+                                                              fit: BoxFit.fitWidth,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                          : item.fileType == 'directory'
+                                                          ? const SizedBox()
+                                                          : item.fileType == ''
+                                                          ? const SizedBox()
+                                                          : AspectRatio(
+                                                        aspectRatio: 16 / 9,
+                                                        child:  PostVideoPlayer(
+                                                          fileUrl: item.file.toString() ,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                                 const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                CachedNetworkImage(
-                                                    imageUrl: item.file.toString(),
-                                                    fit: BoxFit.contain,
-                                                    width: Get.width,
-                                                    errorWidget: (context, url, error) =>
-                                                    const SizedBox()
-                                                ),
-                                                const SizedBox(
-                                                  height: 20,
-                                                ),
-                                                Text(
-                                                  item.discription ?? '',
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                                                ),
+                                                  height: 15,
+                                                )
 
                                               ],
                                             );
@@ -181,11 +260,20 @@ class _SliderWidgetState extends State<SliderWidget> {
                             duration: const Duration(minutes: 1),
                             gap: 0,
                             reverseScroll: false,
-                            duplicateChild: 25,
+                            duplicateChild: 1,
                             enableScrollInput: true,
                             delayAfterScrollInput: const Duration(seconds: 1),
-                            child:  Text(
-                              getNewsTrendModel.value.data![0].discription.toString(),
+                            child: getNewsTrendModel.value.data!= null && getNewsTrendModel.value.data!.isNotEmpty?
+                            ListView.builder(
+                               shrinkWrap: true,
+                                 itemCount: getNewsTrendModel.value.data!.length,
+                                itemBuilder: (context, index) {
+                                  return  Text(
+                                    getNewsTrendModel.value.data![index].discription.toString(),
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
+                                  );
+                                },
+                            ): Text('NO Data Found',
                               style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
                             )
                           ),

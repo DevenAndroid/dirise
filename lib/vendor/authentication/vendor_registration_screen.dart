@@ -758,7 +758,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             if (value!.trim().isEmpty) {
                               return "Please enter store phone number".tr;
                             }
-                            if (value.trim().length < 10) {
+                            if (value.trim().length < 8) {
                               return "Please enter valid store phone number".tr;
                             }
                             return null;
@@ -841,7 +841,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             if (value!.trim().isEmpty) {
                               return "Please enter store phone number".tr;
                             }
-                            if (value.trim().length < 10) {
+                            if (value.trim().length < 8) {
                               return "Please enter valid store phone number".tr;
                             }
                             return null;
@@ -1219,7 +1219,7 @@ class _VendorRegistrationScreenState extends State<VendorRegistrationScreen> {
                             if (value!.trim().isEmpty) {
                               return "Please enter store phone number".tr;
                             }
-                            if (value.trim().length < 10) {
+                            if (value.trim().length < 8) {
                               return "Please enter valid store phone number".tr;
                             }
                             return null;

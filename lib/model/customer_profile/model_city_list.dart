@@ -33,17 +33,19 @@ class City {
   dynamic stateId;
   dynamic createdAt;
   dynamic updatedAt;
-
+  dynamic arabCityName;
   City(
       {this.cityId,
         this.cityName,
         this.stateId,
+        this.arabCityName,
         this.createdAt,
         this.updatedAt});
 
   City.fromJson(Map<String, dynamic> json) {
     cityId = json['city_id'];
     cityName = json['city_name'];
+    arabCityName = json['arab_city_name'];
     stateId = json['state_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -54,6 +56,7 @@ class City {
     data['city_id'] = cityId;
     data['city_name'] = cityName;
     data['state_id'] = stateId;
+    data['arab_city_name'] = arabCityName;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

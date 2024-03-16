@@ -19,7 +19,7 @@ import '../../../model/filter_by_price_model.dart';
 import '../../../model/model_category_stores.dart';
 import '../../../model/model_store_products.dart';
 import '../../../model/product_model/model_product_element.dart';
-import '../../../model/social_links_model.dart';
+// import '../../../model/social_links_model.dart';
 import '../../../model/vendor_models/model_single_vendor.dart';
 import '../../../repository/repository.dart';
 import '../../../utils/api_constant.dart';
@@ -43,10 +43,10 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   final Repositories repositories = Repositories();
   int paginationPage = 1;
   VendorStoreData gg = VendorStoreData();
-  SocialLinksModel ee = SocialLinksModel();
+  SocialLinks ee = SocialLinks();
   ModelCategoryStores ss = ModelCategoryStores();
 
-  SocialLinksModel get socialLinksData => ee;
+  SocialLinks get socialLinksData => ee;
 
   VendorStoreData get storeInfo => gg;
 
@@ -125,21 +125,27 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
     }
   }
 
-  _instagramLink() async {
-    var url = Uri.parse(socialLinksData.socialLinks!.instagram.toString());
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  // _instagramLink() async {
+  //   var url = Uri.parse(socialLinksData.socialLinks!.instagram.toString());
+  //   if (await canLaunchUrl(url)) {
+  //     await launchUrl(url, mode: LaunchMode.externalApplication);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 
   String productCount = '';
   String bannerString = '';
   String storeLogo = '';
 
   // String categoryName = Get.arguments;
-
+  void launchURLl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
 
   linkedinLink() async {
     var url = Uri.parse(allStoreInfo.socialLinks!.linkedin.toString());
@@ -167,20 +173,27 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
       throw 'Could not launch $url';
     }
   }
-
+  Rx<ModelCategoryStores> getCategoryStoresModel = ModelCategoryStores().obs;
   getVendorInfo() {
-    if (widget.storeDetails.storeName == null || true) {
-      repositories.getApi(url: ApiUrls.getVendorInfoUrl + vendorId).then((value) {
-        ModelSingleVendor response = ModelSingleVendor.fromJson(jsonDecode(value));
-        productCount = response.productCount.toString();
-        bannerString = response.user!.bannerProfileApp.toString();
-        storeLogo = response.user!.storeLogoApp.toString();
-        gg = VendorStoreData.fromJson(response.user!.toJson());
-        ee = SocialLinksModel.fromJson(response.user!.toJson());
-        ss = ModelCategoryStores.fromJson(response.user!.toJson());
-        setState(() {});
-      });
-    }
+    print('function call ');
+    repositories.getApi(url: ApiUrls.getVendorInfoUrl+vendorId).then((value) {
+      ModelSingleVendor response = ModelSingleVendor.fromJson(jsonDecode(value));
+      productCount = response.productCount.toString();
+      bannerString = response.user!.bannerProfileApp.toString();
+      storeLogo = response.user!.storeLogoApp.toString();
+      gg = VendorStoreData.fromJson(response.user!.toJson());
+      ee = SocialLinks.fromJson(response.toJson());
+      ss = ModelCategoryStores.fromJson(response.user!.toJson());
+      setState(() {});
+    });
+  }
+  getVendorInfoSocial() {
+    print('function call ');
+    repositories.getApi(url: ApiUrls.getVendorInfoUrl+vendorId).then((value) {
+      getCategoryStoresModel.value = ModelCategoryStores.fromJson(jsonDecode(value));
+      print('function call iss ${getCategoryStoresModel.value.socialLinks!.toJson()}');
+      setState(() {});
+    });
   }
 
   @override
@@ -190,6 +203,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
     gg = widget.storeDetails;
     //ee = widget.socialLink;
     getVendorInfo();
+    getVendorInfoSocial();
     getCategoryStores(page: paginationPage);
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       scrollController.addListener(() {});
@@ -220,7 +234,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
           await getCategoryStores(page: paginationPage, resetAll: true);
         },
         child: Obx(() {
-          return CustomScrollView(
+          return getCategoryStoresModel.value.status == true ?
+            CustomScrollView(
             shrinkWrap: true,
             slivers: [
               if (gg.storeName != null && gg.email != null) ...[
@@ -310,11 +325,18 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                       ),
                                       Row(
                                         children: [
-                                          GestureDetector(onTap: () {
+                                          GestureDetector(
+                                            onTap: () {
+                                            // print(ee.instagram.toString());
+                                            launchURLl(getCategoryStoresModel.value.socialLinks!.instagram.toString());
                                             // onShare('instagram');
                                             //_instagramLink();
                                           },
-                                            child: CircleAvatar(
+                                            child: getCategoryStoresModel.value.socialLinks != null &&
+                                                getCategoryStoresModel.value.socialLinks!.instagram != null &&
+                                                getCategoryStoresModel.value.socialLinks!.instagram!.isEmpty ? 
+                                           const SizedBox() :
+                                            CircleAvatar(
                                                 radius: 16,
                                                 backgroundColor: const Color(0xFF014E70),
                                                 child: SvgPicture.asset(
@@ -323,15 +345,23 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                                   height: 15,
                                                 )),
                                           ),
-                                          const SizedBox(
+                                          getCategoryStoresModel.value.socialLinks != null &&
+                                              getCategoryStoresModel.value.socialLinks!.instagram != null &&
+                                              getCategoryStoresModel.value.socialLinks!.instagram!.isEmpty ?
+                                          const SizedBox() :  const SizedBox(
                                             width: 10,
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              launchURLl(getCategoryStoresModel.value.socialLinks!.linkedin.toString());
                                               // onShare('linkedin');
                                               // linkedinLink();
                                             },
-                                            child: CircleAvatar(
+                                            child: getCategoryStoresModel.value.socialLinks != null &&
+                                                getCategoryStoresModel.value.socialLinks!.linkedin != null &&
+                                                getCategoryStoresModel.value.socialLinks!.linkedin!.isEmpty ?
+                                            const SizedBox() :
+                                            CircleAvatar(
                                                 radius: 16,
                                                 backgroundColor: const Color(0xFF014E70),
                                                 child: SvgPicture.asset(
@@ -340,15 +370,23 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                                   height: 15,
                                                 )),
                                           ),
-                                          const SizedBox(
+                                          getCategoryStoresModel.value.socialLinks != null &&
+                                              getCategoryStoresModel.value.socialLinks!.linkedin != null &&
+                                              getCategoryStoresModel.value.socialLinks!.linkedin!.isEmpty ?
+                                          const SizedBox() : const SizedBox(
                                             width: 10,
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              launchURLl(getCategoryStoresModel.value.socialLinks!.youtube.toString());
                                               // onShare('youtube');
                                               // youTubeLink();
                                             },
-                                            child: CircleAvatar(
+                                            child: getCategoryStoresModel.value.socialLinks != null &&
+                                                getCategoryStoresModel.value.socialLinks!.youtube != null &&
+                                                getCategoryStoresModel.value.socialLinks!.youtube!.isEmpty ?
+                                            const SizedBox() :
+                                            CircleAvatar(
                                                 radius: 16,
                                                 backgroundColor: const Color(0xFF014E70),
                                                 child: SvgPicture.asset(
@@ -357,15 +395,23 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                                   height: 15,
                                                 )),
                                           ),
-                                          const SizedBox(
+                                          getCategoryStoresModel.value.socialLinks != null &&
+                                              getCategoryStoresModel.value.socialLinks!.facebook != null &&
+                                              getCategoryStoresModel.value.socialLinks!.facebook!.isEmpty ?
+                                          const SizedBox() :  const SizedBox(
                                             width: 10,
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              launchURLl(getCategoryStoresModel.value.socialLinks!.facebook.toString());
                                               //  onShare('facebook');
                                               //facebookLink();
                                             },
-                                            child: CircleAvatar(
+                                            child: getCategoryStoresModel.value.socialLinks != null &&
+                                                getCategoryStoresModel.value.socialLinks!.facebook != null &&
+                                                getCategoryStoresModel.value.socialLinks!.facebook!.isEmpty ?
+                                            const SizedBox() :
+                                            CircleAvatar(
                                                 radius: 16,
                                                 backgroundColor: const Color(0xFF014E70),
                                                 child: SvgPicture.asset(
@@ -373,7 +419,8 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                                   width: 15,
                                                   height: 15,
                                                 )),
-                                          )
+                                          ),
+
                                         ],
                                       )
                                       /* Text(
@@ -399,10 +446,10 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                             GestureDetector(
                               onTap: () {
                                 //   if (allStoreInfo.socialLinks != null)
-                                print('innsta url--------' + socialLinksData.socialLinks!.instagram.toString(),);
+                                // print('innsta url--------' + socialLinksData.socialLinks!.instagram.toString(),);
                               },
                               child: Text(
-                                'Brief'.tr,
+                                'Description'.tr,
                                 style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                               ),
                             ),
@@ -742,7 +789,7 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
               //   image: AssetImage('assets/images/collectionbooks.png'),
               // ),
             ],
-          );
+          ) : const LoadingAnimation();
         }),
       ),
     );
