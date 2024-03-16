@@ -49,7 +49,8 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
           return controller.modelReturnPolicy != null ?
           Padding(
             padding: const EdgeInsets.all(18.0),
-            child: Column(
+            child:   controller.modelReturnPolicy!.returnPolicy!.isNotEmpty ?
+            Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text("Select Return Policy".tr,style: titleStyle,),
@@ -97,7 +98,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   }
                 ),
               ],
-            ),
+            ) :  Text("Please login in web and create return policy".tr,style: titleStyle,textAlign: TextAlign.center),
           ) : const LoadingAnimation();
         }),
       );
@@ -264,7 +265,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       }
                       return null;
                     },
-                    items: <String>['include', 'exclude']
+                    items: <String>['Including tax', 'Without tax']
                         .map((label) =>
                         DropdownMenuItem(
                           value: label,
@@ -286,10 +287,10 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       });
                     },
                   ),
-                  controller.tax == 'include' ?
+                  controller.tax == 'Including tax' ?
                   18.spaceY :
                   const SizedBox(),
-                  controller.tax == 'include' ?
+                  controller.tax == 'Including tax' ?
                   DropdownButtonFormField<dynamic>(
                     // key: controller.weightUnitKey,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -326,8 +327,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                           value:  label.id.toString(),
                           child: Text(
                             label.title
-                                .toString()
-                                .capitalize!,
+                                .toString(),
                             style: GoogleFonts.poppins(
                               color: const Color(0xff463B57),
                             ),
@@ -382,7 +382,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       onTap: () {
                         showPolicyDialog();
                       },
-                      hintText: "Return Days".tr,
+                      hintText: "Return Policy".tr,
                       validator: (value) {
                         return null;
                       }),

@@ -60,7 +60,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
       gg["file"] = pickedFile;
     }
     if (profileController.userLoggedIn == true) {
-      if (pickedFile.path.isNotEmpty || postController.text.isNotEmpty) {
+      if (pickedFile.path.isNotEmpty || postController.text.trim().isNotEmpty) {
         repositories
             .multiPartApi(mapData: map, images: gg, url: ApiUrls.createPostUrl, context: context, onProgress: (gg, kk) {})
             .then((value) {

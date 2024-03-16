@@ -13,7 +13,7 @@ class AppStrings{
   static String searchFieldText = "What are you looking for?";
   static String newsAndTrend = "News & Trends";
   static String artificialIntelligence = "Artificial Intelligence Gains a Foot Hold In Writing";
-  static String shopByAuthor = "Shop By Author";
+  static String shopByAuthor = "Explore our partners stores";
   static String whatAreYouLooking = "What are you  looking for ... we back you !";
   static String myFavourite = "My Favourite";
     static String myProfile = "Account Details";
@@ -41,10 +41,12 @@ class AppStrings{
     static String description = "Description:";
     static String delete = "Delete";
     static String searchEBook = "Search E Book";
-    static String voice = "Voice";
+    static String search = "Search";
+    static String voice = "Audio Book";
     static String notHaveAnyBooks = "You don't have any book in your collection";
-    static String notHaveAnyVoice = "You don't have any voice in your collection";
+    static String notHaveAnyVoice = "You don't have any audio book in your collection";
     static String phoneNumber = "Email or Phone number";
+    static String phoneNumberr = "Phone number";
     static String password = "Password";
     static String signIn = "Sign In";
     static String forgotPassword = "Forgot Password";

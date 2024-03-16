@@ -74,27 +74,27 @@ class _ThankYouVendorScreenState extends State<ThankYouVendorScreen> {
         return false;
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          surfaceTintColor: Colors.transparent,
-          elevation: 0,
-          leading: const SizedBox.shrink(),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Get.back();
-                  Get.back();
-                  Get.back();
-                  Get.back();
-                  Get.back();
-                  Get.to(() => const VendorDashBoardScreen());
-                },
-                child: Text(
-                  "Skip".tr,
-                  style: titleStyle,
-                ))
-          ],
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.transparent,
+        //   surfaceTintColor: Colors.transparent,
+        //   elevation: 0,
+        //   leading: const SizedBox.shrink(),
+        //   actions: [
+        //     TextButton(
+        //         onPressed: () {
+        //           Get.back();
+        //           Get.back();
+        //           Get.back();
+        //           Get.back();
+        //           Get.back();
+        //           Get.to(() => const VendorDashBoardScreen());
+        //         },
+        //         child: Text(
+        //           "Skip".tr,
+        //           style: titleStyle,
+        //         ))
+        //   ],
+        // ),
         extendBodyBehindAppBar: true,
         body: SingleChildScrollView(
             child: Padding(

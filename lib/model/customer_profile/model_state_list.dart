@@ -31,13 +31,14 @@ class CountryState {
   dynamic stateId;
   dynamic stateName;
   dynamic countryId;
-
-  CountryState({this.stateId, this.stateName, this.countryId});
+  dynamic arabStateName;
+  CountryState({this.stateId, this.stateName, this.countryId,this.arabStateName});
 
   CountryState.fromJson(Map<String, dynamic> json) {
     stateId = json['state_id'];
     stateName = json['state_name'];
     countryId = json['country_id'];
+    arabStateName = json['arab_state_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +46,7 @@ class CountryState {
     data['state_id'] = stateId;
     data['state_name'] = stateName;
     data['country_id'] = countryId;
+    data['arab_state_name'] = arabStateName;
     return data;
   }
 }

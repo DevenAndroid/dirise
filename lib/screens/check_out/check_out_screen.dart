@@ -697,8 +697,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
 
                     //fedx
-                      if ( e.value.products!.any((e) =>
-                      e.vendorCountryId != '117'  && e.isShipping == true) || cartController.countryName.value != 'Kuwait')
+                      if (e.value.products!.any((e) =>
+                      e.vendorCountryId != '117'  && e.isShipping == true) || cartController.countryName.value != 'Kuwait' )
+                        cartController.selectedAddress.id != null ?
                         Container(
                           color: Colors.white,
                           child: Padding(
@@ -713,11 +714,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               ],
                             ),
                           ),
-                        ),
+                        ) : const SizedBox(),
 
                       if (e.value.products!.any((e) =>
                       e.vendorCountryId != '117'  && e.isShipping == true) || cartController.countryName.value != 'Kuwait')
-                        e.value.fedexShipping!.output !=null ? Container(
+                        cartController.selectedAddress.id != null ?
+                        e.value.fedexShipping!.output !=null ?
+                        Container(
                           color: Colors.white,
                           child: ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
@@ -786,7 +789,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               // : 0.spaceY,;
                             },
                           ),
-                        ) : const LoadingAnimation(),
+                        )  :const LoadingAnimation() : const SizedBox(),
                     ],
                   )).toList(),
             ),

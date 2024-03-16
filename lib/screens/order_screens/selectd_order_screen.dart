@@ -362,7 +362,7 @@ class _SelectedOrderScreenState extends State<SelectedOrderScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Deliver".tr,
+                                  "Delivery".tr,
                                   style: GoogleFonts.poppins(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
