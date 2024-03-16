@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'dart:io';
 import 'package:dirise/language/app_strings.dart';
 import 'package:dirise/widgets/common_colour.dart';
@@ -9,10 +10,12 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../controller/profile_controller.dart';
 import '../../model/login_model.dart';
 import '../../model/social_login_model.dart';
@@ -67,6 +70,27 @@ class _LoginScreenState extends State<LoginScreen> {
           Get.offAllNamed(BottomNavbar.route);
         }
       });
+    }
+  }
+  Future<void>   _signInWithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final OAuthProvider oAuthProvider = OAuthProvider('apple.com');
+      final AuthCredential credential1 = oAuthProvider.credential(idToken: credential.identityToken, accessToken: credential.authorizationCode,
+      );
+
+      final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential1);
+
+      // Navigate to the next screen or perform any other actions upon successful login
+    } catch (error) {
+      // Handle login errors
+      print('Failed to sign in with Apple: $error');
     }
   }
 
@@ -136,7 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomOutlineButton(
                   title: AppStrings.signIn.tr,
                   onPressed: () {
-                    loginUserApi();
+                   loginUserApi();
+                    // loginWithApple();
                   },
                 ),
                 SizedBox(
@@ -198,7 +223,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 //   children: [
                 //     if(Platform.isIOS)
                 //     InkWell(
-                //       onTap: () {},
+                //       onTap: () {
+                //         loginWithApple1();
+                //         // _signInWithApple();
+                //       },
                 //       child: Container(
                 //         height: 62,
                 //         width: 62,
@@ -284,7 +312,36 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
   signInWithGoogle() async {
+
+    var fcmToken = await FirebaseMessaging.instance.getToken();
+    await GoogleSignIn().signOut();
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+    await FirebaseAuth.instance.signInWithCredential(credential).then((value){
+      Map<String, dynamic> map = {};
+      map['provider'] =  "google";
+      map['access_token'] = value.credential!.accessToken!;
+      repositories.postApi(url: ApiUrls.socialLoginUrl, context: context, mapData: map).then((value) async {
+        LoginModal response = LoginModal.fromJson(jsonDecode(value));
+        repositories.saveLoginDetails(jsonEncode(response));
+        if (response.status == true) {
+          showToast(response.message.toString());
+          profileController.userLoggedIn = true;
+          Get.offAllNamed(BottomNavbar.route);
+        } else {
+          showToast(response.message.toString());
+        }
+      });
+    });
+  }
+
+  signInWithGoogle1() async {
     await GoogleSignIn().signOut();
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
@@ -320,4 +377,71 @@ class _LoginScreenState extends State<LoginScreen> {
     //   }
     // });
   }
+  // loginWithApple() async {
+  //   var fcmToken = await FirebaseMessaging.instance.getToken();
+  //   final appleProvider = AppleAuthProvider().addScope("email").addScope("FullName");
+  //   await FirebaseAuth.instance.signInWithProvider(appleProvider).then((value) async {
+  //
+  //     log(value.credential!.accessToken.toString());
+  //     Map<String, dynamic> map = {};
+  //     map['provider'] =  "apple";
+  //     map['access_token'] = value.credential!.accessToken!;
+  //     repositories.postApi(url: ApiUrls.socialLoginUrl, context: context, mapData: map).then((value) async {
+  //       LoginModal response = LoginModal.fromJson(jsonDecode(value));
+  //       repositories.saveLoginDetails(jsonEncode(response));
+  //       if (response.status == true) {
+  //         showToast(response.message.toString());
+  //         profileController.userLoggedIn = true;
+  //         Get.offAllNamed(BottomNavbar.route);
+  //       } else {
+  //         showToast(response.message.toString());
+  //       }
+  //     });
+  // });
+  // }
+  loginWithApple1() async {
+    var fcmToken = await FirebaseMessaging.instance.getToken();
+    final appleProvider = AppleAuthProvider().addScope("email").addScope("FullName");
+    await FirebaseAuth.instance.signInWithProvider(appleProvider).then((value) async {
+
+      log(value.credential!.accessToken.toString());
+      Map<String, dynamic> map = {};
+      map['provider'] =  "apple";
+      map['access_token'] = value.credential!.accessToken!;
+      repositories.postApi(url: ApiUrls.socialLoginUrl, context: context, mapData: map).then((value) async {
+        LoginModal response = LoginModal.fromJson(jsonDecode(value));
+        repositories.saveLoginDetails(jsonEncode(response));
+        if (response.status == true) {
+          showToast(response.message.toString());
+          profileController.userLoggedIn = true;
+          Get.offAllNamed(BottomNavbar.route);
+        } else {
+          showToast(response.message.toString());
+        }
+      });
+    });
+
+  }
+//   loginWithApple1() async {
+//     log("Hello from apple ");
+//     final appleProvider = AppleAuthProvider().addScope("email").addScope("fullName");
+//     await FirebaseAuth.instance.signInWithProvider(appleProvider).then((value) async {
+//
+//       log("Tokenisss -------${value.credential!.accessToken}");
+//       Map<String, dynamic> map = {};
+//       map['provider'] =  "apple";
+//       map['access_token'] = value.credential!.accessToken!;
+//       repositories.postApi(url: ApiUrls.socialLoginUrl, context: context, mapData: map).then((value) async {
+//         LoginModal response = LoginModal.fromJson(jsonDecode(value));
+//         repositories.saveLoginDetails(jsonEncode(response));
+//         if (response.status == true) {
+//           showToast(response.message.toString());
+//           profileController.userLoggedIn = true;
+//           Get.offAllNamed(BottomNavbar.route);
+//         } else {
+//           showToast(response.message.toString());
+//         }
+//       });
+//   });
+// }
 }
