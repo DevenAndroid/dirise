@@ -400,7 +400,7 @@ class AddProductController extends GetxController {
       showToast(modelCommonResponse.message.toString());
       if (modelCommonResponse.status == true) {
         productListController.getProductList();
-
+        Get.back();
       }
     });
   }

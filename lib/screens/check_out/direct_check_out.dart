@@ -398,6 +398,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                       ),
                     if ( selectedAddress.id != null && directOrderResponse.prodcutData!.isShipping == true
                         && directOrderResponse.vendorCountryId != '117' || cartController.countryName.value != 'Kuwait')
+                      selectedAddress.id != null ?
                       Column(
                         children: [
                           Container(
@@ -425,7 +426,8 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               itemBuilder: (context, ii) {
                                 var product = directOrderResponse.fedexShipping![ii].output!.rateReplyDetails![ii];
                                 return Obx(() {
-                                  return Column(
+                                  return directOrderResponse.fedexShipping![ii].output!= null ?
+                                    Column(
                                     children: [
                                       10.spaceY,
                                       ii == 0 ? 0.spaceY : const Divider(
@@ -474,14 +476,14 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                         ],
                                       ),
                                     ],
-                                  );
+                                  ): const LoadingAnimation();
                                 });
                                 // : 0.spaceY,;
                               },
                             ),
                           ),
                         ],
-                      )
+                      ) : const SizedBox()
                   ],
                 )
               ],
@@ -769,10 +771,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                               }
                               if (modelStateList!.state!.isEmpty) return;
                               showAddressSelectorDialog(
-                                  addressList: modelStateList!.state!
-                                      .map((e) =>
-                                      CommonAddressRelatedClass(title: e.stateName.toString(), addressId: e.stateId.toString()))
-                                      .toList(),
+                                  addressList: profileController.selectedLAnguage.value == 'English' ?
+                                  modelStateList!.state!.map((e) => CommonAddressRelatedClass(title: e.stateName.toString(), addressId: e.stateId.toString())).toList() :
+                                  modelStateList!.state!.map((e) => CommonAddressRelatedClass(title: e.arabStateName.toString(), addressId: e.stateId.toString())).toList(),
                                   selectedAddressIdPicked: (String gg) {
                                     String previous = ((selectedState ?? CountryState()).stateId ?? "").toString();
                                     selectedState = modelStateList!.state!.firstWhere((element) => element.stateId.toString() == gg);
@@ -814,10 +815,8 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                 }
                                 if (modelCityList!.city!.isEmpty) return;
                                 showAddressSelectorDialog(
-                                    addressList: modelCityList!.city!
-                                        .map((e) =>
-                                        CommonAddressRelatedClass(title: e.cityName.toString(), addressId: e.cityId.toString()))
-                                        .toList(),
+                                    addressList:  profileController.selectedLAnguage.value == 'English' ? modelCityList!.city!.map((e) => CommonAddressRelatedClass(title: e.cityName.toString(), addressId: e.cityId.toString())).toList() :
+                                    modelCityList!.city!.map((e) => CommonAddressRelatedClass(title: e.arabCityName.toString(), addressId: e.cityId.toString())).toList(),
                                     selectedAddressIdPicked: (String gg) {
                                       selectedCity = modelCityList!.city!.firstWhere((element) => element.cityId.toString() == gg);
                                       cartController.cityCode = gg.toString();

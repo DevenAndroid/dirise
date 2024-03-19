@@ -245,7 +245,9 @@ class _VendorProductScreenState extends State<VendorProductScreen> {
                                                                 child:  Text("Cancel".tr)),
                                                             ElevatedButton(
                                                                 onPressed: () {
+                                                                  controller.productId = item.id.toString();
                                                                   controller.deleteProductForAll(context);
+
                                                                 },
                                                                 child: Text("Delete".tr)),
                                                           ],

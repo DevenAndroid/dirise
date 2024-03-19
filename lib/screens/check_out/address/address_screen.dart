@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dirise/utils/helper.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +14,7 @@ import '../../../model/customer_profile/model_city_list.dart';
 import '../../../model/customer_profile/model_country_list.dart';
 import '../../../model/customer_profile/model_state_list.dart';
 import '../../../model/model_address_list.dart';
+import '../../../repository/repository.dart';
 import '../../../utils/api_constant.dart';
 import '../../../widgets/common_colour.dart';
 import '../../../widgets/common_textfield.dart';
@@ -32,6 +35,70 @@ class _AddressScreenState extends State<AddressScreen> {
   final profileController = Get.put(ProfileController());
 
   bool get userLoggedIn => profileController.userLoggedIn;
+  ModelCountryList? modelCountryList;
+  Country? selectedCountry;
+
+  ModelStateList? modelStateList;
+  CountryState? selectedState;
+
+  ModelCityList? modelCityList;
+  City? selectedCity;
+  RxInt stateRefresh = 2.obs;
+  final Repositories repositories = Repositories();
+  Future getStateList({required String countryId, bool? reset}) async {
+    if (reset == true) {
+      modelStateList = null;
+      selectedState = null;
+      modelCityList = null;
+      selectedCity = null;
+    }
+    stateRefresh.value = -5;
+    final map = {'country_id': countryId};
+    await repositories.postApi(url: ApiUrls.allStatesUrl, mapData: map).then((value) {
+      modelStateList = ModelStateList.fromJson(jsonDecode(value));
+      setState(() {
+
+      });
+      stateRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    }).catchError((e) {
+      stateRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }
+
+  RxInt cityRefresh = 2.obs;
+  String stateIddd = '';
+  Future getCityList({required String stateId, bool? reset}) async {
+    if (reset == true) {
+      modelCityList = null;
+      selectedCity = null;
+    }
+    cityRefresh.value = -5;
+    final map = {'state_id': stateId};
+    await repositories.postApi(url: ApiUrls.allCityUrl, mapData: map).then((value) {
+      modelCityList = ModelCityList.fromJson(jsonDecode(value));
+      setState(() {
+
+      });
+      cityRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    }).catchError((e) {
+      cityRefresh.value = DateTime.now().millisecondsSinceEpoch;
+    });
+  }
+  getCountryList() {
+    if (modelCountryList != null) return;
+    repositories.getApi(url: ApiUrls.allCountriesUrl).then((value) {
+      modelCountryList = ModelCountryList.fromString(value);
+
+    });
+  }
+  String countryIddd = '';
+  @override
+  void initState() {
+    super.initState();
+    getCountryList();
+    getStateList(countryId: countryIddd.toString());
+    getCityList(stateId: stateIddd.toString());
+  }
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -157,8 +224,7 @@ class _AddressScreenState extends State<AddressScreen> {
                             if (userLoggedIn) {
                               bottomSheetChangeAddress();
                             } else {
-                              // addAddressWithoutLogin(addressData: cartController.selectedAddress);
-                              Get.toNamed(LoginScreen.route,);
+                              addAddressWithoutLogin(addressData: cartController.selectedAddress);
                             }
                           },
                           child: DottedBorder(
@@ -210,7 +276,90 @@ class _AddressScreenState extends State<AddressScreen> {
       ),
     );
   }
-
+  showAddressSelectorDialog({
+    required List<CommonAddressRelatedClass> addressList,
+    required String selectedAddressId,
+    required Function(String selectedId) selectedAddressIdPicked,
+  }) {
+    FocusManager.instance.primaryFocus!.unfocus();
+    final TextEditingController searchController = TextEditingController();
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            insetPadding: const EdgeInsets.all(18),
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: StatefulBuilder(builder: (context, newState) {
+                String gg = searchController.text.trim().toLowerCase();
+                List<CommonAddressRelatedClass> filteredList =
+                addressList.where((element) => element.title.toString().toLowerCase().contains(gg)).toList();
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextFormField(
+                      controller: searchController,
+                      onChanged: (gg) {
+                        newState(() {});
+                      },
+                      autofocus: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: AppTheme.buttonColor, width: 1.2)),
+                          enabled: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(color: AppTheme.buttonColor, width: 1.2)),
+                          suffixIcon: const Icon(Icons.search),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12)),
+                    ),
+                    Flexible(
+                        child: ListView.builder(
+                            itemCount: filteredList.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                // dense: true,
+                                onTap: () {
+                                  selectedAddressIdPicked(filteredList[index].addressId);
+                                  FocusManager.instance.primaryFocus!.unfocus();
+                                  Get.back();
+                                },
+                                leading: filteredList[index].flagUrl != null
+                                    ? SizedBox(
+                                    width: 30,
+                                    height: 30,
+                                    child: filteredList[index].flagUrl.toString().contains("svg")
+                                        ? SvgPicture.network(
+                                      filteredList[index].flagUrl.toString(),
+                                    )
+                                        : Image.network(
+                                      filteredList[index].flagUrl.toString(),
+                                      errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                                    ))
+                                    : null,
+                                visualDensity: VisualDensity.compact,
+                                title: Text(filteredList[index].title),
+                                trailing: selectedAddressId == filteredList[index].addressId
+                                    ? const Icon(
+                                  Icons.check,
+                                  color: Colors.purple,
+                                )
+                                    : Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  size: 18,
+                                  color: Colors.grey.shade800,
+                                ),
+                              );
+                            }))
+                  ],
+                );
+              }),
+            ),
+          );
+        });
+  }
   Future addAddressWithoutLogin({required AddressData addressData}) {
     Size size = MediaQuery.of(context).size;
     final TextEditingController firstNameController = TextEditingController(text: addressData.firstName ?? "");
@@ -348,39 +497,134 @@ class _AddressScreenState extends State<AddressScreen> {
                             // }
                             return null;
                           }),
-                      ...commonField(
-                          textController: countryController,
-                          title: "Country*",
-                          hintText: "Enter your country",
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Please enter country*";
+                      ...fieldWithName(
+                        title: 'Country/Region',
+                        hintText: 'Select Country',
+                        readOnly: true,
+                        onTap: () {
+                          showAddressSelectorDialog(
+                              addressList: modelCountryList!.country!
+                                  .map((e) => CommonAddressRelatedClass(
+                                  title: e.name.toString(), addressId: e.id.toString(), flagUrl: e.icon.toString()))
+                                  .toList(),
+                              selectedAddressIdPicked: (String gg) {
+                                String previous = ((selectedCountry ?? Country()).id ?? "").toString();
+                                selectedCountry = modelCountryList!.country!.firstWhere((element) => element.id.toString() == gg);
+                                cartController.countryCode = gg.toString();
+                                cartController.countryName.value = selectedCountry!.name.toString();
+                                print('countrrtr ${cartController.countryName.toString()}');
+                                print('countrrtr ${cartController.countryCode.toString()}');
+                                if (previous != selectedCountry!.id.toString()) {
+                                  countryIddd = gg.toString();
+                                  getStateList(countryId: countryIddd.toString(), reset: true).then((value) {
+                                    setState(() {});
+                                  });
+                                  setState(() {});
+                                }
+                              },
+                              selectedAddressId: ((selectedCountry ?? Country()).id ?? "").toString());
+                        },
+                        controller: TextEditingController(text: (selectedCountry ?? Country()).name ?? countryController.text),
+                        validator: (v) {
+                          if (v!.trim().isEmpty) {
+                            return "Please select country";
+                          }
+                          return null;
+                        },
+                      ),
+                      ...fieldWithName(
+                        title: 'State',
+                        hintText: 'Select State',
+                        controller: TextEditingController(text: (selectedState ?? CountryState()).stateName ??  stateController.text),
+                        readOnly: true,
+                        onTap: () {
+                          if(countryIddd == 'null'){
+                            showToast("Select Country First");
+                            return;
+                          }
+                          if (modelStateList == null && stateRefresh.value > 0) {
+                            showToast("Select Country First");
+                            return;
+                          }
+                          if (stateRefresh.value < 0) {
+                            return;
+                          }
+                          if (modelStateList!.state!.isEmpty) return;
+                          showAddressSelectorDialog(
+                              addressList: profileController.selectedLAnguage.value == 'English' ?
+                              modelStateList!.state!.map((e) => CommonAddressRelatedClass(title: e.stateName.toString(), addressId: e.stateId.toString())).toList() :
+                              modelStateList!.state!.map((e) => CommonAddressRelatedClass(title: e.arabStateName.toString(), addressId: e.stateId.toString())).toList(),
+                              selectedAddressIdPicked: (String gg) {
+                                String previous = ((selectedState ?? CountryState()).stateId ?? "").toString();
+                                selectedState = modelStateList!.state!.firstWhere((element) => element.stateId.toString() == gg);
+                                cartController.stateCode = gg.toString();
+                                cartController.stateName.value = selectedState!.stateName.toString();
+                                print('state ${cartController.stateCode.toString()}');
+                                print('stateNameee ${cartController.stateName.toString()}');
+                                if (previous != selectedState!.stateId.toString()) {
+                                  stateIddd = gg.toString();
+                                  getCityList(stateId: stateIddd.toString(), reset: true).then((value) {
+                                    setState(() {});
+                                  });
+                                  setState(() {});
+                                }
+                              },
+                              selectedAddressId: ((selectedState ?? CountryState()).stateId ?? "").toString());
+                        },
+                        suffixIcon: Obx(() {
+                          if (stateRefresh.value > 0) {
+                            return const Icon(Icons.keyboard_arrow_down_rounded);
+                          }
+                          return const CupertinoActivityIndicator();
+                        }),
+                        validator: (v) {
+                          if (v!.trim().isEmpty) {
+                            return "Please select state";
+                          }
+                          return null;
+                        },
+                      ),
+                      // if (modelCityList != null && modelCityList!.city!.isNotEmpty)
+                        ...fieldWithName(
+                          readOnly: true,
+                          title: 'City',
+                          hintText: 'Select City',
+                          controller: TextEditingController(text: (selectedCity ?? City()).cityName ?? cityController.text),
+                          onTap: () {
+                            if (modelCityList == null && cityRefresh.value > 0) {
+                              showToast("Select State First");
+                              return;
+                            }
+                            if (cityRefresh.value < 0) {
+                              return;
+                            }
+                            if (modelCityList!.city!.isEmpty) return;
+                            showAddressSelectorDialog(
+                                addressList:  profileController.selectedLAnguage.value == 'English' ? modelCityList!.city!.map((e) => CommonAddressRelatedClass(title: e.cityName.toString(), addressId: e.cityId.toString())).toList() :
+                                modelCityList!.city!.map((e) => CommonAddressRelatedClass(title: e.arabCityName.toString(), addressId: e.cityId.toString())).toList(),
+                                selectedAddressIdPicked: (String gg) {
+                                  selectedCity = modelCityList!.city!.firstWhere((element) => element.cityId.toString() == gg);
+                                  cartController.cityCode = gg.toString();
+                                  cartController.cityName.value = selectedCity!.cityName.toString();
+                                  print('state ${cartController.cityName.toString()}');
+                                  print('state Nameee ${cartController.cityCode.toString()}');
+                                  setState(() {});
+                                },
+                                selectedAddressId: ((selectedCity ?? City()).cityId ?? "").toString());
+                          },
+                          suffixIcon: Obx(() {
+                            if (cityRefresh.value > 0) {
+                              return const Icon(Icons.keyboard_arrow_down_rounded);
+                            }
+                            return const CupertinoActivityIndicator();
+                          }),
+                          validator: (v) {
+                            if (v!.trim().isEmpty) {
+                              return "Please select state";
                             }
                             return null;
-                          }),
-                      ...commonField(
-                          textController: stateController,
-                          title: "State*",
-                          hintText: "Enter your state",
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Please enter state*";
-                            }
-                            return null;
-                          }),
-                      ...commonField(
-                          textController: cityController,
-                          title: "City*",
-                          hintText: "Enter your city",
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            if (value!.trim().isEmpty) {
-                              return "Please enter City*";
-                            }
-                            return null;
-                          }),
+                          },
+                        ),
                       ...commonField(
                           textController: zipCodeController,
                           title: "Zip-Code*",
