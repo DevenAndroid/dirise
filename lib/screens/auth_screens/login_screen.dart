@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'dart:io';
 import 'package:dirise/language/app_strings.dart';
+import 'package:dirise/utils/styles.dart';
 import 'package:dirise/widgets/common_colour.dart';
 import 'package:dirise/widgets/common_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../controller/profile_controller.dart';
@@ -39,6 +41,22 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  bool isRemember = false;
+  late Box box1;
+  void getData()async{
+    if(box1.get('email')!=null){
+      emailController.text = box1.get('email');
+      isRemember = true;
+      setState(() {
+      });
+    }
+    if(box1.get('pass')!=null){
+      passwordController.text = box1.get('pass');
+      isRemember = true;
+      setState(() {
+      });
+    }
+  }
   final loginFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -56,7 +74,14 @@ class _LoginScreenState extends State<LoginScreen> {
 // if(Platform.isAndroid){
 //   String? token = await FirebaseMessaging.instance.getAPNSToken();
 // }
-
+      if(isRemember){
+        box1.put('email', emailController.text.trim());
+        box1.put('pass', passwordController.text.trim());
+      }
+      if (!isRemember) {
+        box1.delete('email');
+        box1.delete('pass');
+      }
 
       Map<String, dynamic> map = {};
       map['email'] = emailController.text.trim();
@@ -94,6 +119,16 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+   void createBox() async{
+    box1 = await Hive.openBox('logindata');
+    getData();
+   }
+
+  @override
+  void initState() {
+    super.initState();
+    createBox();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -155,7 +190,35 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 }),
                 const SizedBox(
-                  height: 35,
+                  height: 16,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Checkbox(
+                         shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)),
+                          visualDensity: VisualDensity.comfortable,
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          value: isRemember,
+                          onChanged: (value){
+                            isRemember = !isRemember;
+                            setState(() {
+
+                            });
+                          }),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text('Remember me',style: titleStyle),
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
                 ),
                 CustomOutlineButton(
                   title: AppStrings.signIn.tr,
