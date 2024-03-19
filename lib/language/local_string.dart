@@ -209,8 +209,8 @@ class LocaleString extends Translations {
           'create an account first. ' : 'create an account first. ',
           'Create Account' : 'Create Account',
           'Privacy Policy' : 'Privacy Policy',
-          'For users with a separate Doc Send or Drop Lorem  Sign account, the DocSend Terms of Service can found here, and the Lorem Sign Terms of Service can found here.':
-          'For users with a separate Doc Send or Drop Lorem  Sign account, the DocSend Terms of Service can found here, and the Lorem Sign Terms of Service can found here.',
+          'For users with a separate Doc Send or Drop   Sign account, the DocSend Terms of Service can found here, and the  Sign Terms of Service can found here.':
+          'For users with a separate Doc Send or Drop   Sign account, the DocSend Terms of Service can found here, and the  Sign Terms of Service can found here.',
           'Thanks for using Dropbox! Our mission is to create a more enlightened way of working, and help you and those you work with stay coordinated. We do so by providing an intuitive, unified platform and suite of apps and services that keep your content safe, accessible and in sync. These terms of service (“Terms”) cover your use and access to our services' :
           'Thanks for using Dropbox! Our mission is to create a more enlightened way of working, and help you and those you work with stay coordinated. We do so by providing an intuitive, unified platform and suite of apps and services that keep your content safe, accessible and in sync. These terms of service (“Terms”) cover your use and access to our services',
           'Order' : 'Order',
@@ -614,8 +614,8 @@ class LocaleString extends Translations {
           'Order' : 'أن يطلب',
           'Thanks for using Dropbox! Our mission is to create a more enlightened way of working, and help you and those you work with stay coordinated. We do so by providing an intuitive, unified platform and suite of apps and services that keep your content safe, accessible and in sync. These terms of service (“Terms”) cover your use and access to our services':
           'شكرا لاستخدام دروببوإكس! مهمتنا هي خلق طريقة أكثر استنارة للعمل، ومساعدتك ومن تعمل معهم على البقاء منسقين. نقوم بذلك من خلال توفير منصة بديهية وموحدة ومجموعة من التطبيقات والخدمات التي تحافظ على المحتوى الخاص بك آمنًا وسهل الوصول إليه ومتزامنًا. تغطي شروط الخدمة هذه ("الشروط") استخدامك ووصولك إلى خدماتنا',
-          'For users with a separate Doc Send or Drop Lorem  Sign account, the DocSend Terms of Service can found here, and the Lorem Sign Terms of Service can found here.' :
-          'بالنسبة للمستخدمين الذين لديهم حساب Doc Send أو Drop Lorem Sign منفصل، يمكن العثور على شروط خدمة DocSend هنا، ويمكن العثور على شروط خدمة Lorem Sign هنا.',
+          'For users with a separate Doc Send or Drop   Sign account, the DocSend Terms of Service can found here, and the  Sign Terms of Service can found here.' :
+          'بالنسبة للمستخدمين الذين لديهم حساب Doc Send أو Drop  Sign منفصل، يمكن العثور على شروط خدمة DocSend هنا، ويمكن العثور على شروط خدمة  Sign هنا.',
           'Privacy Policy' : 'سياسة الخصوصية',
           'Create Account' : 'إنشاء حساب',
           'create an account first. ' : 'قم بإنشاء حساب أولا.',
