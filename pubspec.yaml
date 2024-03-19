@@ -3,7 +3,7 @@ description: Flutter project.
 
 publish_to: 'none'
 
-version: 1.0.5+5
+version: 1.0.6+6
 
 environment:
   sdk: '>=3.0.2 <4.0.0'
@@ -22,6 +22,7 @@ dependencies:
   google_fonts: ^6.1.0
   collection:
   http: ^1.1.0
+  sign_in_with_apple:
   country_code_picker: ^3.0.0
   pinput: ^3.0.1
   fluttertoast: ^8.2.2
