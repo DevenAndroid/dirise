@@ -76,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
 // }
       if(isRemember){
         box1.put('email', emailController.text.trim());
+
         box1.put('pass', passwordController.text.trim());
       }
       if (!isRemember) {
