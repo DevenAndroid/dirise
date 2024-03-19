@@ -9,11 +9,11 @@
 	<key>CFBundleDisplayName</key>
 	<string>Dirise</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>This app needs access photo library access.</string>
+    <string>Dirise would like access to your photo gallery</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>This App needs microphone access.</string>
     <key>NSCameraUsageDescription</key>
-    <string>This app needs camera access.</string>
+    <string>$Dirise would like to use your camera</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -83,5 +83,26 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+		</array>
+    	<key>NSPrivacyAccessedAPITypes</key>
+        <array>
+            <dict>
+                <key>NSPrivacyAccessedAPIType</key>
+                <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+                <key>NSPrivacyAccessedAPITypeReasons</key>
+                <array>
+                    <string>C617.1</string>
+                </array>
+            </dict>
+            <dict>
+                <key>NSPrivacyAccessedAPIType</key>
+                <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+                <key>NSPrivacyAccessedAPITypeReasons</key>
+                <array>
+                    <string>CA92.1</string>
+                    <string>1C8F.1</string>
+                </array>
+            </dict>
+        </array>
 </dict>
 </plist>

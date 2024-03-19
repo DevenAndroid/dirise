@@ -37,7 +37,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           child: Column(
             children: [
               Text(
-                "For users with a separate Doc Send or Drop Lorem  Sign account, the DocSend Terms of Service can found here, and the Lorem Sign Terms of Service can found here.".tr,
+                "For users with a separate Doc Send or Drop Sign account, the DocSend Terms of Service can found here, and the  Sign Terms of Service can found here.".tr,
                 style: GoogleFonts.poppins(fontSize: 15, height: 1.7, color: const Color(0xff3B484A)),
               ),
               const SizedBox(
