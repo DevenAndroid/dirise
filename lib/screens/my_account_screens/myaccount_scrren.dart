@@ -384,7 +384,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 18),
                     child: Column(children: [
                       16.spaceY,
-                      ListTile(
+                      profileController.userLoggedIn ?   ListTile(
                         onTap: () {
                           if (profileController.userLoggedIn) {
                             Get.toNamed(ProfileScreen.route);
@@ -416,14 +416,14 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             ),
                           ],
                         ),
-                      ),
-                      const Divider(
+                      ) :const SizedBox.shrink(),
+                      profileController.userLoggedIn ?   const Divider(
                         thickness: 1,
                         color: Color(0x1A000000),
-                      ),
-                      const SizedBox(
+                      ): const SizedBox.shrink(),
+                      profileController.userLoggedIn ?   const SizedBox(
                         height: 5,
-                      ),
+                      ) : const SizedBox.shrink(),
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
@@ -548,7 +548,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              'chat',
+                              'chat'.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -696,7 +696,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.address,
+                              AppStrings.address.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -743,7 +743,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                     border: Border.all(color: const Color(0xffDCDCDC)),
                                                     borderRadius: BorderRadius.circular(15)),
                                                 child: RadioListTile(
-                                                  title: const Text('English'),
+                                                  title:  Text('English'.tr),
                                                   activeColor: const Color(0xff014E70),
                                                   value: "English",
                                                   groupValue: profileController.selectedLAnguage.value,
@@ -765,7 +765,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                     border: Border.all(color: const Color(0xffDCDCDC)),
                                                     borderRadius: BorderRadius.circular(15)),
                                                 child:    RadioListTile(
-                                                  title: const Text('Arabic'),
+                                                  title:  Text('Arabic'.tr),
                                                   activeColor: const Color(0xff014E70),
                                                   value: "عربي",
                                                   groupValue: profileController.selectedLAnguage.value,
@@ -816,7 +816,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                                   color: const Color(0xff014E70),
                                                   child: Center(
                                                     child: Text(
-                                                      'Apply',
+                                                      'Apply'.tr,
                                                       style: GoogleFonts.poppins(
                                                           fontSize: 18,
                                                           fontWeight: FontWeight.w500,
@@ -909,7 +909,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              AppStrings.contactUs,
+                              AppStrings.contactUs.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -1578,6 +1578,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             return null;
                           },
                         ),
+                      if(cartController.countryName.value != 'Kuwait')
                       ...commonField(
                           textController: zipCodeController,
                           title: "Zip-Code*",
@@ -1589,6 +1590,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                             }
                             return null;
                           }),
+                      if(cartController.countryName.value != 'Kuwait')
                       ...commonField(
                           textController: landmarkController,
                           title: "Landmark",

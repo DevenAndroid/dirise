@@ -9,28 +9,32 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+import '../../controller/profile_controller.dart';
 import '../../model/common_modal.dart';
 import '../../model/login_model.dart';
 import '../../utils/api_constant.dart';
 import '../../utils/helper.dart';
+import '../../vendor/authentication/vendor_plans_screen.dart';
+import '../../vendor/dashboard/dashboard_screen.dart';
 import '../../widgets/common_colour.dart';
 import '../../bottomavbar.dart';
 import 'package:http/http.dart' as http;
 import 'newpasswordscreen.dart';
 
-class OtpScreen extends StatefulWidget {
-  static String route = "/OtpScreen";
+class OtpScreenSell extends StatefulWidget {
+  static String route = "/OtpScreenSell";
 
-  const OtpScreen({Key? key}) : super(key: key);
+  const OtpScreenSell({Key? key}) : super(key: key);
 
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<OtpScreenSell> createState() => _OtpScreenSellState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _OtpScreenSellState extends State<OtpScreenSell> {
   final TextEditingController _otpController = TextEditingController();
   final Repositories repositories = Repositories();
   late bool check;
+  final profileController = Get.put(ProfileController());
   String email = "";
   Map<String, dynamic> tempMap = {};
   verifyOtp() async {
@@ -56,7 +60,7 @@ class _OtpScreenState extends State<OtpScreen> {
       if (response.status == true) {
         if (check == true) {
           repositories.saveLoginDetails(jsonEncode(response));
-          Get.offAllNamed(BottomNavbar.route);
+          Get.offAllNamed(VendorPlansScreen.route);
         } else {
           Get.offNamed(NewPasswordScreen.route, arguments: [email]);
         }
@@ -137,6 +141,7 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void initState() {
     super.initState();
+    profileController.getDataProfile();
     check = Get.arguments[1];
     email = Get.arguments[0];
     tempMap = Get.arguments[2];
@@ -161,9 +166,9 @@ class _OtpScreenState extends State<OtpScreen> {
       decoration: BoxDecoration(
           border: Border(
               bottom: BorderSide(
-        color: Colors.grey.shade300,
-        width: 4.0,
-      ))));
+                color: Colors.grey.shade300,
+                width: 4.0,
+              ))));
 
   @override
   Widget build(BuildContext context) {
@@ -206,8 +211,8 @@ class _OtpScreenState extends State<OtpScreen> {
                   bottom: 0,
                   child: Container(
                     decoration: const BoxDecoration(
-                        color: Colors.white,
-                        // borderRadius: BorderRadius.only(topLeft: Radius.circular(100))
+                      color: Colors.white,
+                      // borderRadius: BorderRadius.only(topLeft: Radius.circular(100))
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(top: 60, left: 10, right: 10),
@@ -248,7 +253,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             child: Obx(() {
                               return Text(
                                 ' Resend OTP\n'
-                                '${timerInt.value > 0 ? "In ${timerInt.value > 9 ? timerInt.value : "0${timerInt.value}"}" : ""}',
+                                    '${timerInt.value > 0 ? "In ${timerInt.value > 9 ? timerInt.value : "0${timerInt.value}"}" : ""}',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w600, color: const Color(0xff578AE8), fontSize: 16),

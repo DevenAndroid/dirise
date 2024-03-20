@@ -53,6 +53,13 @@ class _MyAppState extends State<MyApp> {
       title: 'Dirise',
       translations: LocaleString(),
       locale: const Locale('en','US'),
+      builder: (c, child) => GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus!.unfocus();
+        },
+        behavior: HitTestBehavior.translucent,
+        child: child!,
+      ),
       theme: ThemeData(
           fontFamily: GoogleFonts.poppins().fontFamily,
           useMaterial3: true,

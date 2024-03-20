@@ -94,6 +94,7 @@ class ApiUrls {
   static const String addReviewUrl = "${baseUrl}review";
   static const String getReviewUrl = "${baseUrl}review-list?product_id=";
   static const String getContactUsUrl = "${baseUrl}contact-us";
+  static const String starVendorUrl = "${baseUrl}star-vendors";
 
 
 

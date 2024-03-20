@@ -500,7 +500,7 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                                                     });
                                                   },
                                                   child: Text(
-                                                    item.isOpen ? "Show less" : "Show more",
+                                                    item.isOpen ? "Show less".tr : "Show more".tr,
                                                     style:  GoogleFonts.poppins(color: AppTheme.buttonColor,fontWeight: FontWeight.w600,fontSize: 15),
                                                   ),
                                                 ),

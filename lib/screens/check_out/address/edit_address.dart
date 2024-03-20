@@ -333,6 +333,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                       // }
                       return null;
                     }),
+                if(cartController.countryName.value != 'Kuwait')
                 ...commonField(
                     textController: landmarkController,
                     title: "Landmark",
@@ -484,7 +485,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                       return null;
                     },
                   ),
-
+                if(cartController.countryName.value != 'Kuwait')
                 ...commonField(
                     textController: zipCodeController,
                     title: "Zip-Code*",

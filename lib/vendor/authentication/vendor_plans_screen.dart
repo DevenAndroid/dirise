@@ -14,7 +14,7 @@ import 'vendor_registration_screen.dart';
 
 class VendorPlansScreen extends StatefulWidget {
   const VendorPlansScreen({super.key});
-
+  static String route = "/VendorPlansScreen";
   @override
   State<VendorPlansScreen> createState() => _VendorPlansScreenState();
 }
@@ -139,7 +139,7 @@ class _VendorPlansScreenState extends State<VendorPlansScreen> {
                                                               e1.value.label.toString().capitalize!,
                                                               style: titleStyle,
                                                             )),
-                                                        Expanded(flex: 2, child: Text("${e1.value.amount} ${e1.value.currency}",style: titleStyle.copyWith(
+                                                        Expanded(flex: 2, child: Text("${e1.value.amount} ${e1.value.currency ?? 'KWD'}",style: titleStyle.copyWith(
                                                           fontWeight: FontWeight.w400,
                                                           fontSize: 14
                                                         ),)),

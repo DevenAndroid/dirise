@@ -625,7 +625,8 @@ class _AddressScreenState extends State<AddressScreen> {
                             return null;
                           },
                         ),
-                      ...commonField(
+                        if(cartController.countryName.value != 'Kuwait')
+                        ...commonField(
                           textController: zipCodeController,
                           title: "Zip-Code*",
                           hintText: "Enter location Zip-Code",
@@ -636,6 +637,7 @@ class _AddressScreenState extends State<AddressScreen> {
                             }
                             return null;
                           }),
+                      if(cartController.countryName.value != 'Kuwait')
                       ...commonField(
                           textController: landmarkController,
                           title: "Landmark",

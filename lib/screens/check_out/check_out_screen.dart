@@ -36,7 +36,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   final cartController = Get.put(CartController());
   final profileController = Get.put(ProfileController());
   final _formKey = GlobalKey<FormState>();
-
+  String shippingPrice = '0';
   String couponApplied = "";
   String appliedCode = "";
   String paymentMethod1 = "";
@@ -105,9 +105,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   RxString paymentOption = "".obs;
-
+  String formattedTotal = '';
   bool get userLoggedIn => profileController.userLoggedIn;
-
+  double total = 0.0;
   @override
   void initState() {
     super.initState();
@@ -350,10 +350,28 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Text("Sub Total".tr,  style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
+              Text("KWD ${cartController.cartModel.subtotal.toString()}",
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
+            ],
+          ),
+          10.spaceY,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Shipping Fees".tr,  style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
+              Text("KWD ${shippingPrice.toString()}.000",
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
+            ],
+          ),
+          10.spaceY,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Text("Total".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-              Text("KWD ${cartController.cartModel.total
-                  .toString()
-                  .toNum - (couponApplied.convertToNum ?? 0)}",
+              total == 0.0 ? Text("KWD ${cartController.cartModel.subtotal.toString()}",
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)) :
+              Text("KWD ${formattedTotal.toString()}",
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
             ],
           ),
@@ -666,6 +684,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                               e.value.vendorId.value = e.value.shippingTypes![ii].vendorId;
                                               e.value.shippingVendorName.value = e.value.shippingTypes![ii].name.toString();
                                               e.value.vendorPrice.value = e.value.shippingTypes![ii].value.toString();
+                                              shippingPrice = e.value.shippingTypes![ii].value.toString();
+                                              double subtotal = double.parse(cartController.cartModel.subtotal.toString());
+                                              double shipping = double.parse(shippingPrice);
+                                              total = subtotal + shipping;
+                                              formattedTotal = total.toStringAsFixed(3);
                                             });
                                           },
                                         ),
@@ -1508,6 +1531,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   //       return null;
                   //     }
                   // ),
+                  if(cartController.countryName.value != 'Kuwait')
                   ...commonField(
                       textController: cartController.addressDeliZipCode,
                       title: "Zip Code *",

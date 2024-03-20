@@ -209,10 +209,10 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       controller: controller.purchasePriceController,
                       key: controller.purchasePriceController.getKey,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      hintText: "Purchase Price".tr,
+                      hintText: "Normal Price".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "Purchase price is required".tr;
+                          return "Normal price is required".tr;
                         }
                         if ((num.tryParse(value.trim()) ?? 0) < 1) {
                           return "Enter valid purchased price".tr;
@@ -224,13 +224,13 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       controller: controller.sellingPriceController,
                       key: controller.sellingPriceController.getKey,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      hintText: "Selling Price".tr,
+                      hintText: "After Sell Price".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
-                          return "Selling price is required".tr;
+                          return "After Sell price is required".tr;
                         }
                         if ((num.tryParse(value.trim()) ?? 0) < 1) {
-                          return "Enter valid selling price".tr;
+                          return "Enter valid After Sell price".tr;
                         }
                         return null;
                       }),

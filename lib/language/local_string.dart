@@ -680,7 +680,7 @@ class LocaleString extends Translations {
           "Shop By Author": 'تسوق حسب المؤلف',
           "What are you  looking for ... we back you !": 'ما الذي تبحث عنه...نحن ندعمك!',
           "My Favourite": 'مفضلتي',
-          '"Account Details"': 'تفاصيل الحساب',
+          "Account Details": 'تفاصيل الحساب',
           "Ebook": 'الدليل',
           "Orders": 'طلبات',
           "My Calender": 'تقويمي',
@@ -847,6 +847,9 @@ class LocaleString extends Translations {
           'Support email' : 'البريد الإلكتروني للدعم',
           'Chatbot' : ',بوت الدردشة',
           'You don\'t have any voice in your collection' : 'لا يوجد أي ملف صوتي ',
+          'Show less' : 'عرض أقل',
+          'Show more' : 'أظهر المزيد',
+          'Sell' : 'يبيع',
         },
 
 

@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
         box1.delete('email');
         box1.delete('pass');
       }
-
+      FocusManager.instance.primaryFocus!.unfocus();
       Map<String, dynamic> map = {};
       map['email'] = emailController.text.trim();
       map['password'] = passwordController.text.trim();

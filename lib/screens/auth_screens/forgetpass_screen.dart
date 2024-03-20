@@ -30,6 +30,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   Future<ModelCommonResponse> forgotPasswordRepo({email, context}) async {
     OverlayEntry loader = Helpers.overlayLoader(context);
     Overlay.of(context).insert(loader);
+    FocusManager.instance.primaryFocus!.unfocus();
     var map = <String, dynamic>{};
     map['email'] = email;
     var header = {

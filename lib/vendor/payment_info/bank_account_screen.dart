@@ -55,7 +55,7 @@ class _BankDetailsScreenState extends State<BankDetailsScreen> {
         bankId = controller.modelBankInfo.data!.bank ?? "";
         if (controller.modelBankList.checkAll) {
           for (var element in controller.modelBankList.data!.banks!) {
-            if (element.name!.toLowerCase() == controller.modelBankInfo.data!.bank!.toLowerCase()) {
+            if (element.name!.toLowerCase() == controller.modelBankInfo.data!.bank.toString()) {
               bankId = element.id.toString();
               break;
             }

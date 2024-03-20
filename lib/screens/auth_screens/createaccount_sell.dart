@@ -13,16 +13,17 @@ import '../../utils/api_constant.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_textfield.dart';
 import 'otp_screen.dart';
+import 'otp_screen_sell.dart';
 
-class CreateAccountScreen extends StatefulWidget {
-  static String route = "/CreateAccountScreen";
-  const CreateAccountScreen({Key? key}) : super(key: key);
+class CreateAccountScreenSell extends StatefulWidget {
+  static String route = "/CreateAccountSellScreen";
+  const CreateAccountScreenSell({Key? key}) : super(key: key);
 
   @override
-  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+  State<CreateAccountScreenSell> createState() => _CreateAccountScreenSellState();
 }
 
-class _CreateAccountScreenState extends State<CreateAccountScreen> {
+class _CreateAccountScreenSellState extends State<CreateAccountScreenSell> {
   final formKey1 = GlobalKey<FormState>();
 
   // final TextEditingController _nameController = TextEditingController();
@@ -49,7 +50,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
-        Get.toNamed(OtpScreen.route, arguments: [_emailController.text, true, map]);
+        Get.toNamed(OtpScreenSell.route, arguments: [_emailController.text, true, map]);
       }
     });
   }
@@ -96,7 +97,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-           AppStrings.createAccount.tr,
+              AppStrings.createAccount.tr,
               style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22),
             ),
           ],

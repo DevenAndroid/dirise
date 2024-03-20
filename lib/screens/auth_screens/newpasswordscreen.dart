@@ -40,6 +40,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   Future<ModelCommonResponse> changePasswordRepo({password, email, context}) async {
     OverlayEntry loader = Helpers.overlayLoader(context);
     Overlay.of(context).insert(loader);
+    FocusManager.instance.primaryFocus!.unfocus();
     var map = <String, dynamic>{};
     map['password'] = password;
     map['email'] = email;
