@@ -286,7 +286,7 @@ class _ProductVarientState extends State<ProductVarient> {
                                       controller: e.variantPrice,
                                       key: e.variantPrice.getKey,
                                       hintText: "Variant Price",
-                                      keyboardType: TextInputType.number,
+                                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                                       validator: (value) {
                                         if (value!.trim().isEmpty) {
                                           return "Variant price is required";
@@ -297,7 +297,7 @@ class _ProductVarientState extends State<ProductVarient> {
                                   VendorCommonTextfield(
                                       controller: e.variantStock,
                                       key: e.variantStock.getKey,
-                                      keyboardType: TextInputType.number,
+                                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                                       hintText: "Variant Stock",
                                       validator: (value) {
                                         if (value!.trim().isEmpty) {

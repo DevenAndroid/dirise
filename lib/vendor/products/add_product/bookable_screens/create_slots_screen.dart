@@ -235,7 +235,7 @@ class _CreateSlotsScreenState extends State<CreateSlotsScreen> {
                         clearSlots();
                       },
                       hintText: "Service Duration (in minutes)",
-                      keyboardType: TextInputType.number,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       validator: (value) {
                         if (value!.trim().isEmpty) {

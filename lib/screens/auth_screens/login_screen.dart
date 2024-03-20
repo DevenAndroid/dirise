@@ -248,105 +248,105 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                // Row(
-                //   children: [
-                //     const Expanded(
-                //       child: Divider(
-                //           height: 20,
-                //           thickness: 1,
-                //           indent: 5,
-                //           endIndent: 5,
-                //           color: Color(
-                //             0xffDCDCDC,
-                //           )),
-                //     ),
-                //     InkWell(
-                //       onTap: () {},
-                //       child: Text(
-                //         AppStrings.signInWith.tr,
-                //         style: GoogleFonts.poppins(color: AppTheme.buttonColor),
-                //       ),
-                //     ),
-                //     const Expanded(
-                //       child: Divider(
-                //           height: 20,
-                //           thickness: 1,
-                //           indent: 5,
-                //           endIndent: 5,
-                //           color: Color(
-                //             0xffDCDCDC,
-                //           )),
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(
-                //   height: 30,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     if(Platform.isIOS)
-                //     InkWell(
-                //       onTap: () {
-                //         loginWithApple1();
-                //         // _signInWithApple();
-                //       },
-                //       child: Container(
-                //         height: 62,
-                //         width: 62,
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(10),
-                //           color: Colors.black,
-                //         ),
-                //         child: const Center(
-                //           child: Icon(
-                //             Icons.apple,
-                //             color: Colors.white,
-                //             size: 35,
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //     const SizedBox(
-                //       width: 20,
-                //     ),
-                //     InkWell(
-                //       onTap: (){
-                //         signInWithGoogle();
-                //       },
-                //       child: Container(
-                //         height: 62,
-                //         width: 62,
-                //         decoration: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(10),
-                //             border: Border.all(color: const Color(0xffCACACA), width: 2)),
-                //         child: Center(
-                //           child: Image.asset(
-                //             'assets/icons/google.png',
-                //             height: 27,
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //     // const SizedBox(
-                //     //   width: 20,
-                //     // ),
-                //     // InkWell(
-                //     //   child: Container(
-                //     //     height: 62,
-                //     //     width: 62,
-                //     //     decoration:
-                //     //         BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
-                //     //     child: Center(
-                //     //       child: Image.asset(
-                //     //         'assets/icons/facebook.png',
-                //     //         height: 27,
-                //     //       ),
-                //     //     ),
-                //     //   ),
-                //     // ),
-                //   ],
-                // ),
+                Row(
+                  children: [
+                    const Expanded(
+                      child: Divider(
+                          height: 20,
+                          thickness: 1,
+                          indent: 5,
+                          endIndent: 5,
+                          color: Color(
+                            0xffDCDCDC,
+                          )),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        AppStrings.signInWith.tr,
+                        style: GoogleFonts.poppins(color: AppTheme.buttonColor),
+                      ),
+                    ),
+                    const Expanded(
+                      child: Divider(
+                          height: 20,
+                          thickness: 1,
+                          indent: 5,
+                          endIndent: 5,
+                          color: Color(
+                            0xffDCDCDC,
+                          )),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if(Platform.isIOS)
+                    InkWell(
+                      onTap: () {
+                        loginWithApple1();
+                        // _signInWithApple();
+                      },
+                      child: Container(
+                        height: 62,
+                        width: 62,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.black,
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.apple,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    InkWell(
+                      onTap: (){
+                        signInWithGoogle();
+                      },
+                      child: Container(
+                        height: 62,
+                        width: 62,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: const Color(0xffCACACA), width: 2)),
+                        child: Center(
+                          child: Image.asset(
+                            'assets/icons/google.png',
+                            height: 27,
+                          ),
+                        ),
+                      ),
+                    ),
+                    // const SizedBox(
+                    //   width: 20,
+                    // ),
+                    // InkWell(
+                    //   child: Container(
+                    //     height: 62,
+                    //     width: 62,
+                    //     decoration:
+                    //         BoxDecoration(borderRadius: BorderRadius.circular(10), color: const Color(0xff0B60A8)),
+                    //     child: Center(
+                    //       child: Image.asset(
+                    //         'assets/icons/facebook.png',
+                    //         height: 27,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
                 SizedBox(
                   height: size.height * .07,
                 ),

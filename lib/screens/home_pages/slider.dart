@@ -55,30 +55,25 @@ class _SliderWidgetState extends State<SliderWidget> {
           ? Column(
         children: [
           Padding(
-              padding: const EdgeInsets.fromLTRB(0, 15, 0, 18),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 18),
               child: SizedBox(
-                height: size.height * 0.29,
+                height: size.height * 0.35,
                 child: Swiper(
                   autoplay: true,
                   outer: false,
                   autoplayDelay: 5000,
                   autoplayDisableOnInteraction: false,
                   itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: CachedNetworkImage(
-                            imageUrl: homeController.homeModal.value.home!.slider![index].bannerMobile.toString(),
-                            fit: BoxFit.cover,
-                            placeholder: (context, url) => const SizedBox(),
-                            errorWidget: (context, url, error) => const SizedBox()),
-                      ),
-                    );
+                    return CachedNetworkImage(
+                        imageUrl: homeController.homeModal.value.home!.slider![index].bannerMobile.toString(),
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const SizedBox(),
+                        errorWidget: (context, url, error) => const SizedBox());
                   },
                   itemCount: homeController.homeModal.value.home!.slider!.length,
                   // pagination: const SwiperPagination(),
-                  control: const SwiperControl(size: 0), // remove arrows
+                  control: const SwiperControl(size: 0),
+
                 ),
               )
           ),

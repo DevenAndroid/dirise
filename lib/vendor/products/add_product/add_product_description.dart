@@ -208,7 +208,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   VendorCommonTextfield(
                       controller: controller.purchasePriceController,
                       key: controller.purchasePriceController.getKey,
-                      keyboardType: TextInputType.number,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       hintText: "Purchase Price".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
@@ -223,7 +223,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   VendorCommonTextfield(
                       controller: controller.sellingPriceController,
                       key: controller.sellingPriceController.getKey,
-                      keyboardType: TextInputType.number,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       hintText: "Selling Price".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
@@ -347,7 +347,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   VendorCommonTextfield(
                       controller: controller.stockController,
                       key: controller.stockController.getKey,
-                      keyboardType: TextInputType.number,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       hintText: "Stock Quantity".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
@@ -362,7 +362,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   VendorCommonTextfield(
                       controller: controller.stockAlertController,
                       //key: controller.stockController.getKey,
-                      keyboardType: TextInputType.number,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       hintText: "Stock Alert".tr,
                       validator: (value) {
                         if (value!.trim().isEmpty) {
@@ -377,7 +377,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                   VendorCommonTextfield(
                       controller: controller.returnDaysController,
                       key: controller.returnDaysController.getKey,
-                      keyboardType: TextInputType.number,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       readOnly: true,
                       onTap: () {
                         showPolicyDialog();
@@ -391,7 +391,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                     VendorCommonTextfield(
                         controller: controller.weightController,
                         key: controller.weightController.getKey,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
                         hintText: "Weight".tr,
                         validator: (value) {
                           // if (value!.trim().isEmpty) {
@@ -465,7 +465,7 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                           child: VendorCommonTextfield(
                               controller: controller.productDurationValueController,
                               key: controller.productDurationValueController.getKey,
-                              keyboardType: TextInputType.number,
+                              keyboardType: const TextInputType.numberWithOptions(decimal: true),
                               hintText: "Preparation Time".tr,
                               labelText: "Preparation Time".tr,
                               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
