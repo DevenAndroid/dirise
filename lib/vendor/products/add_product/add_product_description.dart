@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../controller/vendor_controllers/add_product_controller.dart';
+import '../../../utils/api_constant.dart';
 import '../../../widgets/common_colour.dart';
 import '../../../widgets/dimension_screen.dart';
 import '../../../widgets/vendor_common_textfield.dart';
@@ -225,6 +226,21 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       key: controller.sellingPriceController.getKey,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       hintText: "After Sell Price".tr,
+                      onChanged: (value) {
+                        double sellingPrice = double.tryParse(value) ?? 0.0;
+                        double purchasePrice = double.tryParse(controller.purchasePriceController.text) ?? 0.0;
+                        if (controller.purchasePriceController.text.isEmpty) {
+                          FocusManager.instance.primaryFocus!.unfocus();
+                          controller.sellingPriceController.clear();
+                          showToast('Enter normal price first');
+                          return;
+                        }
+                        if (sellingPrice > purchasePrice) {
+                          FocusManager.instance.primaryFocus!.unfocus();
+                          controller.sellingPriceController.clear();
+                          showToast('After sell price cannot be higher than normal price');
+                        }
+                      },
                       validator: (value) {
                         if (value!.trim().isEmpty) {
                           return "After Sell price is required".tr;
@@ -364,6 +380,21 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       //key: controller.stockController.getKey,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       hintText: "Stock Alert".tr,
+                      onChanged: (value) {
+                        double stockAlert = double.tryParse(value) ?? 0.0;
+                        double stockQuantity = double.tryParse(controller.stockController.text) ?? 0.0;
+                        if (controller.stockController.text.isEmpty) {
+                          FocusManager.instance.primaryFocus!.unfocus();
+                          controller.stockAlertController.clear();
+                          showToast('Enter stock quantity first');
+                          return;
+                        }
+                        if (stockAlert > stockQuantity) {
+                          FocusManager.instance.primaryFocus!.unfocus();
+                          controller.stockAlertController.clear();
+                          showToast('Stock alert cannot be higher than Stock quantity');
+                        }
+                      },
                       validator: (value) {
                         if (value!.trim().isEmpty) {
                           return "Stock alert is required".tr;
