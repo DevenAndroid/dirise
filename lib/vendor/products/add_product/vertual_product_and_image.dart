@@ -300,7 +300,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
             onPressed: () {
-              Helpers.addImagePicker(imageSource: ImageSource.camera, imageQuality: 75).then((value) async {
+              Helpers.addImagePicker(imageSource: ImageSource.camera, imageQuality: 50).then((value) async {
                 CroppedFile? croppedFile = await ImageCropper().cropImage(
                   sourcePath: value.path,
                   aspectRatioPresets: [
@@ -319,6 +319,7 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                         lockAspectRatio: true),
                     IOSUiSettings(
                       title: 'Cropper',
+                        aspectRatioLockEnabled: true
                     ),
                     WebUiSettings(
                       context: context,
@@ -390,13 +391,13 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
   GestureDetector productImageWidget(BuildContext context, double height) {
     return GestureDetector(
       onTap: () {
-        showActionSheet(context);
-        // NewHelper.showImagePickerSheet(
-        //     context: context,
-        //     gotImage: (File gg) {
-        //       controller.productImage = gg;
-        //       setState(() {});
-        //     });
+        // showActionSheet(context);
+        NewHelper.showImagePickerSheet(
+            context: context,
+            gotImage: (File gg) {
+              controller.productImage = gg;
+              setState(() {});
+            });
       },
       child: DottedBorder(
         radius: const Radius.circular(10),
