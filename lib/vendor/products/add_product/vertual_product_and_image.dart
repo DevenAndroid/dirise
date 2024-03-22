@@ -357,6 +357,8 @@ class _AddProductImageAndVirtualFileState extends State<AddProductImageAndVirtua
                         lockAspectRatio: true),
                     IOSUiSettings(
                       title: 'Cropper',
+                      aspectRatioLockEnabled: true,
+                      minimumAspectRatio : 4.3,
                     ),
                     WebUiSettings(
                       context: context,

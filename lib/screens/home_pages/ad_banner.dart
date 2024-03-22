@@ -22,7 +22,7 @@ class _AdBannerUIState extends State<AdBannerUI> {
           ? Column(
               children: [
                 Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 12),
                     child: SizedBox(
                       child: CachedNetworkImage(
                         imageUrl: homeController.homeModal.value.home!.bannerImg.toString(),

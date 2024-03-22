@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../controller/cart_controller.dart';
+import '../../controller/profile_controller.dart';
 import '../../model/add_review_model.dart';
 import '../../model/common_modal.dart';
 import '../../model/get_review_model.dart';
@@ -39,7 +40,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
   final Repositories repositories = Repositories();
   ProductElement productElement = ProductElement();
   TextEditingController reviewController = TextEditingController();
-
+  final profileController = Get.put(ProfileController());
   ProductElement get productDetails => productElement;
   ModelSingleProduct modelSingleProduct = ModelSingleProduct();
   ModelAddReview modelAddReview = ModelAddReview();
@@ -736,8 +737,12 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          directBuyProduct();
-                          // Get.back();
+                           if(profileController.userLoggedIn){
+                             directBuyProduct();
+                           }else{
+                             Get.back();
+                             showToast('You need to Login first');
+                           }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.buttonColor,
@@ -755,8 +760,13 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          addToCartProduct();
-                        },
+                                if (profileController.userLoggedIn) {
+                                  addToCartProduct();
+                                } else {
+                                  Get.back();
+                                  showToast('You need to Login first');
+                                }
+                              },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppTheme.buttonColor,
                           surfaceTintColor: AppTheme.buttonColor,
