@@ -333,18 +333,7 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                       // }
                       return null;
                     }),
-                if(cartController.countryName.value != 'Kuwait')
-                ...commonField(
-                    textController: landmarkController,
-                    title: "Landmark",
-                    hintText: "Enter your nearby landmark",
-                    keyboardType: TextInputType.streetAddress,
-                    validator: (value) {
-                      // if(value!.trim().isEmpty){
-                      //   return "Please enter delivery address";
-                      // }
-                      return null;
-                    }),
+
                 // ...commonField(
                 //     textController: cityController,
                 //     title: "City*",
@@ -485,6 +474,18 @@ class _EditAddressSheetState extends State<EditAddressSheet> {
                       return null;
                     },
                   ),
+                if(cartController.countryName.value != 'Kuwait')
+                  ...commonField(
+                      textController: landmarkController,
+                      title: "Landmark",
+                      hintText: "Enter your nearby landmark",
+                      keyboardType: TextInputType.streetAddress,
+                      validator: (value) {
+                        // if(value!.trim().isEmpty){
+                        //   return "Please enter delivery address";
+                        // }
+                        return null;
+                      }),
                 if(cartController.countryName.value != 'Kuwait')
                 ...commonField(
                     textController: zipCodeController,

@@ -41,7 +41,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
   final TextEditingController deliveryInstructions = TextEditingController();
   AddressData selectedAddress = AddressData();
   final GlobalKey addressKey = GlobalKey();
-
+  String shippingPrice = '0';
+  double total = 0.0;
+  String formattedTotal = '';
   ModelPaymentMethods? methods;
   getPaymentGateWays() {
     Repositories().getApi(url: ApiUrls.paymentMethodsUrl).then((value) {
@@ -362,6 +364,11 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                                               setState(() {
                                                 directOrderResponse.shippingOption.value = value.toString();
                                                 cartController.shippingId =  directOrderResponse.shippingOption.value;
+                                                shippingPrice = product.value.toString();
+                                                double subtotal = double.parse(cartController.cartModel.subtotal.toString());
+                                                double shipping = double.parse(shippingPrice);
+                                                total = subtotal + shipping;
+                                                formattedTotal = total.toStringAsFixed(3);
                                                 log( directOrderResponse.shippingOption.value);
                                                 log(cartController.shippingId);
                                               });
@@ -911,7 +918,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                     children: [
                       Text("Shipping".tr,
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
-                      Text("KWD ${directOrderResponse.shipping.toString()}",
+                      Text("KWD ${shippingPrice.toString()}.000",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w400, color: const Color(0xff949495))),
                     ],
                   ),
@@ -922,7 +929,9 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Total".tr, style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
-                      Text("KWD ${directOrderResponse.total.toString()}",
+                      total == 0.0 ?  Text("KWD ${directOrderResponse.subtotal.toString()}",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)) :
+                      Text("KWD ${formattedTotal.toString()}",
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18)),
                     ],
                   ),
@@ -1479,17 +1488,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             // }
                             return null;
                           }),
-                      ...commonField(
-                          textController: landmarkController,
-                          title: "Landmark".tr,
-                          hintText: "Enter your nearby landmark".tr,
-                          keyboardType: TextInputType.streetAddress,
-                          validator: (value) {
-                            // if(value!.trim().isEmpty){
-                            //   return "Please enter delivery address";
-                            // }
-                            return null;
-                          }),
+
                       ...fieldWithName(
                         title: 'Country/Region',
                         hintText: 'Select Country',
@@ -1615,6 +1614,19 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
                             return null;
                           },
                         ),
+                      if(cartController.countryName.value != 'Kuwait')
+                        ...commonField(
+                            textController: landmarkController,
+                            title: "Landmark".tr,
+                            hintText: "Enter your nearby landmark".tr,
+                            keyboardType: TextInputType.streetAddress,
+                            validator: (value) {
+                              // if(value!.trim().isEmpty){
+                              //   return "Please enter delivery address";
+                              // }
+                              return null;
+                            }),
+                      if(cartController.countryName.value != 'Kuwait')
                       ...commonField(
                           textController: zipCodeController,
                           title: "${'Zip-Code'.tr}*",
