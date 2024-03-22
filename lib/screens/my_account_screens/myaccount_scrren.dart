@@ -1081,15 +1081,39 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         behavior: HitTestBehavior.translucent,
                         onTap: () async {
                           if (profileController.userLoggedIn) {
-                            SharedPreferences shared = await SharedPreferences.getInstance();
-                            await shared.clear();
-                            setState(() {});
-                            Get.toNamed(LoginScreen.route);
-                            profileController.userLoggedIn = false;
-                            profileController.updateUI();
-                            profileController.getDataProfile();
-                            cartController.getCart();
-                            homeController.getAll();
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Logout Account'),
+                                content: const Text('Do You Want To Logout Your Account'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Get.back(),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      if (profileController.userLoggedIn) {
+                                        SharedPreferences shared = await SharedPreferences.getInstance();
+                                        await shared.clear();
+                                        setState(() {});
+                                        Get.toNamed(LoginScreen.route);
+                                        profileController.userLoggedIn = false;
+                                        profileController.updateUI();
+                                        profileController.getDataProfile();
+                                        cartController.getCart();
+                                        homeController.getAll();
+
+                                      } else {
+                                        showToast("Login first");
+                                        // Get.toNamed(LoginScreen.route);
+                                      }
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
                           } else {
                             Get.toNamed(LoginScreen.route);
                           }
@@ -1812,7 +1836,13 @@ List<Widget> vendorPartner() {
                                       Expanded(
                                         child: TextButton(
                                           onPressed: () {
-                                            Get.toNamed(vendorRoutes[index]);
+                                            if(profileController.model.user!.subscriptionStatus == 'success'){
+                                              Get.toNamed(vendorRoutes[index]);
+                                            }else if(vendor[index] == 'Dashboard'){
+                                             Get.toNamed( VendorDashBoardScreen.route);
+                                            }else{
+                                              null;
+                                            }
                                           },
                                           style: TextButton.styleFrom(
                                               visualDensity: const VisualDensity(vertical: -3, horizontal: -3),

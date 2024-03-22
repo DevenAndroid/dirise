@@ -72,6 +72,7 @@ class User {
   dynamic country_id;
   dynamic city;
   dynamic referralEmail;
+  dynamic subscriptionStatus;
   bool? isVendor;
   List<Roles>? roles;
 
@@ -82,6 +83,7 @@ class User {
       this.street_name,
       this.state_id,
       this.state_name,
+      this.subscriptionStatus,
       this.country_name,
       this.lastName,
       this.email,
@@ -156,6 +158,7 @@ class User {
     bio = json['bio'];
     socialId = json['social_id'];
     apiToken = json['api_token'];
+    subscriptionStatus = json['subscription_status'];
     deviceId = json['device_id'];
     deviceToken = json['device_token'];
     emailVerifiedAt = json['email_verified_at'];
@@ -225,6 +228,7 @@ class User {
     data['category_image'] = categoryImage;
     data['address'] = address;
     data['block'] = block;
+    data['subscription_status'] = subscriptionStatus;
     data['stripe_id'] = stripeId;
     data['currency'] = currency;
     data['created_at'] = createdAt;

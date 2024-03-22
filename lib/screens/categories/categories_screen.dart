@@ -119,6 +119,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     Expanded(
                                       child: Text(
                                         item.name.toString(),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.poppins(
                                             fontSize: 14, fontWeight: FontWeight.w500, color: const Color(0xff014E70)),
                                       ),

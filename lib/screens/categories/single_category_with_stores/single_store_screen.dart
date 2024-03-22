@@ -639,7 +639,9 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                                     style: GoogleFonts.poppins(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w500
-                                    ),),
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                                 15.spaceX,
                                 Expanded(

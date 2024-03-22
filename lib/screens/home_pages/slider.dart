@@ -255,7 +255,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                             duration: const Duration(minutes: 1),
                             gap: 0,
                             reverseScroll: false,
-                            duplicateChild: 1,
+                            duplicateChild: 10,
                             enableScrollInput: true,
                             delayAfterScrollInput: const Duration(seconds: 1),
                             child: getNewsTrendModel.value.data!= null && getNewsTrendModel.value.data!.isNotEmpty?

@@ -462,6 +462,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 title: AppStrings.phoneNumberr.tr,
                 hintText: AppStrings.enterPhoneNumber,
                 controller: phoneController,
+                keyboardType: TextInputType.phone
                 // validator: (v) {
                 //   if (v!.trim().isEmpty) {
                 //     return AppStrings.pleaseenterphonenumber;
@@ -496,12 +497,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       selectedAddressId: ((profileController.selectedCountry ?? Country()).id ?? "").toString());
                 },
                 controller: TextEditingController(text: (profileController.selectedCountry ?? Country()).name ?? ""),
-                // validator: (v) {
-                //   if (v!.trim().isEmpty) {
-                //     return AppStrings.pleaseselectcountry;
-                //   }
-                //   return null;
-                // },
+                validator: (v) {
+                  if (v!.trim().isEmpty) {
+                    return "Please select country".tr;
+                  }
+                  return null;
+                },
               ),
               ...fieldWithName(
                 title: AppStrings.state,
@@ -544,12 +545,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   }
                   return const CupertinoActivityIndicator();
                 }),
-                // validator: (v) {
-                //   if (v!.trim().isEmpty) {
-                //     return AppStrings.pleaseselectstate;
-                //   }
-                //   return null;
-                // },
+                validator: (v) {
+                  if (v!.trim().isEmpty) {
+                    return AppStrings.pleaseselectstate.tr;
+                  }
+                  return null;
+                },
               ),
               if(profileController.modelCityList != null && profileController.modelCityList!.city!.isNotEmpty)
               ...fieldWithName(
@@ -584,12 +585,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   }
                   return const CupertinoActivityIndicator();
                 }),
-                // validator: (v) {
-                //   if (v!.trim().isEmpty) {
-                //     return AppStrings.pleaseselectstate;
-                //   }
-                //   return null;
-                // },
+                validator: (v) {
+                  if (v!.trim().isEmpty) {
+                    return AppStrings.pleaseselectstate.tr;
+                  }
+                  return null;
+                },
               ),
 
               ...fieldWithName(
@@ -640,6 +641,7 @@ List<Widget> fieldWithName(
       required String hintText,
       required TextEditingController controller,
       FormFieldValidator<String>? validator,
+      final TextInputType? keyboardType,
       bool? readOnly,
       VoidCallback? onTap,
       Widget? suffixIcon}) {
@@ -658,6 +660,7 @@ List<Widget> fieldWithName(
       validator: validator,
       readOnly: readOnly ?? false,
       suffixIcon: suffixIcon,
+      keyboardType: keyboardType,
     ),
     const SizedBox(
       height: 12,

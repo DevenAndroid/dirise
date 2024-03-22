@@ -176,6 +176,7 @@ class _WishListScreenState extends State<WishListScreen> {
                                             height: 5,
                                           ),
                                           Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'KWD ${_wishListController.model.value.wishlist![index].sPrice.toString()}',
@@ -187,13 +188,15 @@ class _WishListScreenState extends State<WishListScreen> {
                                               const SizedBox(
                                                 width: 10,
                                               ),
-                                              Text(
-                                                'KWD ${_wishListController.model.value.wishlist![index].pPrice.toString()}',
-                                                style: GoogleFonts.poppins(
-                                                    decoration: TextDecoration.lineThrough,
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color(0xff858484)),
+                                              Expanded(
+                                                child: Text(
+                                                  'KWD ${_wishListController.model.value.wishlist![index].pPrice.toString()}',
+                                                  style: GoogleFonts.poppins(
+                                                      decoration: TextDecoration.lineThrough,
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: const Color(0xff858484)),
+                                                ),
                                               ),
                                             ],
                                           ),

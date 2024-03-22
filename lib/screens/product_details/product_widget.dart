@@ -158,10 +158,10 @@ class _ProductUIState extends State<ProductUI> {
             ),
             Positioned(
               top: 0,
-              right: 10,
+              right: 0,
               child: Obx(() {
                 if (wishListController.refreshFav.value > 0) {}
-                return LikeButton(
+                return LikeButtonCat(
                   onPressed: () {
                     if (wishListController.favoriteItems.contains(widget.productElement.id.toString())) {
                       removeFromWishList();

@@ -105,7 +105,7 @@ class _VirtualAssetsScreenState extends State<VirtualAssetsScreen> with Automati
                 labelColor: Colors.white,
                 dividerColor: Colors.white,
                 labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
-                // unselectedLabelStyle: GoogleFonts.poppins(),
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
                 tabs:  [
                   Tab(
                     text: AppStrings.eBooks.tr,
