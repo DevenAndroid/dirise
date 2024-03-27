@@ -1,15 +1,18 @@
 import 'dart:convert';
 
 import 'package:dirise/language/app_strings.dart';
+import 'package:dirise/utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../controller/profile_controller.dart';
 import '../../model/aboutus_model.dart';
 import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
+import '../../widgets/loading_animation.dart';
 
 class TermConditionScreen extends StatefulWidget {
   static String route = "/TermConditionScreen";
@@ -28,7 +31,7 @@ class _TermConditionScreenState extends State<TermConditionScreen> {
       aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
     });
   }
-
+  final profileController = Get.put(ProfileController());
   final Repositories repositories = Repositories();
 
   @override
@@ -48,9 +51,14 @@ class _TermConditionScreenState extends State<TermConditionScreen> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                    icon: Image.asset(
+                      'assets/icons/backicon.png',
+                      height: 25,
+                      width: 25,
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
+                  10.spaceX,
                   Text(
                    AppStrings.termsCondition.tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
@@ -61,12 +69,10 @@ class _TermConditionScreenState extends State<TermConditionScreen> {
         body: Obx(() {
           return aboutusModal.value.status == true
               ? SingleChildScrollView(
-                  child: Html(data: aboutusModal.value.data!.content!),
+                  child: profileController.selectedLAnguage.value == 'English' ?
+                  Html(data: aboutusModal.value.data!.content!) : Html(data: aboutusModal.value.data!.arabContent!),
                 )
-              : const Center(
-                  child: CircularProgressIndicator(
-                  color: Colors.grey,
-                ));
+              : const LoadingAnimation();
         }));
   }
 }

@@ -38,14 +38,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         centerTitle: true,
         backgroundColor: AppTheme.buttonColor,
-        leading: InkWell(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+          onPressed: () => Get.back(),
         ),
       ),
       body: Obx(() {

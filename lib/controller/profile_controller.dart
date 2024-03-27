@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../model/aboutus_model.dart';
 import '../model/customer_profile/model_city_list.dart';
 import '../model/customer_profile/model_country_list.dart';
 import '../model/customer_profile/model_state_list.dart';
@@ -21,7 +22,14 @@ class ProfileController extends GetxController {
   RxString selectedLAnguage = "English".obs;
   ModelCountryList? modelCountryList;
   Country? selectedCountry;
-
+  Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
+  Future aboutUsData() async {
+    Map<String, dynamic> map = {};
+    map["id"] = 12;
+    repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
+      aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
+    });
+  }
   ModelStateList? modelStateList;
   CountryState? selectedState;
 

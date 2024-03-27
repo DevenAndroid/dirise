@@ -130,7 +130,7 @@ class _DirectCheckOutScreenState extends State<DirectCheckOutScreen> {
     profileController.checkUserLoggedIn().then((value) {
       if (value == false) return;
     });
-    cartController.getAddress();
+    cartController.getAddress(context);
   }
 
   @override

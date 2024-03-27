@@ -85,8 +85,7 @@ class _AuthorScreenState extends State<AuthorScreen> {
                                   child: CachedNetworkImage(
                                       imageUrl: homeController.authorModal.value.data![index].profileImage.toString(),
                                       fit: BoxFit.cover,
-                                      errorWidget: (context, url, error) =>
-                                          const Center(child: Icon(Icons.error_outline_rounded,color: Colors.red,))
+                                      errorWidget: (_, __, ___) => Image.asset('assets/images/vendor_img.png')
                                   ),
                                 ),
                                 const SizedBox(

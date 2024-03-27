@@ -24,7 +24,7 @@ class AddProductController extends GetxController {
   // Gram Kilogram Pound
   ModelCategoryList? modelCategoryList;
   RxInt categoryLoadingInt = 0.obs;
-
+  final productController = Get.put(ProductsController());
   Future getProductsCategoryList() async {
     // if (modelCategoryList != null) {
     //   updateCategories();
@@ -399,6 +399,7 @@ class AddProductController extends GetxController {
       ModelCommonResponse modelCommonResponse = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(modelCommonResponse.message.toString());
       if (modelCommonResponse.status == true) {
+        productController.getProductList();
         productListController.getProductList();
         Get.back();
       }
@@ -676,6 +677,7 @@ class AddProductController extends GetxController {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
+        productController.getProductList();
         Get.back();
         productListController.getProductList();
       }

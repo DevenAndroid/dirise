@@ -683,6 +683,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
                           if (userLoggedIn) {
+                            cartController.getAddress(context);
                             bottomSheetChangeAddress();
                           } else {
                             addAddressWithoutLogin(addressData: cartController.selectedAddress);
@@ -1097,6 +1098,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                         SharedPreferences shared = await SharedPreferences.getInstance();
                                         await shared.clear();
                                         setState(() {});
+                                        Get.back();
                                         Get.toNamed(LoginScreen.route);
                                         profileController.userLoggedIn = false;
                                         profileController.updateUI();
@@ -1152,7 +1154,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   }
   Future bottomSheetChangeAddress() {
     Size size = MediaQuery.of(context).size;
-    cartController.getAddress();
+    cartController.getAddress(context);
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -1163,7 +1165,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
             child: SizedBox(
               width: size.width,
               height: size.height * .88,
-              child:   cartController.addressListModel.status == true ?
+              child:
+              // cartController.addressListModel.status == true ?
               Column(
                 children: [
                   Row(
@@ -1190,7 +1193,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     child: Obx(() {
                       if (cartController.refreshInt.value > 0) {}
                       List<AddressData> shippingAddress = cartController.addressListModel.address!.shipping ?? [];
-
                       return CustomScrollView(
                         shrinkWrap: true,
                         slivers: [
@@ -1321,7 +1323,8 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     }),
                   ),
                 ],
-              ) : const LoadingAnimation(),
+              )
+                    // : const LoadingAnimation(),
             ),
           );
         });

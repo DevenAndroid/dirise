@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../controller/vendor_controllers/add_product_controller.dart';
 import '../../../utils/api_constant.dart';
 import '../../../widgets/common_colour.dart';
@@ -29,6 +30,13 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
     "Booking Product",
     "Variants Product",
   ];
+  void launchURLl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
 
   @override
   void initState() {
@@ -411,7 +419,8 @@ class _AddProductDescriptionScreenState extends State<AddProductDescriptionScree
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       readOnly: true,
                       onTap: () {
-                        showPolicyDialog();
+                        // showPolicyDialog();
+                        launchURLl('https://backend.diriseapp.com/dashboard/return-policy');
                       },
                       hintText: "Return Policy".tr,
                       validator: (value) {

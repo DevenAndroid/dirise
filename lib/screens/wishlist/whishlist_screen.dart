@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dirise/language/app_strings.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,6 +43,7 @@ class _WishListScreenState extends State<WishListScreen> {
       showToast(response.message);
       if(response.status == true){
         _wishListController.model.value.wishlist!.removeAt(index);
+        _wishListController.getYourWishList();
       }
       setState(() {});
     });
@@ -212,7 +214,7 @@ class _WishListScreenState extends State<WishListScreen> {
                                                 _wishListController.model.value.wishlist![index].id.toString(),index);
                                           },
                                           icon:
-                                              const Icon(Icons.favorite_rounded),
+                                              const Icon(Icons.favorite_rounded,color: Colors.red,),
                                         ))
                                   ],
                                 ),
@@ -221,7 +223,7 @@ class _WishListScreenState extends State<WishListScreen> {
                           ),
                   ),
                 )
-              : const Center(child: CircularProgressIndicator());
+              : const LoadingAnimation();
         }),
       ),
     );

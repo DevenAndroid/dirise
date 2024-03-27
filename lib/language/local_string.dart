@@ -346,7 +346,7 @@ class LocaleString extends Translations {
           'Stock quantity is required' : 'Stock quantity is required',
           'Enter valid stock quantity' : 'Enter valid stock quantity',
           'Stock Alert' : 'Stock Alert',
-          'Stock alert is required' : 'تنبيه المخزون مطلوب',
+          'Stock alert is required' : 'Stock alert is required',
           'Enter valid stock alert' : 'Enter valid stock alert',
           'Return Days' : 'Return Days',
           'Weight' : 'Weight',
@@ -413,6 +413,7 @@ class LocaleString extends Translations {
           'Please enter ceo name' : 'Please enter ceo name',
           'Ceo Name' : 'Ceo Name',
           'Publish Post' : 'Publish Post',
+          'Logout' : 'Logout',
         },
 
 
@@ -850,6 +851,7 @@ class LocaleString extends Translations {
           'Show less' : 'عرض أقل',
           'Show more' : 'أظهر المزيد',
           'Sell' : 'يبيع',
+          'Logout' : 'تسجيل خروج'
         },
 
 

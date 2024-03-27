@@ -252,10 +252,10 @@ class _SliderWidgetState extends State<SliderWidget> {
                           child: ScrollLoopAutoScroll(
                             scrollDirection: Axis.vertical,
                             delay: const Duration(seconds: 0),
-                            duration: const Duration(minutes: 1),
+                            duration: const Duration(minutes: 3),
                             gap: 0,
                             reverseScroll: false,
-                            duplicateChild: 10,
+                            duplicateChild: 1,
                             enableScrollInput: true,
                             delayAfterScrollInput: const Duration(seconds: 1),
                             child: getNewsTrendModel.value.data!= null && getNewsTrendModel.value.data!.isNotEmpty?
@@ -268,7 +268,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                                     style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
                                   );
                                 },
-                            ): Text('NO Data Found',
+                            ): Text('No Data Found',
                               style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
                             )
                           ),

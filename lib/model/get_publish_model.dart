@@ -41,6 +41,8 @@ class Data {
   dynamic likeCount;
   bool? isLike;
   bool isOpen = false;
+  bool? myAccount;
+
   Data(
       {this.id,
         this.userIds,
@@ -52,6 +54,7 @@ class Data {
         this.createdAt,
         this.updatedAt,
         this.userId,
+        this.myAccount,
         this.likeCount,
         this.isLike});
 
@@ -68,6 +71,7 @@ class Data {
     userId = json['userId'] != null ? new UserId.fromJson(json['userId']) : null;
     likeCount = json['like_count'];
     isLike = json['is_like'];
+    myAccount = json['my_account'];
   }
 
   Map<String, dynamic> toJson() {
@@ -86,6 +90,7 @@ class Data {
     }
     data['like_count'] = this.likeCount;
     data['is_like'] = this.isLike;
+    data['my_account'] = this.myAccount;
     return data;
   }
 }

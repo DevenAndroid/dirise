@@ -220,11 +220,11 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
+      appBar:  PreferredSize(
+        preferredSize: const Size.fromHeight(60),
         child: CommonAppBar(
-          titleText: 'Authors',
-          actions: [
+          titleText: getCategoryStoresModel.value.vendorCategory ?? '....',
+          actions: const [
             CartBagCard(isBlackTheme: true),
           ],
         ),
@@ -784,6 +784,11 @@ class _SingleStoreScreenState extends State<SingleStoreScreen> {
                       child: Text(AppStrings.storeDontHaveAnyProduct),
                     ))
               else  SliverToBoxAdapter(child: controller.isFilter.value == false ? const LoadingAnimation() : const SizedBox()),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 30,
+                ),
+              ),
               // const SizedBox(
               //   height: 10,
               // ),

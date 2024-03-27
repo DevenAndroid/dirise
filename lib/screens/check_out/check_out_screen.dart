@@ -130,7 +130,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     cartController.addressDeliZipCode.text = '';
     profileController.checkUserLoggedIn().then((value) {
       if (value == false) return;
-      cartController.getAddress();
+      cartController.getAddress(context);
     });
   }
 
@@ -609,17 +609,17 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                           ],
                                         ),
                                       ),
-                                      IconButton(
-                                          onPressed: () {
-                                            cartController.removeItemFromCart(
-                                                productId: product.id.toString(), context: context);
-                                          },
-                                          visualDensity: VisualDensity.compact,
-                                          icon: SvgPicture.asset(
-                                            "assets/svgs/delete.svg",
-                                            height: 18,
-                                            width: 18,
-                                          ))
+                                      // IconButton(
+                                      //     onPressed: () {
+                                      //       cartController.removeItemFromCart(
+                                      //           productId: product.id.toString(), context: context);
+                                      //     },
+                                      //     visualDensity: VisualDensity.compact,
+                                      //     icon: SvgPicture.asset(
+                                      //       "assets/svgs/delete.svg",
+                                      //       height: 18,
+                                      //       width: 18,
+                                      //     ))
                                     ],
                                   ),
                                 ),

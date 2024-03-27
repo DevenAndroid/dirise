@@ -10,9 +10,9 @@ class ModelCategoryStores {
   SocialLinks? socialLinks;
   List<ProductElement>? product = [];
   List<PromotionData>? promotionData = [];
-
+  dynamic vendorCategory;
   ModelCategoryStores(
-      {this.status, this.message, this.user, this.categoryName, this.promotionData, this.totalPage, this.product,this.socialLinks});
+      {this.status, this.message, this.user, this.categoryName, this.promotionData, this.totalPage, this.product,this.socialLinks,this.vendorCategory});
 
   ModelCategoryStores.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -39,6 +39,7 @@ class ModelCategoryStores {
     socialLinks = json['social_links'] != null
         ? SocialLinks.fromJson(json['social_links'])
         : null;
+    vendorCategory = json['vendor_category'];
   }
 
   Map<String, dynamic> toJson() {
@@ -50,6 +51,7 @@ class ModelCategoryStores {
     }
     data['category_name'] = categoryName;
     data['total_page'] = totalPage;
+    data['vendor_category'] = vendorCategory;
     if (product != null) {
       data['product'] = product!.map((v) => v.toJson()).toList();
     }

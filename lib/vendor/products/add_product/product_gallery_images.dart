@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../controller/vendor_controllers/add_product_controller.dart';
 import '../../../widgets/common_colour.dart';
+import '../../../widgets/dimension_screen.dart';
 
 class ProductGalleryImages extends StatefulWidget {
   const ProductGalleryImages({super.key});
@@ -192,55 +193,128 @@ class _ProductGalleryImagesState extends State<ProductGalleryImages> {
                   );
                 }),
               ),
-              if (controller.galleryImages.isNotEmpty) ...[
-                SizedBox(
-                  height: 125,
-                  child: Obx(() {
-                    if (controller.refreshInt.value > 0) {}
-                    return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Row(
-                        children: controller.galleryImages
-                            .mapIndexed((i, e) => Padding(
-                                  padding: const EdgeInsets.only(right: 18),
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        NewHelper.showImagePickerSheet(
-                                            gotImage: (value) {
-                                              controller.galleryImages[i] = value;
-                                              setState(() {});
-                                            },
-                                            context: context,
-                                            removeOption: true,
-                                            removeImage: (fg) {
-                                              controller.galleryImages.removeAt(i);
-                                              setState(() {});
-                                            });
-                                      },
-                                      child: Container(
-                                        constraints: const BoxConstraints(minWidth: 50, minHeight: 125),
-                                        child: Image.file(
-                                          e,
-                                          errorBuilder: (_, __, ___) => Image.network(
-                                            e.path,
-                                            errorBuilder: (_, __, ___) => const Icon(
-                                              Icons.error_outline,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                        ),
-                                      )),
-                                ))
-                            .toList(),
-                      ),
-                    );
-                  }),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-              ],
+              // if (controller.galleryImages.isNotEmpty) ...[
+              //   SizedBox(
+              //     height: 125,
+              //     child: Obx(() {
+              //       if (controller.refreshInt.value > 0) {}
+              //       return SingleChildScrollView(
+              //         scrollDirection: Axis.horizontal,
+              //         padding: const EdgeInsets.only(left: 20),
+              //         child: Row(
+              //           children: controller.galleryImages
+              //               .mapIndexed((i, e) => Padding(
+              //                     padding: const EdgeInsets.only(right: 18),
+              //                     child: GestureDetector(
+              //                         onTap: () {
+              //                           NewHelper.showImagePickerSheet(
+              //                               gotImage: (value) {
+              //                                 controller.galleryImages[i] = value;
+              //                                 setState(() {});
+              //                               },
+              //                               context: context,
+              //                               removeOption: true,
+              //                               removeImage: (fg) {
+              //                                 controller.galleryImages.removeAt(i);
+              //                                 setState(() {});
+              //                               });
+              //                         },
+              //                         child: Container(
+              //                           constraints: const BoxConstraints(minWidth: 50, minHeight: 125),
+              //                           child: Image.file(
+              //                             e,
+              //                             errorBuilder: (_, __, ___) => Image.network(
+              //                               e.path,
+              //                               errorBuilder: (_, __, ___) => const Icon(
+              //                                 Icons.error_outline,
+              //                                 color: Colors.red,
+              //                               ),
+              //                             ),
+              //                           ),
+              //                         )),
+              //                   ))
+              //               .toList(),
+              //         ),
+              //       );
+              //     }),
+              //   ),
+              //   const SizedBox(
+              //     height: 12,
+              //   ),
+              // ],
+              SizedBox(
+                height: 125,
+                child: Obx(() {
+                  if (controller.refreshInt.value > 0) {}
+                  return  controller.galleryImages.isEmpty ?
+                  Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Image(
+                          height: 30,
+                          image: AssetImage(
+                            'assets/icons/pdfdownload.png',
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "Upload Product image".tr,
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w300, color: const Color(0xff463B57), fontSize: AddSize.font14),
+                        ),
+                        const SizedBox(
+                          height:10,
+                        ),
+                      ],
+                    ),
+                  ) :
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: controller.galleryImages
+                          .mapIndexed((i, e) => Padding(
+                        padding: const EdgeInsets.only(right: 18),
+                        child: GestureDetector(
+                            onTap: () {
+                              NewHelper.showImagePickerSheet(
+                                  gotImage: (value) {
+                                    controller.galleryImages[i] = value;
+                                    setState(() {});
+                                  },
+                                  context: context,
+                                  removeOption: true,
+                                  removeImage: (fg) {
+                                    controller.galleryImages.removeAt(i);
+                                    setState(() {});
+                                  });
+                            },
+                            child: Container(
+                              constraints: const BoxConstraints(minWidth: 50, minHeight: 125),
+                              child: Image.file(
+                                e,
+                                errorBuilder: (_, __, ___) => Image.network(
+                                  e.path,
+                                  errorBuilder: (_, __, ___) => const Icon(
+                                    Icons.error_outline,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            )),
+                      ))
+                          .toList(),
+                    ),
+                  );
+                }),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
             ],
           )),
     );

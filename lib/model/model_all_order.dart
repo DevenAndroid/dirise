@@ -28,10 +28,10 @@ class ModelDataOrder {
 }
 
 class Order {
-  int? id;
-  int? parentId;
-  int? orderId;
-  int? userId;
+  dynamic id;
+  dynamic parentId;
+  dynamic orderId;
+  dynamic userId;
   String? status;
   String? statusNote;
   String? shippingType;
@@ -47,16 +47,16 @@ class Order {
   DateTime? createdAtDateTime;
   String? updatedAt;
   dynamic childId;
-  int? productId;
-  int? vendorId;
+  dynamic productId;
+  dynamic vendorId;
   String? productName;
   String? category;
   String? productType;
   String? quantity;
   String? productPrice;
   dynamic discount;
-  int? totalPrice;
-  int? tax;
+  dynamic totalPrice;
+  dynamic tax;
   dynamic startDate;
   dynamic sloatTime;
   dynamic endDate;

@@ -137,6 +137,19 @@ class _LoginScreenState extends State<LoginScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Image.asset(
+            'assets/icons/backicon.png',
+            height: 25,
+            width: 25,
+          ),
+          onPressed: () => Get.back(),
+        ),
+      ),
       body: Form(
         key: loginFormKey,
         child: SingleChildScrollView(
@@ -145,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(top: 100),
+                  padding: EdgeInsets.only(top: 50),
                   child: Image(
                       height: 70,
                       image: AssetImage(

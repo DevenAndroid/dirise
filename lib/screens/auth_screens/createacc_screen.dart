@@ -88,8 +88,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         surfaceTintColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
-          onPressed: () => Navigator.of(context).pop(),
+          icon: Image.asset(
+            'assets/icons/backicon.png',
+            height: 25,
+            width: 25,
+          ),
+          onPressed: () => Get.back(),
         ),
         titleSpacing: 0,
         title: Row(

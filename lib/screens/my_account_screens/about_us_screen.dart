@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:dirise/language/app_strings.dart';
+import 'package:dirise/utils/helper.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import '../../controller/profile_controller.dart';
 import '../../model/aboutus_model.dart';
 import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
@@ -18,22 +21,15 @@ class AboutUsScreen extends StatefulWidget {
 }
 
 class _AboutUsScreenState extends State<AboutUsScreen> {
-  Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
-  Future aboutUsData() async {
-    Map<String, dynamic> map = {};
-    map["id"] = 12;
-    repositories.postApi(url: ApiUrls.aboutUsUrl, mapData: map).then((value) {
-      aboutusModal.value = AboutUsmodel.fromJson(jsonDecode(value));
-    });
-  }
 
+  final profileController = Get.put(ProfileController());
   final Repositories repositories = Repositories();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    aboutUsData();
+    profileController.aboutUsData();
   }
 
   @override
@@ -46,9 +42,14 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                    icon: Image.asset(
+                      'assets/icons/backicon.png',
+                      height: 25,
+                      width: 25,
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
+                  10.spaceX,
                   Text(
                     AppStrings.aboutUs.tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
@@ -57,14 +58,12 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               ),
             )),
         body: Obx(() {
-          return aboutusModal.value.status == true
+          return profileController.aboutusModal.value.status == true
               ? SingleChildScrollView(
-                  child: Html(data: aboutusModal.value.data!.content!),
+            child: profileController.selectedLAnguage.value == 'English' ?
+            Html(data: profileController.aboutusModal.value.data!.content!) : Html(data: profileController.aboutusModal.value.data!.arabContent!),
                 )
-              : const Center(
-                  child: CircularProgressIndicator(
-                  color: Colors.grey,
-                ));
+              : const SizedBox();
         }));
   }
 }

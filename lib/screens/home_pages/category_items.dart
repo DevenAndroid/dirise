@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/homepage_controller.dart';
+import '../../controller/profile_controller.dart';
 import '../../widgets/common_colour.dart';
 import '../categories/single_category_with_stores/single_categorie.dart';
 
@@ -20,7 +21,7 @@ class CategoryItems extends StatefulWidget {
 
 class _CategoryItemsState extends State<CategoryItems> {
   final homeController = Get.put(TrendingProductsController());
-
+  final profileController = Get.put(ProfileController());
   final bottomController = Get.put(BottomNavBarController());
 
   @override
@@ -33,8 +34,8 @@ class _CategoryItemsState extends State<CategoryItems> {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: min(homeController.vendorCategory.usphone!.length + 1,12),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 100,
+              gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: Get.width*.220,
                 childAspectRatio: .75,
                 crossAxisSpacing: 14,
                 mainAxisSpacing: 16,
@@ -65,6 +66,7 @@ class _CategoryItemsState extends State<CategoryItems> {
                                   child: const Icon(
                                     Icons.arrow_forward,
                                     color: AppTheme.buttonColor,
+                                    size: 14,
                                   ),
                                 ),
                               )),
@@ -120,7 +122,7 @@ class _CategoryItemsState extends State<CategoryItems> {
                           height: 10,
                         ),
                         Text(
-                          item.name.toString(),
+                          profileController.selectedLAnguage.value == 'English' ?  item.name.toString() : item.arabName.toString(),
                           maxLines: 1,
                           // overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14, color: AppTheme.buttonColor),

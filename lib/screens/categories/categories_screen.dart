@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../controller/home_controller.dart';
+import '../../controller/profile_controller.dart';
 import '../../widgets/cart_widget.dart';
 import '../app_bar/common_app_bar.dart';
 import 'single_category_with_stores/single_categorie.dart';
@@ -20,7 +21,7 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   final homeController = Get.put(TrendingProductsController());
-
+  final profileController = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +119,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        item.name.toString(),
+                                        profileController.selectedLAnguage.value == 'English' ?  item.name.toString() : item.arabName.toString(),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.poppins(

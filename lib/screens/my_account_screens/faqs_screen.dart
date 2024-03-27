@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dirise/language/app_strings.dart';
+import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -66,9 +67,14 @@ class _FrequentlyAskedQuestionsScreenState extends State<FrequentlyAskedQuestion
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                    icon: Image.asset(
+                      'assets/icons/backicon.png',
+                      height: 25,
+                      width: 25,
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
+                  10.spaceX,
                   Text(
                    AppStrings.faq.tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),

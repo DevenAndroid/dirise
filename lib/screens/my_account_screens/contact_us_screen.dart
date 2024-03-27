@@ -94,9 +94,14 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                    icon: Image.asset(
+                      'assets/icons/backicon.png',
+                      height: 25,
+                      width: 25,
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
+                  10.spaceX,
                   Text(
                     AppStrings.contactUs.tr,
                     style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),

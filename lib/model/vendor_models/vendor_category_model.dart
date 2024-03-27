@@ -35,6 +35,7 @@ class VendorCategoriesData {
   String? status;
   String? description;
   String? profileImage;
+  String? arabName;
   String? bannerProfile;
   String? createdAt;
   String? updatedAt;
@@ -44,6 +45,7 @@ class VendorCategoriesData {
       this.name,
       this.status,
       this.description,
+      this.arabName,
       this.profileImage,
       this.bannerProfile,
       this.createdAt,
@@ -54,6 +56,7 @@ class VendorCategoriesData {
     name = json['name'];
     status = json['status'];
     description = json['description'];
+    arabName = json['arab_name'];
     profileImage = json['profile_image'];
     bannerProfile = json['banner_profile'];
     createdAt = json['created_at'];
@@ -66,6 +69,7 @@ class VendorCategoriesData {
     data['name'] = name;
     data['status'] = status;
     data['description'] = description;
+    data['arab_name'] = arabName;
     data['profile_image'] = profileImage;
     data['banner_profile'] = bannerProfile;
     data['created_at'] = createdAt;

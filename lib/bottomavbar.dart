@@ -54,7 +54,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     allowExitApp = true;
     stopTimer();
     showToast("Press again to exit app".tr, gravity: ToastGravity.CENTER);
-    _timer = Timer(const Duration(seconds: 2), () {
+    _timer = Timer(const Duration(milliseconds: 500), () {
       allowExitApp = false;
     });
     return false;
@@ -148,16 +148,16 @@ class _BottomNavbarState extends State<BottomNavbar> {
                                   height: 20,
                                 ),
                               ),
-                              FittedBox(
-                                child: Text(
-                                  AppStrings.home.tr,
-                                  style: GoogleFonts.poppins(
-                                      color: bottomController.pageIndex.value == 0
-                                          ? AppTheme.buttonColor
-                                          : AppTheme.primaryColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                ),
+                              Text(
+                                AppStrings.home.tr,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.poppins(
+                                    color: bottomController.pageIndex.value == 0
+                                        ? AppTheme.buttonColor
+                                        : AppTheme.primaryColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
                               )
                             ],
                           ),
@@ -189,6 +189,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                               Text(
                                 AppStrings.categories.tr,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.poppins(
                                     color: bottomController.pageIndex.value == 1
                                         ? AppTheme.buttonColor
@@ -226,6 +228,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                               Text(
                                 AppStrings.favorite.tr,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.poppins(
                                     color: bottomController.pageIndex.value == 2
                                         ? AppTheme.buttonColor
@@ -263,6 +267,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
                               ),
                               Text(
                                 AppStrings.profile.tr,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.poppins(
                                     color: bottomController.pageIndex.value == 3
                                         ? AppTheme.buttonColor

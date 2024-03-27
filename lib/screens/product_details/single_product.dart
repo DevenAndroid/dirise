@@ -274,20 +274,12 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                         items: imagesList.map((i) {
                           return Builder(
                             builder: (BuildContext context) {
-                              return CachedNetworkImage(
-                                imageUrl: i,
-                                height: 180,
-                                fit: BoxFit.cover,
-                                errorWidget: (context, url, error) =>
-                                    Icon(
-                                      Icons.error_outline_rounded,
-                                      color: Theme
-                                          .of(context)
-                                          .colorScheme
-                                          .error,
-                                    ),
-                              );
-                            },
+                                    return CachedNetworkImage(
+                                      imageUrl: i,
+                                      height: 180,
+                                      fit: BoxFit.cover,
+                                      errorWidget: (_, __, ___) => Image.asset('assets/images/new_logo.png'));
+                                  },
                           );
                         }).toList(),
                       ),

@@ -336,7 +336,7 @@ class CartController extends GetxController {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
-        getAddress();
+        getAddress(context);
         Get.back();
       }
     });
@@ -406,7 +406,7 @@ class CartController extends GetxController {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
-        getAddress();
+        getAddress(context);
         Get.back();
       }
     });
@@ -420,7 +420,7 @@ class CartController extends GetxController {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
-        getAddress();
+        getAddress(context);
         return true;
         // Get.back();
       }
@@ -448,8 +448,8 @@ class CartController extends GetxController {
     return false;
   }
 
-  getAddress() {
-    repositories.postApi(url: ApiUrls.addressListUrl).then((value) {
+  getAddress(context) {
+    repositories.postApi(url: ApiUrls.addressListUrl,context: context).then((value) {
       addressListModel = ModelUserAddressList.fromJson(jsonDecode(value));
       addressLoaded = true;
       updateUI();

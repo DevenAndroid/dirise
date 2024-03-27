@@ -96,6 +96,21 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
 
     repositories.postApi(mapData: map, url: ApiUrls.addRemoveLike, context: context).then((value) {
       ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
+      // showToast(response.message.toString());
+      if (response.status == true) {
+        getPublishPostData();
+        // showToast(response.message.toString());
+      } else {
+        showToast(response.message.toString());
+      }
+    });
+  }
+  deleteNewsApi(postId) {
+    Map<String, String> map = {};
+    map['news_id'] = postId;
+
+    repositories.postApi(mapData: map, url: ApiUrls.deleteNewsUrl, context: context).then((value) {
+      ModelCommonResponse response = ModelCommonResponse.fromJson(jsonDecode(value));
       showToast(response.message.toString());
       if (response.status == true) {
         getPublishPostData();
@@ -222,14 +237,9 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
         ),
         centerTitle: true,
         backgroundColor: AppTheme.buttonColor,
-        leading: InkWell(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+          onPressed: () =>   Get.back(),
         ),
       ),
       body: RefreshIndicator(
@@ -473,7 +483,8 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                                       //     letterSpacing: 0.24,
                                       //   ),
                                       // ),
-                                      RichText(
+                                      item.discription == null ? const SizedBox()
+                                      : RichText(
                                         text: TextSpan(
                                           text: '',
                                           style: DefaultTextStyle.of(context).style,
@@ -538,84 +549,115 @@ class _PublishPostScreenState extends State<PublishPostScreen> {
                                                         fileUrl: item.file.toString() ,
                                                       ),
                                                     ),
-                                      item.fileType == 'directory'
-                                          ? Container(
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(40),
-                                                color: Colors.white,
-                                              ),
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        profileController.userLoggedIn == true ? addRemoveLike(item.id.toString()) : showToast('Login YourSelf First');
-                                                      },
-                                                      child: item.isLike == true
-                                                          ? const Icon(
-                                                              Icons.favorite,
-                                                              color: Colors.red,
-                                                            )
-                                                          : const Icon(
-                                                              Icons.favorite_border,
-                                                              color: Color(0xFF014E70),
-                                                            )),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    item.likeCount.toString(),
-                                                    style: GoogleFonts.poppins(
-                                                      color: const Color(0xFF014E70),
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 13,
-                                                      letterSpacing: 0.24,
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              item.fileType == 'directory'
+                                                  ? Container(
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(40),
+                                                  color: Colors.white,
+                                                ),
+                                                child: Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    InkWell(
+                                                        onTap: () {
+                                                          profileController.userLoggedIn == true ? addRemoveLike(item.id.toString()) : showToast('Login YourSelf First');
+                                                        },
+                                                        child: item.isLike == true
+                                                            ? const Icon(
+                                                          Icons.favorite,
+                                                          color: Colors.red,
+                                                        )
+                                                            : const Icon(
+                                                          Icons.favorite_border,
+                                                          color: Color(0xFF014E70),
+                                                        )),
+                                                    const SizedBox(
+                                                      width: 10,
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          : Container(
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(40),
-                                                color: Colors.white,
-                                              ),
-                                              padding: const EdgeInsets.only(top: 20),
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      onTap: () {
-                                                        profileController.userLoggedIn == true ? addRemoveLike(item.id.toString()) : showToast('Login YourSelf First');
-                                                      },
-                                                      child: item.isLike == true
-                                                          ? const Icon(
-                                                              Icons.favorite,
-                                                              color: Colors.red,
-                                                            )
-                                                          : const Icon(
-                                                              Icons.favorite_border,
-                                                              color: Color(0xFF014E70),
-                                                            )),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    item.likeCount.toString() ?? '0',
-                                                    style: GoogleFonts.poppins(
-                                                      color: const Color(0xFF014E70),
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 13,
-                                                      letterSpacing: 0.24,
+                                                    Text(
+                                                      item.likeCount.toString(),
+                                                      style: GoogleFonts.poppins(
+                                                        color: const Color(0xFF014E70),
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 13,
+                                                        letterSpacing: 0.24,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
+                                              )
+                                                  : Container(
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(40),
+                                                  color: Colors.white,
+                                                ),
+                                                padding: const EdgeInsets.only(top: 20),
+                                                child: Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    InkWell(
+                                                        onTap: () {
+                                                          profileController.userLoggedIn == true ? addRemoveLike(item.id.toString()) : showToast('Login YourSelf First');
+                                                        },
+                                                        child: item.isLike == true
+                                                            ? const Icon(
+                                                          Icons.favorite,
+                                                          color: Colors.red,
+                                                        )
+                                                            : const Icon(
+                                                          Icons.favorite_border,
+                                                          color: Color(0xFF014E70),
+                                                        )),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text(
+                                                      item.likeCount.toString() ?? '0',
+                                                      style: GoogleFonts.poppins(
+                                                        color: const Color(0xFF014E70),
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 13,
+                                                        letterSpacing: 0.24,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            )
+                                              item.myAccount == true ?
+                                              GestureDetector(
+                                                onTap: (){
+                                                    showDialog<String>(
+                                                      context: context,
+                                                      builder: (BuildContext context) => AlertDialog(
+                                                        title: const Text('Delete Post'),
+                                                        content: const Text('Do You Want To Delete Your Post'),
+                                                        actions: <Widget>[
+                                                          TextButton(
+                                                            onPressed: () => Get.back(),
+                                                            child: const Text('Cancel'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () async {
+                                                              deleteNewsApi(item.id.toString());
+                                                              Get.back();
+                                                            },
+                                                            child: const Text('OK'),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                },
+                                                child: const Icon(Icons.delete,color: Colors.red,),
+                                              ) : const SizedBox()
+                                            ],
+                                          )
                                     ],
                                   ),
                                 ),

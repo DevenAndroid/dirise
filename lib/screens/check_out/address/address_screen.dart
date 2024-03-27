@@ -714,7 +714,7 @@ class _AddressScreenState extends State<AddressScreen> {
 
   Future bottomSheetChangeAddress() {
     Size size = MediaQuery.of(context).size;
-    cartController.getAddress();
+    cartController.getAddress(context);
     return showModalBottomSheet(
         context: context,
         isScrollControlled: true,

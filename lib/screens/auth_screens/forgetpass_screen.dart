@@ -58,7 +58,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           surfaceTintColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+            icon: Image.asset(
+              'assets/icons/backicon.png',
+              height: 25,
+              width: 25,
+            ),
             onPressed: () => Navigator.of(context).pop(),
           ),
           titleSpacing: 0,

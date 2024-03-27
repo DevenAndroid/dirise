@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:dirise/language/app_strings.dart';
+import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../controller/profile_controller.dart';
 import '../../model/aboutus_model.dart';
 import '../../repository/repository.dart';
 import '../../utils/api_constant.dart';
@@ -21,6 +23,7 @@ class ReturnPolicyScreen extends StatefulWidget {
 class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
   bool senderExpansion = true;
   Rx<AboutUsmodel> aboutusModal = AboutUsmodel().obs;
+  final profileController = Get.put(ProfileController());
   Future aboutUsData() async {
     Map<String, dynamic> map = {};
     map["id"] = 14;
@@ -48,7 +51,11 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Color(0xff014E70), size: 20),
+                    icon: Image.asset(
+                      'assets/icons/backicon.png',
+                      height: 25,
+                      width: 25,
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   Text(
@@ -61,12 +68,10 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
         body: Obx(() {
           return aboutusModal.value.status == true
               ? SingleChildScrollView(
-                  child: Html(data: aboutusModal.value.data!.content!),
+            child: profileController.selectedLAnguage.value == 'English' ?
+            Html(data: aboutusModal.value.data!.content!) : Html(data: aboutusModal.value.data!.arabContent!),
                 )
-              : const Center(
-                  child: CircularProgressIndicator(
-                  color: Colors.grey,
-                ));
+              : const LoadingAnimation();
         }));
   }
 }
