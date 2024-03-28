@@ -217,18 +217,41 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         iconData: 'assets/icons/phone_icon.svg',
                         title: 'Phone Number'.tr,
                         subtitle: contactusEmailModal.value.data!.helpNumber.toString(),
+                        onTap: () async {
+                          String phoneNumber = Uri.encodeComponent( contactusEmailModal.value.data!.helpNumber.toString());
+                          Uri telUri = Uri.parse("tel:$phoneNumber");
+                          if (await launchUrl(telUri)) {
+                          }
+                        },
                       ),
                       addHeight(30),
                       IconColumnRowWidget(
                         iconData: 'assets/icons/Icon ionic-ios-mail.svg',
                         title: 'Support email'.tr,
                         subtitle: contactusEmailModal.value.data!.supportEmail.toString(),
+                        onTap: () async {
+                          String email = Uri.encodeComponent(contactusEmailModal.value.data!.supportEmail.toString());
+                          String subject = Uri.encodeComponent("");
+                          String body = Uri.encodeComponent("");
+                          //output: Hello%20Flutter
+                          Uri mail = Uri.parse(
+                              "mailto:$email?subject=$subject&body=$body");
+                          if (await launchUrl(mail)) {
+
+                          }
+                        },
                       ),
                       addHeight(30),
                       IconColumnRowWidget(
                         iconData: 'assets/images/address.svg',
                         title: 'Chatbot'.tr,
                         subtitle: '+965 9876 2557',
+                        onTap: () async {
+                          String phoneNumber = Uri.encodeComponent( contactusEmailModal.value.data!.helpNumber.toString());
+                          Uri telUri = Uri.parse("tel:$phoneNumber");
+                          if (await launchUrl(telUri)) {
+                          }
+                        },
                       ),
                       addHeight(50),
                       Row(
@@ -283,54 +306,57 @@ class IconColumnRowWidget extends StatelessWidget {
   final String iconData;
   final String title;
   final String subtitle;
+  final VoidCallback? onTap;
 
-  IconColumnRowWidget({required this.iconData, required this.title, required this.subtitle});
+  const IconColumnRowWidget({super.key, required this.iconData, required this.title, required this.subtitle,this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        // Container with Icon
-        Container(
-          width: 50,
-          padding: const EdgeInsets.all(8.0),
-          decoration: const BoxDecoration(
-              color: Colors.white
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Container(
+            width: 50,
+            padding: const EdgeInsets.all(8.0),
+            decoration: const BoxDecoration(
+                color: Colors.white
+            ),
+            child: SvgPicture.asset(
+              iconData,
+              width: 30,
+              height: 30,
+              color: AppTheme.buttonColor,
+            ),
           ),
-          child: SvgPicture.asset(
-            iconData,
-            width: 30,
-            height: 30,
-            color: AppTheme.buttonColor,
-          ),
-        ),
-        addWidth(20),
-        // Column
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400
+          addWidth(20),
+          // Column
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400
+                  ),
                 ),
-              ),
-              addHeight(2),
-              Text(
-                subtitle,
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500
+                addHeight(2),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

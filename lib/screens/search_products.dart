@@ -13,6 +13,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../model/model_virtual_assets.dart';
+import '../model/product_model/model_product_element.dart';
 import '../model/search_model.dart';
 import '../widgets/common_colour.dart';
 
@@ -201,103 +202,108 @@ class _SearchProductsScreenState extends State<SearchProductsScreen> {
                                   .height / 1.3)),
                           itemBuilder: (BuildContext context, int index) {
                             final item = modelSearch.value.data!.items![index];
-                            return Container(
-                              constraints: BoxConstraints(
-                                minWidth: 0,
-                                maxWidth: size.width * .45,
-                              ),
-                              // color: Colors.red,
-                              margin: const EdgeInsets.only(right: 18),
-                              child: Stack(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: CachedNetworkImage(
-                                                  imageUrl: item.featuredImage.toString(),
-                                                  height: 100,
-                                                  fit: BoxFit.cover,
-                                                  errorWidget: (context, url, error) =>
-                                                      Icon(Icons.report_gmailerrorred_rounded, color: Theme
-                                                          .of(context)
-                                                          .colorScheme
-                                                          .error,),
+                            return GestureDetector(
+                              onTap: (){
+                                bottomSheet(productDetails:  ProductElement.fromJson(modelSearch.value.data!.items![index].toJson()), context: context);
+                              },
+                              child: Container(
+                                constraints: BoxConstraints(
+                                  minWidth: 0,
+                                  maxWidth: size.width * .45,
+                                ),
+                                // color: Colors.red,
+                                margin: const EdgeInsets.only(right: 18),
+                                child: Stack(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: item.featuredImage.toString(),
+                                                    height: 100,
+                                                    fit: BoxFit.cover,
+                                                    errorWidget: (context, url, error) =>
+                                                        Icon(Icons.report_gmailerrorred_rounded, color: Theme
+                                                            .of(context)
+                                                            .colorScheme
+                                                            .error,),
+                                                  ),
                                                 ),
                                               ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          "${item.discountPercentage ?? ((((item.pPrice.toString().toNum - item.sPrice.toString().toNum) / item.pPrice.toString().toNum) * 100).toStringAsFixed(2))}${'%'} Off",
+                                          style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Text(
+                                          item.pname.toString(),
+                                          maxLines: 2,
+                                          style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Text(
+                                          '${item.inStock.toString()} ${'pieces'.tr}',
+                                          style: GoogleFonts.poppins(
+                                              color: Colors.grey.shade700, fontSize: 15, fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                'KWD ${item.sPrice.toString()}',
+                                                style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
+                                              ),
+                                            ),
+                                            Text(
+                                              'KWD ${item.pPrice.toString()}',
+                                              style:GoogleFonts.poppins(
+                                                  decoration: TextDecoration.lineThrough,
+                                                  color: const Color(0xff858484),
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500),
                                             ),
                                           ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        "${item.discountPercentage ?? ((((item.pPrice.toString().toNum - item.sPrice.toString().toNum) / item.pPrice.toString().toNum) * 100).toStringAsFixed(2))}${'%'} Off",
-                                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: const Color(0xffC22E2E)),
-                                      ),
-                                      const SizedBox(
-                                        height: 3,
-                                      ),
-                                      Text(
-                                        item.pname.toString(),
-                                        maxLines: 2,
-                                        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
-                                      ),
-                                      const SizedBox(
-                                        height: 3,
-                                      ),
-                                      Text(
-                                        '${item.inStock.toString()} ${'pieces'.tr}',
-                                        style: GoogleFonts.poppins(
-                                            color: Colors.grey.shade700, fontSize: 15, fontWeight: FontWeight.w500),
-                                      ),
-                                      const SizedBox(
-                                        height: 3,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              'KWD ${item.sPrice.toString()}',
-                                              style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
-                                            ),
-                                          ),
-                                          Text(
-                                            'KWD ${item.pPrice.toString()}',
-                                            style:GoogleFonts.poppins(
-                                                decoration: TextDecoration.lineThrough,
-                                                color: const Color(0xff858484),
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  // Positioned(
-                                  //   top: 0,
-                                  //   right: 10,
-                                  //   child: Obx(() {
-                                  //     if (wishListController.refreshFav.value > 0) {}
-                                  //     return LikeButton(
-                                  //       onPressed: () {
-                                  //         if (wishListController.favoriteItems.contains(widget.productElement.id.toString())) {
-                                  //           removeFromWishList();
-                                  //         } else {
-                                  //           addToWishList();
-                                  //         }
-                                  //       },
-                                  //       isLiked: wishListController.favoriteItems.contains(widget.productElement.id.toString()),
-                                  //     );
-                                  //   }),
-                                  // )
-                                ],
+                                        )
+                                      ],
+                                    ),
+                                    // Positioned(
+                                    //   top: 0,
+                                    //   right: 10,
+                                    //   child: Obx(() {
+                                    //     if (wishListController.refreshFav.value > 0) {}
+                                    //     return LikeButton(
+                                    //       onPressed: () {
+                                    //         if (wishListController.favoriteItems.contains(widget.productElement.id.toString())) {
+                                    //           removeFromWishList();
+                                    //         } else {
+                                    //           addToWishList();
+                                    //         }
+                                    //       },
+                                    //       isLiked: wishListController.favoriteItems.contains(widget.productElement.id.toString()),
+                                    //     );
+                                    //   }),
+                                    // )
+                                  ],
+                                ),
                               ),
                             );
                           },

@@ -21,10 +21,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(
-                Icons.adaptive.arrow_back,
-                color: Colors.white,
-              ))
+        icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),)
           : Padding(
               padding: const EdgeInsets.only(top: 2),
               child: Hero(

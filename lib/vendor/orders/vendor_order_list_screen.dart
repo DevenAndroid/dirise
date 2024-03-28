@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dirise/repository/repository.dart';
 import 'package:dirise/utils/api_constant.dart';
+import 'package:dirise/utils/helper.dart';
 import 'package:dirise/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -168,32 +169,38 @@ class _VendorOrderListState extends State<VendorOrderList> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Obx(() {
-                                          if (vendorProfileController.refreshInt.value > 0) {}
-
-                                          return Text(
-                                            vendorProfileController.model.user != null
-                                                ? "kwd${vendorProfileController.model.user!.earnedBalance.toString()}"
-                                                : "",
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Obx(() {
+                                            if (vendorProfileController.refreshInt.value > 0) {}
+                                      
+                                            return Text(
+                                              vendorProfileController.model.user != null
+                                                  ? "kwd${vendorProfileController.model.user!.earnedBalance.toString()}"
+                                                  : "",
+                                              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                                  fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),
+                                            );
+                                          }),
+                                          SizedBox(
+                                            height: AddSize.size5,
+                                          ),
+                                          Text(
+                                            "Your earning this month".tr,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                                fontWeight: FontWeight.w600, fontSize: 28, color: Colors.white),
-                                          );
-                                        }),
-                                        SizedBox(
-                                          height: AddSize.size5,
-                                        ),
-                                        Text(
-                                          "Your earning this month".tr,
-                                          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: AddSize.font14,
-                                              color: Colors.white),
-                                        ),
-                                      ],
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: AddSize.font14,
+                                                color: Colors.white),
+                                          ),
+
+                                        ],
+                                      ),
                                     ),
+                                    4.spaceX,
                                     GestureDetector(
                                       onTap: () {
                                         Get.toNamed(WithdrawMoney.route);
@@ -228,7 +235,7 @@ class _VendorOrderListState extends State<VendorOrderList> {
                               // vendorOrderListController.searchController,
                               style: GoogleFonts.poppins(
                                 fontSize: 17,
-                                color: const Color(0xFF676363),
+                                color: Colors.white,
                               ),
                               textAlignVertical: TextAlignVertical.center,
                               textInputAction: TextInputAction.search,

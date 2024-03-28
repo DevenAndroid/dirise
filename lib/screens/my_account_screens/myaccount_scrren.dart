@@ -548,7 +548,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                               width: 20,
                             ),
                             Text(
-                              'chat'.tr,
+                              'Chat'.tr,
                               style: GoogleFonts.poppins(
                                   color: const Color(0xFF2A3032), fontSize: 16, fontWeight: FontWeight.w500),
                             ),
@@ -810,7 +810,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                             },
                                             child: Center(
                                               child: Padding(
-                                                padding: const EdgeInsets.only(left: 20, right: 20),
+                                                padding: const EdgeInsets.only(left: 20, right: 20,bottom: 20),
                                                 child: Container(
                                                   height: 56,
                                                   width: MediaQuery.sizeOf(context).width,
@@ -1018,6 +1018,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                                         if(  deleteModal.value.status == true){
                                           SharedPreferences shared = await SharedPreferences.getInstance();
                                           await shared.clear();
+                                          Get.back();
                                           setState(() {});
                                           Get.toNamed(LoginScreen.route);
                                           profileController.userLoggedIn = false;

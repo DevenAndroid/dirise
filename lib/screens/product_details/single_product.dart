@@ -765,7 +765,7 @@ class _SingleProductDetailsState extends State<SingleProductDetails> {
                         ),
                         child: FittedBox(
                           child: Text(
-                            "Add to Bag".tr,
+                            "Add to Cart".tr,
                             style:
                             GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                           ),

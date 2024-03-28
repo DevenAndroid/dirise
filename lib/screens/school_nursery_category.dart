@@ -460,7 +460,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                   BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
-                                "Add to Bag".tr,
+                                "Add to Cart".tr,
                                 style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
                             ),
@@ -658,7 +658,7 @@ class _SchoolNurseryCategoryState extends State<SchoolNurseryCategory> {
                                   BoxDecoration(color: const Color(0xff014E70), borderRadius: BorderRadius.circular(22)),
                               padding: const EdgeInsets.fromLTRB(20, 9, 20, 9),
                               child: Text(
-                                "Add to Bag".tr,
+                                "Add to Cart".tr,
                                 style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
                               ),
                             ),
